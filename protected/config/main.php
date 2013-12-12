@@ -18,6 +18,7 @@ return array(
 		'application.models.*',
 		'application.components.*',
                 'application.extensions.*',
+                'application.extensions.yiichat.*',
 	),
 
 	'modules'=>array(
@@ -29,7 +30,7 @@ return array(
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
 	),
-
+        'preload'=>array('log'),
 	// application components
 	'components'=>array(
 		'user'=>array(
@@ -47,17 +48,27 @@ return array(
 			),
 		),
 		
-		'db'=>array(
+		/*'db'=>array(
                         'class'=>'CDbConnection',
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/exchange.db',
                         'initSQLs'=>array(
                             'PRAGMA foreign_keys = ON',
                         ),
-                        // включаем профайлер
+                        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                         'enableProfiling'=>true,
-                        // показываем значения параметров
+                        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                         'enableParamLogging' => true,
+		),*/
+            // uncomment the following to use a MySQL database
+		
+		'db'=>array(
+			'connectionString' => 'mysql:host=localhost;dbname=chat',
+			'emulatePrepare' => true,
+			'username' => 'mysql',
+			'password' => 'mysql',
+			'charset' => 'utf8',
 		),
+		
 		// uncomment the following to use a MySQL database
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
@@ -68,7 +79,7 @@ return array(
 			'routes'=>array(
 				array(
 					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
+					'levels'=>'error, warning, info',
 				),
 				// uncomment the following to show log messages on web pages
 				/*

@@ -5,6 +5,7 @@ class SiteController extends Controller
 	/**
 	 * Declares class-based actions.
 	 */
+    
 	public function actions()
 	{
 		return array(
@@ -18,6 +19,7 @@ class SiteController extends Controller
 			'page'=>array(
 				'class'=>'CViewAction',
 			),
+                        'yiichat'=>array('class'=>'YiiChatAction'),
 		);
 	}
 
@@ -27,10 +29,77 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+            // renders the view file 'protected/views/site/index.php'
+            // using the default layout 'protected/views/layouts/main.php'
+            
+            //echo __METHOD__;
+            //$this->render('index');
+            /************************************************************/
+            $criteria = new CDbCriteria();
+            //$criteria->together = true; // relations
+            //$criteria->with = array('newsRegions');
+            //$criteria->compare('published', 1);
+            //$criteria->order = 'date_published DESC';
+
+            //$count = Transport::model()->count($criteria);
+            
+            $dataProvider = new CActiveDataProvider('Transport',
+                array(
+                    'criteria' => $criteria,
+                    'pagination'=>array(
+                       'pageSize' => 2,
+                       'pageVar' => 'page',
+                    ),
+                    
+                    //Настройки для сортировки
+                    'sort'=>array(
+                        //атрибуты по которым происходит сортировка
+                        'attributes'=>array(
+                            'status'=>array(
+                                'asc'=>'status ASC',
+                                'desc'=>'status DESC',
+                                //по умолчанию, сортируем поле rating по убыванию (desc)
+                                'default'=>'desc',
+                            ),
+                            'date_published'=>array(
+                                'asc'=>'date_published ASC',
+                                'desc'=>'date_published DESC',
+                                'default'=>'desc',
+                            )
+                        ),
+                        'defaultOrder'=>array(
+                            'date_published' => CSort::SORT_DESC,
+                        ),                        
+                    ),
+                )
+            );
+            
+            $this->render('view', array('data' => $dataProvider));
+            
+            
 	}
+        
+        public function actionDescription($id)
+        {
+            Yii::import('application.extensions.chat.classes.*');
+            $transportInfo=Yii::app()->db->createCommand("SELECT * from transport where id='".$id."'")->queryRow();
+            //var_dump($transportInfo);
+
+            $allRatesForTransport = Yii::app()->db->createCommand()
+                ->select('r.date, r.price, u.name') 
+                ->from('rate r')
+                ->join('user u', 'r.user_id=u.id')
+                ->where('r.transport_id=:id', array(':id'=>$id))
+                ->order('r.date desc')
+                ->queryAll()
+            ;
+            
+            //var_dump($allRatesForTransport);
+            //var_dump($transportInfo);
+            //echo '=============='; exit;
+            //$this->render('chat', array('rateData' => $dataProvider, 'transportData' => $transportInfo));
+            $this->render('chat2', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
+        }
 
 	/**
 	 * This is the action to handle external exceptions.
