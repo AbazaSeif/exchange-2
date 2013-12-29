@@ -25,16 +25,18 @@
             '<div class="transport-date">',
                 'Дата отправки: ', date('d.m.Y H:i', strtotime($data->date_from)), 
             '</div>', 
-         '</div>';
+         '</div>'
+    ;
     
-    echo '<div>', 
+    echo //'<div>', 
             '<div>', 
                 'Пункт назначения: ', $data->location_to,
-            '</div>',
-            '<div class="transport-date">',
+            '</div>'
+          /*  '<div class="transport-date">',
                 'Дата прибытия: ', date('d.m.Y H:i', strtotime($data->date_to)), 
             '</div>', 
-         '</div>';
+         '</div>'*/
+    ;
     
     echo '<b class="r1"></b><b class="r1"></b><b class="r2"></b><b class="r3"></b><b class="r5"></b>';
     echo CHtml::closeTag('div');

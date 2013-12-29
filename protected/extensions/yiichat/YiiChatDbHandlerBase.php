@@ -31,8 +31,10 @@
  * @author Christian Salazar <christiansalazarh@gmail.com> 
  * @license FREE BSD
  */
-abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat {
-
+abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat 
+{
+    const LBRMAIL = 'lbr@example.ru';
+	
 	protected $_identity;
 	protected $_chat_id;
 	protected $_data;
@@ -43,7 +45,7 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat {
 
 	// abstract optional
 	protected function getTableName(){
-		return "yiichat_post";
+		return "rate";//"yiichat_post";
 	}
 	
 	// abstract strict
@@ -63,6 +65,7 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat {
 		$message_filtered = trim($this->acceptMessage($message));
 		if($message_filtered != ""){
 			$obj = array(
+				/*
 				"id"=>$this->createPostUniqueId(),
 				"chat_id"=>$chat_id,
 				"post_identity"=>$identity,
@@ -70,15 +73,66 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat {
 				"created"=>time(),
 				"text"=>$message,//$message_filtered,
 				"data"=>serialize($data),
+                */
+                            
+                "field_id" => $this->createPostUniqueId(),
+				"transport_id" => $chat_id,
+				"post_identity" => $identity,
+				"user_id" => 3, // !!!!!!!!!!!!!!!!!!!
+				"date"  => date("Y-m-d H:i:s"),//time(),
+				"price" => (int)$message,//$message_filtered,
+				//"data"=>serialize($data),
 			);
-			$this->getDb()->createCommand()->insert(
-				$this->getTableName(),$obj);
+			$this->getDb()->createCommand()->insert($this->getTableName(),$obj);
+			
+			$model = Transport::model()->findByPk($chat_id);
+			$rateId = $model->rate_id;
+			if(!empty($rateId)){
+			    $this->killRate($rateId);
+			}
+			$model->rate_id = 3; // !!!!!!!!!!!!!!!!!!!!!!!
+			$model->save();
+			
 			// now retrieve the post
-			$obj['time']=$this->getDateFormatted($obj['created']);
+			// $obj['time']=$this->getDateFormatted($obj['created']);
+            // date('d.m.Y H:i', strtotime($obj['date']));
+           
+			$obj['time']= date('d.m.Y H:i:s', strtotime($this->getDateFormatted($obj['date'])));
+            //$obj['user']='Вася';
+			
 			return $obj;
-		}
-		else
+		} else {
 			return array();
+                }
+	}
+	// Send mail to user if his rate was killed
+	public function killRate($rateId)
+	{
+	    $rateModel = Rate::model()->findByPk($rateId);
+		// получить пользователей которые хотят получать уведомления
+		//...
+        $userModel = User::model()->findByPk($rateModel->user_id);
+		$email = $userModel->email;
+		$subject = 'Уведомление';
+		
+		$headers  = 'MIME-Version: 1.0' . '\r\n';
+		$headers .= 'Content-type: text/html; charset=utf-8' . '\r\n';
+		$headers .= 'To: ' . $userModel->name . '<' . $email . '>' . '\r\n';
+		$headers .= 'From: Биржа перевозок ЛБР АгроМаркет <' . self::LBRMAIL . '>' . '\r\n';
+		
+		$message = "
+		<html>
+		<head>
+		  <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+		    <>
+		    <p>Вашу ставку для перевозки с номером " . $rateModel->transport_id . " перебили </p>
+		</body>
+		</html>
+		";
+		
+		mail($email, $subject, $message, $headers);
 	}
 	/**
 	 	retrieve posts from your database, considering the last_id argument:
@@ -104,7 +158,8 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat {
 
 		// case all posts:
 		if($last_id == -1){
-			$where_string = 'chat_id=:chat_id';
+			//$where_string = 'chat_id=:chat_id';
+			$where_string = 'transport_id=:chat_id';
 			$where_params = array(
 				':chat_id' => $chat_id,
 			);
@@ -112,18 +167,21 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat {
 			->select()
 			->from($this->getTableName())
 			->where($where_string,$where_params)
-			->limit(1)
-			//->order('created asc')
-			->order('created desc')
+			//->limit(1)
+			//->order('date desc')
+			->order('date asc')
 			->queryAll();
 			
-			foreach($rows as $k=>$v)
-				$rows[$k]['time']=$this->getDateFormatted($v['created']);
-			return $rows;
+			foreach($rows as $k=>$v){
+				//$rows[$k]['time']=$this->getDateFormatted($v['created']);
+				$rows[$k]['time']=date('d.m.Y H:i:s', strtotime($v['date']));//$this->getDateFormatted($v['date']);
+				//$rows[$k]['user']='Вася';
+                        }
+                        return $rows;
 		}
 		else{
 			// case timer, new posts since last_id, not identity
-			$where_string = '((chat_id=:chat_id) and (post_identity<>:identity))';
+			$where_string = '((transport_id=:chat_id) and (post_identity<>:identity))';
 			$where_params = array(
 				':chat_id' => $chat_id,
 				':identity' => $identity,
@@ -132,11 +190,14 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat {
 			->select()
 			->from($this->getTableName())
 			->where($where_string,$where_params)
-			->order('created desc') // in this case desc,late will be sort asc 
+			//->order('created desc') // in this case desc,late will be sort asc 
+			->order('date asc') // in this case desc,late will be sort asc 
 			->queryAll();
 			$ar = $this->getLastPosts($rows, $limit, $last_id);
 			foreach($ar as $k=>$v)
-				$ar[$k]['time']=$this->getDateFormatted($v['created']);
+				//$ar[$k]['time']=$this->getDateFormatted($v['created']);
+			    $ar[$k]['time']=date('d.m.Y H:i:s', strtotime($v['date']));//$this->getDateFormatted($v['date']);
+                            //$ar[$k]['user']='Вася';
 			return $ar;
 		}
 	}
@@ -175,7 +236,7 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat {
 			return array();
 		}
 	}
-
+/*
 	public function runTestTimer(){
 		$tests = array(
 			array(
@@ -334,7 +395,7 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat {
 			}
 			echo "<br/>";
 		}
-	}
+	}*/
 
 }
 

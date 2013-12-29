@@ -3,6 +3,7 @@
 <h2>Перевозка № <?php echo $transportInfo['id'] ?></h2>
 <dl class="article-info">
     <dd class="create">Создана <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_published'])) ?></dd>
+    <!--div id="user_identifier"><?php echo rand(5, 15) ?></div-->
 </dl>
 <div class="transport-info">
     <span>Пункт отправки: <?php echo $transportInfo['location_from'] ?></span>

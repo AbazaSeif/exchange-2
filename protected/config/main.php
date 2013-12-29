@@ -48,7 +48,7 @@ return array(
 			),
 		),
 		
-		/*'db'=>array(
+		'db'=>array(
                         'class'=>'CDbConnection',
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/exchange.db',
                         'initSQLs'=>array(
@@ -58,16 +58,16 @@ return array(
                         'enableProfiling'=>true,
                         // ���������� �������� ����������
                         'enableParamLogging' => true,
-		),*/
+		),
             // uncomment the following to use a MySQL database
-		
+		/*
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=chat',
 			'emulatePrepare' => true,
 			'username' => 'mysql',
 			'password' => 'mysql',
 			'charset' => 'utf8',
-		),
+		),*/
 		
 		// uncomment the following to use a MySQL database
 		'errorHandler'=>array(

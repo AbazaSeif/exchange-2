@@ -5,25 +5,26 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'My Console Application',
-
 	// preloading 'log' component
 	'preload'=>array('log'),
-
+        'import' => array(
+	    'application.models.*',
+	),
 	// application components
 	'components'=>array(
 		'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
+			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/exchange.db',
 		),
 		// uncomment the following to use a MySQL database
-		/*
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=testdrive',
+		
+		/*'db'=>array(
+                        'connectionString' => 'mysql:host=localhost;dbname=chat',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
+			'username' => 'mysql',
+			'password' => 'mysql',
 			'charset' => 'utf8',
-		),
-		*/
+		),*/
+		
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
