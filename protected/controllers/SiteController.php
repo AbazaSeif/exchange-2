@@ -79,27 +79,78 @@ class SiteController extends Controller
             
 	}
         
-        public function actionDescription($id)
-        {
-            Yii::import('application.extensions.chat.classes.*');
-            $transportInfo=Yii::app()->db->createCommand("SELECT * from transport where id='".$id."'")->queryRow();
-            //var_dump($transportInfo);
+	public function actionDescription($id)
+	{
+		Yii::import('application.extensions.chat.classes.*');
+		$transportInfo=Yii::app()->db->createCommand("SELECT * from transport where id='".$id."'")->queryRow();
+		//var_dump($transportInfo);
 
-            $allRatesForTransport = Yii::app()->db->createCommand()
-                ->select('r.date, r.price, u.name') 
-                ->from('rate r')
-                ->join('user u', 'r.user_id=u.id')
-                ->where('r.transport_id=:id', array(':id'=>$id))
-                ->order('r.date desc')
-                ->queryAll()
-            ;
-            
-            //var_dump($allRatesForTransport);
-            //var_dump($transportInfo);
-            //echo '=============='; exit;
-            //$this->render('chat', array('rateData' => $dataProvider, 'transportData' => $transportInfo));
-            $this->render('chat2', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
-        }
+		$allRatesForTransport = Yii::app()->db->createCommand()
+			->select('r.date, r.price, u.name') 
+			->from('rate r')
+			->join('user u', 'r.user_id=u.id')
+			->where('r.transport_id=:id', array(':id'=>$id))
+			->order('r.date desc')
+			->queryAll()
+		;
+		
+		//var_dump($allRatesForTransport);
+		//var_dump($transportInfo);
+		//echo '=============='; exit;
+		//$this->render('chat', array('rateData' => $dataProvider, 'transportData' => $transportInfo));
+		$this->render('chat2', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
+	}
+	
+	public function actionOfficeUser()
+	{
+	    $transportId = '';
+	    $temp = Yii::app()->db->createCommand()
+			->selectDistinct('transport_id')
+			->from('rate')
+			->where('user_id = :id', array(':id' => 3)) ///!!!! 
+			->queryAll()
+		;
+		
+		foreach($temp as $t){
+			$transportId[] = $t['transport_id'];
+		}
+		
+		$criteria = new CDbCriteria();
+		$criteria->addInCondition('id', $transportId);
+		$criteria->compare('status', 1);
+		
+		$dataProvider = new CActiveDataProvider('Transport',
+			array(
+				'criteria' => $criteria,
+				'pagination'=>array(
+				   'pageSize' => 2,
+				   'pageVar' => 'page',
+				),
+				
+				//Настройки для сортировки
+				'sort' => array(
+					//атрибуты по которым происходит сортировка
+					'attributes'=>array(
+						'date_published'=>array(
+							'asc'=>'date_published ASC',
+							'desc'=>'date_published DESC',
+							'default'=>'desc',
+						)
+					),
+					'defaultOrder'=>array(
+						'date_published' => CSort::SORT_DESC,
+					),                        
+				),
+			)
+		);
+			
+		$this->render('office', array('data' => $dataProvider));
+	}
+	
+	public function actionOfficeUserOption()
+	{
+	    
+	}
 
 	/**
 	 * This is the action to handle external exceptions.

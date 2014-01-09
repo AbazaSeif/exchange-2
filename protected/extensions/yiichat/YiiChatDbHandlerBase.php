@@ -57,82 +57,88 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat
 
 	/**
 	 	post a message into your database.
-	 */
+	**/
+	
 	public function yiichat_post($chat_id, $identity, $message, $data){
 		$this->_chat_id = $chat_id;
 		$this->_identity = $identity;
 		$this->_data = $data;
 		$message_filtered = trim($this->acceptMessage($message));
+		
 		if($message_filtered != ""){
-			$obj = array(
-				/*
-				"id"=>$this->createPostUniqueId(),
-				"chat_id"=>$chat_id,
-				"post_identity"=>$identity,
-				"owner"=>substr($this->getIdentityName(),0,20),
-				"created"=>time(),
-				"text"=>$message,//$message_filtered,
-				"data"=>serialize($data),
-                */
-                            
-                "field_id" => $this->createPostUniqueId(),
-				"transport_id" => $chat_id,
-				"post_identity" => $identity,
-				"user_id" => 3, // !!!!!!!!!!!!!!!!!!!
-				"date"  => date("Y-m-d H:i:s"),//time(),
-				"price" => (int)$message,//$message_filtered,
-				//"data"=>serialize($data),
+		    $obj = array(
+			   'transport_id'  => $chat_id,
+			   'user_id' => 3,
+			   'date'    => date("Y-m-d H:i:s"),
+			   'price'   => (int)$message
 			);
-			$this->getDb()->createCommand()->insert($this->getTableName(),$obj);
+			
+			$model2 = new Rate;
+			$model2->field_id = $this->createPostUniqueId();
+			$model2->post_identity = $identity;
+			$model2->attributes = $obj;
+			$model2->save();
 			
 			$model = Transport::model()->findByPk($chat_id);
 			$rateId = $model->rate_id;
-			if(!empty($rateId)){
-			    $this->killRate($rateId);
+			if(!empty($rateId)){ // empty if no offers
+			    $this->mailKillRate($rateId);
 			}
-			$model->rate_id = 3; // !!!!!!!!!!!!!!!!!!!!!!!
+			
+			$model->rate_id = $model2->id;
 			$model->save();
 			
 			// now retrieve the post
 			// $obj['time']=$this->getDateFormatted($obj['created']);
             // date('d.m.Y H:i', strtotime($obj['date']));
            
-			$obj['time']= date('d.m.Y H:i:s', strtotime($this->getDateFormatted($obj['date'])));
-            //$obj['user']='Вася';
+			$obj['time'] = date('d.m.Y H:i:s', strtotime($this->getDateFormatted($obj['date'])));
+			//$obj['user']='Вася';
 			
 			return $obj;
 		} else {
 			return array();
-                }
+        }
 	}
+	
 	// Send mail to user if his rate was killed
-	public function killRate($rateId)
+	public function mailKillRate($rateId)
 	{
+	    $users = array();
 	    $rateModel = Rate::model()->findByPk($rateId);
-		// получить пользователей которые хотят получать уведомления
-		//...
-        $userModel = User::model()->findByPk($rateModel->user_id);
-		$email = $userModel->email;
-		$subject = 'Уведомление';
-		
-		$headers  = 'MIME-Version: 1.0' . '\r\n';
-		$headers .= 'Content-type: text/html; charset=utf-8' . '\r\n';
-		$headers .= 'To: ' . $userModel->name . '<' . $email . '>' . '\r\n';
-		$headers .= 'From: Биржа перевозок ЛБР АгроМаркет <' . self::LBRMAIL . '>' . '\r\n';
-		
-		$message = "
-		<html>
-		<head>
-		  <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
-		</head>
-		<body>
-		    <>
-		    <p>Вашу ставку для перевозки с номером " . $rateModel->transport_id . " перебили </p>
-		</body>
-		</html>
-		";
-		
-		mail($email, $subject, $message, $headers);
+			
+		$temp = Yii::app()->db->createCommand()
+			->select('user_id')
+			->from('user_field')
+			->where('mail_kill_rate = :type', array(':type' => true))
+			->queryAll()
+		;
+		foreach($temp as $t){
+			$users[] = $t['user_id'];
+		}
+
+		if(in_array($rateModel->user_id, $users)){
+		    $userModel = User::model()->findByPk($rateModel->user_id);
+			$email = $userModel->email;
+			$subject = 'Уведомление';
+
+			$headers  = 'MIME-Version: 1.0' . '\r\n';
+			$headers .= 'Content-type: text/html; charset=utf-8' . '\r\n';
+			$headers .= 'To: ' . $userModel->name . '<' . $email . '>' . '\r\n';
+			$headers .= 'From: Биржа перевозок ЛБР АгроМаркет <' . self::LBRMAIL . '>' . '\r\n';
+            
+			$message = "<html>
+			<head>
+			  <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+			</head>
+			<body>
+				<>
+				<p>Вашу ставку для перевозки с номером " . $rateModel->transport_id . " перебили </p>
+			</body>
+			</html>
+			";
+		    mail($email, $subject, $message, $headers);
+		}
 	}
 	/**
 	 	retrieve posts from your database, considering the last_id argument:
@@ -174,12 +180,15 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat
 			
 			foreach($rows as $k=>$v){
 				//$rows[$k]['time']=$this->getDateFormatted($v['created']);
-				$rows[$k]['time']=date('d.m.Y H:i:s', strtotime($v['date']));//$this->getDateFormatted($v['date']);
+				
+				$rows[$k]['time']=date('d.m.Y H:i:s', strtotime($v['date']));
+				
+				//$this->getDateFormatted($v['date']);
 				//$rows[$k]['user']='Вася';
-                        }
-                        return $rows;
-		}
-		else{
+            }
+            
+			return $rows;
+		} else {
 			// case timer, new posts since last_id, not identity
 			$where_string = '((transport_id=:chat_id) and (post_identity<>:identity))';
 			$where_params = array(
@@ -196,7 +205,7 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat
 			$ar = $this->getLastPosts($rows, $limit, $last_id);
 			foreach($ar as $k=>$v)
 				//$ar[$k]['time']=$this->getDateFormatted($v['created']);
-			    $ar[$k]['time']=date('d.m.Y H:i:s', strtotime($v['date']));//$this->getDateFormatted($v['date']);
+			    $ar[$k]['time']=date('d.m.Y H:i:s', strtotime($v['date']));
                             //$ar[$k]['user']='Вася';
 			return $ar;
 		}
@@ -231,8 +240,7 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat
 			$cnk = array_chunk($rows,$n);
 			$cnk2 = array_chunk($cnk[0], $limit);
 			return array_reverse($cnk2[0]);
-		}else
-		{
+		} else {
 			return array();
 		}
 	}
@@ -395,7 +403,7 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat
 			}
 			echo "<br/>";
 		}
-	}*/
-
+	}
+*/
 }
 

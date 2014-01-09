@@ -43,7 +43,11 @@
 </head>
 
 <body>
-
+<?php 
+/*$this->breadcrumbs=array(
+	'Contact',
+);*/
+?>
 <div class="container" id="page">
         <header>
             <div class="logo">
@@ -101,7 +105,7 @@
                         <a href="/search/" title="Поиск по сайту">Поиск</a>
                     </li>
                     <li>
-                        <a href="/users/login/" title="Вход на сайт"><? echo Yii::app()->user->isGuest? "Вход":"Выход"; ?></a>
+                        <a href="/users/login/" title="Вход на сайт"><?php echo Yii::app()->user->isGuest? "Вход":"Выход"; ?></a>
                     </li>
                 </ul>
             </div>
@@ -112,7 +116,6 @@
                 </a>
             </div-->
             <div id="top_banner"><p>Биржа перевозок ЛБР-АгроМаркета</p></div>
-            
         </header>
 	<!--div id="header">
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
@@ -169,7 +172,8 @@
 		<?php //echo Yii::powered(); ?>
 	</div--><!-- footer -->
 
-</div><!-- page -->
+</div>
+<!-- page -->
 
 </body>
 </html>

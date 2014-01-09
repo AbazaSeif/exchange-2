@@ -2148,40 +2148,49 @@ h3{
     background-color: #cb7f8c;
 }
  /*----Pagination style-----------------------------*/
-    ul.yiiPager {
-        margin-left: 0;
-        padding-left: 0;
+ul.yiiPager {
+margin-left: 0;
+padding-left: 0;
+}
+ul.yiiPager li{
+display: inline;
+margin-right: 10px;
+}
+
+ul.yiiPager li a{
+color: #888;
+}
+li.hidden, .selected{
+    display: inline;
+    margin-right: 10px;
+}
+/*   li.hidden, .selected a{
+        color: #008873;  
+        text-decoration: none;
     }
-    ul.yiiPager li{
-        display: inline;
-        margin-right: 10px;
-    }
-    
-    ul.yiiPager li a{
-        color: #888;
-    }
-        li.hidden, .selected{
-            display: inline;
-            margin-right: 10px;
-        }
-        /*   li.hidden, .selected a{
-                color: #008873;  
-                text-decoration: none;
-            }
-        */
-    
-    
-    .pageNumbers{
-        display: inline;
-    }
-    
-    .summary{
-        float: left;
-    }
-    
-    .transport-info span{
-        display: block;
-    }
-    .transport-info{
-        margin-bottom: 10px;
-    }
+*/
+
+
+.pageNumbers{
+display: inline;
+}
+
+.summary{
+float: left;
+}
+
+.transport-info span{
+display: block;
+}
+.transport-info{
+margin-bottom: 10px;
+}
+/*  User office    */
+.menuMainTop li{
+    display: inline;
+    margin-left: 20px;
+}
+
+.menuMainTop li a{
+    text-decoration: none;
+}
