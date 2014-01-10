@@ -107,7 +107,7 @@ class SiteController extends Controller
 	    $temp = Yii::app()->db->createCommand()
 			->selectDistinct('transport_id')
 			->from('rate')
-			->where('user_id = :id', array(':id' => 3)) ///!!!! 
+			->where('user_id = :id', array(':id' => 3)) ///!!!! заменить
 			->queryAll()
 		;
 		
@@ -150,6 +150,7 @@ class SiteController extends Controller
 	public function actionOfficeUserOption()
 	{
 	    
+	  //  $this->render('options'); //, array('data' => $dataProvider));
 	}
 
 	/**
