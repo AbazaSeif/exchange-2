@@ -53,9 +53,7 @@ return array(
                         'initSQLs'=>array(
                             'PRAGMA foreign_keys = ON',
                         ),
-                        // включаем профайлер
                         'enableProfiling'=>true,
-                        // показываем значения параметров
                         'enableParamLogging' => true,
 		),
 		// uncomment the following to use a MySQL database
@@ -84,6 +82,6 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
+		'adminEmail'=>'krilova@lbr.ru',
 	),
 );

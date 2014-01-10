@@ -204,3 +204,123 @@ Stack trace:
 REQUEST_URI=/css/form.css
 HTTP_REFERER=http://exchange/site/index
 ---
+2013/12/06 15:41:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/screen.css".' in D:\F\www\server\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\F\www\server\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/screen.css')
+#1 D:\F\www\server\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\F\www\server\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/screen.css
+HTTP_REFERER=http://exchange/
+---
+2013/12/06 15:41:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/print.css".' in D:\F\www\server\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\F\www\server\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/print.css')
+#1 D:\F\www\server\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\F\www\server\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/print.css
+HTTP_REFERER=http://exchange/
+---
+2013/12/06 15:41:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/main.css".' in D:\F\www\server\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\F\www\server\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/main.css')
+#1 D:\F\www\server\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\F\www\server\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/main.css
+HTTP_REFERER=http://exchange/
+---
+2013/12/06 15:41:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/form.css".' in D:\F\www\server\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\F\www\server\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/form.css')
+#1 D:\F\www\server\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\F\www\server\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/form.css
+HTTP_REFERER=http://exchange/
+---
+2013/12/06 15:41:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in D:\F\www\server\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\F\www\server\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 D:\F\www\server\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\F\www\server\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2013/12/12 14:00:08 [error] [system.db.CDbCommand] Error in preparing SQL: ALTER TABLE 'rate' ADD "field_id" TEXT
+2013/12/12 14:00:08 [error] [system.db.CDbCommand] CDbCommand::execute() failed: CDbCommand failed to prepare the SQL statement: SQLSTATE[HY000]: General error: 1 no such table: rate. The SQL statement executed was: ALTER TABLE 'rate' ADD "field_id" TEXT.
+2013/12/12 14:00:08 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: CDbCommand failed to prepare the SQL statement: SQLSTATE[HY000]: General error: 1 no such table: rate. The SQL statement executed was: ALTER TABLE 'rate' ADD "field_id" TEXT' in D:\F\www\server\domains\exchange\yii\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\F\www\server\domains\exchange\yii\framework\db\CDbCommand.php(1377): CDbCommand->execute()
+#1 D:\F\www\server\domains\exchange\yii\framework\db\CDbMigration.php(286): CDbCommand->addColumn('rate', 'field_id', 'TEXT')
+#2 D:\F\www\server\domains\exchange\protected\migrations\m131212_095809_Add_new_collum.php(7): CDbMigration->addColumn('rate', 'field_id', 'TEXT')
+#3 D:\F\www\server\domains\exchange\yii\framework\cli\commands\MigrateCommand.php(385): m131212_095809_Add_new_collum->up()
+#4 D:\F\www\server\domains\exchange\yii\framework\cli\commands\MigrateCommand.php(109): MigrateCommand->migrateUp('m131212_095809_...')
+#5 [internal function]: MigrateCommand->actionUp(Array)
+#6 D:\F\www\server\domains\exchange\yii\framework\console\CConsoleCommand.php(172): ReflectionMethod->invokeArgs(Object(MigrateCommand), Array)
+#7 D:\F\www\server\domains\exchange\yii\framework\console\CConsoleCommandRunner.php(71): CConsoleCommand->run(Array)
+#8 D:\F\www\server\domains\exchange\yii\framework\console\CConsoleApplication.php(92): CConsoleCommandRunner->run(Array)
+#9 D:\F\www\server\domains\exchange\yii\framework\base\CApplication.php(180): CConsoleApplication->processRequest()
+#10 D:\F\www\server\domains\exchange\yii\framework\yiic.php(33): CApplication->run()
+#11 D:\F\www\server\domains\exchange\protected\yiic.php(7): require_once('D:\F\www\server...')
+#12 D:\F\www\server\domains\exchange\protected\yiic(4): require_once('D:\F\www\server...')
+#13 {main}
+---
+2013/12/12 14:04:47 [error] [system.db.CDbCommand] Error in preparing SQL: ALTER TABLE 'rate' ADD "field_id" TEXT
+2013/12/12 14:04:47 [error] [system.db.CDbCommand] CDbCommand::execute() failed: CDbCommand failed to prepare the SQL statement: SQLSTATE[HY000]: General error: 1 no such table: rate. The SQL statement executed was: ALTER TABLE 'rate' ADD "field_id" TEXT.
+2013/12/12 14:04:47 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: CDbCommand failed to prepare the SQL statement: SQLSTATE[HY000]: General error: 1 no such table: rate. The SQL statement executed was: ALTER TABLE 'rate' ADD "field_id" TEXT' in D:\F\www\server\domains\exchange\yii\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\F\www\server\domains\exchange\yii\framework\db\CDbCommand.php(1377): CDbCommand->execute()
+#1 D:\F\www\server\domains\exchange\yii\framework\db\CDbMigration.php(286): CDbCommand->addColumn('rate', 'field_id', 'TEXT')
+#2 D:\F\www\server\domains\exchange\protected\migrations\m131212_095809_Add_new_collum.php(7): CDbMigration->addColumn('rate', 'field_id', 'TEXT')
+#3 D:\F\www\server\domains\exchange\yii\framework\cli\commands\MigrateCommand.php(385): m131212_095809_Add_new_collum->up()
+#4 D:\F\www\server\domains\exchange\yii\framework\cli\commands\MigrateCommand.php(109): MigrateCommand->migrateUp('m131212_095809_...')
+#5 [internal function]: MigrateCommand->actionUp(Array)
+#6 D:\F\www\server\domains\exchange\yii\framework\console\CConsoleCommand.php(172): ReflectionMethod->invokeArgs(Object(MigrateCommand), Array)
+#7 D:\F\www\server\domains\exchange\yii\framework\console\CConsoleCommandRunner.php(71): CConsoleCommand->run(Array)
+#8 D:\F\www\server\domains\exchange\yii\framework\console\CConsoleApplication.php(92): CConsoleCommandRunner->run(Array)
+#9 D:\F\www\server\domains\exchange\yii\framework\base\CApplication.php(180): CConsoleApplication->processRequest()
+#10 D:\F\www\server\domains\exchange\yii\framework\yiic.php(33): CApplication->run()
+#11 D:\F\www\server\domains\exchange\protected\yiic.php(7): require_once('D:\F\www\server...')
+#12 D:\F\www\server\domains\exchange\protected\yiic(4): require_once('D:\F\www\server...')
+#13 {main}
+---
+2013/12/12 14:05:11 [error] [system.db.CDbCommand] Error in preparing SQL: ALTER TABLE 'main'.'rate' ADD "field_id" TEXT
+2013/12/12 14:05:11 [error] [system.db.CDbCommand] CDbCommand::execute() failed: CDbCommand failed to prepare the SQL statement: SQLSTATE[HY000]: General error: 1 no such table: main.rate. The SQL statement executed was: ALTER TABLE 'main'.'rate' ADD "field_id" TEXT.
+2013/12/12 14:05:11 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: CDbCommand failed to prepare the SQL statement: SQLSTATE[HY000]: General error: 1 no such table: main.rate. The SQL statement executed was: ALTER TABLE 'main'.'rate' ADD "field_id" TEXT' in D:\F\www\server\domains\exchange\yii\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\F\www\server\domains\exchange\yii\framework\db\CDbCommand.php(1377): CDbCommand->execute()
+#1 D:\F\www\server\domains\exchange\yii\framework\db\CDbMigration.php(286): CDbCommand->addColumn('main.rate', 'field_id', 'TEXT')
+#2 D:\F\www\server\domains\exchange\protected\migrations\m131212_095809_Add_new_collum.php(7): CDbMigration->addColumn('main.rate', 'field_id', 'TEXT')
+#3 D:\F\www\server\domains\exchange\yii\framework\cli\commands\MigrateCommand.php(385): m131212_095809_Add_new_collum->up()
+#4 D:\F\www\server\domains\exchange\yii\framework\cli\commands\MigrateCommand.php(109): MigrateCommand->migrateUp('m131212_095809_...')
+#5 [internal function]: MigrateCommand->actionUp(Array)
+#6 D:\F\www\server\domains\exchange\yii\framework\console\CConsoleCommand.php(172): ReflectionMethod->invokeArgs(Object(MigrateCommand), Array)
+#7 D:\F\www\server\domains\exchange\yii\framework\console\CConsoleCommandRunner.php(71): CConsoleCommand->run(Array)
+#8 D:\F\www\server\domains\exchange\yii\framework\console\CConsoleApplication.php(92): CConsoleCommandRunner->run(Array)
+#9 D:\F\www\server\domains\exchange\yii\framework\base\CApplication.php(180): CConsoleApplication->processRequest()
+#10 D:\F\www\server\domains\exchange\yii\framework\yiic.php(33): CApplication->run()
+#11 D:\F\www\server\domains\exchange\protected\yiic.php(7): require_once('D:\F\www\server...')
+#12 D:\F\www\server\domains\exchange\protected\yiic(4): require_once('D:\F\www\server...')
+#13 {main}
+---
+2013/12/12 14:05:34 [error] [system.db.CDbCommand] Error in preparing SQL: ALTER TABLE 'exchange'.'rate' ADD "field_id" TEXT
+2013/12/12 14:05:34 [error] [system.db.CDbCommand] CDbCommand::execute() failed: CDbCommand failed to prepare the SQL statement: SQLSTATE[HY000]: General error: 1 no such table: exchange.rate. The SQL statement executed was: ALTER TABLE 'exchange'.'rate' ADD "field_id" TEXT.
+2013/12/12 14:05:34 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: CDbCommand failed to prepare the SQL statement: SQLSTATE[HY000]: General error: 1 no such table: exchange.rate. The SQL statement executed was: ALTER TABLE 'exchange'.'rate' ADD "field_id" TEXT' in D:\F\www\server\domains\exchange\yii\framework\db\CDbCommand.php:358
+Stack trace:
+#0 D:\F\www\server\domains\exchange\yii\framework\db\CDbCommand.php(1377): CDbCommand->execute()
+#1 D:\F\www\server\domains\exchange\yii\framework\db\CDbMigration.php(286): CDbCommand->addColumn('exchange.rate', 'field_id', 'TEXT')
+#2 D:\F\www\server\domains\exchange\protected\migrations\m131212_095809_Add_new_collum.php(7): CDbMigration->addColumn('exchange.rate', 'field_id', 'TEXT')
+#3 D:\F\www\server\domains\exchange\yii\framework\cli\commands\MigrateCommand.php(385): m131212_095809_Add_new_collum->up()
+#4 D:\F\www\server\domains\exchange\yii\framework\cli\commands\MigrateCommand.php(109): MigrateCommand->migrateUp('m131212_095809_...')
+#5 [internal function]: MigrateCommand->actionUp(Array)
+#6 D:\F\www\server\domains\exchange\yii\framework\console\CConsoleCommand.php(172): ReflectionMethod->invokeArgs(Object(MigrateCommand), Array)
+#7 D:\F\www\server\domains\exchange\yii\framework\console\CConsoleCommandRunner.php(71): CConsoleCommand->run(Array)
+#8 D:\F\www\server\domains\exchange\yii\framework\console\CConsoleApplication.php(92): CConsoleCommandRunner->run(Array)
+#9 D:\F\www\server\domains\exchange\yii\framework\base\CApplication.php(180): CConsoleApplication->processRequest()
+#10 D:\F\www\server\domains\exchange\yii\framework\yiic.php(33): CApplication->run()
+#11 D:\F\www\server\domains\exchange\protected\yiic.php(7): require_once('D:\F\www\server...')
+#12 D:\F\www\server\domains\exchange\protected\yiic(4): require_once('D:\F\www\server...')
+#13 {main}
+---
