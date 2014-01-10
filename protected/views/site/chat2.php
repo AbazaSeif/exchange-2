@@ -1,5 +1,7 @@
-<!--h1>Чат</h1-->
-<?php //echo var_dump($transportInfo) ?>
+<?php 
+   // Yii::app()->clientScript->registerScriptFile('/js/front/yiichat.js');
+?>
+
 <h2>Перевозка № <?php echo $transportInfo['id'] ?></h2>
 <dl class="article-info">
     <dd class="create">Создана <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_published'])) ?></dd>
@@ -13,8 +15,7 @@
 </div>
 <div id='chat'></div>
 <?php 
-
-    //'rateData' => $dataProvider, 'transportData' => $transportInfo
+//'rateData' => $dataProvider, 'transportData' => $transportInfo
 //, date('d.m.Y H:i', strtotime($data->date_from)), 
 //date('d.m.Y H:i', strtotime($data->date_to))
     $this->widget('YiiChatWidget',array(

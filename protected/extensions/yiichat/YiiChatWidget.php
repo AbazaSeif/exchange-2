@@ -10,6 +10,7 @@
  * @author Christian Salazar <christiansalazarh@gmail.com> 
  * @license FREE BSD
  */
+
 class YiiChatWidget extends CWidget {
 
 	public	$chat_id;	// chat main identificator
@@ -82,7 +83,7 @@ class YiiChatWidget extends CWidget {
 	}// end run()
 
 	public function _prepareAssets(){
-		$localAssetsDir = dirname(__FILE__) . '/assets';
+		/*$localAssetsDir = dirname(__FILE__) . '/assets';
 		$this->_baseUrl = Yii::app()->getAssetManager()->publish(
 				$localAssetsDir);
         $cs = Yii::app()->getClientScript();
@@ -95,7 +96,12 @@ class YiiChatWidget extends CWidget {
 				$cs->registerScriptFile($this->_baseUrl."/".$_f);
 			if(strstr($_f,".css"))
 				$cs->registerCssFile($this->_baseUrl."/".$_f);
-		}
+		}*/
+		
+		$baseUrl = Yii::app()->baseUrl; 
+		$cs = Yii::app()->getClientScript();
+		$cs->registerScriptFile($baseUrl.'/js/front/yiichat.js');
+		$cs->registerCssFile($baseUrl.'/css/front/yiichat.css');
 	}
 
 	public function runAction($action, $data){

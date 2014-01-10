@@ -2,13 +2,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-        <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="telephone=no">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta content="all" name="robots">
-        <meta content="dynamic" name="document-state">
-        <meta content="2 days" name="revisit-after">
-        <meta content="Global" name="distribution">
-        <meta http-equiv="pragma" content="no-cache">
+	<meta content="all" name="robots">
+	<meta content="dynamic" name="document-state">
+	<meta content="2 days" name="revisit-after">
+	<meta content="Global" name="distribution">
+	<meta http-equiv="pragma" content="no-cache">
 
 	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
@@ -18,9 +18,8 @@
 	<![endif]-->
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/back/backend.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/front/frontend.css" />
-        
-        <!--link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/front/page.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/front/frontend.css" />     
+	   <!--link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/front/page.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/front/chat.css"/>
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/js/front/jScrollPane/jScrollPane.css"/-->
         
