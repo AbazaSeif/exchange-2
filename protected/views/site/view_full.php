@@ -3,7 +3,7 @@
 <?php
     $this->widget('zii.widgets.CListView', array(
         'dataProvider' => $data,
-        'itemView'     => '_view',
+        'itemView'     => '_view_full',
         'ajaxUpdate'   => false, 
         'emptyText'    => 'Нет перевозок',
         'itemsTagName' => 'ul',
