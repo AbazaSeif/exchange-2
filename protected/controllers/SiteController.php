@@ -186,21 +186,37 @@ class SiteController extends Controller
 	// else - user lost
 	public function actionArchive($s = null)
 	{
-	    $transportId = '';
+	    $userId = 3; ///!!!! заменить
+	    $transportId = $rateId = array();
 	    $temp = Yii::app()->db->createCommand()
 			->selectDistinct('transport_id')
 			->from('rate')
-			->where('user_id = :id', array(':id' => 3)) ///!!!! заменить
+			->where('user_id = :id', array(':id' => $userId)) 
 			->queryAll()
 		;
 		
 		foreach($temp as $t){
 			$transportId[] = $t['transport_id'];
 		}
+		// all rates where user took part
+		$temp = Yii::app()->db->createCommand()
+			->select('id')
+			->from('rate')
+			->where('user_id = :id', array(':id' => $userId))
+			->queryAll()
+		;
 		
+		foreach($temp as $t){
+			$rateId[] = $t['id'];
+		}
+		
+		// all win rates
 		$criteria = new CDbCriteria();
-		$criteria->addCondition('id', $transportId);
-		$criteria->addInCondition('id', $transportId);
+		if(isset($s)) {
+		    $criteria->addInCondition('rate_id', $rateId);
+		} else {
+		    $criteria->addNotInCondition('rate_id', $rateId);
+		}
 		$criteria->compare('status', 0);
 		
 		$dataProvider = new CActiveDataProvider('Transport',
@@ -210,10 +226,8 @@ class SiteController extends Controller
 				   'pageSize' => 2,
 				   'pageVar' => 'page',
 				),
-				
-				//Настройки для сортировки
+
 				'sort' => array(
-					//атрибуты по которым происходит сортировка
 					'attributes'=>array(
 						'date_published'=>array(
 							'asc'=>'date_published ASC',
@@ -231,6 +245,31 @@ class SiteController extends Controller
 		$this->render('active', array('data' => $dataProvider));
 	}
 
+	public function actionEvent()
+	{
+	    $newEvents = $oldEvents = array();
+	    $events = Yii::app()->db->createCommand()
+		    ->select()
+			->from('user_event')
+			->where('user_id = :id', array(':id' => 3)) // !!!! заменить
+			->order('id desc')
+			->queryAll()
+		;
+		
+		foreach($events as $event){
+		    if($event['status']){
+			    $newEvents[] = $event;
+			} else {
+			    $oldEvents[] = $event;
+			}
+		}
+		
+		if(!empty($newEvents)){
+		    UserEvent::model()->updateAll(array('status' => 0), 'status = 1');
+		}
+		
+	    $this->render('event', array('newEvents' => $newEvents, 'oldEvents' => $oldEvents));
+	}
 	/**
 	 * This is the action to handle external exceptions.
 	 */
@@ -358,5 +397,18 @@ class SiteController extends Controller
 	{
 	    if((int)$date < 10) $date = '0' . $date;
 		return $date;
+	}
+	
+	public function getEventMessage($eventType)
+	{
+	    $message = array(
+		    '1' => 'закрыта',
+            '2' => 'будет закрыта через ' . Yii::app()->params['interval'] . ' минут',
+            '3' => 'новая международная перевозка',
+            '4'	=> 'новая местная перевозка',
+            '5' => 'ваша ставка была перебита'		
+		);
+		
+		return $message[$eventType];
 	}
 }

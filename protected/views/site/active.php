@@ -1,5 +1,3 @@
-<h1>В которых участвует</h1>
-
 <?php
     $this->widget('zii.widgets.CListView', array(
         'dataProvider' => $data,

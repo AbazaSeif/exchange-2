@@ -68,7 +68,7 @@
 	$final1   = $diff->format('%y-%m-%d %H:'.$minutes.':'.$seconds);
 	$final   = $diff->format('%y год(а) %m месяц(ев) %d дней %H:'.$minutes.':'.$seconds);
 	
-	echo CHtml::link('<h3> Перевозка №' . $data->id. '</h3>', array('site/description', 'id'=>$data->id));
+	echo CHtml::link('<h3> Перевозка №' . $data->id. '</h3>', array('site/description/', 'id'=>$data->id));
 	echo '<div>', 
             '<div>',
                 'Осталось: ', $final, ' = ', strtotime($final1), //'<span class="update">', $final,'</span>', 

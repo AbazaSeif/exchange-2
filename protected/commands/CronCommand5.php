@@ -1,9 +1,6 @@
 <?php
 class CronCommand extends CConsoleCommand 
 {
-    const LBRMAIL = 'lbr@example.ru';
-	const MINUTES = 30;
-
 	public function run($args)
 	{
 		$this->deadlineTransport();
@@ -26,7 +23,7 @@ class CronCommand extends CConsoleCommand
 		$count = count($transports);
 		
 		if($count){
-		    // пользователи, которые хотят получать mail-уведомления
+		    // users that want get mail
 		    $users2 = array();
 		    $temp = Yii::app()->db->createCommand()
 				->select('user_id')
@@ -52,7 +49,7 @@ class CronCommand extends CConsoleCommand
 	// Search for transport before deadline	
 	public function beforeDeadlineTransport()
 	{
-		$time = date("Y-m-d H:i", strtotime("+" . self::MINUTES . " minutes"));
+		$time = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['interval'] . " minutes"));
 		
 		$transports = Yii::app()->db->createCommand()
 			->select('id')
@@ -63,7 +60,7 @@ class CronCommand extends CConsoleCommand
 		$count = count($transports);
 		
 		if($count){
-		    // пользователи, которые хотят получать mail-уведомления
+		    // users that want get mail
 		    $users2 = array();
 		    $temp = Yii::app()->db->createCommand()
 				->select('user_id')
@@ -84,7 +81,7 @@ class CronCommand extends CConsoleCommand
 	
 	public function getUsers($transportId, $mailType, $users2)
 	{
-	    // список всех пользователей для текущей перевозки
+	    // list of users for current transportation
 	    $rateMembers = Yii::app()->db->createCommand()
 			->selectDistinct('user_id')
 			->from('rate')
@@ -228,7 +225,7 @@ class CronCommand extends CConsoleCommand
 		    $message .= "<p>Перевозка с номером " . $transportId . " закрыта.</p>";
 			$subject = 'Уведомление о завершении перевозки';
 		} else if($mailType == 'mail_before_deadline'){
-		    $message .= "<p>Перевозка с номером " . $transportId . " будет закрыта через " . self::MINUTES . " минут.</p>";
+		    $message .= "<p>Перевозка с номером " . $transportId . " будет закрыта через " . Yii::app()->params['interval'] . " минут.</p>";
 		    $subject = 'Уведомление о скором завершении перевозки';
 		} else {
 		    $message .= "<p>Ваше предложение по перевозке с номером " . $transportId . " было перебито.</p>";
@@ -253,11 +250,10 @@ class CronCommand extends CConsoleCommand
 		;
 		
 		$email = $user['email'];
-		
 		$headers  = 'MIME-Version: 1.0' . '\r\n';
 		$headers .= 'Content-type: text/html; charset=utf-8' . '\r\n';
 		$headers .= 'To: ' . $user['name'] . '<' . $email . '>' . '\r\n';
-		$headers .= 'From: Биржа перевозок ЛБР АгроМаркет <' . self::LBRMAIL . '>' . '\r\n';
+		$headers .= 'From: Биржа перевозок ЛБР АгроМаркет <' . Yii::app()->params['adminEmail'] . '>' . '\r\n';
 
 		mail($email, $subject, $message, $headers);
 	}

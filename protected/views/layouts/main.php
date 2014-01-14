@@ -45,7 +45,7 @@
 	   <ul class="wrapper-row">
 		   <li class="sidebar">
 				<div>
-					<a href="/site/index/s/1">
+					<a href="/site/index/s/1/">
 						<span>Все перевозки</span>
 					</a>
 				</div>
@@ -60,13 +60,13 @@
 					</a>
 				</div>
 				<div>
-					<a href="/site/archive/">
-						<span> - Архивные перевозки, в которых выиграл - </span>
+					<a href="/site/archive/s/1/">
+						<span> Архивные перевозки, в которых выиграл </span>
 					</a>
 				</div>
 				<div>
 					<a href="/site/archive/">
-						<span> - Архивные перевозки, в которых проиграл - </span>
+						<span> Архивные перевозки, в которых проиграл </span>
 					</a>
 				</div>
 				<div>
@@ -76,7 +76,7 @@
 				</div>
 				<div>
 					<a href="/site/event/">
-						<span> - События - </span>
+						<span> События </span>
 					</a>
 				</div>
 		   </li>

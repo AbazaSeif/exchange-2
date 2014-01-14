@@ -1,36 +1,4 @@
 <?php 
-/**
- * YiiChatDbHandlerBase (YiiChat A Software Interface for YiiChat Source Providers)
- *	serve this widget using a database. 
- *	required: post.sql
- *
- *	this class is invoked because you specify it in your YiiChatWidget 
- *	arguments passed to the widget.
- *
- *	this is the object fields required: (as an indexed array)
- *
- *		'id'				the post unique id
- *		'text'				the post text
- *		'time'				the time stamp
- *		'owner'				the name of the person who make this post
- *		'post_identity'		the ID of the person who make this post
- *
- *	the both methods in this handler receive:
- *
- *		$chat_id			the id provided in the widget, to discrimine 
- *							between various chats.
- *
- *		$identity			the identity (ID) of the person who is in chat
- *							(the post_identity field is the same as $identity
- *							only when we are creating a post: yiichat_post
- *
- *		$data				a user-defined value passed from the widget
- *
- * @uses CWidget
- * @version 1.0 
- * @author Christian Salazar <christiansalazarh@gmail.com> 
- * @license FREE BSD
- */
 abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat 
 {
 	protected $_identity;
@@ -43,7 +11,7 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat
 
 	// abstract optional
 	protected function getTableName(){
-		return "rate";//"yiichat_post";
+		return "rate";
 	}
 	
 	// abstract strict
