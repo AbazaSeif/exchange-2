@@ -36,7 +36,8 @@ class SiteController extends Controller
             //$this->render('index');
 			
             /************************************************************/
-            $criteria = new CDbCriteria();
+            $lastRates = array();
+			$criteria = new CDbCriteria();
             //$criteria->together = true; // relations
             //$criteria->with = array('newsRegions');
             //$criteria->compare('published', 1);
@@ -56,12 +57,13 @@ class SiteController extends Controller
                     'sort'=>array(
                         //атрибуты по которым происходит сортировка
                         'attributes'=>array(
-                            'status'=>array(
+                            /*'status'=>array(
                                 'asc'=>'status ASC',
                                 'desc'=>'status DESC',
                                 //по умолчанию, сортируем поле rating по убыванию (desc)
                                 'default'=>'desc',
                             ),
+							*/
                             'date_published'=>array(
                                 'asc'=>'date_published ASC',
                                 'desc'=>'date_published DESC',
@@ -75,10 +77,21 @@ class SiteController extends Controller
                 )
             );
 			
+			$allLastRates = Yii::app()->db->createCommand()
+				->select('transport_id, MIN(price) as price')
+				->from('rate')
+				->group('transport_id')
+				->queryAll()
+			;
+			
+			foreach($allLastRates as $rate){
+			    $lastRates[$rate['transport_id']] = $rate['price'];
+			}
+			//var_dump($lastRates);
             if(isset($s)) {
-                $this->render('view_full', array('data' => $dataProvider));
+                $this->render('view_full', array('data' => $dataProvider, 'rates' => $lastRates));
 			} else {
-			    $this->render('view', array('data' => $dataProvider));
+			    $this->render('view', array('data' => $dataProvider, 'rates' => $lastRates));
 			}
 	}
 	
@@ -94,13 +107,13 @@ class SiteController extends Controller
 	    $this->render('option', array('model' => $model));
 	}
 	
-	public function actionSave()
+	public function actionSaveOption()
 	{
-	    $allModelFields = array('mail_transport_create_1', 'mail_transport_create_2', 'mail_kill_rate', 'mail_deadline', 'mail_before_deadline');
+	    $allModelFields = array('mail_transport_create_1', 'mail_transport_create_2', 'mail_kill_rate', 'mail_deadline', 'mail_before_deadline', 'site_transport_create_1', 'site_transport_create_2', 'site_kill_rate', 'site_deadline', 'site_before_deadline');
 	    $data = $_POST;
 		$modelFields = array();
 		foreach($allModelFields as $field){
-		    if(!array_key_exists($field, $data)){
+		    if(!array_key_exists($field, $data)) {
 			    $modelFields[] = $field;
 			}
 		}
@@ -129,11 +142,7 @@ class SiteController extends Controller
 			->queryAll()
 		;
 		
-		//var_dump($allRatesForTransport);
-		//var_dump($transportInfo);
-		//echo '=============='; exit;
-		//$this->render('chat', array('rateData' => $dataProvider, 'transportData' => $transportInfo));
-		$this->render('chat2', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
+		$this->render('chat', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
 	}
 	
 	public function actionActive()
@@ -249,9 +258,9 @@ class SiteController extends Controller
 	{
 	    $newEvents = $oldEvents = array();
 	    $events = Yii::app()->db->createCommand()
-		    ->select()
-			->from('user_event')
-			->where('user_id = :id', array(':id' => 3)) // !!!! заменить
+		    ->select('u.*, t.location_from, t.location_to')
+			->from('user_event u, transport t')
+			->where('u.user_id = :id and t.id = u.transport_id', array(':id' => 3)) // !!!! заменить
 			->order('id desc')
 			->queryAll()
 		;
@@ -270,6 +279,88 @@ class SiteController extends Controller
 		
 	    $this->render('event', array('newEvents' => $newEvents, 'oldEvents' => $oldEvents));
 	}
+	
+	public function actionTransport()
+	{
+        //$items = 
+		
+		$model = Yii::app()->db->createCommand()
+		    ->select()
+			->from('transport')
+			->queryAll()
+		;
+
+		$this->render('transport', array('model' => $model));
+	}
+	
+	public function realDateDiff($date1, $date2 = NULL){
+		$diff = array();
+		//Если вторая дата не задана принимаем ее как текущую
+		if(!$date2) {
+			$cd = getdate();
+			$date2 = $cd['year'].'-'.$cd['mon'].'-'.$cd['mday'].' '.$cd['hours'].':'.$cd['minutes'].':'.$cd['seconds'];
+		}
+		 
+		//Преобразуем даты в массив
+		$pattern = '/(\d+)-(\d+)-(\d+)(\s+(\d+):(\d+):(\d+))?/';
+		preg_match($pattern, $date1, $matches);
+		$d1 = array((int)$matches[1], (int)$matches[2], (int)$matches[3], (int)$matches[5], (int)$matches[6], (int)$matches[7]);
+		preg_match($pattern, $date2, $matches);
+		$d2 = array((int)$matches[1], (int)$matches[2], (int)$matches[3], (int)$matches[5], (int)$matches[6], (int)$matches[7]);
+	 
+		//Если вторая дата меньше чем первая, меняем их местами
+		for($i=0; $i<count($d2); $i++) {
+			if($d2[$i]>$d1[$i]) break;
+			if($d2[$i]<$d1[$i]) {
+				$t = $d1;
+				$d1 = $d2;
+				$d2 = $t;
+				break;
+			}
+		}
+	 
+		//Вычисляем разность между датами (как в столбик)
+		$md1 = array(31, $d1[0]%4||(!($d1[0]%100)&&$d1[0]%400)?28:29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+		$md2 = array(31, $d2[0]%4||(!($d2[0]%100)&&$d2[0]%400)?28:29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+		$min_v = array(NULL, 1, 1, 0, 0, 0);
+		$max_v = array(NULL, 12, $d2[1]==1?$md2[11]:$md2[$d2[1]-2], 23, 59, 59);
+		for($i=5; $i>=0; $i--) {
+			if($d2[$i]<$min_v[$i]) {
+				$d2[$i-1]--;
+				$d2[$i]=$max_v[$i];
+			}
+			
+			$diff[$i] = $d2[$i]-$d1[$i];
+			if($diff[$i]<0) {
+				$d2[$i-1]--;
+				$i==2 ? $diff[$i] += $md1[$d1[1]-1] : $diff[$i] += $max_v[$i]-$min_v[$i]+1;
+			}
+		}
+		//Возвращаем результат
+		return $diff;
+	}
+	
+	public function addFormat($date)
+	{
+	    if((int)$date < 10) $date = '0' . $date;
+		return $date;
+	}
+	
+	public function getEventMessage($eventType)
+	{
+	    $message = array(
+		    '1' => 'закрыта',
+            '2' => 'будет закрыта через ' . Yii::app()->params['interval'] . ' минут',
+            '3' => 'новая международная перевозка',
+            '4'	=> 'новая местная перевозка',
+            '5' => 'ваша ставка была перебита'		
+		);
+		
+		return $message[$eventType];
+	}
+	
+	/******************************************************************/
+	
 	/**
 	 * This is the action to handle external exceptions.
 	 */
@@ -344,71 +435,5 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
-	}
-	
-	public function realDateDiff($date1, $date2 = NULL){
-		$diff = array();
-		//Если вторая дата не задана принимаем ее как текущую
-		if(!$date2) {
-			$cd = getdate();
-			$date2 = $cd['year'].'-'.$cd['mon'].'-'.$cd['mday'].' '.$cd['hours'].':'.$cd['minutes'].':'.$cd['seconds'];
-		}
-		 
-		//Преобразуем даты в массив
-		$pattern = '/(\d+)-(\d+)-(\d+)(\s+(\d+):(\d+):(\d+))?/';
-		preg_match($pattern, $date1, $matches);
-		$d1 = array((int)$matches[1], (int)$matches[2], (int)$matches[3], (int)$matches[5], (int)$matches[6], (int)$matches[7]);
-		preg_match($pattern, $date2, $matches);
-		$d2 = array((int)$matches[1], (int)$matches[2], (int)$matches[3], (int)$matches[5], (int)$matches[6], (int)$matches[7]);
-	 
-		//Если вторая дата меньше чем первая, меняем их местами
-		for($i=0; $i<count($d2); $i++) {
-			if($d2[$i]>$d1[$i]) break;
-			if($d2[$i]<$d1[$i]) {
-				$t = $d1;
-				$d1 = $d2;
-				$d2 = $t;
-				break;
-			}
-		}
-	 
-		//Вычисляем разность между датами (как в столбик)
-		$md1 = array(31, $d1[0]%4||(!($d1[0]%100)&&$d1[0]%400)?28:29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-		$md2 = array(31, $d2[0]%4||(!($d2[0]%100)&&$d2[0]%400)?28:29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-		$min_v = array(NULL, 1, 1, 0, 0, 0);
-		$max_v = array(NULL, 12, $d2[1]==1?$md2[11]:$md2[$d2[1]-2], 23, 59, 59);
-		for($i=5; $i>=0; $i--) {
-			if($d2[$i]<$min_v[$i]) {
-				$d2[$i-1]--;
-				$d2[$i]=$max_v[$i];
-			}
-			
-			$diff[$i] = $d2[$i]-$d1[$i];
-			if($diff[$i]<0) {
-				$d2[$i-1]--;
-				$i==2 ? $diff[$i] += $md1[$d1[1]-1] : $diff[$i] += $max_v[$i]-$min_v[$i]+1;
-			}
-		}
-		//Возвращаем результат
-		return $diff;
-	}
-	
-	public function addFormat($date)
-	{
-	    if((int)$date < 10) $date = '0' . $date;
-		return $date;
-	}
-	
-	public function getEventMessage($eventType)
-	{
-	    $message = array(
-		    '1' => 'закрыта',
-            '2' => 'будет закрыта через ' . Yii::app()->params['interval'] . ' минут',
-            '3' => 'новая международная перевозка',
-            '4'	=> 'новая местная перевозка',
-            '5' => 'ваша ставка была перебита'		
-		);
-		
-		return $message[$eventType];
 	}
 }

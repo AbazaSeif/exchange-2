@@ -1,16 +1,19 @@
-<h1>Все Перевозки</h1>
 
+<h1>Все Перевозки</h1>
+<!--div id="counter">kkkkkkkkkkkk</div-->
+ 
 <?php
-    $this->widget('zii.widgets.CListView', array(
+    $this->widget('ListView', array(
         'dataProvider' => $data,
+		'rates'        => $rates,
         'itemView'     => '_view_full',
-        'ajaxUpdate'   => false, 
+        'ajaxUpdate'   => false,
         'emptyText'    => 'Нет перевозок',
         'itemsTagName' => 'ul',
         'summaryText'  => 'Показано {start}&mdash;{end} из {count}',
         'template'     => '<div class="mainPagerContainer"><div class="sorting">{summary}{sorter}</div></div>{items}{pager}',
         'sortableAttributes'=>array(
-            'status' => 'По статусу',
+            /*'status' => 'По статусу',*/
             'date_published' => 'По дате публикации'
         ),
         'pager'        => array(

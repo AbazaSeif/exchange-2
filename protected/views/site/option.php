@@ -1,5 +1,5 @@
 <div class="form">
-<?php echo CHtml::beginForm('/site/save/', 'POST', array('id'=>'options')); ?>
+<?php echo CHtml::beginForm('/site/saveOption/', 'POST', array('id'=>'options')); ?>
 	<fieldset>
 		<legend>Настройки для оповещения по почте</legend>
 		<?php //echo CHtml::errorSummary($model); ?>

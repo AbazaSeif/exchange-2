@@ -30886,3 +30886,1080 @@ Stack trace:
 REQUEST_URI=/images/bottom-line.png
 HTTP_REFERER=http://exchange/css/front/frontend.css
 ---
+2014/01/14 16:23:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/screen.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/screen.css')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/screen.css
+HTTP_REFERER=http://exchange/site/event/
+---
+2014/01/14 16:23:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/print.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/print.css')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/print.css
+HTTP_REFERER=http://exchange/site/event/
+---
+2014/01/14 16:23:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/top-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/top-line...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/top-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 16:23:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/bottom-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/bottom-l...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/bottom-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 16:30:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/screen.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/screen.css')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/screen.css
+HTTP_REFERER=http://exchange/site/index/s/1/
+---
+2014/01/14 16:30:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/print.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/print.css')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/print.css
+HTTP_REFERER=http://exchange/site/index/s/1/
+---
+2014/01/14 16:30:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/top-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/top-line...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/top-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 16:30:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/bottom-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/bottom-l...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/bottom-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 16:30:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/screen.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/screen.css')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/screen.css
+HTTP_REFERER=http://exchange/index.php/site/description/3
+---
+2014/01/14 16:30:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/print.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/print.css')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/print.css
+HTTP_REFERER=http://exchange/index.php/site/description/3
+---
+2014/01/14 16:30:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/top-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/top-line...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/top-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 16:30:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/bottom-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/bottom-l...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/bottom-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 16:31:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/screen.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/screen.css')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/screen.css
+HTTP_REFERER=http://exchange/site/index/s/1/
+---
+2014/01/14 16:31:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/print.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/print.css')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/print.css
+HTTP_REFERER=http://exchange/site/index/s/1/
+---
+2014/01/14 16:31:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/top-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/top-line...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/top-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 16:31:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/bottom-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/bottom-l...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/bottom-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 16:31:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/screen.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/screen.css')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/screen.css
+HTTP_REFERER=http://exchange/index.php/site/description/1
+---
+2014/01/14 16:31:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/print.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/print.css')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/print.css
+HTTP_REFERER=http://exchange/index.php/site/description/1
+---
+2014/01/14 16:31:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/top-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/top-line...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/top-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 16:31:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/bottom-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/bottom-l...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/bottom-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 16:32:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/print.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/print.css')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/print.css
+HTTP_REFERER=http://exchange/site/index/s/1/
+---
+2014/01/14 16:32:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/screen.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/screen.css')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/screen.css
+HTTP_REFERER=http://exchange/site/index/s/1/
+---
+2014/01/14 16:32:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/bottom-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/bottom-l...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/bottom-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 16:32:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/top-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/top-line...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/top-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 16:45:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/screen.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/screen.css')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/screen.css
+HTTP_REFERER=http://exchange/site/index/s/1/
+---
+2014/01/14 16:45:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/print.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/print.css')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/print.css
+HTTP_REFERER=http://exchange/site/index/s/1/
+---
+2014/01/14 16:45:13 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/top-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/top-line...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/top-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 16:45:13 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/bottom-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/bottom-l...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/bottom-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 17:04:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/print.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/print.css')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/print.css
+HTTP_REFERER=http://exchange/site/index/s/1/
+---
+2014/01/14 17:04:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/screen.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/screen.css')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/screen.css
+HTTP_REFERER=http://exchange/site/index/s/1/
+---
+2014/01/14 17:04:17 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/bottom-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/bottom-l...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/bottom-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 17:04:17 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/top-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/top-line...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/top-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 17:04:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/top-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/top-line...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/top-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 17:04:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/bottom-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/bottom-l...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/bottom-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 17:06:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/bottom-line.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/bottom-l...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/bottom-line.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/14 17:50:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/pagers/pager.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/pagers/page...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/pagers/pager.css
+HTTP_REFERER=http://exchange/
+---
+2014/01/14 17:55:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/pagers/pager.css".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/pagers/page...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/pagers/pager.css
+HTTP_REFERER=http://exchange/
+---
+2014/01/14 18:14:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?page=2
+---
+2014/01/14 18:15:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index
+---
+2014/01/14 18:17:01 [error] [exception.CException] exception 'CException' with message 'CronCommand and its behaviors do not have a method or closure named "wrongDate".' in D:\server_test\domains\exchange\yii\framework\base\CComponent.php:266
+Stack trace:
+#0 D:\server_test\domains\exchange\protected\commands\CronCommand.php(9): CComponent->__call('wrongDate', Array)
+#1 D:\server_test\domains\exchange\protected\commands\CronCommand.php(9): CronCommand->wrongDate()
+#2 D:\server_test\domains\exchange\yii\framework\console\CConsoleCommandRunner.php(71): CronCommand->run(Array)
+#3 D:\server_test\domains\exchange\yii\framework\console\CConsoleApplication.php(92): CConsoleCommandRunner->run(Array)
+#4 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CConsoleApplication->processRequest()
+#5 D:\server_test\domains\exchange\console.php(10): CApplication->run()
+#6 {main}
+---
+2014/01/14 18:25:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index
+---
+2014/01/15 11:01:44 [warning] [application] Не удалось присвоить небезопасный атрибут "yt0" класса "UserField".
+in D:\server_test\domains\exchange\protected\controllers\SiteController.php (109)
+in D:\server_test\domains\exchange\index.php (13)
+2014/01/15 11:02:45 [warning] [application] Не удалось присвоить небезопасный атрибут "yt0" класса "UserField".
+in D:\server_test\domains\exchange\protected\controllers\SiteController.php (109)
+in D:\server_test\domains\exchange\index.php (13)
+2014/01/15 11:03:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "saveoption".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('saveoption')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('saveoption')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/saveoption')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/site/saveoption/
+HTTP_REFERER=http://exchange/site/option/
+---
+2014/01/15 11:03:14 [warning] [application] Не удалось присвоить небезопасный атрибут "yt0" класса "UserField".
+in D:\server_test\domains\exchange\protected\controllers\SiteController.php (109)
+in D:\server_test\domains\exchange\index.php (13)
+2014/01/15 11:03:26 [warning] [application] Не удалось присвоить небезопасный атрибут "yt0" класса "UserField".
+in D:\server_test\domains\exchange\protected\controllers\SiteController.php (109)
+in D:\server_test\domains\exchange\index.php (13)
+2014/01/15 11:03:31 [warning] [application] Не удалось присвоить небезопасный атрибут "yt0" класса "UserField".
+in D:\server_test\domains\exchange\protected\controllers\SiteController.php (109)
+in D:\server_test\domains\exchange\index.php (13)
+2014/01/15 11:04:27 [warning] [application] Не удалось присвоить небезопасный атрибут "yt0" класса "UserField".
+in D:\server_test\domains\exchange\protected\controllers\SiteController.php (109)
+in D:\server_test\domains\exchange\index.php (13)
+2014/01/15 11:05:46 [warning] [application] Не удалось присвоить небезопасный атрибут "yt0" класса "UserField".
+in D:\server_test\domains\exchange\protected\controllers\SiteController.php (109)
+in D:\server_test\domains\exchange\index.php (13)
+2014/01/15 11:05:49 [warning] [application] Не удалось присвоить небезопасный атрибут "yt0" класса "UserField".
+in D:\server_test\domains\exchange\protected\controllers\SiteController.php (109)
+in D:\server_test\domains\exchange\index.php (13)
+2014/01/15 11:05:53 [error] [system.db.CDbCommand] Error in preparing SQL: SELECT *
+FROM 'user'
+WHERE user_id = :id
+in D:\server_test\domains\exchange\protected\controllers\SiteController.php (285)
+in D:\server_test\domains\exchange\index.php (13)
+2014/01/15 11:05:53 [error] [system.db.CDbCommand] Не удалось выполнить CDbCommand::fetch(): CDbCommand не удалось подготовить SQL-запрос: SQLSTATE[HY000]: General error: 1 no such column: user_id. Выполнявшийся SQL-запрос: SELECT *
+FROM 'user'
+WHERE user_id = :id. Bound with :id=2.
+in D:\server_test\domains\exchange\protected\controllers\SiteController.php (285)
+in D:\server_test\domains\exchange\index.php (13)
+2014/01/15 11:05:53 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand не удалось исполнить SQL-запрос: CDbCommand не удалось подготовить SQL-запрос: SQLSTATE[HY000]: General error: 1 no such column: user_id. The SQL statement executed was: SELECT *
+FROM 'user'
+WHERE user_id = :id. Bound with :id=2' in D:\server_test\domains\exchange\yii\framework\db\CDbCommand.php:543
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\db\CDbCommand.php(415): CDbCommand->queryInternal('fetch', Array, Array)
+#1 D:\server_test\domains\exchange\protected\controllers\SiteController.php(285): CDbCommand->queryRow()
+#2 D:\server_test\domains\exchange\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionUsers()
+#3 D:\server_test\domains\exchange\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\server_test\domains\exchange\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\server_test\domains\exchange\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('users')
+#7 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/users')
+#8 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#9 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/site/users/
+HTTP_REFERER=http://exchange/site/saveOption/
+---
+2014/01/15 11:31:38 [error] [exception.CException] exception 'CException' with message 'Контроллер SiteController не может найти представление "users".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:878
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(782): CController->renderPartial('users', Array, true)
+#1 D:\server_test\domains\exchange\protected\controllers\SiteController.php(290): CController->render('users', Array)
+#2 D:\server_test\domains\exchange\yii\framework\web\actions\CInlineAction.php(49): SiteController->actionUsers()
+#3 D:\server_test\domains\exchange\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 D:\server_test\domains\exchange\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 D:\server_test\domains\exchange\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('users')
+#7 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/users')
+#8 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#9 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/site/users/
+HTTP_REFERER=http://exchange/site/event/
+---
+2014/01/15 12:30:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "users".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('users')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('users')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/users')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/site/users/
+HTTP_REFERER=http://exchange/site/users/
+---
+2014/01/15 12:41:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?page=2
+---
+2014/01/15 12:41:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1&Transport_sort=date_published
+---
+2014/01/15 12:41:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1&Transport_sort=date_published.desc
+---
+2014/01/15 12:59:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?page=2
+---
+2014/01/15 14:10:13 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "favicon.ico".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/01/15 14:16:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/menu3.gif".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/menu3.gi...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/menu3.gif
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 14:16:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/menu3.gif".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/menu3.gi...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/menu3.gif
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 14:16:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/menu3.gif".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/menu3.gi...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/menu3.gif
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 14:16:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/menu3.gif".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/menu3.gi...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/menu3.gif
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 14:22:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/front/images/vert_menu.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/front/image...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/front/images/vert_menu.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 14:22:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/front/images/vert_menu.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/front/image...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/front/images/vert_menu.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 14:23:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/front/images/vert_menu.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/front/image...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/front/images/vert_menu.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 14:23:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/front/images/vert_menu.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/front/image...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/front/images/vert_menu.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 14:24:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/front/images/vert_menu.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/front/image...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/front/images/vert_menu.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 14:24:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/front/images/vert_menu.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/front/image...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/front/images/vert_menu.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 14:24:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/front/images/vert_menu.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/front/image...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/front/images/vert_menu.png
+---
+2014/01/15 14:25:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/front/images/vert_menu.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/front/image...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/front/images/vert_menu.png
+---
+2014/01/15 14:48:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "createUser".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('createUser')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('createUser')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/createUser')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/site/createUser/
+HTTP_REFERER=http://exchange/site/index/s/1/
+---
+2014/01/15 16:49:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1&page=2
+---
+2014/01/15 16:50:14 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 16:51:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 16:51:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 16:51:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 16:52:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 16:52:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 16:52:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1&page=2
+---
+2014/01/15 16:53:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 17:11:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/images/bulb2.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/images/bulb...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/images/bulb2.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 17:11:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/images/down.gif".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/images/down...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/images/down.gif
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 17:11:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/images/bulb.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/images/bulb...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/images/bulb.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 17:12:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/images/111/down.gif".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/images/111/...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/images/111/down.gif
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 17:12:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/images/111/bulb2.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/images/111/...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/images/111/bulb2.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 17:12:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/images/111/bulb.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/images/111/...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/images/111/bulb.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 17:13:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/images/111/down.gif".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/images/111/...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/images/111/down.gif
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 17:13:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/images/111/bulb.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/images/111/...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/images/111/bulb.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 17:13:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/images/111/bulb2.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/images/111/...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/images/111/bulb2.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 17:14:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/images/111/bulb2.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/images/111/...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/images/111/bulb2.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 17:14:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/images/111/down.gif".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/images/111/...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/images/111/down.gif
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 17:14:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "css/images/111/bulb.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('css/images/111/...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/css/images/111/bulb.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 17:17:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Невозможно обработать запрос "images/robot.png".' in D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('images/robot.pn...')
+#1 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/robot.png
+HTTP_REFERER=http://exchange/css/front/frontend.css
+---
+2014/01/15 18:00:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1&page=2
+---
+2014/01/15 18:00:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 18:08:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 18:08:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 18:09:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 18:10:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 18:13:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 18:14:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 18:14:21 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 18:14:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 18:29:15 [error] [exception.CException] exception 'CException' with message 'Не определено свойство "CListView.rates".' in D:\server_test\domains\exchange\yii\framework\base\CComponent.php:173
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWidgetFactory.php(161): CComponent->__set('rates', Array)
+#1 D:\server_test\domains\exchange\yii\framework\web\CBaseController.php(146): CWidgetFactory->createWidget(Object(SiteController), 'zii.widgets.CLi...', Array)
+#2 D:\server_test\domains\exchange\yii\framework\web\CBaseController.php(172): CBaseController->createWidget('zii.widgets.CLi...', Array)
+#3 D:\server_test\domains\exchange\protected\views\site\view_full.php(27): CBaseController->widget('zii.widgets.CLi...', Array)
+#4 D:\server_test\domains\exchange\yii\framework\web\CBaseController.php(126): require('D:\server_test\...')
+#5 D:\server_test\domains\exchange\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('D:\server_test\...', Array, true)
+#6 D:\server_test\domains\exchange\yii\framework\web\CController.php(869): CBaseController->renderFile('D:\server_test\...', Array, true)
+#7 D:\server_test\domains\exchange\yii\framework\web\CController.php(782): CController->renderPartial('view_full', Array, true)
+#8 D:\server_test\domains\exchange\protected\controllers\SiteController.php(92): CController->render('view_full', Array)
+#9 [internal function]: SiteController->actionIndex('1')
+#10 D:\server_test\domains\exchange\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(SiteController), Array)
+#11 D:\server_test\domains\exchange\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(SiteController), Object(ReflectionMethod), Array)
+#12 D:\server_test\domains\exchange\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#13 D:\server_test\domains\exchange\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#14 D:\server_test\domains\exchange\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#16 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/index')
+#17 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#18 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/index.php/site/index?s=1
+HTTP_REFERER=http://exchange/index.php/site/index?s=1&page=2
+---
+2014/01/15 18:29:53 [error] [exception.CException] exception 'CException' with message 'Псевдоним "zii.widgets.ListView" неверен. Убедитесь, что он указывает на существующий PHP файл.' in D:\server_test\domains\exchange\yii\framework\YiiBase.php:322
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CWidgetFactory.php(146): YiiBase::import('zii.widgets.Lis...', true)
+#1 D:\server_test\domains\exchange\yii\framework\web\CBaseController.php(146): CWidgetFactory->createWidget(Object(SiteController), 'zii.widgets.Lis...', Array)
+#2 D:\server_test\domains\exchange\yii\framework\web\CBaseController.php(172): CBaseController->createWidget('zii.widgets.Lis...', Array)
+#3 D:\server_test\domains\exchange\protected\views\site\view_full.php(27): CBaseController->widget('zii.widgets.Lis...', Array)
+#4 D:\server_test\domains\exchange\yii\framework\web\CBaseController.php(126): require('D:\server_test\...')
+#5 D:\server_test\domains\exchange\yii\framework\web\CBaseController.php(95): CBaseController->renderInternal('D:\server_test\...', Array, true)
+#6 D:\server_test\domains\exchange\yii\framework\web\CController.php(869): CBaseController->renderFile('D:\server_test\...', Array, true)
+#7 D:\server_test\domains\exchange\yii\framework\web\CController.php(782): CController->renderPartial('view_full', Array, true)
+#8 D:\server_test\domains\exchange\protected\controllers\SiteController.php(92): CController->render('view_full', Array)
+#9 [internal function]: SiteController->actionIndex('1')
+#10 D:\server_test\domains\exchange\yii\framework\web\actions\CAction.php(108): ReflectionMethod->invokeArgs(Object(SiteController), Array)
+#11 D:\server_test\domains\exchange\yii\framework\web\actions\CInlineAction.php(47): CAction->runWithParamsInternal(Object(SiteController), Object(ReflectionMethod), Array)
+#12 D:\server_test\domains\exchange\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#13 D:\server_test\domains\exchange\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#14 D:\server_test\domains\exchange\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('index')
+#16 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/index')
+#17 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#18 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/index.php/site/index?s=1
+HTTP_REFERER=http://exchange/index.php/site/index?s=1&page=2
+---
+2014/01/15 18:30:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 18:36:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 18:37:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 18:37:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 18:38:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---
+2014/01/15 18:38:56 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Системе не удалось найти запрашиваемое действие "css".' in D:\server_test\domains\exchange\yii\framework\web\CController.php:483
+Stack trace:
+#0 D:\server_test\domains\exchange\yii\framework\web\CController.php(270): CController->missingAction('css')
+#1 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(282): CController->run('css')
+#2 D:\server_test\domains\exchange\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('site/css/front/...')
+#3 D:\server_test\domains\exchange\yii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 D:\server_test\domains\exchange\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/site/css/front/pager.css
+HTTP_REFERER=http://exchange/index.php/site/index?s=1
+---

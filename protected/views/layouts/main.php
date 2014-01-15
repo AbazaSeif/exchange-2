@@ -11,17 +11,20 @@
 	<meta http-equiv="pragma" content="no-cache">
 
 	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
+	<!--link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" /-->
 	<!--[if lt IE 8]>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
 	<![endif]-->
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/back/backend.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/front/frontend.css" />     
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/front/frontend.css" />
+	
 	<?php
-	   // Проверка на наличие Jquery
-		Yii::app()->clientScript->registerCoreScript('jquery');
+		Yii::app()->clientScript->registerCoreScript('jquery'); 
+		$cs=Yii::app()->clientScript;  
+		$cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery-1.8.3.js', CClientScript::POS_HEAD);  
+		$cs->registerScriptFile(Yii::app()->baseUrl . '/js/front/timer.js', CClientScript::POS_HEAD);  
 	?>
     <title>Перевозки ЛБР</title>
 </head>
@@ -44,7 +47,7 @@
 	<div class="wrapper">
 	   <ul class="wrapper-row">
 		   <li class="sidebar">
-				<div>
+				<!--div>
 					<a href="/site/index/s/1/">
 						<span>Все перевозки</span>
 					</a>
@@ -76,18 +79,74 @@
 				</div>
 				<div>
 					<a href="/site/event/">
-						<span> События </span>
+						<span>События</span>
 					</a>
 				</div>
+				<div style="margin-top: 20px;">Для backend: </div>
+				<div>
+					<a href="/site/transport/">
+						<span> - Все перевозки</span>
+					</a>
+				</div>
+				<div>
+					<a href="/site/createUser/">
+						<span> - Создание перевозки</span>
+					</a>
+				</div-->
+				<div>
+				    <ul id="vert_menu">
+						<li><a href="/site/index/s/1/"><span>Все перевозки</span></a></li>
+						<li><a href="/site/index/"><span>Все перевозки - кратко</span></a></li>
+						<li><a href="/site/active/"><span>Активные перевозки</span></a></li>
+						<li><a href="/site/archive/s/1/"><span>Архивные - выиграл</span></a></li>
+						<li><a href="/site/archive/"><span>Архивные - проиграл</span></a></li>
+						<li><a href="/site/option/"><span>Настройки</span></a></li>
+						<li><a href="/site/event/"><span>События</span></a></li>
+					</ul>
+  			    </div>
+				<div>
+					<a href="/site/transport/">
+						<span> - Все перевозки</span>
+					</a>
+				</div>
+				<div>
+					<a href="/site/createUser/">
+						<span> - Создание перевозки</span>
+					</a>
+				</div>
+				<!--div class="del">
+				    <ul id="nav">
+						<li><a href="#"><img src="/images/111/t1.png" /> Home</a></li>
+						<li><a href="#" class="sub" tabindex="1"><img src="/images/111/t2.png" />HTML/CSS</a><img src="/images/111/up.gif" alt="" />
+							<ul>
+								<li><a href="#"><img src="/images/111/empty.gif" />Link 1</a></li>
+								<li><a href="#"><img src="/images/111/empty.gif" />Link 2</a></li>
+								<li><a href="#"><img src="/images/111/empty.gif" />Link 3</a></li>
+								<li><a href="#"><img src="/images/111/empty.gif" />Link 4</a></li>
+								<li><a href="#"><img src="/images/111/empty.gif" />Link 5</a></li>
+							</ul>
+						</li>
+						<li><a href="#" class="sub" tabindex="1"><img src="/images/111/t3.png" />jQuery/JS</a><img src="/images/111/up.gif" alt="" />
+							<ul>
+								<li><a href="#"><img src="/images/111/empty.gif" />Link 6</a></li>
+								<li><a href="#"><img src="/images/111/empty.gif" />Link 7</a></li>
+								<li><a href="#"><img src="/images/111/empty.gif" />Link 8</a></li>
+								<li><a href="#"><img src="/images/111/empty.gif" />Link 9</a></li>
+								<li><a href="#"><img src="/images/111/empty.gif" />Link 10</a></li>
+							</ul>
+						</li>
+						<li><a href="#"><img src="/images/111/t2.png" />PHP</a></li>
+						<li><a href="#"><img src="/images/111/t2.png" />MySQL</a></li>
+						<li><a href="#"><img src="/images/111/t2.png" />XSLT</a></li>
+					</ul>
+				</div-->
 		   </li>
 		   <li>
 		       <?php echo $content; ?>
 		   </li>
 	   </ul>
     </div>
-	
 	<div class="clear"></div>
-	
 	<footer>
 		<div class="f-left">
 			<img src="/images/logo-foot.gif" alt="Лого подвал ЛБР-Агромаркет" title="Логотип ЛБР-Агромаркет" />

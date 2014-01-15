@@ -1,6 +1,6 @@
 <?php
 class LinkPager extends CLinkPager
 {
-    public $cssFile = 'css/pagers/pager.css';
+    public $cssFile = 'css/front/pager.css';
 }
 

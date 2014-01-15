@@ -13,24 +13,12 @@
 	$final1  = $diff->format('%y-%m-%d %H:'.$minutes.':'.$seconds);
 	$final   = $diff->format('%y год(а) %m месяц(ев) %d дней %H:'.$minutes.':'.$seconds);
 	
-	echo '<h3> Перевозка №' . $data->id. '</h3>';
+	echo '<h3> Перевозка "' . $data->location_from . '-' . $data->location_to . '"</h3>';
 	
 	echo '<div>', 
             '<div>',
                 'Осталось: ', $final, ' = ', strtotime($final1), 
 			'</div>',
-         '</div>'
-    ;
-	echo '<div>',
-            '<div>', 
-                'Пункт отправки: ', $data->location_from,
-            '</div>',
-         '</div>'
-    ;
-	echo '<div>', 
-            '<div>', 
-                'Пункт назначения: ', $data->location_to,
-            '</div>', 
          '</div>'
     ;
     echo CHtml::closeTag('li');  
