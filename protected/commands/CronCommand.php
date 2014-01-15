@@ -26,7 +26,7 @@ class CronCommand extends CConsoleCommand
 		$count = count($transports);
 		
 		if($count){
-		    // пользователи, которые хотят получать mail-уведомления
+		    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ mail-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		    $users2 = array();
 		    $temp = Yii::app()->db->createCommand()
 				->select('user_id')
@@ -63,7 +63,7 @@ class CronCommand extends CConsoleCommand
 		$count = count($transports);
 		
 		if($count){
-		    // пользователи, которые хотят получать mail-уведомления
+		    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ mail-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		    $users2 = array();
 		    $temp = Yii::app()->db->createCommand()
 				->select('user_id')
@@ -84,7 +84,7 @@ class CronCommand extends CConsoleCommand
 	
 	public function getUsers($transportId, $mailType, $users2)
 	{
-	    // список всех пользователей для текущей перевозки
+	    // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	    $rateMembers = Yii::app()->db->createCommand()
 			->selectDistinct('user_id')
 			->from('rate')
@@ -179,11 +179,11 @@ class CronCommand extends CConsoleCommand
 	// Send mail with recently added transports
 	public function sendMailAboutNew($users, $transportIds, $type = 2)
 	{
-		$subject = 'Уведомление о появлении новых перевозок';
+		$subject = 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ';
 			
 		switch($type){
-			case 0: $subject = 'Уведомление о появлении новых международных перевозок'; break;
-			case 1: $subject = 'Уведомление о появлении новых локальных перевозок'; break;
+			case 0: $subject = 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ'; break;
+			case 1: $subject = 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ'; break;
 		}
 		
 		$message = "
@@ -192,14 +192,14 @@ class CronCommand extends CConsoleCommand
 		  <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 		</head>
 		<body>
-		  <p>Уважаемый " . $name . "</p>
-		  <p>Были опубликованы новые перевозки. </p>";
+		  <p>пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ " . $name . "</p>
+		  <p>пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. </p>";
 		 
 		if($type == 0 || $type == 2){
-		   $message .= "<p><b>Международные</b> перевозки с номерами: " . implode(',', $transportIds[0]) . ".</p>";
+		   $message .= "<p><b>пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</b> пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " . implode(',', $transportIds[0]) . ".</p>";
 		} 
 		if($type == 1 || $type == 2){
-		   $message .= "<p><b>Локальные</b> перевозки с номерами: " . implode(',', $transportIds[1]) . ".</p>";
+		   $message .= "<p><b>пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</b> пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " . implode(',', $transportIds[1]) . ".</p>";
 		}
 		
 		$message .= "
@@ -215,7 +215,7 @@ class CronCommand extends CConsoleCommand
 	// Send mail about transport's deadline
 	public function sendMailAboutDeadline($users, $transportId, $mailType)
 	{
-		$subject = 'Уведомление';
+		$subject = 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ';
 		
 		$message = "
 		<html>
@@ -225,13 +225,13 @@ class CronCommand extends CConsoleCommand
 		<body>";
 		
 		if($mailType == 'mail_deadline'){
-		    $message .= "<p>Перевозка с номером " . $transportId . " закрыта.</p>";
-			$subject = 'Уведомление о завершении перевозки';
+		    $message .= "<p>пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ " . $transportId . " пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.</p>";
+			$subject = 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ';
 		} else if($mailType == 'mail_before_deadline'){
-		    $message .= "<p>Перевозка с номером " . $transportId . " будет закрыта через " . self::MINUTES . " минут.</p>";
-		    $subject = 'Уведомление о скором завершении перевозки';
+		    $message .= "<p>пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ " . $transportId . " пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ " . self::MINUTES . " пїЅпїЅпїЅпїЅпїЅ.</p>";
+		    $subject = 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ';
 		} else {
-		    $message .= "<p>Ваше предложение по перевозке с номером " . $transportId . " было перебито.</p>";
+		    $message .= "<p>пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ " . $transportId . " пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.</p>";
 		}
 		
 		$message .= "
@@ -257,7 +257,7 @@ class CronCommand extends CConsoleCommand
 		$headers  = 'MIME-Version: 1.0' . '\r\n';
 		$headers .= 'Content-type: text/html; charset=utf-8' . '\r\n';
 		$headers .= 'To: ' . $user['name'] . '<' . $email . '>' . '\r\n';
-		$headers .= 'From: Биржа перевозок ЛБР АгроМаркет <' . self::LBRMAIL . '>' . '\r\n';
+		$headers .= 'From: пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ <' . self::LBRMAIL . '>' . '\r\n';
 
 		mail($email, $subject, $message, $headers);
 	}
