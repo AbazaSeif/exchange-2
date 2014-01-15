@@ -1,19 +1,3 @@
-<div class="office-menu">
-	<ul class="menuMainTop">
-		<li>
-			<a href="/site/officeuser/">
-				<span>Ставки</span>
-			</a>
-		</li>
-		<li>
-			<a href="/site/officeuseroption/">
-				<span>Настройки</span>
-			</a>
-		</li>
-	</ul>
-</div>
-<h2>User #3</h2>
-
 <?php
     $this->widget('zii.widgets.CListView', array(
         'dataProvider' => $data,

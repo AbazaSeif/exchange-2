@@ -97,5 +97,6 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'krilova@lbr.ru',
-	),
+                'interval'=>30
+            ),
 );

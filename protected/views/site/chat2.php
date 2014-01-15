@@ -1,7 +1,3 @@
-<?php 
-   // Yii::app()->clientScript->registerScriptFile('/js/front/yiichat.js');
-?>
-
 <h2>Перевозка № <?php echo $transportInfo['id'] ?></h2>
 <dl class="article-info">
     <dd class="create">Создана <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_published'])) ?></dd>
