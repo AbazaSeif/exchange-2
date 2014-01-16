@@ -9,13 +9,7 @@
 	<meta content="2 days" name="revisit-after">
 	<meta content="Global" name="distribution">
 	<meta http-equiv="pragma" content="no-cache">
-	<?php
-		Yii::app()->clientScript->registerCoreScript('jquery'); 
-		$cs=Yii::app()->clientScript;  
-		$cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery-1.8.3.js', CClientScript::POS_HEAD);  
-		$cs->registerScriptFile(Yii::app()->baseUrl . '/js/front/timer.js', CClientScript::POS_HEAD);  
-		$cs->registerScriptFile(Yii::app()->baseUrl . '/js/front/eventCounter.js');  
-	?>
+
 	<!-- blueprint CSS framework -->
 	<!--link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" /-->
@@ -26,24 +20,13 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/back/backend.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/front/frontend.css" />
 	
-
-		<script>
-		
-		//$( document ).ready(function(){
-		   /* $.ajax({
-			  type: 'GET',
-			  url: '',//<?php echo 'exchange' . CController::createUrl('/site/updateCounter'); ?>,
-			  cache: false,
-			  success: function(html){
-				//$("#events-count").innerHtml(html);
-			     console.log( 222 );
-			  },
-			});*/
-			//console.log( 111 );
-		//});
-		console.log(<?php echo Yii::app()->createUrl('/photo/edit')?>);
-		</script>
-    <title>Перевозки ЛБР 222</title>
+	<?php
+		Yii::app()->clientScript->registerCoreScript('jquery'); 
+		$cs=Yii::app()->clientScript;  
+		$cs->registerScriptFile(Yii::app()->baseUrl . '/js/jquery-1.8.3.js', CClientScript::POS_HEAD);  
+		$cs->registerScriptFile(Yii::app()->baseUrl . '/js/front/timer.js', CClientScript::POS_HEAD);  
+	?>
+    <title>Перевозки ЛБР</title>
 </head>
 <body>
 	<header>
@@ -124,7 +107,7 @@
 								<span id="events-menu">
 									События
 									<span id="events-count" style="float: right; margin-right: 10px">
-									
+									    1111
 									</span>
 								</span>
 						    </a>

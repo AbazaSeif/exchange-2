@@ -1,13 +1,8 @@
 $(document).ready(function(){
-	//console.log(111);
-	// Запускаем метод init, когда документ будет готов:
 	chat.init();
-
-	
 });
 
 var chat = {
-	
 	// data содержит перменные для использования в классах:
 	
 	data : {

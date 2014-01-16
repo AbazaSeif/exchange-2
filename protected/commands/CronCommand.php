@@ -140,7 +140,7 @@ class CronCommand extends CConsoleCommand
 				    $obj = array(
 					    'user_id' => $user,
 						'transport_id' => $transportId,
-						'status' => 0,
+						'status' => 1,
 						'type' => 1, // !!! message color ( заменить )
 						'event_type' => $messageType,
 					);

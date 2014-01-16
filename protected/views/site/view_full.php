@@ -3,9 +3,13 @@
 <!--div id="counter">kkkkkkkkkkkk</div-->
  
 <?php
-    $this->widget('ListView', array(
+    /*foreach($data as $k){
+	    var_dump($k);
+	}*/
+	
+    $this->widget('zii.widgets.CListView', array( //'ListView', array(
         'dataProvider' => $data,
-		'rates'        => $rates,
+		//'rates'        => $rates,
         'itemView'     => '_view_full',
         'ajaxUpdate'   => false,
         'emptyText'    => 'Нет перевозок',

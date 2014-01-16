@@ -1,6 +1,7 @@
 <?php
-//var_dump($rates);
     $color = $data->status ? 'status-in' : 'status-out';
+	$lastRate = $this->getPrice($data->rate_id);
+	
     echo CHtml::openTag('li', array(
        'class' => 'transport-list ' . $color,
     ));
@@ -18,7 +19,7 @@
 	
 	echo '<div>', 
             '<div>',
-                'Текущая ставка: ',  (!empty($rates[$data->id]))? $rates[$data->id]:$data->start_rate,
+                'Текущая ставка: ',  (!empty($lastRate))? $lastRate : $data->start_rate,
             '</div>',
          '</div>'
     ;

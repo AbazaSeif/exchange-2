@@ -37,14 +37,37 @@ class SiteController extends Controller
 			
             /************************************************************/
             $lastRates = array();
+			
 			$criteria = new CDbCriteria();
-            //$criteria->together = true; // relations
-            //$criteria->with = array('newsRegions');
-            //$criteria->compare('published', 1);
-            //$criteria->order = 'date_published DESC';
-
-            //$count = Transport::model()->count($criteria);
+			//$criteria->select = 'rate.*';
+			//$criteria->select = 'rate1.*, t.*';
+			//$criteria->join = 'LEFT JOIN (select min(rate.price) as price, rate.id from rate group by rate.transport_id) rate1 ON rate1.id = t.rate_id';
+			/*****/
+			//$criteria->with = array('rates');
+			//$criteria->join = 'LEFT JOIN rate on rate.id = t.rate_id';
+			
+			/*******/
+			/*
+			$criteria->join = 'LEFT JOIN (
+			    SELECT MIN(rate.price) as price1, rate.id 
+				FROM rate
+				GROUP BY rate.transport_id
+			) rate1 on rate1.id = t.rate_id'; 
             
+			*/
+			//$criteria->addCondition('rates.id = t.rate_id');
+			
+			//$criteria->compare('rates.id', 't.rate_id');
+			//var_dump($criteria);
+			
+			/*$sql = "SELECT rate1.*, transport.*
+      			FROM transport LEFT JOIN 
+				(select min(rate.price) as price, rate.id from rate group by rate.transport_id) rate1 
+				WHERE transport.rate_id = rate1.id
+		    ";
+			$result = Yii::app()->db->createCommand($sql)->queryAll();
+			var_dump($result);*/
+			
             $dataProvider = new CActiveDataProvider('Transport',
                 array(
                     'criteria' => $criteria,
@@ -84,15 +107,36 @@ class SiteController extends Controller
 				->queryAll()
 			;
 			
+			//echo $allLastRates->getText();
+			
 			foreach($allLastRates as $rate){
 			    $lastRates[$rate['transport_id']] = $rate['price'];
 			}
-			//var_dump($lastRates);
+			
+			//var_dump($dataProvider);
+			
             if(isset($s)) {
                 $this->render('view_full', array('data' => $dataProvider, 'rates' => $lastRates));
 			} else {
 			    $this->render('view', array('data' => $dataProvider, 'rates' => $lastRates));
 			}
+	}
+	
+	public function getPrice($id)
+	{
+	    $row = Yii::app()->db->createCommand()
+		    ->select()
+			->from('rate')
+			->where('id = :id', array(':id' => $id)) // !!!! заменить
+			->queryRow()
+		;
+		return $row['price'];
+	}
+	
+	public function actionUpdateCounter()
+	{
+	    
+		return 333;
 	}
 	
 	public function actionOption()
