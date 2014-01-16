@@ -79,7 +79,8 @@ return array(
                     'class'=>'CLogRouter',
                     'routes'=>array(
                       array(
-                        'class'=>'CWebLogRoute',  'levels'=>'trace, info, error, warning',
+//                        'class'=>'CWebLogRoute',  'levels'=>'trace, info, error, warning',
+                        'class'=>'CWebLogRoute',  'levels'=>'info, error, warning',
                       ),
                       array(
                         'class'=>'CFileLogRoute',  'levels'=>'trace, info, error, warning',
@@ -97,6 +98,8 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'krilova@lbr.ru',
-                'interval'=>30
+                'interval'=>30,
+                'meta_title'=>'Биржа перевозок',
+                'meta_description'=>'перевозки, биржа перевозок, биржа ЛБР'
             ),
 );
