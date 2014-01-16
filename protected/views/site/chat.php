@@ -1,32 +1,27 @@
-
-<div id="chatContainer">
-
-    <div id="chatTopBar" class="rounded"></div>
-    <div id="chatLineHolder"></div>
-    
-    <div id="chatUsers" class="rounded"></div>
-    <div id="chatBottomBar" class="rounded">
-    	<div class="tip"></div>
-        
-        <form id="loginForm" method="post" action="">
-            <input id="name" name="name" class="rounded" maxlength="16" />
-            <input id="email" name="email" class="rounded" />
-            <input type="submit" class="blueButton" value="Войти" />
-        </form>
-        
-        <form id="submitForm" method="post" action="">
-            <input id="chatText" name="chatText" class="rounded" maxlength="255" />
-            <input type="submit" class="blueButton" value="Отправить" />
-        </form>
-    </div>
+<h2>Перевозка <?php echo '"' . $transportInfo['location_from'] . '-' . $transportInfo['location_to'] . '"' ?></h2>
+<dl class="article-info">
+    <dd class="create">Создана <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_published'])) ?></dd>
+    <!--div id="user_identifier"><?php echo rand(5, 15) ?></div-->
+</dl>
+<div class="transport-info">
+    <span>Дата отправки: <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_from'])) ?></span> 
 </div>
-
-<!--div id="footer">
-	<div class="tri"></div>
-	<h1>Делаем AJAX веб чат с использованием PHP и jQuery</h1>
-</div-->
-
-<!--script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script src="js/jScrollPane/jquery.mousewheel.js"></script>
-<script src="js/jScrollPane/jScrollPane.min.js"></script>
-<script src="js/script.js"></script-->
+<div id='chat'></div>
+<?php 
+//'rateData' => $dataProvider, 'transportData' => $transportInfo
+//, date('d.m.Y H:i', strtotime($data->date_from)), 
+//date('d.m.Y H:i', strtotime($data->date_to))
+    $this->widget('YiiChatWidget',array(
+        'chat_id'=>$transportInfo['id'],                   // a chat identificator
+        'identity'=>1,                      // the user, Yii::app()->user->id ?
+        'selector'=>'#chat',                // were it will be inserted
+        'minPostLen'=>2,                    // min and
+        'maxPostLen'=>10,                   // max string size for post
+        'model'=>new ChatHandler(),
+        'data'=>'any data',                 // data passed to the handler
+        // success and error handlers, both optionals.
+        'onSuccess'=>new CJavaScriptExpression(
+            "function(code, text, post_id){   }"),
+        'onError'=>new CJavaScriptExpression(
+            "function(errorcode, info){  }"),
+    ));

@@ -6,8 +6,21 @@ class CronCommand extends CConsoleCommand
 		$this->deadlineTransport();
 		$this->beforeDeadlineTransport();
 		$this->newTransport();
+		$this->wrongDate();
 	}
     
+	public function wrongDate()
+	{
+		$timeNow = strtotime("now");
+		$transports = Yii::app()->db->createCommand()
+			->select('id')
+			->from('transport')
+			->where('date_to like :time', array(':time' => $timeNow . '%'))
+			->queryAll()
+		;
+	    $time = date("Y-m-d H:i");
+	}
+	
     // Search for transport with deadline	
 	public function deadlineTransport()
 	{
@@ -166,6 +179,7 @@ class CronCommand extends CConsoleCommand
 			}
 
 			Transport::model()->updateAll(array('new_transport' => 0), 'id in (' . $transportIds . ')');
+			
 			if(!empty($transportIdType[0])){ // international transportation
 			    /*$temp = Yii::app()->db->createCommand()
 					->select('user_id')
