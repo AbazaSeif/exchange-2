@@ -1,5 +1,4 @@
 <?php
-    echo '111111111111111';
     $color = $data->status ? 'status-in' : 'status-out';
 	$lastRate = $this->getPrice($data->rate_id);
 	
@@ -11,12 +10,6 @@
 	$end = date('Y m d H:i:s', strtotime($data->date_to));
 		
 	echo CHtml::link('<h3> Перевозка "' . $data->location_from . '-' . $data->location_to . '"</h3>', array('/user/transport/description/', 'id'=>$data->id));
-	echo '<div>', 
-            '<div>',
-                'До закрытия: ', '<span id="counter-' . $data->id. '">', '</span>', 
-            '</div>',
-         '</div>'
-    ;
 	if(!Yii::app()->user->isGuest){
 		echo '<div>', 
 				'<div>',
@@ -25,6 +18,13 @@
 			 '</div>'
 		;
 	}
+	
+	echo '<div>', 
+            '<div>',
+                '<span id="counter-' . $data->id. '">', '</span>', 
+            '</div>',
+         '</div>'
+    ;
 	
     echo CHtml::closeTag('li');  
 ?>

@@ -72,7 +72,7 @@ Timer.prototype = {
 			} else if(this.years == 2 || this.years == 3 || this.years == 4) {
 			    title = 'года';
 			}
-		    years = "<strong>" + this.years + "</strong><small>" + title + "</small>";
+		    years = "<span id='year'><strong>" + this.years + "</strong><small>" + title + "</small></span>";
 		}
 		if(this.months > 0) {
 		    var title = 'месяцев';
@@ -81,7 +81,7 @@ Timer.prototype = {
 			} else if(this.months == 2 || this.months == 3 || this.months == 4) {
 			    title = 'месяца';
 			}
-		    months = "<strong>" + this.months + "</strong> <small>" + title + "</small>";
+		    months = "<span id='month'><strong>" + this.months + "</strong> <small>" + title + "</small></span>";
 		}
 		if(this.days > 0) {
 		    var title = 'дней';
@@ -90,10 +90,10 @@ Timer.prototype = {
 			} else if(this.days == 2 || this.days == 3 || this.days == 4) {
 			    title = 'дня';
 			}
-		    days = "<strong>" + this.days + "</strong> <small>" + title + "</small>";
+		    days = "<span id='day'><strong>" + this.days + "</strong> <small>" + title + "</small><span>";
 		}
 		
-		this.countainer.innerHTML = years + months + days + ' ' + this.hours + ':' + this.minutes + ':' + this.seconds;
+		this.countainer.innerHTML = years + months + days + ' <div id="time">' + this.hours + ':' + this.minutes + ':' + this.seconds + '</div>';
 		var currDate = new Date();
 		currDate.setSeconds(currDate.getSeconds() + this.timeDiff);
 		if ( this.endDate > currDate) { //проверка не обнулился ли таймер

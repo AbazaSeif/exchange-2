@@ -44,7 +44,7 @@ return array(
 			'urlFormat'=>'path',
                         'showScriptName'=>false,
 			'rules'=>array(
-                                '<_m:user>/<_a:(login|logout)>' => 'user/default/<_a>',
+                '<_m:user>/<_a:\w+>' => 'user/default/<_a>',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
