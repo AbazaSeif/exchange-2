@@ -9,27 +9,23 @@
 	$now = date('Y m d H:i:s', strtotime('now'));
 	$end = date('Y m d H:i:s', strtotime($data->date_to));
 		
-	echo CHtml::link('<h3> Перевозка "' . $data->location_from . '-' . $data->location_to . '"</h3>', array('site/description/', 'id'=>$data->id));
+	echo CHtml::link('<h3> Перевозка "' . $data->location_from . '-' . $data->location_to . '"</h3>', array('/user/transport/description/', 'id'=>$data->id));
+	if(!Yii::app()->user->isGuest){
+		echo '<div>', 
+				'<div>',
+					'Текущая ставка: ',  (!empty($lastRate))? $lastRate : $data->start_rate,
+				'</div>',
+			 '</div>'
+		;
+	}
+	
 	echo '<div>', 
             '<div>',
-                'До закрытия: ', '<span id="counter-' . $data->id. '">', '</span>', 
+                '<span id="counter-' . $data->id. '">', '</span>', 
             '</div>',
          '</div>'
     ;
 	
-	echo '<div>', 
-            '<div>',
-                'Текущая ставка: ',  (!empty($lastRate))? $lastRate : $data->start_rate,
-            '</div>',
-         '</div>'
-    ;
-	
-	echo '<div>', 
-            '<div>',
-                'ID: ', $data->id,
-            '</div>',
-         '</div>'
-    ;
     echo CHtml::closeTag('li');  
 ?>
 <script>

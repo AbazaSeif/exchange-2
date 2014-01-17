@@ -1,7 +1,6 @@
 <?php
     $this->widget('zii.widgets.CListView', array(
         'dataProvider' => $data,
-		//'rates'        => $rates,
         'itemView'     => '_view',
         'ajaxUpdate'   => false,
         'emptyText'    => 'Нет перевозок',
@@ -9,7 +8,7 @@
         'summaryText'  => 'Показано {start}&mdash;{end} из {count}',
         'template'     => '<div class="mainPagerContainer"><div class="sorting">{summary}{sorter}</div></div>{items}{pager}',
         'sortableAttributes'=>array(
-            /*'status' => 'По статусу',*/
+            'status' => 'По статусу',
             'date_published' => 'По дате публикации'
         ),
         'pager'        => array(

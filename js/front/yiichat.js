@@ -149,7 +149,7 @@ var YiiChat = function(options){
 
 		p.find('.track').html("<div class='time'>"+post.time+"</div>"
 			//+"<div class='owner'>"+post.owner+"</div>");
-			+"<div class='owner'>"+post.user_id+"</div>");
+			+"<div class='owner'>"+post.user+"</div>");
 		//p.find('.text').html(post.text);
 		p.find('.text').html(post.price);
 	}

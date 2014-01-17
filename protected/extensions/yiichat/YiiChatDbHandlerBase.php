@@ -31,27 +31,32 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat
 		$this->_data = $data;
 		$message_filtered = trim($this->acceptMessage($message));
 		
-		if($message_filtered != ""){
+		if($message_filtered != "") {
 		    $obj = array(
 			   'transport_id'  => $chat_id,
-			   'user_id' => 3,
+			   'user_id' => Yii::app()->user->_id,
 			   'date'    => date("Y-m-d H:i:s"),
 			   'price'   => (int)$message
 			);
 			
-			$model2 = new Rate;
-			$model2->field_id = $this->createPostUniqueId();
-			$model2->post_identity = $identity;
-			$model2->attributes = $obj;
-			$model2->save();
+			$modelRate = new Rate;
+			$modelRate->field_id = $this->createPostUniqueId();
+			$modelRate->post_identity = $identity;
+			$modelRate->attributes = $obj;
+			$modelRate->save();
 			
 			$model = Transport::model()->findByPk($chat_id);
 			$rateId = $model->rate_id;
+			
+			// send mail
 			if(!empty($rateId)){ // empty if no offers
-			    $this->mailKillRate($rateId);
+			    $rateModel = Rate::model()->findByPk($rateId);
+			    $this->mailKillRate($rateId, $rateModel);
+				$this->siteKillRate($rateId, $rateModel);
 			}
 			
-			$model->rate_id = $model2->id;
+			
+			$model->rate_id = $modelRate->id;
 			$model->save();
 			
 			// now retrieve the post
@@ -59,7 +64,9 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat
             // date('d.m.Y H:i', strtotime($obj['date']));
            
 			$obj['time'] = date('d.m.Y H:i:s', strtotime($this->getDateFormatted($obj['date'])));
-			//$obj['user']='Вася';
+			$user = User::model()->findByPk(Yii::app()->user->_id);
+			$obj['user'] = $user->name.' '.$user->surname; //Yii::app()->user->login;
+			//echo Yii::app()->user->login;
 			
 			return $obj;
 		} else {
@@ -68,11 +75,9 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat
 	}
 	
 	// Send mail to user if his rate was killed
-	public function mailKillRate($rateId)
+	public function mailKillRate($rateId, $rateModel)
 	{
 	    $users = array();
-	    $rateModel = Rate::model()->findByPk($rateId);
-			
 		$temp = Yii::app()->db->createCommand()
 			->select('user_id')
 			->from('user_field')
@@ -104,6 +109,31 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat
 			</html>
 			";
 		    mail($email, $subject, $message, $headers);
+		}
+	}
+	public function siteKillRate($rateId, $rateModel)
+	{
+	    $users = array();		
+		$temp = Yii::app()->db->createCommand()
+			->select('user_id')
+			->from('user_field')
+			->where('site_kill_rate = :type', array(':type' => true))
+			->queryAll()
+		;
+		foreach($temp as $t){
+			$users[] = $t['user_id'];
+		}
+
+		if(in_array($rateModel->user_id, $users)){
+			$obj = array(
+				'user_id' => $rateModel->user_id,
+				'transport_id' => $rateModel->transport_id,
+				'status' => 1,
+				'type' => 1, // !!! message color ( заменить )
+				'event_type' => 5,
+			);
+			
+			Yii::app()->db->createCommand()->insert('user_event',$obj);
 		}
 	}
 	/**
@@ -144,17 +174,19 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat
 			->order('date asc')
 			->queryAll();
 			
-			foreach($rows as $k=>$v){
+			foreach($rows as $k=>$v) {
 				//$rows[$k]['time']=$this->getDateFormatted($v['created']);
 				
 				$rows[$k]['time']=date('d.m.Y H:i:s', strtotime($v['date']));
 				
 				//$this->getDateFormatted($v['date']);
-				//$rows[$k]['user']='Вася';
+				$user = User::model()->findByPk($v['user_id']);
+			    $rows[$k]['user'] = $user->name.' '.$user->surname;
             }
             
 			return $rows;
 		} else {
+		
 			// case timer, new posts since last_id, not identity
 			$where_string = '((transport_id=:chat_id) and (post_identity<>:identity))';
 			$where_params = array(
@@ -172,7 +204,13 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat
 			foreach($ar as $k=>$v)
 				//$ar[$k]['time']=$this->getDateFormatted($v['created']);
 			    $ar[$k]['time']=date('d.m.Y H:i:s', strtotime($v['date']));
-                            //$ar[$k]['user']='Вася';
+                //$ar[$k]['user']='Вася';
+                //$ar[$k]['user']='Vasya';
+				/************************************************************/
+				//$user = User::model()->findByPk($v['user_id']);
+			    //$ar[$k]['user'] = 'aaa';//$user->name.' '.$user->surname;
+				
+							
 			return $ar;
 		}
 	}

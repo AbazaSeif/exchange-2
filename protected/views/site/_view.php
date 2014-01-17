@@ -1,25 +1,34 @@
 <?php
+    echo '111111111111111';
     $color = $data->status ? 'status-in' : 'status-out';
+	$lastRate = $this->getPrice($data->rate_id);
+	
     echo CHtml::openTag('li', array(
        'class' => 'transport-list ' . $color,
     ));
 
-	$now  = new DateTime('now');
-    $date = new DateTime($data->date_to);
-	$diff = date_diff($now, $date);
-	
-	$minutes = $this->addFormat($diff->format('%i'));
-	$seconds = $this->addFormat($diff->format('%s'));
-	$final1  = $diff->format('%y-%m-%d %H:'.$minutes.':'.$seconds);
-	$final   = $diff->format('%y год(а) %m месяц(ев) %d дней %H:'.$minutes.':'.$seconds);
-	
-	echo '<h3> Перевозка "' . $data->location_from . '-' . $data->location_to . '"</h3>';
-	
+	$now = date('Y m d H:i:s', strtotime('now'));
+	$end = date('Y m d H:i:s', strtotime($data->date_to));
+		
+	echo CHtml::link('<h3> Перевозка "' . $data->location_from . '-' . $data->location_to . '"</h3>', array('/user/transport/description/', 'id'=>$data->id));
 	echo '<div>', 
             '<div>',
-                'Осталось: ', $final, ' = ', strtotime($final1), 
-			'</div>',
+                'До закрытия: ', '<span id="counter-' . $data->id. '">', '</span>', 
+            '</div>',
          '</div>'
     ;
+	if(!Yii::app()->user->isGuest){
+		echo '<div>', 
+				'<div>',
+					'Текущая ставка: ',  (!empty($lastRate))? $lastRate : $data->start_rate,
+				'</div>',
+			 '</div>'
+		;
+	}
+	
     echo CHtml::closeTag('li');  
-    
+?>
+<script>
+	var myClassObject = new Timer();
+    myClassObject.init(<?php echo '"' . $now . '"' ?>, <?php echo '"' . $end . '"' ?>, 'counter-' + <?php echo $data->id ?>);
+</script>

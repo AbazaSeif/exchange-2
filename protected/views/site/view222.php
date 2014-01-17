@@ -1,9 +1,10 @@
+<h1>Все Перевозки</h1>
+
 <?php
     $this->widget('zii.widgets.CListView', array(
         'dataProvider' => $data,
-		//'rates'        => $rates,
         'itemView'     => '_view',
-        'ajaxUpdate'   => false,
+        'ajaxUpdate'   => false, 
         'emptyText'    => 'Нет перевозок',
         'itemsTagName' => 'ul',
         'summaryText'  => 'Показано {start}&mdash;{end} из {count}',

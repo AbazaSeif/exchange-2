@@ -18,8 +18,8 @@
         <link rel="stylesheet" type="text/css" href="/css/front/frontend.css" />
 
         <?php
-        Yii::app()->clientScript->registerCoreScript('jquery');
-        Yii::app()->clientScript->registerScriptFile('/js/front/timer.js');
+			Yii::app()->clientScript->registerCoreScript('jquery');
+			Yii::app()->clientScript->registerScriptFile('/js/front/timer.js');
         ?>
     </head>
     <body>
