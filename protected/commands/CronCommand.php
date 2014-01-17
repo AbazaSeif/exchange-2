@@ -6,25 +6,29 @@ class CronCommand extends CConsoleCommand
 		$this->deadlineTransport();
 		$this->beforeDeadlineTransport();
 		$this->newTransport();
-		$this->wrongDate();
+		//$this->wrongDate(); // !!!
 	}
     
 	public function wrongDate()
 	{
-		$timeNow = strtotime("now");
+		//$timeNow = strtotime("now");
 		$transports = Yii::app()->db->createCommand()
 			->select('id')
 			->from('transport')
-			->where('date_to like :time', array(':time' => $timeNow . '%'))
+			->where('date_to < CURDATE()')) //, array(':time' => $timeNow . '%'))
 			->queryAll()
 		;
-	    $time = date("Y-m-d H:i");
+	    // $time = date("Y-m-d H:i");
+		
+		foreach($transports as $transport){
+		    Transport::model()->updateByPk($transport['id'], array('status'=>0));
+		}
 	}
 	
     // Search for transport with deadline	
 	public function deadlineTransport()
 	{
-	    $timeNow = date("Y-m-d H:i");
+	    $timeNow = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['hoursBefore'] . " hours"));
 		$transportIds = '';
 
 		$transports = Yii::app()->db->createCommand()
@@ -32,7 +36,9 @@ class CronCommand extends CConsoleCommand
 			->from('transport')
 			->where('date_to like :time', array(':time' => $timeNow . '%'))
 			->queryAll()
+
 		;
+		
 		$count = count($transports);
 		
 		if($count){
@@ -72,7 +78,7 @@ class CronCommand extends CConsoleCommand
 	// Search for transport before deadline	
 	public function beforeDeadlineTransport()
 	{
-		$time = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['interval'] . " minutes"));
+		$time = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['hoursBefore'] . " hours " . Yii::app()->params['minNotify'] . " minutes"));
 		
 		$transports = Yii::app()->db->createCommand()
 			->select('id')
@@ -326,7 +332,7 @@ class CronCommand extends CConsoleCommand
 		    $message .= "<p>��������� � ������� " . $transportId . " �������.</p>";
 			$subject = '����������� � ���������� ���������';
 		} else if($mailType == 'mail_before_deadline'){
-		    $message .= "<p>��������� � ������� " . $transportId . " ����� ������� ����� " . Yii::app()->params['interval'] . " �����.</p>";
+		    $message .= "<p>��������� � ������� " . $transportId . " ����� ������� ����� " . Yii::app()->params['minNotify'] . " �����.</p>";
 		    $subject = '����������� � ������ ���������� ���������';
 		} else {
 		    $message .= "<p>���� ����������� �� ��������� � ������� " . $transportId . " ���� ��������.</p>";
