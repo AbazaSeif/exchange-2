@@ -107,8 +107,10 @@ return array(
                         'Пользователи'=>'/admin/user/',
                         'Группы пользователей'=>'/admin/user/group/',
                         'Роли'=>'/admin/user/role/',
-                        'Операции'=>'/admin/user/operation/'
+                        'Операции'=>'/admin/user/operation/',
                     ),
+					'Транспорт'=>'/admin/transport/',
+					'Ставки'=>'/admin/rate/',
                  ),
             ),
 );

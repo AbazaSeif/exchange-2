@@ -76,7 +76,6 @@ class UserController extends Controller
         }
         public function actionEditUser($id)
         {
-            
             $model = User::model()->findByPk($id);
             $params = array('group'=>$model->group_id, 'userid'=>$id);
             if(Yii::app()->user->checkAccess('editUser', $params))

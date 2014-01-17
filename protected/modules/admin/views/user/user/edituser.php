@@ -19,9 +19,9 @@
 ?>
 <div class="form">
 <div class="header-form">
-    <? echo $header_form; ?>
+    <?php echo $header_form; ?>
 </div>
-<? $form = $this->beginWidget('CActiveForm', array('id'=>'form'.$model->id,
+<?php $form = $this->beginWidget('CActiveForm', array('id'=>'form'.$model->id,
     'action'=>$action,
     'enableClientValidation'=>true,
     'clientOptions'=>array(
