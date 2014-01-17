@@ -98,4 +98,21 @@ class UserGroup extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
+         //  Метод возвращает массив всех доступных групп пользователей для данного пользователя
+        //  $only_id - если false, вернет массив вида ID=>имя, если true - вернет массив только из ID
+        static public function getUserGroupArray($only_id = false){
+                $groups = UserGroup::model()->findAll('level>='.Yii::app()->user->_level);
+                $groupsArray = array();
+                $groups_id = array();
+                foreach( $groups as $group ){
+                    $groupsArray[$group->id] = $group->name;
+                    array_push($groups_id, $group->id);
+                }
+                if ($only_id){
+                    return $groups_id;
+                }else{
+                    return $groupsArray;
+                }
+        }
 }

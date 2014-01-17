@@ -44,8 +44,8 @@ header, .wrapper, footer
 .w-left:before {
     top:10px;
     bottom:10px;
+    left:0;
     right:0;
-    left:50%;
     -webkit-box-shadow:0 0 8px rgba(0,0,0,0.6);
        -moz-box-shadow:0 0 8px rgba(0,0,0,0.6);
             box-shadow:0 0 8px rgba(0,0,0,0.6);
@@ -66,7 +66,6 @@ header, .wrapper, footer
 }
 #login-form
 {
-    border-left: 1px dashed rgb(200,200,200);
     padding: 10px 20px 0;
 }
 #login-form .row
@@ -176,13 +175,13 @@ header, .wrapper, footer
     float: left;
     display: block;
     width: 100%;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-size: 14px;
     padding: 4px 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    text-align: center;
+    text-align: left;
 }
 .user-menu
 {
@@ -200,12 +199,20 @@ header, .wrapper, footer
     color: rgb(0, 145, 124);
     text-decoration: none;
     font-size: 14px;
-    padding: 3px 0;
+    padding: 3px 0px 3px 7px;
     border-top: 1px dashed rgb(0, 145, 124);
 }
 .user-menu li:first-child a
 {
     border-top: 0;
+}
+.user-menu li a:hover
+{
+    background: #f7f7f7;
+}
+.user-menu li a.active
+{
+    background: #eeeeee;
 }
 .user-menu li .user-submenu
 {
@@ -220,8 +227,14 @@ header, .wrapper, footer
 {
     padding: 20px 0 20px 20px;
 }
-
-
+.footer
+{
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    text-align: center;
+    width: 100%;
+}
 header:after, .wrapper:after, footer:after, 
 #login-form:after, .user-info:after
 {
