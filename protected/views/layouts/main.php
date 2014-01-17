@@ -31,15 +31,13 @@
                     </a>
                 </div>
                 <?php $this->widget('ext.userMenu.UserMenu'); ?>
+                <div class="footer">
+                    <p>2014 &copy; ООО "ЛБР-Агромаркет"</p>
+                </div>
             </div>
             <div class="w-right">
                 <?php echo $content; ?>
             </div>
         </div>
-<!--        <footer>
-            <div>
-                <img src="/images/logo-foot.gif" alt="Лого подвал ЛБР-Агромаркет" title="Логотип ЛБР-Агромаркет" />
-            </div>
-        </footer>-->
     </body>
 </html>

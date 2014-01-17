@@ -3,7 +3,7 @@ if(!Yii::app()->user->isGuest){
     $user = User::model()->findByPk(Yii::app()->user->_id);
 ?>
     <div class='user-info'>
-        <?php echo '<span class="user-name"> '.$user->name.' '.$user->surname.'</span>'; ?>
+        <?php echo '<span class="user-name"> Добро пожаловать, '.$user->surname.'!</span>'; ?>
     </div>
     <ul class="user-menu">
         <li><a href="/site/event/" id="menu-events">События</a></li>

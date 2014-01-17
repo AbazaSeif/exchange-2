@@ -30,6 +30,7 @@ return array(
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
                 'user',
+                'admin',
 	),
         'preload'=>array('log'),
 	// application components
@@ -44,7 +45,7 @@ return array(
 			'urlFormat'=>'path',
                         'showScriptName'=>false,
 			'rules'=>array(
-                                '<_m:user>/<_a:(login|logout)>' => 'user/default/<_a>',
+                                '<_m:user>/<_a:\w+>' => 'user/default/<_a>',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
@@ -100,6 +101,14 @@ return array(
 		'adminEmail'=>'krilova@lbr.ru',
                 'interval'=>30,
                 'meta_title'=>'Биржа перевозок',
-                'meta_description'=>'перевозки, биржа перевозок, биржа ЛБР'
+                'meta_description'=>'перевозки, биржа перевозок, биржа ЛБР',
+                'menu_admin'=>array(
+                    'Пользователи'=>array(
+                        'Пользователи'=>'/admin/user/',
+                        'Группы пользователей'=>'/admin/user/group/',
+                        'Роли'=>'/admin/user/role/',
+                        'Операции'=>'/admin/user/operation/'
+                    ),
+                 ),
             ),
 );
