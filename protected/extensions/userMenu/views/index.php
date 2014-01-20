@@ -6,7 +6,7 @@ if(!Yii::app()->user->isGuest){
         <?php echo '<span class="user-name"> Добро пожаловать, '.$user->surname.'!</span>'; ?>
     </div>
     <ul class="user-menu">
-        <li><a href="/user/event/" id="menu-events">События</a></li>
+        <li><a href="/user/event/" id="menu-events">События <span id="event-counter"></span></a></li>
         <li><a href="/user/transport/index/">Все перевозки</a>
             <ul class="user-submenu">
                 <li><a href="/user/transport/active/">Активные</a></li>
@@ -46,3 +46,17 @@ if(!Yii::app()->user->isGuest){
 <?php $this->endWidget();    
 }
 ?>
+<script>
+$(document).ready(function(){
+updateCounter();
+setInterval(function(){updateCounter()}, 5000);
+});
+
+function updateCounter(){    
+    $.ajax({
+		url: '/user/updateEventCounter',
+		success: function(data){
+			$('#event-counter').html(data);
+	}});
+}
+</script>

@@ -29,20 +29,20 @@ $(function() {
 <?php
     $header_form = 'Редактирование перевозки "'.$model->location_from.' &mdash; '.$model->location_to . '"';
     $submit_text = 'Сохранить';
-	$delete_button = CHtml::link('Удалить пользователя', '/admin/transport/deletetransport/id/'.$model->id, array('id'=>'del_'.$model->id,'class'=>'btn del', 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
+	$delete_button = CHtml::link('Удалить перевозку', '/admin/transport/deletetransport/id/'.$model->id, array('id'=>'del_'.$model->id,'class'=>'btn del', 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
     
 	$action = '/admin/transport/edittransport/id/'.$model->id;
 	$group = array(
 	    0=>'Международная',
 	    1=>'Локальная',
 	);
-	/*if ($model->isNewRecord){
+	if ($model->isNewRecord){
         $submit_text = 'Создать';
         $name = 'new';
         $header_form = 'Создание новой перевозки';
         $action = '/admin/transport/createtransport/';
         unset($delete_button);
-    }*/
+    }
 ?>
 <div class="form">
 <div class="header-form">
@@ -106,10 +106,10 @@ $(function() {
 <div class="field">
 <?php  echo $form->error($model, 'date_to'); 
 	echo $form->labelEx($model, 'date_to');
-    echo CHtml::textField('date_to', date("Y-m-d H:i", strtotime($model->date_to))) ?>    
+    echo CHtml::textField('date_to', date("Y-m-d H:i", strtotime($model->date_to)), array('name'=>111)) ?>    
 </div>
 <div class="field">
-<?  echo $form->error($model, 'type');
+<?php echo $form->error($model, 'type');
     echo $form->labelEx($model, 'type');
     echo $form->dropDownList($model, 'type', $group); ?>
 </div>

@@ -9,11 +9,14 @@
 	<div>Дата прибытия: <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_to'])) ?></div> 
 	<div>Описание: <?php echo $transportInfo['description'] ?></div> 
 	<?php if(!Yii::app()->user->isGuest): ?>
-	<div>Текущая ставка: <?php echo ($lastRate) ? $lastRate : $transportInfo['start_rate'] ?></div> 
+	<div>Текущая ставка: <span id="last-rate"><?php echo ($lastRate) ? $lastRate : $transportInfo['start_rate'] ?></span></div> 
     <?php endif;?>
 </div>
-
+<div id="data">
+<?php //$this->renderPartial('ajaxList', array('data'=>$data)); ?>
+</div>
 <?php
+//echo CHtml::ajaxButton('update', '/user/transport/updateRates', array('update' => '#data'));
 if(!Yii::app()->user->isGuest){
     echo '<div id="chat"></div>';
 	$this->widget('YiiChatWidget',array(
@@ -30,3 +33,27 @@ if(!Yii::app()->user->isGuest){
 			"function(errorcode, info){  }"),
 	));
 }
+?>
+<script>
+$(document).ready(function(){
+setInterval(function(){
+updateCounter();
+<?php //echo CHtml::ajax(array('url'=>'/user/transport/updateRates', 'update' => '#data', 'type'=>'post')); ?>
+}, 5000);
+});
+
+function updateCounter(){
+    $.ajax({
+		type: 'POST',
+		url: '/user/transport/updateRatesPrice',
+		dataType: 'json',
+		data:{
+		    id: <?php echo $transportInfo['id']; ?>
+		},
+		success: function(data){
+		    //var json = $.parseJSON(data);
+			$('#last-rate').html(data);
+			//$('#last-rate').html(data.price);
+	}});
+}
+</script>

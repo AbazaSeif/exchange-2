@@ -7,8 +7,8 @@
     ));
 
 	$now = date('Y m d H:i:s', strtotime('now'));
-	$end = date('Y m d H:i:s', strtotime($data->date_to));
-		
+	$end = date('Y m d H:i:s', strtotime($data->date_to . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
+
 	echo CHtml::link('<h3> Перевозка "' . $data->location_from . '-' . $data->location_to . '"</h3>', array('/user/transport/description/', 'id'=>$data->id));
 	
 	if(!Yii::app()->user->isGuest) {

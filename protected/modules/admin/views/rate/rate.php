@@ -1,9 +1,9 @@
-<h1>Перевозки</h1>
+<h1>Ставки</h1>
 <div class="total">
     <div class="left">
     <div class="create-button">
      <?php
-     echo CHtml::ajaxLink('Создать', '/admin/transport/createtransport/', array('update'=>'.right'), array('class'=>'btn-green btn'));
+     echo CHtml::ajaxLink('Создать', '/admin/rate/createrate/', array('update'=>'.right'), array('class'=>'btn-green btn'));
      ?>   
     </div>
     <?php
@@ -11,7 +11,7 @@
         'dataProvider'=>$data,
         'itemView'=>'_item', // представление для одной записи
         'ajaxUpdate'=>false, // отключаем ajax поведение
-        'emptyText'=>'Нет перевозок',
+        'emptyText'=>'Нет ставок',
         'template'=>'{sorter} {items} {pager}',
         'sorterHeader'=>'',
         'itemsTagName'=>'ul',

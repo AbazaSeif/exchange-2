@@ -98,19 +98,19 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'krilova@lbr.ru',
-                'interval'=>30,
-                'meta_title'=>'Биржа перевозок',
-                'meta_description'=>'перевозки, биржа перевозок, биржа ЛБР',
-                'menu_admin'=>array(
-                    'Пользователи'=>array(
-                        'Пользователи'=>'/admin/user/',
-                        'Группы пользователей'=>'/admin/user/group/',
-                        'Роли'=>'/admin/user/role/',
-                        'Операции'=>'/admin/user/operation/',
-                    ),
-					'Транспорт'=>'/admin/transport/',
-					'Ставки'=>'/admin/rate/',
-                 ),
-            ),
+		'meta_title'=>'Биржа перевозок',
+		'meta_description'=>'перевозки, биржа перевозок, биржа ЛБР',
+		'menu_admin'=>array(
+			'Пользователи'=>array(
+				'Пользователи'=>'/admin/user/',
+				'Группы пользователей'=>'/admin/user/group/',
+				'Роли'=>'/admin/user/role/',
+				'Операции'=>'/admin/user/operation/',
+			),
+			'Транспорт'=>'/admin/transport/',
+			'Ставки'=>'/admin/rate/',
+		 ),
+		 'adminEmail'=>'krilova@lbr.ru',
+		 'hoursBefore' => 24,
+	),
 );
