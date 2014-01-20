@@ -32,10 +32,6 @@
         </div>
     </div>
     <div class="width-15"> 
-        <div class="t-timer" id="counter-<?php echo $data->id; ?>"></div>
+        <div class="t-timer" id="counter-<?php echo $data->id; ?>"  now="<?php echo $now ?>" end="<?php echo $end ?>"></div>
     </div>
-    <script>
-        var myClassObject = new Timer();
-        myClassObject.init(<?php echo '"' . $now . '"' ?>, <?php echo '"' . $end . '"' ?>, 'counter-' + <?php echo $data->id ?>);
-    </script>
 </div>

@@ -187,6 +187,28 @@ class TransportController extends Controller
 		$this->render('view', array('data' => $dataProvider, 'title'=>'Архивные перевозки'));
 	}
 	
+	/* Ajax update rate for current transport */
+	public function actionUpdateRatesPrice()
+	{
+		$sql = 'select price from rate where transport_id = '.$_POST['id'].' group by transport_id order by date desc limit 1';
+		$data = Yii::app()->db->createCommand($sql)->queryScalar();
+		//$array = array('price'=>$data, 'all'=>222);
+		echo $data;//json_encode($data);
+	}
+	
+	public function actionUpdateRates()
+	{
+	    $temp = Yii::app()->db->createCommand()
+			->select()
+			->from('rate')
+			->where('transport_id = :id', array(':id' => $_POST['id']))
+			->group('transport_id')
+			->order('date desc')
+			->queryAll()
+		;
+		//$this->renderPartial('ajaxList', $data, false, true);
+	}
+	
 	public function addFormat($date)
 	{
 	    if((int)$date < 10) $date = '0' . $date;

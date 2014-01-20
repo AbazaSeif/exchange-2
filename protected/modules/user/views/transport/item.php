@@ -14,7 +14,7 @@ if (!empty($transportInfo['rate_id']))
         <span>Дата прибытия: <?php echo date('d.m.Y', strtotime($transportInfo['date_to'])) ?></span> 
         <span>Описание: <?php echo $transportInfo['description'] ?></div> 
     <?php if (!Yii::app()->user->isGuest): ?>
-        <div>Текущая ставка: <?php echo ($lastRate) ? $lastRate : $transportInfo['start_rate'] ?></div> 
+        <div>Текущая ставка: <span id="last-rate"><?php echo ($lastRate) ? $lastRate : $transportInfo['start_rate'] ?></span></div> 
 <?php endif; ?>
 </div>
 
@@ -39,3 +39,26 @@ if (!Yii::app()->user->isGuest) {
 }
 ?>
 </div>
+<script>
+$(document).ready(function(){
+setInterval(function(){
+updateCounter();
+<?php //echo CHtml::ajax(array('url'=>'/user/transport/updateRates', 'update' => '#data', 'type'=>'post')); ?>
+}, 5000);
+});
+
+function updateCounter(){
+    $.ajax({
+		type: 'POST',
+		url: '/user/transport/updateRatesPrice',
+		dataType: 'json',
+		data:{
+		    id: <?php echo $transportInfo['id']; ?>
+		},
+		success: function(data){
+		    //var json = $.parseJSON(data);
+			$('#last-rate').html(data);
+			//$('#last-rate').html(data.price);
+	}});
+}
+</script>

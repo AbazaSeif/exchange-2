@@ -31,6 +31,12 @@ if($data->pagination->pageCount!=0) {
         width: <?php echo 100/($c>14?14:$c); ?>%;
     }
     </style>
-<?php }
+<?php }?>
+<script>
+    $('.t-timer').each(function(){
+	    var myClassObject = new Timer();
+        myClassObject.init($(this).attr('now'), $(this).attr('end'), $(this).attr('id'));
+	});
+</script>
 
 
