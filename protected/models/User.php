@@ -70,13 +70,13 @@ class User extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'login' => 'Login',
-			'password' => 'Password',
-			'name' => 'Name',
-			'surname' => 'Surname',
-			'email' => 'Email',
-			'group_id' => 'Group',
-			'type' => 'Type',
+			'login' => 'Логин',
+			'password' => 'Пароль',
+			'name' => 'Имя',
+			'surname' => 'Фамилия',
+			'email' => 'e-mail',
+			'group_id' => 'Группа',
+			'type' => 'Тип',
 		);
 	}
 

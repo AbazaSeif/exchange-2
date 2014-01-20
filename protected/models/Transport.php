@@ -27,7 +27,9 @@
  */
 class Transport extends CActiveRecord
 {
-	/**
+        CONST INTER_TRANSPORT = 0;
+        CONST RUS_TRANSPORT = 1;
+    /**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
@@ -74,18 +76,18 @@ class Transport extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'id_1c' => 'Id 1c',
-			'rate_id' => 'Rate',
-			'start_rate' => 'Start Rate',
-			'status' => 'Status',
-			'type' => 'Type',
-			'user_id' => 'User',
-			'location_from' => 'Location From',
-			'location_to' => 'Location To',
-			'auto_info' => 'Auto Info',
-			'description' => 'Description',
-			'date_from' => 'Date From',
-			'date_to' => 'Date To',
-			'date_published' => 'Date Published',
+			'rate_id' => 'ID Ставки',
+			'start_rate' => 'Стартовая ставка',
+			'status' => 'Статус',
+			'type' => 'Тип',
+			'user_id' => 'ID пользователя',
+			'location_from' => 'Место загрузки',
+			'location_to' => 'Место разгрузки',
+			'auto_info' => 'Информация об автомобиле',
+			'description' => 'Описание',
+			'date_from' => 'Дата загрузки',
+			'date_to' => 'Дата разгрузки',
+			'date_published' => 'Дата публикации',
 		);
 	}
 

@@ -7,34 +7,38 @@ class TransportController extends Controller
 		$lastRates = array();	
 		$criteria = new CDbCriteria();
 		$dataProvider = new CActiveDataProvider('Transport',
-			array(
-				'criteria' => $criteria,
-				'pagination'=>array(
-				   'pageSize' => 2,
-				   'pageVar' => 'page',
-				),
-				
-				'sort'=>array(
-					'attributes'=>array(
-						'status'=>array(
-							'asc'=>'status ASC',
-							'desc'=>'status DESC',
-							'default'=>'desc',
-						),
-						'date_published'=>array(
-							'asc'=>'date_published ASC',
-							'desc'=>'date_published DESC',
-							'default'=>'desc',
-						)
-					),
-					'defaultOrder'=>array(
-						'date_published' => CSort::SORT_DESC,
-					),                        
-				),
-			)
+                    array(
+                        'criteria' => $criteria,
+                        'pagination'=>array(
+                           'pageSize' => 2,
+                           'pageVar' => 'page',
+                        ),
+                        'sort'=>array(
+                                'attributes'=>array(
+                                        'date_from'=>array(
+                                                'asc'=>'status ASC',
+                                                'desc'=>'status DESC',
+                                                'default'=>'desc',
+                                        ),
+                                        'date_to'=>array(
+                                                'asc'=>'status ASC',
+                                                'desc'=>'status DESC',
+                                                'default'=>'desc',
+                                        ),
+                                        'date_published'=>array(
+                                                'asc'=>'date_published ASC',
+                                                'desc'=>'date_published DESC',
+                                                'default'=>'desc',
+                                        )
+                                ),
+                                'defaultOrder'=>array(
+                                        'date_published' => CSort::SORT_DESC,
+                                ),                        
+                        ),
+                    )
 		);
 		
-		$this->render('view', array('data' => $dataProvider));
+		$this->render('view', array('data' => $dataProvider, 'title'=>'Все перевозки'));
 	}
 	
 	/* Show information about selected transport */
@@ -51,7 +55,7 @@ class TransportController extends Controller
 			->queryAll()
 		;
 		
-		$this->render('chat', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
+		$this->render('item', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
 	}
 	
 	/* Show all transports where user takes part */
@@ -82,11 +86,21 @@ class TransportController extends Controller
 				),
 				'sort' => array(
 					'attributes'=>array(
-						'date_published'=>array(
-							'asc'=>'date_published ASC',
-							'desc'=>'date_published DESC',
-							'default'=>'desc',
-						)
+						'date_from'=>array(
+                                                'asc'=>'status ASC',
+                                                'desc'=>'status DESC',
+                                                'default'=>'desc',
+                                                ),
+                                                'date_to'=>array(
+                                                        'asc'=>'status ASC',
+                                                        'desc'=>'status DESC',
+                                                        'default'=>'desc',
+                                                ),
+                                                'date_published'=>array(
+                                                        'asc'=>'date_published ASC',
+                                                        'desc'=>'date_published DESC',
+                                                        'default'=>'desc',
+                                                )
 					),
 					'defaultOrder'=>array(
 						'date_published' => CSort::SORT_DESC,
@@ -95,7 +109,7 @@ class TransportController extends Controller
 			)
 		);
 			
-		$this->render('view', array('data' => $dataProvider));
+		$this->render('view', array('data' => $dataProvider, 'title'=>'Активные перевозки'));
 	}
 	
 	/* 
@@ -147,11 +161,21 @@ class TransportController extends Controller
 
 				'sort' => array(
 					'attributes'=>array(
-						'date_published'=>array(
-							'asc'=>'date_published ASC',
-							'desc'=>'date_published DESC',
-							'default'=>'desc',
-						)
+						'date_from'=>array(
+                                                'asc'=>'status ASC',
+                                                'desc'=>'status DESC',
+                                                'default'=>'desc',
+                                                ),
+                                                'date_to'=>array(
+                                                        'asc'=>'status ASC',
+                                                        'desc'=>'status DESC',
+                                                        'default'=>'desc',
+                                                ),
+                                                'date_published'=>array(
+                                                        'asc'=>'date_published ASC',
+                                                        'desc'=>'date_published DESC',
+                                                        'default'=>'desc',
+                                                )
 					),
 					'defaultOrder'=>array(
 						'date_published' => CSort::SORT_DESC,
@@ -160,7 +184,7 @@ class TransportController extends Controller
 			)
 		);
 			
-		$this->render('view', array('data' => $dataProvider));
+		$this->render('view', array('data' => $dataProvider, 'title'=>'Архивные перевозки'));
 	}
 	
 	public function addFormat($date)

@@ -53,7 +53,7 @@ class DefaultController extends Controller
 	public function actionSaveOption()
 	{
 		$allModelFields = array('mail_transport_create_1', 'mail_transport_create_2', 'mail_kill_rate', 'mail_deadline', 'mail_before_deadline', 'site_transport_create_1', 'site_transport_create_2', 'site_kill_rate', 'site_deadline', 'site_before_deadline');
-	    $data = $_POST;
+                $data = $_POST;
 		$modelFields = array();
 		foreach($allModelFields as $field){
 		    if(!array_key_exists($field, $data)) {
