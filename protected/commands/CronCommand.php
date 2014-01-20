@@ -15,7 +15,7 @@ class CronCommand extends CConsoleCommand
 		$transports = Yii::app()->db->createCommand()
 			->select('id')
 			->from('transport')
-			->where('date_to < CURDATE()')) //, array(':time' => $timeNow . '%'))
+			->where('date_to < CURDATE()') //, array(':time' => $timeNow . '%'))
 			->queryAll()
 		;
 	    // $time = date("Y-m-d H:i");

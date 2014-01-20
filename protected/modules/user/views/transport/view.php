@@ -1,24 +1,36 @@
+<h1>
+    <?php echo $title ?>
+</h1>
 <?php
     $this->widget('zii.widgets.CListView', array(
         'dataProvider' => $data,
+        'cssFile' => false,
         'itemView'     => '_view',
         'ajaxUpdate'   => false,
         'emptyText'    => 'Нет перевозок',
-        'itemsTagName' => 'ul',
-        'summaryText'  => 'Показано {start}&mdash;{end} из {count}',
-        'template'     => '<div class="mainPagerContainer"><div class="sorting">{summary}{sorter}</div></div>{items}{pager}',
-        'sortableAttributes'=>array(
-            'status' => 'По статусу',
-            'date_published' => 'По дате публикации'
-        ),
+        'itemsTagName' => 'div',
+        'template'     => '{sorter}{items}{pager}',
+        'htmlOptions' => array('class'=>'transports'),
+        'sortableAttributes'=>array('date_published','date_to', 'date_from'),
+        'sorterHeader'=>'',
         'pager'        => array(
-            'class'  => 'LinkPager',
             'header' => false,
             'firstPageLabel' => 'В начало',
             'prevPageLabel'  => 'Назад',
             'nextPageLabel'  => 'Вперёд',
             'lastPageLabel'  => 'В конец',
+            'cssFile' => false
         )
     )); 
+
+if($data->pagination->pageCount!=0) { 
+    $c = ($data->pagination->pageCount+4);
+    ?>
+    <style>
+    #search-index .pager ul.yiiPager li{
+        width: <?php echo 100/($c>14?14:$c); ?>%;
+    }
+    </style>
+<?php }
 
 

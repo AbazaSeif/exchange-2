@@ -62,8 +62,14 @@ header, .wrapper, footer
 .logo
 {
     text-align: center;
-    margin: 25px 0;
+    margin: 25px 0px 10px;
 }
+.w-right h1
+{
+    margin-top: 0;
+    color: #444444;
+}
+/*----------Начало ФОРМА ВХОДА-------*/
 #login-form
 {
     padding: 10px 20px 0;
@@ -151,6 +157,7 @@ header, .wrapper, footer
     top: 15px;
     left: 105%;
     padding: 2% 5%;
+    z-index: 10;
 }
 #login-form .row.error .errorMessage:after
 {
@@ -166,6 +173,8 @@ header, .wrapper, footer
     border-right: 7px solid #FF4040;
     border-bottom: 7px solid transparent;
 }
+/*----------Конец ФОРМА ВХОДА-------*/
+
 .user-info
 {
     margin: 0 20px 10px;
@@ -227,6 +236,177 @@ header, .wrapper, footer
 {
     padding: 20px 0 20px 20px;
 }
+
+/*--------Перевозки----------------*/
+.transports
+{
+    
+}
+.transports .sorter
+{
+    
+}
+.transports .sorter ul
+{
+    list-style: none;
+    border-bottom: 1px dashed rgb(200,200,200);
+}
+.transports .sorter ul li
+{
+    float: left;
+}
+.transports .sorter ul li a
+{
+    color: #777;
+    text-decoration: none;
+    text-shadow: 0 1px 0 white;
+    font-weight: bold;
+    display: block;
+    padding: 4px 12px;
+    position: relative;
+}
+.transports .sorter ul li a.asc
+{
+    color: rgb(239, 128, 27);
+}
+.transports .sorter ul li a.desc
+{
+    color: rgb(239, 128, 27);
+}
+.transports .sorter ul li a.asc:after,
+.transports .sorter ul li a.desc:after
+{
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    width: 0px;
+    height: 0px;
+}
+.transports .sorter ul li a.asc:after
+{
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 6px solid rgb(239, 128, 27);
+}
+.transports .sorter ul li a.desc:after
+{
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 6px solid rgb(239, 128, 27);
+}
+.transports .items
+{
+    
+}
+.transports .items .transport
+{
+    border-bottom: 1px dashed rgb(200,200,200);
+    padding: 5px 10px;
+    position: relative;
+    height: 45px;
+}
+.transports .items .transport > div
+{
+    position: relative;
+}
+.transports .items .transport .t-header
+{
+    display: block;
+    font-size: 18px;
+    color: rgb(0, 145, 124);
+    text-decoration: none;
+    margin: 1px 0 6px;
+}
+.transports .items .transport .t-date
+{
+    
+}
+.transports .items .transport .t-date .t-d-type,
+.transports .items .transport .t-date .t-d-published,
+.transports .items .transport .t-date .t-d-form-to
+{
+    color: #666;
+}
+.transports .items .transport .t-date .t-d-published,
+.transports .items .transport .t-date .t-d-form-to
+{
+    margin-left: 10px;
+}
+
+.transports .items .transport .t-timer
+{
+    text-align: center;
+    font-size: 14px;
+}
+.transports .items .transport .t-timer .t-year,
+.transports .items .transport .t-timer .t-month,
+.transports .items .transport .t-timer .t-days
+{
+    font-size: 11px;
+}
+.transports .items .transport .t-timer .t-year strong,
+.transports .items .transport .t-timer .t-month strong,
+.transports .items .transport .t-timer .t-days strong
+{
+    font-size: 13px;
+}
+.transports .items .transport .t-timer .t-time
+{
+    font-size: 23px;
+}
+.transports .items .transport .t-timer .t-closed
+{
+    display: block;
+    padding-top: 4px;
+}
+.transports .items .transport .t-rate
+{
+    text-align: center;
+    font-size: 23px;
+    color: rgb(239, 128, 27);
+    padding-top: 9px;
+    width: 100%;
+    height: 100%;
+}
+.transports.pager
+{
+    
+}
+/*--------Конец-Перевозки----------*/
+
+/*--------Одна-перевозка-----------*/
+.transport-one
+{
+    
+}
+.transport-one h1
+{
+    margin: 0;
+    padding: 0;
+}
+.transport-one .t-o-published
+{
+    color: #CCC;
+    padding-left: 10px;
+    display: block;
+    margin-bottom: 15px;
+}
+.transport-one .t-o-info
+{
+    
+}
+.transport-one .t-o-info label
+{
+    font-size: 16px;
+    font-weight: bold;
+}
+.transport-one .t-o-info span
+{
+    display: block;
+    padding: 5px 0 1px 15px;
+}
+/*--------Конец-Одна-перевозка-----*/
 .footer
 {
     position: absolute;
@@ -235,10 +415,58 @@ header, .wrapper, footer
     text-align: center;
     width: 100%;
 }
-header:after, .wrapper:after, footer:after, 
-#login-form:after, .user-info:after
+
+.width-15, .width-30, .width-50, .width-60, .width-70  
+{
+    float: left;
+}
+.width-15{width: 15%;}
+.width-30{width: 30%;}
+.width-50{width: 50%;}
+.width-60{width: 60%;}
+.width-70{width: 70%;}
+
+header:after, .wrapper:after, footer:after, #login-form:after,
+.user-info:after, .transports .sorter ul:after, .transports .items .transport:after
 {
     content: '';
     display: block;
     clear: both;
+}
+
+
+.pager{
+    margin: 0;
+    background: rgb(238, 238, 238);
+}
+.pager ul.yiiPager{
+    list-style: none;
+}
+.pager ul.yiiPager li{
+    float: left;
+    line-height: 24px;
+}
+.pager ul.yiiPager li.page{
+    display: block;
+    float: left;
+    text-align: center;
+    border-bottom: 2px solid white;
+}
+.pager ul.yiiPager li.page.selected{
+    border-bottom: 2px solid rgb(239, 128, 27);
+}
+.pager ul.yiiPager li a{
+    border: 0;
+    margin: 0;
+    padding: 0 10px;
+    background: none;
+    color: rgb(0, 145, 124);
+    display: block;
+    text-decoration: none;
+}
+.pager ul.yiiPager li.hidden a{
+    color: #777;
+}
+.pager ul.yiiPager li.selected a{
+    color: rgb(239, 128, 27);
 }
