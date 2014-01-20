@@ -3,7 +3,7 @@
  * 
  *  Конструктор для ajax загрузки контента в определенный контейнер.
  */
-function AjaxContentLoader() {
+function AjaxContentLoader(){
     
     var _self = this;
    

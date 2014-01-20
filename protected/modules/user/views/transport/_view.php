@@ -2,7 +2,8 @@
     $color = $data->status ? 'open' : 'close';
     $lastRate = $this->getPrice($data->rate_id);
     $now = date('Y m d H:i:s', strtotime('now'));
-    $end = date('Y m d H:i:s', strtotime($data->date_to));
+    $end = date('Y m d H:i:s', strtotime($data->date_to . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
+
     $_rate = '****';
     if(!Yii::app()->user->isGuest){
         $_rate = (!empty($lastRate))? $lastRate : $data->start_rate;

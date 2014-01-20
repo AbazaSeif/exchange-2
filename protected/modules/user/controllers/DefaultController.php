@@ -40,7 +40,16 @@ class DefaultController extends Controller
 	/* Show user options */
 	public function actionOption()
 	{
-	    $userId = Yii::app()->user->_id;
+	    /*$model = Yii::app()->db->createCommand()
+		    ->select()
+			->from('user_field')
+			->where('user_id = :id', array(':id' => Yii::app()->user->_id))
+			->queryRow()
+		;
+		
+	    $this->render('option', array('model' => $model));
+		*/
+		$userId = Yii::app()->user->_id;
 	    $elementExitsts = UserField::model()->find(array('condition'=>'user_id = :id', 'params'=>array(':id' => $userId)));
 	    if($elementExitsts) {
 			$model = Yii::app()->db->createCommand()
@@ -51,6 +60,7 @@ class DefaultController extends Controller
 			;
 		} else { // !!!! перенести в контроллер User
 		    $model = new UserField;
+			$model->user_id = Yii::app()->user->_id;
 		    $data = array('mail_deadline' => true, 'site_transport_create_1' => true, 'site_transport_create_2' => true, 'site_kill_rate' => true, 'site_deadline' => true, 'site_before_deadline' => true);
 			$model->attributes = $data;
 			$model->save(); 
@@ -62,7 +72,8 @@ class DefaultController extends Controller
 	public function actionSaveOption()
 	{
 		$allModelFields = array('mail_transport_create_1', 'mail_transport_create_2', 'mail_kill_rate', 'mail_deadline', 'mail_before_deadline', 'site_transport_create_1', 'site_transport_create_2', 'site_kill_rate', 'site_deadline', 'site_before_deadline');
-                $data = $_POST;
+        $data = array();
+		$data = $_POST;
 		$modelFields = array();
 		foreach($allModelFields as $field){
 		    if(!array_key_exists($field, $data)) {
@@ -90,7 +101,7 @@ class DefaultController extends Controller
 			->order('id desc')
 			->queryAll()
 		;
-
+		
 		foreach($events as $event){
 		    if($event['status']){
 			    $newEvents[] = $event;
@@ -102,7 +113,7 @@ class DefaultController extends Controller
 		if(!empty($newEvents)){
 		    UserEvent::model()->updateAll(array('status' => 0), 'status = 1');
 		}
-
+		
 	    $this->render('event', array('newEvents' => $newEvents, 'oldEvents' => $oldEvents));
 	}
 	

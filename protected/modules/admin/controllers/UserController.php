@@ -64,6 +64,13 @@ class UserController extends Controller
                 if (isset($_POST['User'])){
                     $model->attributes = $_POST['User'];
                     if($model->save()){
+					    // checkboxes for menu->options
+					    $data  = array('mail_deadline' => true, 'site_transport_create_1' => true, 'site_transport_create_2' => true, 'site_kill_rate' => true, 'site_deadline' => true, 'site_before_deadline' => true);
+						$userField = new UserField;
+						$userField->user_id = $model->id;
+						$userField->attributes = $data;
+						$userField->save(); 
+
                         Yii::app()->user->setFlash('saved_id', $model->id);
                         Yii::app()->user->setFlash('message', 'Пользователь '.$model->login.' создан успешно.');
                         $this->redirect('/admin/user/');
@@ -76,6 +83,7 @@ class UserController extends Controller
         }
         public function actionEditUser($id)
         {
+            
             $model = User::model()->findByPk($id);
             $params = array('group'=>$model->group_id, 'userid'=>$id);
             if(Yii::app()->user->checkAccess('editUser', $params))

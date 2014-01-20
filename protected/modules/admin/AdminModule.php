@@ -21,6 +21,9 @@ class AdminModule extends CWebModule
                         $controller->layout = 'main';
                         Yii::app()->clientScript->registerCssFile('/css/back/backend.css');
                         Yii::app()->clientScript->registerCoreScript('jquery');
+						Yii::app()->clientScript->registerScriptFile('/js/ui/jquery-ui-1.10.3.js'); 
+						Yii::app()->clientScript->registerScriptFile('/js/ui/timepicker.js'); 
+						Yii::app()->clientScript->registerCssFile('/css/ui/jquery-ui-1.10.3.css');
                         Yii::app()->clientScript->registerScriptFile('/js/back/AjaxContentLoader.js');
                         
                         if(Yii::app()->user->isGuest){

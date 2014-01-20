@@ -24,7 +24,11 @@ class SiteController extends Controller
 	 */
 	public function actionIndex($s = null)
 	{
-	    $this->forward('user/transport/index');
+	    //if(!Yii::app()->user->isGuest){
+		    $this->forward('user/transport/index');
+		/*} else {
+		    $this->forward('transport/index');
+		}*/
 	}
 	
 	/*** ПЕРЕНЕСТИ ********************************************************************/

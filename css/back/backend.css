@@ -150,7 +150,7 @@ header .menu a.logo-link, header .menu a.admin-logout{
 header .menu a.logo-link:after{
     content: '';
     display: block;
-    background: url("/images/ui-icons_222222_256x240.png") no-repeat -32px -80px;
+    /*background: url("/css/ui/custom-theme/images/ui-icons_222222_256x240.png") no-repeat -32px -80px;*/
     width: 13px;
     height: 13px;
     position: absolute;
@@ -165,7 +165,7 @@ header .menu > ul.nav > li.parent span{
 header .menu > ul.nav > li.parent span:after{
     content: '';
     display: block;
-    background: url("/images/ui-icons_222222_256x240.png") no-repeat -64px 0px;
+    /*background: url("/css/ui/custom-theme/images/ui-icons_222222_256x240.png") no-repeat -64px 0px;*/
     width: 13px;
     height: 13px;
     position: absolute;

@@ -107,7 +107,7 @@ return array(
 				'Роли'=>'/admin/user/role/',
 				'Операции'=>'/admin/user/operation/',
 			),
-			'Транспорт'=>'/admin/transport/',
+			'Перевозки'=>'/admin/transport/',
 			'Ставки'=>'/admin/rate/',
 		 ),
 		 'adminEmail'=>'krilova@lbr.ru',

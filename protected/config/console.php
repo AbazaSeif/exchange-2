@@ -38,7 +38,6 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
-		'minNotyfy' => 30,
-		'hoursBefore' => 24, 
+		'interval' => 30,
 	),
 );

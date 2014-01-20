@@ -8,8 +8,8 @@ if(!Yii::app()->user->isGuest){
     <?php if(Yii::app()->user->checkAccess('transport'))
             { ?>
             <ul class="user-menu">
-                <li><a href="/" id="menu-events">Главная</a></li>
-                <li><a href="/user/event/" id="menu-events">События</a></li>
+			    <li><a href="/" id="menu-events">Главная</a></li>
+                <li><a href="/user/event/" id="menu-events">События <span id="event-counter"></span></a></li>
                 <li><a href="/">Все перевозки</a>
                     <ul class="user-submenu">
                         <li><a href="/user/transport/active/">Активные</a></li>
@@ -48,4 +48,19 @@ if(!Yii::app()->user->isGuest){
                     <?php echo CHtml::submitButton('Войти', array('class'=>'btn')); ?>
             </div>
     <?php $this->endWidget();    
-    }
+    }?>
+	
+<script>
+$(document).ready(function(){
+updateCounter();
+setInterval(function(){updateCounter()}, 5000);
+});
+
+function updateCounter(){
+    $.ajax({
+		url: '/user/updateEventCounter',
+		success: function(data){
+			$('#event-counter').html(data);
+	}});
+}
+</script>
