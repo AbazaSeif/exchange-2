@@ -40,12 +40,21 @@ class DefaultController extends Controller
 	/* Show user options */
 	public function actionOption()
 	{
-	    $model = Yii::app()->db->createCommand()
-		    ->select()
-			->from('user_field')
-			->where('user_id = :id', array(':id' => Yii::app()->user->_id))
-			->queryRow()
-		;
+	    $userId = Yii::app()->user->_id;
+	    $elementExitsts = UserField::model()->find(array('condition'=>'user_id = :id', 'params'=>array(':id' => $userId)));
+	    if($elementExitsts) {
+			$model = Yii::app()->db->createCommand()
+				->select()
+				->from('user_field')
+				->where('user_id = :id', array(':id' => $userId))
+				->queryRow()
+			;
+		} else { // !!!! перенести в контроллер User
+		    $model = new UserField;
+		    $data = array('mail_deadline' => true, 'site_transport_create_1' => true, 'site_transport_create_2' => true, 'site_kill_rate' => true, 'site_deadline' => true, 'site_before_deadline' => true);
+			$model->attributes = $data;
+			$model->save(); 
+		}
 		
 	    $this->render('option', array('model' => $model));
 	}
@@ -81,7 +90,7 @@ class DefaultController extends Controller
 			->order('id desc')
 			->queryAll()
 		;
-		
+
 		foreach($events as $event){
 		    if($event['status']){
 			    $newEvents[] = $event;
@@ -93,7 +102,7 @@ class DefaultController extends Controller
 		if(!empty($newEvents)){
 		    UserEvent::model()->updateAll(array('status' => 0), 'status = 1');
 		}
-		
+
 	    $this->render('event', array('newEvents' => $newEvents, 'oldEvents' => $oldEvents));
 	}
 	
@@ -108,5 +117,13 @@ class DefaultController extends Controller
 		);
 		
 		return $message[$eventType];
+	}
+	
+	public function actionUpdateEventCounter()
+	{
+		$sql = 'select count(*) from user_event where status = 1 and user_id = ' . Yii::app()->user->_id;
+	    $activeEvents = Yii::app()->db->createCommand($sql)->queryScalar();
+        if($activeEvents == 0) $activeEvents = '';		
+		echo $activeEvents;
 	}
 }

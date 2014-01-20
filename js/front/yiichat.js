@@ -186,7 +186,7 @@ var YiiChat = function(options){
 	var msg = you.find('input');
 	send.click(function(){
 		var text = jQuery.trim(msg.val());
-                console.log(text);
+                //console.log(text);
 		if(text.length<options.minPostLen){
 			options.onError('very_short_text',text);
 		} else if(text.length > options.maxPostLen){

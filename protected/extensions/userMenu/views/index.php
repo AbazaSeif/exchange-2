@@ -56,3 +56,18 @@ if(!Yii::app()->user->isGuest){
     </div>
 <?php $this->endWidget();    
 }
+?>
+<script>
+$(document).ready(function(){
+updateCounter();
+setInterval(function(){updateCounter()}, 5000);
+});
+
+function updateCounter(){    
+    $.ajax({
+		url: '/user/updateEventCounter',
+		success: function(data){
+			$('#event-counter').html(data);
+	}});
+}
+</script>

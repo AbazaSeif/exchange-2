@@ -40,7 +40,7 @@
         }
         if ($view){
             echo $view;
-        }else{?>
+        } else {?>
         <div class="faq">
             <h2>Некоторые существующие правила:</h2>
             <ol>
