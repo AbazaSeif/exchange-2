@@ -41,21 +41,56 @@ class TransportController extends Controller
 		$this->render('view', array('data' => $dataProvider, 'title'=>'Все перевозки'));
 	}
 	
-	/* Show information about selected transport */
-	public function actionDescription($id)
+	public function actionAll()
 	{
-		$transportInfo=Yii::app()->db->createCommand("SELECT * from transport where id='".$id."'")->queryRow();
-
-		$allRatesForTransport = Yii::app()->db->createCommand()
-			->select('r.date, r.price, u.name')
-			->from('rate r')
-			->join('user u', 'r.user_id=u.id')
-			->where('r.transport_id=:id', array(':id'=>$id))
-			->order('r.date desc')
+		$transportId = array();
+	    $temp = Yii::app()->db->createCommand()
+			->selectDistinct('transport_id')
+			->from('rate')
+			->where('user_id = :id', array(':id' => Yii::app()->user->_id))
 			->queryAll()
 		;
 		
-		$this->render('item', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
+		foreach($temp as $t){
+			$transportId[] = $t['transport_id'];
+		}
+		
+		$criteria = new CDbCriteria();
+		$criteria->addInCondition('id', $transportId);
+		
+		$dataProvider = new CActiveDataProvider('Transport',
+			array(
+				'criteria' => $criteria,
+				'pagination'=>array(
+				   'pageSize' => 2,
+				   'pageVar' => 'page',
+				),
+				'sort' => array(
+					'attributes'=>array(
+						'date_from'=>array(
+                                                'asc'=>'status ASC',
+                                                'desc'=>'status DESC',
+                                                'default'=>'desc',
+                                                ),
+                                                'date_to'=>array(
+                                                        'asc'=>'status ASC',
+                                                        'desc'=>'status DESC',
+                                                        'default'=>'desc',
+                                                ),
+                                                'date_published'=>array(
+                                                        'asc'=>'date_published ASC',
+                                                        'desc'=>'date_published DESC',
+                                                        'default'=>'desc',
+                                                )
+					),
+					'defaultOrder'=>array(
+						'date_published' => CSort::SORT_DESC,
+					),                        
+				),
+			)
+		);
+			
+		$this->render('view', array('data' => $dataProvider, 'title'=>'Активные перевозки'));
 	}
 	
 	/* Show all transports where user takes part */
@@ -119,7 +154,7 @@ class TransportController extends Controller
 	public function actionArchive($s = null)
 	{
 	    $userId = Yii::app()->user->_id;
-	    $transportId = $rateId = array();
+	    $transportId = $rateId = $rateIdWin = array();
 	    $temp = Yii::app()->db->createCommand()
 			->selectDistinct('transport_id')
 			->from('rate')
@@ -143,12 +178,27 @@ class TransportController extends Controller
 		}
 		
 		// all win rates
+		$temp = Yii::app()->db->createCommand()
+			->select('rate_id')
+			->from('transport')
+			->where('status = :status', array(':status' => 0))
+			->queryAll()
+		;
+		
+		foreach($temp as $t){
+			$rateIdWin[] = $t['rate_id'];
+		}
+		
+		$intersectRates = array_intersect($rateId, $rateIdWin);
+		// all win rates
 		$criteria = new CDbCriteria();
 		if(isset($s)) {
-		    $criteria->addInCondition('rate_id', $rateId);
+		    $criteria->addInCondition('rate_id', $intersectRates);
 		} else {
-		    $criteria->addNotInCondition('rate_id', $rateId);
+		    $criteria->addInCondition('rate_id', $rateId);
+		    $criteria->addNotInCondition('rate_id', $rateIdWin);
 		}
+		
 		$criteria->compare('status', 0);
 		
 		$dataProvider = new CActiveDataProvider('Transport',

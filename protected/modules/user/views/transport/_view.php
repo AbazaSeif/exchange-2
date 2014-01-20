@@ -14,10 +14,17 @@
         $currency = ' руб.';
         $type = "российская";
     }
+	
+	$action = '/user/transport/description/id/'. $data->id . '/';
+	/*if(Yii::app()->user->isGuest){
+	    $action = '/transport/description/id/'. $data->id . '/';
+	}*/
+	
 ?>
+
 <div class="transport <?php echo $color;?>">
     <div class="width-70">
-        <a class="t-header" href="/user/transport/description/id/<?php echo $data->id;?>/" >
+        <a class="t-header" href="<?php echo $action; ?>" >
             <?php echo $data->location_from . ' &mdash; ' . $data->location_to; ?>
         </a>
         <div class="t-date">
