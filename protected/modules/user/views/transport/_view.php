@@ -8,8 +8,11 @@
         $_rate = (!empty($lastRate))? $lastRate : $data->start_rate;
     }
     $currency = ' €';
-    if($data->type==Transport::RUS_TRANSPORT)
+    $type = 'международная';
+    if($data->type==Transport::RUS_TRANSPORT){
         $currency = ' руб.';
+        $type = "российская";
+    }
 ?>
 <div class="transport <?php echo $color;?>">
     <div class="width-70">
@@ -17,8 +20,9 @@
             <?php echo $data->location_from . ' &mdash; ' . $data->location_to; ?>
         </a>
         <div class="t-date">
-            <span class="t-d-published">Опубликовано: <?php echo date('d.m.y', strtotime($date->date_published)); ?></span>
+            <span class="t-d-type">Тип: <?php echo $type; ?></span>
             <span class="t-d-form-to">Дата: с <?php echo date('d.m.y', strtotime($data->date_from)).' по '.date('d.m.y', strtotime($data->date_to)); ?></span>
+            <span class="t-d-published">Опубликовано: <?php echo date('d.m.y', strtotime($date->date_published)); ?></span>
         </div>
     </div>
     <div class="width-15">

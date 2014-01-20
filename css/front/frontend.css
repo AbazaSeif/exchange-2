@@ -322,11 +322,13 @@ header, .wrapper, footer
 {
     
 }
+.transports .items .transport .t-date .t-d-type,
 .transports .items .transport .t-date .t-d-published,
 .transports .items .transport .t-date .t-d-form-to
 {
     color: #666;
 }
+.transports .items .transport .t-date .t-d-published,
 .transports .items .transport .t-date .t-d-form-to
 {
     margin-left: 10px;
