@@ -7,10 +7,10 @@
      ?>   
     </div>
     <?php
-//    $group_array = UserGroups::getUserGroupsArray();
+//    $group_array = UserGroup::getUserGroupArray();
 //    $group_array['group_id'] = 'Все';
-//        echo CHtml::radioButtonList('drop_group', '', $group_array,
-//         array('onchange'=>"$.fn.yiiListView.update('yw0', {url: '/admin/user/?group_id='+$('#drop_group input:checked').val()})"));
+//    echo CHtml::radioButtonList('drop_group', '', $group_array,
+//    array('onchange'=>"$.fn.yiiListView.update('yw0', {url: '/admin/user/?group_id='+$('#drop_group input:checked').val()})"));
     ?>
     <?php
     $this->widget('zii.widgets.CListView', array(
@@ -21,7 +21,7 @@
         'template'=>'{sorter} {items} {pager}',
         'sorterHeader'=>'',
         'itemsTagName'=>'ul',
-        'sortableAttributes'=>array('group_id','surname'),
+        'sortableAttributes'=>array('group_id','surname','name'),
         'pager'=>array(
             'class'=>'CLinkPager',
             'header'=>false,

@@ -103,7 +103,8 @@
 </div>
 <script>
     $( "#checkbox-selected, #checkbox-all" ).sortable({
-        connectWith:".dropper"
+        connectWith:".dropper",
+        placeholder: "placeholder"
     }).disableSelection();
     $('.quick_but').click(function(){
         switch($(this).attr('id')){

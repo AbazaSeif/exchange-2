@@ -26,15 +26,20 @@ class UserController extends Controller
                                     'group_id'=>'Группа',
                                     'asc'=>'group_id ASC',
                                     'desc'=>'group_id DESC',
-                                    'default'=>'desc',
+                                    'default'=>'asc',
                                 ),
                                 'surname'=>array(
                                     'surname'=>'Фамилии',
                                     'asc'=>'surname ASC',
                                     'desc'=>'surname DESC',
-                                    'default'=>'desc',
+                                    'default'=>'asc',
                                 ),
-                                
+                                'name'=>array(
+                                    'surname'=>'Имя',
+                                    'asc'=>'name ASC',
+                                    'desc'=>'name DESC',
+                                    'default'=>'asc',
+                                )
                             );
                 $dataProvider = new CActiveDataProvider('User', 
                         array(
@@ -106,7 +111,7 @@ class UserController extends Controller
         {
             $model = User::model()->findByPk($id);
             $params = array('group'=>$model->group_id, 'userid'=>$id);
-            if(Yii::app()->user->checkAccess('deleteUser', $params) && $id != Yii::app()->user->getState('_id'))
+            if(Yii::app()->user->checkAccess('deleteUser', $params) && $id != Yii::app()->user->_id)
             {
                 if(User::model()->deleteByPk($id)){
                     Yii::app()->user->setFlash('message', 'Пользователь удален успешно.');
@@ -158,13 +163,7 @@ class UserController extends Controller
             if(Yii::app()->user->checkAccess('createUserGroup'))
             {
                 $model = new UserGroup();
-                $role = AuthItem::model()->with(array(
-                    'authAssignments'=>array(
-                     'select'=>false,
-                     'joinType'=>'INNER JOIN',
-                     'condition'=>'authAssignments.itemname=t.name AND authAssignments.userid='.Yii::app()->user->getId()
-                    ))
-                   )->findAll('type=2');
+                $role = AuthItem::model()->findAll('type=2');
                 if (isset($_POST['UserGroup'])){
                     $model->attributes = $_POST['UserGroup'];
                     if($model->save()){
@@ -182,14 +181,7 @@ class UserController extends Controller
             $model = UserGroup::model()->findByPk($id);
             if(Yii::app()->user->checkAccess('editUserGroup', array('level'=>$model->level)))
             {
-                $role = AuthItem::model()->with(array(
-                    'authAssignments'=>array(
-                     'select'=>false,
-                     'joinType'=>'INNER JOIN',
-                     'condition'=>'authAssignments.itemname=t.name AND authAssignments.userid='.Yii::app()->user->getId()
-                    )
-                    )
-                   )->findAll('type=2');
+                $role = AuthItem::model()->findAll('type=2');
                 $checkbox = AuthAssignment::model()->findAll('userid='.$id);
                 if (isset($_POST['UserGroup'])){
                     $_POST['UserGroup']['bizrule'] = 'return Yii::app()->user->getState("level")<$params["level"];';
@@ -255,7 +247,7 @@ class UserController extends Controller
         }
         public function actionCreateRole()
         {
-            if(Yii::app()->user->checkAccess('createRole'))
+            if(Yii::app()->user->isRoot)
             {
                 $model = new AuthItem();
                 $operation = AuthItem::model()->findAll('type=0');
@@ -275,7 +267,7 @@ class UserController extends Controller
         }
         public function actionEditRole($name)
         {
-            if(Yii::app()->user->checkAccess('editRole'))
+            if(Yii::app()->user->isRoot)
             {
                 $model = AuthItem::model()->findByPk($name);
                 $operation = AuthItem::model()->findAll('type=0');
@@ -294,7 +286,7 @@ class UserController extends Controller
         }
         public function actionDeleteRole($name)
         {
-            if(Yii::app()->user->checkAccess('deleteRole'))
+            if(Yii::app()->user->isRoot)
             {
                 Yii::app()->authManager->removeAuthItem($name);
                 Yii::app()->user->setFlash('message', 'Роль удалена успешно.');
@@ -343,7 +335,7 @@ class UserController extends Controller
         }
         public function actionCreateOperation()
         {
-            if(Yii::app()->user->checkAccess('createOperation'))
+            if(Yii::app()->user->isRoot)
             {
                 $model = new AuthItem();
                 if (isset($_POST['AuthItem'])){
@@ -362,7 +354,7 @@ class UserController extends Controller
         }
         public function actionEditOperation($name)
         {
-            if(Yii::app()->user->checkAccess('editOperation'))
+            if(Yii::app()->user->isRoot)
             {
                 $model = AuthItem::model()->findByPk($name);
                 if (isset($_POST['AuthItem'])){
@@ -380,7 +372,7 @@ class UserController extends Controller
         }
         public function actionDeleteOperation($name)
         {
-            if(Yii::app()->user->checkAccess('deleteOperation'))
+            if(Yii::app()->user->isRoot)
             {
                 Yii::app()->authManager->removeAuthItem($name);
                 Yii::app()->user->setFlash('message', 'Операция удалена успешно.');

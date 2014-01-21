@@ -1,4 +1,4 @@
-<?
+<?php
     /*
      * Вид editrole - редактирование или создание роли
      * 
@@ -17,10 +17,10 @@
 ?>
 <div class="form">
 <div class="header-form">
-<?  // Заголовок формы
+<?php  // Заголовок формы
     echo $header_form; ?>
 </div>
-<?  $form = $this->beginWidget('CActiveForm', array('id'=>'form'.$model->id,
+<?php  $form = $this->beginWidget('CActiveForm', array('id'=>'editgroup'.$model->id,
     'enableClientValidation'=>true,
     'clientOptions'=>array(
             'validateOnSubmit'=>true,
@@ -37,7 +37,7 @@
 
 <div class="buttons">
     
-<?  
+<?php  
     echo $delete_button; 
     echo CHtml::button('Закрыть группу',array('onclick'=>'$(".total .right").html(" ");','class'=>'btn'));
     echo CHtml::submitButton($submit_text,array('id'=>'but_'.$model->id,'class'=>'btn btn-green'));
@@ -45,21 +45,16 @@
 </div>
 
 <div class="name field">
-<?  echo $form->error($model, 'name'); 
+<?php  echo $form->error($model, 'name'); 
     echo $form->labelEx($model, 'name');
     echo $form->textField($model, 'name'); ?>
 </div>
-<div class="description field">
-<?  echo $form->error($model, 'description');
-    echo $form->labelEx($model, 'description');
-    echo $form->textarea($model, 'description'); ?>
-</div>
 <div class="level field">
-<?  echo $form->error($model, 'level');
+<?php  echo $form->error($model, 'level');
     echo $form->labelEx($model, 'level');
     echo $form->textField($model,'level', array('id'=>'level')); ?>
 </div>
-<? $checked = array();
+<?php $checked = array();
 if (isset($checkbox)){
     foreach ($checkbox as $it){
         array_push($checked, $it->itemname);
@@ -69,7 +64,7 @@ if (isset($checkbox)){
 <div class="operat-50 operat-sel">
     <div class="header-h4">Выбранные роли</div>
     <ul id="checkbox-selected" class="dropper">
-    <?  if(isset($role)){
+    <?php  if(isset($role)){
             foreach ($role as $key=>$item){
                 if(in_array($item->name, $checked)){
                     echo '<li class="checkbox">';
@@ -82,11 +77,11 @@ if (isset($checkbox)){
         } ?>
     </ul>
 </div>
-<? $this->endWidget(); ?>
+<?php $this->endWidget(); ?>
 <div class="operat-50 operat-all">
     <div class="header-h4">Все роли</div>
     <ul id="checkbox-all" class="dropper">
-    <?  if(isset($role)){
+    <?php  if(isset($role)){
             foreach ($role as $item){
                 echo '<li class="checkbox">';
                 echo '<span>'.$item->name.'</span>';
@@ -105,9 +100,16 @@ if (isset($checkbox)){
     <span id="admin" class="btn quick_but">Добавить Admin</span>
 </div>
 </div>
+<style>
+    .right .operat-all 
+    {
+        top: 96px;
+    }
+</style>
 <script>
     $( "#checkbox-selected, #checkbox-all" ).sortable({
-        connectWith:".dropper"
+        connectWith:".dropper",
+        placeholder: "placeholder"
     }).disableSelection();
     $('.quick_but').click(function(){
         switch($(this).attr('id')){
@@ -140,9 +142,9 @@ if (isset($checkbox)){
     $( "#level" ).spinner({
       spin: function( event, ui ) {
         if ( ui.value > 10 ) {
-          $( this ).spinner( "value", <? echo Yii::app()->user->getState('level')+1; ?> );
+          $( this ).spinner( "value", <?php echo Yii::app()->user->_level+1; ?> );
           return false;
-        } else if ( ui.value < <? echo Yii::app()->user->getState('level')+1; ?> ) {
+        } else if ( ui.value < <?php echo Yii::app()->user->_level+1; ?> ) {
           $( this ).spinner( "value", 10 );
           return false;
         }

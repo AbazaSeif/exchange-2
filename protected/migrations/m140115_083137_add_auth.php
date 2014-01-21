@@ -27,7 +27,7 @@ class m140115_083137_add_auth extends CDbMigration
                 $this->execute('
                     CREATE TABLE [AuthAssignment] (
                         [itemname] varchar(64) NOT NULL CONSTRAINT [itemname] REFERENCES [AuthItem]([name]) ON DELETE cascade ON UPDATE cascade, 
-                        [userid] varchar(64) NOT NULL CONSTRAINT [userid] REFERENCES [user_groups]([id]) ON DELETE cascade ON UPDATE cascade, 
+                        [userid] varchar(64) NOT NULL CONSTRAINT [userid] REFERENCES [user_group]([id]) ON DELETE cascade ON UPDATE cascade, 
                         [bizrule] text, 
                         [data] text, 
                         CONSTRAINT [sqlite_autoindex_AuthAssignment_1] PRIMARY KEY ([itemname], [userid]));
