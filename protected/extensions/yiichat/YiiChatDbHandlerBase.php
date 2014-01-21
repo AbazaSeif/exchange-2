@@ -38,7 +38,7 @@ abstract class YiiChatDbHandlerBase extends CComponent implements IYiiChat
 			   'date'    => date("Y-m-d H:i:s"),
 			   'price'   => (int)$message
 			);
-			
+			// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			$modelRate = new Rate;
 			$modelRate->field_id = $this->createPostUniqueId();
 			$modelRate->post_identity = $identity;

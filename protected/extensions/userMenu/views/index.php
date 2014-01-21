@@ -51,11 +51,12 @@ if(!Yii::app()->user->isGuest){
     }?>
 	
 <script>
-$(document).ready(function(){
+// !!! включить
+/*$(document).ready(function(){
 updateCounter();
 setInterval(function(){updateCounter()}, 5000);
 });
-
+*/
 function updateCounter(){
     $.ajax({
 		url: '/user/updateEventCounter',
