@@ -387,6 +387,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 .right .operat-sel{
     float: right;
     margin-right: 9%;
+    margin-top: 20px;
 }
 .right .operat-all{
     position: absolute;
@@ -443,19 +444,29 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 }
 .right .dropper{
     list-style: none;
-    padding: .5em 1em;
+    padding: .5em;
     min-height: 25px;
     background: rgb(238, 238, 238);
     margin: .5em 0;
     border-radius: 2px;
 }
 .right .dropper li{
-    float: left;
-    padding: 5px 10px;
-    margin: 3px 5px;
+    /*float: left;*/
+    padding: 3px 7px;
+    margin: 0;
     border: 1px solid rgb(222, 222, 222);
+    border-top-width: 0;
     border-radius: 2px;
     background: url("/images/bg_menu_admin.png") #f3f3f3 repeat-x top left;
+}
+.right .dropper li:first-child{
+    border-top-width: 1px;
+}
+.right .dropper li.placeholder{
+    border-top-width: 1px;
+    border: 1px dashed orange !important;
+    background: white;
+    height: 16px;
 }
 .right .dropper li span{
     cursor: default;

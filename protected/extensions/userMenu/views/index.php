@@ -5,7 +5,7 @@ if(!Yii::app()->user->isGuest){
     <div class='user-info'>
         <?php echo '<span class="user-name"> Добро пожаловать, '.$user->surname.'!</span>'; ?>
     </div>
-    <?php   if(Yii::app()->user->checkAccess('transport'))
+    <?php   if(Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot)
             { ?>
             <ul class="user-menu">
                 <li><a href="/user/event/" id="menu-events">События</a></li>
@@ -19,15 +19,15 @@ if(!Yii::app()->user->isGuest){
                 <li><a href="/user/option/">Настройки</a></li>
                 <li><a href="/user/logout/">Выход</a></li>
             </ul>
-<?php       }  else {
-                if(Yii::app()->user->checkAccess('admin')){?>
+<?php       }  else {?>
                 <ul class="user-menu">
                     <li><a href="/">Все перевозки</a>
-                    <li><a href="/admin/">Административная панель</a></li>
+                        <?php if(Yii::app()->user->checkAccess('admin')){ ?>
+                            <li><a href="/admin/">Административная панель</a></li>
+                        <?php  } ?>
                     <li><a href="/user/logout/">Выход</a></li>
                 </ul>
             <?php }
-            }
 }else{
     $form=$this->beginWidget('CActiveForm', array(
         'id'=>'login-form',

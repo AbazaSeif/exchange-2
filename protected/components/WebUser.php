@@ -13,6 +13,8 @@ class WebUser extends CWebUser
     {
         if($this->getIsRoot())
             return true;
-        parent::checkAccess($operation,$params,$allowCaching);
+        else
+            return parent::checkAccess($operation,$params,$allowCaching);
+        
     }
 }
