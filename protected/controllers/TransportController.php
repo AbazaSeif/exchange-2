@@ -13,26 +13,26 @@ class TransportController extends Controller
                    'pageVar' => 'page',
                 ),
                 'sort'=>array(
-                        'attributes'=>array(
-                            'date_from'=>array(
-                                'asc'=>'status ASC',
-                                'desc'=>'status DESC',
-                                'default'=>'desc',
-                            ),
-                            'date_to'=>array(
-                                'asc'=>'status ASC',
-                                'desc'=>'status DESC',
-                                'default'=>'desc',
-                            ),
-                            'date_published'=>array(
-                                'asc'=>'date_published ASC',
-                                'desc'=>'date_published DESC',
-                                'default'=>'desc',
-                            )
-                        ),
-                        'defaultOrder'=>array(
-                            'date_published' => CSort::SORT_DESC,
-                        ),                        
+					'attributes'=>array(
+						'date_from'=>array(
+							'asc'=>'status ASC',
+							'desc'=>'status DESC',
+							'default'=>'desc',
+						),
+						'date_to'=>array(
+							'asc'=>'status ASC',
+							'desc'=>'status DESC',
+							'default'=>'desc',
+						),
+						'date_published'=>array(
+							'asc'=>'date_published ASC',
+							'desc'=>'date_published DESC',
+							'default'=>'desc',
+						)
+					),
+					'defaultOrder'=>array(
+						'date_published' => CSort::SORT_DESC,
+					),                        
                 ),
             )
         );
@@ -45,19 +45,19 @@ class TransportController extends Controller
         $transportInfo=Yii::app()->db->createCommand("SELECT * from transport where id='".$id."'")->queryRow();
 
         $allRatesForTransport = Yii::app()->db->createCommand()
-                ->select('r.date, r.price, u.name')
-                ->from('rate r')
-                ->join('user u', 'r.user_id=u.id')
-                ->where('r.transport_id=:id', array(':id'=>$id))
-                ->order('r.date desc')
-                ->queryAll()
+			->select('r.date, r.price, u.name')
+			->from('rate r')
+			->join('user u', 'r.user_id=u.id')
+			->where('r.transport_id=:id', array(':id'=>$id))
+			->order('r.date desc')
+			->queryAll()
         ;
 
         $this->render('user.views.transport.item', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
     }
 
     /* Ajax update rate for current transport */
-    public function actionUpdateRatesPrice()
+    public function actionUpdateRates()
     {
         $id = $_POST['id'];
         $newPrice = $_POST['newRate'];
@@ -68,24 +68,24 @@ class TransportController extends Controller
                 'user_id' => Yii::app()->user->_id,
                 'date'    => date("Y-m-d H:i:s"),
                 'price'   => (int)$newPrice
-             );
+            );
 
-             $modelRate = new Rate;
-             $modelRate->attributes = $obj;
-             $modelRate->save();
+            $modelRate = new Rate;
+            $modelRate->attributes = $obj;
+            $modelRate->save();
 
-             $model = Transport::model()->findByPk($id);
-             $rateId = $model->rate_id;
+            $model = Transport::model()->findByPk($id);
+            $rateId = $model->rate_id;
 
-             // send mail
-             if(!empty($rateId)){ // empty if no rates
-                 $rateModel = Rate::model()->findByPk($rateId);
-                 $this->mailKillRate($rateId, $rateModel);
-                     $this->siteKillRate($rateId, $rateModel);
-             }
+            // send mail
+            if(!empty($rateId)){ // empty if no rates
+                $rateModel = Rate::model()->findByPk($rateId);
+                $this->mailKillRate($rateId, $rateModel);
+                $this->siteKillRate($rateId, $rateModel);
+            }
 
-             $model->rate_id = $modelRate->id;
-             $model->save();
+            $model->rate_id = $modelRate->id;
+            $model->save();
         }
 
         $sql = 'select price from rate where transport_id = '.$id.' group by transport_id order by date desc limit 1';
