@@ -1,0 +1,381 @@
+<?php
+class CronCommand extends CConsoleCommand 
+{
+	public function run($args)
+	{
+		$this->deadlineTransport();
+		$this->beforeDeadlineTransport();
+		$this->newTransport();
+		//$this->wrongDate(); // !!!
+	}
+    
+	public function wrongDate()
+	{
+		//$timeNow = strtotime("now");
+		$transports = Yii::app()->db->createCommand()
+			->select('id')
+			->from('transport')
+			->where('date_to < CURDATE()')) //, array(':time' => $timeNow . '%'))
+			->queryAll()
+		;
+	    // $time = date("Y-m-d H:i");
+		
+		foreach($transports as $transport){
+		    Transport::model()->updateByPk($transport['id'], array('status'=>0));
+		}
+	}
+	
+    // Search for transport with deadline	
+	public function deadlineTransport()
+	{
+	    $timeNow = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['hoursBefore'] . " hours"));
+		$transportIds = '';
+
+		$transports = Yii::app()->db->createCommand()
+			->select('id')
+			->from('transport')
+			->where('date_to like :time', array(':time' => $timeNow . '%'))
+			->queryAll()
+
+		;
+		
+		$count = count($transports);
+		
+		if($count){
+		    // users who want to get mail
+		    $usersMail = $usersSite = array();
+		    $temp = Yii::app()->db->createCommand()
+				->select('user_id')
+				->from('user_field')
+				->where('mail_deadline = :type', array(':type' => true))
+				->queryAll()
+			;
+			foreach($temp as $t){
+				$usersMail[] = $t['user_id'];
+			}
+			
+			$temp = Yii::app()->db->createCommand()
+				->select('user_id')
+				->from('user_field')
+				->where('site_deadline = :type', array(':type' => true))
+				->queryAll()
+			;
+			foreach($temp as $t){
+				$usersSite[] = $t['user_id'];
+			}
+			
+			foreach($transports as $transport){
+				$this->getUsers($transport['id'], 'mail_deadline', $usersMail, $usersSite, 1);
+				
+				if(!empty($transportIds)) $transportIds .= ', ';
+				$transportIds .= $transport['id'];
+			}
+			
+			Transport::model()->updateAll(array('status' => 0), 'id in (' . $transportIds . ')');			
+		}
+	}
+	
+	// Search for transport before deadline	
+	public function beforeDeadlineTransport()
+	{
+		$time = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['hoursBefore'] . " hours " . Yii::app()->params['minNotify'] . " minutes"));
+		
+		$transports = Yii::app()->db->createCommand()
+			->select('id')
+			->from('transport')
+			->where('date_to like :time', array(':time' => $time . '%'))
+			->queryAll()
+		;
+		$count = count($transports);
+		
+		if($count){
+			$usersMail = $usersSite = array();
+		    $temp = Yii::app()->db->createCommand()
+				->select('user_id')
+				->from('user_field')
+				->where('mail_before_deadline = :type', array(':type' => true))
+				->queryAll()
+			;
+			foreach($temp as $t){
+				$usersMail[] = $t['user_id'];
+			}
+			
+			$temp = Yii::app()->db->createCommand()
+				->select('user_id')
+				->from('user_field')
+				->where('site_before_deadline = :type', array(':type' => true))
+				->queryAll()
+			;
+			foreach($temp as $t){
+				$usersSite[] = $t['user_id'];
+			}
+			
+			foreach($transports as $transport) {
+			    $transportId = $transport['id'];
+				$this->getUsers($transportId, 'mail_before_deadline', $usersMail, $usersSite, 2);
+			}		
+		}
+	}
+	
+	/* get users who made a rate for current transportation*/
+	public function getUsers($transportId, $mailType, $usersMail, $usersSite, $messageType) 
+	{
+	    // list of users for current transportation
+	    $rateMembers = Yii::app()->db->createCommand()
+			->selectDistinct('user_id')
+			->from('rate')
+			->where('transport_id = :id', array(':id' => $transportId))
+			->queryAll()
+		;
+		
+		if(!empty($rateMembers)) {
+			$usersAll = $usersM = $usersS = array();
+			foreach($rateMembers as $member) {
+				$usersAll[] = $member['user_id'];
+			}
+			
+            // search for users who wanted to get mail and made a rate
+			$usersM = array_intersect($usersAll, $usersMail);
+			if(!empty($usersM)){
+				$this->sendMailAboutDeadline($usersM, $transportId, $mailType);
+			}
+			
+			$usersS = array_intersect($usersAll, $usersSite);
+			if(!empty($usersS)) {
+			    foreach($usersS as $user) {
+				    $obj = array(
+					    'user_id' => $user,
+						'transport_id' => $transportId,
+						'status' => 1,
+						'type' => 1, // !!! message color ( �������� )
+						'event_type' => $messageType,
+					);
+					
+					Yii::app()->db->createCommand()->insert('user_event',$obj);
+				}
+			}
+		}
+	}
+	
+	// Search for recently added records
+	public function newTransport()
+	{
+        $transportIds = '';
+		$usersInternational = $usersInternationalSite = $usersLocal = $usersLocalSite = $usersInternationalAndLocal = array();
+	    $transportNew = Yii::app()->db->createCommand()
+			->select('id, type')
+			->from('transport')
+			->where('new_transport = :status', array(':status' => 1))
+			->queryAll()
+		;
+		
+		$count = count($transportNew);
+		$transportIdType = array(0 => array(), 1 => array());
+
+		if($count){
+			foreach($transportNew as $transport) {
+				if(!empty($transportIds)) $transportIds .= ', ';
+				$transportIds .= $transport['id'];
+				
+				if($transport['type']){
+				    $transportIdType[1][] = $transport['id'];
+				} else {
+				    $transportIdType[0][] = $transport['id'];
+				}
+			}
+
+			Transport::model()->updateAll(array('new_transport' => 0), 'id in (' . $transportIds . ')');
+			
+			if(!empty($transportIdType[0])){ // international transportation
+			    /*$temp = Yii::app()->db->createCommand()
+					->select('user_id')
+					->from('user_field')
+					->where('mail_transport_create_1 = :type', array(':type' => true))
+					->queryAll()
+				;
+				foreach($temp as $t){
+				    $usersInternational[] = $t['user_id'];
+				}
+				$temp = Yii::app()->db->createCommand()
+					->select('user_id')
+					->from('user_field')
+					->where('site_transport_create_1 = :type', array(':type' => true))
+					->queryAll()
+				;
+				foreach($temp as $t){
+				    $usersInternationalSite[] = $t['user_id'];
+				}*/
+				$usersInternational = $this->searchUsers('mail_transport_create_1', $usersInternational);
+				$usersInternationalSite = $this->searchUsers('site_transport_create_1', $usersInternationalSite);
+			}
+			
+			if(!empty($transportIdType[1])){ // local transportation
+			    /*$temp = Yii::app()->db->createCommand()
+					->select('user_id')
+					->from('user_field')
+					->where('mail_transport_create_2 = :type', array(':type' => true))
+					->queryAll()
+				;
+				foreach($temp as $t){
+				    $usersLocal[] = $t['user_id'];
+				}
+				
+				$temp = Yii::app()->db->createCommand()
+					->select('user_id')
+					->from('user_field')
+					->where('site_transport_create_2 = :type', array(':type' => true))
+					->queryAll()
+				;
+				foreach($temp as $t){
+				    $usersLocalSite[] = $t['user_id'];
+				}*/
+				
+				$usersLocal = $this->searchUsers('mail_transport_create_2', $usersLocal);
+				$usersLocalSite = $this->searchUsers('site_transport_create_2', $usersLocalSite);
+			}
+
+			if(!empty($usersInternational) && !empty($usersLocal)){ // both transportation
+			    $usersInternationalAndLocal = array_intersect($usersInternational, $usersLocal);
+				$temp = array_diff($usersInternational, $usersInternationalAndLocal);
+				$usersLocal = array_diff($usersLocal, $usersInternationalAndLocal);
+				$usersInternational = $temp;
+			}
+			
+			if(!empty($usersInternational)){
+				$this->sendMailAboutNew($usersInternational, $transportIdType, 0);
+			}
+			
+			if(!empty($usersLocal)){
+				$this->sendMailAboutNew($usersLocal, $transportIdType, 1);
+			}
+			
+			if(!empty($usersInternationalAndLocal)){
+				$this->sendMailAboutNew($usersInternationalAndLocal, $transportIdType);
+			}
+			/********************************************************/
+			if(!empty($usersInternationalSite)){
+				$this->saveNewTransportEvent($transportIdType[0], $usersInternationalSite);
+			}
+			
+			if(!empty($usersLocalSite)){
+				$this->saveNewTransportEvent($transportIdType[1], $usersLocalSite);
+			}
+		}
+	}
+	
+	public function saveNewTransportEvent($transportIds, $users)
+	{
+	    foreach($users as $user){
+		    foreach($transportIds as $transportId){
+				$obj = array(
+					'user_id' => $user,
+					'transport_id' => $transportId,
+					'status' => 1,
+					'type' => 1, // !!! message color ( �������� )
+					'event_type' => 3,
+				);
+				
+				Yii::app()->db->createCommand()->insert('user_event',$obj);
+			}
+		}
+	}
+	
+	// Send mail with recently added transports
+	public function sendMailAboutNew($users, $transportIds, $type = 2)
+	{
+		$subject = '����������� � ��������� ����� ���������';
+			
+		switch($type){
+			case 0: $subject = '����������� � ��������� ����� ������������� ���������'; break;
+			case 1: $subject = '����������� � ��������� ����� ��������� ���������'; break;
+		}
+		
+		$message = "
+		<html>
+		<head>
+		  <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+		  <p>��������� " . $name . "</p>
+		  <p>���� ������������ ����� ���������. </p>";
+		 
+		if($type == 0 || $type == 2){
+		   $message .= "<p><b>�������������</b> ��������� � ��������: " . implode(',', $transportIds[0]) . ".</p>";
+		} 
+		if($type == 1 || $type == 2){
+		   $message .= "<p><b>���������</b> ��������� � ��������: " . implode(',', $transportIds[1]) . ".</p>";
+		}
+		
+		$message .= "
+		</body>
+		</html>
+		";	
+
+	    foreach($users as $userId){
+            $this->sendMail($userId, $subject, $message);			
+		}
+	}
+	
+	// Send mail about transport's deadline
+	public function sendMailAboutDeadline($users, $transportId, $mailType)
+	{
+		$subject = '�����������';
+		
+		$message = "
+		<html>
+		<head>
+		  <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>";
+		
+		if($mailType == 'mail_deadline'){
+		    $message .= "<p>��������� � ������� " . $transportId . " �������.</p>";
+			$subject = '����������� � ���������� ���������';
+		} else if($mailType == 'mail_before_deadline'){
+		    $message .= "<p>��������� � ������� " . $transportId . " ����� ������� ����� " . Yii::app()->params['minNotify'] . " �����.</p>";
+		    $subject = '����������� � ������ ���������� ���������';
+		} else {
+		    $message .= "<p>���� ����������� �� ��������� � ������� " . $transportId . " ���� ��������.</p>";
+		}
+		
+		$message .= "
+		</body>
+		</html>
+		";
+
+		foreach($users as $userId){
+		   $this->sendMail($userId, $subject, $message);
+		}
+	}
+	
+	public function searchUsers($field, $array)
+	{
+	    $temp = Yii::app()->db->createCommand()
+			->select('user_id')
+			->from('user_field')
+			->where($field . ' = :type', array(':type' => true))
+			->queryAll()
+		;
+		foreach($temp as $t){
+			$array[] = $t['user_id'];
+		}
+		return $array;
+	}
+	
+	public function sendMail($userId, $subject, $message){
+	    $user = Yii::app()->db->createCommand()
+			->select()
+			->from('user')
+			->where('id = :id', array(':id' => $userId))
+			->queryRow()
+		;
+		
+		$email = $user['email'];
+		$headers  = 'MIME-Version: 1.0' . '\r\n';
+		$headers .= 'Content-type: text/html; charset=utf-8' . '\r\n';
+		$headers .= 'To: ' . $user['name'] . '<' . $email . '>' . '\r\n';
+		$headers .= 'From: ����� ��������� ��� ���������� <' . Yii::app()->params['adminEmail'] . '>' . '\r\n';
+
+		mail($email, $subject, $message, $headers);
+	}
+}
