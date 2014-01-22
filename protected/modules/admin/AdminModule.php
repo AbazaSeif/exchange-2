@@ -22,9 +22,9 @@ class AdminModule extends CWebModule
                         Yii::app()->clientScript->registerCssFile('/css/back/backend.css');
                         Yii::app()->clientScript->registerCssFile('/css/ui/jquery-ui-1.10.3.css');
                         Yii::app()->clientScript->registerCoreScript('jquery');
-						Yii::app()->clientScript->registerScriptFile('/js/ui/jquery-ui-1.10.3.js'); 
-						Yii::app()->clientScript->registerScriptFile('/js/ui/timepicker.js'); 
-						Yii::app()->clientScript->registerCssFile('/css/ui/jquery-ui-1.10.3.css');
+                        Yii::app()->clientScript->registerScriptFile('/js/ui/jquery-ui-1.10.3.js'); 
+                        Yii::app()->clientScript->registerScriptFile('/js/ui/timepicker.js'); 
+                        Yii::app()->clientScript->registerCssFile('/css/ui/jquery-ui-1.10.3.css');
                         Yii::app()->clientScript->registerScriptFile('/js/back/AjaxContentLoader.js');
                         
                         if(Yii::app()->user->isGuest){
@@ -39,8 +39,7 @@ class AdminModule extends CWebModule
 			// this method is called before any module controller action is performed
 			// you may place customized code here
 			return true;
-		}
-		else
-			return false;
+		} else 
+                    return false;
 	}
 }

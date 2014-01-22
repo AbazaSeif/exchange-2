@@ -556,3 +556,7 @@ button{
 .post{
     height: 60px;
 }
+
+.clear{
+    clear: both;
+}

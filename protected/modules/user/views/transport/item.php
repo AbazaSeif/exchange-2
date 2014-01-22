@@ -5,19 +5,24 @@ if (!empty($transportInfo['rate_id'])) $lastRate = $this->getPrice($transportInf
 if (!$lastRate) $lastRate = $transportInfo['start_rate'];
 else $lastRate -= $priceStep;
 
+$now = date('Y m d H:i:s', strtotime('now'));
+$end = date('Y m d H:i:s', strtotime($transportInfo['date_to'] . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
+
 ?>
 <div class="transport-one">
     <h1><?php echo $transportInfo['location_from'] . ' &mdash; ' . $transportInfo['location_to']; ?></h1>
     <span class="t-o-published">Опубликована <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_published'])) ?></span>
     <div class="t-o-info">
         <label>Основная информация</label>
-        <span>Место загрузки: <?php echo date('d.m.Y', strtotime($transportInfo['location_from'])) ?></span> 
-        <span>Место разгрузки: <?php echo date('d.m.Y', strtotime($transportInfo['location_to'])) ?></span> 
+        <span>Место загрузки: <?php echo $transportInfo['location_from'] ?></span> 
+        <span>Место разгрузки: <?php echo $transportInfo['location_to'] ?></span> 
         <span>Дата отправки: <?php echo date('d.m.Y', strtotime($transportInfo['date_from'])) ?></span> 
         <span>Дата прибытия: <?php echo date('d.m.Y', strtotime($transportInfo['date_to'])) ?></span> 
-        <span>Описание: <?php echo $transportInfo['description'] ?></div> 
+        <span>Описание: <?php echo $transportInfo['description'] ?>
+	</div>	
     <?php if (!Yii::app()->user->isGuest): ?>
-        <div>Текущая ставка: <span id="last-rate"><?php echo $lastRate ?></span></div> 
+	    <div id="timer"></div>
+        <div>Текущая ставка: <span id="last-rate"><?php echo $lastRate ?></span></div>
 <?php endif; ?>
 </div>
 <div class="rate-btns">
@@ -26,7 +31,7 @@ else $lastRate -= $priceStep;
 	<div class="down <?php echo (($lastRate - $priceStep)<0)?'disabled':''?>"></div>
 </div>
 <div id="rate-btn" class="btn-green btn big <?php echo (($lastRate - $priceStep)<0)?'disabled':''?>">ОK</div>
-<div style="clear: both"></div>
+<div class="clear"></div>
 <div id="data"></div>
 
 <?php
@@ -53,6 +58,9 @@ else $lastRate -= $priceStep;
 <script>
 
 $(document).ready(function(){
+    var myClassObject = new Timer();
+    myClassObject.init('<?php echo $now ?>', '<?php echo $end ?>', 'timer');
+	
 	var btnUp = $("div.rate-btns").find('div.up');	
 	var btnDown = $("div.rate-btns").find('div.down');
 	var btnSend = $("#rate-btn");
@@ -143,7 +151,8 @@ function add(post, posts){
 	p.find('.text').html(post.price);
 }
 
-/*var scroll = function(){
+/*
+   var scroll = function(){
 	//window.location = '#'+posts.find('.post:last').attr('id');
 	var h=0;
 	
