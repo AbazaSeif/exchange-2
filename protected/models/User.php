@@ -57,7 +57,7 @@ class User extends CActiveRecord
 		return array(
 			'messages' => array(self::HAS_MANY, 'Message', 'user_id'),
 			'rates' => array(self::HAS_MANY, 'Rate', 'user_id'),
-			'group' => array(self::BELONGS_TO, 'UserGroup', 'group_id'),
+			'userGroup' => array(self::BELONGS_TO, 'UserGroup', 'group_id'),
 			'userEvents' => array(self::HAS_MANY, 'UserEvent', 'user_id'),
 			'userFields' => array(self::HAS_MANY, 'UserField', 'user_id'),
 		);
@@ -70,13 +70,13 @@ class User extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'login' => 'Login',
-			'password' => 'Password',
-			'name' => 'Name',
-			'surname' => 'Surname',
-			'email' => 'Email',
-			'group_id' => 'Group',
-			'type' => 'Type',
+			'login' => 'Логин',
+			'password' => 'Пароль',
+			'name' => 'Имя',
+			'surname' => 'Фамилия',
+			'email' => 'e-mail',
+			'group_id' => 'Группа',
+			'type' => 'Тип',
 		);
 	}
 
@@ -122,4 +122,44 @@ class User extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
+        //  Метод проверяет изменен ли пароль
+        protected function beforeSave() {
+            parent::beforeSave();
+            if (isset($_POST['User_password']) && $_POST['User_password']!=''){
+                $this->password = crypt($_POST['User_password'], User::model()->blowfishSalt());
+            }
+            return true;
+        }
+        
+        //  Метод возвращет $cost значное число для хэширования пароля, где: 
+        //  $cost - количество возвразаемых знаков
+        protected function blowfishSalt($cost = 13)
+        {
+            if (!is_numeric($cost) || $cost < 4 || $cost > 31) {
+                throw new Exception("cost parameter must be between 4 and 31");
+            }
+            $rand = array();
+            for ($i = 0; $i < 8; $i += 1) {
+                $rand[] = pack('S', mt_rand(0, 0xffff));
+            }
+            $rand[] = substr(microtime(), 2, 6);
+            $rand = sha1(implode('', $rand), true);
+            $salt = '$2a$' . sprintf('%02d', $cost) . '$';
+            $salt .= strtr(substr(base64_encode($rand), 0, 22), array('+' => '.'));
+            return $salt;
+        }
+        
+        //  Метод проверяет доступ к пользователю, где:
+        //  $params - массив с двумя значениями:
+        //  1. group - id группы изменяемого пользователя
+        //  2. userid - id изменяемого пользователя
+        static function usersAccess($params){
+            if ($params){
+                $group = UserGroup::model()->findByPk($params['group']);
+                if ($group->level > Yii::app()->user->_level || $params['userid']==Yii::app()->user->_id)
+                    return true;
+            }
+            return false;
+        }
 }

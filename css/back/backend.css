@@ -1,10 +1,540 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
 /* 
-    Created on : 06.12.2013, 9:23:56
+    Document   : admin
+    Created on : 23.05.2013, 9:58:52
     Author     : cheshenkov
+    Description:
+        Purpose of the stylesheet follows.
 */
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    color: rgb(51, 51, 51);
+    background: rgb(255,255,255);
+}
+p{
+    margin: 1em 0;
+}
+h1, h2, h3, h4, h5, h6{
+    margin: .5em 0 .8em;
+}
+input, textarea{
+    min-height: 24px;
+    padding: 5px 8px;
+    outline: none;
+    color: #333;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: right center;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    /*transition: all 0.15s ease-in;
+    -webkit-transition: all 0.15s ease-in 0;*/
+    vertical-align: middle;
+    width: 50%;
+}
+.btn{
+    padding: 0 10px;
+    width: auto;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 22px;
+    box-shadow: none;
+    display: block;
+    float: left;
+    margin: 3px 5px;
+    text-decoration: none;
+    border-radius: 2px;
+    border: 0;
+    color: #333;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.9);
+    background-color: #eaeaea;
+    background-image: -moz-linear-gradient(#fafafa, #eaeaea);
+    background-image: -webkit-linear-gradient(#fafafa, #eaeaea);
+    background-image: linear-gradient(#fafafa, #eaeaea);
+    background-repeat: repeat-x;
+    border: 1px solid #ddd;
+    border-bottom-color: #c5c5c5;
+    width: auto;
+    cursor: default;
+}
+.btn-green{
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+    background-color: #60b044;
+    background-image: -moz-linear-gradient(#8add6d, #60b044);
+    background-image: -webkit-linear-gradient(#8add6d, #60b044);
+    background-image: linear-gradient(#8add6d, #60b044);
+    background-repeat: repeat-x;
+    border: 1px solid #5ca941;
+}
+.del{
+    background-color: #bd362f;
+    background-image: -moz-linear-gradient(#bd362f, #942a25);
+    background-image: -webkit-linear-gradient(#bd362f, #942a25);
+    background-image: linear-gradient(#bd362f, #942a25);
+    background-repeat: repeat-x;
+    border-color: #bd362f;
+    color: white;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.9);
+}
+/* начало кнопки */
 
+form .buttons > *{
+    margin: 0;
+    border-radius: 0;
+    float: right;
+}
+form .buttons *:first-child{
+    border-radius: 0 2px 2px 0;
+    border-left: 0;
+}
+form .buttons *:last-child{
+    border-radius: 2px 0 0 2px;
+    border-right: 0;
+}
+/* конец кнопки */
+    
+header{
+    padding-top:  40px;
+}
+header .menu{
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: url("/images/bg_menu_admin.png") #f3f3f3 repeat-x top left;
+    border-bottom: 1px solid rgb(240, 240, 240);
+    -moz-box-shadow: 0px 0px 3px #c0c0c0;
+    -webkit-box-shadow: 0px 0px 3px #c0c0c0;
+    -o-box-shadow: 0px 0px 3px #c0c0c0;
+    box-shadow: 0px 0px 3px #c0c0c0;
+}
+header .menu > ul.nav{
+    float: left;
+    list-style: none;
+    position: relative;
+}
+header .menu > ul.nav:after{
+    content: '';
+    clear: both;
+    display: block;
+}
+header .menu > ul.nav > li.item, header .menu a.logo-link{
+    float: left;
+}
+header .menu a.admin-logout{
+    float: right;
+}
+header .menu > ul.nav > li.item a, header .menu > ul.nav > li.parent span, header .menu a.logo-link, header .menu a.admin-logout{
+    line-height: 33px;
+    text-decoration: none;
+    color: rgb(51, 51, 51);
+    padding: 0 1.5em;
+    margin: 0;
+    display: block;
+    font-weight: bold;
+    white-space: nowrap;
+}
+header .menu a.logo-link, header .menu a.admin-logout{
+    position: relative;
+    z-index: 1;
+}
+header .menu a.logo-link:after{
+    content: '';
+    display: block;
+    background: url("/images/ui-icons_222222_256x240.png") no-repeat -32px -80px;
+    width: 13px;
+    height: 13px;
+    position: absolute;
+    right: 4px;
+    top: 9px;
+}
+header .menu > ul.nav > li.parent span{
+    position: relative;
+    padding-right: 2em;
+    cursor: default;
+}
+header .menu > ul.nav > li.parent span:after{
+    content: '';
+    display: block;
+    background: url("/images/ui-icons_222222_256x240.png") no-repeat -64px 0px;
+    width: 13px;
+    height: 13px;
+    position: absolute;
+    right: 9px;
+    top: 9px;
+}
+header .menu > ul.nav > li.parent{
+    
+}
+header .menu > ul.nav > li.parent:hover{
+    background: rgb(240, 240, 240);
+}
+header .menu ul.nav li.parent:hover span, header .menu a.logo-link:hover, header .menu > ul.nav > li.parent ul.nav li.item:hover a, header .menu > ul.nav > li.item a:hover{
+    color: #008672;
+}
+header .menu > ul.nav > li.parent:hover ul.nav{
+    display: block;
+}
+header .menu > ul.nav > li.parent:hover span:after{
+    background-position: 0 0;
+}
+header .menu > ul.nav > li.parent ul.nav{
+    position: absolute;
+    z-index: 1;
+    background: rgb(240, 240, 240);
+    list-style: none;
+    display: none;
+    -moz-box-shadow: 0px 3px 3px #c0c0c0;
+    -webkit-box-shadow: 0px 3px 3px #c0c0c0;
+    -o-box-shadow: 0px 3px 3px #c0c0c0;
+    box-shadow: 0px 3px 3px #c0c0c0;
+}
+header .menu > ul.nav > li.parent ul.nav li.item:hover{
+    background: url("/images/bg_menu_admin.png") repeat-x top left;
+}
+header .menu > ul.nav > li.parent ul.nav li.item a{
+    
+}
+
+.wrapper{
+    margin: 1em 2em;
+}
+
+.wrapper .total {
+    
+}
+.wrapper .total .left{
+    width: 30%;
+    float: left;
+}
+.wrapper .total .right{
+    width: 66%;
+    padding: 0 2%;
+    float: right;
+}
+.wrapper .total:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+
+/*-----начало-users-----*/
+.left .create-button{
+    margin: 0px 0px 5px;
+}
+.left .create-button:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.left .create-button a{
+    margin-left: 0;
+}
+.left .list-view{
+    overflow: hidden;
+    -moz-box-shadow: 0px 0px 3px #c0c0c0;
+    -webkit-box-shadow: 0px 0px 3px #c0c0c0;
+    -o-box-shadow: 0px 0px 3px #c0c0c0;
+    box-shadow: 0px 0px 3px #c0c0c0;
+    border-radius: 2px;
+}
+
+/* начало сортировака */
+.left .list-view .sorter{
+    margin: 0;
+    padding: 0;
+    background: url("/images/bg_menu_admin.png") #f3f3f3 repeat-x top left;
+    line-height: 33px;
+    border-bottom: 1px solid rgb(65, 131, 196);
+}
+.left .list-view .sorter ul{
+    padding: 0 10px;
+}
+.left .list-view .sorter ul li{
+    margin: 0 7px;
+}
+.left .list-view .sorter ul li a{
+    color: #777;
+    text-decoration: none;
+    text-shadow: 0 1px 0 white;
+    font-weight: bold;
+}
+.left .list-view .pager{
+    margin: 0;
+    background: rgb(238, 238, 238);
+}
+.left .list-view .pager ul.yiiPager{
+    
+}
+.left .list-view .pager ul.yiiPager{
+    
+}
+.left .list-view .pager ul.yiiPager li{
+    line-height: 24px;
+}
+.left .list-view .pager ul.yiiPager li.page{
+    display: block;
+    float: left;
+    text-align: center;
+    border-bottom: 2px solid rgb(238, 238, 238);
+}
+.left .list-view .pager ul.yiiPager li.page.selected{
+    border-bottom: 2px solid rgb(65, 131, 196);
+}
+.left .list-view .pager ul.yiiPager li.previous, .left .list-view .pager ul.yiiPager li.next{
+    display: none;
+}
+.left .list-view .pager ul.yiiPager li a{
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background: none;
+    color: #777;
+    display: block;
+}
+.left .list-view .pager ul.yiiPager li.selected a{
+    color: rgb(65, 131, 196);
+}
+/* конец сортировака */
+
+/* начало левая панель */
+.left .list-view .items{
+    list-style: none;
+    background: rgb(238, 238, 238);
+}
+.left .list-view .items .empty{
+    padding: .5em 1em;
+    display: block;
+    border-bottom: 1px solid rgb(222, 222, 222);
+}
+.left .list-view .items li{
+    
+}
+.left .list-view .items li a, .left .list-view .items li span{
+    color: rgb(65, 131, 196);
+    text-decoration: none;
+    padding: .5em 1em;
+    display: block;
+    border-bottom: 1px solid rgb(222, 222, 222);
+}
+.left .list-view .items li span{
+    color: rgb(125, 125, 125);
+}
+/* конец левая панель */
+
+/* начало правая(рабочая) область */
+.right{
+   position: relative;
+}
+.right .header-form{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 1em;
+}
+.right form{
+    position: relative;
+}
+.right form .buttons{
+    margin-top: -42px;
+}
+.right form .field{
+    margin: 1em 0;
+}
+
+.right .header-h4{
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 1em 0 0;
+}
+.right form label{
+    min-width: 15%;
+    float: left;
+    line-height: 27px;
+    display: block;
+}
+.right form .description textarea{
+    max-height: 44px;
+}
+.right form .level input{
+    width: 80%;
+    border: 1px solid #CCC;
+    margin: 0;
+    margin-left: 10%;
+    padding: 0 .5em;
+}
+.right form .level span{
+    width: 50px;
+}
+.right form .level{
+    position: absolute;
+    right: 0;
+    top: 12.5%;
+}
+    /* начало чекбоксы */
+.right .operat-50{
+    width: 48%
+}
+.right .operat-sel{
+    float: right;
+    margin-right: 9%;
+    margin-top: 20px;
+}
+.right .operat-all{
+    position: absolute;
+    top: 153px;
+    width: 40%;
+}
+.right .quick_buttons{
+    position: absolute;
+    top: 185px;
+    width: 10.5%;
+    right: 0%;
+    margin: .5em 0;
+    background: rgb(238, 238, 238);
+    overflow: hidden;
+    -moz-box-shadow: 0px 0px 3px #c0c0c0;
+    -webkit-box-shadow: 0px 0px 3px #c0c0c0;
+    -o-box-shadow: 0px 0px 3px #c0c0c0;
+    box-shadow: 0px 0px 3px #c0c0c0;
+    border-radius: 2px;
+}
+.right .message{
+    padding: 1.2% 2%;
+    margin-bottom: .53em;
+    background: #E6EFC2;
+    border-color: #C6D880;
+    border-radius: 2px;
+    color: green;
+    -moz-box-shadow: 0px 0px 3px rgba(0,0,0,0.075);
+    -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.075);
+    -o-box-shadow: 0px 0px 3px rgba(0,0,0,0.075);
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.075);
+    position: absolute;
+    bottom: 100%;
+    right: 2.9%;
+    width: 90.5%;
+}
+.right .quick_buttons .btn{
+    width: 90%;
+    font-size: .85em;
+    margin:0;
+    float: none;
+    padding: 5% 5%;
+    line-height: normal;
+    text-align: center;
+    font-weight: normal;
+    border: 0;
+    border-bottom: 1px solid rgb(222, 222, 222);
+    color: rgb(65, 131, 196);
+    background: none;
+}
+.right .quick_buttons .btn:hover{
+    color: #333;
+    background: #f3f3f3;
+}
+.right .dropper{
+    list-style: none;
+    padding: .5em;
+    min-height: 25px;
+    background: rgb(238, 238, 238);
+    margin: .5em 0;
+    border-radius: 2px;
+}
+.right .dropper li{
+    /*float: left;*/
+    padding: 3px 7px;
+    margin: 0;
+    border: 1px solid rgb(222, 222, 222);
+    border-top-width: 0;
+    border-radius: 2px;
+    background: url("/images/bg_menu_admin.png") #f3f3f3 repeat-x top left;
+}
+.right .dropper li:first-child{
+    border-top-width: 1px;
+}
+.right .dropper li.placeholder{
+    border-top-width: 1px;
+    border: 1px dashed orange !important;
+    background: white;
+    height: 16px;
+}
+.right .dropper li span{
+    cursor: default;
+}
+.right .dropper li input{
+    display: none;
+}
+.right #checkbox-selected{
+    background: #e0f4d8;
+}
+.right #checkbox-all{
+    background: #dfebf3;
+}
+.right #checkbox-selected li{
+    border-color: #c5f1b4;
+}
+.right #checkbox-all li{
+    border-color: #cae3f3;
+}
+.right form .buttons *{
+    margin: 0;
+}
+    /* конец чекбоксы */
+/* конец правая(рабочая) область */
+
+/*-----Конец-users-----------*/
+footer{
+    
+}
+
+.button_in_accordion_wrapper{
+    position: absolute;
+    top: 3px;
+    right: 10px;
+    list-style: none;
+}
+.button_in_accordion{
+    margin:0px 5px;
+    float: left;
+}
+
+@media only screen and (max-width: 1000px) {
+/*    body{
+        font-size: 12px;
+    }*/
+}
+@media only screen and (max-width: 640px) {
+    header .menu > ul.nav > li.item, header .menu a.logo-link{
+        float: none;
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+}
+
+
+header .menu:after, .right form .name:after, .right form .description:after,.right form .level:after, .right form .buttons:after, .right form .checkboxes:after, .right form .checkboxes  .checkbox-all .checkbox:after, .right form .checkboxes .check-panel:after, .right .dropper:after, .right form:after, .left .list-view .pager ul.yiiPager:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* GROUP ADMIN_ADDITIONAL FEATURES */
+.admin_additional_features_content{
+    background:#F5F5F5; 
+    position: relative; 
+    box-shadow: inset 0px 0px 7px #AAA;
+}
+.admin_main_features{float:left; width:40%;}
+.admin_additional_features{float:left; width:60%;}
+/* END GROUP ADMIN_ADDITIONAL FEATURES */
