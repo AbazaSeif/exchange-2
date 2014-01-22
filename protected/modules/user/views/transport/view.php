@@ -5,7 +5,7 @@
     $this->widget('zii.widgets.CListView', array(
         'dataProvider' => $data,
         'cssFile' => false,
-        'itemView'     => '_view',
+        'itemView'     => 'user.views.transport._view',
         'ajaxUpdate'   => false,
         'emptyText'    => 'Нет перевозок',
         'itemsTagName' => 'div',
@@ -31,6 +31,14 @@ if($data->pagination->pageCount!=0) {
         width: <?php echo 100/($c>14?14:$c); ?>%;
     }
     </style>
-<?php }
+<?php } ?>
+<script>
+$(document).ready(function(){
+     $('.t-timer').each(function(){
+       var timer = new Timer();
+       timer.init($(this).attr('now'), $(this).attr('end'), $(this).attr('id'));
+   });
+});
+</script>
 
 

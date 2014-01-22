@@ -45,10 +45,12 @@ return array(
 			'urlFormat'=>'path',
                         'showScriptName'=>false,
 			'rules'=>array(
-                                '<_m:user>/<_a:\w+>' => 'user/default/<_a>',
+			    'transport/i/<page:\d+>'=>'transport/i',
+                '<_m:user>/<_a:\w+>' => 'user/default/<_a>',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+				'transport/i/<page:\d+>'=>'transport/i',
 			),
 		),
 		
@@ -107,7 +109,7 @@ return array(
 				'Роли'=>'/admin/user/role/',
 				'Операции'=>'/admin/user/operation/',
 			),
-			'Транспорт'=>'/admin/transport/',
+			'Перевозки'=>'/admin/transport/',
 			'Ставки'=>'/admin/rate/',
 		 ),
 		 'adminEmail'=>'krilova@lbr.ru',

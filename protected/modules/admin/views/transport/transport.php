@@ -71,9 +71,3 @@
         start.init('.left', '.ajax', '.right' ,false);
     });
 </script>
-
-<?php 
-    Yii::app()->clientScript->registerScriptFile('/js/ui/jquery-ui-1.10.3.js'); 
-    Yii::app()->clientScript->registerScriptFile('/js/ui/timepicker.js'); 
-    Yii::app()->clientScript->registerCssFile('/css/ui/jquery-ui-1.10.3.css'); 
-?>

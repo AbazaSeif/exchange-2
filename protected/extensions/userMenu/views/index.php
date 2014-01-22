@@ -8,8 +8,9 @@ if(!Yii::app()->user->isGuest){
     <?php   if(Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot)
             { ?>
             <ul class="user-menu">
-                <li><a href="/user/event/" id="menu-events">События</a></li>
-                <li><a href="/">Все перевозки</a>
+                <li><a href="/">Главная</a></li>
+                <li><a href="/user/event/" id="menu-events">События <span id="event-counter"></span></a></li>
+                <li><a href="/user/transport/all/">Все перевозки</a>
                     <ul class="user-submenu">
                         <li><a href="/user/transport/active/">Активные</a></li>
                         <li><a href="/user/transport/archive/s/1/">Выигранные</a></li>
@@ -21,7 +22,7 @@ if(!Yii::app()->user->isGuest){
             </ul>
 <?php       }  else {?>
                 <ul class="user-menu">
-                    <li><a href="/">Все перевозки</a>
+                    <li><a href="/">Главная</a>
                         <?php if(Yii::app()->user->checkAccess('admin')){ ?>
                             <li><a href="/admin/">Административная панель</a></li>
                         <?php  } ?>

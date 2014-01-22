@@ -20,6 +20,7 @@
         <?php
 			Yii::app()->clientScript->registerCoreScript('jquery');
 			Yii::app()->clientScript->registerScriptFile('/js/front/timer.js');
+			Yii::app()->clientScript->registerScriptFile('/js/front/rateList.js');
         ?>
     </head>
     <body>

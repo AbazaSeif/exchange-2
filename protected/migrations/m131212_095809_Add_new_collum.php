@@ -4,20 +4,20 @@ class m131212_095809_Add_new_collum extends CDbMigration
 {
 	public function up()
 	{
-            $transaction=$this->getDbConnection()->beginTransaction();
-            try
-            {
-                $this->addColumn('rate', 'field_id', 'TEXT');
-                $transaction->commit();
-            }
-            catch(Exception $e)
-            {
-                echo "Exception: ".$e->getMessage()."\n";
-                $transaction->rollback();
-                return false;
-            }
-        
-        }
+		$transaction=$this->getDbConnection()->beginTransaction();
+		try
+		{
+			$this->addColumn('rate', 'field_id', 'TEXT');
+			$transaction->commit();
+		}
+		
+		catch(Exception $e)
+		{
+			echo "Exception: ".$e->getMessage()."\n";
+			$transaction->rollback();
+			return false;
+		}
+	}
 
 	public function down()
 	{
