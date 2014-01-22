@@ -115,4 +115,40 @@ class UserGroup extends CActiveRecord
                     return $groupsArray;
                 }
         }
+        
+        //  Метод сохраняет связи Группа-Роль в таблицу соответствий
+        //  $_POST['Roles'] - массив с наименованиями ролей
+        protected function afterSave() {
+            parent::afterSave();
+                $auth=Yii::app()->authManager;
+                $children = $auth->getAuthAssignments($this->id);
+                foreach ($children as $name=>$child){
+                    $auth->revoke($name, $this->id);
+                }
+                if (isset($_POST['Roles'])){
+                    foreach ($_POST['Roles']['name'] as $item){
+                        $auth->assign($item, $this->id);
+                    }
+                }
+            return true;
+        }
+        
+        //  Статический метод, проверяющий доступ к группе
+        //  $params - массив параметров, где:
+        //  $params['level'] - уровень изменяемой группы
+        static function userGroupAccess($params){
+            if ($params){
+                if ($params['level']>Yii::app()->user->_level)
+                    return true;
+            }
+            return false;
+        }
+
+        //  Метод устанавливает сортировку по-умолчанию
+        public function defaultScope()
+        {
+                return array(
+                    'order'=>$this->getTableAlias(false, false).'.level ASC'
+                );
+        }
 }

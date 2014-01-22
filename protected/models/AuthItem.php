@@ -11,7 +11,7 @@
  * @property string $data
  *
  * The followings are the available model relations:
- * @property UserGroups[] $userGroups
+ * @property UserGroup[] $userGroups
  * @property AuthItemChild[] $authItemChildren
  * @property AuthItemChild[] $authItemChildren1
  */
@@ -51,7 +51,7 @@ class AuthItem extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'userGroups' => array(self::MANY_MANY, 'UserGroups', 'AuthAssignment(itemname, userid)'),
+			'userGroups' => array(self::MANY_MANY, 'UserGroup', 'AuthAssignment(itemname, userid)'),
 			'authItemChildren' => array(self::HAS_MANY, 'AuthItemChild', 'child'),
 			'authItemChildren1' => array(self::HAS_MANY, 'AuthItemChild', 'parent'),
 		);
@@ -111,6 +111,14 @@ class AuthItem extends CActiveRecord
 		return parent::model($className);
 	}
         
+        //  Метод устанавливает сортировку по-умолчанию
+        public function defaultScope()
+        {
+                return array(
+                    'order'=>$this->getTableAlias(false, false).'.name ASC'
+                );
+        }
+        
         protected function afterSave() {
             parent::afterSave();
             if ($this->type=='2'){
@@ -118,7 +126,7 @@ class AuthItem extends CActiveRecord
                 $children = $auth->getItemChildren($this->name);
                 foreach ($children as $name=>$child){
                     $auth->removeItemChild($this->name, $name);
-                }
+            }
                 if (isset($_POST['Operations'])){
                     $role = $auth->getAuthItem($this->name);
                     foreach ($_POST['Operations']['name'] as $item){
