@@ -41,20 +41,21 @@ class DefaultController extends Controller
 	public function actionOption()
 	{
 	    $userId = Yii::app()->user->_id;
-	    $elementExitsts = UserField::model()->find(array('condition'=>'user_id = :id', 'params'=>array(':id' => $userId)));
-	    if($elementExitsts) {
+	    //$elementExitsts = UserField::model()->find(array('condition'=>'user_id = :id', 'params'=>array(':id' => $userId)));
+	    //if($elementExitsts) {
 			$model = Yii::app()->db->createCommand()
 				->select()
 				->from('user_field')
 				->where('user_id = :id', array(':id' => $userId))
 				->queryRow()
 			;
-		} else { // !!!! перенести в контроллер User
+		//} 
+        /*else { // !!!! перенести в контроллер User
 		    $model = new UserField;
 		    $data = array('mail_deadline' => true, 'site_transport_create_1' => true, 'site_transport_create_2' => true, 'site_kill_rate' => true, 'site_deadline' => true, 'site_before_deadline' => true);
 			$model->attributes = $data;
 			$model->save(); 
-		}
+		}*/
 		
 	    $this->render('option', array('model' => $model));
 	}

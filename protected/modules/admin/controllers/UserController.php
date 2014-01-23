@@ -3,7 +3,7 @@
 class UserController extends Controller
 {
     
-        protected function beforeAction($action)
+    protected function beforeAction($action)
 	{
             if(parent::beforeAction($action))
             {
@@ -68,7 +68,17 @@ class UserController extends Controller
                 $group = UserGroup::getUserGroupArray();
                 if (isset($_POST['User'])){
                     $model->attributes = $_POST['User'];
+                    $model->status = 1;
+                    var_dump($_POST['User']);
                     if($model->save()){
+                        if(Yii::app()->params['ferrymanGroup'] == $model->group_id){
+                            $model = new UserField;
+                            $data = array('mail_deadline' => true, 'site_transport_create_1' => true, 'site_transport_create_2' => true, 'site_kill_rate' => true, 'site_deadline' => true, 'site_before_deadline' => true);
+                            $model->attributes = $data;
+                            $model->user_id = Yii::app()->user->_id;
+                            $model->save();
+                        }
+                        
                         Yii::app()->user->setFlash('saved_id', $model->id);
                         Yii::app()->user->setFlash('message', 'Пользователь '.$model->login.' создан успешно.');
                         $this->redirect('/admin/user/');

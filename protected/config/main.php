@@ -114,5 +114,6 @@ return array(
 		 ),
 		 'adminEmail'=>'krilova@lbr.ru',
 		 'hoursBefore' => 24,
+         'ferrymanGroup' => 4,
 	),
 );

@@ -76,7 +76,7 @@ var rateList = {
                             
                         }
                     } else {
-                        rateList.container.html('Сделайте ваше предложение');
+                        rateList.container.html('Нет предложений');
                     }
             }});
         }

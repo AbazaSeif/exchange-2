@@ -485,6 +485,7 @@ header, .wrapper, footer
 	float: left;
 	overflow: auto;
 	margin-right: 10px;
+    width: 40%;
 }
 .r-o-price{
     font-weight: bold;

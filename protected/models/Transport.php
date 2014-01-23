@@ -85,7 +85,7 @@ class Transport extends CActiveRecord
 			'user_id' => 'ID пользователя',
 			'location_from' => 'Место загрузки',
 			'location_to' => 'Место разгрузки',
-			'auto_info' => 'Информация об автомобиле',
+			'auto_info' => 'Об автомобиле',
 			'description' => 'Описание',
 			'date_from' => 'Дата загрузки',
 			'date_to' => 'Дата разгрузки',
