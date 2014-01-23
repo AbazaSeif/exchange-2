@@ -34,10 +34,14 @@ if($data->pagination->pageCount!=0) {
 <?php } ?>
 <script>
 $(document).ready(function(){
-     $('.t-timer').each(function(){
-       var timer = new Timer();
-       timer.init($(this).attr('now'), $(this).attr('end'), $(this).attr('id'));//, $(this).attr('status'));
-   });
+    $('.t-timer').each(function(){
+       if(parseInt($(this).attr('status'))){
+           var timer = new Timer();
+           timer.init($(this).attr('now'), $(this).attr('end'), $(this).attr('id'));//, $(this).attr('status'));
+       } else {
+           $('#' + $(this).attr('id')).html('<span class="t-closed">Перевозка закрыта</span>');
+       }
+    }); 
 });
 </script>
 

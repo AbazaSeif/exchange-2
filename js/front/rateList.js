@@ -15,12 +15,11 @@ var rateList = {
 
         $( "#rate-down" ).click(function() {
             if(!$(this).hasClass('disabled')) {
+                if(element.val() <= element.attr('init')) 
+                    $( "#rate-up" ).removeClass('disabled');
                 var newRate = parseInt(element.val()) - rateList.data.priceStep; 
                 if(newRate > 0) element.val(newRate);
                 else $(this).addClass('disabled');
-                
-                if(element.val() <= element.attr('init')) 
-                    $( "#rate-up" ).removeClass('disabled');
             }
         });
 
@@ -58,7 +57,10 @@ var rateList = {
                             var value = parseInt(rates.price) - parseInt(rateList.data.priceStep);
                             var prevValue = value - parseInt(rateList.data.priceStep);
                             var price = $("#rate-price");
-                            if(price.val() > value && value > 0) price.val(value);
+                            if(price.val() > value && value > 0) {
+                                price.val(value);
+                                $( "#rate-up" ).addClass('disabled');
+                            }
                             if(prevValue < 0) $( "#rate-down" ).addClass('disabled');
                             price.attr('init', value);
                             
