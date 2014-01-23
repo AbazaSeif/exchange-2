@@ -416,6 +416,7 @@ header, .wrapper, footer
 .r-description{
     color: #EF801B;
     font-size: 13px;
+    padding: 5px 0;
 }
 
 /*--------Конец-Одна-перевозка-----*/
@@ -424,23 +425,70 @@ header, .wrapper, footer
     color: red;
 }
 #rate-price{
-   float: left;
+   float: right;
    font-size: 23px;
 }
-
 #rates{
-    max-height: 200px;
-    overflow-y: auto;
-    overflow-x: hidden;
     margin-top: 20px;
+    border: 1px dotted #eee;
+	display: block;
+	margin-bottom: 10px;
+	padding: 3px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	max-height: 290px;
+}
+#timer{
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.shadow{
+    box-shadow: 0 0 8px rgba(0,0,0,0.6);
+}
+#timer .t-time{
+    font-weight: 500;
+    font-size: 25px;
+    display: block; 
 }
 .transport-one .t-o-info div span{
-    width: 30%;
     display: inline;
 }
-
+.transport-one .width-30.shadow{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 .rate-btns{
     float: left;
+    margin: 0 auto;
+    width: 56%;
+}
+
+.rate-btns-wrapper{
+    float: right;
+}
+
+.rate-one{
+    background-color: #ddd;
+    display: block;
+	border: 1px solid #aaa;
+	margin-bottom: 4px;
+	padding: 4px;
+	overflow: auto;
+}
+.r-o-container{
+    background-color:  #eee;
+	padding: 3px;
+	color: #333;
+	float: left;
+	overflow: auto;
+	margin-right: 10px;
+}
+.r-o-price{
+    font-weight: bold;
+    color: #EF801B;
 }
 
 .btn{
@@ -465,7 +513,6 @@ header, .wrapper, footer
     background-repeat: repeat-x;
     border: 1px solid #ddd;
     border-bottom-color: #c5c5c5;
-    width: auto;
     cursor: pointer;
     cursor: hand;
 }
@@ -479,30 +526,27 @@ header, .wrapper, footer
     background-image: linear-gradient(#8add6d, #60b044);
     background-repeat: repeat-x;
     border: 1px solid #5ca941;
+    height: 25px;
 }
 
 #rate-up{
-    margin-left: 50px;
     background: url(/images/ui-icons_222222_256x240.png);
     background-position: 0 -16px;
     width: 16px;
     height: 16px;
     cursor: pointer;
     cursor: hand;
+    border: 1px solid #eee;
 }
 
 #rate-down{
-    margin-left: 49px;
     background: url(/images/ui-icons_222222_256x240.png);
-    background-position: -64px -16px;
+    background-position: -65px -18px;
     width: 16px;
-    height: 16px;
+    height: 14px;
     cursor: pointer;
     cursor: hand;
-}
-
-.big{
-    height: 25px;
+    border: 1px solid #eee;
 }
 
 .disabled{

@@ -2,24 +2,25 @@ var rateList = {
     init : function(){
         this.container = $("#rates");
         var element = $( "#rate-price" );
-        $( "btn-up" ).click(function(){
+        $( "#rate-up" ).click(function(){
             if(!$(this).hasClass('disabled')){
+                $( "#rate-down" ).removeClass('disabled');
                 var newRate = parseInt(element.val()) + rateList.data.priceStep;
                 if(newRate <= element.attr('init')) element.val(newRate);
 
-                //button style
                 if (parseInt(element.attr('init')) == element.val()) $(this).addClass('disabled');
                 else $(this).removeClass('disabled');
             }
         });
 
-        $( "btn-down" ).click(function() {
-            if(element.val() <= element.attr('init')) 
-                $( "btn-up" ).removeClass('disabled');
-                
+        $( "#rate-down" ).click(function() {
             if(!$(this).hasClass('disabled')) {
                 var newRate = parseInt(element.val()) - rateList.data.priceStep; 
                 if(newRate > 0) element.val(newRate);
+                else $(this).addClass('disabled');
+                
+                if(element.val() <= element.attr('init')) 
+                     $( "#rate-up" ).removeClass('disabled');
             }
         });
 
@@ -46,13 +47,23 @@ var rateList = {
                     newRate: price, 
                 },
                 success: function(rates) {
-                    $.each( rates.all, function( key, value ) {
-                        rateList.add(value);
-                    });
-                    
-                    if(rates.price){
-                        $("#rate-price").attr('init', rates.price);
-                        $('#last-rate').html(rates.price + rateList.data.currency);
+                    if(rates.all.length){
+                        rateList.container.html('');
+                        $.each( rates.all, function( key, value ) {
+                            rateList.add(value);
+                        });
+                        
+                        if(rates.price){
+                            var value = parseInt(rates.price) - parseInt(rateList.data.priceStep);
+                            var prevValue = value - parseInt(rateList.data.priceStep);
+                            var price = $("#rate-price");
+                            if(price.val() > value && value > 0) price.val(value);
+                            if(prevValue < 0) $( "#rate-down" ).addClass('disabled');
+                            price.attr('init', value);
+                            $('#last-rate').html(rates.price + rateList.data.currency);
+                        }
+                    } else {
+                        rateList.container.html('Сделайте ваше предложение');
                     }
             }});
         }
