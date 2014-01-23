@@ -36,7 +36,7 @@ $inputSize = strlen((string)$lastRate)-1;
     </div>
     <div class="width-30 shadow">
         <div id="timer"></div>
-        <?php if (!Yii::app()->user->isGuest): ?>
+        <?php if (!Yii::app()->user->isGuest && $startValue > 0): ?>
         <div class="rate-btns">
             <div class="rate-btns-wrapper">
                 <div id="rate-up" class="disabled"></div>
@@ -44,7 +44,7 @@ $inputSize = strlen((string)$lastRate)-1;
             </div>
             <input id="rate-price" value="<?php echo $startValue?>" init="<?php echo $startValue?>" type="text" size="<?php echo $inputSize ?>" disabled="disabled"/>
 		</div>
-		<div id="rate-btn" class="btn-green btn  <?php echo ($startValue < 0)?'disabled':'' ?>">ОK</div>
+		<div id="rate-btn" class="btn-green btn  <?php echo ($startValue <= 0)?'disabled':'' ?>">ОK</div>
         <?php endif; ?>
     </div>
     <div class="clear"></div>
@@ -55,15 +55,19 @@ $inputSize = strlen((string)$lastRate)-1;
 </div>
 <script>
 $(document).ready(function(){
-    var timer = new Timer();
-    timer.init('<?php echo $now ?>', '<?php echo $end ?>', 'timer');
-    
     rateList.data = {
         currency : ' <?php echo $currency ?>',
         priceStep : <?php echo $priceStep ?>,
-        transportId : <?php echo $transportInfo['id']; ?>
+        transportId : <?php echo $transportInfo['id']; ?>,
+        close: <?php echo ($transportInfo['status'])? 0 : 1; ?>,
+        step: <?php echo $priceStep ?>,
     };
 	rateList.init();
 	setInterval(function(){rateList.update($('#rates'))}, 15000);
+    
+    if(!rateList.data.close){
+        var timer = new Timer();
+        timer.init('<?php echo $now ?>', '<?php echo $end ?>', 'timer', 1);
+    }
 });
 </script>

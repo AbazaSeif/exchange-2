@@ -60,8 +60,10 @@ class TransportController extends Controller
     public function actionUpdateRates()
     {
         $id = $_POST['id'];
+        $price = '';
         $newPrice = $_POST['newRate'];
-
+        $priceStep = $_POST['step'];
+        
         if($newPrice) {
             $obj = array(
                 'transport_id'  => $id,
@@ -78,7 +80,7 @@ class TransportController extends Controller
             $rateId = $model->rate_id;
 
             // send mail
-            if(!empty($rateId)){ // empty if no rates
+            if(!empty($rateId)){ // empty when don't have rates
                 $rateModel = Rate::model()->findByPk($rateId);
                 $this->mailKillRate($rateId, $rateModel);
                 $this->siteKillRate($rateId, $rateModel);
@@ -87,9 +89,7 @@ class TransportController extends Controller
             $model->rate_id = $modelRate->id;
             $model->save();
         }
-
-        $sql = 'select price from rate where transport_id = '.$id.' group by transport_id order by date desc limit 1';
-        $price = Yii::app()->db->createCommand($sql)->queryScalar();
+        
         $data = Yii::app()->db->createCommand()
             ->select('r.*, u.name, u.surname')
             ->from('rate r')
@@ -98,8 +98,17 @@ class TransportController extends Controller
             ->order('r.date asc')
             ->queryAll()
         ;
+                
         foreach($data as $k=>$v){
            $data[$k]['time']=date('d.m.Y H:i:s', strtotime($v['date']));
+        }
+        
+        if(count($data)) {
+            $sql = 'select price from rate where transport_id = '.$id.' group by transport_id order by date desc limit 1';
+            $price = Yii::app()->db->createCommand($sql)->queryScalar();
+            if(($price - $priceStep) <= 0) {
+                Transport::model()->updateByPk($id, array('status'=>0));
+            }
         }
 
         $array = array('price'=>$price, 'all'=>$data);

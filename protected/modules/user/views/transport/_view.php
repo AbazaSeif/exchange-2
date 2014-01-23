@@ -3,6 +3,7 @@
     $lastRate = $this->getPrice($data->rate_id);
     $now = date('Y m d H:i:s', strtotime('now'));
     $end = date('Y m d H:i:s', strtotime($data->date_to));
+    $status = $data->status;
     $_rate = '****';
     if(!Yii::app()->user->isGuest){
         $_rate = (!empty($lastRate))? $lastRate : $data->start_rate;
@@ -32,6 +33,6 @@
         </div>
     </div>
     <div class="width-15"> 
-        <div class="t-timer" id="counter-<?php echo $data->id; ?>" now="<?php echo $now ?>" end="<?php echo $end ?>">></div>
+        <div class="t-timer" id="counter-<?php echo $data->id; ?>" now="<?php echo $now ?>" end="<?php echo $end ?>"></div>
     </div>
 </div>

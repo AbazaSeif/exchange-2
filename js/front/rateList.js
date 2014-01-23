@@ -2,7 +2,7 @@ var rateList = {
     init : function(){
         this.container = $("#rates");
         var element = $( "#rate-price" );
-        $( "#rate-up" ).click(function(){
+        $( "#rate-up" ).click(function() {
             if(!$(this).hasClass('disabled')){
                 $( "#rate-down" ).removeClass('disabled');
                 var newRate = parseInt(element.val()) + rateList.data.priceStep;
@@ -20,7 +20,7 @@ var rateList = {
                 else $(this).addClass('disabled');
                 
                 if(element.val() <= element.attr('init')) 
-                     $( "#rate-up" ).removeClass('disabled');
+                    $( "#rate-up" ).removeClass('disabled');
             }
         });
 
@@ -44,7 +44,8 @@ var rateList = {
                 dataType: 'json',
                 data:{
                     id: this.data.transportId,
-                    newRate: price, 
+                    newRate: price,
+                    step: this.data.step,
                 },
                 success: function(rates) {
                     if(rates.all.length){
@@ -60,7 +61,16 @@ var rateList = {
                             if(price.val() > value && value > 0) price.val(value);
                             if(prevValue < 0) $( "#rate-down" ).addClass('disabled');
                             price.attr('init', value);
+                            
                             $('#last-rate').html(rates.price + rateList.data.currency);
+                            if(value <= 0) {
+                                $('#rate-btn').addClass('disabled');
+                                $('.rate-btns').slideUp("slow");
+                                $('#rate-btn').slideUp("slow");
+                                $('#timer').html('Перевозка закрыта');
+                                rateList.data.close = true;
+                            }
+                            
                         }
                     } else {
                         rateList.container.html('Сделайте ваше предложение');

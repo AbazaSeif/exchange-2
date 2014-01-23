@@ -36,7 +36,7 @@ if($data->pagination->pageCount!=0) {
 $(document).ready(function(){
      $('.t-timer').each(function(){
        var timer = new Timer();
-       timer.init($(this).attr('now'), $(this).attr('end'), $(this).attr('id'));
+       timer.init($(this).attr('now'), $(this).attr('end'), $(this).attr('id'));//, $(this).attr('status'));
    });
 });
 </script>

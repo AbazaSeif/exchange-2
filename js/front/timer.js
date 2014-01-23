@@ -1,11 +1,11 @@
 var Timer = function(){};
 Timer.prototype = {
   //initialize: function(initDate, id){
-  init: function(serverDate, initDate, id){
+  init: function(serverDate, initDate, id, status){
     var dateNow = new Date(); // on pk
     var dateNowServer = new Date(serverDate); // on server
 	this.timeDiff = (dateNowServer - dateNow)/1000; // сек, временная разница между сервером и клиентом 
-	
+	this.status = status;
     this.endDate = new Date(initDate); // дата и время от которых идет обратный отсчет
 	this.str = '#' + id;
 	
@@ -21,10 +21,7 @@ Timer.prototype = {
   },
   updateNumOfDays: function() {
     var dateNow = new Date(); // on pk
-	//console.log(dateNow);
     dateNow.setSeconds(dateNow.getSeconds() + this.timeDiff);
-    //console.log('posle = ' + dateNow);
-    //console.log(' = ' + dateNow.getHours());
 	var currYear = dateNow.getFullYear();
     if ( (currYear % 4 == 0 && currYear % 100 != 0 ) || currYear % 400 == 0 ) {
         this.numOfDays[1] = 29; //кол-во дней в феврале высокосного года
@@ -96,7 +93,10 @@ Timer.prototype = {
 		this.countainer.innerHTML = years + months + days + ' <span class="t-time">' + this.hours + ':' + this.minutes + ':' + this.seconds + '</span>';
 		var currDate = new Date();
 		currDate.setSeconds(currDate.getSeconds() + this.timeDiff);
-		if ( this.endDate > currDate) { //проверка не обнулился ли таймер
+        //console.log(rateList.data.close);
+        //if(typeof rateList.data.close !== "undefined") this.status = rateList.data.close;
+		//if ( this.endDate > currDate && this.status ) { //проверка не обнулился ли таймер
+        if ( this.endDate > currDate ) { //проверка не обнулился ли таймер
 			var self = this;
 			setTimeout(function(){self.updateCounter();}, 1000);
 		} else {
