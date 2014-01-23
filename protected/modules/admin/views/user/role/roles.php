@@ -34,7 +34,7 @@
         ?>
     </div>
 </div>
-<?php if($data->pagination->pageCount!=0) { 
+<?php if($data->pagination->pageCount!=0) {
     $c = ($data->pagination->pageCount+4);
     ?>
     <style>

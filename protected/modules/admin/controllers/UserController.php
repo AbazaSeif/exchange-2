@@ -69,14 +69,14 @@ class UserController extends Controller
                 if (isset($_POST['User'])){
                     $model->attributes = $_POST['User'];
                     $model->status = 1;
-                    var_dump($_POST['User']);
+                    //var_dump($_POST['User']);exit;
                     if($model->save()){
                         if(Yii::app()->params['ferrymanGroup'] == $model->group_id){
-                            $model = new UserField;
+                            $modelUserField = new UserField;
                             $data = array('mail_deadline' => true, 'site_transport_create_1' => true, 'site_transport_create_2' => true, 'site_kill_rate' => true, 'site_deadline' => true, 'site_before_deadline' => true);
-                            $model->attributes = $data;
-                            $model->user_id = Yii::app()->user->_id;
-                            $model->save();
+                            $modelUserField->attributes = $data;
+                            $modelUserField->user_id = Yii::app()->user->_id;
+                            $modelUserField->save();
                         }
                         
                         Yii::app()->user->setFlash('saved_id', $model->id);

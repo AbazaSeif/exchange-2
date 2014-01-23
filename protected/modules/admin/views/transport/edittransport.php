@@ -115,3 +115,17 @@ $(function() {
 </div>
 <?php $this->endWidget();?> 
 </div>
+
+<div>
+    <div class="header-h4">Все операции</div>
+    <ul id="rates-list">
+    <?  if(isset($operation)){
+            foreach ($operation as $item){
+                echo '<li class="checkbox">';
+                echo '<span>'.$item->date.'</span>';
+                echo '<span>'.$item->price.'</span>';
+                echo '</li>';
+            }
+        } ?>
+    </ul>
+</div>
