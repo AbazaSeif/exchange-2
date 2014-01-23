@@ -70,7 +70,8 @@ var rateList = {
                                 $('.rate-btns').slideUp("slow");
                                 $('#rate-btn').slideUp("slow");
                                 $('#timer').html('Перевозка закрыта');
-                                rateList.data.close = true;
+                                rateList.data.status = true;
+                                //clearTimeout(Timer.name);
                             }
                             
                         }

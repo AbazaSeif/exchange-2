@@ -60,8 +60,10 @@ if(!Yii::app()->user->isGuest){
 ?>
 <script>
 $(document).ready(function(){
-updateCounter();
-setInterval(function(){updateCounter()}, 5000);
+    <?php if(!Yii::app()->user->isGuest): ?>
+       updateCounter();
+       setInterval(function(){updateCounter()}, 5000);
+    <?php endif;?>
 });
 
 function updateCounter(){    

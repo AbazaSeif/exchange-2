@@ -59,15 +59,12 @@ $(document).ready(function(){
         currency : ' <?php echo $currency ?>',
         priceStep : <?php echo $priceStep ?>,
         transportId : <?php echo $transportInfo['id']; ?>,
-        close: <?php echo ($transportInfo['status'])? 0 : 1; ?>,
+        status: <?php echo $transportInfo['status'] ?>,
         step: <?php echo $priceStep ?>,
     };
 	rateList.init();
 	setInterval(function(){rateList.update($('#rates'))}, 15000);
-    
-    if(!rateList.data.close){
-        var timer = new Timer();
-        timer.init('<?php echo $now ?>', '<?php echo $end ?>', 'timer', 1);
-    }
+    var timer = new Timer();
+    timer.init('<?php echo $now ?>', '<?php echo $end ?>', 'timer', rateList.data.status);
 });
 </script>

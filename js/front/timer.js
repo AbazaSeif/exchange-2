@@ -93,21 +93,18 @@ Timer.prototype = {
 		this.countainer.innerHTML = years + months + days + ' <span class="t-time">' + this.hours + ':' + this.minutes + ':' + this.seconds + '</span>';
 		var currDate = new Date();
 		currDate.setSeconds(currDate.getSeconds() + this.timeDiff);
-        //console.log(rateList.data.close);
-        //if(typeof rateList.data.close !== "undefined") this.status = rateList.data.close;
-		//if ( this.endDate > currDate && this.status ) { //проверка не обнулился ли таймер
-        if ( this.endDate > currDate ) { //проверка не обнулился ли таймер
+
+        if(typeof rateList.data !== "undefined" && typeof rateList.data.status !== "undefined") this.status = parseInt(rateList.data.status);
+        if ( this.endDate > currDate && this.status ) { //проверка не обнулился ли таймер
+            //console.log(1);
 			var self = this;
-			setTimeout(function(){self.updateCounter();}, 1000);
+			//this.name = 
+            setTimeout(function(){self.updateCounter();}, 1000);
 		} else {
+             //console.log(2);
+            /*clearTimeout(this.name);*/
 			this.countainer.innerHTML = '<span class="t-closed">Перевозка закрыта</span>';
 		}
 	}
    }
 };
-//});
-
-/*window.onload = function() {
-	var myClassObject = new Timer();
-    myClassObject.init('January 02, 2100 00:00:00', 'counter');
-}*/
