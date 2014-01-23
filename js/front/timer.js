@@ -1,9 +1,8 @@
 var Timer = function(){};
 Timer.prototype = {
-  //initialize: function(initDate, id){
   init: function(serverDate, initDate, id, status){
-    var dateNow = new Date(); // on pk
-    var dateNowServer = new Date(serverDate); // on server
+    var dateNow = new Date(); // время на ПК
+    var dateNowServer = new Date(serverDate); // время на сервере
 	this.timeDiff = (dateNowServer - dateNow)/1000; // сек, временная разница между сервером и клиентом 
 	this.status = status;
     this.endDate = new Date(initDate); // дата и время от которых идет обратный отсчет
@@ -96,13 +95,9 @@ Timer.prototype = {
 
         if(typeof rateList.data !== "undefined" && typeof rateList.data.status !== "undefined") this.status = parseInt(rateList.data.status);
         if ( this.endDate > currDate && this.status ) { //проверка не обнулился ли таймер
-            //console.log(1);
 			var self = this;
-			//this.name = 
             setTimeout(function(){self.updateCounter();}, 1000);
 		} else {
-             //console.log(2);
-            /*clearTimeout(this.name);*/
 			this.countainer.innerHTML = '<span class="t-closed">Перевозка закрыта</span>';
 		}
 	}

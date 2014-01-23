@@ -43,8 +43,8 @@ class TransportController extends Controller
     
     public function actionAll()
     {
-            $transportId = array();
-     $temp = Yii::app()->db->createCommand()
+        $transportId = array();
+        $temp = Yii::app()->db->createCommand()
                     ->selectDistinct('transport_id')
                     ->from('rate')
                     ->where('user_id = :id', array(':id' => Yii::app()->user->_id))
@@ -90,7 +90,7 @@ class TransportController extends Controller
                     )
             );
                     
-            $this->render('view', array('data' => $dataProvider, 'title'=>'Активные перевозки'));
+            $this->render('view', array('data' => $dataProvider, 'title'=>'Все перевозки'));
     }
     
     /* Show all transports where user takes part */
@@ -116,7 +116,7 @@ class TransportController extends Controller
                     array(
                             'criteria' => $criteria,
                             'pagination'=>array(
-                             'pageSize' => 2,
+                             'pageSize' => 8,
                              'pageVar' => 'page',
                             ),
                             'sort' => array(
@@ -154,7 +154,7 @@ class TransportController extends Controller
     public function actionArchive($s = null)
     {
         $userId = Yii::app()->user->_id;
-        $transportId = $rateId = $rateIdWin = array();
+        $transportId = $rateId = $rateIdWin = $rateIdLose = array();
         $temp = Yii::app()->db->createCommand()
                 ->selectDistinct('transport_id')
                 ->from('rate')
@@ -176,7 +176,7 @@ class TransportController extends Controller
         foreach($temp as $t){
             $rateId[] = $t['id'];
         }
-        
+
         // all win rates
         $temp = Yii::app()->db->createCommand()
             ->select('rate_id')
@@ -184,21 +184,28 @@ class TransportController extends Controller
             ->where('status = :status', array(':status' => 0))
             ->queryAll()
         ;
-        
         foreach($temp as $t){
             $rateIdWin[] = $t['rate_id'];
         }
-        
         $intersectRates = array_intersect($rateId, $rateIdWin);
-        // all win rates
+        // all lose rates
+        $temp = Yii::app()->db->createCommand()
+            ->selectDistinct('transport_id')
+            ->from('rate')
+            ->where(array('in', 'id', array_diff($rateId, $rateIdWin)))
+            ->queryAll()
+        ;
+        foreach($temp as $t){
+            $rateIdLose[] = $t['transport_id'];
+        }
+
         $criteria = new CDbCriteria();
         if(isset($s)) {
-         $criteria->addInCondition('rate_id', $intersectRates);
+            $criteria->addInCondition('rate_id', $intersectRates);
         } else {
-         $criteria->addInCondition('rate_id', $rateId);
-         $criteria->addNotInCondition('rate_id', $rateIdWin);
+            $criteria->addInCondition('id', $rateIdLose); 
+            $criteria->addNotInCondition('rate_id', $intersectRates);
         }
-        
         $criteria->compare('status', 0);
         
         $dataProvider = new CActiveDataProvider('Transport',

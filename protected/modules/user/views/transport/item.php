@@ -31,6 +31,7 @@ $inputSize = strlen((string)$lastRate)-1;
             <div><span>Пункт назначения: </span> <strong><?php echo $transportInfo['location_to'] ?></strong></div>
             <div><span>Дата загрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_from'])) ?></strong></div>
             <div><span>Дата разгрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_to'])) ?></strong></div>
+            <?php if (!empty($transportInfo['auto_info'])):?><div><span>Информация о машине: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
             <?php if (!Yii::app()->user->isGuest): ?><div><span>Текущая ставка:   <strong id="last-rate"><?php echo $lastRate . $currency?></strong></span></div><?php endif; ?>
         </div>	
     </div>

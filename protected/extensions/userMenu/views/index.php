@@ -66,7 +66,7 @@ $(document).ready(function(){
     <?php endif;?>
 });
 
-function updateCounter(){    
+function updateCounter(){
     $.ajax({
 		url: '/user/updateEventCounter',
 		success: function(data){
