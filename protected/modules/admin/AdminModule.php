@@ -25,6 +25,7 @@ class AdminModule extends CWebModule
             Yii::app()->clientScript->registerScriptFile('/js/ui/jquery-ui-1.10.3.js');
             Yii::app()->clientScript->registerScriptFile('/js/ui/timepicker.js'); 
             Yii::app()->clientScript->registerScriptFile('/js/back/AjaxContentLoader.js');
+            Yii::app()->clientScript->registerScriptFile('/js/back/EditTransport.js');
 
             if(Yii::app()->user->isGuest){
                 Yii::app()->user->returnUrl = Yii::app()->request->requestUri;

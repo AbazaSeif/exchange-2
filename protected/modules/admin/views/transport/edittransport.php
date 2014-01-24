@@ -1,35 +1,3 @@
-<script>
-$(function() {
-	$.datepicker.regional['ru'] = {
-		closeText: 'Закрыть',
-		prevText: '&#x3c;Пред',
-		nextText: 'След&#x3e;',
-		currentText: 'Сегодня',
-		monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
-		monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'],
-		dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
-		dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
-		dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
-		dateFormat: 'dd.mm.yy',
-		firstDay: 1,
-		isRTL: false,
-	};
-    $.datepicker.setDefaults($.datepicker.regional['ru']); 
-	$( "#date_from" ).datetimepicker({
-		dateFormat: 'yy-mm-dd',
-	    timeFormat: 'HH:mm',
-	});
-	$( "#date_to" ).datetimepicker({
-		dateFormat: 'yy-mm-dd',
-	    timeFormat: 'HH:mm',
-	});
-    
-    $( "#rates-all li span.price" ).bind( "click", function() {
-        console.log('click');
-    });
-});
-</script>
-
 <?php
     $header_form = 'Редактирование перевозки "'.$model->location_from.' &mdash; '.$model->location_to . '"';
     $submit_text = 'Сохранить';
@@ -123,7 +91,7 @@ $(function() {
 <div>
     <div class="header-h4">Все ставки</div>
     <?php if(count($rates)):?>
-    <ul id="rates-all" class="dropper">
+    <ul id="rates-all">
         <li>
            <span>Дата</span>
            <span>Размер ставки</span>
@@ -138,3 +106,11 @@ $(function() {
     <?php else: echo '<div class="no-rates">Нет ставок</div>';
     endif; ?>
 </div>
+
+<script>
+$(document).ready(function(){
+    var editor = new ЕditTransport();
+    editor.initCalendar();
+    editor.initRateEditor();
+});
+</script>

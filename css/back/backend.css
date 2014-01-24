@@ -491,14 +491,26 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     width: 400px;
     text-align: center;
     box-shadow: 0 0 3px #C0C0C0;
+    overflow:hidden;
+    list-style: none;
+    padding: .5em;
+    min-height: 25px;
+    background: rgb(238, 238, 238);
+    margin: .5em 0;
+    border-radius: 2px;
 }
 #rates-all li:first-child{
     background: #b3cfe1;
 }
 #rates-all li{
     border-color: #cae3f3;
-    width: 96%;
+    width: 100%;
     float: left;
+    padding: 3px 0;
+    border: 1px solid rgb(222, 222, 222);
+    border-top-width: 0;
+    border-radius: 2px;
+    background: #f3f3f3 repeat-x top left;
 }
 #rates-all li.item:hover{
     background: none repeat scroll 0 0 #c9c7c7;
