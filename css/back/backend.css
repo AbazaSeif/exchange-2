@@ -1,10 +1,3 @@
-/* 
-    Document   : admin
-    Created on : 23.05.2013, 9:58:52
-    Author     : cheshenkov
-    Description:
-        Purpose of the stylesheet follows.
-*/
 * {
     margin: 0;
     padding: 0;
@@ -490,6 +483,40 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     margin: 0;
 }
     /* конец чекбоксы */
+    
+    /* Начало список ставок */
+
+#rates-all{
+    background: #dfebf3;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 0 3px #C0C0C0;
+}
+#rates-all li:first-child{
+    background: #b3cfe1;
+}
+#rates-all li{
+    border-color: #cae3f3;
+    width: 96%;
+    float: left;
+}
+#rates-all li.item:hover{
+    background: none repeat scroll 0 0 #c9c7c7;
+}
+#rates-all li span:first-child{
+    width: 50%;
+}
+
+#rates-all li span{
+    float: left;
+    width: 50%;
+}
+
+.no-rates{
+   margin-top: 10px;
+}
+
+    /* Конец список ставок */
 /* конец правая(рабочая) область */
 
 /*-----Конец-users-----------*/

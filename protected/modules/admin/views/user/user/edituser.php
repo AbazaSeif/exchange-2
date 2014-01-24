@@ -71,6 +71,11 @@
     echo $form->labelEx($model, 'group_id');
     echo $form->dropDownList($model, 'group_id', $group); ?>
 </div>
+<div class="status field">
+<?  echo $form->error($model, 'status');
+    echo $form->labelEx($model, 'status');
+    echo $form->dropDownList($model, 'status', $status); ?>
+</div>
 <div style="display:none;">
 <?  echo $form->hiddenField($model, 'password'); ?>
 </div>

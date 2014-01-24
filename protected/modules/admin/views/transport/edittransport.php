@@ -23,6 +23,10 @@ $(function() {
 		dateFormat: 'yy-mm-dd',
 	    timeFormat: 'HH:mm',
 	});
+    
+    $( "#rates-all li span.price" ).bind( "click", function() {
+        console.log('click');
+    });
 });
 </script>
 
@@ -117,15 +121,20 @@ $(function() {
 </div>
 
 <div>
-    <div class="header-h4">Все операции</div>
-    <ul id="rates-list">
-    <?  if(isset($operation)){
-            foreach ($operation as $item){
-                echo '<li class="checkbox">';
-                echo '<span>'.$item->date.'</span>';
-                echo '<span>'.$item->price.'</span>';
-                echo '</li>';
-            }
-        } ?>
+    <div class="header-h4">Все ставки</div>
+    <?php if(count($rates)):?>
+    <ul id="rates-all" class="dropper">
+        <li>
+           <span>Дата</span>
+           <span>Размер ставки</span>
+        </li>
+    <?php foreach ($rates as $item){
+            echo '<li class="item">';
+            echo '<span>'.$item->date.'</span>';
+            echo '<span class="price">'.$item->price.'</span>';
+            echo '</li>';
+        }?>
     </ul>
+    <?php else: echo '<div class="no-rates">Нет ставок</div>';
+    endif; ?>
 </div>

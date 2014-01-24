@@ -77,6 +77,7 @@ class User extends CActiveRecord
 			'email' => 'e-mail',
 			'group_id' => 'Группа',
 			'type' => 'Тип',
+			'status' => 'Статус',
 		);
 	}
 

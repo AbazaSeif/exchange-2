@@ -55,7 +55,7 @@ class TransportController extends Controller
 	{
         if(Yii::app()->user->checkAccess('editTransport')){
             $model = Transport::model()->findByPk($id);
-            $operation = Rate::model()->findAll('transport_id='.$id);
+            $rates = Rate::model()->findAll(array('order'=>'date desc', 'condition'=>'transport_id='.$id));
             if (isset($_POST['Transport'])){
                 $model->attributes = $_POST['Transport'];
                 if($model->save()){
@@ -64,7 +64,7 @@ class TransportController extends Controller
                     $this->redirect('/admin/transport/');
                 }
             }
-            $this->renderPartial('edittransport', array('model'=>$model, 'operation'=>$operation)); //, false, true);
+            $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates)); //, false, true);
 		}else{
 			throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
 		}

@@ -188,21 +188,22 @@ class TransportController extends Controller
             $rateIdWin[] = $t['rate_id'];
         }
         $intersectRates = array_intersect($rateId, $rateIdWin);
-        // all lose rates
-        $temp = Yii::app()->db->createCommand()
-            ->selectDistinct('transport_id')
-            ->from('rate')
-            ->where(array('in', 'id', array_diff($rateId, $rateIdWin)))
-            ->queryAll()
-        ;
-        foreach($temp as $t){
-            $rateIdLose[] = $t['transport_id'];
-        }
-
+        
         $criteria = new CDbCriteria();
         if(isset($s)) {
             $criteria->addInCondition('rate_id', $intersectRates);
         } else {
+            // all lose rates
+            $temp = Yii::app()->db->createCommand()
+                ->selectDistinct('transport_id')
+                ->from('rate')
+                ->where(array('in', 'id', array_diff($rateId, $rateIdWin)))
+                ->queryAll()
+            ;
+            foreach($temp as $t){
+                $rateIdLose[] = $t['transport_id'];
+            }
+            
             $criteria->addInCondition('id', $rateIdLose); 
             $criteria->addNotInCondition('rate_id', $intersectRates);
         }

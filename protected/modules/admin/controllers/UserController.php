@@ -2,7 +2,14 @@
 
 class UserController extends Controller
 {
-    
+    /** @const */
+    private static $userStatus = array(
+         '0' => 'Не подтвежден',
+         '1' => 'Активен',
+         '2' => 'Временно заблокирован',
+         '3' => 'Предупрежден',
+         '4' => 'Заблокирован',
+    );
     protected function beforeAction($action)
 	{
             if(parent::beforeAction($action))
@@ -53,7 +60,7 @@ class UserController extends Controller
                 if ($id_item = Yii::app()->user->getFlash('saved_id')){
                     $model = User::model()->findByPk($id_item);
                     $group = UserGroup::getUserGroupArray();
-                    $view = $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), true, true);
+                    $view = $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group, 'status' => self::$userStatus), true, true);
                 }
                 $this->render('user/users', array('data'=>$dataProvider, 'view'=>$view));
             }else{
@@ -84,7 +91,7 @@ class UserController extends Controller
                         $this->redirect('/admin/user/');
                     }
                 }
-                $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), false, true);
+                $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group, 'status'=>self::$userStatus), false, true);
             }else{
                 throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
             }
@@ -104,7 +111,7 @@ class UserController extends Controller
                         $this->redirect('/admin/user/');
                     }
                 }
-                $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), false, true);
+                $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group, 'status' => self::$userStatus), false, true);
             }else{
                 throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
             }
