@@ -37,7 +37,9 @@ $inputSize = strlen((string)$lastRate)-1;
     </div>
     <div class="width-30 shadow timer-wrapper">
         <div id="timer"></div>
+        <div id="t-error"></div>
         <?php if (!Yii::app()->user->isGuest && $startValue > 0 && Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot): ?>
+        <div id="t-error"></div>
         <div class="rate-btns">
             <div class="rate-btns-wrapper">
                 <div id="rate-up" class="disabled"></div>

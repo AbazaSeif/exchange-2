@@ -265,31 +265,37 @@ class TransportController extends Controller
         $id = $_POST['id'];
         $newPrice = $_POST['newRate'];
         $priceStep = $_POST['step'];
+        $error = 0;
         
         if($newPrice) {
-            $obj = array(
-                'transport_id'  => $id,
-                'user_id' => Yii::app()->user->_id,
-                'date'    => date("Y-m-d H:i:s"),
-                'price'   => (int)$newPrice
-            );
+            $elementExitsts = Rate::model()->find(array('condition'=>'price = :price', 'params'=>array(':price' => (int)$newPrice)));
+            if(!$elementExitsts) {
+                $obj = array(
+                    'transport_id'  => $id,
+                    'user_id' => Yii::app()->user->_id,
+                    'date'    => date("Y-m-d H:i:s"),
+                    'price'   => (int)$newPrice
+                );
 
-            $modelRate = new Rate;
-            $modelRate->attributes = $obj;
-            $modelRate->save();
+                $modelRate = new Rate;
+                $modelRate->attributes = $obj;
+                $modelRate->save();
 
-            $model = Transport::model()->findByPk($id);
-            $rateId = $model->rate_id;
+                $model = Transport::model()->findByPk($id);
+                $rateId = $model->rate_id;
 
-            // send mail
-            if(!empty($rateId)){ // empty when don't have rates
-                $rateModel = Rate::model()->findByPk($rateId);
-                $this->mailKillRate($rateId, $rateModel);
-                $this->siteKillRate($rateId, $rateModel);
+                // send mail
+                if(!empty($rateId)){ // empty when don't have rates
+                    $rateModel = Rate::model()->findByPk($rateId);
+                    $this->mailKillRate($rateId, $rateModel);
+                    $this->siteKillRate($rateId, $rateModel);
+                }
+
+                $model->rate_id = $modelRate->id;
+                $model->save();
+            } else {
+                $error = 1;
             }
-
-            $model->rate_id = $modelRate->id;
-            $model->save();
         }
         
         $sql = 'select price from rate where transport_id = '.$id.' group by transport_id order by date desc limit 1';
@@ -309,7 +315,7 @@ class TransportController extends Controller
            $data[$k]['time']=date('d.m.Y H:i:s', strtotime($v['date']));
         }
 
-        $array = array('price'=>$price, 'all'=>$data);
+        $array = array('price'=>$price, 'all'=>$data, 'error' => $error);
         echo json_encode($array);
     }
         
@@ -317,11 +323,12 @@ class TransportController extends Controller
     public function getPrice($id)
     {
         $row = Yii::app()->db->createCommand()
-            ->select()
+            ->select('price')
             ->from('rate')
             ->where('id = :id', array(':id' => $id))
             ->queryRow()
         ;
+        
         return $row['price'];
     }
 }

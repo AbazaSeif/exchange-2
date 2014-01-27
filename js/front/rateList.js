@@ -25,6 +25,7 @@ var rateList = {
 
         $( "#rate-btn" ).click(function() {
             if(!$(this).hasClass('disabled')) {
+                $('#t-error').html('');
                 rateList.update(this.container, $( "#rate-price" ).val());
             }
         });
@@ -34,9 +35,6 @@ var rateList = {
     update : function(posts, price) {
         if (this.container.length > 0) {
             price = typeof price !== 'undefined' ? price : '';
-            //var currentScroll = this.container.scrollTop();
-            //var startCount = this.container.find('.rate-one').length;
-            
             $.ajax({
                 type: 'POST',
                 url: '/transport/updateRates',
@@ -47,7 +45,13 @@ var rateList = {
                     step: this.data.step,
                 },
                 success: function(rates) {
-                    if(rates.all.length){
+                    if(rates.error) {
+                        var error = $('#t-error');
+                        error.css('display', 'block');
+                        error.html('Ставка с ценой "' + $( "#rate-price" ).val() + '" уже была сделана');
+                    }
+                    
+                    if(rates.all.length) {
                         var container = $("#rates");
                         var height = 49;
                         var count = 0;

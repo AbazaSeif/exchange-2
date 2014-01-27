@@ -14,21 +14,21 @@ class TransportController extends Controller
                 ),
                 'sort'=>array(
                     'attributes'=>array(
-                            'date_from'=>array(
-                                    'asc'=>'status ASC',
-                                    'desc'=>'status DESC',
-                                    'default'=>'desc',
-                            ),
-                            'date_to'=>array(
-                                    'asc'=>'status ASC',
-                                    'desc'=>'status DESC',
-                                    'default'=>'desc',
-                            ),
-                            'date_published'=>array(
-                                    'asc'=>'date_published ASC',
-                                    'desc'=>'date_published DESC',
-                                    'default'=>'desc',
-                            )
+                        'date_from'=>array(
+                                'asc'=>'status ASC',
+                                'desc'=>'status DESC',
+                                'default'=>'desc',
+                        ),
+                        'date_to'=>array(
+                                'asc'=>'status ASC',
+                                'desc'=>'status DESC',
+                                'default'=>'desc',
+                        ),
+                        'date_published'=>array(
+                                'asc'=>'date_published ASC',
+                                'desc'=>'date_published DESC',
+                                'default'=>'desc',
+                        )
                     ),
                     'defaultOrder'=>array(
                             'date_published' => CSort::SORT_DESC,
@@ -61,31 +61,37 @@ class TransportController extends Controller
         $price = '';
         $newPrice = $_POST['newRate'];
         $priceStep = $_POST['step'];
+        $error = 0;
         
         if($newPrice) {
-            $obj = array(
-                'transport_id'  => $id,
-                'user_id' => Yii::app()->user->_id,
-                'date'    => date("Y-m-d H:i:s"),
-                'price'   => (int)$newPrice
-            );
+            $elementExitsts = Rate::model()->find(array('condition'=>'price = :price', 'params'=>array(':price' => (int)$newPrice)));
+            if(!$elementExitsts) {
+                $obj = array(
+                    'transport_id'  => $id,
+                    'user_id' => Yii::app()->user->_id,
+                    'date'    => date("Y-m-d H:i:s"),
+                    'price'   => (int)$newPrice
+                );
 
-            $modelRate = new Rate;
-            $modelRate->attributes = $obj;
-            $modelRate->save();
+                $modelRate = new Rate;
+                $modelRate->attributes = $obj;
+                $modelRate->save();
 
-            $model = Transport::model()->findByPk($id);
-            $rateId = $model->rate_id;
+                $model = Transport::model()->findByPk($id);
+                $rateId = $model->rate_id;
 
-            // send mail
-            if(!empty($rateId)){ // empty when don't have rates
-                $rateModel = Rate::model()->findByPk($rateId);
-                $this->mailKillRate($rateId, $rateModel);
-                $this->siteKillRate($rateId, $rateModel);
+                // send mail
+                if(!empty($rateId)){ // empty when don't have rates
+                    $rateModel = Rate::model()->findByPk($rateId);
+                    $this->mailKillRate($rateId, $rateModel);
+                    $this->siteKillRate($rateId, $rateModel);
+                }
+
+                $model->rate_id = $modelRate->id;
+                $model->save();
+            } else {
+                $error = 1;
             }
-
-            $model->rate_id = $modelRate->id;
-            $model->save();
         }
         
         $data = Yii::app()->db->createCommand()
@@ -109,7 +115,7 @@ class TransportController extends Controller
             }
         }
 
-        $array = array('price'=>$price, 'all'=>$data);
+        $array = array('price'=>$price, 'all'=>$data, 'error' => $error);
         echo json_encode($array);
     }
 	
