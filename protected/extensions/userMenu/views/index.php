@@ -3,9 +3,9 @@ if(!Yii::app()->user->isGuest){
     $user = User::model()->findByPk(Yii::app()->user->_id);
 ?>
     <div class='user-info'>
-        <?php echo '<span class="user-name"> Добро пожаловать, '.$user->surname.'!</span>'; ?>
+        <?php echo '<span class="user-name"> Добро пожаловать, '.$user->name.'!</span>'; ?>
     </div>
-    <?php   if(Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot)
+    <?php if(Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot)
             { ?>
             <ul class="user-menu">
                 <li><a href="/">Главная</a></li>
@@ -20,7 +20,7 @@ if(!Yii::app()->user->isGuest){
                 <li><a href="/user/option/">Настройки</a></li>
                 <li><a href="/user/logout/">Выход</a></li>
             </ul>
-<?php       }  else {?>
+    <?php }  else {?>
                 <ul class="user-menu">
                     <li><a href="/">Главная</a>
                         <?php if(Yii::app()->user->checkAccess('admin')){ ?>
@@ -68,9 +68,9 @@ $(document).ready(function(){
 
 function updateCounter(){
     $.ajax({
-		url: '/user/updateEventCounter',
-		success: function(data){
-			$('#event-counter').html(data);
-	}});
+         url: '/user/updateEventCounter',
+	 success: function(data){
+	 $('#event-counter').html(data);
+    }});
 }
 </script>

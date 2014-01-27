@@ -4,147 +4,147 @@ class TransportController extends Controller
 {
     public function actionIndex()
     {
-            $lastRates = array();        
-            $criteria = new CDbCriteria();
-            $dataProvider = new CActiveDataProvider('Transport',
-                array(
-                    'criteria' => $criteria,
-                    'pagination'=>array(
-                       'pageSize' => 2,
-                       'pageVar' => 'page',
+        $lastRates = array();        
+        $criteria = new CDbCriteria();
+        $dataProvider = new CActiveDataProvider('Transport',
+            array(
+                'criteria' => $criteria,
+                'pagination'=>array(
+                   'pageSize' => 8,
+                   'pageVar' => 'page',
+                ),
+                'sort'=>array(
+                    'attributes'=>array(
+                        'date_from'=>array(
+                            'asc'=>'status ASC',
+                            'desc'=>'status DESC',
+                            'default'=>'desc',
+                        ),
+                        'date_to'=>array(
+                            'asc'=>'status ASC',
+                            'desc'=>'status DESC',
+                            'default'=>'desc',
+                        ),
+                        'date_published'=>array(
+                            'asc'=>'date_published ASC',
+                            'desc'=>'date_published DESC',
+                            'default'=>'desc',
+                        )
                     ),
-                    'sort'=>array(
-                            'attributes'=>array(
-                                    'date_from'=>array(
-                                            'asc'=>'status ASC',
-                                            'desc'=>'status DESC',
-                                            'default'=>'desc',
-                                    ),
-                                    'date_to'=>array(
-                                            'asc'=>'status ASC',
-                                            'desc'=>'status DESC',
-                                            'default'=>'desc',
-                                    ),
-                                    'date_published'=>array(
-                                            'asc'=>'date_published ASC',
-                                            'desc'=>'date_published DESC',
-                                            'default'=>'desc',
-                                    )
-                            ),
-                            'defaultOrder'=>array(
-                                    'date_published' => CSort::SORT_DESC,
-                            ),
+                    'defaultOrder'=>array(
+                            'date_published' => CSort::SORT_DESC,
                     ),
-                )
-            );
-            
-            $this->render('view', array('data' => $dataProvider, 'title'=>'Все перевозки'));
+                ),
+            )
+        );
+
+        $this->render('view', array('data' => $dataProvider, 'title'=>'Все перевозки'));
     }
     
     public function actionAll()
     {
         $transportId = array();
         $temp = Yii::app()->db->createCommand()
-                    ->selectDistinct('transport_id')
-                    ->from('rate')
-                    ->where('user_id = :id', array(':id' => Yii::app()->user->_id))
-                    ->queryAll()
-            ;
-            
-            foreach($temp as $t){
-                    $transportId[] = $t['transport_id'];
-            }
-            
-            $criteria = new CDbCriteria();
-            $criteria->addInCondition('id', $transportId);
-            
-            $dataProvider = new CActiveDataProvider('Transport',
-                    array(
-                            'criteria' => $criteria,
-                            'pagination'=>array(
-                             'pageSize' => 2,
-                             'pageVar' => 'page',
-                            ),
-                            'sort' => array(
-                                    'attributes'=>array(
-                                            'date_from'=>array(
-                                            'asc'=>'status ASC',
-                                            'desc'=>'status DESC',
-                                            'default'=>'desc',
-                                            ),
-                                            'date_to'=>array(
-                                                    'asc'=>'status ASC',
-                                                    'desc'=>'status DESC',
-                                                    'default'=>'desc',
-                                            ),
-                                            'date_published'=>array(
-                                                    'asc'=>'date_published ASC',
-                                                    'desc'=>'date_published DESC',
-                                                    'default'=>'desc',
-                                            )
-                                    ),
-                                    'defaultOrder'=>array(
-                                            'date_published' => CSort::SORT_DESC,
-                                    ),
-                            ),
-                    )
-            );
-                    
-            $this->render('view', array('data' => $dataProvider, 'title'=>'Все перевозки'));
+            ->selectDistinct('transport_id')
+            ->from('rate')
+            ->where('user_id = :id', array(':id' => Yii::app()->user->_id))
+            ->queryAll()
+        ;
+
+        foreach($temp as $t){
+            $transportId[] = $t['transport_id'];
+        }
+
+        $criteria = new CDbCriteria();
+        $criteria->addInCondition('id', $transportId);
+
+        $dataProvider = new CActiveDataProvider('Transport',
+            array(
+                'criteria' => $criteria,
+                'pagination'=>array(
+                 'pageSize' => 8,
+                 'pageVar' => 'page',
+                ),
+                'sort' => array(
+                    'attributes'=>array(
+                        'date_from'=>array(
+                        'asc'=>'status ASC',
+                        'desc'=>'status DESC',
+                        'default'=>'desc',
+                        ),
+                        'date_to'=>array(
+                            'asc'=>'status ASC',
+                            'desc'=>'status DESC',
+                            'default'=>'desc',
+                        ),
+                        'date_published'=>array(
+                            'asc'=>'date_published ASC',
+                            'desc'=>'date_published DESC',
+                            'default'=>'desc',
+                        )
+                    ),
+                    'defaultOrder'=>array(
+                        'date_published' => CSort::SORT_DESC,
+                    ),
+                ),
+            )
+        );
+
+        $this->render('view', array('data' => $dataProvider, 'title'=>'Все перевозки'));
     }
     
     /* Show all transports where user takes part */
     public function actionActive()
     {
-     $transportId = array();
-     $temp = Yii::app()->db->createCommand()
-                    ->selectDistinct('transport_id')
-                    ->from('rate')
-                    ->where('user_id = :id', array(':id' => Yii::app()->user->_id))
-                    ->queryAll()
-            ;
-            
-            foreach($temp as $t){
-                    $transportId[] = $t['transport_id'];
-            }
-            
-            $criteria = new CDbCriteria();
-            $criteria->addInCondition('id', $transportId);
-            $criteria->compare('status', 1);
-            
-            $dataProvider = new CActiveDataProvider('Transport',
-                    array(
-                            'criteria' => $criteria,
-                            'pagination'=>array(
-                             'pageSize' => 8,
-                             'pageVar' => 'page',
-                            ),
-                            'sort' => array(
-                                    'attributes'=>array(
-                                            'date_from'=>array(
-                                            'asc'=>'status ASC',
-                                            'desc'=>'status DESC',
-                                            'default'=>'desc',
-                                            ),
-                                            'date_to'=>array(
-                                                    'asc'=>'status ASC',
-                                                    'desc'=>'status DESC',
-                                                    'default'=>'desc',
-                                            ),
-                                            'date_published'=>array(
-                                                    'asc'=>'date_published ASC',
-                                                    'desc'=>'date_published DESC',
-                                                    'default'=>'desc',
-                                            )
-                                    ),
-                                    'defaultOrder'=>array(
-                                            'date_published' => CSort::SORT_DESC,
-                                    ),
-                            ),
-                    )
-            );
-                    
-            $this->render('view', array('data' => $dataProvider, 'title'=>'Активные перевозки'));
+        $transportId = array();
+        $temp = Yii::app()->db->createCommand()
+            ->selectDistinct('transport_id')
+            ->from('rate')
+            ->where('user_id = :id', array(':id' => Yii::app()->user->_id))
+            ->queryAll()
+        ;
+
+        foreach($temp as $t){
+            $transportId[] = $t['transport_id'];
+        }
+
+        $criteria = new CDbCriteria();
+        $criteria->addInCondition('id', $transportId);
+        $criteria->compare('status', 1);
+
+        $dataProvider = new CActiveDataProvider('Transport',
+            array(
+                'criteria' => $criteria,
+                'pagination'=>array(
+                 'pageSize' => 8,
+                 'pageVar' => 'page',
+                ),
+                'sort' => array(
+                    'attributes'=>array(
+                            'date_from'=>array(
+                            'asc'=>'status ASC',
+                            'desc'=>'status DESC',
+                            'default'=>'desc',
+                        ),
+                        'date_to'=>array(
+                            'asc'=>'status ASC',
+                            'desc'=>'status DESC',
+                            'default'=>'desc',
+                        ),
+                        'date_published'=>array(
+                            'asc'=>'date_published ASC',
+                            'desc'=>'date_published DESC',
+                            'default'=>'desc',
+                        )
+                    ),
+                    'defaultOrder'=>array(
+                            'date_published' => CSort::SORT_DESC,
+                    ),
+                ),
+            )
+        );
+
+        $this->render('view', array('data' => $dataProvider, 'title'=>'Активные перевозки'));
     }
     
     /*
@@ -156,14 +156,14 @@ class TransportController extends Controller
         $userId = Yii::app()->user->_id;
         $transportId = $rateId = $rateIdWin = $rateIdLose = array();
         $temp = Yii::app()->db->createCommand()
-                ->selectDistinct('transport_id')
-                ->from('rate')
-                ->where('user_id = :id', array(':id' => $userId))
-                ->queryAll()
+            ->selectDistinct('transport_id')
+            ->from('rate')
+            ->where('user_id = :id', array(':id' => $userId))
+            ->queryAll()
         ;
         
         foreach($temp as $t){
-                $transportId[] = $t['transport_id'];
+            $transportId[] = $t['transport_id'];
         }
         // all rates where user took part
         $temp = Yii::app()->db->createCommand()
@@ -213,26 +213,26 @@ class TransportController extends Controller
             array(
                 'criteria' => $criteria,
                 'pagination'=>array(
-                 'pageSize' => 2,
+                 'pageSize' => 8,
                  'pageVar' => 'page',
                 ),
 
                 'sort' => array(
                     'attributes'=>array(
-                        'date_from'=>array(
-                        'asc'=>'status ASC',
-                        'desc'=>'status DESC',
-                        'default'=>'desc',
+                            'date_from'=>array(
+                            'asc'=>'status ASC',
+                            'desc'=>'status DESC',
+                            'default'=>'desc',
                         ),
                         'date_to'=>array(
-                                'asc'=>'status ASC',
-                                'desc'=>'status DESC',
-                                'default'=>'desc',
+                            'asc'=>'status ASC',
+                            'desc'=>'status DESC',
+                            'default'=>'desc',
                         ),
                         'date_published'=>array(
-                                'asc'=>'date_published ASC',
-                                'desc'=>'date_published DESC',
-                                'default'=>'desc',
+                            'asc'=>'date_published ASC',
+                            'desc'=>'date_published DESC',
+                            'default'=>'desc',
                         )
                     ),
                     'defaultOrder'=>array(
@@ -311,12 +311,6 @@ class TransportController extends Controller
 
         $array = array('price'=>$price, 'all'=>$data);
         echo json_encode($array);
-    }
-    
-    public function addFormat($date)
-    {
-        if((int)$date < 10) $date = '0' . $date;
-        return $date;
     }
         
     /* Get latest price for current transport */

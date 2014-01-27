@@ -4,22 +4,22 @@
 <?php
     $this->widget('zii.widgets.CListView', array(
         'dataProvider' => $data,
-        'cssFile' => false,
-        'itemView'     => 'user.views.transport._view',
+        'cssFile'      => false,
+        'itemView'     => '_view',
         'ajaxUpdate'   => false,
         'emptyText'    => 'Нет перевозок',
         'itemsTagName' => 'div',
         'template'     => '{sorter}{items}{pager}',
-        'htmlOptions' => array('class'=>'transports'),
-        'sortableAttributes'=>array('date_published','date_to', 'date_from'),
-        'sorterHeader'=>'',
+        'htmlOptions'  => array('class'=>'transports'),
+        'sortableAttributes' => array('date_published','date_to', 'date_from'),
+        'sorterHeader' => '',
         'pager'        => array(
-            'header' => false,
+            'header'   => false,
             'firstPageLabel' => 'В начало',
             'prevPageLabel'  => 'Назад',
             'nextPageLabel'  => 'Вперёд',
             'lastPageLabel'  => 'В конец',
-            'cssFile' => false
+            'cssFile'        => false
         )
     )); 
 

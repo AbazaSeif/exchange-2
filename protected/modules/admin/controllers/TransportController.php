@@ -53,10 +53,16 @@ class TransportController extends Controller
 	
 	public function actionEditTransport($id)
 	{
+        //var_dump($_POST['Transport']); 
+        //exit;
         if(Yii::app()->user->checkAccess('editTransport')){
             $model = Transport::model()->findByPk($id);
             $rates = Rate::model()->findAll(array('order'=>'date desc', 'condition'=>'transport_id='.$id));
             if (isset($_POST['Transport'])){
+                ///!!!!
+                //echo '<pre>';
+                //var_dump($_POST['Rates']); exit;
+                
                 $model->attributes = $_POST['Transport'];
                 if($model->save()){
                     Yii::app()->user->setFlash('saved_id', $model->id);

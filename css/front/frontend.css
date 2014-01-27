@@ -575,7 +575,7 @@ header, .wrapper, footer
 .width-70{width: 70%;}
 
 header:after, .wrapper:after, footer:after, #login-form:after,
-.user-info:after, .transports .sorter ul:after, .transports .items .transport:after
+.user-info:after, .transports .sorter ul:after, .transports .items .transport:after, .transport-one:after
 {
     content: '';
     display: block;
@@ -617,10 +617,6 @@ header:after, .wrapper:after, footer:after, #login-form:after,
 }
 .pager ul.yiiPager li.selected a{
     color: rgb(239, 128, 27);
-}
-
-.clear{
-    clear: both;
 }
 
 

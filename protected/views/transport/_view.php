@@ -14,7 +14,7 @@
         $currency = ' руб.';
         $type = "российская";
     }
-    $action = '/user/transport/description/id/'. $data->id . '/';
+	$action = '/transport/description/id/'. $data->id . '/';
 ?>
 <div class="transport <?php echo $color;?>">
     <div class="width-70">

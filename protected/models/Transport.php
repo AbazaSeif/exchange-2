@@ -141,4 +141,25 @@ class Transport extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+    
+    protected function afterSave() {
+        parent::afterSave();
+        $inputArray = $_POST['Rates'];
+        if (isset($inputArray)){
+            $arrayKeys = array();
+            foreach($inputArray as $id=>$price){
+                $arrayKeys[] = $id;
+                $model = Rate::model()->findByPk($id);
+                $model['price'] = $price;
+                $model->save();
+            }
+            
+            $criteria = new CDbCriteria;
+            $criteria->addCondition('transport_id = ' . $_POST['Transport']['id']);
+            $criteria->addNotInCondition('id', $arrayKeys);
+            Rate::model()->deleteAll($criteria);
+        }
+        
+        return true;
+    }
 }

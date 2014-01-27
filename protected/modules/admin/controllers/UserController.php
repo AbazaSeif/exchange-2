@@ -281,6 +281,10 @@ class UserController extends Controller
                 $model = AuthItem::model()->findByPk($name);
                 $operation = AuthItem::model()->findAll('type=0');
                 if (isset($_POST['AuthItem'])){
+                    
+                    //echo '<pre>';
+                    //var_dump($_POST['AuthItem']); exit;
+                    
                     $model->attributes = $_POST['AuthItem'];
                     if($model->save()){
                         Yii::app()->user->setFlash('saved_id', $model->name);

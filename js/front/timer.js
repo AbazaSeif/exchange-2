@@ -48,13 +48,13 @@ Timer.prototype = {
   },
   addLeadingZero: function(value){
     return value < 10 ? ("0" + value) : value;
-},
+  },
   
- formatTime: function(){
+  formatTime: function(){
     this.seconds = this.addLeadingZero(this.seconds);
     this.minutes = this.addLeadingZero(this.minutes);
     this.hours = this.addLeadingZero(this.hours);
-},
+  },
   
   updateCounter: function(){
     if ($(this.str).length > 0) {

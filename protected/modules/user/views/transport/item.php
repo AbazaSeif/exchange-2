@@ -35,7 +35,7 @@ $inputSize = strlen((string)$lastRate)-1;
             <?php if (!Yii::app()->user->isGuest): ?><div><span>Текущая ставка:   <strong id="last-rate"><?php echo $lastRate . $currency?></strong></span></div><?php endif; ?>
         </div>	
     </div>
-    <div class="width-30 shadow">
+    <div class="width-30 shadow timer-wrapper">
         <div id="timer"></div>
         <?php if (!Yii::app()->user->isGuest && $startValue > 0 && Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot): ?>
         <div class="rate-btns">
@@ -48,12 +48,10 @@ $inputSize = strlen((string)$lastRate)-1;
 		<div id="rate-btn" class="btn-green btn  <?php echo ($startValue <= 0)?'disabled':'' ?>">ОK</div>
         <?php endif; ?>
     </div>
-    <div class="clear"></div>
-    
-    <?php if (!Yii::app()->user->isGuest): ?>
-        <div id="rates" class="shadow"></div>
-    <?php endif; ?>
 </div>
+<?php if (!Yii::app()->user->isGuest): ?>
+        <div id="rates" class="shadow"></div>
+<?php endif; ?>
 <script>
 $(document).ready(function(){
     rateList.data = {
@@ -63,8 +61,9 @@ $(document).ready(function(){
         status: <?php echo $transportInfo['status'] ?>,
         step: <?php echo $priceStep ?>,
     };
-	rateList.init();
-	setInterval(function(){rateList.update($('#rates'))}, 15000);
+    rateList.init();
+    setInterval(function(){rateList.update($('#rates'))}, 15000);
+    
     var timer = new Timer();
     timer.init('<?php echo $now ?>', '<?php echo $end ?>', 'timer', rateList.data.status);
 });

@@ -9,30 +9,30 @@ class TransportController extends Controller
             array(
                 'criteria' => $criteria,
                 'pagination'=>array(
-                   'pageSize' => 2,
+                   'pageSize' => 8,
                    'pageVar' => 'page',
                 ),
                 'sort'=>array(
-					'attributes'=>array(
-						'date_from'=>array(
-							'asc'=>'status ASC',
-							'desc'=>'status DESC',
-							'default'=>'desc',
-						),
-						'date_to'=>array(
-							'asc'=>'status ASC',
-							'desc'=>'status DESC',
-							'default'=>'desc',
-						),
-						'date_published'=>array(
-							'asc'=>'date_published ASC',
-							'desc'=>'date_published DESC',
-							'default'=>'desc',
-						)
-					),
-					'defaultOrder'=>array(
-						'date_published' => CSort::SORT_DESC,
-					),                        
+                    'attributes'=>array(
+                            'date_from'=>array(
+                                    'asc'=>'status ASC',
+                                    'desc'=>'status DESC',
+                                    'default'=>'desc',
+                            ),
+                            'date_to'=>array(
+                                    'asc'=>'status ASC',
+                                    'desc'=>'status DESC',
+                                    'default'=>'desc',
+                            ),
+                            'date_published'=>array(
+                                    'asc'=>'date_published ASC',
+                                    'desc'=>'date_published DESC',
+                                    'default'=>'desc',
+                            )
+                    ),
+                    'defaultOrder'=>array(
+                            'date_published' => CSort::SORT_DESC,
+                    ),                        
                 ),
             )
         );
@@ -43,16 +43,14 @@ class TransportController extends Controller
     public function actionDescription($id)
     {
         $transportInfo=Yii::app()->db->createCommand("SELECT * from transport where id='".$id."'")->queryRow();
-
         $allRatesForTransport = Yii::app()->db->createCommand()
-			->select('r.date, r.price, u.name')
-			->from('rate r')
-			->join('user u', 'r.user_id=u.id')
-			->where('r.transport_id=:id', array(':id'=>$id))
-			->order('r.date desc')
-			->queryAll()
+            ->select('r.date, r.price, u.name')
+            ->from('rate r')
+            ->join('user u', 'r.user_id=u.id')
+            ->where('r.transport_id=:id', array(':id'=>$id))
+            ->order('r.date desc')
+            ->queryAll()
         ;
-
         $this->render('user.views.transport.item', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
     }
 
@@ -186,7 +184,7 @@ class TransportController extends Controller
                 'user_id' => $rateModel->user_id,
                 'transport_id' => $rateModel->transport_id,
                 'status' => 1,
-                'type' => 1, // !!! message color ( заменить )
+                'type' => 1,
                 'event_type' => 5,
             );
 

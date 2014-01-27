@@ -515,17 +515,32 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 #rates-all li.item:hover{
     background: none repeat scroll 0 0 #c9c7c7;
 }
+
+#rates-all li > span{
+    float: left;
+    width: 40%;
+}
+
 #rates-all li span:first-child{
     width: 50%;
 }
 
-#rates-all li span{
-    float: left;
-    width: 50%;
+#rates-all li span.del-col{
+    width: 10%;
+}
+
+#rates-all li span.del-row{
+    background: url('/images/delete-icon.png') no-repeat left top;
+    width: 16px;
+    height: 16px;
 }
 
 .no-rates{
    margin-top: 10px;
+}
+
+input[name^="Rates"]{
+    display: none;
 }
 
     /* Конец список ставок */

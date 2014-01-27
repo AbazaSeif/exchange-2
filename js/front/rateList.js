@@ -48,10 +48,20 @@ var rateList = {
                 },
                 success: function(rates) {
                     if(rates.all.length){
+                        var container = $("#rates");
+                        var height = 49;
+                        var count = 0;
+                        var scrollBefore = container.scrollTop();
+                        if(scrollBefore) count = scrollBefore/height;
+                        
                         rateList.container.html('');
                         $.each( rates.all, function( key, value ) {
                             rateList.add(value);
                         });
+
+                        if(scrollBefore){
+                            container.scrollTop(height * (count + 1));
+                        }
                         
                         if(rates.price){
                             var value = parseInt(rates.price) - parseInt(rateList.data.priceStep);
@@ -71,9 +81,7 @@ var rateList = {
                                 $('#rate-btn').slideUp("slow");
                                 $('#timer').html('Перевозка закрыта');
                                 rateList.data.status = true;
-                                //clearTimeout(Timer.name);
                             }
-                            
                         }
                     } else {
                         rateList.container.html('Нет предложений');
@@ -91,5 +99,12 @@ var rateList = {
             "</div>"
         ;
         this.container.prepend(newElement);
+    },
+    getContainerHeight : function(){
+        var h=0;
+        this.container.find('.rate-one').each(function(k){
+            h += $(this).outerHeight();
+        });
+        return h;
     }
 };

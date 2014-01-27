@@ -110,7 +110,6 @@ return array(
 				'Операции'=>'/admin/user/operation/',
 			),
 			'Перевозки'=>'/admin/transport/',
-			'Ставки'=>'/admin/rate/',
 		 ),
 		 'adminEmail'=>'krilova@lbr.ru',
 		 'hoursBefore' => 24,

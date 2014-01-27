@@ -1,14 +1,14 @@
 <?php
     $header_form = 'Редактирование перевозки "'.$model->location_from.' &mdash; '.$model->location_to . '"';
     $submit_text = 'Сохранить';
-	$delete_button = CHtml::link('Удалить перевозку', '/admin/transport/deletetransport/id/'.$model->id, array('id'=>'del_'.$model->id,'class'=>'btn del', 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
-    
-	$action = '/admin/transport/edittransport/id/'.$model->id;
-	$group = array(
-	    0=>'Международная',
-	    1=>'Локальная',
-	);
-	if ($model->isNewRecord){
+    $delete_button = CHtml::link('Удалить перевозку', '/admin/transport/deletetransport/id/'.$model->id, array('id'=>'del_'.$model->id,'class'=>'btn del', 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
+
+    $action = '/admin/transport/edittransport/id/'.$model->id;
+    $group = array(
+        0=>'Международная',
+        1=>'Локальная',
+    );
+    if ($model->isNewRecord){
         $submit_text = 'Создать';
         $name = 'new';
         $header_form = 'Создание новой перевозки';
@@ -20,21 +20,20 @@
 <div class="header-form">
     <?php echo $header_form; ?>
 </div>
-<?php 
-	$form = $this->beginWidget('CActiveForm', array('id'=>'form'.$model->id,
+<?php $form = $this->beginWidget('CActiveForm', array('id'=>'form'.$model->id,
     'action'=>$action,
     'enableClientValidation'=>true,
     'clientOptions'=>array(
             'validateOnSubmit'=>true,
             'afterValidate'=>'js:function( form, data, hasError ) 
-			{     
-				if( hasError ){
-					return false;
-				}
-				else{
-					return true;
-				}
-			}'
+            {     
+                    if( hasError ){
+                            return false;
+                    }
+                    else{
+                            return true;
+                    }
+            }'
     ),));
 ?>
 <div class="buttons">
@@ -76,41 +75,49 @@
     echo CHtml::textField('date_from', date("Y-m-d H:i", strtotime($model->date_from))) ?>    
 </div>
 <div class="field">
-<?php  echo $form->error($model, 'date_to'); 
+<?php echo $form->error($model, 'date_to'); 
 	echo $form->labelEx($model, 'date_to');
-    echo CHtml::textField('date_to', date("Y-m-d H:i", strtotime($model->date_to)), array('name'=>111)) ?>    
+    echo CHtml::textField('date_to', date("Y-m-d H:i", strtotime($model->date_to))) ?>    
 </div>
 <div class="field">
 <?php echo $form->error($model, 'type');
     echo $form->labelEx($model, 'type');
     echo $form->dropDownList($model, 'type', $group); ?>
 </div>
-<?php $this->endWidget();?> 
+<div class="field">
+<?php echo $form->hiddenField($model, 'id'); ?>
 </div>
-
 <div>
     <div class="header-h4">Все ставки</div>
-    <?php if(count($rates)):?>
+    <?php if(count($rates)): ?>
     <ul id="rates-all">
         <li>
            <span>Дата</span>
            <span>Размер ставки</span>
+           <span class="del-col"></span>
         </li>
     <?php foreach ($rates as $item){
             echo '<li class="item">';
             echo '<span>'.$item->date.'</span>';
+            echo '<span>';
             echo '<span class="price">'.$item->price.'</span>';
+            echo CHtml::textField('Rates['.$item->id.']', $item->price, array('class'=>'form-price'));
+            echo '</span>';
+            echo '<span class="del-col del-row"></span>';
             echo '</li>';
         }?>
     </ul>
     <?php else: echo '<div class="no-rates">Нет ставок</div>';
     endif; ?>
 </div>
-
+<?php $this->endWidget(); ?> 
+</div>
 <script>
 $(document).ready(function(){
     var editor = new ЕditTransport();
     editor.initCalendar();
-    editor.initRateEditor();
+    <?php if(Yii::app()->user->checkAccess('editRate')): ?>
+        editor.initRateEditor();
+    <?php endif; ?>
 });
 </script>

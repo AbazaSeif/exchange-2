@@ -40,17 +40,23 @@ function ЕditTransport() {
         
         $("#rates-all").on('focusout', 'li span.price > input', function () {
             var newVal = $(this).val();
-            if (newVal == '') newVal = $(this).parent().attr('pval');
-            $(this).parent().text(newVal);
+            var parent = $(this).parent();
+            if (newVal == '') newVal = parent.attr('pval');
+            parent.text(newVal);
+            parent.next().val(newVal);
             $(this).remove(); 
+        });
+        
+        $("#rates-all").on('click', 'li span.del-row', function () {
+            $(this).parent().remove();
         });
         
         /* press Enter button*/
         $(document).keypress(function(e) {
             if(e.which == 13) {
-                var li = $( "li.clicked" );
-                li.find( "input" ).focusout();
-                li.removeClass("clicked");
+                var element = $( ".clicked" );
+                element.find( "input" ).focusout();
+                element.removeClass("clicked");
             }
         });
     };
