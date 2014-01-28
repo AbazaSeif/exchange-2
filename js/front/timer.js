@@ -57,49 +57,49 @@ Timer.prototype = {
   },
   
   updateCounter: function(){
-    if ($(this.str).length > 0) {
-		this.calculate();
-		this.formatTime();
-		var years = months = days = hours = minutes = seconds = '';
-		if(this.years > 0) {
-		    var title = 'лет';
-			if(this.years == 1) {
-			    title = 'год';
-			} else if(this.years == 2 || this.years == 3 || this.years == 4) {
-			    title = 'года';
-			}
-		    years = "<span class='t-year'><strong>" + this.years + "</strong> " + title + " </span>";
-		}
-		if(this.months > 0) {
-		    var title = 'месяцев';
-			if(this.months == 1) {
-			    title = 'месяц';
-			} else if(this.months == 2 || this.months == 3 || this.months == 4) {
-			    title = 'месяца';
-			}
-		    months = "<span class='t-month'><strong>" + this.months + "</strong> " + title + " </span>";
-		}
-		if(this.days > 0) {
-		    var title = 'дней';
-			if(this.days == 1) {
-			    title = 'день';
-			} else if(this.days == 2 || this.days == 3 || this.days == 4) {
-			    title = 'дня';
-			}
-		    days = "<span class='t-days'><strong>" + this.days + "</strong> " + title + " </span>";
-		}
-		
-		this.countainer.innerHTML = years + months + days + ' <span class="t-time">' + this.hours + ':' + this.minutes + ':' + this.seconds + '</span>';
-		var currDate = new Date();
-		currDate.setSeconds(currDate.getSeconds() + this.timeDiff);
+      if ($(this.str).length > 0) {
+          this.calculate();
+          this.formatTime();
+          var years = months = days = hours = minutes = seconds = '';
+          if(this.years > 0) {
+              var title = 'лет';
+              if(this.years == 1) {
+                  title = 'год';
+              } else if(this.years == 2 || this.years == 3 || this.years == 4) {
+                  title = 'года';
+              }
+              years = "<span class='t-year'><strong>" + this.years + "</strong> " + title + " </span>";
+          }
+          if(this.months > 0) {
+              var title = 'месяцев';
+              if(this.months == 1) {
+                  title = 'месяц';
+              } else if(this.months == 2 || this.months == 3 || this.months == 4) {
+                  title = 'месяца';
+              }
+              months = "<span class='t-month'><strong>" + this.months + "</strong> " + title + " </span>";
+          }
+          if(this.days > 0) {
+              var title = 'дней';
+              if(this.days == 1) {
+                  title = 'день';
+              } else if(this.days == 2 || this.days == 3 || this.days == 4) {
+                  title = 'дня';
+              }
+              days = "<span class='t-days'><strong>" + this.days + "</strong> " + title + " </span>";
+          }
 
-        if(typeof rateList.data !== "undefined" && typeof rateList.data.status !== "undefined") this.status = parseInt(rateList.data.status);
-        if ( this.endDate > currDate && this.status ) { //проверка не обнулился ли таймер
-			var self = this;
-            setTimeout(function(){self.updateCounter();}, 1000);
-		} else {
-			this.countainer.innerHTML = '<span class="t-closed">Перевозка закрыта</span>';
-		}
-	}
-   }
+          this.countainer.innerHTML = years + months + days + ' <span class="t-time">' + this.hours + ':' + this.minutes + ':' + this.seconds + '</span>';
+          var currDate = new Date();
+          currDate.setSeconds(currDate.getSeconds() + this.timeDiff);
+
+          if(typeof rateList.data !== "undefined" && typeof rateList.data.status !== "undefined") this.status = parseInt(rateList.data.status);
+          if ( this.endDate > currDate && this.status ) { //проверка не обнулился ли таймер
+              var self = this;
+              setTimeout(function(){self.updateCounter();}, 1000);
+          } else {
+              this.countainer.innerHTML = '<span class="t-closed">Перевозка закрыта</span>';
+          }
+       }
+    }
 };
