@@ -461,7 +461,21 @@ header, .wrapper, footer
 
 #rate-price{
    float: right;
+   color: #EF801B;
    font-size: 23px;
+   border: 0;
+   background-color: #fff;
+   margin-top: 3px;
+   text-align: right;
+}
+
+.text{
+    float: right;
+    color: #EF801B;
+    font-size: 23px;
+    /*margin-left: 5px;*/
+    margin-right: 10px;
+    margin-top: 3px;
 }
 
 #t-container{
@@ -486,12 +500,25 @@ header, .wrapper, footer
     padding-top: 10px;
     padding-bottom: 10px;
 }
-.rate-btns{
-    float: left;
-    margin: 0 auto;
-    width: 56%;
+
+#rate-btn{
+    margin-top: 10px;
+    float: right;
+    width: 10%;
 }
 
+.rate-wrapper {
+    width:100%;
+    height:100%;
+    text-align:center;
+}
+.r-block {
+    display:-moz-inline-box;
+    display:inline-block;
+    vertical-align:middle;
+    position: relative;
+    padding: 5px;
+}
 .rate-btns-wrapper{
     float: right;
 }
@@ -518,7 +545,7 @@ header, .wrapper, footer
     font-size: 23px;
 }
 
-.btn{
+/*.btn{
     padding: 0 10px;
     width: auto;
     font-size: 11px;
@@ -543,9 +570,8 @@ header, .wrapper, footer
     cursor: pointer;
     cursor: hand;
 }
-
-.btn-green{
-    height: 25px;
+*/
+.r-submit{
     box-shadow: none;
     text-decoration: none;
     border-radius: 3px;
@@ -559,6 +585,14 @@ header, .wrapper, footer
     background: -o-linear-gradient(top,#14AAAA,#008C8C);
     background: -ms-linear-gradient(top,#14AAAA,#008C8C);
     background: linear-gradient(top,#14AAAA,#008C8C);
+    text-align: center;
+    display:-moz-inline-box;
+    display:inline-block;
+    vertical-align:middle;
+    width: 40px;
+    padding: 3px 0;
+    cursor: pointer;
+    cursor: hand;
 }
 
 #rate-up{
@@ -601,8 +635,6 @@ header, .wrapper, footer
 
 .timer-wrapper
 {
-    float: left;
-    width: 25%;
     position:relative;
     background:#fff;
     margin-top: 10px;
@@ -652,6 +684,7 @@ header, .wrapper, footer
 
 .width-30-r{
     float: right;
+    width: 30%;
 }
 
 header:after, .wrapper:after, footer:after, #login-form:after,

@@ -18,6 +18,7 @@ $minRate = (($startValue - $priceStep)<=0)? 1 : 0;
 $now = date('Y m d H:i:s', strtotime('now'));
 $end = date('Y m d H:i:s', strtotime($transportInfo['date_to'] . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
 $inputSize = strlen((string)$lastRate)-1;
+$userInfo = User::model()->findByPk(Yii::app()->user->_id);
 ?>
 
 <div class="transport-one">
@@ -37,17 +38,20 @@ $inputSize = strlen((string)$lastRate)-1;
     <?php if (!Yii::app()->user->isGuest && $startValue > 0 && Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot): ?>
     <div class="width-30-r timer-wrapper">
         <div id="t-container"></div>
-        <div id="last-rate"><span><?php echo $lastRate . $currency?></span></div>
         <?php if($transportInfo['status']): ?>
         <div id="t-error"></div>
-        <div class="rate-btns">
-            <div class="rate-btns-wrapper">
-                <div id="rate-up" class="disabled"></div>
-                <div id="rate-down" class="<?php echo ($minRate)?'disabled':''?>"></div>
+        
+        <div class="rate-wrapper">
+            <div class="r-block">
+                <div class="rate-btns-wrapper">
+                    <div id="rate-up" class="disabled"></div>
+                    <div id="rate-down" class="<?php echo ($minRate)?'disabled':''?>"></div>
+                </div>
+                <span class="text"><?php echo $currency ?></span>
+                <input id="rate-price" value="<?php echo $startValue?>" init="<?php echo $startValue?>" type="text" size="<?php echo $inputSize ?>" disabled="disabled"/>
             </div>
-            <input id="rate-price" value="<?php echo $startValue?>" init="<?php echo $startValue?>" type="text" size="<?php echo $inputSize ?>" disabled="disabled"/>
-	</div>
-	<div id="rate-btn" class="btn-green btn  <?php echo ($startValue <= 0)?'disabled':'' ?>">ОK</div>
+            <div class="r-submit <?php echo ($startValue <= 0)?'disabled':'' ?>"><span>OK</span></div>
+        </div>
         <?php endif; ?>
     </div>
     <?php endif; ?>
@@ -69,6 +73,8 @@ $(document).ready(function(){
         transportId : <?php echo $transportInfo['id']; ?>,
         status: <?php echo $transportInfo['status'] ?>,
         step: <?php echo $priceStep ?>,
+        name: '<?php echo $userInfo[name] ?>',
+        surname: '<?php echo $userInfo[surname] ?>',
     };
     rateList.init();
     setInterval(function(){rateList.update($('#rates'))}, 15000);

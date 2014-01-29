@@ -17,7 +17,7 @@ var rateList = {
             clearTimeout(this.downTimer);
             this.downTimer = setInterval(function() {
                 $( "#rate-up" ).trigger('click');                
-            }, 1000);
+            }, 100);
         }).mouseup(function(e) {
             clearInterval(this.downTimer);
         });
@@ -43,10 +43,17 @@ var rateList = {
             clearInterval(this.downTimer);
         });
 
-        $( "#rate-btn" ).click(function() {
+        $( ".r-submit" ).click(function() {
             if(!$(this).hasClass('disabled')) {
                 $('#t-error').html('');
-                rateList.update(this.container, $( "#rate-price" ).val());
+                var price = parseInt($( "#rate-price" ).val());
+                var obj = {
+                    price: price,
+                    name: rateList.data.name,
+                    surname: rateList.data.surname,
+                };
+                rateList.add(obj);
+                rateList.update(this.container, price);
             }
         });
 
@@ -113,10 +120,19 @@ var rateList = {
             }});
         }
     },
-    add : function(rate) {
-        var newElement = "<div id='" + rate.id + "' class='rate-one'>" +
-            "<div class='r-o-container'>" +
-                "<div class='r-o-time'>" + rate.time + "</div>" +
+    add : function(rate) 
+    {
+        var time = '';
+        var id = 0;
+        
+        if (typeof rate.id !=="undefined") id = rate.id;
+        
+        if (typeof rate.id !=="undefined"){
+            time = "<div class='r-o-time'>" + rate.time + "</div>";
+        }
+        var newElement = "<div id='" + id + "' class='rate-one'>" + 
+            "<div class='r-o-container'>" + 
+                time +
                 "<div class='r-o-user'>" + rate.name + ' ' + rate.surname + "</div>" +
             "</div>" +
             "<div class='r-o-price'>" + rate.price + rateList.data.currency + "</div>" +
