@@ -38,7 +38,7 @@ var rateList = {
             clearTimeout(this.downTimer);
             this.downTimer = setInterval(function() {
                 $( "#rate-down" ).trigger('click');                
-            }, 1000);
+            }, 100);
         }).mouseup(function(e) {
             clearInterval(this.downTimer);
         });
