@@ -82,8 +82,8 @@ class DefaultController extends Controller
     /* Show all events */
     public function actionEvent()
     {
-        $newEvents = $oldEvents = array();
-        $events = Yii::app()->db->createCommand()
+        //$newEvents = $oldEvents = array();
+        /*$events = Yii::app()->db->createCommand()
             ->select('u.*, t.location_from, t.location_to')
             ->from('user_event u, transport t')
             ->where('u.user_id = :id and t.id = u.transport_id', array(':id' => Yii::app()->user->_id))
@@ -104,6 +104,30 @@ class DefaultController extends Controller
         }
 
         $this->render('event', array('newEvents' => $newEvents, 'oldEvents' => $oldEvents));
+        */
+        
+        
+        $criteria = new CDbCriteria();
+        $criteria->with = array('transport' => array('select'=>'*'));
+        $criteria->addCondition('transport.id = t.transport_id');
+        //$criteria->order('t.status desc');
+
+        $dataProvider = new CActiveDataProvider('UserEvent',
+            array(
+                'criteria' => $criteria,
+                'pagination'=>array(
+                   'pageSize' => 8,
+                   'pageVar' => 'event',
+                ),
+                'sort'=>array(
+                    'defaultOrder'=>array(
+                            'status' => CSort::SORT_DESC,
+                    ),
+                ),
+            )
+        );
+        
+        $this->render('event', array('data' => $dataProvider));
     }
 
     public function getEventMessage($eventType)
@@ -113,7 +137,7 @@ class DefaultController extends Controller
             '2' => 'будет закрыта через ' . Yii::app()->params['interval'] . ' минут',
             '3' => 'новая международная перевозка',
             '4'	=> 'новая местная перевозка',
-            '5' => 'ваша ставка была перебита'		
+            '5' => 'Ваша ставка была перебита'		
         );
 
         return $message[$eventType];

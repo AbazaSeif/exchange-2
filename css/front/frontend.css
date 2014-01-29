@@ -306,11 +306,12 @@ header, .wrapper, footer
     position: relative;
     min-height: 45px;
 }
-.transports .items .transport > div
+
+.transports .items .transport > div, .rate > div
 {
     position: relative;
 }
-.transports .items .transport .t-header
+.transports .items .transport .t-header, .rate .t-header
 {
     display: block;
     font-size: 18px;
@@ -355,7 +356,7 @@ header, .wrapper, footer
 {
     font-size: 23px;
 }
-.transports .items .transport .t-timer .t-closed
+.transports .items .transport .t-timer .t-closed, .rate
 {
     display: block;
     padding-top: 4px;
@@ -397,13 +398,12 @@ header, .wrapper, footer
 {
     
 }
-.transport-one .t-o-info label
-{
+.transport-one .t-o-info label {
     font-size: 16px;
     font-weight: bold;
 }
-.transport-one .t-o-info span
-{
+
+.transport-one .t-o-info span{
     display: block;
     padding: 5px 0 1px 15px;
 }
@@ -415,7 +415,6 @@ header, .wrapper, footer
 }
 
 .r-description{
-    color: #EF801B;
     font-size: 13px;
     padding: 5px 0;
 }
@@ -426,35 +425,54 @@ header, .wrapper, footer
     text-align: center;
     padding-bottom: 5px;
 }
+#event-counter{
+    float: right;
+    margin-right: 2px;
+    color: #fff;
+    background-color: #00917C;
+    behavior: url(PIE.htc);
+    border-radius: 5px;
+    text-align: center;
+    width: 22px;
+}
 
 /*--------Конец-Одна-перевозка-----*/
 /*--------Одна-ставка-----------*/
-#last-rate{
-    color: red;
+.rate
+{
+    border-bottom: 1px solid rgb(200,200,200);
+    padding: 2px 10px;
+    position: relative;
+    min-height: 45px;
 }
+.rate-new{
+    background-color: #ECFEF0;
+}
+.rate .h-header{
+    color: #333333;
+}
+
+#last-rate{
+    color: #EF801B;
+    text-align: center;
+    font-size: 23px;
+    margin: 5px 0;
+}
+
 #rate-price{
    float: right;
    font-size: 23px;
 }
-#rates{
-    margin-top: 20px;
-    border: 1px dotted #eee;
-	display: block;
-	margin-bottom: 10px;
-	padding: 3px;
-	overflow-x: hidden;
-	overflow-y: auto;
-	max-height: 290px;
-}
-#timer{
+
+#t-container{
     font-size: 18px;
     text-align: center;
-    margin-bottom: 10px;
 }
+
 .shadow{
     box-shadow: 0 0 8px rgba(0,0,0,0.6);
 }
-#timer .t-time{
+#t-container .t-time{
     font-weight: 500;
     font-size: 25px;
     display: block; 
@@ -496,8 +514,8 @@ header, .wrapper, footer
     width: 40%;
 }
 .r-o-price{
-    font-weight: bold;
     color: #EF801B;
+    font-size: 23px;
 }
 
 .btn{
@@ -527,15 +545,20 @@ header, .wrapper, footer
 }
 
 .btn-green{
-    color: #fff;
-    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
-    background-color: #60b044;
-    background-image: -moz-linear-gradient(#8add6d, #60b044);
-    background-image: -webkit-linear-gradient(#8add6d, #60b044);
-    background-image: linear-gradient(#8add6d, #60b044);
-    background-repeat: repeat-x;
-    border: 1px solid #5ca941;
     height: 25px;
+    box-shadow: none;
+    text-decoration: none;
+    border-radius: 3px;
+    border: 0;
+    color: #FFF;
+    text-shadow: 0 1px 0 rgba(0,140,140,0.9);
+    background: #14AAAA;
+    background: -moz-linear-gradient(top,#14AAAA,#008C8C);
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#14AAAA),color-stop(100%,#008C8C));
+    background: -webkit-linear-gradient(top,#14AAAA,#008C8C);
+    background: -o-linear-gradient(top,#14AAAA,#008C8C);
+    background: -ms-linear-gradient(top,#14AAAA,#008C8C);
+    background: linear-gradient(top,#14AAAA,#008C8C);
 }
 
 #rate-up{
@@ -556,6 +579,51 @@ header, .wrapper, footer
     cursor: pointer;
     cursor: hand;
     border: 1px solid #eee;
+}
+
+#rates{
+    margin-top: 20px;
+    margin-bottom: 10px;
+	padding: 3px;
+    
+    /*border: 1px dotted #eee;*/
+	/*display: block;*/
+	
+	overflow-x: hidden;
+	overflow-y: auto;
+    min-height: 30px;
+	max-height: 290px;
+    
+   /* width: 100%;
+    position:relative;
+    float:left;*/
+}
+
+.timer-wrapper
+{
+    float: left;
+    width: 25%;
+    position:relative;
+    background:#fff;
+    margin-top: 10px;
+}
+.timer-wrapper:before,
+.timer-wrapper:after {
+    content:"";
+    position:absolute;
+    z-index:-2;
+}
+
+.timer-wrapper:after{
+    top:10px;
+    bottom:10px;
+    left:10px;
+    right:0;
+    -webkit-box-shadow:0 0 8px rgba(0,0,0,0.6);
+       -moz-box-shadow:0 0 8px rgba(0,0,0,0.6);
+            box-shadow:0 0 8px rgba(0,0,0,0.6);
+    -moz-border-radius:10px / 100px;
+         border-radius:10px / 100px;
 }
 
 .disabled{
@@ -581,6 +649,10 @@ header, .wrapper, footer
 .width-50{width: 50%;}
 .width-60{width: 60%;}
 .width-70{width: 70%;}
+
+.width-30-r{
+    float: right;
+}
 
 header:after, .wrapper:after, footer:after, #login-form:after,
 .user-info:after, .transports .sorter ul:after, .transports .items .transport:after, .transport-one:after

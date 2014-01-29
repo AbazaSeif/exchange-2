@@ -32,13 +32,13 @@ $inputSize = strlen((string)$lastRate)-1;
             <div><span>Дата загрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_from'])) ?></strong></div>
             <div><span>Дата разгрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_to'])) ?></strong></div>
             <?php if (!empty($transportInfo['auto_info'])):?><div><span>Информация о машине: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
-            <?php if (!Yii::app()->user->isGuest): ?><div><span>Текущая ставка:   <strong id="last-rate"><?php echo $lastRate . $currency?></strong></span></div><?php endif; ?>
         </div>	
     </div>
-    <div class="width-30 shadow timer-wrapper">
-        <div id="timer"></div>
-        <div id="t-error"></div>
-        <?php if (!Yii::app()->user->isGuest && $startValue > 0 && Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot): ?>
+    <?php if (!Yii::app()->user->isGuest && $startValue > 0 && Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot): ?>
+    <div class="width-30-r timer-wrapper">
+        <div id="t-container"></div>
+        <div id="last-rate"><span><?php echo $lastRate . $currency?></span></div>
+        <?php if($transportInfo['status']): ?>
         <div id="t-error"></div>
         <div class="rate-btns">
             <div class="rate-btns-wrapper">
@@ -46,13 +46,20 @@ $inputSize = strlen((string)$lastRate)-1;
                 <div id="rate-down" class="<?php echo ($minRate)?'disabled':''?>"></div>
             </div>
             <input id="rate-price" value="<?php echo $startValue?>" init="<?php echo $startValue?>" type="text" size="<?php echo $inputSize ?>" disabled="disabled"/>
-		</div>
-		<div id="rate-btn" class="btn-green btn  <?php echo ($startValue <= 0)?'disabled':'' ?>">ОK</div>
+	</div>
+	<div id="rate-btn" class="btn-green btn  <?php echo ($startValue <= 0)?'disabled':'' ?>">ОK</div>
         <?php endif; ?>
     </div>
+    <?php endif; ?>
+    <?php if (Yii::app()->user->isGuest): ?>
+         <div class="width-30 timer-wrapper">
+             <div id="t-container"></div>
+             <div id="last-rate"><span><?php echo '****' . $currency?></span></div>
+         </div>
+    <?php endif; ?>
 </div>
 <?php if (!Yii::app()->user->isGuest): ?>
-        <div id="rates" class="shadow"></div>
+        <div id="rates"></div>
 <?php endif; ?>
 <script>
 $(document).ready(function(){
@@ -67,6 +74,6 @@ $(document).ready(function(){
     setInterval(function(){rateList.update($('#rates'))}, 15000);
     
     var timer = new Timer();
-    timer.init('<?php echo $now ?>', '<?php echo $end ?>', 'timer', rateList.data.status);
+    timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', rateList.data.status);
 });
 </script>

@@ -112,6 +112,7 @@ return array(
 			'Перевозки'=>'/admin/transport/',
 		 ),
 		 'adminEmail'=>'krilova@lbr.ru',
+         'minNotyfy' => 30,
 		 'hoursBefore' => 24,
          'ferrymanGroup' => 4,
 	),

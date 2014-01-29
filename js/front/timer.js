@@ -5,11 +5,11 @@ Timer.prototype = {
     var dateNowServer = new Date(serverDate); // время на сервере
 	this.timeDiff = (dateNowServer - dateNow)/1000; // сек, временная разница между сервером и клиентом 
 	this.status = status;
-    this.endDate = new Date(initDate); // дата и время от которых идет обратный отсчет
+        this.endDate = new Date(initDate); // дата и время от которых идет обратный отсчет
 	this.str = '#' + id;
 	
 	if ($(this.str).length > 0) {
-		this.countainer = document.getElementById(id);
+		this.container = document.getElementById(id);
 		this.numOfDays = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ]; // установили количество дней для месяцев
 		this.borrowed = 0;   //заимствованные
 		this.years = 0, this.months = 0, this.days = 0;
@@ -89,7 +89,7 @@ Timer.prototype = {
               days = "<span class='t-days'><strong>" + this.days + "</strong> " + title + " </span>";
           }
 
-          this.countainer.innerHTML = years + months + days + ' <span class="t-time">' + this.hours + ':' + this.minutes + ':' + this.seconds + '</span>';
+          this.container.innerHTML = years + months + days + ' <span class="t-time">' + this.hours + ':' + this.minutes + ':' + this.seconds + '</span>';
           var currDate = new Date();
           currDate.setSeconds(currDate.getSeconds() + this.timeDiff);
 
@@ -98,7 +98,10 @@ Timer.prototype = {
               var self = this;
               setTimeout(function(){self.updateCounter();}, 1000);
           } else {
-              this.countainer.innerHTML = '<span class="t-closed">Перевозка закрыта</span>';
+              this.container.innerHTML = '<span class="t-closed">Перевозка закрыта</span>';
+              $('#rate-btn').addClass('disabled');
+              $('.rate-btns').slideUp("slow");
+              $('#rate-btn').slideUp("slow");
           }
        }
     }

@@ -22,7 +22,7 @@
 		</div>
 		<div class="row">
 		<?php echo CHtml::checkBox('mail_before_deadline', (bool)$model['mail_before_deadline']); ?>
-		<?php echo CHtml::label('За ' . Yii::app()->params['interval'] . ' минут до закрытия ставки', 'mail_before_deadline'); ?>                
+		<?php echo CHtml::label('За ' . Yii::app()->params['minNotyfy'] . ' минут до закрытия ставки', 'mail_before_deadline'); ?>                
 		</div>
 	</fieldset>
 	<fieldset>
@@ -52,7 +52,8 @@
 	</fieldset>
 	<div class="row submit">
 	<?php 
-	    echo CHtml::submitButton('Сохранить'); 
+	    echo CHtml::submitButton('Сохранить', array('class' => 'btn-green btn')); 
+        //btn-green btn
 		//echo CHtml::hiddenField('id', Yii::app()->user->_id);
 	?>
 	</div>
