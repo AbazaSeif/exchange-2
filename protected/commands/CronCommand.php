@@ -116,7 +116,7 @@ class CronCommand extends CConsoleCommand
                     $usersAll[] = $member['user_id'];
             }
 
-// search for users who wanted to get mail and made a rate
+            // search for users who wanted to get mail and made a rate
             $usersM = array_intersect($usersAll, $usersMail);
             if(!empty($usersM)){
                 $this->sendMailAboutDeadline($usersM, $transportId, $mailType);
@@ -129,7 +129,7 @@ class CronCommand extends CConsoleCommand
                         'user_id' => $user,
                         'transport_id' => $transportId,
                         'status' => 1,
-                        'type' => 1, // !!! message color ( �������� )
+                        'type' => 1,
                         'event_type' => $messageType,
                     );
 
@@ -169,51 +169,52 @@ class CronCommand extends CConsoleCommand
             Transport::model()->updateAll(array('new_transport' => 0), 'id in (' . $transportIds . ')');
 
             if(!empty($transportIdType[0])){ // international transportation
-                /*$temp = Yii::app()->db->createCommand()
-                        ->select('user_id')
-                        ->from('user_field')
-                        ->where('mail_transport_create_1 = :type', array(':type' => true))
-                        ->queryAll()
+                $temp = Yii::app()->db->createCommand()
+                    ->select('user_id')
+                    ->from('user_field')
+                    ->where('mail_transport_create_1 = :type', array(':type' => true))
+                    ->queryAll()
                 ;
                 foreach($temp as $t){
                     $usersInternational[] = $t['user_id'];
                 }
                 $temp = Yii::app()->db->createCommand()
-                        ->select('user_id')
-                        ->from('user_field')
-                        ->where('site_transport_create_1 = :type', array(':type' => true))
-                        ->queryAll()
+                    ->select('user_id')
+                    ->from('user_field')
+                    ->where('site_transport_create_1 = :type', array(':type' => true))
+                    ->queryAll()
                 ;
                 foreach($temp as $t){
                     $usersInternationalSite[] = $t['user_id'];
-                }*/
+                }
+                
                 $usersInternational = $this->searchUsers('mail_transport_create_1', $usersInternational);
                 $usersInternationalSite = $this->searchUsers('site_transport_create_1', $usersInternationalSite);
             }
 
             if(!empty($transportIdType[1])){ // local transportation
-                /*$temp = Yii::app()->db->createCommand()
-                            ->select('user_id')
-                            ->from('user_field')
-                            ->where('mail_transport_create_2 = :type', array(':type' => true))
-                            ->queryAll()
-                    ;
-                    foreach($temp as $t){
-                        $usersLocal[] = $t['user_id'];
-                    }
+                $temp = Yii::app()->db->createCommand()
+                    ->select('user_id')
+                    ->from('user_field')
+                    ->where('mail_transport_create_2 = :type', array(':type' => true))
+                    ->queryAll()
+                ;
+                foreach($temp as $t){
+                    $usersLocal[] = $t['user_id'];
+                }
 
-                    $temp = Yii::app()->db->createCommand()
-                            ->select('user_id')
-                            ->from('user_field')
-                            ->where('site_transport_create_2 = :type', array(':type' => true))
-                            ->queryAll()
-                    ;
-                    foreach($temp as $t){
-                        $usersLocalSite[] = $t['user_id'];
-                    }*/
+                $temp = Yii::app()->db->createCommand()
+                    ->select('user_id')
+                    ->from('user_field')
+                    ->where('site_transport_create_2 = :type', array(':type' => true))
+                    ->queryAll()
+                ;
+                foreach($temp as $t){
+                    $usersLocalSite[] = $t['user_id'];
+                }
 
-                    $usersLocal = $this->searchUsers('mail_transport_create_2', $usersLocal);
-                    $usersLocalSite = $this->searchUsers('site_transport_create_2', $usersLocalSite);
+                $usersLocal = $this->searchUsers('mail_transport_create_2', $usersLocal);
+                $usersLocalSite = $this->searchUsers('site_transport_create_2', $usersLocalSite);
             }
 
             if(!empty($usersInternational) && !empty($usersLocal)){ // both transportation
@@ -290,13 +291,7 @@ class CronCommand extends CConsoleCommand
     public function sendMailAboutDeadline($users, $transportId, $mailType)
     {
         $subject = 'Уведомление';
-
-        $message = "
-        <html>
-        <head>
-          <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
-        </head>
-        <body>";
+        $message = '';
 
         if($mailType == 'mail_deadline'){
             $message .= "<p>Перевозка с номером " . $transportId . " закрыта.</p>";
@@ -308,11 +303,6 @@ class CronCommand extends CConsoleCommand
             $message .= "<p>Ваше предложение по перевозке с номером " . $transportId . " было перебито.</p>";
         }
 
-        $message .= "
-        </body>
-        </html>
-        ";
-
         foreach($users as $userId){
            $this->sendMail($userId, $subject, $message);
         }
@@ -321,15 +311,15 @@ class CronCommand extends CConsoleCommand
     public function searchUsers($field, $array)
     {
         $temp = Yii::app()->db->createCommand()
-                    ->select('user_id')
-                    ->from('user_field')
-                    ->where($field . ' = :type', array(':type' => true))
-                    ->queryAll()
-            ;
-            foreach($temp as $t){
-                    $array[] = $t['user_id'];
-            }
-            return $array;
+            ->select('user_id')
+            ->from('user_field')
+            ->where($field . ' = :type', array(':type' => true))
+            ->queryAll()
+        ;
+        foreach($temp as $t){
+            $array[] = $t['user_id'];
+        }
+        return $array;
     }
 
     public function sendMail($userId, $subject, $message)
@@ -346,7 +336,7 @@ class CronCommand extends CConsoleCommand
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
         $email->to_email   = 'tttanyattt@mail.ru'; //$user['email'];
         $email->to_name    = '';
-        $email->subject    = 'Уведомление о появлении новых перевозок';
+        $email->subject    = $subject;  //'Уведомление о появлении новых перевозок';
         $email->type = 'text/html';
         $email->body = '<h1>Уважаемый(ая) ' . $user['name'] . ' ' . $user['surname'] . ', </h1>' . $message;
         $email->sendMail();
