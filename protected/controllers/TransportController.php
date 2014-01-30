@@ -159,7 +159,7 @@ class TransportController extends Controller
             $headers .= 'Content-type: text/html; charset=utf-8' . '\r\n';
             $headers .= 'To: ' . $userModel->name . '<' . $email . '>' . '\r\n';
             $headers .= 'From: Биржа перевозок ЛБР АгроМаркет <' . Yii::app()->params['adminEmail'] . '>' . '\r\n';
-            $message = "<html>
+            /*$message = "<html>
                 <head>
                   <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
                 </head>
@@ -167,7 +167,9 @@ class TransportController extends Controller
                         <p>Вашу ставку для перевозки с номером " . $rateModel->transport_id . " перебили </p>
                 </body>
                 </html>
-            ";
+            ";*/
+            
+            $message = "<p>Вашу ставку для перевозки с номером " . $rateModel->transport_id . " перебили </p>";
             mail($email, $subject, $message, $headers);
         }
     }
