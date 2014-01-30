@@ -153,24 +153,36 @@ class TransportController extends Controller
 
         if(in_array($rateModel->user_id, $users)){
             $userModel = User::model()->findByPk($rateModel->user_id);
-            $email = $userModel->email;
+            //$email = $userModel->email;
+            
+            
+            $email=new TEmail;
+            $email->from_email='test@ya.com';
+            $email->from_name='Автор ІЇҐЭЄ іїґэє';
+            $email->to_email='tttanyattt@mail.ru';
+            $email->to_name='Для Васі';
+            $email->subject='Тема ІЇҐЭЄ іїґэє';
+            $email->type='text/html';
+            $email->body='Тестовий лист в HTML.
+              <h1>Header 1 (Заголовок 1)</h1>
+              <h2>Header 2 (Заголовок 2)</h2>
+              <h3>Header 3 (Заголовок 3)</h3>
+              <h4>Header 4 (Заголовок 4)</h4>
+              <h5>Header 5 (Заголовок 5)</h5>
+              Тест: Привет
+            ';
+
+            $email->sendMail();
+            //echo Yii::app()->email->from_email;
+            /*
             $subject  = 'Уведомление';
             $headers  = 'MIME-Version: 1.0' . '\r\n';
             $headers .= 'Content-type: text/html; charset=utf-8' . '\r\n';
             $headers .= 'To: ' . $userModel->name . '<' . $email . '>' . '\r\n';
             $headers .= 'From: Биржа перевозок ЛБР АгроМаркет <' . Yii::app()->params['adminEmail'] . '>' . '\r\n';
-            /*$message = "<html>
-                <head>
-                  <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
-                </head>
-                <body>
-                        <p>Вашу ставку для перевозки с номером " . $rateModel->transport_id . " перебили </p>
-                </body>
-                </html>
-            ";*/
-            
-            $message = "<p>Вашу ставку для перевозки с номером " . $rateModel->transport_id . " перебили </p>";
+            $message = "Вашу ставку для перевозки с номером " . $rateModel->transport_id . " перебили";
             mail($email, $subject, $message, $headers);
+            */
         }
     }
     
