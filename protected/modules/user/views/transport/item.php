@@ -63,6 +63,10 @@ if (!Yii::app()->user->isGuest) $userInfo = User::model()->findByPk(Yii::app()->
     <?php endif; ?>
 </div>
 <?php if (!Yii::app()->user->isGuest): ?>
+        <div class="width-30 timer-wrapper">
+             <div id="t-container"></div>
+             <div id="last-rate"><span><?php echo $startValue . ' ' . $currency?></span></div>
+        </div>
         <div id="rates"></div>
 <?php endif; ?>
 <script>
