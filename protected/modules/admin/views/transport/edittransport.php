@@ -27,12 +27,12 @@
             'validateOnSubmit'=>true,
             'afterValidate'=>'js:function( form, data, hasError ) 
             {     
-                    if( hasError ){
-                            return false;
-                    }
-                    else{
-                            return true;
-                    }
+                if( hasError ){
+                    return false;
+                }
+                else{
+                    return true;
+                }
             }'
     ),));
 ?>

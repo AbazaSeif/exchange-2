@@ -154,7 +154,7 @@ class TransportController extends Controller
         if(in_array($rateModel->user_id, $users)){
             $userModel = User::model()->findByPk($rateModel->user_id);
             $transportModel = Transport::model()->findByPk($rateModel->transport_id);
-            $email=new TEmail;
+            $email = new TEmail;
             $email->from_email = Yii::app()->params['adminEmail'];
             $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
             $email->to_email   = $userModel->email;

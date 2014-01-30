@@ -9,6 +9,7 @@ return array(
 	'preload'=>array('log'),
         'import' => array(
 	    'application.models.*',
+            'application.helpers.*',
 	),
 	// application components
 	'components'=>array(
