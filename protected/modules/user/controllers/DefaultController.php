@@ -4,7 +4,7 @@ class DefaultController extends Controller
 {
     public function actionIndex()
     {
-            $this->render('index');
+        $this->render('index');
     }
 
     public function actionLogin()
@@ -110,6 +110,7 @@ class DefaultController extends Controller
         $criteria = new CDbCriteria();
         $criteria->with = array('transport' => array('select'=>'*'));
         $criteria->addCondition('transport.id = t.transport_id');
+        $criteria->addCondition('t.user_id = ' . Yii::app()->user->_id);
         //$criteria->order('t.status desc');
 
         $dataProvider = new CActiveDataProvider('UserEvent',
@@ -121,7 +122,7 @@ class DefaultController extends Controller
                 ),
                 'sort'=>array(
                     'defaultOrder'=>array(
-                            'status' => CSort::SORT_DESC,
+                         'status' => CSort::SORT_DESC,
                     ),
                 ),
             )
