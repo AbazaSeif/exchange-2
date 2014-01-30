@@ -256,12 +256,14 @@ class CronCommand extends CConsoleCommand
     {
         foreach($users as $user){
             foreach($transportIds as $transportId){
+                $event = 3;
+                if($transportId['type']) $event = 4;
                 $obj = array(
                     'user_id' => $user,
                     'transport_id' => $transportId['id'],
                     'status' => 1,
                     'type' => 1,
-                    'event_type' => 3,
+                    'event_type' => $event,
                 );
 
                 Yii::app()->db->createCommand()->insert('user_event',$obj);
