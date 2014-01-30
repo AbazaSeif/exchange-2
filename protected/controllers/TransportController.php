@@ -153,36 +153,21 @@ class TransportController extends Controller
 
         if(in_array($rateModel->user_id, $users)){
             $userModel = User::model()->findByPk($rateModel->user_id);
-            //$email = $userModel->email;
-            
-            
+            $transportModel = Transport::model()->findByPk($rateModel->transport_id);
             $email=new TEmail;
-            $email->from_email='test@ya.com';
-            $email->from_name='Автор ІЇҐЭЄ іїґэє';
-            $email->to_email='tttanyattt@mail.ru';
-            $email->to_name='Для Васі';
-            $email->subject='Тема ІЇҐЭЄ іїґэє';
-            $email->type='text/html';
-            $email->body='Тестовий лист в HTML.
-              <h1>Header 1 (Заголовок 1)</h1>
-              <h2>Header 2 (Заголовок 2)</h2>
-              <h3>Header 3 (Заголовок 3)</h3>
-              <h4>Header 4 (Заголовок 4)</h4>
-              <h5>Header 5 (Заголовок 5)</h5>
-              Тест: Привет
+            $email->from_email = Yii::app()->params['adminEmail'];
+            $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+            $email->to_email   = $userModel->email;
+            $email->to_name    = '';
+            $email->subject    = 'Уведомление';
+            $email->type = 'text/html';
+            $email->body = '<h1>Уважаемый(ая)' . $userModel->name . ' ' . $userModel->surname .',</h1>
+              <div>
+                  <p>Вашу ставку для перевозки "<a href="http://exchange.lbr.ru/user/transport/description/id/'.$rateModel->transport_id.'">' . $transportModel->location_from . ' &mdash; ' . $transportModel->location_to . '</a>" перебили</p>
+              </div>
+              <h5>Это автоматическое уведомление, на него не следует отвечать</h5>
             ';
-
             $email->sendMail();
-            //echo Yii::app()->email->from_email;
-            /*
-            $subject  = 'Уведомление';
-            $headers  = 'MIME-Version: 1.0' . '\r\n';
-            $headers .= 'Content-type: text/html; charset=utf-8' . '\r\n';
-            $headers .= 'To: ' . $userModel->name . '<' . $email . '>' . '\r\n';
-            $headers .= 'From: Биржа перевозок ЛБР АгроМаркет <' . Yii::app()->params['adminEmail'] . '>' . '\r\n';
-            $message = "Вашу ставку для перевозки с номером " . $rateModel->transport_id . " перебили";
-            mail($email, $subject, $message, $headers);
-            */
         }
     }
     
