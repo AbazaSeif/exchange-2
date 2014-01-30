@@ -18,7 +18,7 @@ $minRate = (($startValue - $priceStep)<=0)? 1 : 0;
 $now = date('Y m d H:i:s', strtotime('now'));
 $end = date('Y m d H:i:s', strtotime($transportInfo['date_to'] . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
 $inputSize = strlen((string)$lastRate)-1;
-$userInfo = User::model()->findByPk(Yii::app()->user->_id);
+if (!Yii::app()->user->isGuest) $userInfo = User::model()->findByPk(Yii::app()->user->_id);
 ?>
 
 <div class="transport-one">
@@ -73,9 +73,11 @@ $(document).ready(function(){
         transportId : <?php echo $transportInfo['id']; ?>,
         status: <?php echo $transportInfo['status'] ?>,
         step: <?php echo $priceStep ?>,
-        name: '<?php echo $userInfo[name] ?>',
-        surname: '<?php echo $userInfo[surname] ?>',
     };
+    <?php if (!Yii::app()->user->isGuest): ?>
+        rateList.data.name = '<?php echo $userInfo[name] ?>',
+        rateList.data.surname = '<?php echo $userInfo[surname] ?>',
+    <?php endif;?> 
     rateList.init();
     setInterval(function(){rateList.update($('#rates'))}, 15000);
     
