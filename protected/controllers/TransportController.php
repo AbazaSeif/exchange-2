@@ -163,7 +163,7 @@ class TransportController extends Controller
             $email->type = 'text/html';
             $email->body = '<h1>Уважаемый(ая) ' . $userModel->name . ' ' . $userModel->surname .',</h1>
               <div>
-                  <p>Вашу ставку для перевозки "<a href="http://exchange.lbr.ru/user/transport/description/id/'.$rateModel->transport_id.'">' . $transportModel->location_from . ' &mdash; ' . $transportModel->location_to . '</a>" перебили. </p>
+                  <p>Вашу ставку для перевозки "<a href="http://exchange.lbr.ru/transport/description/id/'.$rateModel->transport_id.'">' . $transportModel->location_from . ' &mdash; ' . $transportModel->location_to . '</a>" перебили. </p>
               </div>
               <h5>Это автоматическое уведомление, на него не следует отвечать.</h5>
             ';

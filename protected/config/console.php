@@ -13,33 +13,33 @@ return array(
 	),
 	// application components
 	'components'=>array(
-		'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/exchange.db',
-		),
-		// uncomment the following to use a MySQL database
-		
-		/*'db'=>array(
-                        'connectionString' => 'mysql:host=localhost;dbname=chat',
-			'emulatePrepare' => true,
-			'username' => 'mysql',
-			'password' => 'mysql',
-			'charset' => 'utf8',
-		),*/
-		
-		'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
-				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
-				),
-			),
-		),
+            'db'=>array(
+                    'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/exchange.db',
+            ),
+            // uncomment the following to use a MySQL database
+
+            /*'db'=>array(
+                    'connectionString' => 'mysql:host=localhost;dbname=chat',
+                    'emulatePrepare' => true,
+                    'username' => 'mysql',
+                    'password' => 'mysql',
+                    'charset' => 'utf8',
+            ),*/
+
+            'log'=>array(
+                    'class'=>'CLogRouter',
+                    'routes'=>array(
+                            array(
+                                    'class'=>'CFileLogRoute',
+                                    'levels'=>'error, warning',
+                            ),
+                    ),
+            ),
 	),
 	'params'=>array(
-		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
-		'minNotyfy' => 30,
-		'hoursBefore' => 24, 
+            // this is used in contact page
+            'adminEmail'=>'krilova@lbr.ru',
+            'minNotyfy' => 30,
+            'hoursBefore' => 24, 
 	),
 );

@@ -99,21 +99,21 @@ return array(
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
-		// this is used in contact page
-		'meta_title'=>'Биржа перевозок',
-		'meta_description'=>'перевозки, биржа перевозок, биржа ЛБР',
-		'menu_admin'=>array(
-			'Пользователи'=>array(
-				'Пользователи'=>'/admin/user/',
-				'Группы пользователей'=>'/admin/user/group/',
-				'Роли'=>'/admin/user/role/',
-				'Операции'=>'/admin/user/operation/',
-			),
-			'Перевозки'=>'/admin/transport/',
-		 ),
-		 'adminEmail'=>'krilova@lbr.ru',
-         'minNotyfy' => 30,
-		 'hoursBefore' => 24,
-         'ferrymanGroup' => 4,
+            // this is used in contact page
+            'meta_title'=>'Биржа перевозок',
+            'meta_description'=>'перевозки, биржа перевозок, биржа ЛБР',
+            'menu_admin'=>array(
+                    'Пользователи'=>array(
+                            'Пользователи'=>'/admin/user/',
+                            'Группы пользователей'=>'/admin/user/group/',
+                            'Роли'=>'/admin/user/role/',
+                            'Операции'=>'/admin/user/operation/',
+                    ),
+                    'Перевозки'=>'/admin/transport/',
+             ),
+             'adminEmail'=>'krilova@lbr.ru',
+             'minNotyfy' => 30,
+             'hoursBefore' => 24,
+             'ferrymanGroup' => 4,
 	),
 );

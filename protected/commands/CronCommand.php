@@ -3,8 +3,8 @@ class CronCommand extends CConsoleCommand
 {
     public function run($args)
     {
-        $this->deadlineTransport();
-        $this->beforeDeadlineTransport();
+        //$this->deadlineTransport();
+        //$this->beforeDeadlineTransport();
         $this->newTransport();
     }
 
@@ -145,7 +145,7 @@ class CronCommand extends CConsoleCommand
         $transportIds = '';
         $usersInternational = $usersInternationalSite = $usersLocal = $usersLocalSite = $usersInternationalAndLocal = array();
         $transportNew = Yii::app()->db->createCommand()
-            ->select('id, type')
+            ->select('id, type, location_from, location_to')
             ->from('transport')
             ->where('new_transport = :status', array(':status' => 1))
             ->queryAll()
@@ -157,12 +157,17 @@ class CronCommand extends CConsoleCommand
         if($count){
             foreach($transportNew as $transport) {
                 if(!empty($transportIds)) $transportIds .= ', ';
-                $transportIds .= $transport['id'];
+                $id = $transport['id'];
+                $transportIds .= $id;
 
                 if($transport['type']){
-                    $transportIdType[1][] = $transport['id'];
+                    $transportIdType[1][$id]['id'] = $id;
+                    $transportIdType[1][$id]['from'] = $transport['location_from'];
+                    $transportIdType[1][$id]['to'] = $transport['location_to'];
                 } else {
-                    $transportIdType[0][] = $transport['id'];
+                    $transportIdType[0][$id]['id'] = $id;
+                    $transportIdType[0][$id]['from'] = $transport['location_from'];
+                    $transportIdType[0][$id]['to'] = $transport['location_to'];
                 }
             }
 
@@ -175,6 +180,7 @@ class CronCommand extends CConsoleCommand
                     ->where('mail_transport_create_1 = :type', array(':type' => true))
                     ->queryAll()
                 ;
+                
                 foreach($temp as $t){
                     $usersInternational[] = $t['user_id'];
                 }
@@ -274,14 +280,20 @@ class CronCommand extends CConsoleCommand
         }
 
         $message = "<p>Были опубликованы новые перевозки. </p>";
-
+/*
         if($type == 0 || $type == 2){
-           $message .= "<p><b>Международные</b> перевозки с номерами: " . implode(',', $transportIds[0]) . ".</p>";
+           $message .= "<p><b>Международные</b> перевозки: </p>";
+           foreach($transportIds[0] as $item){
+               $message .= '<a href="http://exchange.lbr.ru/transport/description/'.$item['id'].'">'.$item['from'].'-'.$item['to'].'</a>';
+           }
         } 
         if($type == 1 || $type == 2){
-           $message .= "<p><b>Локальные</b> перевозки с номерами: " . implode(',', $transportIds[1]) . ".</p>";
+           $message .= "<p><b>Локальные</b> перевозки:</p>";
+           foreach($transportIds[1] as $item){
+               $message .= '<a href="http://exchange.lbr.ru/transport/description/'.$item['id'].'">'.$item['from'].'-'.$item['to'].'</a>';
+           }
         }	
-
+        */
         foreach($users as $userId){
             $this->sendMail($userId, $subject, $message);			
         }
@@ -295,7 +307,7 @@ class CronCommand extends CConsoleCommand
 
         if($mailType == 'mail_deadline'){
             $message .= "<p>Перевозка с номером " . $transportId . " закрыта.</p>";
-                $subject = 'Уведомление о завершении перевозки';
+            $subject = 'Уведомление о завершении перевозки';
         } else if($mailType == 'mail_before_deadline'){
             $message .= "<p>Перевозка с номером " . $transportId . " будет закрыта через " . Yii::app()->params['minNotify'] . " минут.</p>";
             $subject = 'Уведомление о скором завершении перевозки';
@@ -334,21 +346,14 @@ class CronCommand extends CConsoleCommand
         $email = new TEmail;
         $email->from_email = Yii::app()->params['adminEmail'];
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = 'tttanyattt@mail.ru'; //$user['email'];
+        $email->to_email   = 'tttanyattt@mail.ru';//$user['email'];
         $email->to_name    = '';
-        $email->subject    = $subject;  //'Уведомление о появлении новых перевозок';
+        $email->subject    = $subject;
         $email->type = 'text/html';
-        $email->body = '<h1>Уважаемый(ая) ' . $user['name'] . ' ' . $user['surname'] . ', </h1>' . $message;
+        $email->body = "<div>Привет</div>"; 
+        //"<h1>Уважаемый(ая) " . $user['name'] . " " . $user['surname'] . ", </h1>" . 
+        //    $message . "<h5>Это сообщение является автоматическим, на него не нужно отвечать.</h5>"
+        //;
         $email->sendMail();
-        
-        /*
-        $email = $user['email'];
-        $headers  = 'MIME-Version: 1.0' . '\r\n';
-        $headers .= 'Content-type: text/html; charset=utf-8' . '\r\n';
-        $headers .= 'To: ' . $user['name'] . '<' . $email . '>' . '\r\n';
-        $headers .= 'From: ����� ��������� ��� ���������� <' . Yii::app()->params['adminEmail'] . '>' . '\r\n';
-
-        mail($email, $subject, $message, $headers);
-        */
     }
 }
