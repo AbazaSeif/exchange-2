@@ -243,21 +243,21 @@ class CronCommand extends CConsoleCommand
             }
           
             if(!empty($usersInternationalSite)){
-                $this->saveNewTransportEvent($transportIdType[0], $usersInternationalSite);
+                $this->saveNewTransportEvent($transportIdType[0], $usersInternationalSite, 0);
             }
 
             if(!empty($usersLocalSite)){
-                $this->saveNewTransportEvent($transportIdType[1], $usersLocalSite);
+                $this->saveNewTransportEvent($transportIdType[1], $usersLocalSite, 1);
             }
         }
     }
 
-    public function saveNewTransportEvent($transportIds, $users)
+    public function saveNewTransportEvent($transportIds, $users, $type)
     {
         foreach($users as $user){
             foreach($transportIds as $transportId){
                 $event = 3;
-                if($transportId['type']) $event = 4;
+                if($type) $event = 4;
                 $obj = array(
                     'user_id' => $user,
                     'transport_id' => $transportId['id'],
