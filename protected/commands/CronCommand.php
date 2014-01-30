@@ -350,10 +350,9 @@ class CronCommand extends CConsoleCommand
         $email->to_name    = '';
         $email->subject    = $subject;
         $email->type = 'text/html';
-        $email->body = "<div>Привет</div>"; 
-        //"<h1>Уважаемый(ая) " . $user['name'] . " " . $user['surname'] . ", </h1>" . 
-        //    $message . "<h5>Это сообщение является автоматическим, на него не нужно отвечать.</h5>"
-        //;
+        $email->body = "<h1>Уважаемый(ая) " . $user['name'] . " " . $user['surname'] . ", </h1>" . 
+            $message . "<h5>Это сообщение является автоматическим, на него не нужно отвечать.</h5>"
+        ;
         $email->sendMail();
     }
 }
