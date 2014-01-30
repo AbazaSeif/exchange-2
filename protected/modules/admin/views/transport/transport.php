@@ -27,6 +27,7 @@
     ));
     ?>
     </div>
+    <div class="right"></div>
 </div>
 <?php if($data->pagination->pageCount!=0) { 
     $c = ($data->pagination->pageCount+4);
