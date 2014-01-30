@@ -279,18 +279,18 @@ class CronCommand extends CConsoleCommand
             case 1: $subject = 'Уведомление о появлении новых локальных перевозок'; break;
         }
 
-        $message = "<p>Были опубликованы новые перевозки. </p>";
+        $message = "<p>На бирже перевозок ЛБР АгроМаркет появились новые перевозки. </p>";
 
         if($type == 0 || $type == 2){
            $message .= "<p><b>Международные</b> перевозки: </p>";
            foreach($transportIds[0] as $item){
-               $message .= '<a href="http://exchange.lbr.ru/transport/description/'.$item['id'].'">'.$item['from'].'-'.$item['to'].'</a>';
+               $message .= '<p><a href="http://exchange.lbr.ru/transport/description/'.$item['id'].'">'.$item['from'].'-'.$item['to'].'</a></p>';
            }
         } 
         if($type == 1 || $type == 2){
            $message .= "<p><b>Локальные</b> перевозки:</p>";
            foreach($transportIds[1] as $item){
-               $message .= '<a href="http://exchange.lbr.ru/transport/description/'.$item['id'].'">'.$item['from'].'-'.$item['to'].'</a>';
+               $message .= '<p><a href="http://exchange.lbr.ru/transport/description/'.$item['id'].'">'.$item['from'].'-'.$item['to'].'</a></p>';
            }
         }	
         
@@ -351,7 +351,7 @@ class CronCommand extends CConsoleCommand
         $email->subject    = $subject;
         $email->type = 'text/html';
         $email->body = "<h1>Уважаемый(ая) " . $user['name'] . " " . $user['surname'] . ", </h1>" . 
-            $message . "<h5>Это сообщение является автоматическим, на него не нужно отвечать.</h5>"
+            $message . "<hr><h5>Это сообщение является автоматическим, на него не нужно отвечать.</h5>"
         ;
         $email->sendMail();
     }
