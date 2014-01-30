@@ -280,7 +280,7 @@ class CronCommand extends CConsoleCommand
         }
 
         $message = "<p>Были опубликованы новые перевозки. </p>";
-/*
+
         if($type == 0 || $type == 2){
            $message .= "<p><b>Международные</b> перевозки: </p>";
            foreach($transportIds[0] as $item){
@@ -293,7 +293,7 @@ class CronCommand extends CConsoleCommand
                $message .= '<a href="http://exchange.lbr.ru/transport/description/'.$item['id'].'">'.$item['from'].'-'.$item['to'].'</a>';
            }
         }	
-        */
+        
         foreach($users as $userId){
             $this->sendMail($userId, $subject, $message);			
         }
