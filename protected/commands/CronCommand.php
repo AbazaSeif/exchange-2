@@ -258,7 +258,7 @@ class CronCommand extends CConsoleCommand
             foreach($transportIds as $transportId){
                 $obj = array(
                     'user_id' => $user,
-                    'transport_id' => $transportId,
+                    'transport_id' => $transportId['id'],
                     'status' => 1,
                     'type' => 1,
                     'event_type' => 3,
