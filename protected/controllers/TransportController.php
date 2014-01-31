@@ -69,7 +69,7 @@ class TransportController extends Controller
                 'params'=>array(':price' => (int)$newPrice, ':id' => Yii::app()->user->_id),
             ));
             
-            if(!empty($elementExitsts)) {
+            if(empty($elementExitsts)) {
                 $obj = array(
                     'transport_id'  => $id,
                     'user_id' => Yii::app()->user->_id,
