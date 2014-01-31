@@ -83,7 +83,7 @@ Timer.prototype = {
           if(this.days > 0) {
               var title = 'дней';
               var modulo = this.days%10;
-              var intPart = this.days%10;
+              var intPart = this.days/10;
               if(modulo == 1 && intPart != 1) {
                   title = 'день';
               } else if((modulo == 2 || modulo == 3 || modulo == 4) && intPart != 1) {
