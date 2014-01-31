@@ -47,7 +47,7 @@
 		</div>
 		<div class="row">
 		<?php echo CHtml::checkBox('site_before_deadline', (bool)$model['site_before_deadline']); ?>
-		<?php echo CHtml::label('За ' . Yii::app()->params['interval'] . ' минут до закрытия ставки', 'site_before_deadline'); ?>                
+		<?php echo CHtml::label('За ' . Yii::app()->params['minNotyfy'] . ' минут до закрытия ставки', 'site_before_deadline'); ?>                
 		</div>
 	</fieldset>
 	<div class="row submit">
