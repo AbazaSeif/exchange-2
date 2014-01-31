@@ -27,7 +27,16 @@
     ));
     ?>
     </div>
-    <div class="right"></div>
+    <div class="right">
+        <?php
+        if ($mess = Yii::app()->user->getFlash('message')){
+            echo '<div class="message success">'.$mess.'</div>';
+        }
+        if ($view){
+            echo $view;
+        }
+        ?>
+    </div>
 </div>
 <?php if($data->pagination->pageCount!=0) { 
     $c = ($data->pagination->pageCount+4);

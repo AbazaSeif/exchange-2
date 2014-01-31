@@ -61,8 +61,9 @@ class DefaultController extends Controller
               <hr/><h5>Это автоматическое уведомление, на него не следует отвечать.</h5>
             ';
             $email->sendMail();
-            $this->redirect('/');
-            
+
+            Yii::app()->user->setFlash('message', 'Ваша заявка отправлена. Спасибо за интерес, проявленный к нашей компании.');
+            $this->redirect('/user/login/');
         } else {
             $this->render('registration', array('model' => $model));
         }

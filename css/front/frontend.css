@@ -70,7 +70,7 @@ header, .wrapper, footer
     color: #444444;
 }
 /*----------Начало ФОРМА ВХОДА-------*/
-#login-form, #registration-form
+#login-form, #registration-form, .w-right .registration
 {
     padding: 10px 20px 0;
 }
@@ -91,6 +91,12 @@ header, .wrapper, footer
     width: 60%;
     float: left;
 }
+/*#login-form .row.buttons:after
+{
+    content: '';
+    display: block; 
+    clear: both;
+}*/
 #login-form .row.buttons, #registration-form .row.buttons
 {
     width: 40%;
@@ -258,6 +264,21 @@ header, .wrapper, footer
 }
 
 /*--------Перевозки----------------*/
+.message{
+    padding: 1.2% 2%;
+    margin-bottom: .53em;
+    background: #14AAAA;
+    border-color: #C6D880;
+    border-radius: 2px;
+    color: white;
+    -moz-box-shadow: 0px 0px 3px rgba(0,0,0,0.075);
+    -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.075);
+    -o-box-shadow: 0px 0px 3px rgba(0,0,0,0.075);
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.075);
+    right: 2.9%;
+    font-weight: bold;
+}
+
 .transports
 {
     

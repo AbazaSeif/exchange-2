@@ -18,8 +18,14 @@ if(!Yii::app()->user->isGuest){
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),
-    )); ?>
-        <h1>Вход на сайт</h1>
+    ));
+    
+    if ($mess = Yii::app()->user->getFlash('message')){
+        echo '<div class="message success">'.$mess.'</div>';
+    }
+?>
+
+    <h1>Вход на сайт</h1>
 	<div class="row">
 		<?php echo $form->labelEx($model,'username'); ?>
 		<?php echo $form->textField($model,'username'); ?>
@@ -42,3 +48,6 @@ if(!Yii::app()->user->isGuest){
 }
 ?>
 </div><!-- form -->
+<div>
+<?php echo CHtml::link('Подать заявку на регистрацию', array('/user/registration'), array('class' => 'registration')); ?>
+</div>
