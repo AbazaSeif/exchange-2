@@ -70,31 +70,32 @@ header, .wrapper, footer
     color: #444444;
 }
 /*----------Начало ФОРМА ВХОДА-------*/
-#login-form
+#login-form, #registration-form
 {
     padding: 10px 20px 0;
 }
-#login-form .row
+#login-form .row, #registration-form .row
 {
     position: relative;
     margin-bottom: 10px;
 }
-#login-form .row label
+#login-form .row label, #registration-form .row label
 {
     display: block;
     margin-bottom: 5px;
 }
 #login-form .row.rememberMe,
-#login-form .row.buttons
+#login-form .row.buttons,
+#registration-form .row.buttons
 {
     width: 60%;
     float: left;
 }
-#login-form .row.buttons
+#login-form .row.buttons, #registration-form .row.buttons
 {
     width: 40%;
 }
-#login-form .row.buttons input.btn
+#login-form .row.buttons input.btn, #registration-form .row.buttons input.btn
 {
     width: 100%;
     padding: 4px 0;
@@ -119,9 +120,9 @@ header, .wrapper, footer
     line-height: 27px;
 }
 #login-form .row input[type='text'],
-#login-form .row input[type='password']
+#login-form .row input[type='password'], #registration-form .row input[type='text']
 {
-    padding: 2% 3%;
+    padding: 1%;
     width: 93%;
     outline: none;
     color: #333;
@@ -133,15 +134,15 @@ header, .wrapper, footer
     box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
     vertical-align: middle;
 }
-#login-form .row.error input
+#login-form .row.error input, #registration-form .row.error input
 {
     border-color: #FF4040;
 }
-#login-form .row.error label
+#login-form .row.error label, #registration-form .row.error label
 {
     color: #FF4040;
 }
-#login-form .row .errorMessage
+#login-form .row .errorMessage, #registration-form .row .errorMessage
 {
     margin-top: 5px;
     color: #FF4040;
@@ -159,6 +160,7 @@ header, .wrapper, footer
     padding: 2% 5%;
     z-index: 10;
 }
+
 #login-form .row.error .errorMessage:after
 {
     content: '';
@@ -172,6 +174,11 @@ header, .wrapper, footer
     border-top: 7px solid transparent;
     border-right: 7px solid #FF4040;
     border-bottom: 7px solid transparent;
+}
+
+.registration{
+    float: left;
+    color: #666;
 }
 /*----------Конец ФОРМА ВХОДА-------*/
 
@@ -481,6 +488,7 @@ header, .wrapper, footer
 #t-container{
     font-size: 18px;
     text-align: center;
+    margin-top: 30px;
 }
 
 .shadow{
@@ -545,32 +553,6 @@ header, .wrapper, footer
     font-size: 23px;
 }
 
-/*.btn{
-    padding: 0 10px;
-    width: auto;
-    font-size: 11px;
-    font-weight: bold;
-    line-height: 22px;
-    box-shadow: none;
-    display: block;
-    float: left;
-    margin: 3px 5px;
-    text-decoration: none;
-    border-radius: 2px;
-    border: 0;
-    color: #333;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.9);
-    background-color: #eaeaea;
-    background-image: -moz-linear-gradient(#fafafa, #eaeaea);
-    background-image: -webkit-linear-gradient(#fafafa, #eaeaea);
-    background-image: linear-gradient(#fafafa, #eaeaea);
-    background-repeat: repeat-x;
-    border: 1px solid #ddd;
-    border-bottom-color: #c5c5c5;
-    cursor: pointer;
-    cursor: hand;
-}
-*/
 .r-submit{
     box-shadow: none;
     text-decoration: none;

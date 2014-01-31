@@ -36,6 +36,37 @@ class DefaultController extends Controller
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
     }
+    
+    public function actionRegistration()
+    {
+        $model = new RegistrationForm;
+        if(isset($_POST['RegistrationForm']))
+        {
+            $email = new TEmail;
+            $email->from_email = Yii::app()->params['adminEmail'];
+            $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+            $email->to_email   = 'tttanyattt@mail.ru';
+            $email->to_name    = '';
+            $email->subject    = 'Заявка на регистрацию';
+            $email->type = 'text/html';
+            $description = (!empty($_POST['RegistrationForm']['email'])) ? '<p>Примечание:<b>'.$_POST['RegistrationForm']['description'].'</b></p>' : '' ;
+            $email->body = '
+              <div>
+                  <p>Компания "'.$_POST['RegistrationForm']['firmName'].'" подала заявку на регистрацию в бирже перевозок ЛБР АгроМаркет.</p>
+                  <p>Контактное лицо: <b>'.$_POST['RegistrationForm']['name'].'</b></p>
+                  <p>Телефон: <b>'.$_POST['RegistrationForm']['phone'].'</b></p>
+                  <p>Email: <b>'.$_POST['RegistrationForm']['email'].'</b></p>'.
+                   $description .
+              '</div>
+              <hr/><h5>Это автоматическое уведомление, на него не следует отвечать.</h5>
+            ';
+            $email->sendMail();
+            $this->redirect('/');
+            
+        } else {
+            $this->render('registration', array('model' => $model));
+        }
+    }
 
     /* Show user options */
     public function actionOption()

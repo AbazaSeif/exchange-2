@@ -55,6 +55,9 @@ if(!Yii::app()->user->isGuest){
     <div class="row buttons">
             <?php echo CHtml::submitButton('Войти', array('class'=>'btn')); ?>
     </div>
+    <div>
+    <?php echo CHtml::link('Подать заявку на регистрацию', array('/user/registration'), array('class' => 'registration')); ?>
+    </div>
 <?php $this->endWidget();    
 }
 ?>
