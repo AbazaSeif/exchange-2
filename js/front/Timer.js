@@ -72,6 +72,7 @@ Timer.prototype = {
           }
           if(this.months > 0) {
               var title = 'месяцев';
+              var modulo = this.months%10;
               if(this.months == 1) {
                   title = 'месяц';
               } else if(this.months == 2 || this.months == 3 || this.months == 4) {
@@ -81,9 +82,11 @@ Timer.prototype = {
           }
           if(this.days > 0) {
               var title = 'дней';
-              if(this.days == 1) {
+              var modulo = this.days%10;
+              var intPart = this.days%10;
+              if(modulo == 1 && intPart != 1) {
                   title = 'день';
-              } else if(this.days == 2 || this.days == 3 || this.days == 4) {
+              } else if((modulo == 2 || modulo == 3 || modulo == 4) && intPart != 1) {
                   title = 'дня';
               }
               days = "<span class='t-days'><strong>" + this.days + "</strong> " + title + " </span>";
