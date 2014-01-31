@@ -107,9 +107,9 @@ var rateList = {
                             
                             $('#last-rate').html('<span>' + rates.price + rateList.data.currency + '</span>');
                             if(value <= 0) {
-                                $('#rate-btn').addClass('disabled');
-                                $('.rate-btns').slideUp("slow");
-                                $('#rate-btn').slideUp("slow");
+                                $('.r-submit').addClass('disabled');
+                                $('.r-block').slideUp("slow");
+                                $('.r-submit').slideUp("slow");
                                 $('#t-container').html('<span class="t-closed">Перевозка закрыта</span>');
                                 rateList.data.status = true;
                             }
