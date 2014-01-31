@@ -49,7 +49,7 @@ class DefaultController extends Controller
             $email->to_name    = '';
             $email->subject    = 'Заявка на регистрацию';
             $email->type = 'text/html';
-            $description = (!empty($_POST['RegistrationForm']['email'])) ? '<p>Примечание:<b>'.$_POST['RegistrationForm']['description'].'</b></p>' : '' ;
+            $description = (!empty($_POST['RegistrationForm']['description'])) ? '<p>Примечание:<b>'.$_POST['RegistrationForm']['description'].'</b></p>' : '' ;
             $email->body = '
               <div>
                   <p>Компания "'.$_POST['RegistrationForm']['firmName'].'" подала заявку на регистрацию в бирже перевозок ЛБР АгроМаркет.</p>
