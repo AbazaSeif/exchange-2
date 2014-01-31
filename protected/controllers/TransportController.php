@@ -64,8 +64,12 @@ class TransportController extends Controller
         $error = 0;
         
         if($newPrice) {
-            $elementExitsts = Rate::model()->find(array('condition'=>'price = :price', 'params'=>array(':price' => (int)$newPrice)));
-            if(!$elementExitsts) {
+            $elementExitsts = Rate::model()->find(array(
+                'condition'=>'price = :price AND user_id = :id',
+                'params'=>array(':price' => (int)$newPrice, ':id' => Yii::app()->user->_id),
+            ));
+            
+            if(!empty($elementExitsts)) {
                 $obj = array(
                     'transport_id'  => $id,
                     'user_id' => Yii::app()->user->_id,
