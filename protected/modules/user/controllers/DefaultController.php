@@ -111,7 +111,7 @@ class DefaultController extends Controller
         $criteria->with = array('transport' => array('select'=>'*'));
         $criteria->addCondition('transport.id = t.transport_id');
         $criteria->addCondition('t.user_id = ' . Yii::app()->user->_id);
-        $criteria->order = 't.status DESC';
+        $criteria->order = 't.id DESC';
 
         $dataProvider = new CActiveDataProvider('UserEvent',
             array(
