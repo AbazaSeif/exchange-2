@@ -11,7 +11,7 @@ class RegistrationForm extends CFormModel
     public function rules()
     {
         return array(
-            array('firmName, name, phone', 'required'),
+            array('firmName, name, phone, email', 'required'),
             array('email', 'email'),
             array('phone', 'numerical')
         );
