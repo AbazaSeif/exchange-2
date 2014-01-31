@@ -594,6 +594,10 @@ header, .wrapper, footer
     cursor: pointer;
     cursor: hand;
 }
+input.r-submit{
+    margin-top: 10px;
+    width: 100px;
+}
 
 #rate-up{
     background: url(/images/ui-icons_222222_256x240.png);

@@ -52,7 +52,7 @@
 	</fieldset>
 	<div class="row submit">
 	<?php 
-	    echo CHtml::submitButton('Сохранить', array('class' => 'btn-green btn')); 
+	    echo CHtml::submitButton('Сохранить', array('class' => 'r-submit')); 
         //btn-green btn
 		//echo CHtml::hiddenField('id', Yii::app()->user->_id);
 	?>
