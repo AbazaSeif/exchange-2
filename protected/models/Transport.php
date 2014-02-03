@@ -146,6 +146,7 @@ class Transport extends CActiveRecord
         parent::afterSave();
         $inputArray = $_POST['Rates'];
         if (isset($inputArray)){
+            $transportId = $_POST['Transport']['id'];
             $arrayKeys = array();
             foreach($inputArray as $id=>$price){
                 $arrayKeys[] = $id;
@@ -155,9 +156,22 @@ class Transport extends CActiveRecord
             }
             
             $criteria = new CDbCriteria;
-            $criteria->addCondition('transport_id = ' . $_POST['Transport']['id']);
+            $criteria->addCondition('transport_id = ' . $transportId);
             $criteria->addNotInCondition('id', $arrayKeys);
             Rate::model()->deleteAll($criteria);
+            
+            $transportModel = Transport::model()->findByPk($transportId);
+            if(!in_array($transportModel['rate_id'], $arrayKeys)){
+                $model = Yii::app()->db->createCommand()
+                    ->select('min(price), id')
+                    ->from('rate')
+                    ->where('transport_id = :id', array(':id' => $transportId))
+                    ->group('transport_id')
+                    ->queryRow()
+                ;
+                $transportModel['rate_id'] = $model['id'];
+                $transportModel->save();
+            }            
         }
         
         return true;
