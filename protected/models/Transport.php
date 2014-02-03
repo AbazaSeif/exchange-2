@@ -162,11 +162,18 @@ class Transport extends CActiveRecord
             
             $transportModel = Transport::model()->findByPk($transportId);
             if(!in_array($transportModel['rate_id'], $arrayKeys)){
-                $model = Yii::app()->db->createCommand()
-                    ->select('min(price), id')
+                $minPrice = Yii::app()->db->createCommand()
+                    ->select('min(price) as price')
                     ->from('rate')
                     ->where('transport_id = :id', array(':id' => $transportId))
                     ->group('transport_id')
+                    ->queryRow()
+                ;
+                //$minPrice
+                $model = Yii::app()->db->createCommand()
+                    ->select('id')
+                    ->from('rate')
+                    ->where('transport_id = :id and price = :price', array(':id' => $transportId, ':price' => $minPrice['price']))
                     ->queryRow()
                 ;
                 $transportModel['rate_id'] = $model['id'];
