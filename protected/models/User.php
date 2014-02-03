@@ -25,9 +25,13 @@ class User extends CActiveRecord
 	/**
 	 * @return string the associated database table name
 	 */
+        const USER_NOT_CONFIRMED = 0;
+        const USER_TEMPORARY_BLOCKED = 3;
+        const USER_BLOCKED = 4;
+    
 	public function tableName()
 	{
-		return 'user';
+	    return 'user';
 	}
 
 	/**

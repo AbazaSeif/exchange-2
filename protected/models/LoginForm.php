@@ -35,11 +35,11 @@ class LoginForm extends CFormModel
 	 */
 	public function attributeLabels()
 	{
-		return array(
-                        'username'=>'Логин',
-                        'password'=>'Пароль',
-			'rememberMe'=>'Запомнить меня',
-		);
+            return array(
+                'username'=>'Логин',
+                'password'=>'Пароль',
+                'rememberMe'=>'Запомнить меня',
+            );
 	}
 
 	/**
@@ -48,12 +48,19 @@ class LoginForm extends CFormModel
 	 */
 	public function authenticate($attribute,$params)
 	{
-		if(!$this->hasErrors())
-		{
-			$this->_identity=new UserIdentity($this->username,$this->password);
-			if(!$this->_identity->authenticate())
-				$this->addError('password','Неверный логин или пароль');
-		}
+            if(!$this->hasErrors())
+            {
+                $this->_identity=new UserIdentity($this->username,$this->password);
+                if($this->_identity->authenticate() == (1000 + User::USER_NOT_CONFIRMED)){
+                    $this->addError('username','Регистрация не подтверждена');
+                } else if ($this->_identity->authenticate() == (1000 + User::USER_TEMPORARY_BLOCKED)) {
+                    $this->addError('username','Пользователь временно заблокирован');
+                } else if ($this->_identity->authenticate() == (1000 + User::USER_BLOCKED)) {
+                    $this->addError('username','Пользователь заблокирован');
+                } else if((bool)$this->_identity->authenticate()){
+                    $this->addError('password','Неверный логин или пароль');
+                }
+            }
 	}
 
 	/**
@@ -62,18 +69,18 @@ class LoginForm extends CFormModel
 	 */
 	public function login()
 	{
-		if($this->_identity===null)
-		{
-			$this->_identity=new UserIdentity($this->username,$this->password);
-			$this->_identity->authenticate();
-		}
-		if($this->_identity->errorCode===UserIdentity::ERROR_NONE)
-		{
-			$duration=$this->rememberMe ? 3600*24*30 : 0; // 30 days
-			Yii::app()->user->login($this->_identity,$duration);
-			return true;
-		}
-		else
-			return false;
+            if($this->_identity===null)
+            {
+                $this->_identity=new UserIdentity($this->username,$this->password);
+                $this->_identity->authenticate();
+            }
+            if($this->_identity->errorCode===UserIdentity::ERROR_NONE)
+            {
+                $duration=$this->rememberMe ? 3600*24*30 : 0; // 30 days
+                Yii::app()->user->login($this->_identity,$duration);
+                return true;
+            }
+            else
+                return false;
 	}
 }
