@@ -63,6 +63,15 @@ return array(
                         'enableProfiling'=>true,
                         'enableParamLogging' => true,
 		),
+//                'db_user'=>array(
+//                        'class'=>'CDbConnection',
+//			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../../auth/data/auth.db',
+//                        'initSQLs'=>array(
+//                            'PRAGMA foreign_keys = ON',
+//                        ),
+//                        'enableProfiling'=>true,
+//                        'enableParamLogging' => true,
+//		),
             // uncomment the following to use a MySQL database
 		/*
 		'db'=>array(
