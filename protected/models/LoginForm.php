@@ -1,25 +1,25 @@
 <?php
 
 /**
- * LoginForm class.
- * LoginForm is the data structure for keeping
- * user login form data. It is used by the 'login' action of 'SiteController'.
- */
+* LoginForm class.
+* LoginForm is the data structure for keeping
+* user login form data. It is used by the 'login' action of 'SiteController'.
+*/
 class LoginForm extends CFormModel
 {
-	public $username;
-	public $password;
-	public $rememberMe;
+public $username;
+public $password;
+public $rememberMe;
 
-	private $_identity;
+private $_identity;
 
-	/**
-	 * Declares the validation rules.
-	 * The rules state that username and password are required,
-	 * and password needs to be authenticated.
-	 */
-	public function rules()
-	{
+/**
+* Declares the validation rules.
+* The rules state that username and password are required,
+* and password needs to be authenticated.
+*/
+public function rules()
+{
             return array(
                 // username and password are required
                 array('username, password', 'required'),
@@ -28,26 +28,26 @@ class LoginForm extends CFormModel
                 // password needs to be authenticated
                 array('password', 'authenticate'),
             );
-	}
+}
 
-	/**
-	 * Declares attribute labels.
-	 */
-	public function attributeLabels()
-	{
+/**
+* Declares attribute labels.
+*/
+public function attributeLabels()
+{
             return array(
                 'username'=>'Логин',
                 'password'=>'Пароль',
                 'rememberMe'=>'Запомнить меня',
             );
-	}
+}
 
-	/**
-	 * Authenticates the password.
-	 * This is the 'authenticate' validator as declared in rules().
-	 */
-	public function authenticate($attribute,$params)
-	{
+/**
+* Authenticates the password.
+* This is the 'authenticate' validator as declared in rules().
+*/
+public function authenticate($attribute,$params)
+{
             if(!$this->hasErrors())
             {
                 $this->_identity=new UserIdentity($this->username,$this->password);
@@ -61,14 +61,14 @@ class LoginForm extends CFormModel
                     $this->addError('password','Неверный логин или пароль');
                 }
             }
-	}
+}
 
-	/**
-	 * Logs in the user using the given username and password in the model.
-	 * @return boolean whether login is successful
-	 */
-	public function login()
-	{
+/**
+* Logs in the user using the given username and password in the model.
+* @return boolean whether login is successful
+*/
+public function login()
+{
             if($this->_identity===null)
             {
                 $this->_identity=new UserIdentity($this->username,$this->password);
@@ -82,5 +82,5 @@ class LoginForm extends CFormModel
             }
             else
                 return false;
-	}
+}
 }

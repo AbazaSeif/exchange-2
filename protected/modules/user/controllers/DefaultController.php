@@ -45,7 +45,7 @@ class DefaultController extends Controller
             $email = new TEmail;
             $email->from_email = Yii::app()->params['adminEmail'];
             $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-            $email->to_email   = 'tttanyattt@mail.ru'; // !!! заменить
+            $email->to_email   = 'tttanyattt@mail.ru';
             $email->to_name    = '';
             $email->subject    = 'Заявка на регистрацию';
             $email->type = 'text/html';

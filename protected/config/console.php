@@ -11,6 +11,12 @@ return array(
 	    'application.models.*',
             'application.helpers.*',
 	),
+        'modules'=>array(
+		'nfy'=>array(
+                    'class'=>'application.modules.nfy.NfyModule',
+                    'longPolling'=>null,
+                ),
+	),
 	// application components
 	'components'=>array(
             'db'=>array(
@@ -34,6 +40,11 @@ return array(
                                     'levels'=>'error, warning',
                             ),
                     ),
+            ),
+            'queue' => array(
+                'class' => 'nfy.components.NfyDbQueue',
+                'name' => 'Notifications',
+                'timeout' => 30,
             ),
 	),
 	'params'=>array(

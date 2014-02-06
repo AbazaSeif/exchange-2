@@ -14,7 +14,7 @@ class UserController extends Controller
     {
         if(parent::beforeAction($action))
         {
-            //  Добавление CSS файла для пользователей.
+            // Добавление CSS файла для пользователей.
         }
         return true;
     }
@@ -26,7 +26,7 @@ class UserController extends Controller
             $criteria = new CDbCriteria();
             $sort = new CSort();
             $sort->sortVar = 'sort';
-            // сортировка по умолчанию 
+            // сортировка по умолчанию
             $sort->defaultOrder = 'surname ASC';
             $sort->attributes = array(
                             'group_id'=>array(
@@ -48,7 +48,7 @@ class UserController extends Controller
                                 'default'=>'asc',
                             )
                         );
-            $dataProvider = new CActiveDataProvider('User', 
+            $dataProvider = new CActiveDataProvider('User',
                     array(
                         'criteria'=>$criteria,
                         'sort'=>$sort,
@@ -141,7 +141,7 @@ class UserController extends Controller
             $criteria = new CDbCriteria();
             $sort = new CSort();
             $sort->sortVar = 'sort';
-            // сортировка по умолчанию 
+            // сортировка по умолчанию
             $sort->defaultOrder = 'level ASC';
             $sort->attributes = array(
                             'id'=>array(
@@ -157,7 +157,7 @@ class UserController extends Controller
                                 'default'=>'desc',
                             ),
                         );
-            $dataProvider = new CActiveDataProvider('UserGroup', 
+            $dataProvider = new CActiveDataProvider('UserGroup',
                     array(
                         'criteria'=>$criteria,
                         'sort'=>$sort,
@@ -229,7 +229,7 @@ class UserController extends Controller
             $criteria->addCondition('type=2');
             $sort = new CSort();
             $sort->sortVar = 'sort';
-            // сортировка по умолчанию 
+            // сортировка по умолчанию
             $sort->defaultOrder = 'name ASC';
             $sort->attributes = array(
                             'name'=>array(
@@ -239,7 +239,7 @@ class UserController extends Controller
                                 'default'=>'desc',
                             ),
                         );
-            $dataProvider = new CActiveDataProvider('AuthItem', 
+            $dataProvider = new CActiveDataProvider('AuthItem',
                     array(
                         'criteria'=>$criteria,
                         'sort'=>$sort,
@@ -320,7 +320,7 @@ class UserController extends Controller
             $criteria->addCondition('type=0');
             $sort = new CSort();
             $sort->sortVar = 'sort';
-            // сортировка по умолчанию 
+            // сортировка по умолчанию
             $sort->defaultOrder = 'name ASC';
             $sort->attributes = array(
                             'name'=>array(
@@ -330,7 +330,7 @@ class UserController extends Controller
                                 'default'=>'desc',
                             ),
                         );
-            $dataProvider = new CActiveDataProvider('AuthItem', 
+            $dataProvider = new CActiveDataProvider('AuthItem',
                     array(
                         'criteria'=>$criteria,
                         'sort'=>$sort,
@@ -395,5 +395,5 @@ class UserController extends Controller
         }else{
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
-    }   
+    }
 }

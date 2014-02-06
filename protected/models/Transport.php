@@ -169,7 +169,7 @@ class Transport extends CActiveRecord
                     ->group('transport_id')
                     ->queryRow()
                 ;
-                //$minPrice
+               
                 $model = Yii::app()->db->createCommand()
                     ->select('id')
                     ->from('rate')

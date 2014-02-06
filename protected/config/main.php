@@ -19,6 +19,8 @@ return array(
 		'application.components.*',
                 'application.extensions.*',
                 'application.helpers.*',
+                'application.modules.nfy.components.*',
+                'application.modules.nfy.models.*',
 	),
 
 	'modules'=>array(
@@ -31,6 +33,8 @@ return array(
 		),
                 'user',
                 'admin',
+                'notification',
+                'nfy',
 	),
         'preload'=>array('log'),
 	// application components
@@ -94,6 +98,11 @@ return array(
                     'class'=>'CDbAuthManager',
                     'connectionID'=>'db',
                 ),
+            'queue' => array(
+                'class' => 'nfy.components.NfyDbQueue',
+                'name' => 'Notifications',
+                'timeout' => 30,
+            ),
 	),
 
 	// application-level parameters that can be accessed
