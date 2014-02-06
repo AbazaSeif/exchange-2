@@ -4,6 +4,8 @@ $start = microtime(true);
 $yii=dirname(__FILE__).'/../yii/framework/yii.php';
 $config=dirname(__FILE__).'/protected/config/main.php';
 
+var_dump($yii); die();
+
 // remove the following lines when in production mode
 defined('YII_DEBUG') or define('YII_DEBUG',true);
 // specify how many levels of call stack should be shown in each log message
