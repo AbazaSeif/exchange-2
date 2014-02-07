@@ -1,17 +1,14 @@
 <?php
 
-class m140123_123105_create_field_user_status extends CDbMigration
+class m140206_125816_create_field_userfield_with_nds extends CDbMigration
 {
     public function up()
     {
         $transaction=$this->getDbConnection()->beginTransaction();
-        try
-        {
-            $this->addColumn('user', 'status', 'int');
+        try {
+            $this->addColumn('user_field', 'with_nds', 'bool');
             $transaction->commit();
-        }
-        catch(Exception $e)
-        {
+        } catch(Exception $e) {
             echo "Exception: ".$e->getMessage()."\n";
             $transaction->rollback();
             return false;
@@ -20,7 +17,7 @@ class m140123_123105_create_field_user_status extends CDbMigration
 
     public function down()
     {
-        echo "m140123_123105_create_field_user_status does not support migration down.\n";
+        echo "m140206_125816_create_field_userfield_with_nds does not support migration down.\n";
         return false;
     }
 

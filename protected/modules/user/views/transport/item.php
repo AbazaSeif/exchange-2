@@ -70,6 +70,14 @@ if (!Yii::app()->user->isGuest) $userInfo = User::model()->findByPk(Yii::app()->
 <?php if (!Yii::app()->user->isGuest): ?>
         <div id="rates"></div>
 <?php endif; ?>
+<div>
+    <?php if (!Yii::app()->user->isGuest && !Yii::app()->user->isRoot):
+        echo CHtml::link('Связаться с модератором', '#', array(
+            'id' => 'dialog-connect',
+            'title'=>'Связаться с модератором',
+        ));
+    endif;?>
+</div>
 <script>
 $(document).ready(function(){
     rateList.data = {
@@ -82,11 +90,88 @@ $(document).ready(function(){
     <?php if (!Yii::app()->user->isGuest): ?>
         rateList.data.name = '<?php echo $userInfo[name] ?>',
         rateList.data.surname = '<?php echo $userInfo[surname] ?>',
-    <?php endif;?> 
+    <?php endif; ?> 
     rateList.init();
     setInterval(function(){rateList.update($('#rates'))}, 15000);
     
     var timer = new Timer();
     timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', rateList.data.status);
+    
+    $('#dialog-connect').live('click', function() {
+        $("#modalDialog").dialog("open");
+    });
+     
+    $('.ui-widget-overlay').live('click', function() {
+        $(".ui-dialog-content").dialog( "close" );
+    });
+    
+    $( "#abordRateBtn" ).live('click', function() {
+        $(".ui-dialog-content").dialog( "close" );
+    });
 });
 </script>
+<div>
+    <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+        'id' => 'modalDialog',
+        'options' => array(
+            'title' => 'Отправить сообщение',
+            'autoOpen' => false,
+            'modal' => true,
+            'resizable'=> false,
+        ),
+    ));
+    $qForm = new QuickForm; 
+    $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'quick-form',
+        'enableClientValidation' => true,
+        'clientOptions' => array(
+            'validateOnSubmit' => true,
+        ),
+        'htmlOptions'=>array(
+            'class'=>'form',
+        ),
+        'action' => array('site/quick'),
+    ));
+    ?>
+    <?php echo $form->errorSummary($qForm); ?>
+    <div class="row">
+    <?php echo $form->labelEx($qForm,'message'); ?>
+    <?php echo $form->textArea($qForm,'message',array('rows'=>6, 'cols'=>31)); ?>
+    <?php echo $form->error($qForm,'message'); ?>
+    </div>
+    <div class="row">
+    <?php echo $form->hiddenField($qForm, 'user', array('value'=>Yii::app()->user->_id));?>
+    <?php echo $form->hiddenField($qForm, 'transport', array('value'=>$transportInfo['id']));?>
+    </div>
+    <div class="button">
+    <?php echo CHtml::submitButton('Отправить',array('class' => 'btn')); ?>
+    </div>
+    <?php 
+        $this->endWidget();
+        $this->endWidget('zii.widgets.jui.CJuiDialog');
+    ?>
+</div>
+<div>
+    <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+        'id' => 'addRate',
+        'options' => array(
+            'title' => 'Подтверждение',
+            'autoOpen' => false,
+            'modal' => true,
+            'resizable'=> false,
+        ),
+    ));
+    ?>
+    <div class="row">
+        <span>Вы уверены что хотите сделать ставку в размере <span id='setPriceVal'></span><?php echo $currency ?> ?</span> 
+    </div>
+    <div class="rate-button">
+    <?php echo CHtml::button('Подтвердить',array('id' => 'setRateBtn','class' => 'btn')); ?>
+    </div>
+    <div class="rate-button">
+    <?php echo CHtml::button('Отказаться',array('id' => 'abordRateBtn','class' => 'btn')); ?>
+    </div>
+    <?php 
+        $this->endWidget('zii.widgets.jui.CJuiDialog');
+    ?>
+</div>

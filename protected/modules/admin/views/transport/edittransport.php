@@ -4,10 +4,12 @@
     $delete_button = CHtml::link('Удалить перевозку', '/admin/transport/deletetransport/id/'.$model->id, array('id'=>'del_'.$model->id,'class'=>'btn del', 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
 
     $action = '/admin/transport/edittransport/id/'.$model->id;
+    // вынести !!!
     $group = array(
         0=>'Международная',
-        1=>'Локальная',
+        1=>'Региональная',
     );
+    ////////////////////
     if ($model->isNewRecord){
         $submit_text = 'Создать';
         $name = 'new';

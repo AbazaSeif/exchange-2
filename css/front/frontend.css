@@ -79,7 +79,7 @@ header, .wrapper, footer
     position: relative;
     margin-bottom: 10px;
 }
-#login-form .row label, #registration-form .row label
+#login-form .row label, #registration-form .row label, #quick-form .row label
 {
     display: block;
     margin-bottom: 5px;
@@ -91,17 +91,15 @@ header, .wrapper, footer
     width: 60%;
     float: left;
 }
-/*#login-form .row.buttons:after
-{
-    content: '';
-    display: block; 
-    clear: both;
-}*/
-#login-form .row.buttons, #registration-form .row.buttons
+
+#login-form .row.buttons, #registration-form .row.buttons, #quick-form .button
 {
     width: 40%;
 }
-#login-form .row.buttons input.btn, #registration-form .row.buttons input.btn
+#quick-form .button{
+    margin-top: 10px;
+}
+#login-form .row.buttons input.btn, #registration-form .row.buttons input.btn, #quick-form input.btn, #setRateBtn, #abordRateBtn
 {
     width: 100%;
     padding: 4px 0;
@@ -152,7 +150,7 @@ header, .wrapper, footer
 {
     border-color: #FF4040;
 }
-#login-form .row.error label, #registration-form .row.error label
+#login-form .row.error label, #registration-form .row.error label, #quick-form div.errorMessage
 {
     color: #FF4040;
 }
@@ -194,7 +192,12 @@ header, .wrapper, footer
     border-right: 7px solid #FF4040;
     border-bottom: 7px solid transparent;
 }
-
+div.ui-widget-header {
+    background: url("/images/ui-bg_gloss-wave_35_f6a828_1x100.jpg") repeat-x scroll 0% 10% #CCCCCC;
+    border: 1px solid #AAAAAA;
+    color: #222222;
+    font-weight: bold;
+}
 .registration{
     float: left;
     color: #666;
@@ -262,6 +265,42 @@ header, .wrapper, footer
 {
     padding: 20px 0 20px 20px;
 }
+
+.row input[type='checkbox']{
+    width: 16px;
+    height:16px;
+    border: none;
+    color:#fff;
+    background-color:#c1c1c1;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    -o-appearance:none;
+    border: 0px inset ThreeDFace ! important;
+    margin: 0 0 0 5px;
+    padding: 5px 4px 3px 5px;
+} 
+
+div.row{
+    margin-top: 5px;
+}
+
+#options div.row{
+    margin-left: 17px;
+}
+
+#options div.title{
+    margin: 10px 0;
+    font-size: 20px;
+    color: #EF801B;
+}
+#options div.title span{
+    margin-left: 5px;
+}
+/*#options div.title .img{
+    width: 20px;
+    height: 20px;
+    background-image: url(/images/notice.jpg);
+}*/
 
 /*--------Перевозки----------------*/
 .message{
@@ -476,7 +515,23 @@ header, .wrapper, footer
     text-align: center;
     width: 22px;
 }
+#dialog-connect {
+    color: #666;
+    padding-left: 6px;
+}
 
+.rate-button{
+    width: 48%;
+    margin-top: 10px;
+    float: left;
+}
+
+.rate-button:last-child{
+    float: right;
+}
+#addRate.ui-dialog-content.ui-widget-content{
+    min-height: 10px !important;
+}
 /*--------Конец-Одна-перевозка-----*/
 /*--------Одна-ставка-----------*/
 .rate

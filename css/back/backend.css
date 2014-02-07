@@ -221,7 +221,20 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     clear: both;
 }
 
-
+ select{
+    border: none;
+    color:#4183C4;
+    background-color:#DEDEDE;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    -o-appearance:none;
+    border: 0px inset ThreeDFace ! important;
+    margin-right: 5px;
+    padding: 5px 4px 5px 5px;
+  } 
+  select option{
+      padding-left: 6px;
+  }
 /*-----начало-users-----*/
 .left .create-button{
     margin: 0px 0px 5px;

@@ -45,6 +45,14 @@ var rateList = {
 
         $( ".r-submit" ).click(function() {
             if(!$(this).hasClass('disabled')) {
+                $('#setPriceVal').text(parseInt($( "#rate-price" ).val()));
+                $("#addRate").dialog("open");
+            }
+        });
+        
+        $('#setRateBtn').live('click', function() {
+            $("#addRate").dialog("close");
+            if(!$(this).hasClass('disabled')) {
                 $('#t-error').html('');
                 var price = parseInt($( "#rate-price" ).val());
                 var obj = {
@@ -120,8 +128,7 @@ var rateList = {
             }});
         }
     },
-    add : function(rate) 
-    {
+    add : function(rate) {
         var time = '';
         var id = 0;
         
