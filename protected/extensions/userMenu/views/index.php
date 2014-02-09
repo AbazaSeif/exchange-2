@@ -66,7 +66,7 @@ $(document).ready(function(){
     <?php if(!Yii::app()->user->isGuest): ?>
        updateCounter();
        setInterval(function(){updateCounter()}, 5000);
-    <?php endif;?>
+    
     //null - если нет
     var activeElement = sessionStorage.getItem('menu');
     var activeSubElement = sessionStorage.getItem('submenu');
@@ -103,6 +103,7 @@ $(document).ready(function(){
             sessionStorage.setItem('submenu', null);
         }
     });
+    <?php endif;?>
 });
 
 function updateCounter(){
