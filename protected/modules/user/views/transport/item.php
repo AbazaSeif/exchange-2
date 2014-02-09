@@ -1,24 +1,37 @@
 <?php
 $lastRate = null;
 $currency = ' €';
+$defaultRate = false;
 $priceStep = Transport::INTER_PRICE_STEP;
+$now = date('Y m d H:i:s', strtotime('now'));
+$end = date('Y m d H:i:s', strtotime($transportInfo['date_to'] . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
+
 if($transportInfo['type']==Transport::RUS_TRANSPORT){
     $currency = ' руб.';
     $priceStep = Transport::RUS_PRICE_STEP; 
 }
-$defaultRate = false;
+
 if (!empty($transportInfo['rate_id'])) {
     $lastRate = $this->getPrice($transportInfo['rate_id']);
 } else {
     $lastRate = $transportInfo['start_rate'];
     $defaultRate = true;
 }
-$startValue = ($defaultRate)? $lastRate : ($lastRate - $priceStep);
-$minRate = (($startValue - $priceStep)<=0)? 1 : 0;
-$now = date('Y m d H:i:s', strtotime('now'));
-$end = date('Y m d H:i:s', strtotime($transportInfo['date_to'] . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
+
+if (!Yii::app()->user->isGuest) {
+    $userId = Yii::app()->user->_id;
+    $model = UserField::model()->find('user_id = :id', array('id' => $userId));
+    $originalPrice = $lastRate;
+    if((bool)$model->with_nds){
+        $lastRate = $lastRate + $lastRate * Yii::app()->params['nds'];
+    }
+    $userInfo = User::model()->findByPk($userId);
+}
+
+//$startValue = ($defaultRate)? $lastRate : ($lastRate - $priceStep);
+$minRate = (($lastRate - $priceStep)<=0)? 1 : 0;
 $inputSize = strlen((string)$lastRate)-1;
-if (!Yii::app()->user->isGuest) $userInfo = User::model()->findByPk(Yii::app()->user->_id);
+
 ?>
 
 <div class="transport-one">
@@ -35,7 +48,7 @@ if (!Yii::app()->user->isGuest) $userInfo = User::model()->findByPk(Yii::app()->
             <?php if (!empty($transportInfo['auto_info'])):?><div><span>Информация о машине: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
         </div>	
     </div>
-    <?php if (!Yii::app()->user->isGuest && $startValue > 0 && Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot): ?>
+    <?php if (!Yii::app()->user->isGuest && $lastRate > 0 && Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot): ?>
     <div class="width-30-r timer-wrapper">
         <div id="t-container"></div>
         <?php if($transportInfo['status']): ?>
@@ -48,9 +61,9 @@ if (!Yii::app()->user->isGuest) $userInfo = User::model()->findByPk(Yii::app()->
                     <div id="rate-down" class="<?php echo ($minRate)?'disabled':''?>"></div>
                 </div>
                 <span class="text"><?php echo $currency ?></span>
-                <input id="rate-price" value="<?php echo $startValue?>" init="<?php echo $startValue?>" type="text" size="<?php echo $inputSize ?>" disabled="disabled"/>
+                <input id="rate-price" value="<?php echo $lastRate?>" init="<?php echo $originalPrice?>" type="text" size="<?php echo $inputSize ?>"/>
             </div>
-            <div class="r-submit <?php echo ($startValue <= 0)?'disabled':'' ?>"><span>OK</span></div>
+            <div class="r-submit disabled"><span>OK</span></div>
         </div>
         <?php endif; ?>
     </div>
@@ -63,7 +76,7 @@ if (!Yii::app()->user->isGuest) $userInfo = User::model()->findByPk(Yii::app()->
     <?php elseif(Yii::app()->user->isRoot): ?>
         <div class="width-30-r timer-wrapper">
              <div id="t-container"></div>
-             <div id="last-rate"><span><?php echo $startValue . ' ' . $currency?></span></div>
+             <div id="last-rate"><span><?php echo $lastRate . ' ' . $currency?></span></div>
         </div>  
     <?php endif; ?>
 </div>
@@ -86,6 +99,7 @@ $(document).ready(function(){
         transportId : <?php echo $transportInfo['id']; ?>,
         status: <?php echo $transportInfo['status'] ?>,
         step: <?php echo $priceStep ?>,
+        nds: <?php echo ((bool)$model->with_nds)? Yii::app()->params['nds'] : 0 ?>
     };
     <?php if (!Yii::app()->user->isGuest): ?>
         rateList.data.name = '<?php echo $userInfo[name] ?>',

@@ -75,13 +75,8 @@ class DefaultController extends Controller
         $userId = Yii::app()->user->_id;
         $elementExitsts = UserField::model()->find(array('condition'=>'user_id = :id', 'params'=>array(':id' => $userId)));
         if($elementExitsts) {
-            $model = Yii::app()->db->createCommand()
-                ->select()
-                ->from('user_field')
-                ->where('user_id = :id', array(':id' => $userId))
-                ->queryRow()
-            ;
-        } else {
+            $model = UserField::model()->find('user_id = :id', array('id' => $userId));
+        } else {      
             $model = new UserField;
             $data = array('mail_deadline' => true, 'site_transport_create_1' => true, 'site_transport_create_2' => true, 'site_kill_rate' => true, 'site_deadline' => true, 'site_before_deadline' => true);
             $model->attributes = $data;
@@ -93,20 +88,24 @@ class DefaultController extends Controller
     /* Save user options */
     public function actionSaveOption()
     {
-        $allModelFields = array('mail_transport_create_1', 'mail_transport_create_2', 'mail_kill_rate', 'mail_deadline', 'mail_before_deadline', 'site_transport_create_1', 'site_transport_create_2', 'site_kill_rate', 'site_deadline', 'site_before_deadline');
+        $allModelFields = array('mail_transport_create_1', 'mail_transport_create_2', 'mail_kill_rate', 'mail_deadline', 'mail_before_deadline', 'site_transport_create_1', 'site_transport_create_2', 'site_kill_rate', 'site_deadline', 'site_before_deadline', 'with_nds');
         $data = $_POST;
+        
         $modelFields = array();
         foreach($allModelFields as $field){
             if(!array_key_exists($field, $data)) {
                 $modelFields[] = $field;
             }
         }
-
+        
         $model = UserField::model()->find('user_id = :id', array('id' => Yii::app()->user->_id));
         $model->attributes = $data;
+        $model['with_nds'] = true;
+        
         foreach($modelFields as $field){
             $model[$field] = false;
         }
+       
         $model->save();
         $this->render('option', array('model' => $model));
     }
@@ -114,31 +113,6 @@ class DefaultController extends Controller
     /* Show all events */
     public function actionEvent()
     {
-        //$newEvents = $oldEvents = array();
-        /*$events = Yii::app()->db->createCommand()
-            ->select('u.*, t.location_from, t.location_to')
-            ->from('user_event u, transport t')
-            ->where('u.user_id = :id and t.id = u.transport_id', array(':id' => Yii::app()->user->_id))
-            ->order('id desc')
-            ->queryAll()
-        ;
-
-        foreach($events as $event){
-            if($event['status']){
-                $newEvents[] = $event;
-            } else {
-                $oldEvents[] = $event;
-            }
-        }
-
-        if(!empty($newEvents)){
-            UserEvent::model()->updateAll(array('status' => 0), 'status = 1');
-        }
-
-        $this->render('event', array('newEvents' => $newEvents, 'oldEvents' => $oldEvents));
-        */
-        
-        
         $criteria = new CDbCriteria();
         $criteria->with = array('transport' => array('select'=>'*'));
         $criteria->addCondition('transport.id = t.transport_id');

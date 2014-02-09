@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="w-right">
-                <?php $this->renderPartial('/site/dialog'); ?>
+                <?php $this->renderPartial( 'user.views.site.dialog' ); ?>
                 <?php echo $content; ?>
             </div>
         </div>

@@ -5,10 +5,17 @@ var rateList = {
         $( "#rate-up" ).on('click', function() {
             if(!$(this).hasClass('disabled')){
                 $( "#rate-down" ).removeClass('disabled');
+                var price = $('#rate-price');
+                if(parseInt(price.val()) < parseInt(price.attr('init'))){
+                   $( ".r-submit" ).removeClass('disabled');
+                } else $( ".r-submit" ).addClass('disabled');
                 var newRate = parseInt(element.val()) + rateList.data.priceStep;
                 if(newRate <= element.attr('init')) element.val(newRate);
-
-                if (parseInt(element.attr('init')) == element.val()) $(this).addClass('disabled');
+                
+                if (parseInt(element.attr('init')) == element.val()) {
+                    $(this).addClass('disabled');
+                    $( ".r-submit" ).addClass('disabled');
+                }
                 else $(this).removeClass('disabled');
             }
         });
@@ -24,8 +31,11 @@ var rateList = {
 
         $( "#rate-down" ).on('click', function() {
             if(!$(this).hasClass('disabled')) {
-                if(element.val() <= element.attr('init')) 
-                    $( "#rate-up" ).removeClass('disabled');
+                $( "#rate-up" ).removeClass('disabled');
+                var price = $('#rate-price');
+                if(parseInt(price.val()) < parseInt(price.attr('init'))){
+                   $( ".r-submit" ).removeClass('disabled');
+                } else $( ".r-submit" ).addClass('disabled');
                 var newRate = element.val() - rateList.data.priceStep; 
                 if(newRate > 0) element.val(newRate);
                 if( (newRate - rateList.data.priceStep) <= 0 ) {
@@ -61,7 +71,22 @@ var rateList = {
                     surname: rateList.data.surname,
                 };
                 rateList.add(obj);
+                var price = price*100/(100 + rateList.data.nds*100);
                 rateList.update(this.container, price);
+            }
+        });
+        
+        $('#rate-price').blur(function(){
+            if(parseInt($(this).val()) < parseInt($(this).attr('init'))){
+                $('.r-submit').removeClass('disabled');
+            } else {
+                $('.r-submit').addClass('disabled');
+            }
+        });
+
+        $(document).keypress(function(e) {
+            if (e.which == 13) {
+                $( "#rate-price" ).trigger('blur');
             }
         });
 
@@ -103,7 +128,7 @@ var rateList = {
                         }
                         
                         if(rates.price){
-                            var value = parseInt(rates.price) - parseInt(rateList.data.priceStep);
+                            var value = parseInt(rates.price);// - parseInt(rateList.data.priceStep);
                             var prevValue = value - parseInt(rateList.data.priceStep);
                             var price = $("#rate-price");
                             if(price.val() > value && value > 0) {
@@ -131,7 +156,8 @@ var rateList = {
     add : function(rate) {
         var time = '';
         var id = 0;
-        
+        var price = parseInt(rate.price);
+        price = Math.ceil(price + price * this.data.nds);
         if (typeof rate.id !=="undefined") id = rate.id;
         
         if (typeof rate.id !=="undefined"){
@@ -142,7 +168,7 @@ var rateList = {
                 time +
                 "<div class='r-o-user'>" + rate.name + ' ' + rate.surname + "</div>" +
             "</div>" +
-            "<div class='r-o-price'>" + rate.price + rateList.data.currency + "</div>" +
+            "<div class='r-o-price'>" + price + rateList.data.currency + "</div>" +
             "</div>"
         ;
         this.container.prepend(newElement);

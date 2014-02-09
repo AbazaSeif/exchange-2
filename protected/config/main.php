@@ -124,5 +124,6 @@ return array(
              'minNotyfy' => 30,
              'hoursBefore' => 48,
              'ferrymanGroup' => 4,
+             'nds' => 0.1, // 10%
 	),
 );

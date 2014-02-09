@@ -29,8 +29,8 @@ class Transport extends CActiveRecord
 {
         CONST INTER_TRANSPORT = 0;
         CONST RUS_TRANSPORT = 1;
-        CONST INTER_PRICE_STEP = 25;
-        CONST RUS_PRICE_STEP = 100;
+        CONST INTER_PRICE_STEP = 50;
+        CONST RUS_PRICE_STEP = 500;
     /**
 	 * @return string the associated database table name
 	 */

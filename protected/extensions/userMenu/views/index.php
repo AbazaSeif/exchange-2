@@ -11,7 +11,7 @@ if(!Yii::app()->user->isGuest){
                 <li><a href="/">Главная</a></li>
                 <li><a href="/user/event/" id="menu-events">События <span id="event-counter"></span></a></li>
                 <li><a href="/user/transport/all/">Все перевозки</a>
-                    <ul class="user-submenu">
+                    <ul id="submenu" class="user-submenu">
                         <li><a href="/user/transport/active/">Активные</a></li>
                         <li><a href="/user/transport/archive/s/1/">Выигранные</a></li>
                         <li><a href="/user/transport/archive/">Проигранные</a></li>
@@ -67,13 +67,44 @@ $(document).ready(function(){
        updateCounter();
        setInterval(function(){updateCounter()}, 5000);
     <?php endif;?>
+    //null - если нет
+    var activeElement = sessionStorage.getItem('menu');
+    var activeSubElement = sessionStorage.getItem('submenu');
+    
+    if(activeElement != null){
+        if(activeElement == 3) activeElement = 6;
+        $('.user-menu li').eq(activeElement).find('a:first').addClass('menu-active');
+    }
+    
+    if(activeSubElement != null){
+        activeSubElement = parseInt(activeSubElement) - 2;
+        $('#submenu li').eq(activeSubElement).find('a:first').addClass('menu-active');
+    } 
+    
+    $( "#submenu>li>a" ).click(function() {
+        if(!$(this).hasClass('menu-active')) {
+            $("a.menu-active").removeClass('menu-active');
+            $(this).addClass('menu-active');
+            sessionStorage.setItem('menu', null);
+            sessionStorage.setItem('submenu', $(this).parents("li").index());
+        }
+    });
+    
+    $( ".user-menu>li>a" ).click(function() {
+        if(!$(this).hasClass('menu-active')) {
+            $( "a.menu-active" ).removeClass('menu-active');
+            $(this).addClass('menu-active');
+            sessionStorage.setItem('submenu', null);
+            sessionStorage.setItem('menu', $(this).parents("li").index());
+        }
+    });
 });
 
 function updateCounter(){
     $.ajax({
-         url: '/user/updateEventCounter',
-	 success: function(data){
-	 $('#event-counter').html(data);
+        url: '/user/updateEventCounter',
+	    success: function(data){
+	    $('#event-counter').html(data);
     }});
 }
 </script>
