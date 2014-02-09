@@ -90,6 +90,7 @@ class Transport extends CActiveRecord
 			'date_from' => 'Дата загрузки',
 			'date_to' => 'Дата разгрузки',
 			'date_published' => 'Дата публикации',
+			'currency' => 'Валюта',
 		);
 	}
 

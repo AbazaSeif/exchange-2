@@ -20,8 +20,12 @@
         }
     }
     if($data->type==Transport::RUS_TRANSPORT){
-        $currency = ' руб.';
         $type = "российская";
+    }
+    if(!$data->currency){
+       $currency = ' руб.';
+    } else if($data->currency == 1){
+       $currency = ' $';
     }
 ?>
 <div class="transport">

@@ -58,6 +58,11 @@ class TransportController extends Controller
             $rates = Rate::model()->findAll(array('order'=>'date desc', 'condition'=>'transport_id='.$id));
             if (isset($_POST['Transport'])){
                 $model->attributes = $_POST['Transport'];
+                
+                //echo '<pre>';
+                //var_dump($_POST['Transport']);
+                //var_dump($_POST['Transport']['currency']);exit;
+                $model['currency'] = $_POST['Transport']['currency'];
                 if($model->save()){
                     Yii::app()->user->setFlash('saved_id', $model->id);
                     Yii::app()->user->setFlash('message', 'Перевозка сохранена успешно.');

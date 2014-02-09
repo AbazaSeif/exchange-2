@@ -9,6 +9,11 @@
         0=>'Международная',
         1=>'Региональная',
     );
+    $currencyGroup = array(
+        0=>'Рубли (руб.)',
+        1=>'Доллары ($)',
+        2=>'Евро (€)',
+    );
     ////////////////////
     if ($model->isNewRecord){
         $submit_text = 'Создать';
@@ -85,6 +90,11 @@
 <?php echo $form->error($model, 'type');
     echo $form->labelEx($model, 'type');
     echo $form->dropDownList($model, 'type', $group); ?>
+</div>
+<div class="field">
+<?php echo $form->error($model, 'currency');
+    echo $form->labelEx($model, 'currency');
+    echo $form->dropDownList($model, 'currency', $currencyGroup); ?>
 </div>
 <div class="field">
 <?php echo $form->hiddenField($model, 'id'); ?>

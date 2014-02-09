@@ -6,9 +6,15 @@ $priceStep = Transport::INTER_PRICE_STEP;
 $now = date('Y m d H:i:s', strtotime('now'));
 $end = date('Y m d H:i:s', strtotime($transportInfo['date_to'] . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
 
-if($transportInfo['type']==Transport::RUS_TRANSPORT){
-    $currency = ' руб.';
+//if($transportInfo['type']==Transport::RUS_TRANSPORT){
+if(!$transportInfo['currency']){
     $priceStep = Transport::RUS_PRICE_STEP; 
+}
+
+if(!$transportInfo['currency']){
+   $currency = ' руб.';
+} else if($transportInfo['currency'] == 1){
+   $currency = ' $';
 }
 
 if (!empty($transportInfo['rate_id'])) {

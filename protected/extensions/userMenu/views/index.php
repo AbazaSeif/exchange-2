@@ -70,10 +70,15 @@ $(document).ready(function(){
     //null - если нет
     var activeElement = sessionStorage.getItem('menu');
     var activeSubElement = sessionStorage.getItem('submenu');
-    
+                
     if(activeElement != null){
+        <?php if(Yii::app()->user->isRoot): ?>
+        if(activeElement == 1) sessionStorage.setItem('menu', null);
+        else $('.user-menu li').eq(activeElement).find('a:first').addClass('menu-active');
+        <?php else: ?>
         if(activeElement == 3) activeElement = 6;
         $('.user-menu li').eq(activeElement).find('a:first').addClass('menu-active');
+         <?php endif;?>
     }
     
     if(activeSubElement != null){
@@ -94,8 +99,8 @@ $(document).ready(function(){
         if(!$(this).hasClass('menu-active')) {
             $( "a.menu-active" ).removeClass('menu-active');
             $(this).addClass('menu-active');
-            sessionStorage.setItem('submenu', null);
             sessionStorage.setItem('menu', $(this).parents("li").index());
+            sessionStorage.setItem('submenu', null);
         }
     });
 });
