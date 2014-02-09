@@ -9,7 +9,7 @@ var rateList = {
                 if(parseInt(price.val()) < parseInt(price.attr('init'))){
                    $( ".r-submit" ).removeClass('disabled');
                 } else $( ".r-submit" ).addClass('disabled');
-                var newRate = parseInt(element.val()) + rateList.data.priceStep;
+                var newRate = parseInt(element.val()) + rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds;
                 if(newRate <= element.attr('init')) element.val(newRate);
                 
                 if (parseInt(element.attr('init')) == element.val()) {
@@ -24,21 +24,27 @@ var rateList = {
             clearTimeout(this.downTimer);
             this.downTimer = setInterval(function() {
                 $( "#rate-up" ).trigger('click');                
-            }, 100);
+            }, 150);
         }).mouseup(function(e) {
             clearInterval(this.downTimer);
         });
 
         $( "#rate-down" ).on('click', function() {
             if(!$(this).hasClass('disabled')) {
-                $( "#rate-up" ).removeClass('disabled');
+                $( "#rate-up" ).removeClass('disabled');                
+                var step = rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds;
+                var newRate = element.val() - step; 
+                if(newRate > 0) element.val(newRate);
+                
                 var price = $('#rate-price');
                 if(parseInt(price.val()) < parseInt(price.attr('init'))){
                    $( ".r-submit" ).removeClass('disabled');
-                } else $( ".r-submit" ).addClass('disabled');
-                var newRate = element.val() - rateList.data.priceStep; 
-                if(newRate > 0) element.val(newRate);
-                if( (newRate - rateList.data.priceStep) <= 0 ) {
+                } else {
+                   //console.log(parseInt(price.val()) +'>'+ parseInt(price.attr('init')));
+                   $( ".r-submit" ).addClass('disabled');
+                }
+                
+                if( (newRate - step) <= 0 ) {
                     $(this).addClass('disabled');
                 }
             }
@@ -48,7 +54,7 @@ var rateList = {
             clearTimeout(this.downTimer);
             this.downTimer = setInterval(function() {
                 $( "#rate-down" ).trigger('click');                
-            }, 100);
+            }, 150);
         }).mouseup(function(e) {
             clearInterval(this.downTimer);
         });
@@ -65,13 +71,14 @@ var rateList = {
             if(!$(this).hasClass('disabled')) {
                 $('#t-error').html('');
                 var price = parseInt($( "#rate-price" ).val());
+                var price = price*100/(100 + rateList.data.nds*100);
                 var obj = {
                     price: price,
                     name: rateList.data.name,
                     surname: rateList.data.surname,
                 };
                 rateList.add(obj);
-                var price = price*100/(100 + rateList.data.nds*100);
+                
                 rateList.update(this.container, price);
             }
         });
@@ -128,18 +135,24 @@ var rateList = {
                         }
                         
                         if(rates.price){
-                            var value = parseInt(rates.price);// - parseInt(rateList.data.priceStep);
-                            var prevValue = value - parseInt(rateList.data.priceStep);
+                            var value = parseInt(rates.price);// - (rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds);
+                            if(rateList.data.nds){
+                               value += value * rateList.data.nds;
+                            }
+                            var step = rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds;
+                            
                             var price = $("#rate-price");
                             if(price.val() > value && value > 0) {
                                 price.val(value);
+                                price.attr('init', value);
                                 $( "#rate-up" ).addClass('disabled');
                             }
-                            if(prevValue < 0) $( "#rate-down" ).addClass('disabled');
-                            price.attr('init', value);
                             
+                            var prevValue = value - (rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds);         
+                            if(prevValue < 0) $( "#rate-down" ).addClass('disabled');
                             $('#last-rate').html('<span>' + rates.price + rateList.data.currency + '</span>');
-                            if(value <= 0) {
+
+                            if(prevValue <= 0) {
                                 $('.r-submit').addClass('disabled');
                                 $('.r-block').slideUp("slow");
                                 $('.r-submit').slideUp("slow");

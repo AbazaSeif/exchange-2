@@ -21,7 +21,7 @@ if (!empty($transportInfo['rate_id'])) {
 if (!Yii::app()->user->isGuest) {
     $userId = Yii::app()->user->_id;
     $model = UserField::model()->find('user_id = :id', array('id' => $userId));
-    $originalPrice = $lastRate;
+    //$originalPrice = $lastRate;
     if((bool)$model->with_nds){
         $lastRate = $lastRate + $lastRate * Yii::app()->params['nds'];
     }
@@ -61,7 +61,7 @@ $inputSize = strlen((string)$lastRate)-1;
                     <div id="rate-down" class="<?php echo ($minRate)?'disabled':''?>"></div>
                 </div>
                 <span class="text"><?php echo $currency ?></span>
-                <input id="rate-price" value="<?php echo $lastRate?>" init="<?php echo $originalPrice?>" type="text" size="<?php echo $inputSize ?>"/>
+                <input id="rate-price" value="<?php echo $lastRate?>" init="<?php echo $lastRate?>" type="text" size="<?php echo $inputSize ?>"/>
             </div>
             <div class="r-submit disabled"><span>OK</span></div>
         </div>
