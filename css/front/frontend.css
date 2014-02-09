@@ -404,9 +404,9 @@ div.row{
 {
     
 }
-.transports .items .transport .t-date .t-d-type,
-.transports .items .transport .t-date .t-d-published,
-.transports .items .transport .t-date .t-d-form-to
+.transports .items .transport .t-d-type,
+.transports .items .transport .t-d-published,
+.transports .items .transport .t-d-form-to
 {
     color: #666;
 }
@@ -457,6 +457,16 @@ div.row{
 }
 .transport span{
     cursor: default;
+}
+.items .transport div{
+    text-align: center;
+}
+.items .transport div:first-child{
+    text-align: left;
+    margin-top: 10px;
+}
+.transport img{
+    margin-top: 20px;
 }
 /*--------Конец-Перевозки----------*/
 
@@ -760,12 +770,17 @@ input.r-submit{
     width: 100%;
 }
 
-.width-15, .width-30, .width-50, .width-60, .width-70
+.width-5, .width-10, .width-15, .width-20, .width-25,.width-30, .width-40, .width-50, .width-60, .width-70
 {
     float: left;
 }
+.width-5{width: 5%;}
+.width-10{width: 10%;}
 .width-15{width: 15%;}
+.width-20{width: 20%;}
+.width-25{width: 25%;}
 .width-30{width: 30%;}
+.width-40{width: 40%;}
 .width-50{width: 50%;}
 .width-60{width: 60%;}
 .width-70{width: 70%;}

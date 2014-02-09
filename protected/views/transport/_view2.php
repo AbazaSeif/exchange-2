@@ -25,29 +25,21 @@
     }
 ?>
 <div class="transport">
-    <div class="width-25">
-        <span><?php echo $data->description ?></span>
-    </div>
-    <div class="width-20">
+    <div class="width-70">
         <a class="t-header" href="<?php echo $action; ?>" >
-            <?php echo $data->location_from ?>
+            <?php echo $data->location_from . ' &mdash; ' . $data->location_to; ?>
         </a>
-        <span class="t-d-form-to">Дата загрузки: <?php echo date('d.m.y', strtotime($data->date_from)) ?></span>
-    </div>
-    <div class="width-5">
-        <img src="/images/arrow.jpg" width="20px">
+        <div class="t-date">
+            <span class="t-d-type">Тип: <?php echo $type; ?></span>
+            <span class="t-d-form-to">Дата: с <?php echo date('d.m.y', strtotime($data->date_from)).' по '.date('d.m.y', strtotime($data->date_to)); ?></span>
+            <span class="t-d-published">Опубликовано: <?php echo date('d.m.y', strtotime($data->date_published)); ?></span>
+        </div>
     </div>
     <div class="width-15">
-        <a class="t-header" href="<?php echo $action; ?>" >
-            <?php echo $data->location_to ?>
-        </a>
-        <span class="t-d-form-to">Дата разгрузки: <?php echo date('d.m.y', strtotime($data->date_to)); ?></span>
-    </div>
-    <div class="width-20">
         <div class="t-rate">
             <span><?php echo $rate.$currency;?></span>
         </div>
-    </div>    
+    </div>
     <div class="width-15"> 
         <div class="t-timer" id="counter-<?php echo $data->id; ?>" now="<?php echo $now ?>" end="<?php echo $end ?>" status="<?php echo $status ?>"></div>
     </div>
