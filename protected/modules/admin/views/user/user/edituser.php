@@ -66,6 +66,11 @@
     echo $form->labelEx($model, 'email');
     echo $form->emailField($model, 'email'); ?>
 </div>
+<div class="phone field">
+<?  echo $form->error($model, 'phone');
+    echo $form->labelEx($model, 'phone');
+    echo $form->textField($model, 'phone'); ?>
+</div>
 <div class="group field">
 <?  echo $form->error($model, 'group_id');
     echo $form->labelEx($model, 'group_id');

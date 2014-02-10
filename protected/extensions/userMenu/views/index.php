@@ -72,7 +72,7 @@ $(document).ready(function(){
     var activeSubElement = sessionStorage.getItem('submenu');
                 
     if(activeElement != null){
-        <?php if(Yii::app()->user->isRoot): ?>
+        <?php if(Yii::app()->user->isRoot || Yii::app()->user->checkAccess('admin')): ?>
         if(activeElement == 1) sessionStorage.setItem('menu', null);
         else $('.user-menu li').eq(activeElement).find('a:first').addClass('menu-active');
         <?php else: ?>
@@ -99,8 +99,14 @@ $(document).ready(function(){
         if(!$(this).hasClass('menu-active')) {
             $( "a.menu-active" ).removeClass('menu-active');
             $(this).addClass('menu-active');
-            sessionStorage.setItem('menu', $(this).parents("li").index());
             sessionStorage.setItem('submenu', null);
+            var activeElem = $(this).parents("li").index();
+            <?php if(!Yii::app()->user->checkAccess('transport')): ?>
+                if(!activeElem) sessionStorage.setItem('menu', activeElem);
+                else sessionStorage.setItem('menu', null)
+            <?php else: ?>
+                sessionStorage.setItem('menu', activeElem);
+            <?php endif;?>
         }
     });
     <?php endif;?>

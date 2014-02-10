@@ -43,10 +43,11 @@ class User extends CActiveRecord
 		return array(
 			array('group_id, type', 'numerical', 'integerOnly'=>true),
 			array('login', 'length', 'max'=>64),
-			array('password, name, surname, email', 'safe'),
+			array('phone', 'numerical'),
+			array('password, name, surname, phone, email', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, login, password, name, surname, email, group_id, type', 'safe', 'on'=>'search'),
+			array('id, login, password, name, surname, phone, email, group_id, type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -81,6 +82,7 @@ class User extends CActiveRecord
 			'group_id' => 'Группа',
 			'type' => 'Тип',
 			'status' => 'Статус',
+			'phone' => 'Телефон',
 		);
 	}
 
@@ -107,6 +109,7 @@ class User extends CActiveRecord
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('surname',$this->surname,true);
+		$criteria->compare('phone',$this->phone,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('group_id',$this->group_id);
 		$criteria->compare('type',$this->type);

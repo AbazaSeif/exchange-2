@@ -18,6 +18,11 @@
 		<?php echo $form->textField($model,'name'); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
+    <div class="row">
+		<?php echo $form->labelEx($model,'surname'); ?>
+		<?php echo $form->textField($model,'surname'); ?>
+		<?php echo $form->error($model,'surname'); ?>
+	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'phone'); ?>
 		<?php echo $form->textField($model,'phone'); ?>

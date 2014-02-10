@@ -4,6 +4,7 @@ class RegistrationForm extends CFormModel
 {
     public $firmName;
     public $name;
+    public $surname;
     public $phone;
     public $email;
     public $description;
@@ -11,7 +12,7 @@ class RegistrationForm extends CFormModel
     public function rules()
     {
         return array(
-            array('firmName, name, phone, email', 'required'),
+            array('firmName, name, surname, phone, email', 'required'),
             array('email', 'email'),
             array('phone', 'numerical')
         );
@@ -21,7 +22,8 @@ class RegistrationForm extends CFormModel
     {
         return array(
             'firmName'=>'Название организации',
-            'name'=>'Контактное лицо',
+            'name'=>'Имя контактного лица',
+            'surname'=>'Фамилия контактного лица',
             'phone'=>'Телефон',
             'email'=>'Email',
             'description'=>'Примечание',
