@@ -29,7 +29,7 @@
     }
 ?>
 <div class="transport">
-    <div class="width-25">
+    <div class="width-25 description">
         <span><?php echo $data->description ?></span>
     </div>
     <div class="width-20">
@@ -56,3 +56,4 @@
         <div class="t-timer" id="counter-<?php echo $data->id; ?>" now="<?php echo $now ?>" end="<?php echo $end ?>" status="<?php echo $status ?>"></div>
     </div>
 </div>
+

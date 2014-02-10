@@ -41,7 +41,8 @@ $(document).ready(function(){
        } else {
            $('#' + $(this).attr('id')).html('<span class="t-closed">Перевозка закрыта</span>');
        }
-    }); 
+    });
+    $('.description').dotdotdot();
 });
 </script>
 

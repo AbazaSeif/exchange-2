@@ -1,4 +1,5 @@
-<?php $lastRate = null;
+<?php
+$lastRate = null;
 $currency = ' €';
 $defaultRate = false;
 $priceStep = Transport::INTER_PRICE_STEP;
@@ -36,8 +37,8 @@ if (!Yii::app()->user->isGuest) {
 //$startValue = ($defaultRate)? $lastRate : ($lastRate - $priceStep);
 $minRate = (($lastRate - $priceStep)<=0)? 1 : 0;
 $inputSize = strlen((string)$lastRate)-1;
-?>
 
+?>
 
 <div class="transport-one">
     <div class="width-60">
@@ -129,10 +130,8 @@ $(document).ready(function(){
     });
 });
 </script>
-<?php if (!Yii::app()->user->isGuest && !Yii::app()->user->isRoot):?>
 <div>
-    <?php
-    $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+    <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
         'id' => 'modalDialog',
         'options' => array(
             'title' => 'Отправить сообщение',
@@ -196,4 +195,3 @@ $(document).ready(function(){
         $this->endWidget('zii.widgets.jui.CJuiDialog');
     ?>
 </div>
-<?php endif; ?>

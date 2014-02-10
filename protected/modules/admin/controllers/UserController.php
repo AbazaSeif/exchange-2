@@ -76,7 +76,9 @@ class UserController extends Controller
             if (isset($_POST['User'])){
                 $model->attributes = $_POST['User'];
                 $model->status = 1;
-                //var_dump($_POST['User']);exit;
+                
+                $this->setChange('Создан пользователь ' . $_POST['User']['name'] . ' ' . $_POST['User']['surname']);
+                
                 if($model->save()){
                     if(Yii::app()->params['ferrymanGroup'] == $model->group_id){
                         $modelUserField = new UserField;
@@ -118,6 +120,7 @@ class UserController extends Controller
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
     }
+    
     public function actionDeleteUser($id)
     {
         $model = User::model()->findByPk($id);
@@ -125,6 +128,7 @@ class UserController extends Controller
         if(Yii::app()->user->checkAccess('deleteUser', $params) && $id != Yii::app()->user->_id)
         {
             if(User::model()->deleteByPk($id)){
+                $this->setChange('Удален пользователь ' . $model['name'] . ' ' . $model['surname']);
                 Yii::app()->user->setFlash('message', 'Пользователь удален успешно.');
                 $this->redirect('/admin/user/');
             }
@@ -369,8 +373,7 @@ class UserController extends Controller
     }
     public function actionEditOperation($name)
     {
-        if(Yii::app()->user->isRoot)
-        {
+        if(Yii::app()->user->isRoot) {
             $model = AuthItem::model()->findByPk($name);
             if (isset($_POST['AuthItem'])){
                 $model->attributes = $_POST['AuthItem'];
@@ -381,7 +384,7 @@ class UserController extends Controller
                 }
             }
             $this->renderPartial('operation/editoperation', array('model'=>$model), false, true);
-        }else{
+        } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
     }
@@ -396,4 +399,14 @@ class UserController extends Controller
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
     }
+    
+    public function setChange($message)
+    {
+        $change = new Changes();
+        $change['user_id'] = Yii::app()->user->_id;
+        $change['date'] = date('Y-m-d H:i:s');
+        $change['description'] = $message;
+        $change->save();
+    }
+    
 }

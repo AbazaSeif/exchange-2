@@ -568,6 +568,27 @@ input[name^="Rates"]{
 /* конец правая(рабочая) область */
 
 /*-----Конец-users-----------*/
+/*-----Начало-changes----------*/
+.change{
+    position: relative;
+}
+
+.width-5, .width-10, .width-15, .width-20, .width-25,.width-30, .width-40, .width-50, .width-60, .width-70
+{
+    float: left;
+}
+.width-5{width: 5%;}
+.width-10{width: 10%;}
+.width-15{width: 15%;}
+.width-20{width: 20%;}
+.width-25{width: 25%;}
+.width-30{width: 30%;}
+.width-40{width: 40%;}
+.width-50{width: 50%;}
+.width-60{width: 60%;}
+.width-70{width: 70%;}
+
+/*-----Конец-changes-----------*/
 footer{
     
 }
@@ -613,3 +634,91 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
 .admin_main_features{float:left; width:40%;}
 .admin_additional_features{float:left; width:60%;}
 /* END GROUP ADMIN_ADDITIONAL FEATURES */
+
+/*---- Начало Greed view ----*/
+/*.grid-view-loading {
+    background: url("loading.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}*/
+.grid-view {
+    padding: 15px 0;
+}
+.grid-view table.items {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #D0E3EF;
+    border-collapse: collapse;
+    width: 100%;
+}
+.grid-view table.items th, .grid-view table.items td {
+    border: 1px solid #FFFFFF;
+    font-size: 0.9em;
+    padding: 0.3em;
+}
+.grid-view table.items th {
+    background: url("/images/bg.gif") repeat-x scroll left top #FFFFFF;
+    color: #FFFFFF;
+    text-align: center;
+}
+.grid-view table.items th a {
+    color: #EEEEEE;
+    font-weight: bold;
+    text-decoration: none;
+}
+.grid-view table.items th a:hover {
+    color: #FFFFFF;
+}
+/*
+.grid-view table.items th a.asc {
+    background: url("up.gif") no-repeat scroll right center rgba(0, 0, 0, 0);
+    padding-right: 10px;
+}
+.grid-view table.items th a.desc {
+    background: url("down.gif") no-repeat scroll right center rgba(0, 0, 0, 0);
+    padding-right: 10px;
+}*/
+.grid-view table.items tr.even {
+    background: none repeat scroll 0 0 #F8F8F8;
+}
+.grid-view table.items tr.odd {
+    background: none repeat scroll 0 0 #E5F1F4;
+}
+.grid-view table.items tr.selected {
+    background: none repeat scroll 0 0 #BCE774;
+}
+.grid-view table.items tr.selected:hover {
+    background: none repeat scroll 0 0 #CCFF66;
+}
+.grid-view table.items tbody tr:hover {
+    background: none repeat scroll 0 0 #ECFBD4;
+}
+.grid-view .link-column img {
+    border: 0 none;
+}
+.grid-view .button-column {
+    text-align: center;
+    width: 60px;
+}
+.grid-view .button-column img {
+    border: 0 none;
+}
+.grid-view .checkbox-column {
+    width: 15px;
+}
+.grid-view .summary {
+    margin: 0 0 5px;
+    text-align: right;
+}
+.grid-view .pager {
+    margin: 5px 0 0;
+    text-align: right;
+}
+.grid-view .empty {
+    font-style: italic;
+}
+.grid-view .filters input, .grid-view .filters select {
+    border: 1px solid #CCCCCC;
+    width: 100%;
+}
+.items tr td:first-child {
+    width: 20%;
+}
+/*---- Конец Greed view ----*/

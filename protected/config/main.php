@@ -119,6 +119,7 @@ return array(
                             'Операции'=>'/admin/user/operation/',
                     ),
                     'Перевозки'=>'/admin/transport/',
+                    'История редактирования'=>'/admin/changes/',
              ),
              'adminEmail'=>'krilova@lbr.ru',
              'minNotyfy' => 30,
