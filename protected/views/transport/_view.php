@@ -41,13 +41,13 @@
     <div class="width-5">
         <img src="/images/arrow.jpg" width="20px">
     </div>
-    <div class="width-15">
+    <div class="width-20">
         <a class="t-header" href="<?php echo $action; ?>" >
             <?php echo $data->location_to ?>
         </a>
         <span class="t-d-form-to">Дата разгрузки: <?php echo date('d.m.y', strtotime($data->date_to)); ?></span>
     </div>
-    <div class="width-20">
+    <div class="width-15">
         <div class="t-rate">
             <span><?php echo $rate.$currency;?></span>
         </div>

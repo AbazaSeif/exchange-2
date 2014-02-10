@@ -12,19 +12,19 @@ class UserIdentity extends CUserIdentity
     public function authenticate()
     {
         $record = User::model()->findByAttributes(array('login'=>$this->username));
-        if($record===null)
+        if($record===null){
             $this->errorCode=self::ERROR_USERNAME_INVALID;
-        else if($record->password!==crypt($this->password,$record->password))
+        } else if($record->password!==crypt($this->password,$record->password)) {
             $this->errorCode=self::ERROR_PASSWORD_INVALID;
-        else
-        {
-            $this->_id=$record->group_id;
-            
+        } else if(in_array($record['status'], array(User::USER_TEMPORARY_BLOCKED, User::USER_BLOCKED, User::USER_NOT_CONFIRMED))) {
+           $this->errorCode = 1000 + $record['status'];
+        } else {
+            $this->_id=$record->group_id;         
             $this->setState('_id', $record->id);
             $this->setState('_level', UserGroup::model()->findByPk($record->group_id)->level);
             $this->errorCode=self::ERROR_NONE;
         }
-        return !$this->errorCode;
+        return $this->errorCode;
     }
 
     public function getId()

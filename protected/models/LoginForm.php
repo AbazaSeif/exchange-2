@@ -36,8 +36,8 @@ class LoginForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-                        'username'=>'Логин',
-                        'password'=>'Пароль',
+            'username'=>'Логин',
+            'password'=>'Пароль',
 			'rememberMe'=>'Запомнить меня',
 		);
 	}
@@ -48,12 +48,20 @@ class LoginForm extends CFormModel
 	 */
 	public function authenticate($attribute,$params)
 	{
-		if(!$this->hasErrors())
-		{
-			$this->_identity=new UserIdentity($this->username,$this->password);
-			if(!$this->_identity->authenticate())
-				$this->addError('password','Неверный логин или пароль');
-		}
+		if(!$this->hasErrors()) {
+            $this->_identity=new UserIdentity($this->username,$this->password);
+            $autentificate = $this->_identity->authenticate();
+            //var_dump($autentificate); exit;
+            if($autentificate == (1000 + User::USER_NOT_CONFIRMED)){
+                $this->addError('username','Регистрация не подтверждена');
+            } else if ($autentificate == (1000 + User::USER_TEMPORARY_BLOCKED)) {
+                $this->addError('username','Пользователь временно заблокирован');
+            } else if ($autentificate == (1000 + User::USER_BLOCKED)) {
+                $this->addError('username','Пользователь заблокирован');
+            } else if((bool)$autentificate){
+                $this->addError('password','Неверный логин или пароль');
+            }
+        }
 	}
 
 	/**
