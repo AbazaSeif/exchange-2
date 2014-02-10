@@ -116,6 +116,8 @@ header, .wrapper, footer
     background: -o-linear-gradient(top,#14AAAA,#008C8C);
     background: -ms-linear-gradient(top,#14AAAA,#008C8C);
     background: linear-gradient(top,#14AAAA,#008C8C);
+    cursor: pointer;
+    cursor: hand;
 }
 
 #registration-form .row.buttons input.btn{

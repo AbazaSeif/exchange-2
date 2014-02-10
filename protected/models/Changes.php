@@ -43,4 +43,13 @@ class Changes extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+    
+    public static function saveChange($message)
+    {
+        $change = new Changes();
+        $change['user_id'] = Yii::app()->user->_id;
+        $change['date'] = date('Y-m-d H:i:s');
+        $change['description'] = $message;
+        $change->save();
+    }
 }

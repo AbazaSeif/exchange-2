@@ -77,7 +77,7 @@ class UserController extends Controller
                 $model->attributes = $_POST['User'];
                 $model->status = 1;
                 
-                $this->setChange('Создан пользователь ' . $_POST['User']['name'] . ' ' . $_POST['User']['surname']);
+                Changes::saveChange('Создан пользователь ' . $_POST['User']['name'] . ' ' . $_POST['User']['surname']);
                 
                 if($model->save()){
                     if(Yii::app()->params['ferrymanGroup'] == $model->group_id){
@@ -106,9 +106,25 @@ class UserController extends Controller
         {
             $group = UserGroup::getUserGroupArray();
             if (isset($_POST['User'])){
-                $model->attributes = $_POST['User'];
-                //$model['status'] = $_POST['User']['status'];
                 
+                $changes = array();
+                foreach($_POST['User'] as $key=>$value){
+                    if(trim($model[$key]) != trim($value)){
+                        $changes[$key]['before'] = $model[$key];
+                        $changes[$key]['after'] = $value;
+                        $model[$key] = trim($value);
+                    }    
+                }
+                if(!empty($changes)){
+                    $message = 'У пользователя с id = '.$id.' были изменены слудующие поля: ';
+                    $k = 0;
+                    foreach($changes as $key => $value){
+                        $k++;
+                        $message .= $k . ') Поле '. $key . ' c ' . $changes[$key]['before'] . ' на ' . $changes[$key]['after'] . '; ';
+                    }
+                    Changes::saveChange($message);
+                }
+                //$model->attributes = $_POST['User'];
                 if($model->save()){
                     Yii::app()->user->setFlash('saved_id', $model->id);
                     Yii::app()->user->setFlash('message', 'Пользователь '.$model->login.' сохранен успешно.');
@@ -128,7 +144,7 @@ class UserController extends Controller
         if(Yii::app()->user->checkAccess('deleteUser', $params) && $id != Yii::app()->user->_id)
         {
             if(User::model()->deleteByPk($id)){
-                $this->setChange('Удален пользователь ' . $model['name'] . ' ' . $model['surname']);
+                Changes::saveChange('Удален пользователь ' . $model['name'] . ' ' . $model['surname']);
                 Yii::app()->user->setFlash('message', 'Пользователь удален успешно.');
                 $this->redirect('/admin/user/');
             }
@@ -399,14 +415,4 @@ class UserController extends Controller
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
     }
-    
-    public function setChange($message)
-    {
-        $change = new Changes();
-        $change['user_id'] = Yii::app()->user->_id;
-        $change['date'] = date('Y-m-d H:i:s');
-        $change['description'] = $message;
-        $change->save();
-    }
-    
 }
