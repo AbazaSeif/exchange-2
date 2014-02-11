@@ -31,6 +31,17 @@ class Transport extends CActiveRecord
         CONST RUS_TRANSPORT = 1;
         CONST INTER_PRICE_STEP = 50;
         CONST RUS_PRICE_STEP = 500;
+        
+        public static $group = array(
+            0=>'Международная',
+            1=>'Региональная',
+        );
+        
+        public static $currencyGroup = array(
+            0=>'Рубли (руб.)',
+            1=>'Доллары ($)',
+            2=>'Евро (€)',
+        );
     /**
 	 * @return string the associated database table name
 	 */
@@ -85,7 +96,7 @@ class Transport extends CActiveRecord
 			'user_id' => 'ID пользователя',
 			'location_from' => 'Место загрузки',
 			'location_to' => 'Место разгрузки',
-			'auto_info' => 'Об автомобиле',
+			'auto_info' => 'Транспорт',
 			'description' => 'Описание',
 			'date_from' => 'Дата загрузки',
 			'date_to' => 'Дата разгрузки',
@@ -143,26 +154,46 @@ class Transport extends CActiveRecord
 		return parent::model($className);
 	}
     
-    protected function afterSave() {
+    protected function afterSave() 
+    {
         parent::afterSave();
         $inputArray = $_POST['Rates'];
         if (isset($inputArray)){
             $transportId = $_POST['Transport']['id'];
+            $transportModel = Transport::model()->findByPk($transportId);
             $arrayKeys = array();
-            foreach($inputArray as $id=>$price){
+            $priceChanges = array();
+            // Edit Rates
+            foreach($inputArray as $id=>$price) {
                 $arrayKeys[] = $id;
                 $model = Rate::model()->findByPk($id);
-                $model['price'] = $price;
-                $model->save();
+                if(trim($model['price']) != trim($price)) {
+                    $priceChanges[$id]['before'] = $model['price'];
+                    $priceChanges[$id]['after'] = $price;
+                    $model['price'] = $price;
+                    $model->save();
+                }
+            }
+            
+            if(!empty($priceChanges)){
+                $message = 'В перевозке "' . $transportModel['location_from'] . ' — ' . $transportModel['location_to'] . '" были изменены следующие ставки: ';
+                $k = 0;
+                foreach($priceChanges as $key => $value){
+                    $k++;
+                    $message .= $k . ') Ставка с id = '. $key . ' - цена ' . $priceChanges[$key]['before'] . ' на ' . $priceChanges[$key]['after'] . '; ';
+                }
+                Changes::saveChange($message);
             }
             
             $criteria = new CDbCriteria;
             $criteria->addCondition('transport_id = ' . $transportId);
             $criteria->addNotInCondition('id', $arrayKeys);
-            Rate::model()->deleteAll($criteria);
             
-            $transportModel = Transport::model()->findByPk($transportId);
-            if(!in_array($transportModel['rate_id'], $arrayKeys)){
+            // Delete rates and save changes
+            Changes::saveChangeInRates($criteria);
+            
+            if(!in_array($transportModel['rate_id'], $arrayKeys)) {
+            
                 $minPrice = Yii::app()->db->createCommand()
                     ->select('min(price) as price')
                     ->from('rate')
@@ -179,9 +210,8 @@ class Transport extends CActiveRecord
                 ;
                 $transportModel['rate_id'] = $model['id'];
                 $transportModel->save();
-            }            
+            }       
         }
-        
         return true;
     }
 }

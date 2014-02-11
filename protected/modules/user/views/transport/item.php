@@ -50,7 +50,7 @@ $inputSize = strlen((string)$lastRate)-1;
             <div><span>Пункт назначения: </span> <strong><?php echo $transportInfo['location_to'] ?></strong></div>
             <div><span>Дата загрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_from'])) ?></strong></div>
             <div><span>Дата разгрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_to'])) ?></strong></div>
-            <?php if (!empty($transportInfo['auto_info'])):?><div><span>Информация о машине: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
+            <?php if (!empty($transportInfo['auto_info'])):?><div><span>Транспорт: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
         </div>	
     </div>
     <?php if (!Yii::app()->user->isGuest && $lastRate > 0 && Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot): ?>
@@ -68,7 +68,7 @@ $inputSize = strlen((string)$lastRate)-1;
                 <span class="text"><?php echo $currency ?></span>
                 <input id="rate-price" value="<?php echo $lastRate?>" init="<?php echo $lastRate?>" type="text" size="<?php echo $inputSize ?>"/>
             </div>
-            <div class="r-submit disabled"><span>OK</span></div>
+            <div class="r-submit <?php echo ($defaultRate) ? '':disabled ?>"><span>OK</span></div>
         </div>
         <?php endif; ?>
     </div>
@@ -101,10 +101,11 @@ $(document).ready(function(){
     rateList.data = {
         currency : ' <?php echo $currency ?>',
         priceStep : <?php echo $priceStep ?>,
-        transportId : <?php echo $transportInfo['id']; ?>,
+        transportId : <?php echo $transportInfo['id'] ?>,
         status: <?php echo $transportInfo['status'] ?>,
         step: <?php echo $priceStep ?>,
-        nds: <?php echo ((bool)$model->with_nds)? Yii::app()->params['nds'] : 0 ?>
+        nds: <?php echo ((bool)$model->with_nds) ? Yii::app()->params['nds'] : 0 ?>,
+        defaultRate: <?php echo ($defaultRate)? 1 : 0 ?>,
     };
     <?php if (!Yii::app()->user->isGuest): ?>
         rateList.data.name = '<?php echo $userInfo[name] ?>',

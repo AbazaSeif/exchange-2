@@ -68,19 +68,19 @@ var rateList = {
         
         $('#setRateBtn').live('click', function() {
             $("#addRate").dialog("close");
-            if(!$(this).hasClass('disabled')) {
-                $('#t-error').html('');
-                var price = parseInt($( "#rate-price" ).val());
-                var price = price*100/(100 + rateList.data.nds*100);
-                var obj = {
-                    price: price,
-                    name: rateList.data.name,
-                    surname: rateList.data.surname,
-                };
-                rateList.add(obj);
-                
-                rateList.update(this.container, price);
-            }
+            $('.r-submit').addClass('disabled');
+            console.log(rateList.data.defaultRate);
+            if(rateList.data.defaultRate) $('#rates').html('');
+            $('#t-error').html('');
+            var price = parseInt($( "#rate-price" ).val());
+            var price = price*100/(100 + rateList.data.nds*100);
+            var obj = {
+                price: price,
+                name: rateList.data.name,
+                surname: rateList.data.surname,
+            };
+            rateList.add(obj);
+            rateList.update(this.container, price);
         });
         
         $('#rate-price').blur(function(){

@@ -18,15 +18,15 @@ if(!Yii::app()->user->isGuest){
                     </ul>
                 </li>
                 <li><a href="/user/option/">Настройки</a></li>
-                <li><a href="/user/logout/">Выход</a></li>
+                <li><a href="/user/logout/" class="exit">Выход</a></li>
             </ul>
     <?php }  else {?>
                 <ul class="user-menu">
                     <li><a href="/">Главная</a>
                         <?php if(Yii::app()->user->checkAccess('admin')){ ?>
-                            <li><a href="/admin/">Административная панель</a></li>
+                            <li><a href="/admin/" class="admin">Административная панель</a></li>
                         <?php  } ?>
-                    <li><a href="/user/logout/">Выход</a></li>
+                    <li><a href="/user/logout/" class="exit">Выход</a></li>
                 </ul>
             <?php }
 }else{
@@ -64,59 +64,12 @@ if(!Yii::app()->user->isGuest){
 <script>
 $(document).ready(function(){
     <?php if(!Yii::app()->user->isGuest): ?>
-       updateCounter();
-       setInterval(function(){updateCounter()}, 5000);
-    
-    //null - если нет
-    var activeElement = sessionStorage.getItem('menu');
-    var activeSubElement = sessionStorage.getItem('submenu');
-                
-    if(activeElement != null){
-        <?php if(Yii::app()->user->isRoot || Yii::app()->user->checkAccess('admin')): ?>
-        if(activeElement == 1) sessionStorage.setItem('menu', null);
-        else $('.user-menu li').eq(activeElement).find('a:first').addClass('menu-active');
-        <?php else: ?>
-        if(activeElement == 3) activeElement = 6;
-        $('.user-menu li').eq(activeElement).find('a:first').addClass('menu-active');
-         <?php endif;?>
+    var countSubmenuElem = null;
+    if ($("#submenu")){
+        countSubmenuElem = parseInt($('#submenu').children().length);
     }
-    
-    if(activeSubElement != null){
-        activeSubElement = parseInt(activeSubElement) - 2;
-        $('#submenu li').eq(activeSubElement).find('a:first').addClass('menu-active');
-    } 
-    
-    $( "#submenu>li>a" ).click(function() {
-        if(!$(this).hasClass('menu-active')) {
-            $("a.menu-active").removeClass('menu-active');
-            $(this).addClass('menu-active');
-            sessionStorage.setItem('menu', null);
-            sessionStorage.setItem('submenu', $(this).parents("li").index());
-        }
-    });
-    
-    $( ".user-menu>li>a" ).click(function() {
-        if(!$(this).hasClass('menu-active')) {
-            $( "a.menu-active" ).removeClass('menu-active');
-            $(this).addClass('menu-active');
-            sessionStorage.setItem('submenu', null);
-            var activeElem = $(this).parents("li").index();
-            <?php if(!Yii::app()->user->checkAccess('transport')): ?>
-                if(!activeElem) sessionStorage.setItem('menu', activeElem);
-                else sessionStorage.setItem('menu', null)
-            <?php else: ?>
-                sessionStorage.setItem('menu', activeElem);
-            <?php endif;?>
-        }
-    });
+    menu.countSubmenuElem = countSubmenuElem;
+    menu.init();
     <?php endif;?>
 });
-
-function updateCounter(){
-    $.ajax({
-        url: '/user/updateEventCounter',
-	    success: function(data){
-	    $('#event-counter').html(data);
-    }});
-}
 </script>

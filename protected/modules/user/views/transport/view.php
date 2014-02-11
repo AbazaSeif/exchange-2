@@ -11,7 +11,7 @@
         'itemsTagName' => 'div',
         'template'     => '{sorter}{items}{pager}',
         'htmlOptions'  => array('class'=>'transports'),
-        'sortableAttributes' => array('date_published', 'date_to', 'date_from'),
+        'sortableAttributes' => array('date_published', 'date_from', 'date_to'),
         'sorterHeader' => '',
         'pager'        => array(
             'header'   => false,

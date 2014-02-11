@@ -52,4 +52,23 @@ class Changes extends CActiveRecord
         $change['description'] = $message;
         $change->save();
     }
+    
+    // Delete rates and save changes
+    public static function saveChangeInRates($criteria)
+    {
+        $ratesForDelete = Rate::model()->findAll($criteria);
+        // Delete Rates
+        if(!empty($ratesForDelete)){
+            Rate::model()->deleteAll($criteria);
+            $message = 'В перевозке "' . $transportModel['location_from'] . ' — ' . $transportModel['location_to'] . '" были удалены следующие ставки: ';
+            $k = 0;
+            foreach($ratesForDelete as $i=>$rate) {
+                $k++;
+                $message .= $k . ') Ставка с id = '. $rate['id'] . ' - цена ' . $rate['price'] . '; ';
+            
+                Rate::model()->deleteByPk($rate['id']);
+            }
+            Changes::saveChange($message);
+        }
+    }
 }

@@ -1,4 +1,4 @@
-<h1>История пользователей</h1>
+<h1>История редактирования</h1>
 <div class="total">
     <div class="left">
     <div class="create-button">

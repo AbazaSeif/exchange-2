@@ -4,17 +4,6 @@
     $delete_button = CHtml::link('Удалить перевозку', '/admin/transport/deletetransport/id/'.$model->id, array('id'=>'del_'.$model->id,'class'=>'btn del', 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
 
     $action = '/admin/transport/edittransport/id/'.$model->id;
-    // вынести !!!
-    $group = array(
-        0=>'Международная',
-        1=>'Региональная',
-    );
-    $currencyGroup = array(
-        0=>'Рубли (руб.)',
-        1=>'Доллары ($)',
-        2=>'Евро (€)',
-    );
-    ////////////////////
     if ($model->isNewRecord){
         $submit_text = 'Создать';
         $name = 'new';
@@ -50,14 +39,9 @@
 ?>
 </div>
 <div class="field">
-<?php echo $form->error($model, 'start_rate'); 
-      echo CHtml::label('Начальная ставка', 'start_rate'); 
-      echo $form->textField($model, 'start_rate');
-?>    
-</div>
-<div class="field">
 <?php  echo $form->error($model, 'location_from'); 
-    echo CHtml::label('Пункт отправки', 'location_from');
+    //echo CHtml::label('Пункт загрузки', 'location_from');
+    echo $form->labelEx($model, 'location_from');
     echo $form->textField($model, 'location_from');
 ?>    
 </div>
@@ -65,6 +49,12 @@
 <?php  echo $form->error($model, 'location_to'); 
     echo $form->labelEx($model, 'location_to');
     echo $form->textField($model, 'location_to');?>    
+</div>
+<div class="field">
+<?php echo $form->error($model, 'start_rate'); 
+      echo CHtml::label('Начальная ставка', 'start_rate'); 
+      echo $form->textField($model, 'start_rate');
+?>    
 </div>
 <div class="field">
 <?php  echo $form->error($model, 'description'); 
@@ -89,16 +79,17 @@
 <div class="field">
 <?php echo $form->error($model, 'type');
     echo $form->labelEx($model, 'type');
-    echo $form->dropDownList($model, 'type', $group); ?>
+    echo $form->dropDownList($model, 'type', Transport::$group); ?>
 </div>
 <div class="field">
 <?php echo $form->error($model, 'currency');
     echo $form->labelEx($model, 'currency');
-    echo $form->dropDownList($model, 'currency', $currencyGroup); ?>
+    echo $form->dropDownList($model, 'currency', Transport::$currencyGroup); ?>
 </div>
 <div class="field">
 <?php echo $form->hiddenField($model, 'id'); ?>
 </div>
+<?php if (!$model->isNewRecord): ?>
 <div>
     <div class="header-h4">Все ставки</div>
     <?php if(count($rates)): ?>
@@ -122,6 +113,7 @@
     <?php else: echo '<div class="no-rates">Нет ставок</div>';
     endif; ?>
 </div>
+<?php endif; ?>
 <?php $this->endWidget(); ?> 
 </div>
 <script>
