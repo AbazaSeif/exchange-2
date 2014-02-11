@@ -15,13 +15,13 @@ class TransportController extends Controller
                 'sort'=>array(
                     'attributes'=>array(
                         'date_from'=>array(
-                                'asc'=>'status ASC',
-                                'desc'=>'status DESC',
+                                'asc'=>'date_from ASC',
+                                'desc'=>'date_from DESC',
                                 'default'=>'desc',
                         ),
                         'date_to'=>array(
-                                'asc'=>'status ASC',
-                                'desc'=>'status DESC',
+                                'asc'=>'date_to ASC',
+                                'desc'=>'date_to DESC',
                                 'default'=>'desc',
                         ),
                         'date_published'=>array(
