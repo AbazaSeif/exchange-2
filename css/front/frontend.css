@@ -90,6 +90,7 @@ header, .wrapper, footer
 {
     width: 60%;
     float: left;
+    margin-left: -5px;
 }
 
 #login-form .row.buttons, #registration-form .row.buttons, #quick-form .button
@@ -101,7 +102,7 @@ header, .wrapper, footer
 }
 #login-form .row.buttons input.btn, #registration-form .row.buttons input.btn, #quick-form input.btn, #setRateBtn, #abordRateBtn
 {
-    width: 100%;
+    width: 96%;
     padding: 4px 0;
     box-shadow: none;
     text-decoration: none;
@@ -134,7 +135,7 @@ header, .wrapper, footer
 #login-form .row input[type='password'], #registration-form .row input[type='text']
 {
     padding: 1%;
-    width: 97%;
+    width: 96%;
     outline: none;
     color: #333;
     background-color: #fff;

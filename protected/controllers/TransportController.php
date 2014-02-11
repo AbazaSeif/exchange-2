@@ -9,7 +9,7 @@ class TransportController extends Controller
             array(
                 'criteria' => $criteria,
                 'pagination'=>array(
-                   'pageSize' => 8,
+                   'pageSize' => 7,
                    'pageVar' => 'page',
                 ),
                 'sort'=>array(
