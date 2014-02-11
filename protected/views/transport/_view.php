@@ -52,7 +52,7 @@
             <span><?php echo $rate.$currency;?></span>
         </div>
     </div>    
-    <div class="width-151"> 
+    <div class="width-15"> 
         <div class="t-timer" id="counter-<?php echo $data->id; ?>" now="<?php echo $now ?>" end="<?php echo $end ?>" status="<?php echo $status ?>"></div>
     </div>
 </div>
