@@ -1,6 +1,6 @@
 (function($){
     $(window).load(function(){
-        $(".test").mCustomScrollbar({
+        $(".items").mCustomScrollbar({
             scrollButtons:{
                 enable:true
             }

@@ -380,7 +380,8 @@ div.row{
 }
 .transports .items
 {
-    
+    overflow: auto;
+    height: 500px;    
 }
 .transports .items .transport
 {
