@@ -10,6 +10,20 @@ class TransportController extends Controller
             $sort = new CSort();
             $sort->sortVar = 'sort';
             $sort->defaultOrder = 'location_from ASC';
+            $sort->attributes = array(
+                'location_from' => array(
+                    'location_from' => 'Место загрузки111',
+                    'asc' => 'location_from ASC',
+                    'desc' => 'location_from DESC',
+                    'default' => 'asc',
+                ),
+                'location_to' => array(
+                    'location_to' => 'Место загрузки',
+                    'asc' => 'location_to ASC',
+                    'desc' => 'location_to DESC',
+                    'default' => 'asc',
+                ),
+            );
             $dataProvider = new CActiveDataProvider('Transport', 
                 array(
                     'criteria'=>$criteria,

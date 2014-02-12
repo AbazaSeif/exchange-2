@@ -10,6 +10,26 @@ class ChangesController extends Controller
             $sort = new CSort();
             $sort->sortVar = 'sort';
             $sort->defaultOrder = 'surname ASC';
+            $sort->attributes = array(
+                'group_id' => array(
+                    'group_id' => 'Группа',
+                    'asc' => 'group_id ASC',
+                    'desc' => 'group_id DESC',
+                    'default' => 'asc',
+                ),
+                'surname' => array(
+                    'surname' => 'Фамилии',
+                    'asc' => 'surname ASC',
+                    'desc' => 'surname DESC',
+                    'default' => 'asc',
+                ),
+                'name' => array(
+                    'surname' => 'Имя',
+                    'asc' => 'name ASC',
+                    'desc' => 'name DESC',
+                    'default' => 'asc',
+                )
+            );
             $dataProvider = new CActiveDataProvider('User', 
                 array(
                     'criteria'=>$criteria,

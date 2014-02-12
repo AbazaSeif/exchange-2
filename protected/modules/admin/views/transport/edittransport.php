@@ -16,20 +16,22 @@
 <div class="header-form">
     <?php echo $header_form; ?>
 </div>
-<?php $form = $this->beginWidget('CActiveForm', array('id'=>'form'.$model->id,
-    'action'=>$action,
-    'enableClientValidation'=>true,
-    'clientOptions'=>array(
-            'validateOnSubmit'=>true,
-            'afterValidate'=>'js:function( form, data, hasError ) 
-            {     
-                if( hasError ){
-                    return false;
-                }
-                else{
-                    return true;
-                }
-            }'
+<?php $form = $this->beginWidget('CActiveForm', 
+    array(
+        'id'=>'form'.$model->id,
+        'action'=>$action,
+        'enableClientValidation'=>true,
+        'clientOptions'=>array(
+                'validateOnSubmit'=>true,
+                'afterValidate'=>'js:function( form, data, hasError ) 
+                {     
+                    if( hasError ){
+                        return false;
+                    }
+                    else{
+                        return true;
+                    }
+                }'
     ),));
 ?>
 <div class="buttons">
@@ -52,7 +54,7 @@
 </div>
 <div class="field">
 <?php echo $form->error($model, 'start_rate'); 
-      echo CHtml::label('Начальная ставка', 'start_rate'); 
+      echo $form->labelEx($model, 'start_rate');
       echo $form->textField($model, 'start_rate');
 ?>    
 </div>

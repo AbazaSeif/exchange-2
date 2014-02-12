@@ -58,6 +58,7 @@ class Transport extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+            array('location_from, location_to, description, date_from, date_to, start_rate', 'required'),
 			array('id_1c, rate_id, start_rate, status, type, user_id', 'numerical', 'integerOnly'=>true),
 			array('location_from, location_to, auto_info, description, date_from, date_to, date_published', 'safe'),
 			// The following rule is used by search().
@@ -90,9 +91,9 @@ class Transport extends CActiveRecord
 			'id' => 'ID',
 			'id_1c' => 'Id 1c',
 			'rate_id' => 'ID Ставки',
-			'start_rate' => 'Стартовая ставка',
+			'start_rate' => 'Начальная ставка',
 			'status' => 'Статус',
-			'type' => 'Тип',
+			'type' => 'Тип перевозки',
 			'user_id' => 'ID пользователя',
 			'location_from' => 'Место загрузки',
 			'location_to' => 'Место разгрузки',

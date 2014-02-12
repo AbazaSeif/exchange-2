@@ -54,6 +54,7 @@ header, .wrapper, footer
             box-shadow:0 0 8px rgba(0,0,0,0.6);
     -moz-border-radius:10px / 100px;
          border-radius:10px / 100px;
+    behavior: url(ie-css3.htc);
 }
 
 .w-right
@@ -336,6 +337,7 @@ div.row{
     list-style: none;
     border-bottom: 1px dashed rgb(200,200,200);
 }
+
 .transports .sorter ul li
 {
     float: left;
@@ -391,6 +393,9 @@ div.row{
     padding: 5px 10px;
     position: relative;
     min-height: 45px;
+}
+.transports .items .transport:last-child {
+    border-bottom:none;
 }
 
 .transports .items .transport > div, .rate > div
@@ -840,6 +845,12 @@ header:after, .wrapper:after, footer:after, #login-form:after,
 }
 .pager ul.yiiPager li.selected a{
     color: rgb(239, 128, 27);
+}
+
+.transports .pager ul
+{
+    list-style: none;
+    border-top: 1px dashed rgb(200,200,200);
 }
 
 
