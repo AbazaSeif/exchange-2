@@ -237,7 +237,7 @@ div.ui-widget-header {
 {
     
 }
-.user-menu li a
+.user-menu li a, .logout
 {
     display: block;
     color: rgb(0, 145, 124);
@@ -246,6 +246,11 @@ div.ui-widget-header {
     padding: 3px 0px 3px 7px;
     border-top: 1px dashed rgb(0, 145, 124);
 }
+
+.logout{
+    border-top: none;
+}
+
 .user-menu li:first-child a
 {
     border-top: 0;

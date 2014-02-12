@@ -27,21 +27,21 @@
  */
 class Transport extends CActiveRecord
 {
-        CONST INTER_TRANSPORT = 0;
-        CONST RUS_TRANSPORT = 1;
-        CONST INTER_PRICE_STEP = 50;
-        CONST RUS_PRICE_STEP = 500;
-        
-        public static $group = array(
-            0=>'Международная',
-            1=>'Региональная',
-        );
-        
-        public static $currencyGroup = array(
-            0=>'Рубли (руб.)',
-            1=>'Доллары ($)',
-            2=>'Евро (€)',
-        );
+    CONST INTER_TRANSPORT = 0;
+    CONST RUS_TRANSPORT = 1;
+    CONST INTER_PRICE_STEP = 50;
+    CONST RUS_PRICE_STEP = 500;
+    
+    public static $group = array(
+        0=>'Международная',
+        1=>'Региональная',
+    );
+    
+    public static $currencyGroup = array(
+        0=>'Рубли (руб.)',
+        1=>'Доллары ($)',
+        2=>'Евро (€)',
+    );
     /**
 	 * @return string the associated database table name
 	 */
@@ -58,13 +58,15 @@ class Transport extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-            array('location_from, location_to, description, date_from, date_to, start_rate', 'required'),
-			array('id_1c, rate_id, start_rate, status, type, user_id', 'numerical', 'integerOnly'=>true),
+            array('location_from, location_to, description, date_from, date_to, start_rate', 'required', 
+                'message'=>'Please enter a value for {attribute}.'),
+			/*array('id_1c, rate_id, start_rate, status, type, user_id', 'numerical'), //, 'integerOnly'=>true),
 			array('location_from, location_to, auto_info, description, date_from, date_to, date_published', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, id_1c, rate_id, start_rate, status, type, user_id, location_from, location_to, auto_info, description, date_from, date_to, date_published', 'safe', 'on'=>'search'),
-		);
+		*/
+        );
 	}
 
 	/**
@@ -138,6 +140,7 @@ class Transport extends CActiveRecord
 		$criteria->compare('date_from',$this->date_from,true);
 		$criteria->compare('date_to',$this->date_to,true);
 		$criteria->compare('date_published',$this->date_published,true);
+		$criteria->compare('currency', $this->currency);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

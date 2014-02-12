@@ -280,6 +280,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 .left .list-view .pager{
     margin: 0;
     background: rgb(238, 238, 238);
+    border-top: 1px solid #4183C4;;
 }
 .left .list-view .pager ul.yiiPager{
     
@@ -295,8 +296,10 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     float: left;
     text-align: center;
     border-bottom: 2px solid rgb(238, 238, 238);
-    width: 50%;
+    width: 10%;
+    border-top: 1px solid #DEDEDE;
 }
+
 .left .list-view .pager ul.yiiPager li.page.selected{
     border-bottom: 2px solid rgb(65, 131, 196);
 }

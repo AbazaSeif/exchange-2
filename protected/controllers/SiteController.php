@@ -8,7 +8,7 @@ class SiteController extends Controller
 
     public function actionDescription($id)
     {
-	$transportInfo=Yii::app()->db->createCommand("SELECT * from transport where id='".$id."'")->queryRow();
+	    $transportInfo=Yii::app()->db->createCommand("SELECT * from transport where id='".$id."'")->queryRow();
         $allRatesForTransport = Yii::app()->db->createCommand()
             ->select('r.date, r.price, u.name')
             ->from('rate r')
@@ -18,6 +18,33 @@ class SiteController extends Controller
             ->queryAll()
          ;
          $this->render('item', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
+    }
+    
+    public function actionRegistration()
+    {
+        $model = new RegistrationForm;
+        if(isset($_POST['RegistrationForm'])) {
+            /*
+            // Save in database
+            $userInfo = array();
+            $newFerryman = new User;
+            $newFerryman->attributes = $_POST['RegistrationForm'];
+            $newFerryman['group_id'] = Yii::app()->params['ferrymanGroup'];
+            $newFerryman['status'] = User::USER_NOT_CONFIRMED;
+            //var_dump($newFerryman['phone']);exit;
+            //$userInfo['login'] = $newFerryman['login'] = ;
+            //$userInfo['password'] = $newFerryman['password'] = ;
+            $newFerryman->save();
+            //$this->sendMail($_POST['RegistrationForm']['email'], 0, ); // ferryman
+            
+            */
+            $this->sendMail('tttanyattt@mail.ru', 1, $_POST['RegistrationForm']); // admin
+
+            Yii::app()->user->setFlash('message', 'Ваша заявка отправлена. Спасибо за интерес, проявленный к нашей компании.');
+            $this->redirect('/user/login/');
+        } else {
+            $this->render('registration', array('model' => $model));
+        }
     }
      
     public function actionQuick() 

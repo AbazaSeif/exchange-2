@@ -16,23 +16,25 @@
 <div class="header-form">
     <?php echo $header_form; ?>
 </div>
-<?php $form = $this->beginWidget('CActiveForm', 
-    array(
+<?php $form = $this->beginWidget('CActiveForm', array(
         'id'=>'form'.$model->id,
         'action'=>$action,
-        'enableClientValidation'=>true,
+        'enableClientValidation' => true,
+        
         'clientOptions'=>array(
-                'validateOnSubmit'=>true,
-                'afterValidate'=>'js:function( form, data, hasError ) 
-                {     
-                    if( hasError ){
-                        return false;
-                    }
-                    else{
-                        return true;
-                    }
-                }'
-    ),));
+            'validateOnSubmit'=>true,
+            'validateOnChange' => false,
+            'afterValidate'=>'js:function( form, data, hasError ) 
+            {     
+                if( hasError ){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }'
+        ),
+    ));
 ?>
 <div class="buttons">
 <?php  echo $delete_button; 
@@ -42,7 +44,6 @@
 </div>
 <div class="field">
 <?php  echo $form->error($model, 'location_from'); 
-    //echo CHtml::label('Пункт загрузки', 'location_from');
     echo $form->labelEx($model, 'location_from');
     echo $form->textField($model, 'location_from');
 ?>    
@@ -71,12 +72,12 @@
 <div class="field">
 <?php  echo $form->error($model, 'date_from'); 
 	echo $form->labelEx($model, 'date_from');
-    echo CHtml::textField('date_from', date("Y-m-d H:i", strtotime($model->date_from))) ?>    
+    echo CHtml::textField('date_from', date("d-m-Y", strtotime($model->date_from))) ?>    
 </div>
 <div class="field">
 <?php echo $form->error($model, 'date_to'); 
 	echo $form->labelEx($model, 'date_to');
-    echo CHtml::textField('date_to', date("Y-m-d H:i", strtotime($model->date_to))) ?>    
+    echo CHtml::textField('date_to', date("d-m-Y", strtotime($model->date_to))) ?>    
 </div>
 <div class="field">
 <?php echo $form->error($model, 'type');

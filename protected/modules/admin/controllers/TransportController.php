@@ -48,9 +48,9 @@ class TransportController extends Controller
     public function actionCreateTransport()
     {
         if(Yii::app()->user->checkAccess('createTransport')){
-            $model = new Transport();
-            $model->date_from = date('Y-m-d H:i');
-            $model->date_to = date('Y-m-d H:i');
+            $model = new Transport;
+            $model->date_from = date('d-m-Y');
+            $model->date_to = date('d-m-Y');
             if(isset($_POST['Transport'])){
                 $model->attributes = $_POST['Transport'];
                 $model['new_transport'] = 1;
@@ -66,7 +66,10 @@ class TransportController extends Controller
                     $this->redirect('/admin/transport/');
                 }
             }
-            $this->renderPartial('edittransport', array('model'=>$model));//, 'group'=>$group), false, true);
+            $this->renderPartial('edittransport', array('model'=>$model));
+            
+             //$model = new RegistrationForm;
+             //$this->render('site.registration', array('model' => $model));
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
