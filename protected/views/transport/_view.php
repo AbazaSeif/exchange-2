@@ -29,7 +29,7 @@
     }
 ?>
 <div class="transport">
-    <div class="width-25 description">
+    <div class="width-23 description">
         <span><?php echo $data->description ?></span>
     </div>
     <div class="width-20">
@@ -41,7 +41,7 @@
     <div class="width-5">
         <img src="/images/arrow.jpg" width="20px">
     </div>
-    <div class="width-20">
+    <div class="width-22">
         <a class="t-header" href="<?php echo $action; ?>" >
             <?php echo $data->location_to ?>
         </a>

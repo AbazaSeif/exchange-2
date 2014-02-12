@@ -1,7 +1,7 @@
 <?php
     $lastRate = $this->getPrice($data->rate_id);
     $now = date('Y m d H:i:s', strtotime('now'));
-    $end = date('Y m d H:i:s', strtotime($data->date_to  . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
+    $end = date('Y m d H:i:s', strtotime($data->date_from  . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
     $action = '/transport/description/id/'. $data->id . '/';
     $status = $data->status;
     $rate = '****';
@@ -29,7 +29,7 @@
     }
 ?>
 <div class="transport">
-    <div class="width-25">
+    <div class="width-23 description">
         <span><?php echo $data->description ?></span>
     </div>
     <div class="width-20">
@@ -41,13 +41,13 @@
     <div class="width-5">
         <img src="/images/arrow.jpg" width="20px">
     </div>
-    <div class="width-15">
+    <div class="width-22">
         <a class="t-header" href="<?php echo $action; ?>" >
             <?php echo $data->location_to ?>
         </a>
         <span class="t-d-form-to">Дата разгрузки: <?php echo date('d.m.y', strtotime($data->date_to)); ?></span>
     </div>
-    <div class="width-20">
+    <div class="width-15">
         <div class="t-rate">
             <span><?php echo $rate.$currency;?></span>
         </div>
@@ -56,3 +56,4 @@
         <div class="t-timer" id="counter-<?php echo $data->id; ?>" now="<?php echo $now ?>" end="<?php echo $end ?>" status="<?php echo $status ?>"></div>
     </div>
 </div>
+
