@@ -3,6 +3,9 @@ html, body, .wrapper
 {
     height: 100%;
 }
+a, img {
+    border:none;
+}
 .w-left, .w-right{
     min-height: 100%;
 }
@@ -274,7 +277,6 @@ div.ui-widget-header {
     height:16px;
     border: none;
     color:#fff;
-    background-color:#c1c1c1;
     -moz-appearance:none;
     -webkit-appearance:none;
     -o-appearance:none;

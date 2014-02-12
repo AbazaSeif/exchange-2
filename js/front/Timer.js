@@ -5,9 +5,8 @@ Timer.prototype = {
     var dateNowServer = new Date(serverDate); // время на сервере
 	this.timeDiff = (dateNowServer - dateNow)/1000; // сек, временная разница между сервером и клиентом 
 	this.status = status;
-        this.endDate = new Date(initDate); // дата и время от которых идет обратный отсчет
-	this.str = '#' + id;
-	
+    this.endDate = new Date(initDate); // дата и время от которых идет обратный отсчет
+    this.str = '#' + id;
 	if ($(this.str).length > 0) {
 		this.container = document.getElementById(id);
 		this.numOfDays = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ]; // установили количество дней для месяцев
