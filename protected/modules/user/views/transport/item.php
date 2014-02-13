@@ -1,5 +1,5 @@
 <?php $lastRate = null;
-$currency = ' €';
+$currency = '€';
 $defaultRate = false;
 $priceStep = Transport::INTER_PRICE_STEP;
 $now = date('Y m d H:i:s', strtotime('now'));
@@ -11,9 +11,9 @@ if(!$transportInfo['currency']){
 }
 
 if(!$transportInfo['currency']){
-   $currency = ' руб.';
+   $currency = 'руб.';
 } else if($transportInfo['currency'] == 1){
-   $currency = ' $';
+   $currency = '$';
 }
 
 if (!empty($transportInfo['rate_id'])) {
@@ -38,7 +38,9 @@ $minRate = (($lastRate - $priceStep)<=0)? 1 : 0;
 $inputSize = strlen((string)$lastRate)-1;
 ?>
 
-
+<style>
+    .content{width:60%; height:300px; overflow:auto;}
+</style>
 <div class="transport-one">
     <div class="width-60">
         <h1><?php echo $transportInfo['location_from'] . ' &mdash; ' . $transportInfo['location_to']; ?></h1>
@@ -85,17 +87,20 @@ $inputSize = strlen((string)$lastRate)-1;
         </div>  
     <?php endif; ?>
 </div>
-<?php if (!Yii::app()->user->isGuest): ?>
-        <div id="rates"></div>
+<?php if(!Yii::app()->user->isGuest && !Yii::app()->user->isRoot): ?>
+        <div>
+        <?php echo CHtml::link('Связаться с модератором', '#', array(
+                'id' => 'dialog-connect',
+                'title'=>'Связаться с модератором',
+            ));
+        ?>
+        </div>
 <?php endif; ?>
-<div>
-    <?php if (!Yii::app()->user->isGuest && !Yii::app()->user->isRoot):
-        echo CHtml::link('Связаться с модератором', '#', array(
-            'id' => 'dialog-connect',
-            'title'=>'Связаться с модератором',
-        ));
-    endif;?>
-</div>
+<?php if (!Yii::app()->user->isGuest): ?>
+        <!--div id="content_1" class="content"-->
+            <div id="rates"></div>
+	<!--/div-->
+<?php endif; ?>
 <script>
 $(document).ready(function(){
     rateList.data = {
@@ -128,6 +133,12 @@ $(document).ready(function(){
     $( "#abordRateBtn" ).live('click', function() {
         $(".ui-dialog-content").dialog( "close" );
     });
+    
+    /*$(".content").mCustomScrollbar({
+        scrollButtons:{
+            enable:true
+        }
+    });*/
 });
 </script>
 <?php if (!Yii::app()->user->isGuest && !Yii::app()->user->isRoot):?>

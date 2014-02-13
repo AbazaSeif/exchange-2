@@ -67,12 +67,13 @@ var rateList = {
         });
         
         $('#setRateBtn').live('click', function() {
-            $("#addRate").dialog("close");
+            $('#addRate').dialog('close');
             $('.r-submit').addClass('disabled');
+            $('#rate-up').addClass('disabled');    
             console.log(rateList.data.defaultRate);
             if(rateList.data.defaultRate) $('#rates').html('');
             $('#t-error').html('');
-            var price = parseInt($( "#rate-price" ).val());
+            var price = parseInt($('#rate-price').val());
             var price = price*100/(100 + rateList.data.nds*100);
             var obj = {
                 price: price,
@@ -98,6 +99,12 @@ var rateList = {
         });
 
         rateList.update(this.container);
+        /*$("#rates").mCustomScrollbar({
+            scrollButtons:{
+                enable:true
+            }
+        });*/
+                        
     },
     update : function(posts, price) {
         if (this.container.length > 0) {
@@ -160,6 +167,7 @@ var rateList = {
                                 rateList.data.status = true;
                             }
                         }
+                        
                     } else {
                         rateList.container.html('<span>Нет предложений</span>');
                     }

@@ -15,11 +15,11 @@ function ЕditTransport() {
             isRTL: false,
         };
         $.datepicker.setDefaults($.datepicker.regional['ru']); 
-        $( "#date_from" ).datepicker({
+        $( "#Transport_date_from" ).datepicker({
             dateFormat: 'dd-mm-yy',
         });
 
-        $( "#date_to" ).datepicker({
+        $( "#Transport_date_to" ).datepicker({
             dateFormat: 'dd-mm-yy',
         });
     };

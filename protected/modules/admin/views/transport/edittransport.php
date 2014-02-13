@@ -55,8 +55,8 @@
 </div>
 <div class="field">
 <?php echo $form->error($model, 'start_rate'); 
-      echo $form->labelEx($model, 'start_rate');
-      echo $form->textField($model, 'start_rate');
+    echo $form->labelEx($model, 'start_rate');
+    echo $form->textField($model, 'start_rate');
 ?>    
 </div>
 <div class="field">
@@ -66,18 +66,20 @@
 </div>
 <div class="field">
 <?php  echo $form->error($model, 'auto_info'); 
-	echo $form->labelEx($model, 'auto_info');
+    echo $form->labelEx($model, 'auto_info');
     echo $form->textArea($model, 'auto_info');?>    
 </div>
 <div class="field">
 <?php  echo $form->error($model, 'date_from'); 
-	echo $form->labelEx($model, 'date_from');
-    echo CHtml::textField('date_from', date("d-m-Y", strtotime($model->date_from))) ?>    
+    echo $form->labelEx($model, 'date_from');
+    $model->date_from = date("d-m-Y", strtotime($model->date_from));
+    echo $form->textField($model, 'date_from'); ?>    
 </div>
 <div class="field">
 <?php echo $form->error($model, 'date_to'); 
-	echo $form->labelEx($model, 'date_to');
-    echo CHtml::textField('date_to', date("d-m-Y", strtotime($model->date_to))) ?>    
+    echo $form->labelEx($model, 'date_to');
+    $model->date_to = date("d-m-Y", strtotime($model->date_to));
+    echo $form->textField($model, 'date_to'); ?>    
 </div>
 <div class="field">
 <?php echo $form->error($model, 'type');
