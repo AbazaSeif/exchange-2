@@ -26,7 +26,11 @@
         <script>
              var name = 'not logged in';
              <?php if(!Yii::app()->user->isGuest): ?>
-             name = <?php echo Yii::app()->user->_id ?>;
+             <?php 
+                 $user = User::model()->findByPk(Yii::app()->user->_id);
+             ?>
+             name = "<?php echo $user->name . ' ' . $user->surname ?>";
+             id = <?php echo Yii::app()->user->_id ?>;
              <?php endif; ?>
              var socket = io.connect('http://localhost:3000');
              
@@ -41,14 +45,18 @@
                    // очищаем input
                    $("input#msg").val('');
                 });
-                // отправить имя пользователя серверу
-                socket.emit('register', name );
+                // отправить серверу
+                socket.emit('register', name, id );
              });
              
              // listen for chat event and recieve data
              socket.on('chat', function (data) {
                 $("p#data_recieved").append("<br />\r\n" + data.msgr + ': ' + data.msg);
                 $("p#log").html('new message: ' + data.msg);
+             });
+             
+             socket.on('init', function (data) {
+                $("p#init").append("<br />\r\n" + data.name + ' - ' + data.price);              
              });
         </script>
     </head>
@@ -68,6 +76,7 @@
                     <input type="text" id="msg"></input><button>Click me</button>
                       <p id="log"></p>
                       <p id="data_recieved"></p>
+                      <p id="init"></p>
                     <p>2014 &copy; ООО "ЛБР-Агромаркет"</p>
                 </div>
             </div>
