@@ -61,15 +61,31 @@ if(!Yii::app()->user->isGuest){
 <?php $this->endWidget();    
 }
 ?>
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
 <script>
 $(document).ready(function(){
     <?php if(!Yii::app()->user->isGuest): ?>
+    var socket = io.connect('http://localhost:3000/');
+    
     var countSubmenuElem = null;
     if ($("#submenu")){
         countSubmenuElem = parseInt($('#submenu').children().length);
     }
     menu.countSubmenuElem = countSubmenuElem;
     menu.init();
+    var userId = <?php echo $user->id ?>;
+    
+    /*setInterval(function(){
+        socket.emit('events', userId);
+    }, 1000);
+     */
+    socket.emit('events', userId);   
+    socket.on('updateEvents', function (data) {
+        if(parseInt(data.count) != 0){
+            $('#event-counter').html(data.count);    
+        } else $('#event-counter').html('');    
+              
+    });
     <?php endif;?>
 });
 </script>

@@ -1,7 +1,7 @@
 var menu = {
     init : function(){
-        this.updateCounter();
-        setInterval(function(){menu.updateCounter()}, 5000);
+        //this.updateCounter();
+        //setInterval(function(){menu.updateCounter()}, 5000);
         
         //null - если не активен пункт меню
         var activeElement = parseInt(sessionStorage.getItem('menu'));
@@ -41,11 +41,11 @@ var menu = {
             }
         });
     },
-    updateCounter : function(){
+    /*updateCounter : function(){
         $.ajax({
             url: '/user/updateEventCounter',
             success: function(data){
-            $('#event-counter').html(data);
+            //$('#event-counter').html(data);
         }});
-    }
+    }*/
 };
