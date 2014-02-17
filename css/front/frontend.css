@@ -733,11 +733,11 @@ input.r-submit{
    /* margin-top: 20px;*/
     /*margin-bottom: 10px;*/
     padding: 3px;
-    overflow-x: hidden;
+    /*overflow-x: hidden;*/
     overflow-y: auto;
     /*min-height: 30px;*/
-    max-height: 290px;
-    height: 290px;
+    /*max-height: 350px;*/
+    /*height: 350px;*/
 }
 
 #rates, .r-submit{

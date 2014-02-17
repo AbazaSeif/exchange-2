@@ -65,7 +65,9 @@ if(!Yii::app()->user->isGuest){
 <script>
 $(document).ready(function(){
     <?php if(!Yii::app()->user->isGuest): ?>
+    var userId = <?php echo $user->id ?>;
     var socket = io.connect('http://localhost:3000/');
+    socket.emit('init', userId);
     
     var countSubmenuElem = null;
     if ($("#submenu")){
@@ -73,7 +75,7 @@ $(document).ready(function(){
     }
     menu.countSubmenuElem = countSubmenuElem;
     menu.init();
-    var userId = <?php echo $user->id ?>;
+    
     
     /*setInterval(function(){
         socket.emit('events', userId);

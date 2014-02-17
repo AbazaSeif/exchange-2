@@ -2,6 +2,28 @@ var rateList = {
     init : function(){
         this.container = $("#rates");
         var element = $( "#rate-price" );
+        
+        rateList.data.socket.on('init', function (data) {
+            //var element = rateList.createElement(data.date, data.name, data.price, data.surname);
+            // $('#rates').prepend(element);
+        });
+        
+        rateList.data.socket.on('setRate', function (data) {
+            var element = rateList.createElement(data.date, data.name, data.price, data.surname);
+            $('#rates').prepend(element);
+        });
+        
+        rateList.data.socket.on('errorRate', function (data) {
+            var error = $('#t-error');
+            error.css('display', 'block');
+            error.html('Ставка с ценой "' + data.price + '" уже была сделана');
+        });
+        
+        rateList.data.socket.on('onlineEvent', function (data) {
+            //console.log('onlineEvent');
+            $('#test').html('Вашу ставку для перевозки "' + data.name + '" перебили');
+        });
+        
         $( "#rate-up" ).on('click', function() {
             if(!$(this).hasClass('disabled')){
                 $( "#rate-down" ).removeClass('disabled');
@@ -69,19 +91,34 @@ var rateList = {
         $('#setRateBtn').live('click', function() {
             $('#addRate').dialog('close');
             $('.r-submit').addClass('disabled');
-            $('#rate-up').addClass('disabled');    
-            console.log(rateList.data.defaultRate);
+            $('#rate-up').addClass('disabled');  
+            
             if(rateList.data.defaultRate) $('#rates').html('');
             $('#t-error').html('');
+            
             var price = parseInt($('#rate-price').val());
             var price = price*100/(100 + rateList.data.nds*100);
+            var time = getTime();
             var obj = {
                 price: price,
+                date: time,
                 name: rateList.data.name,
                 surname: rateList.data.surname,
+                userId: rateList.data.userId,
+                transportId: rateList.data.transportId
             };
-            rateList.add(obj);
-            rateList.update(this.container, price);
+            //rateList.add(obj);
+            //console.log(getTime());
+            //rateList.update(this.container, price, rateList.data.name);
+            
+            rateList.data.socket.emit('setRate',{
+                transportId: rateList.data.transportId,
+                date: time,
+                userId: rateList.data.userId,
+                name : rateList.data.name, 
+                surname: rateList.data.surname,
+                price : price,
+            });   
         });
         
         $('#rate-price').blur(function(){
@@ -98,15 +135,11 @@ var rateList = {
             }
         });
 
-        rateList.update(this.container);
-        /*$("#rates").mCustomScrollbar({
-            scrollButtons:{
-                enable:true
-            }
-        });*/
-                        
+        rateList.load(this.container);        
     },
-    update : function(posts, price) {
+    // ----
+    //update : function(posts, price) {
+    update : function(posts, price, userName) {
         if (this.container.length > 0) {
             price = typeof price !== 'undefined' ? price : '';
             $.ajax({
@@ -116,6 +149,29 @@ var rateList = {
                 data:{
                     id: this.data.transportId,
                     newRate: price,
+                    step: this.data.step,
+                },
+                success: function(rates) {
+                    if(rates.all.length) {
+                        rateList.data.socket.emit('setRate',{
+                             userName : userName, 
+                             price : price
+                        });   
+                    } else {
+                        rateList.container.html('<span>Нет предложений</span>');
+                    }
+            }});
+        }
+    },
+    load : function(posts) {
+        if (this.container.length > 0) {
+            $.ajax({
+                type: 'POST',
+                url: '/transport/updateRates',
+                dataType: 'json',
+                data:{
+                    id: this.data.transportId,
+                    newRate: '',
                     step: this.data.step,
                 },
                 success: function(rates) {
@@ -166,8 +222,7 @@ var rateList = {
                                 $('#t-container').html('<span class="t-closed">Перевозка закрыта</span>');
                                 rateList.data.status = true;
                             }
-                        }
-                        
+                        } 
                     } else {
                         rateList.container.html('<span>Нет предложений</span>');
                     }
@@ -181,18 +236,29 @@ var rateList = {
         price = Math.ceil(price + price * this.data.nds);
         if (typeof rate.id !=="undefined") id = rate.id;
         
-        if (typeof rate.id !=="undefined"){
+        if (typeof rate.id !=="undefined") {
             time = "<div class='r-o-time'>" + rate.time + "</div>";
         }
-        var newElement = "<div id='" + id + "' class='rate-one'>" + 
-            "<div class='r-o-container'>" + 
-                time +
-                "<div class='r-o-user'>" + rate.name + ' ' + rate.surname + "</div>" +
+        var element = this.createElement(rate.date, rate.name, price, rate.surname, id);
+        this.container.prepend(element);
+    },
+    createElement : function(date, name, price, surname, id) {
+        var newElement = '';
+        if(typeof id !== 'undefined'){
+            newElement = "<div id='" + id + "' class='rate-one'>";
+        } else {
+            newElement = "<div class='rate-one'>";
+        }
+        newElement += "<div class='r-o-container'>" + 
+                "<span>" + date + "</span>" + 
+                "<div class='r-o-user'>" + name + ' ' + surname + "</div>" +
             "</div>" +
-            "<div class='r-o-price'>" + price + rateList.data.currency + "</div>" +
-            "</div>"
+            "<div class='r-o-price'>" + price + rateList.data.currency + "</div>"
+            
         ;
-        this.container.prepend(newElement);
+        newElement += "</div>";
+        
+        return newElement;
     },
     getContainerHeight : function(){
         var h=0;

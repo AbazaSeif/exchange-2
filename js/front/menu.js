@@ -8,7 +8,7 @@ var menu = {
         var activeSubElement = parseInt(sessionStorage.getItem('submenu'));
         
         if(activeElement != 'null') {
-             if (this.countSubmenuElem != 'null'){
+             if (this.countSubmenuElem != 'null') {
                 if(activeElement >= this.countSubmenuElem) activeElement = activeElement + this.countSubmenuElem;
              }
              $('.user-menu li').eq(activeElement).find('a:first').addClass('menu-active');

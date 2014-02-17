@@ -38,11 +38,9 @@ $minRate = (($lastRate - $priceStep)<=0)? 1 : 0;
 $inputSize = strlen((string)$lastRate)-1;
 ?>
 
-<style>
-    .content{width:60%; height:300px; overflow:auto;}
-</style>
 <div class="transport-one">
     <div class="width-60">
+        <div id="test"></div>
         <h1><?php echo $transportInfo['location_from'] . ' &mdash; ' . $transportInfo['location_to']; ?></h1>
         <span class="t-o-published">Опубликована <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_published'])) ?></span>
         <div class="t-o-info">
@@ -97,11 +95,14 @@ $inputSize = strlen((string)$lastRate)-1;
         </div>
 <?php endif; ?>
 <?php if (!Yii::app()->user->isGuest): ?>
-        <!--div id="content_1" class="content"-->
-            <div id="rates"></div>
-	<!--/div-->
+        <div id="rates">
+        </div>
 <?php endif; ?>
 <script>
+function getTime(){
+    return "<?php echo date("Y-m-d H:i:s") ?>";
+}
+
 $(document).ready(function(){
     rateList.data = {
         currency : ' <?php echo $currency ?>',
@@ -113,14 +114,50 @@ $(document).ready(function(){
         defaultRate: <?php echo ($defaultRate)? 1 : 0 ?>,
     };
     <?php if (!Yii::app()->user->isGuest): ?>
-        rateList.data.name = '<?php echo $userInfo[name] ?>',
+        var socket = io.connect('http://localhost:3000/');
+        socket.emit('loadRates', <?php echo $transportInfo['id'] ?>);
+
+        
+        /*var newElement = "<div id='" + id + "' class='rate-one'>" + 
+            "<div class='r-o-container'>" + 
+                time +
+                "<div class='r-o-user'>" + rate.name + ' ' + rate.surname + "</div>" +
+            "</div>" +
+            "<div class='r-o-price'>" + price + rateList.data.currency + "</div>" +
+            "</div>"
+        ;
+        $('#test').prepend(newElement);*/
+
+        /*var k = 0;
+        socket.on('init', function (data) {
+            var newElement = "<div class='rate-one'>" + 
+                "<div class='r-o-container'>" + 
+                    //time +
+                    "<div class='r-o-user'>" + data.name + "</div>" +
+                "</div>" +
+                "<div class='r-o-price'>" + data.price + " <?php echo $currency ?>" + "</div>" +
+                "</div>"
+            ;
+            //$('#rates').append(newElement);
+        });*/
+        socket.on('endinit', function () {
+            $("#rates").mCustomScrollbar({
+                scrollButtons:{
+                    enable:true
+                }
+            });
+        });
+
+        /***************************************************/
+        
+        rateList.data.socket = socket;
+        rateList.data.userId   = '<?php echo $userInfo[id] ?>',
+        rateList.data.name   = '<?php echo $userInfo[name] ?>',
         rateList.data.surname = '<?php echo $userInfo[surname] ?>',
-    <?php endif; ?> 
-    rateList.init();
-    setInterval(function(){rateList.update($('#rates'))}, 15000);
+        
+        rateList.init();
+    //setInterval(function(){rateList.update($('#rates'))}, 15000);
     
-    var timer = new Timer();
-    timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', rateList.data.status);
     
     $('#dialog-connect').live('click', function() {
         $("#modalDialog").dialog("open");
@@ -139,6 +176,10 @@ $(document).ready(function(){
             enable:true
         }
     });*/
+    
+    <?php endif; ?> 
+    var timer = new Timer();
+    timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', rateList.data.status);
 });
 </script>
 <?php if (!Yii::app()->user->isGuest && !Yii::app()->user->isRoot):?>
