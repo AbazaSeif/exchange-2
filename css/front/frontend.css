@@ -889,7 +889,7 @@ header:after, .wrapper:after, footer:after, #login-form:after,
 }
 #online-event .classic {
     /*background-color: #4c4c4c;*/
-    background: url("/images/bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("/images/bg2.png") repeat scroll 0 0;
     border-radius: 15px;
     color: white;
     font-size: bold;
@@ -908,10 +908,12 @@ header:after, .wrapper:after, footer:after, #login-form:after,
     background: url("bg1.png") repeat-x scroll 0 0 #FEF6BF;
     border-radius: 5px;
 }
+
 .last {
     background-color: #CBECFA;
     border: 1px solid #15A6E3;
 }
+
 .click-ex {
     background: url("pointer.gif") no-repeat scroll left center #7A7A7A;
     border: 1px solid #626262;

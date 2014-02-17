@@ -114,7 +114,6 @@ $(document).ready(function(){
     };
     <?php if (!Yii::app()->user->isGuest): ?>
         var socket = io.connect('http://localhost:3000/');
-        //socket.emit('init', <?php echo Yii::app()->user->_id ?>);
         socket.emit('loadRates', <?php echo $transportInfo['id'] ?>);
 
         
