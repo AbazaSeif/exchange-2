@@ -11,6 +11,7 @@ io.sockets.on('connection', function (socket) {
     var i = -1;
 
     socket.on('init', function (id) {
+        console.log( id + '=======' + socket.id);
         allSockets[id] = socket.id;
     });
     /* ----- Update count of messages in frontend ----- */
@@ -69,12 +70,12 @@ io.sockets.on('connection', function (socket) {
         db.each("SELECT user_id FROM rate WHERE transport_id = " + data.transportId + " and price = " + data.price, function(err, row) {
         }, function(err, rows) {
             if(rows == 0) {
-                db.each("SELECT rate_id, location_from, location_to FROM transport WHERE id = " + data.transportId, function(err, row) {
-                    
+                db.each("SELECT rate_id, location_from, location_to FROM transport WHERE id = " + data.transportId, function(err, row) { 
                     if(row.rate_id != 'null') {
                         db.each("SELECT user_id FROM rate WHERE id = " + row.rate_id, function(err, user) {
-                             console.log( ' = '   + allSockets[user.user_id] );
-                             console.log( '** = ' + socket.id );
+                             //console.log( ' = '   + user.user_id );
+                             //console.log( ' = '   + allSockets[user.user_id] );
+                             //console.log( '** = ' + socket.id );
                              io.sockets.socket(allSockets[user.user_id]).emit('onlineEvent', {
                                 name : row.location_from + ' &mdash; ' + row.location_to
                              });
@@ -85,6 +86,12 @@ io.sockets.on('connection', function (socket) {
                 var stmt = db.prepare("INSERT INTO rate(transport_id, date, price, user_id) VALUES (?, ?, ?, ?)");
                 stmt.run(data.transportId, data.date, data.price, data.userId);
                 stmt.finalize();
+                
+                db.each("SELECT id FROM rate WHERE transport_id = " + data.transportId + " and price = " + data.price + " and user_id = " + data.userId, function(err, row) {
+                    var stmt = "UPDATE transport SET rate_id = " + row.id + " WHERE id = " + data.transportId;
+                    db.run(stmt);
+                });
+                
 
                 io.sockets.socket(socket.id).emit('setRate', {
                     name : data.name,

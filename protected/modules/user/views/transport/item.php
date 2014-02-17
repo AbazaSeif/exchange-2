@@ -116,7 +116,6 @@ $(document).ready(function(){
         var socket = io.connect('http://localhost:3000/');
         socket.emit('loadRates', <?php echo $transportInfo['id'] ?>);
 
-        
         /*var newElement = "<div id='" + id + "' class='rate-one'>" + 
             "<div class='r-o-container'>" + 
                 time +
