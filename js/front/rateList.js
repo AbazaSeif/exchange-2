@@ -3,10 +3,10 @@ var rateList = {
         this.container = $("#rates");
         var element = $( "#rate-price" );
         
-        rateList.data.socket.on('init', function (data) {
+        //rateList.data.socket.on('init', function (data) {
             //var element = rateList.createElement(data.date, data.name, data.price, data.surname);
             // $('#rates').prepend(element);
-        });
+        //});
         
         rateList.data.socket.on('setRate', function (data) {
             var element = rateList.createElement(data.date, data.name, data.price, data.surname);
@@ -20,8 +20,7 @@ var rateList = {
         });
         
         rateList.data.socket.on('onlineEvent', function (data) {
-            //console.log('onlineEvent');
-            $('#test').html('Вашу ставку для перевозки "' + data.name + '" перебили');
+            $.onlineEvent({ msg:'Вашу ставку для перевозки "' + data.name + '" перебили',className: 'classic', sticked:true, position:{right:0,bottom:0}, time:1000});
         });
         
         $( "#rate-up" ).on('click', function() {

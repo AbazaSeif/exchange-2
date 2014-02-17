@@ -865,6 +865,68 @@ header:after, .wrapper:after, footer:after, #login-form:after,
     border-top: 1px dashed rgb(200,200,200);
 }
 
+/*-------- Всплывающие оповещения -----------*/
 
+#online-event{
+    cursor: pointer;
+    cursor: hand;
+}
 
+#online-event .event {
+    margin: 5px;
+    padding: 15px;
+    /*width: 200px;*/
+}
+#online-event .event-exit {
+    background: url(/images/ui-icons_222222_256x240.png);
+    background-position: -32px -192px;
+    /*background: url("exit.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);*/
+    cursor: pointer;
+    float: right;
+    height: 16px;
+    margin: -5px -5px 0 0;
+    width: 16px;
+}
+#online-event .classic {
+    /*background-color: #4c4c4c;*/
+    background: url("/images/bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-radius: 15px;
+    color: white;
+    font-size: bold;
+}
+#online-event .classic.error {
+    background-color: #F7C8D2;
+    border: 1px solid #E2365C;
+}
+#online-event .opacity {
+    background: url("/images/bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    color: #EF801B; /*#F4F4F4;*/
+}
+
+/*
+.next {
+    background: url("bg1.png") repeat-x scroll 0 0 #FEF6BF;
+    border-radius: 5px;
+}
+.last {
+    background-color: #CBECFA;
+    border: 1px solid #15A6E3;
+}
+.click-ex {
+    background: url("pointer.gif") no-repeat scroll left center #7A7A7A;
+    border: 1px solid #626262;
+    border-radius: 5px;
+    color: #F4F4F4;
+    cursor: pointer;
+    float: left;
+    height: 20px;
+    margin-right: 10px;
+    padding-left: 25px;
+    padding-top: 10px;
+    width: 50px;
+}
+.ex pre {
+    width: 80%;
+}
+*/
 

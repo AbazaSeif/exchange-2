@@ -40,7 +40,6 @@ $inputSize = strlen((string)$lastRate)-1;
 
 <div class="transport-one">
     <div class="width-60">
-        <div id="test"></div>
         <h1><?php echo $transportInfo['location_from'] . ' &mdash; ' . $transportInfo['location_to']; ?></h1>
         <span class="t-o-published">Опубликована <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_published'])) ?></span>
         <div class="t-o-info">
@@ -115,6 +114,7 @@ $(document).ready(function(){
     };
     <?php if (!Yii::app()->user->isGuest): ?>
         var socket = io.connect('http://localhost:3000/');
+        //socket.emit('init', <?php echo Yii::app()->user->_id ?>);
         socket.emit('loadRates', <?php echo $transportInfo['id'] ?>);
 
         
