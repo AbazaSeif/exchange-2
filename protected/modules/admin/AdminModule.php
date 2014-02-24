@@ -31,10 +31,14 @@ class AdminModule extends CWebModule
                 Yii::app()->user->returnUrl = Yii::app()->request->requestUri;
                 Yii::app()->request->redirect('/user/login/');
             }
-            elseif(Yii::app()->user->checkAccess('admin'))
-                    return true;
-            else {
-                throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
+//            elseif(Yii::app()->user->checkAccess('admin'))
+//                    return true;
+//            else {
+//                throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
+//            }
+            elseif(Yii::app()->user->checkAccess('readUser'))
+            {
+                return true;
             }
             // this method is called before any module controller action is performed
             // you may place customized code here
