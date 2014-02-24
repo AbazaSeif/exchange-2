@@ -36,7 +36,7 @@ class User extends CActiveRecord
 	 */
 	public function tableName()
 	{
-            return 'User';
+            return 'user';
 	}
 
 	/**
@@ -148,4 +148,43 @@ class User extends CActiveRecord
 	{
             return parent::model($className);
 	}
+        
+        protected function beforeSave() {
+            parent::beforeSave();
+            if (isset($_POST['User_password']) && $_POST['User_password']!=''){
+                $this->password = crypt($_POST['User_password'], User::model()->blowfishSalt());
+            }
+            return true;
+        }
+
+        //  Метод возвращет $cost значное число для хэширования пароля, где: 
+        //  $cost - количество возвразаемых знаков
+        protected function blowfishSalt($cost = 13)
+        {
+            if (!is_numeric($cost) || $cost < 4 || $cost > 31) {
+                throw new Exception("cost parameter must be between 4 and 31");
+            }
+            $rand = array();
+            for ($i = 0; $i < 8; $i += 1) {
+                $rand[] = pack('S', mt_rand(0, 0xffff));
+            }
+            $rand[] = substr(microtime(), 2, 6);
+            $rand = sha1(implode('', $rand), true);
+            $salt = '$2a$' . sprintf('%02d', $cost) . '$';
+            $salt .= strtr(substr(base64_encode($rand), 0, 22), array('+' => '.'));
+            return $salt;
+        }
+
+        //  Метод проверяет доступ к пользователю, где:
+        //  $params - массив с двумя значениями:
+        //  1. group - id группы изменяемого пользователя
+        //  2. userid - id изменяемого пользователя
+        static function usersAccess($params){
+            if ($params){
+                $group = UserGroup::model()->findByPk($params['group']);
+                if ($group->level > Yii::app()->user->_level || $params['userid']==Yii::app()->user->_id)
+                    return true;
+            }
+            return false;
+        }
 }
