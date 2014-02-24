@@ -13,7 +13,7 @@
  * @property string $city
  * @property string $district
  * @property string $name
- * @property string $second_name
+ * @property string $secondname
  * @property string $surname
  * @property string $login
  * @property string $password
@@ -50,10 +50,10 @@ class User extends CActiveRecord
                 array('inn, status, phone', 'numerical', 'integerOnly'=>true),
                 array('login', 'length', 'max'=>64),
                 array('email', 'email', 'message'=>'Неправильный Email адрес'),
-                array('company, country, region, city, district, name, second_name, surname, password, email', 'safe'),
+                array('company, country, region, city, district, name, secondname, surname, password, email', 'safe'),
                 // The following rule is used by search().
                 // @todo Please remove those attributes that should not be searched.
-                array('id, company, inn, status, country, region, city, district, name, second_name, surname, login, password, phone, email', 'safe', 'on'=>'search'),
+                array('id, company, inn, status, country, region, city, district, name, secondname, surname, login, password, phone, email', 'safe', 'on'=>'search'),
             );
 	}
 
@@ -90,7 +90,7 @@ class User extends CActiveRecord
                 'city' => 'Город',
                 'district' => 'Район',
                 'name' => 'Имя',
-                'second_name' => 'Отчество',
+                'secondname' => 'Отчество',
                 'surname' => 'Фамилия',
                 'login' => 'Логин',
                 'password' => 'Пароль',
@@ -126,7 +126,7 @@ class User extends CActiveRecord
             $criteria->compare('city',$this->city,true);
             $criteria->compare('district',$this->district,true);
             $criteria->compare('name',$this->name,true);
-            $criteria->compare('second_name',$this->second_name,true);
+            $criteria->compare('secondname',$this->secondname,true);
             $criteria->compare('surname',$this->surname,true);
             $criteria->compare('login',$this->login,true);
             $criteria->compare('password',$this->password,true);
