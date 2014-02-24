@@ -2,8 +2,14 @@
 
 class RegistrationForm extends CFormModel
 {
-    public $firmName;
+    public $company;
+    public $country;
+    public $region;
+    public $city;
+    public $district;
+    public $inn;
     public $name;
+    public $second_name;
     public $surname;
     public $phone;
     public $email;
@@ -12,7 +18,7 @@ class RegistrationForm extends CFormModel
     public function rules()
     {
         return array(
-            array('firmName, name, surname, phone, email', 'required'),
+            array('company, country, region, city, district, inn, name, second_name, surname, phone, email', 'required'),
             array('email', 'email'),
             array('phone', 'numerical')
         );
@@ -21,11 +27,17 @@ class RegistrationForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'firmName'=>'Название организации',
-            'name'=>'Имя контактного лица',
-            'surname'=>'Фамилия контактного лица',
+            'company' => 'Название комании',
+            'inn' => 'ИНН/УНП ',
+            'country' => 'Страна',
+            'region' => 'Область',
+            'city' => 'Город',
+            'district' => 'Район',
+            'name' => 'Имя',
+            'second_name' => 'Отчество',
+            'surname' => 'Фамилия',
             'phone'=>'Телефон',
-            'email'=>'Email',
+            'email'=>'Электронная почта',
             'description'=>'Примечание',
         );
     }
