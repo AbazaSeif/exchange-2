@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'transport':
  * @property integer $id
- * @property integer $id_1c
+ * @property integer $t_id
  * @property integer $rate_id
  * @property integer $start_rate
  * @property integer $status
@@ -47,7 +47,7 @@ class Transport extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'transport';
+            return 'transport';
 	}
 
 	/**
@@ -55,19 +55,25 @@ class Transport extends CActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-            array('location_from, location_to, description, date_from, date_to, start_rate', 'required', 
-                'message'=>'Please enter a value for {attribute}.'),
-			/*array('id_1c, rate_id, start_rate, status, type, user_id', 'numerical'), //, 'integerOnly'=>true),
-			array('location_from, location_to, auto_info, description, date_from, date_to, date_published', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, id_1c, rate_id, start_rate, status, type, user_id, location_from, location_to, auto_info, description, date_from, date_to, date_published', 'safe', 'on'=>'search'),
-		*/
-        );
+	    // NOTE: you should only define rules for those attributes that
+	    // will receive user inputs.
+	    return array(
+                array('location_from, location_to, description, date_from, date_to, start_rate', 'required', 'message'=>'Заполните поле "{attribute}"'),
+                //array('date_from, date_to', 'date', 'pattern'=>'(/\d{2}[-]/', 'message'=>'Неверный формат даты в поле "{attribute}"'),
+                //array('date_from', 'date', 'format'=>'dd-mm-yyyy', 'allowEmpty'=>false),
+                //array('date_from', 'checkDate'),
+                array('start_rate', 'numerical', 'integerOnly'=>true, 'min'=>0, 'message'=>'Поле "{attribute}" должно содержать число', 'tooSmall'=>'Значение поля "{attribute}" не может быть меньше нуля !'),
+            );
 	}
+        
+        public function checkDate($attribute, $params)
+        {
+            //if($this->{$attribute} !== '123456')
+            //$this->addError('date_from','Field shoud be 123456');
+            
+            //var_dump('111');
+            //$this->addError('date_from', 'Неверный формат даты');         
+        }
 
 	/**
 	 * @return array relational rules.
@@ -89,23 +95,23 @@ class Transport extends CActiveRecord
 	 */
 	public function attributeLabels()
 	{
-		return array(
-			'id' => 'ID',
-			'id_1c' => 'Id 1c',
-			'rate_id' => 'ID Ставки',
-			'start_rate' => 'Начальная ставка',
-			'status' => 'Статус',
-			'type' => 'Тип перевозки',
-			'user_id' => 'ID пользователя',
-			'location_from' => 'Место загрузки',
-			'location_to' => 'Место разгрузки',
-			'auto_info' => 'Транспорт',
-			'description' => 'Описание',
-			'date_from' => 'Дата загрузки',
-			'date_to' => 'Дата разгрузки',
-			'date_published' => 'Дата публикации',
-			'currency' => 'Валюта',
-		);
+            return array(
+                'id' => 'ID',
+                't_id' => 'Id 1c',
+                'rate_id' => 'ID Ставки',
+                'start_rate' => 'Начальная ставка',
+                'status' => 'Статус',
+                'type' => 'Тип перевозки',
+                'user_id' => 'ID пользователя',
+                'location_from' => 'Место загрузки',
+                'location_to' => 'Место разгрузки',
+                'auto_info' => 'Транспорт',
+                'description' => 'Описание',
+                'date_from' => 'Дата загрузки',
+                'date_to' => 'Дата разгрузки',
+                'date_published' => 'Дата публикации',
+                'currency' => 'Валюта',
+            );
 	}
 
 	/**
@@ -122,29 +128,29 @@ class Transport extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+            // @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+            $criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('id_1c',$this->id_1c);
-		$criteria->compare('rate_id',$this->rate_id);
-		$criteria->compare('start_rate',$this->start_rate);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('type',$this->type);
-		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('location_from',$this->location_from,true);
-		$criteria->compare('location_to',$this->location_to,true);
-		$criteria->compare('auto_info',$this->auto_info,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('date_from',$this->date_from,true);
-		$criteria->compare('date_to',$this->date_to,true);
-		$criteria->compare('date_published',$this->date_published,true);
-		$criteria->compare('currency', $this->currency);
+            $criteria->compare('id',$this->id);
+            $criteria->compare('t_id',$this->t_id);
+            $criteria->compare('rate_id',$this->rate_id);
+            $criteria->compare('start_rate',$this->start_rate);
+            $criteria->compare('status',$this->status);
+            $criteria->compare('type',$this->type);
+            $criteria->compare('user_id',$this->user_id);
+            $criteria->compare('location_from',$this->location_from,true);
+            $criteria->compare('location_to',$this->location_to,true);
+            $criteria->compare('auto_info',$this->auto_info,true);
+            $criteria->compare('description',$this->description,true);
+            $criteria->compare('date_from',$this->date_from,true);
+            $criteria->compare('date_to',$this->date_to,true);
+            $criteria->compare('date_published',$this->date_published,true);
+            $criteria->compare('currency', $this->currency);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
+            return new CActiveDataProvider($this, array(
+                'criteria'=>$criteria,
+            ));
 	}
 
 	/**
@@ -155,7 +161,7 @@ class Transport extends CActiveRecord
 	 */
 	public static function model($className=__CLASS__)
 	{
-		return parent::model($className);
+            return parent::model($className);
 	}
     
     protected function afterSave() 

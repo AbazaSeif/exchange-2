@@ -102,7 +102,11 @@ function getTime(){
     return "<?php echo date("Y-m-d H:i:s") ?>";
 }
 
+
 $(document).ready(function(){
+    var timer = new Timer();
+    timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>);
+    
     rateList.data = {
         currency : ' <?php echo $currency ?>',
         priceStep : <?php echo $priceStep ?>,
@@ -176,8 +180,7 @@ $(document).ready(function(){
     });*/
     
     <?php endif; ?> 
-    var timer = new Timer();
-    timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', rateList.data.status);
+    
 });
 </script>
 <?php if (!Yii::app()->user->isGuest && !Yii::app()->user->isRoot):?>

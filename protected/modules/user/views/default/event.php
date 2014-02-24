@@ -8,7 +8,7 @@
         'emptyText'    => 'Нет cобытий',
         'itemsTagName' => 'div',
         'template'     => '{sorter}{items}{pager}',
-        'htmlOptions'  => array('class'=>'transports'),
+        'htmlOptions'  => array('class'=>'events'),
         //'sortableAttributes' => array('date_published','date_to', 'date_from'),
         'sorterHeader' => '',
         'pager'        => array(
@@ -25,8 +25,8 @@
 ?>
 <script>
     $(document).ready(function() {
-        $(".rate-new").mouseover(function() {
-            $(this).removeClass("rate-new");
+        $(".event-new").mouseover(function() {
+            $(this).removeClass("event-new");
         });
     });
 </script>

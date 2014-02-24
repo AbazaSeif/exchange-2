@@ -49,6 +49,7 @@ class TransportController extends Controller
     {
         if(Yii::app()->user->checkAccess('createTransport')){
             $model = new Transport;
+            //$this->performAjaxValidation($model);
             $model->date_from = date('d-m-Y');
             $model->date_to = date('d-m-Y');
             if(isset($_POST['Transport'])) {
@@ -61,20 +62,33 @@ class TransportController extends Controller
                 $model->user_id = Yii::app()->user->_id;
                 $model->currency = $_POST['Transport']['currency'];
                 $model->date_published = date('Y-m-d H:i:s');
-                $message = 'Создана перевозка ' . $model->location_from . ' — ' . $model->location_to;
-                Changes::saveChange($message);
                 if($model->save()){
+                   // var_dump(1111);exit;
+                    $message = 'Создана перевозка ' . $model->location_from . ' — ' . $model->location_to;
+                    // Changes::saveChange($message);
+                    
                     Yii::app()->user->setFlash('saved_id', $model->id);
                     Yii::app()->user->setFlash('message', 'Перевозка создана успешно.');
-                    $this->redirect('/admin/transport/');
+                    
+                    $this->redirect('/admin/');
+                    //$this->redirect('/admin/transport/');
                 }
             }
-            $this->renderPartial('edittransport', array('model'=>$model));
+            $this->renderPartial('edittransport', array('model'=>$model), false, true);
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
     }
-
+   /* 
+    protected function performAjaxValidation($model)
+{
+    if(isset($_POST['ajax']) && $_POST['ajax']==='registration-form')
+    {
+        echo CActiveForm::validate($model);
+        Yii::app()->end();
+    }
+}
+*/
     public function actionEditTransport($id)
     {
         if(Yii::app()->user->checkAccess('editTransport')){
@@ -126,7 +140,7 @@ class TransportController extends Controller
                 }
             }
             
-            $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates)); //, false, true);
+            $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates), false, true);
         }else{
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }

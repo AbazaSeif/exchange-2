@@ -124,7 +124,7 @@ class DefaultController extends Controller
             array(
                 'criteria' => $criteria,
                 'pagination'=>array(
-                   'pageSize' => 8,
+                   'pageSize' => 10,
                    'pageVar' => 'event',
                 ),
                 'sort'=>array(

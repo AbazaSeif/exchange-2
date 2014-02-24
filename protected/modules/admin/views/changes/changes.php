@@ -1,17 +1,6 @@
 <h1>История редактирования</h1>
 <div class="total">
     <div class="left">
-    <div class="create-button">
-     <?php
-     echo CHtml::ajaxLink('Создать', '/admin/user/createuser/', array('update'=>'.right'), array('class'=>'btn-green btn'));
-     ?>   
-    </div>
-    <?php
-//    $group_array = UserGroup::getUserGroupArray();
-//    $group_array['group_id'] = 'Все';
-//    echo CHtml::radioButtonList('drop_group', '', $group_array,
-//    array('onchange'=>"$.fn.yiiListView.update('yw0', {url: '/admin/user/?group_id='+$('#drop_group input:checked').val()})"));
-    ?>
     <?php
     $this->widget('zii.widgets.CListView', array(
         'dataProvider'=>$data,

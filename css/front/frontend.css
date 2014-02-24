@@ -71,12 +71,16 @@ header, .wrapper, footer
 .w-right h1
 {
     margin-top: 0;
+    margin-bottom: 0;
     color: #444444;
 }
 /*----------Начало ФОРМА ВХОДА-------*/
+.w-right #login-form{
+    width: 35%;
+}
 #login-form, #registration-form, .w-right .registration
 {
-    padding: 10px 20px 0;
+    padding: 0px 20px 0;
 }
 #login-form .row, #registration-form .row
 {
@@ -149,8 +153,10 @@ header, .wrapper, footer
     box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
     vertical-align: middle;
 }
+
 #registration-form .row input[type='text']{
     width: 50%;
+    padding: 0;
 }
 #login-form .row.error input, #registration-form .row.error input
 {
@@ -562,6 +568,28 @@ div.row{
     min-height: 10px !important;
 }
 /*--------Конец-Одна-перевозка-----*/
+/*--------Одно-событие-----------*/
+.o-event
+{
+    border-bottom: 1px solid rgb(200,200,200);
+    padding: 2px 10px;
+    position: relative;
+    min-height: 45px;
+}
+
+.event-new{
+    background-color: #ECFEF0;
+}
+
+.events .items .o-event .t-header, .o-event .t-header
+{
+    display: block;
+    font-size: 18px;
+    color: rgb(0, 145, 124);
+    text-decoration: none;
+    margin: 1px 0 6px;
+}
+/*--------Конец-Одного-события-----*/
 /*--------Одна-ставка-----------*/
 .rate
 {
@@ -570,9 +598,7 @@ div.row{
     position: relative;
     min-height: 45px;
 }
-.rate-new{
-    background-color: #ECFEF0;
-}
+
 .rate .h-header{
     color: #333333;
 }
@@ -777,7 +803,12 @@ input.r-submit{
 .disabled{
     cursor: default !important;
     opacity: 0.4;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=40); /* IE 5.5+*/
+    -moz-opacity: 0.4; /* Mozilla 1.6 и ниже */
+    -khtml-opacity: 0.4; /* Konqueror 3.1, Safari 1.1 */
+    opacity: 0.4; /* CSS3 - Mozilla 1.7b +, Firefox 0.9 +, Safari 1.2+, Opera 9+ */
 }
+
 .transport-one + div{
     margin-top: 10px;
     margin-bottom: 20px;
@@ -792,13 +823,16 @@ input.r-submit{
     width: 100%;
 }
 
-.width-5, .width-10, .width-15, .width-20, .width-22, .width-23, .width-25,.width-30, .width-40, .width-50, .width-60, .width-70
+.width-5, .width-10, .width-15, .width-16, .width-18, .width-19, .width-20, .width-22, .width-23, .width-25,.width-30, .width-40, .width-50, .width-60, .width-70
 {
     float: left;
 }
 .width-5{width: 5%;}
 .width-10{width: 10%;}
 .width-15{width: 15%;}
+.width-16{width: 16%;}
+.width-18{width: 17%; margin-right: 1%;}
+.width-19{width: 18%; margin-right: 1%;}
 .width-20{width: 19%; margin-right: 1%;}
 .width-22{width: 21%; margin-right: 1%;}
 .width-23{width: 22%; margin-right: 1%;}

@@ -61,7 +61,7 @@ if(!Yii::app()->user->isGuest){
 <?php $this->endWidget();    
 }
 ?>
-<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
 <script>
 $(document).ready(function(){
     <?php if(!Yii::app()->user->isGuest): ?>

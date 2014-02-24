@@ -9,7 +9,8 @@ var rateList = {
         //});
         
         rateList.data.socket.on('setRate', function (data) {
-            var element = rateList.createElement(data.date, data.name, data.price, data.surname);
+            var initPrice = parseInt($('#rate-price').attr('init'));
+            var element = rateList.createElement(initPrice, data.date, data.name, data.price, data.surname);
             $('#rates').prepend(element);
         });
         
@@ -20,7 +21,7 @@ var rateList = {
         });
         
         rateList.data.socket.on('onlineEvent', function (data) {
-            $.onlineEvent({ msg:'Вашу ставку для перевозки "' + data.name + '" перебили',className: 'classic', sticked:true, position:{right:0,bottom:0}, time:1000});
+            $.onlineEvent({ msg:'Вашу ставку для перевозки "' + data.name + '" перебили',className: 'classic', sticked:true, position:{right:0,bottom:0}, time:2000});
         });
         
         $( "#rate-up" ).on('click', function() {
@@ -97,6 +98,7 @@ var rateList = {
             
             var price = parseInt($('#rate-price').val());
             var price = price*100/(100 + rateList.data.nds*100);
+            $(this).attr('init', price);
             var time = getTime();
             var obj = {
                 price: price,
@@ -121,10 +123,28 @@ var rateList = {
         });
         
         $('#rate-price').blur(function(){
-            if(parseInt($(this).val()) < parseInt($(this).attr('init'))){
-                $('.r-submit').removeClass('disabled');
+            var inputVal = parseInt($(this).val());
+
+            if(inputVal < parseInt($(this).attr('init'))){ 
+                var kratnoe = rateList.data.priceStep;
+                var residue = inputVal % kratnoe;
+                if(residue != 0){
+                    if(residue < (kratnoe/2) && (inputVal - residue) > 0) $(this).val(inputVal - residue);
+                    else $(this).val(inputVal - residue + kratnoe);
+                    inputVal = parseInt($(this).val());
+                }
+
+                if(inputVal - kratnoe < kratnoe){
+                    $('#rate-down').addClass('disabled');
+                }
+                
+                if(inputVal < parseInt($(this).attr('init'))){
+                    $('#rate-up').removeClass('disabled');
+                    $('.r-submit').removeClass('disabled');
+                }
             } else {
-                $('.r-submit').addClass('disabled');
+                $(this).val($(this).attr('init'));
+                if(!rateList.data.defaultRate) $('.r-submit').addClass('disabled');
             }
         });
 
@@ -188,8 +208,9 @@ var rateList = {
                         if(scrollBefore) count = scrollBefore/height;
                         
                         rateList.container.html('');
+                        var initPrice = parseInt($('#rate-price').attr('init'));
                         $.each( rates.all, function( key, value ) {
-                            rateList.add(value);
+                            rateList.add(value, initPrice);
                         });
 
                         if(scrollBefore){
@@ -228,7 +249,7 @@ var rateList = {
             }});
         }
     },
-    add : function(rate) {
+    add : function(rate, initPrice) {
         var time = '';
         var id = 0;
         var price = parseInt(rate.price);
@@ -238,10 +259,13 @@ var rateList = {
         if (typeof rate.id !=="undefined") {
             time = "<div class='r-o-time'>" + rate.time + "</div>";
         }
-        var element = this.createElement(rate.date, rate.name, price, rate.surname, id);
+        var element = this.createElement(initPrice, rate.date, rate.name, price, rate.surname, id);
         this.container.prepend(element);
     },
-    createElement : function(date, name, price, surname, id) {
+    createElement : function(initPrice, date, name, price, surname, id) {
+        if(initPrice < price){
+            $('#rate-price').attr('init', price);
+        }
         var newElement = '';
         if(typeof id !== 'undefined'){
             newElement = "<div id='" + id + "' class='rate-one'>";

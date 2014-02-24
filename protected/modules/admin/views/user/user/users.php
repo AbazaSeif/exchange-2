@@ -1,19 +1,17 @@
+<?php
+    Yii::app()->clientScript->registerCssFile('/css/back/users.css');
+    Yii::app()->clientScript->registerScriptFile('/js/back/AjaxContentLoader.js');
+    Yii::app()->clientScript->registerScriptFile('/js/back/users.js');
+?>
 <h1>Пользователи</h1>
 <div class="total">
     <div class="left">
     <div class="create-button">
      <?php
-     echo CHtml::ajaxLink('Создать', '/admin/user/createuser/', array('update'=>'.right'), array('class'=>'btn-green btn'));
+         echo CHtml::ajaxLink('Создать', '/admin/user/createuser/', array('update'=>'.right'), array('class'=>'btn-green btn'));
      ?>   
     </div>
-    <?php
-//    $group_array = UserGroup::getUserGroupArray();
-//    $group_array['group_id'] = 'Все';
-//    echo CHtml::radioButtonList('drop_group', '', $group_array,
-//    array('onchange'=>"$.fn.yiiListView.update('yw0', {url: '/admin/user/?group_id='+$('#drop_group input:checked').val()})"));
-    ?>
-    <?php
-    $this->widget('zii.widgets.CListView', array(
+    <?php $this->widget('zii.widgets.CListView', array(
         'dataProvider'=>$data,
         'itemView'=>'user/_item', // представление для одной записи
         'ajaxUpdate'=>false, // отключаем ajax поведение
@@ -21,7 +19,7 @@
         'template'=>'{sorter} {items} {pager}',
         'sorterHeader'=>'',
         'itemsTagName'=>'ul',
-        'sortableAttributes'=>array('group_id','surname','name'),
+        'sortableAttributes'=>array('group_id','surname'),
         'pager'=>array(
             'class'=>'CLinkPager',
             'header'=>false,
@@ -34,13 +32,13 @@
     ?>
     </div>
     <div class="right">
-        <? 
+        <?php 
         if ($mess = Yii::app()->user->getFlash('message')){
             echo '<div class="message success">'.$mess.'</div>';
         }
         if ($view){
             echo $view;
-        } else {?>
+        }else{ ?>
         <div class="faq">
             <h2>Некоторые существующие правила:</h2>
             <ol>
@@ -58,22 +56,11 @@
             <h3>Что делать если изменились права, а Вы все так же не можете ими воспользоваться?</h3>
             <p>Выйдите и войдите на сайт заново.</p>
         </div>
-        <?}
-        ?>
+        <?php } ?>
     </div>
 </div>
-<?php if($data->pagination->pageCount!=0) { 
-    $c = ($data->pagination->pageCount+4);
-    ?>
-    <style>
-    #search-index .pager ul.yiiPager li{
-        width: <?php echo 100/($c>14?14:$c); ?>%;
-    }
-    </style>
-<?php } ?>
-<script>
-    $(document).ready(function(){
-        var start = new AjaxContentLoader();
-        start.init('.left', '.ajax', '.right' ,false);
-    });
-</script>
+<style>
+.left .list-view .pager ul.yiiPager li.page{
+    width: <?php //echo 100/$data->pagination->pageCount; ?>%;
+}
+</style>

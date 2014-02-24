@@ -29,7 +29,7 @@
     }
 ?>
 <div class="transport">
-    <div class="width-23 description">
+    <div class="width-19 description">
         <span><?php echo $data->description ?></span>
     </div>
     <div class="width-20">
@@ -47,7 +47,7 @@
         </a>
         <span class="t-d-form-to">Дата разгрузки: <?php echo date('d.m.y', strtotime($data->date_to)); ?></span>
     </div>
-    <div class="width-15">
+    <div class="width-19">
         <div class="t-rate">
             <span><?php echo $rate.$currency;?></span>
         </div>

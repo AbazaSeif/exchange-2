@@ -4,26 +4,31 @@
     $delete_button = CHtml::link('Удалить перевозку', '/admin/transport/deletetransport/id/'.$model->id, array('id'=>'del_'.$model->id,'class'=>'btn del', 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
 
     $action = '/admin/transport/edittransport/id/'.$model->id;
-    if ($model->isNewRecord){
+    if ($model->isNewRecord) {
         $submit_text = 'Создать';
         $name = 'new';
         $header_form = 'Создание новой перевозки';
         $action = '/admin/transport/createtransport/';
         unset($delete_button);
     }
+    
+    $b = (Yii::app()->user->hasFlash('message'))? 1 : 0;
+    var_dump('= ' . $b);
 ?>
+
 <div class="form">
 <div class="header-form">
     <?php echo $header_form; ?>
 </div>
 <?php $form = $this->beginWidget('CActiveForm', array(
-        'id'=>'form'.$model->id,
+        'id'=>'transport-form',
         'action'=>$action,
         'enableClientValidation' => true,
+        'enableAjaxValidation' => true,
         
         'clientOptions'=>array(
             'validateOnSubmit'=>true,
-            'validateOnChange' => false,
+            'validateOnChange' => true,
             'afterValidate'=>'js:function( form, data, hasError ) 
             {     
                 if( hasError ){
@@ -42,6 +47,9 @@
     echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn btn-green')); 
 ?>
 </div>
+    <?php echo $form->errorSummary($model); ?>
+    <div id='error'></div>
+    
 <div class="field">
 <?php  echo $form->error($model, 'location_from'); 
     echo $form->labelEx($model, 'location_from');
