@@ -2,8 +2,10 @@
 
 class WebUser extends CWebUser
 {
-    public $loginUrl=array('/users/login/');
-
+    public $loginUrl=array('/user/login/');
+    
+    public $transport = '0';
+    
     // Автоматический вход на сайт
     public $allowAutoLogin = true;
 
