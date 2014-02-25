@@ -37,33 +37,6 @@ class DefaultController extends Controller
         $this->redirect(Yii::app()->homeUrl);
     }
     
-    public function actionRegistration()
-    {
-        $model = new RegistrationForm;
-        if(isset($_POST['RegistrationForm'])) {
-            /*
-            
-            $userInfo = array();
-            $newFerryman = new User;
-            $newFerryman->attributes = $_POST['RegistrationForm'];
-            $newFerryman['group_id'] = Yii::app()->params['ferrymanGroup'];
-            $newFerryman['status'] = User::USER_NOT_CONFIRMED;
-            //var_dump($newFerryman['phone']);exit;
-            //$userInfo['login'] = $newFerryman['login'] = ;
-            //$userInfo['password'] = $newFerryman['password'] = ;
-            $newFerryman->save();
-            //$this->sendMail($_POST['RegistrationForm']['email'], 0, ); // ferryman
-            
-            */
-            $this->sendMail('tttanyattt@mail.ru', 1, $_POST['RegistrationForm']); // admin
-
-            Yii::app()->user->setFlash('message', 'Ваша заявка отправлена. Спасибо за интерес, проявленный к нашей компании.');
-            $this->redirect('/user/login/');
-        } else {
-            $this->render('registration', array('model' => $model));
-        }
-    }
-
     public function sendMail($to, $typeMessage, $post)
     {
         $email = new TEmail;
@@ -151,7 +124,7 @@ class DefaultController extends Controller
             array(
                 'criteria' => $criteria,
                 'pagination'=>array(
-                   'pageSize' => 8,
+                   'pageSize' => 10,
                    'pageVar' => 'event',
                 ),
                 'sort'=>array(

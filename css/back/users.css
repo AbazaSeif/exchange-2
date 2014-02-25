@@ -1,0 +1,292 @@
+.wrapper .total {
+    
+}
+.wrapper .total .left{
+    width: 30%;
+    float: left;
+}
+.wrapper .total .right{
+    width: 66%;
+    padding: 0 2%;
+    float: right;
+}
+.wrapper .total:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+/*-----начало-users-----*/
+.left .create-button{
+    margin: 0px 0px 5px;
+}
+.left .create-button:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.left .create-button a{
+    margin-left: 0;
+}
+.left .list-view{
+    overflow: hidden;
+    -moz-box-shadow: 0px 0px 3px #c0c0c0;
+    -webkit-box-shadow: 0px 0px 3px #c0c0c0;
+    -o-box-shadow: 0px 0px 3px #c0c0c0;
+    box-shadow: 0px 0px 3px #c0c0c0;
+    border-radius: 2px;
+}
+
+/* начало сортировака */
+.left .list-view .sorter{
+    margin: 0;
+    padding: 0;
+    background: url("/images/bg_menu_admin.png") #f3f3f3 repeat-x top left;
+    line-height: 33px;
+    border-bottom: 1px solid rgb(65, 131, 196);
+}
+.left .list-view .sorter ul{
+    padding: 0 10px;
+}
+.left .list-view .sorter ul li{
+    margin: 0 7px;
+}
+.left .list-view .sorter ul li a{
+    color: #777;
+    text-decoration: none;
+    text-shadow: 0 1px 0 white;
+    font-weight: bold;
+}
+.left .list-view .pager{
+    margin: 0;
+    background: rgb(238, 238, 238);
+}
+.left .list-view .pager ul.yiiPager{
+    
+}
+.left .list-view .pager ul.yiiPager{
+    
+}
+.left .list-view .pager ul.yiiPager li{
+    line-height: 24px;
+}
+.left .list-view .pager ul.yiiPager li.page{
+    display: block;
+    float: left;
+    text-align: center;
+    border-bottom: 2px solid rgb(238, 238, 238);
+}
+.left .list-view .pager ul.yiiPager li.page.selected{
+    border-bottom: 2px solid rgb(65, 131, 196);
+}
+.left .list-view .pager ul.yiiPager li.previous, .left .list-view .pager ul.yiiPager li.next{
+    display: none;
+}
+.left .list-view .pager ul.yiiPager li a{
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background: none;
+    color: #777;
+    display: block;
+}
+.left .list-view .pager ul.yiiPager li.selected a{
+    color: rgb(65, 131, 196);
+}
+/* конец сортировака */
+
+/* начало левая панель */
+.left .list-view .items{
+    list-style: none;
+    background: rgb(238, 238, 238);
+}
+.left .list-view .items .empty{
+    padding: .5em 1em;
+    display: block;
+    border-bottom: 1px solid rgb(222, 222, 222);
+}
+.left .list-view .items li{
+    
+}
+.left .list-view .items li a, .left .list-view .items li span{
+    color: rgb(65, 131, 196);
+    text-decoration: none;
+    padding: .5em 1em;
+    display: block;
+    border-bottom: 1px solid rgb(222, 222, 222);
+}
+.left .list-view .items li span{
+    color: rgb(125, 125, 125);
+}
+/* конец левая панель */
+
+/* начало правая(рабочая) область */
+.right{
+   position: relative;
+}
+.right .header-form{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 1em;
+}
+.right form{
+    position: relative;
+}
+.right form .buttons{
+    margin-top: -42px;
+}
+.right form .field{
+    margin: 1em 0;
+}
+
+.right .header-h4{
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 1em 0 0;
+}
+.right form label{
+    min-width: 15%;
+    float: left;
+    line-height: 27px;
+    display: block;
+}
+.right form .description textarea{
+    max-height: 44px;
+}
+.right form .level input{
+    width: 80%;
+    border: 1px solid #CCC;
+    margin: 0;
+    margin-left: 10%;
+    padding: 0 .5em;
+}
+.right form .level span{
+    width: 50px;
+}
+.right form .level{
+    position: absolute;
+    right: 0;
+    top: 12.5%;
+}
+    /* начало чекбоксы */
+.right .operat-50{
+    width: 48%
+}
+.right .operat-sel{
+    float: right;
+    margin-right: 9%;
+}
+.right .operat-all{
+    position: absolute;
+    top: 153px;
+    width: 40%;
+}
+.right .quick_buttons{
+    position: absolute;
+    top: 185px;
+    width: 10.5%;
+    right: 0%;
+    margin: .5em 0;
+    background: rgb(238, 238, 238);
+    overflow: hidden;
+    -moz-box-shadow: 0px 0px 3px #c0c0c0;
+    -webkit-box-shadow: 0px 0px 3px #c0c0c0;
+    -o-box-shadow: 0px 0px 3px #c0c0c0;
+    box-shadow: 0px 0px 3px #c0c0c0;
+    border-radius: 2px;
+}
+.right .message{
+    padding: 1.2% 2%;
+    margin-bottom: .53em;
+    background: #E6EFC2;
+    border-color: #C6D880;
+    border-radius: 2px;
+    color: green;
+    -moz-box-shadow: 0px 0px 3px rgba(0,0,0,0.075);
+    -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.075);
+    -o-box-shadow: 0px 0px 3px rgba(0,0,0,0.075);
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.075);
+    position: absolute;
+    bottom: 100%;
+    right: 2.9%;
+    width: 90.5%;
+}
+.right .quick_buttons .btn{
+    width: 90%;
+    font-size: .85em;
+    margin:0;
+    float: none;
+    padding: 5% 5%;
+    line-height: normal;
+    text-align: center;
+    font-weight: normal;
+    border: 0;
+    border-bottom: 1px solid rgb(222, 222, 222);
+    color: rgb(65, 131, 196);
+    background: none;
+}
+.right .quick_buttons .btn:hover{
+    color: #333;
+    background: #f3f3f3;
+}
+.right .dropper{
+    list-style: none;
+    padding: .5em 1em;
+    min-height: 25px;
+    background: rgb(238, 238, 238);
+    margin: .5em 0;
+    border-radius: 2px;
+}
+.right .dropper li{
+    float: left;
+    padding: 5px 10px;
+    margin: 3px 5px;
+    border: 1px solid rgb(222, 222, 222);
+    border-radius: 2px;
+    background: url("/images/bg_menu_admin.png") #f3f3f3 repeat-x top left;
+}
+.right .dropper li span{
+    cursor: default;
+}
+.right .dropper li input{
+    display: none;
+}
+.right #checkbox-selected{
+    background: #e0f4d8;
+}
+.right #checkbox-all{
+    background: #dfebf3;
+}
+.right #checkbox-selected li{
+    border-color: #c5f1b4;
+}
+.right #checkbox-all li{
+    border-color: #cae3f3;
+}
+.right form .buttons *{
+    margin: 0;
+}
+    /* конец чекбоксы */
+/* конец правая(рабочая) область */
+
+/*----FAQ----*/
+.right .faq
+{
+    
+}
+.right .faq ol
+{
+    padding-left: 40px;
+}
+.right .faq ol li
+{
+    margin: .5em auto;
+}
+/*-----------*/
+
+/*-----Конец-users-----------*/
+
+.right form .name:after, .right form .description:after,.right form .level:after, .right form .buttons:after, .right form .checkboxes:after, .right form .checkboxes  .checkbox-all .checkbox:after, .right form .checkboxes .check-panel:after, .right .dropper:after, .right form:after, .left .list-view .pager ul.yiiPager:after{
+    content: '';
+    display: block;
+    clear: both;
+}

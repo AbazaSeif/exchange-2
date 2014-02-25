@@ -1,5 +1,5 @@
 <?php $lastRate = null;
-$currency = ' €';
+$currency = '€';
 $defaultRate = false;
 $priceStep = Transport::INTER_PRICE_STEP;
 $now = date('Y m d H:i:s', strtotime('now'));
@@ -11,9 +11,9 @@ if(!$transportInfo['currency']){
 }
 
 if(!$transportInfo['currency']){
-   $currency = ' руб.';
+   $currency = 'руб.';
 } else if($transportInfo['currency'] == 1){
-   $currency = ' $';
+   $currency = '$';
 }
 
 if (!empty($transportInfo['rate_id'])) {
@@ -37,7 +37,6 @@ if (!Yii::app()->user->isGuest) {
 $minRate = (($lastRate - $priceStep)<=0)? 1 : 0;
 $inputSize = strlen((string)$lastRate)-1;
 ?>
-
 
 <div class="transport-one">
     <div class="width-60">
@@ -85,19 +84,29 @@ $inputSize = strlen((string)$lastRate)-1;
         </div>  
     <?php endif; ?>
 </div>
-<?php if (!Yii::app()->user->isGuest): ?>
-        <div id="rates"></div>
+<?php if(!Yii::app()->user->isGuest && !Yii::app()->user->isRoot): ?>
+        <div>
+        <?php echo CHtml::link('Связаться с модератором', '#', array(
+                'id' => 'dialog-connect',
+                'title'=>'Связаться с модератором',
+            ));
+        ?>
+        </div>
 <?php endif; ?>
-<div>
-    <?php if (!Yii::app()->user->isGuest && !Yii::app()->user->isRoot):
-        echo CHtml::link('Связаться с модератором', '#', array(
-            'id' => 'dialog-connect',
-            'title'=>'Связаться с модератором',
-        ));
-    endif;?>
-</div>
+<?php if (!Yii::app()->user->isGuest): ?>
+        <div id="rates">
+        </div>
+<?php endif; ?>
 <script>
+function getTime(){
+    return "<?php echo date("Y-m-d H:i:s") ?>";
+}
+
+
 $(document).ready(function(){
+    var timer = new Timer();
+    timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>);
+    
     rateList.data = {
         currency : ' <?php echo $currency ?>',
         priceStep : <?php echo $priceStep ?>,
@@ -108,14 +117,49 @@ $(document).ready(function(){
         defaultRate: <?php echo ($defaultRate)? 1 : 0 ?>,
     };
     <?php if (!Yii::app()->user->isGuest): ?>
-        rateList.data.name = '<?php echo $userInfo[name] ?>',
+        var socket = io.connect('http://localhost:3000/');
+        socket.emit('loadRates', <?php echo $transportInfo['id'] ?>);
+
+        /*var newElement = "<div id='" + id + "' class='rate-one'>" + 
+            "<div class='r-o-container'>" + 
+                time +
+                "<div class='r-o-user'>" + rate.name + ' ' + rate.surname + "</div>" +
+            "</div>" +
+            "<div class='r-o-price'>" + price + rateList.data.currency + "</div>" +
+            "</div>"
+        ;
+        $('#test').prepend(newElement);*/
+
+        /*var k = 0;
+        socket.on('init', function (data) {
+            var newElement = "<div class='rate-one'>" + 
+                "<div class='r-o-container'>" + 
+                    //time +
+                    "<div class='r-o-user'>" + data.name + "</div>" +
+                "</div>" +
+                "<div class='r-o-price'>" + data.price + " <?php echo $currency ?>" + "</div>" +
+                "</div>"
+            ;
+            //$('#rates').append(newElement);
+        });*/
+        socket.on('endinit', function () {
+            $("#rates").mCustomScrollbar({
+                scrollButtons:{
+                    enable:true
+                }
+            });
+        });
+
+        /***************************************************/
+        
+        rateList.data.socket = socket;
+        rateList.data.userId   = '<?php echo $userInfo[id] ?>',
+        rateList.data.name   = '<?php echo $userInfo[name] ?>',
         rateList.data.surname = '<?php echo $userInfo[surname] ?>',
-    <?php endif; ?> 
-    rateList.init();
-    setInterval(function(){rateList.update($('#rates'))}, 15000);
+        
+        rateList.init();
+    //setInterval(function(){rateList.update($('#rates'))}, 15000);
     
-    var timer = new Timer();
-    timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', rateList.data.status);
     
     $('#dialog-connect').live('click', function() {
         $("#modalDialog").dialog("open");
@@ -128,6 +172,15 @@ $(document).ready(function(){
     $( "#abordRateBtn" ).live('click', function() {
         $(".ui-dialog-content").dialog( "close" );
     });
+    
+    /*$(".content").mCustomScrollbar({
+        scrollButtons:{
+            enable:true
+        }
+    });*/
+    
+    <?php endif; ?> 
+    
 });
 </script>
 <?php if (!Yii::app()->user->isGuest && !Yii::app()->user->isRoot):?>

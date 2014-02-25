@@ -6,12 +6,11 @@
 $this->pageTitle='Биржа - Вход';
 ?>
 <div class="form">
-<?php 
+<?php
 if(!Yii::app()->user->isGuest){
     echo '<h1>Выход с сайта</h1>';
-    echo '<p>Привет '.Yii::app()->user->name.'!</p>';
-    echo CHtml::link('Выйти','/user/logout/', array('class'=>'btn'));
-}else{
+    echo CHtml::link('Выйти','/user/logout/', array('class'=>'btn logout'));
+} else {
     $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
@@ -48,6 +47,8 @@ if(!Yii::app()->user->isGuest){
 }
 ?>
 </div><!-- form -->
+<?php if(Yii::app()->user->isGuest): ?>
 <div>
-<?php echo CHtml::link('Подать заявку на регистрацию', array('/user/registration'), array('class' => 'registration')); ?>
+<?php echo CHtml::link('Подать заявку на регистрацию', array('/site/registration'), array('class' => 'registration')); ?>
 </div>
+<?php endif; ?>

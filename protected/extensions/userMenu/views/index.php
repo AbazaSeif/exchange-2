@@ -56,20 +56,39 @@ if(!Yii::app()->user->isGuest){
             <?php echo CHtml::submitButton('Войти', array('class'=>'btn')); ?>
     </div>
     <div>
-    <?php echo CHtml::link('Подать заявку на регистрацию', array('/user/registration'), array('class' => 'registration')); ?>
+    <?php echo CHtml::link('Подать заявку на регистрацию', array('/site/registration'), array('class' => 'registration')); ?>
     </div>
 <?php $this->endWidget();    
 }
 ?>
+
 <script>
 $(document).ready(function(){
     <?php if(!Yii::app()->user->isGuest): ?>
+    var userId = <?php echo $user->id ?>;
+    var socket = io.connect('http://localhost:3000/');
+    
+    socket.emit('init', userId);
+    
     var countSubmenuElem = null;
     if ($("#submenu")){
         countSubmenuElem = parseInt($('#submenu').children().length);
     }
     menu.countSubmenuElem = countSubmenuElem;
     menu.init();
+    
+    
+    /*setInterval(function(){
+        socket.emit('events', userId);
+    }, 1000);
+     */
+    socket.emit('events', userId);   
+    socket.on('updateEvents', function (data) {
+        if(parseInt(data.count) != 0){
+            $('#event-counter').html(data.count);    
+        } else $('#event-counter').html('');    
+              
+    });
     <?php endif;?>
 });
 </script>

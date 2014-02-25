@@ -71,12 +71,16 @@ header, .wrapper, footer
 .w-right h1
 {
     margin-top: 0;
+    margin-bottom: 0;
     color: #444444;
 }
 /*----------Начало ФОРМА ВХОДА-------*/
+.w-right #login-form{
+    width: 35%;
+}
 #login-form, #registration-form, .w-right .registration
 {
-    padding: 10px 20px 0;
+    padding: 0px 20px 0;
 }
 #login-form .row, #registration-form .row
 {
@@ -149,8 +153,10 @@ header, .wrapper, footer
     box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
     vertical-align: middle;
 }
+
 #registration-form .row input[type='text']{
     width: 50%;
+    padding: 0;
 }
 #login-form .row.error input, #registration-form .row.error input
 {
@@ -237,7 +243,7 @@ div.ui-widget-header {
 {
     
 }
-.user-menu li a
+.user-menu li a, .logout
 {
     display: block;
     color: rgb(0, 145, 124);
@@ -246,6 +252,11 @@ div.ui-widget-header {
     padding: 3px 0px 3px 7px;
     border-top: 1px dashed rgb(0, 145, 124);
 }
+
+.logout{
+    border-top: none;
+}
+
 .user-menu li:first-child a
 {
     border-top: 0;
@@ -519,7 +530,7 @@ div.row{
 
 .r-description{
     font-size: 13px;
-    padding: 5px 0;
+    padding: 5px 0 5px 6px;
 }
 
 #t-error{
@@ -543,6 +554,7 @@ div.row{
     padding-left: 6px;
 }
 
+
 .rate-button{
     width: 48%;
     margin-top: 10px;
@@ -556,6 +568,28 @@ div.row{
     min-height: 10px !important;
 }
 /*--------Конец-Одна-перевозка-----*/
+/*--------Одно-событие-----------*/
+.o-event
+{
+    border-bottom: 1px solid rgb(200,200,200);
+    padding: 2px 10px;
+    position: relative;
+    min-height: 45px;
+}
+
+.event-new{
+    background-color: #ECFEF0;
+}
+
+.events .items .o-event .t-header, .o-event .t-header
+{
+    display: block;
+    font-size: 18px;
+    color: rgb(0, 145, 124);
+    text-decoration: none;
+    margin: 1px 0 6px;
+}
+/*--------Конец-Одного-события-----*/
 /*--------Одна-ставка-----------*/
 .rate
 {
@@ -564,9 +598,7 @@ div.row{
     position: relative;
     min-height: 45px;
 }
-.rate-new{
-    background-color: #ECFEF0;
-}
+
 .rate .h-header{
     color: #333333;
 }
@@ -585,6 +617,7 @@ div.row{
    border: 0;
    background-color: #fff;
    margin-top: 3px;
+   margin-right: 5px;
    text-align: right;
 }
 
@@ -723,13 +756,14 @@ input.r-submit{
 }
 
 #rates{
-    margin-top: 20px;
-    margin-bottom: 10px;
-	padding: 3px;
-	overflow-x: hidden;
-	overflow-y: auto;
-    min-height: 30px;
-	max-height: 290px;
+   /* margin-top: 20px;*/
+    /*margin-bottom: 10px;*/
+    padding: 3px;
+    /*overflow-x: hidden;*/
+    overflow-y: auto;
+    /*min-height: 30px;*/
+    /*max-height: 350px;*/
+    /*height: 350px;*/
 }
 
 #rates, .r-submit{
@@ -769,6 +803,15 @@ input.r-submit{
 .disabled{
     cursor: default !important;
     opacity: 0.4;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=40); /* IE 5.5+*/
+    -moz-opacity: 0.4; /* Mozilla 1.6 и ниже */
+    -khtml-opacity: 0.4; /* Konqueror 3.1, Safari 1.1 */
+    opacity: 0.4; /* CSS3 - Mozilla 1.7b +, Firefox 0.9 +, Safari 1.2+, Opera 9+ */
+}
+
+.transport-one + div{
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 /*--------Конец-Одна-ставка-----------*/
 .footer
@@ -780,13 +823,16 @@ input.r-submit{
     width: 100%;
 }
 
-.width-5, .width-10, .width-15, .width-20, .width-22, .width-23, .width-25,.width-30, .width-40, .width-50, .width-60, .width-70
+.width-5, .width-10, .width-15, .width-16, .width-18, .width-19, .width-20, .width-22, .width-23, .width-25,.width-30, .width-40, .width-50, .width-60, .width-70
 {
     float: left;
 }
 .width-5{width: 5%;}
 .width-10{width: 10%;}
 .width-15{width: 15%;}
+.width-16{width: 16%;}
+.width-18{width: 17%; margin-right: 1%;}
+.width-19{width: 18%; margin-right: 1%;}
 .width-20{width: 19%; margin-right: 1%;}
 .width-22{width: 21%; margin-right: 1%;}
 .width-23{width: 22%; margin-right: 1%;}
@@ -853,6 +899,70 @@ header:after, .wrapper:after, footer:after, #login-form:after,
     border-top: 1px dashed rgb(200,200,200);
 }
 
+/*-------- Всплывающие оповещения -----------*/
 
+#online-event{
+    cursor: pointer;
+    cursor: hand;
+}
 
+#online-event .event {
+    margin: 5px;
+    padding: 15px;
+    /*width: 200px;*/
+}
+#online-event .event-exit {
+    background: url(/images/ui-icons_222222_256x240.png);
+    background-position: -32px -192px;
+    /*background: url("exit.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);*/
+    cursor: pointer;
+    float: right;
+    height: 16px;
+    margin: -5px -5px 0 0;
+    width: 16px;
+}
+#online-event .classic {
+    /*background-color: #4c4c4c;*/
+    background: url("/images/bg2.png") repeat scroll 0 0;
+    border-radius: 15px;
+    color: white;
+    font-size: bold;
+}
+#online-event .classic.error {
+    background-color: #F7C8D2;
+    border: 1px solid #E2365C;
+}
+#online-event .opacity {
+    background: url("/images/bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    color: #EF801B; /*#F4F4F4;*/
+}
+
+/*
+.next {
+    background: url("bg1.png") repeat-x scroll 0 0 #FEF6BF;
+    border-radius: 5px;
+}
+
+.last {
+    background-color: #CBECFA;
+    border: 1px solid #15A6E3;
+}
+
+.click-ex {
+    background: url("pointer.gif") no-repeat scroll left center #7A7A7A;
+    border: 1px solid #626262;
+    border-radius: 5px;
+    color: #F4F4F4;
+    cursor: pointer;
+    float: left;
+    height: 20px;
+    margin-right: 10px;
+    padding-left: 25px;
+    padding-top: 10px;
+    width: 50px;
+}
+.ex pre {
+    width: 80%;
+}
+*/
 
