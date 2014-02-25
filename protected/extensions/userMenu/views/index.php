@@ -5,7 +5,8 @@ if(!Yii::app()->user->isGuest){
     <div class='user-info'>
         <?php echo '<span class="user-name"> Добро пожаловать, '.$user->name.'!</span>'; ?>
     </div>
-    <?php if(Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot)
+    <?php
+        if(Yii::app()->user->isTransport)
             { ?>
             <ul class="user-menu">
                 <li><a href="/">Главная</a></li>

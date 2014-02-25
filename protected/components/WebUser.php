@@ -4,14 +4,12 @@ class WebUser extends CWebUser
 {
     public $loginUrl=array('/user/login/');
     
-    public $transport = '0';
-    
     // Автоматический вход на сайт
     public $allowAutoLogin = true;
 
     public function isTransport()
     {
-        return $this->transport==='1';
+        return $this->transport=='1';
     }
 
     // Проверка на суперпользователя(root)
@@ -48,6 +46,7 @@ class WebUser extends CWebUser
     // для дальнейшей автоматической авторизации на других ресурсах ЛБР
     protected function saveToCookie($duration)
     {
+        $this->setId($this->_id);
         $app=Yii::app();
         $cookie=$this->createIdentityCookie($this->getStateKeyPrefix());
         $cookie->expire=time()+$duration;
