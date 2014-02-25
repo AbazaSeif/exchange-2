@@ -42,34 +42,23 @@
     echo CHtml::button('Закрыть пользователя',array('onclick'=>'$(".total .right").html(" ");','class'=>'btn'));
     echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn btn-green')); ?>
 </div>
-<div class="login field">
-<?  echo $form->error($model, 'login'); 
-    echo $form->labelEx($model, 'login');
-    echo $form->textField($model, 'login');?>    
-</div>
+
+<?php 
+$noshow = array('id', 'password');
+foreach ($model as $itm=>$v)
+{
+    if(!in_array($itm, $noshow)):
+        echo '<div class="'.$itm.' field">';
+        echo $form->error($model, $itm); 
+        echo $form->labelEx($model, $itm);
+        echo $form->textField($model, $itm);
+        echo '</div>';
+    endif;
+}
+?>
 <div class="password field">
 <?  echo CHtml::label('Пароль', 'User_password');
     echo CHtml::passwordField('User_password', '', array('id'=>'User_password')); ?>
-</div>
-<div class="name field">
-<?  echo $form->error($model, 'name'); 
-    echo $form->labelEx($model, 'name');
-    echo $form->textField($model, 'name');?>
-</div>
-<div class="surname field">
-<?  echo $form->error($model, 'surname'); 
-    echo $form->labelEx($model, 'surname');
-    echo $form->textField($model, 'surname'); ?>
-</div>
-<div class="email field">
-<?  echo $form->error($model, 'email');
-    echo $form->labelEx($model, 'email');
-    echo $form->emailField($model, 'email'); ?>
-</div>
-<div class="group field">
-<?  echo $form->error($model, 'group_id');
-    echo $form->labelEx($model, 'group_id');
-    echo $form->dropDownList($model, 'group_id', $group); ?>
 </div>
 <div style="display:none;">
 <?  echo $form->hiddenField($model, 'password'); ?>

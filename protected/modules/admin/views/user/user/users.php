@@ -19,7 +19,7 @@
         'template'=>'{sorter} {items} {pager}',
         'sorterHeader'=>'',
         'itemsTagName'=>'ul',
-        'sortableAttributes'=>array('group_id','surname'),
+        'sortableAttributes'=>array('company'),
         'pager'=>array(
             'class'=>'CLinkPager',
             'header'=>false,
