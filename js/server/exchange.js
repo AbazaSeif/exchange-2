@@ -21,8 +21,6 @@ io.sockets.on('connection', function (socket) {
     socket.on('init', function (id) {
         console.log( id + '=======' + socket.id);
         allSockets[id] = socket.id;
-        
-        
     });
     
     /* ----- Update count of messages in frontend ----- */

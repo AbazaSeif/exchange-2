@@ -8,8 +8,9 @@ class WebUser extends CWebUser
     
     // Автоматический вход на сайт
     public $allowAutoLogin = true;
+    public $transport = 0;
 
-    public function isTransport()
+    public function getIsTransport()
     {
         return $this->transport==='1';
     }

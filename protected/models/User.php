@@ -31,7 +31,10 @@
  */
 class User extends CActiveRecord
 {
-	/**
+        const USER_NOT_CONFIRMED = 0;
+        const USER_TEMPORARY_BLOCKED = 3;
+        const USER_BLOCKED = 4;	
+        /**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
