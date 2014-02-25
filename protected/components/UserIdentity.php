@@ -20,7 +20,6 @@ class UserIdentity extends CUserIdentity
         $this->errorCode = $this->getError($record);
 
         if($this->errorCode==self::ERROR_NONE) {
-            $this->_id = $record->g_id;
             $this->setState('_id', $record->id);
             $this->setState('transport', $statusUser);
             if($statusUser=='0'){
