@@ -111,7 +111,7 @@ return array(
     'params' => array(
         // this is used in contact page
         //'host'=>'lbr.test',
-        'host'=>'lbr.local',
+        'host'=>'lbr.ru',
         'meta_title' => 'Биржа перевозок',
         'meta_description' => 'перевозки, биржа перевозок, биржа ЛБР',
         'menu_admin' => array(
