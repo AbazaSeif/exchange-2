@@ -103,7 +103,7 @@ class TransportController extends Controller
             ->from('rate r')
             ->join('user u', 'r.user_id=u.id')
             ->where('r.transport_id=:id', array(':id'=>$id))
-            ->order('r.date asc')
+            ->order('r.date asc, r.price desc')
             ->queryAll()
         ;
                 

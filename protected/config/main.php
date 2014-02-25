@@ -42,26 +42,26 @@ return array(
 		),
 		// uncomment the following to enable URLs in path-format
 		'urlManager'=>array(
-			'urlFormat'=>'path',
-                        'showScriptName'=>false,
-			'rules'=>array(
-			    'transport/i/<page:\d+>'=>'transport/i',
-                '<_m:user>/<_a:\w+>' => 'user/default/<_a>',
-				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-				'transport/i/<page:\d+>'=>'transport/i',
-			),
+                    'urlFormat'=>'path',
+                    'showScriptName'=>false,
+                    'rules'=>array(
+                        'transport/i/<page:\d+>'=>'transport/i',
+                        '<_m:user>/<_a:\w+>' => 'user/default/<_a>',
+                        '<controller:\w+>/<id:\d+>'=>'<controller>/view',
+                        '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+                        '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+                        'transport/i/<page:\d+>'=>'transport/i',
+                    ),
 		),
 		
 		'db'=>array(
-                        'class'=>'CDbConnection',
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/exchange.db',
-                        'initSQLs'=>array(
-                            'PRAGMA foreign_keys = ON',
-                        ),
-                        'enableProfiling'=>true,
-                        'enableParamLogging' => true,
+                    'class'=>'CDbConnection',
+                    'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/exchange.db',
+                    'initSQLs'=>array(
+                        'PRAGMA foreign_keys = ON',
+                    ),
+                    'enableProfiling'=>true,
+                    'enableParamLogging' => true,
 		),
 //                'db_user'=>array(
 //                        'class'=>'CDbConnection',
@@ -112,14 +112,14 @@ return array(
             'meta_title'=>'Биржа перевозок',
             'meta_description'=>'перевозки, биржа перевозок, биржа ЛБР',
             'menu_admin'=>array(
-                    'Пользователи'=>array(
-                            'Пользователи'=>'/admin/user/',
-                            'Группы пользователей'=>'/admin/user/group/',
-                            'Роли'=>'/admin/user/role/',
-                            'Операции'=>'/admin/user/operation/',
-                    ),
-                    'Перевозки'=>'/admin/transport/',
-                    'История редактирования'=>'/admin/changes/',
+                'Пользователи'=>array(
+                        'Пользователи'=>'/admin/user/',
+                        'Группы пользователей'=>'/admin/user/group/',
+                        'Роли'=>'/admin/user/role/',
+                        'Операции'=>'/admin/user/operation/',
+                ),
+                'Перевозки'=>'/admin/transport/',
+                'История редактирования'=>'/admin/changes/',
              ),
              'adminEmail'=>'krilova@lbr.ru',
              'minNotyfy' => 30,

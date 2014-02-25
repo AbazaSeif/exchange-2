@@ -19,22 +19,26 @@
 ?>
 <div class="form">
 <div class="header-form">
-    <? echo $header_form; ?>
+    <?php echo $header_form; ?>
 </div>
-<? $form = $this->beginWidget('CActiveForm', array('id'=>'form'.$model->id,
+<?php $form = $this->beginWidget('CActiveForm', array('id'=>'form'.$model->id,
+    'id'=>'user-form',
     'action'=>$action,
-    'enableClientValidation'=>true,
+    'enableClientValidation' => true,
+    'enableAjaxValidation' => true,
+        
     'clientOptions'=>array(
-            'validateOnSubmit'=>true,
-            'afterValidate'=>'js:function( form, data, hasError ) 
-                                {     
-                                    if( hasError ){
-                                        return false;
-                                    }
-                                    else{
-                                        return true;
-                                    }
-                                }'
+        'validateOnSubmit'=>true,
+        'validateOnChange' => true,
+        'afterValidate'=>'js:function( form, data, hasError ) 
+            {     
+                if( hasError ){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }'
     ),));
 ?>
 <div class="buttons">
@@ -48,8 +52,9 @@
     echo $form->textField($model, 'login');?>    
 </div>
 <div class="password field">
-<?  echo CHtml::label('Пароль', 'User_password');
-    echo CHtml::passwordField('User_password', '', array('id'=>'User_password')); ?>
+<?  echo $form->error($model, 'password');
+    echo $form->labelEx($model, 'password');
+    echo $form->textField($model, 'password'); ?>
 </div>
 <div class="name field">
 <?  echo $form->error($model, 'name'); 
@@ -66,10 +71,20 @@
     echo $form->labelEx($model, 'email');
     echo $form->emailField($model, 'email'); ?>
 </div>
+<div class="phone field">
+<?  echo $form->error($model, 'phone');
+    echo $form->labelEx($model, 'phone');
+    echo $form->textField($model, 'phone'); ?>
+</div>
 <div class="group field">
 <?  echo $form->error($model, 'group_id');
     echo $form->labelEx($model, 'group_id');
     echo $form->dropDownList($model, 'group_id', $group); ?>
+</div>
+<div class="status field">
+<?  echo $form->error($model, 'status');
+    echo $form->labelEx($model, 'status');
+    echo $form->dropDownList($model, 'status', $status); ?>
 </div>
 <div style="display:none;">
 <?  echo $form->hiddenField($model, 'password'); ?>

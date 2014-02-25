@@ -65,6 +65,10 @@
 	margin-top:-40px;*/
     top: 460px;
 }
+#rates .mCSB_scrollTools .mCSB_buttonDown{
+    
+    top: 310px;
+}
 /* horizontal scrollbar */
 .mCSB_horizontal>.mCSB_container{
 	height:auto;

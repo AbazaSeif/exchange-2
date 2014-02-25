@@ -17,15 +17,16 @@
 
         <link rel="stylesheet" type="text/css" href="/css/front/frontend.css" />
         <link rel="stylesheet" type="text/css" href="/css/front/jquery.mCustomScrollbar.css" />
-
+        <script src="http://localhost:3000/socket.io/socket.io.js"></script>
         <?php
-			Yii::app()->clientScript->registerCoreScript('jquery');
-            Yii::app()->clientScript->registerScriptFile('/js/jquery.dotdotdot.min.js');
+            Yii::app()->clientScript->registerCoreScript('jquery');
+            Yii::app()->clientScript->registerScriptFile('/js/jquery.dotdotdot.js');
             Yii::app()->clientScript->registerScriptFile('/js/jquery.mCustomScrollbar.concat.min.js');
-			Yii::app()->clientScript->registerScriptFile('/js/front/Timer.js');
-			Yii::app()->clientScript->registerScriptFile('/js/front/rateList.js');
-			Yii::app()->clientScript->registerScriptFile('/js/front/menu.js');
-			Yii::app()->clientScript->registerScriptFile('/js/front/frontend.js');
+            Yii::app()->clientScript->registerScriptFile('/js/front/Timer.js');
+            Yii::app()->clientScript->registerScriptFile('/js/front/rateList.js');
+            Yii::app()->clientScript->registerScriptFile('/js/front/menu.js');
+            Yii::app()->clientScript->registerScriptFile('/js/front/frontend.js');
+            Yii::app()->clientScript->registerScriptFile('/js/front/OnlineEvent.js');
         ?>
     </head>
     <body>

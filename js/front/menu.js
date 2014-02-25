@@ -1,14 +1,14 @@
 var menu = {
     init : function(){
-        this.updateCounter();
-        setInterval(function(){menu.updateCounter()}, 5000);
+        //this.updateCounter();
+        //setInterval(function(){menu.updateCounter()}, 5000);
         
         //null - если не активен пункт меню
         var activeElement = parseInt(sessionStorage.getItem('menu'));
         var activeSubElement = parseInt(sessionStorage.getItem('submenu'));
         
         if(activeElement != 'null') {
-             if (this.countSubmenuElem != 'null'){
+             if (this.countSubmenuElem != 'null') {
                 if(activeElement >= this.countSubmenuElem) activeElement = activeElement + this.countSubmenuElem;
              }
              $('.user-menu li').eq(activeElement).find('a:first').addClass('menu-active');
@@ -41,11 +41,11 @@ var menu = {
             }
         });
     },
-    updateCounter : function(){
+    /*updateCounter : function(){
         $.ajax({
             url: '/user/updateEventCounter',
             success: function(data){
-            $('#event-counter').html(data);
+            //$('#event-counter').html(data);
         }});
-    }
+    }*/
 };
