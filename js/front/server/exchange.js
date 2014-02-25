@@ -46,19 +46,19 @@ io.sockets.on('connection', function (socket) {
     }, 2000);
     */
 	
-    setInterval(function() {
+    //setInterval(function() {
 	   /* socket.get('id', function (err, id) {
 		    seachNewEvents(id);
 		});*/
-		if(){
-		}
+		//if(){
+		//}
 		
 		/*db.each("SELECT user_event, price FROM user_event WHERE transport_id = " + id + " order by price asc", function(err, row) {
 			i++;
 			arr[i] = new Array (row.user_id, row.price);
 		});*/
 		
-    }, 2000);
+   // }, 2000);
     
     /* ----- Rates ----- */
     
