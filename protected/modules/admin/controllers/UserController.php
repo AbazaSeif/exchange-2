@@ -28,26 +28,6 @@ class UserController extends Controller {
                 $sort->sortVar = 'sort';
                 // сортировка по умолчанию 
                 $sort->defaultOrder = 'surname ASC';
-                $sort->attributes = array(
-                    'group_id'=>array(
-                        'group_id'=>'Группа',
-                        'asc'=>'group_id ASC',
-                        'desc'=>'group_id DESC',
-                        'default'=>'asc',
-                    ),
-                    'surname'=>array(
-                        'surname'=>'Фамилия',
-                        'asc'=>'surname ASC',
-                        'desc'=>'surname DESC',
-                        'default'=>'asc',
-                    ),
-                    'surname'=>array(
-                        'name'=>'Имя',
-                        'asc'=>'name ASC',
-                        'desc'=>'name DESC',
-                        'default'=>'asc',
-                    ),
-                );
                 $dataProvider = new CActiveDataProvider('User', 
                         array(
                             'criteria'=>$criteria,
@@ -138,9 +118,9 @@ class UserController extends Controller {
 
     public function actionEditUser($id) {
         $model = User::model()->findByPk($id);
-        $params = array('group' => $model->group_id, 'userid' => $id);
-        if (Yii::app()->user->checkAccess('editUser', $params)) {
-            $group = UserGroup::getUserGroupArray();
+        
+        if (Yii::app()->user->checkAccess('editUser')) {
+            
             if (isset($_POST['User'])) {
                 $changes = array();
                 foreach ($_POST['User'] as $key => $value) {
@@ -174,8 +154,8 @@ class UserController extends Controller {
 
     public function actionDeleteUser($id) {
         $model = User::model()->findByPk($id);
-        $params = array('group' => $model->group_id, 'userid' => $id);
-        if (Yii::app()->user->checkAccess('deleteUser', $params) && $id != Yii::app()->user->_id) {
+        
+        if (Yii::app()->user->checkAccess('deleteUser') && $id != Yii::app()->user->_id) {
             if (User::model()->deleteByPk($id)) {
                 Changes::saveChange('Удален пользователь ' . $model['name'] . ' ' . $model['surname']);
                 Yii::app()->user->setFlash('message', 'Пользователь удален успешно.');
