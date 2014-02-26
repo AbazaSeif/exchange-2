@@ -46,6 +46,7 @@ class Changes extends CActiveRecord
     public static function saveChange($message)
     {
         $change = new Changes();
+        //AuthUser
         $change['user_id'] = Yii::app()->user->_id;
         $change['date'] = date('Y-m-d H:i:s');
         $change['description'] = $message;

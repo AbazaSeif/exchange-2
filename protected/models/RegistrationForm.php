@@ -9,7 +9,7 @@ class RegistrationForm extends CFormModel
     public $district;
     public $inn;
     public $name;
-    public $second_name;
+    public $secondname;
     public $surname;
     public $phone;
     public $email;
@@ -19,12 +19,13 @@ class RegistrationForm extends CFormModel
     public function rules()
     {
         return array(
-            array('company, country, city, inn, name, second_name, surname, phone, email', 'required'),
-            array('inn', 'length', 'min' => 12, 'max'=>12, 
-            'tooShort'=>Yii::t("translation", "{attribute} должен содержать 12 символов."),
-            'tooLong'=>Yii::t("translation", "{attribute} должен содержать 12 символов.")),
+            array('company, country, city, inn, name, secondname, surname, phone, email', 'required'),
             array('email', 'email'),
-            array('phone', 'numerical')
+            array('phone, inn', 'numerical'),
+            array('inn', 'length', 'min' => 12, 'max'=>12, 
+                'tooShort'=>Yii::t("translation", "{attribute} должен содержать 12 символов."),
+                'tooLong'=>Yii::t("translation", "{attribute} должен содержать 12 символов.")
+            )
         );
     }
 
@@ -38,7 +39,7 @@ class RegistrationForm extends CFormModel
             'city' => 'Город',
             'district' => 'Район',
             'name' => 'Имя',
-            'second_name' => 'Отчество',
+            'secondname' => 'Отчество',
             'surname' => 'Фамилия',
             'phone'=>'Телефон',
             'email'=>'Электронная почта',

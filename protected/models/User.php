@@ -152,6 +152,7 @@ class User extends CActiveRecord
             return parent::model($className);
 	}
         
+        //  Метод проверяет изменен ли пароль
         protected function beforeSave() {
             parent::beforeSave();
             if (isset($_POST['User_password']) && $_POST['User_password']!=''){

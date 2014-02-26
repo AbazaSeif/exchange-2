@@ -126,7 +126,7 @@ return array(
         ),
         'adminEmail' => 'krilova@lbr.ru',
         'minNotyfy' => 30,
-        'hoursBefore' => 48,
+        'hoursBefore' => 24,
         'ferrymanGroup' => 4,
         'nds' => 0.1, // 10%
     ),

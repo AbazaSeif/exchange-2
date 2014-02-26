@@ -61,9 +61,9 @@
 		<?php echo $form->error($model, 'name'); ?>
 	</div>
         <div class="row">
-		<?php echo $form->labelEx($model, 'second_name'); ?>
-		<?php echo $form->textField($model, 'second_name', array('placeholder'=>'Заполните поле')); ?>
-		<?php echo $form->error($model, 'second_name'); ?>
+		<?php echo $form->labelEx($model, 'secondname'); ?>
+		<?php echo $form->textField($model, 'secondname', array('placeholder'=>'Заполните поле')); ?>
+		<?php echo $form->error($model, 'secondname'); ?>
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'phone'); ?>
