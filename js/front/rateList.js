@@ -10,8 +10,10 @@ var rateList = {
         
         rateList.data.socket.on('setRate', function (data) {
             var initPrice = parseInt($('#rate-price').attr('init'));
-            var element = rateList.createElement(initPrice, data.date, data.name, data.price, data.surname);
-            $('#rates').prepend(element);
+            if(data.transportId == rateList.data.transportId){
+                var element = rateList.createElement(initPrice, data.date, data.name, data.price, data.surname);
+                $('#rates').prepend(element);
+            }
         });
         
         rateList.data.socket.on('loadRates', function (data) {
@@ -265,7 +267,6 @@ var rateList = {
         }
     },
     add : function(rate, initPrice) {
-        console.log(rate.time);
         var time = '';
         var id = 0;
         var price = parseInt(rate.price);

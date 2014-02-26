@@ -156,9 +156,10 @@ $(document).ready(function(){
         /***************************************************/
         
         rateList.data.socket = socket;
-        rateList.data.userId   = '<?php echo $userInfo[id] ?>',
-        rateList.data.name   = '<?php echo $userInfo[name] ?>',
-        rateList.data.surname = '<?php echo $userInfo[surname] ?>',
+        rateList.data.userId   = '<?php echo $userInfo[id] ?>';
+        rateList.data.transportId  = '<?php echo $transportInfo[id] ?>';
+        rateList.data.name   = '<?php echo $userInfo[name] ?>';
+        rateList.data.surname = '<?php echo $userInfo[surname] ?>';
         
         rateList.init();
     //setInterval(function(){rateList.update($('#rates'))}, 15000);

@@ -135,14 +135,16 @@ io.sockets.on('connection', function (socket) {
                     name : data.name,
                     surname : data.surname,
                     price : data.price,
-                    date: data.date
+                    date: data.date,
+                    transportId : data.transportId
                 });
                 
                 socket.broadcast.emit('setRate', {
                     name : data.name,
                     surname : data.surname,
                     price : data.price,
-                    date: data.date
+                    date: data.date,
+                    transportId : data.transportId
                 });
             } else {
                 io.sockets.socket(socket.id).emit('errorRate', {
