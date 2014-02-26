@@ -4,7 +4,8 @@ var allSockets = [];
 //socket.on('disconnect', function() { connectCounter--; });
 io.sockets.on('connection', function (socket) {
     var fs = require("fs");
-    var file = "d:/server/domains/exchange/protected/data/exchange.db";
+    //var file = "d:/server/domains/exchange/protected/data/exchange.db";
+    var file = "/../../../data/exchange.db";
     var sqlite3 = require("sqlite3").verbose();
     var db = new sqlite3.Database(file);
     var arr  = [];

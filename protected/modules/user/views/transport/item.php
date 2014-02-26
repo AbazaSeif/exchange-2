@@ -1,4 +1,5 @@
-<?php $lastRate = null;
+<?php 
+$lastRate = null;
 $currency = '€';
 $defaultRate = false;
 $priceStep = Transport::INTER_PRICE_STEP;
@@ -52,7 +53,8 @@ $inputSize = strlen((string)$lastRate)-1;
             <?php if (!empty($transportInfo['auto_info'])):?><div><span>Транспорт: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
         </div>	
     </div>
-    <?php if (!Yii::app()->user->isGuest && $lastRate > 0 && Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot): ?>
+    <?php //if (!Yii::app()->user->isGuest && $lastRate > 0 && Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot): ?>
+    <?php if (!Yii::app()->user->isGuest && $lastRate > 0 && Yii::app()->user->isTransport): ?>
     <div class="width-30-r timer-wrapper">
         <div id="t-container"></div>
         <?php if($transportInfo['status']): ?>
