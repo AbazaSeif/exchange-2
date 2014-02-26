@@ -534,9 +534,14 @@ div.row{
 .transport-one .t-o-published
 {
     color: #CCC;
-    padding-left: 10px;
+    padding-left: 7px;
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 7px;
+}
+.transport-one h4{
+    padding-left: 7px;
+    color: #666;
+    margin-top:0;
 }
 .transport-one .t-o-info
 {
@@ -556,6 +561,7 @@ div.row{
     color: #00917C;
     font-size: 18px;
     margin: 1px 0 6px;
+    padding-left: 7px;
 }
 
 .r-description{

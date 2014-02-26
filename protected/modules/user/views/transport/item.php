@@ -6,6 +6,8 @@ $priceStep = Transport::INTER_PRICE_STEP;
 $now = date('Y m d H:i:s', strtotime('now'));
 $end = date('Y m d H:i:s', strtotime($transportInfo['date_from'] . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
 
+$allPoints = TransportInterPoint::getPoints($transportInfo['id']);
+
 //if($transportInfo['type']==Transport::RUS_TRANSPORT){
 if(!$transportInfo['currency']){
     $priceStep = Transport::RUS_PRICE_STEP; 
@@ -43,6 +45,13 @@ $inputSize = strlen((string)$lastRate)-1;
     <div class="width-60">
         <h1><?php echo $transportInfo['location_from'] . ' &mdash; ' . $transportInfo['location_to']; ?></h1>
         <span class="t-o-published">Опубликована <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_published'])) ?></span>
+        <?php if($allPoints):?>
+        <h4>
+            <span>
+                <?php echo $transportInfo['location_from'] . $allPoints . ' -> ' . $transportInfo['location_to'] ?>
+            </span>
+        </h4>
+        <?php endif; ?>
         <div class="t-o-info">
             <label class="r-header">Основная информация</label>
             <div class="r-description"><i><?php echo $transportInfo['description'] ?></i></div>

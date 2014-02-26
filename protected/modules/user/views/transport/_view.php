@@ -8,7 +8,7 @@
     //echo 1111; exit;
     $currency = ' €';
     $type = 'международная';
-    $allPoints = $this->getPoints($data->id);
+    $allPoints = TransportInterPoint::getPoints($data->id);//$this->getPoints($data->id);
 
     if(!Yii::app()->user->isGuest){
         $model = UserField::model()->find('user_id = :id', array('id' => Yii::app()->user->_id));   
