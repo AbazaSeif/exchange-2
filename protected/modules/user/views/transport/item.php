@@ -120,7 +120,8 @@ $(document).ready(function(){
     };
     <?php if (!Yii::app()->user->isGuest): ?>
         var socket = io.connect('http://localhost:3000/');
-        socket.emit('loadRates', <?php echo $transportInfo['id'] ?>);
+        socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>);
+        
 
         /*var newElement = "<div id='" + id + "' class='rate-one'>" + 
             "<div class='r-o-container'>" + 
@@ -144,13 +145,13 @@ $(document).ready(function(){
             ;
             //$('#rates').append(newElement);
         });*/
-        socket.on('endinit', function () {
+       /* socket.on('endinit', function () {
             $("#rates").mCustomScrollbar({
                 scrollButtons:{
                     enable:true
                 }
             });
-        });
+        });*/
 
         /***************************************************/
         

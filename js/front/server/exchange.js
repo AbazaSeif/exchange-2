@@ -7,112 +7,117 @@ function deleteFromArray(element) {
 
 io.sockets.on('connection', function (socket) {
     var fs = require("fs");
-    var file = "d:/server/domains/exchange/protected/data/exchange.db";
+    //var file = "d:/server/domains/data/exchange.db";
+    var file = "/../../../data/exchange.db";
     var sqlite3 = require("sqlite3").verbose();
     var db = new sqlite3.Database(file);
     var arr = [];
     var name = [];
-    var i = -1;
+    var i = 0;
 
-	socket.on('disconnect', function() {
-	    deleteFromArray(socket.id);
+    socket.on('disconnect', function() {
+        deleteFromArray(socket.id);
     });
 	
-    socket.on('init', function (id) {
+    socket.on('init', function (id, minNotyfy) 
+    {
         allSockets[id] = socket.id;
+        db.each("SELECT site_deadline, site_before_deadline, site_transport_create_1, site_transport_create_2  FROM user_field WHERE user_id = " + id, function(err, option) {
+            if(option.site_deadline)  seachNewEvents(id, 1);
+            if(option.site_before_deadline) seachNewEvents(id, 2, minNotyfy);
+            if(option.site_transport_create_1) seachNewEvents(id, 3);
+            if(option.site_transport_create_2) seachNewEvents(id, 4);
+        });
+        updateEventsCount(id);	
     });
 	
     /* ----- Update count of messages in frontend ----- */
-    function seachNewEvents(id)
-    {
-        db.each("SELECT status FROM user_event WHERE user_id = " + id + " and status = 1", function(err, row) {
-        }, function(err, rows) {
-            io.sockets.socket(socket.id).emit('updateEvents', {
-                count : rows
-            });
-        });
-    }
-    
-    socket.on('events', function (id) {
-        socket.set('id', id);
-        seachNewEvents(id);
-    });  
-    
-    /*
-    setInterval(function(){
-	    socket.get('id', function (err, id) {
-		    seachNewEvents(id);
-		});
-    }, 2000);
-    */
 	
-    //setInterval(function() {
-	   /* socket.get('id', function (err, id) {
-		    seachNewEvents(id);
-		});*/
-		//if(){
-		//}
-		
-		/*db.each("SELECT user_event, price FROM user_event WHERE transport_id = " + id + " order by price asc", function(err, row) {
-			i++;
-			arr[i] = new Array (row.user_id, row.price);
-		});*/
-		
-   // }, 2000);
+    function seachNewEvents(id, type, minNotyfy)
+    {
+        setTimeout(function() {
+            db.each('SELECT id, transport_id FROM user_event WHERE status=1 and user_id = ' + id + ' and event_type = ' + type, function(err, event) {
+                db.each('SELECT location_from, location_to FROM transport WHERE id = ' + event.transport_id, function(err, transport) {	              
+                    if (id in allSockets) { // user online
+                        var message = 'Перевозка "' + transport.location_from + ' &mdash; ' + transport.location_to + '" была закрыта';
+                        if(type == 2) message = 'Перевозка "' + transport.location_from + ' &mdash; ' + transport.location_to + '" будет закрыта через ' + minNotyfy + ' минут';
+                        if(type == 3) message = 'Создана новая международная перевозка "' + transport.location_from + ' &mdash; ' + transport.location_to + '"';
+                        if(type == 4) message = 'Создана новая региональная перевозка "' + transport.location_from + ' &mdash; ' + transport.location_to + '"';
+
+                        io.sockets.socket(socket.id).emit('onlineEvent', {
+                            msg : message
+                        });
+                        var stmt = "UPDATE user_event set status=0 WHERE id = " + event.id;
+                        db.run(stmt);
+                        seachNewEvents(id, type, minNotyfy);
+                    }
+                });
+            });
+        }, 2000);
+    }
+	
+    function updateEventsCount(id)
+    {
+        setTimeout(function() {
+            db.each("SELECT status FROM user_event WHERE user_id = " + id + " and status = 1", function(err, row) {
+            }, function(err, rows) {
+                io.sockets.socket(socket.id).emit('updateEvents', {
+                    count : rows
+                });
+            });
+        }, 2000);
+    }
     
     /* ----- Rates ----- */
     
     /* Load all rates when open transport page in the first time  */
-    socket.on('loadRates', function (id) {
-        //allSockets[id] = socket.id;
+    socket.on('loadRates', function (id, t_id) {
         db.serialize(function() {
-            db.each("SELECT user_id, price FROM rate WHERE transport_id = " + id + " order by price asc", function(err, row) {
-                i++;
-                arr[i] = new Array (row.user_id, row.price);
-            }, function(err, rows) {
-                
-				/*io.sockets.socket(socket.id).emit('endinit');	
+            db.each("SELECT user_id, price, date FROM rate WHERE transport_id = " + t_id + " order by date asc, price desc", function(err, row) {
+                arr[i] = new Array (row.user_id, row.price, row.date);
+		i++;
+            }, function(err, rows) {	
                 for(var j = 0; j < rows; j++) {
                     var k = 0;
                     db.each("SELECT id, name, surname FROM user WHERE id = " + arr[j][0], function(err, user) {
-                        io.sockets.socket(socket.id).emit('init', {
-                        //io.sockets.emit('init', {
+                        io.sockets.socket(socket.id).emit('loadRates', {
                             price : arr[k][1],
-                            name  : user.name + ' ' + user.surname,
-                            count : rows
+			    date  : arr[k][2],
+                            name  : user.name,
+			    surname : user.surname,
                         });
                         k++;
                     });
-                }*/
+                }
             });
         });
     });
-    
+	
     socket.on('setRate', function (data) {
         db.each("SELECT user_id FROM rate WHERE transport_id = " + data.transportId + " and price = " + data.price, function(err, row) {
         }, function(err, rows) {
             if(rows == 0) {
                 db.each("SELECT rate_id, location_from, location_to FROM transport WHERE id = " + data.transportId, function(err, row) { 
-					if(row.rate_id != 'null') {
-						db.each("SELECT user_id FROM rate WHERE id = " + row.rate_id, function(err, user) {
-							db.each("SELECT site_kill_rate FROM user_field WHERE user_id = " + user.user_id, function(err, option) {
-								if(option.site_kill_rate) {
-									if (user.user_id in allSockets) { // user online
-										io.sockets.socket(allSockets[user.user_id]).emit('onlineEvent', {
-											name : row.location_from + ' &mdash; ' + row.location_to
-										});
-										
-										var stmt = db.prepare("INSERT INTO user_event(user_id, transport_id, status, type, event_type) VALUES (?, ?, ?, ?, ?)");
-										stmt.run(user.user_id, data.transportId, 0, 1, 5);
-										stmt.finalize();
-									} else { // user offline
-										var stmt = db.prepare("INSERT INTO user_event(user_id, transport_id, status, type, event_type) VALUES (?, ?, ?, ?, ?)");
-										stmt.run(user.user_id, data.transportId, 1, 1, 5);
-										stmt.finalize();
-									}
-								}
-							});
-						});
+                    if(row.rate_id != 'null') {
+                        db.each("SELECT user_id FROM rate WHERE id = " + row.rate_id, function(err, user) {
+                            db.each("SELECT site_kill_rate FROM user_field WHERE user_id = " + user.user_id, function(err, option) {
+                                if(option.site_kill_rate) {
+                                    if (user.user_id in allSockets) { // user online
+                                        io.sockets.socket(allSockets[user.user_id]).emit('onlineEvent', {
+                                            msg : 'Вашу ставку для перевозки "' + row.location_from + ' &mdash; ' + row.location_to + '" перебили'
+                                        });
+
+                                        var stmt = db.prepare("INSERT INTO user_event(user_id, transport_id, status, type, event_type) VALUES (?, ?, ?, ?, ?)");
+                                        stmt.run(user.user_id, data.transportId, 0, 1, 5);
+                                        stmt.finalize();
+                                    } else { // user offline
+                                        var stmt = db.prepare("INSERT INTO user_event(user_id, transport_id, status, type, event_type) VALUES (?, ?, ?, ?, ?)");
+                                        stmt.run(user.user_id, data.transportId, 1, 1, 5);
+                                        stmt.finalize();
+                                    }
+                                }
+                            });
+                        });
                     }
                 });
                 

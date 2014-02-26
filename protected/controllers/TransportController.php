@@ -200,4 +200,22 @@ class TransportController extends Controller
             Yii::app()->db->createCommand()->insert('user_event',$obj);
         }
     }
+    
+    public function getPoints($id)
+    {
+        $points = '';        
+        $innerPoints = Yii::app()->db->createCommand()
+            ->select('point')
+            ->from('transport_inter_point')
+            ->where('t_id=:id', array(':id'=>$id))
+            ->order('date')
+            ->queryAll()
+        ;
+        
+        foreach($innerPoints as $point){
+            if(isset($points)) $points .= ' -> ';
+            $points .= $point['point'];
+        }
+        return $points;
+    }
 }

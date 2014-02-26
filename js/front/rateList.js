@@ -14,6 +14,19 @@ var rateList = {
             $('#rates').prepend(element);
         });
         
+        rateList.data.socket.on('loadRates', function (data) {
+            //console.log(data.date);
+            var obj = {
+                price: data.price,
+                time: data.date,
+                name: data.name,
+                surname: data.surname,
+                //userId: rateList.data.userId,
+                //transportId: rateList.data.transportId
+            };
+            rateList.add(obj);
+        });
+        
         rateList.data.socket.on('errorRate', function (data) {
             var error = $('#t-error');
             error.css('display', 'block');
@@ -21,7 +34,9 @@ var rateList = {
         });
         
         rateList.data.socket.on('onlineEvent', function (data) {
-            $.onlineEvent({ msg:'Вашу ставку для перевозки "' + data.name + '" перебили',className: 'classic', sticked:true, position:{right:0,bottom:0}, time:2000});
+            //$.onlineEvent({ msg:'Вашу ставку для перевозки "' + data.name + '" перебили',className: 'classic', sticked:true, position:{right:0,bottom:0}, time:2000});
+            //console.log(111);
+            $.onlineEvent({ msg : data.msg, className : 'classic', sticked:true, position:{right:0,bottom:0}, time:2000});
         });
         
         $( "#rate-up" ).on('click', function() {
@@ -154,7 +169,7 @@ var rateList = {
             }
         });
 
-        rateList.load(this.container);        
+        //rateList.load(this.container);        
     },
     // ----
     //update : function(posts, price) {
@@ -250,16 +265,17 @@ var rateList = {
         }
     },
     add : function(rate, initPrice) {
+        console.log(rate.time);
         var time = '';
         var id = 0;
         var price = parseInt(rate.price);
         price = Math.ceil(price + price * this.data.nds);
         if (typeof rate.id !=="undefined") id = rate.id;
         
-        if (typeof rate.id !=="undefined") {
+        /*if (typeof rate.time !=="undefined") {
             time = "<div class='r-o-time'>" + rate.time + "</div>";
-        }
-        var element = this.createElement(initPrice, rate.date, rate.name, price, rate.surname, id);
+        }*/
+        var element = this.createElement(initPrice, rate.time, rate.name, price, rate.surname, id);
         this.container.prepend(element);
     },
     createElement : function(initPrice, date, name, price, surname, id) {

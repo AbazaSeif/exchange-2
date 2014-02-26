@@ -43,6 +43,7 @@ $(document).ready(function(){
        }
     });
     $('.description').dotdotdot();
+    $('.description-50').dotdotdot();
 });
 </script>
 

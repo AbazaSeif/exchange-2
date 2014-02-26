@@ -335,4 +335,22 @@ class TransportController extends Controller
         
         return $row['price'];
     }
+    
+    public function getPoints($id)
+    {
+        $points = '';        
+        $innerPoints = Yii::app()->db->createCommand()
+            ->select('point')
+            ->from('transport_inter_point')
+            ->where('t_id=:id', array(':id'=>$id))
+            ->order('date')
+            ->queryAll()
+        ;
+        
+        foreach($innerPoints as $point){
+            if(isset($points)) $points .= ' -> ';
+            $points .= $point['point'];
+        }
+        return $points;
+    }
 }

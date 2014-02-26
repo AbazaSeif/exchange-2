@@ -8,7 +8,7 @@ class SiteController extends Controller
 
     public function actionDescription($id)
     {
-	    $transportInfo=Yii::app()->db->createCommand("SELECT * from transport where id='".$id."'")->queryRow();
+	$transportInfo=Yii::app()->db->createCommand("SELECT * from transport where id='".$id."'")->queryRow();
         $allRatesForTransport = Yii::app()->db->createCommand()
             ->select('r.date, r.price, u.name')
             ->from('rate r')
@@ -16,8 +16,9 @@ class SiteController extends Controller
             ->where('r.transport_id=:id', array(':id'=>$id))
             ->order('r.date desc')
             ->queryAll()
-         ;
-         $this->render('item', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
+        ;
+        
+        $this->render('item', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
     }
     
     public function actionRegistration()
@@ -48,6 +49,7 @@ class SiteController extends Controller
             $newFerrymanFields->site_kill_rate = true;
             $newFerrymanFields->site_deadline = true;
             $newFerrymanFields->site_before_deadline = true;            
+            $newFerrymanFields->with_nds = false;            
             $newFerrymanFields->save();
 
             $this->sendMail(Yii::app()->params['adminEmail'], 1, $_POST['RegistrationForm']);
