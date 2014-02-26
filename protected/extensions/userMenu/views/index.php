@@ -1,6 +1,10 @@
 <?php
 if(!Yii::app()->user->isGuest){
-    $user = User::model()->findByPk(Yii::app()->user->_id);
+    if(Yii::app()->user->isTransport) {
+        $user = User::model()->findByPk(Yii::app()->user->_id);
+    } else {
+        $user = AuthUser::model()->findByPk(Yii::app()->user->_id);
+    }
 ?>
     <div class='user-info'>
         <?php echo '<span class="user-name"> Добро пожаловать, '.$user->name.'!</span>'; ?>
@@ -24,7 +28,7 @@ if(!Yii::app()->user->isGuest){
     <?php }  else {?>
                 <ul class="user-menu">
                     <li><a href="/">Главная</a>
-                        <?php if(Yii::app()->user->checkAccess('admin')){ ?>
+                        <?php if(Yii::app()->user->checkAccess('readTransport')){ ?>
                             <li><a href="/admin/" class="admin">Административная панель</a></li>
                         <?php  } ?>
                     <li><a href="/user/logout/" class="exit">Выход</a></li>
@@ -79,10 +83,12 @@ $(document).ready(function(){
     menu.init();
     
     
-    /*setInterval(function(){
+    /*
+    setInterval(function(){
         socket.emit('events', userId);
     }, 1000);
      */
+    
     socket.emit('events', userId);   
     socket.on('updateEvents', function (data) {
         if(parseInt(data.count) != 0){

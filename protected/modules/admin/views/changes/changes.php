@@ -10,7 +10,10 @@
         'template'=>'{sorter} {items} {pager}',
         'sorterHeader'=>'',
         'itemsTagName'=>'ul',
-        'sortableAttributes'=>array('group_id','surname','name'),
+        'sortableAttributes'=>array(
+            'surname'=>'Фамилия',
+            'name'=>'Имя'
+        ),
         'pager'=>array(
             'class'=>'CLinkPager',
             'header'=>false,

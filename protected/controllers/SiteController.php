@@ -24,27 +24,58 @@ class SiteController extends Controller
     {
         $model = new RegistrationForm;
         if(isset($_POST['RegistrationForm'])) {
-            /*
+            
+            //$this->password = crypt($_POST['User_password'], User::model()->blowfishSalt());
             // Save in database
             $userInfo = array();
             $newFerryman = new User;
             $newFerryman->attributes = $_POST['RegistrationForm'];
-            $newFerryman['group_id'] = Yii::app()->params['ferrymanGroup'];
             $newFerryman['status'] = User::USER_NOT_CONFIRMED;
-            //var_dump($newFerryman['phone']);exit;
-            //$userInfo['login'] = $newFerryman['login'] = ;
-            //$userInfo['password'] = $newFerryman['password'] = ;
+            $newFerryman['company'] = $_POST['RegistrationForm']['ownership'] . ' "' . $_POST['RegistrationForm']['company'] . '"';
+            $password = $this->randomPassword();
+            $newFerryman['password'] = crypt($password, User::model()->blowfishSalt(16));
             $newFerryman->save();
-            //$this->sendMail($_POST['RegistrationForm']['email'], 0, ); // ferryman
-            
-            */
-            $this->sendMail('tttanyattt@mail.ru', 1, $_POST['RegistrationForm']); // admin
 
-            Yii::app()->user->setFlash('message', 'Ваша заявка отправлена. Спасибо за интерес, проявленный к нашей компании.');
+            $this->sendMail(Yii::app()->params['adminEmail'], 1, $_POST['RegistrationForm']);
+
+            Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Спасибо за интерес, проявленный к нашей компании.');
             $this->redirect('/user/login/');
         } else {
             $this->render('registration', array('model' => $model));
         }
+    }
+     
+    public function sendMail($to, $typeMessage, $post)
+    {
+        $email = new TEmail;
+        $email->from_email = Yii::app()->params['adminEmail'];
+        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+        $email->to_email   = $to;
+        $email->to_name    = '';
+        $email->subject    = 'Заявка на регистрацию';
+        $email->type = 'text/html';
+        if(!empty($typeMessage)){
+            $description = (!empty($post['description'])) ? '<p>Примечание:<b>'.$post['description'].'</b></p>' : '' ;
+            $email->body = '
+              <div>
+                  <p>Компания "'.$post['firmName'].'" подала заявку на регистрацию в бирже перевозок ЛБР АгроМаркет.</p>
+                  <p>Контактное лицо: <b>'.$post['name']. ' ' .$post['surname'].'</b></p>
+                  <p>Телефон: <b>'.$post['phone'].'</b></p>
+                  <p>Email: <b>'.$post['email'].'</b></p>'.
+                   $description .
+              '</div>
+              <hr/><h5>Это автоматическое уведомление, на него не следует отвечать.</h5>
+            ';
+        } else {
+            /*$email->body = '
+                <div> 
+                    <p>Ваши логин и пароль:</p>
+                    <p>Логин: '.$post['login'].'</p>
+                    <p>Пароль:'.$post['password'].'</p>
+                </div>
+            ';*/
+        }
+        $email->sendMail();
     }
      
     public function actionQuick() 
@@ -75,5 +106,16 @@ class SiteController extends Controller
         
         Dialog::message('flash-success', 'Отправлено!', 'Спасибо, '.$user->name.'! Ваше письмо отправлено!');
         $this->redirect(array('transport/description/id/1'));
+    }
+    
+    private function randomPassword() {
+        $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < 16; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        return implode($pass); //turn the array into a string
     }
 }

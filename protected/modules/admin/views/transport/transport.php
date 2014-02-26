@@ -29,10 +29,7 @@
     </div>
     <div class="right">
         <?php
-        var_dump('= ' . Yii::app()->user->getFlash('message'));
-        //if ($mess = Yii::app()->user->getFlash('message')){
         if ($msg){
-            echo '111';
             echo '<div class="message success">'.$msg.'</div>';
         }
         if ($view){

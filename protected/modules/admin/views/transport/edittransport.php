@@ -11,9 +11,6 @@
         $action = '/admin/transport/createtransport/';
         unset($delete_button);
     }
-    
-    $b = (Yii::app()->user->hasFlash('message'))? 1 : 0;
-    var_dump('= ' . $b);
 ?>
 
 <div class="form">

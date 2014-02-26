@@ -39,8 +39,9 @@ class UserController extends Controller {
                 );
                 if ($id_item = Yii::app()->user->getFlash('saved_id')){
                     $model = User::model()->findByPk($id_item);
-                    $group = UserGroup::getUserGroupArray();
-                    $view = $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), true, true);
+                    //$group = UserGroup::getUserGroupArray();
+                    //$view = $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), true, true);
+                    $view = $this->renderPartial('user/edituser', array('model'=>$model), true, true);
                 }
                 $this->render('user/users', array('data'=>$dataProvider, 'view'=>$view));
             }else{
@@ -101,7 +102,7 @@ class UserController extends Controller {
             if(Yii::app()->user->checkAccess('createUser'))
             {
                 $model = new User();
-                $group = UserGroup::getUserGroupArray();
+               // $group = UserGroup::getUserGroupArray();
                 if (isset($_POST['User'])){
                     $model->attributes = $_POST['User'];
                     if($model->save()){
@@ -110,19 +111,23 @@ class UserController extends Controller {
                         $this->redirect('/admin/user/');
                     }
                 }
-                $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), false, true);
+                //$this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), false, true);
+                $this->renderPartial('user/edituser', array('model'=>$model), false, true);
             }else{
                 throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
             }
     }
 
-    public function actionEditUser($id) {
+    public function actionEditUser($id) 
+    {
+       
         $model = User::model()->findByPk($id);
         
         if (Yii::app()->user->checkAccess('editUser')) {
             
             if (isset($_POST['User'])) {
                 $changes = array();
+                 //echo 112;exit;
                 foreach ($_POST['User'] as $key => $value) {
                     if (trim($model[$key]) != trim($value)) {
                         $changes[$key]['before'] = $model[$key];
@@ -146,7 +151,7 @@ class UserController extends Controller {
                     $this->redirect('/admin/user/');
                 }
             }
-            $this->renderPartial('user/edituser', array('model' => $model, 'group' => $group, 'status' => self::$userStatus), false, true);
+            $this->renderPartial('user/edituser', array('model' => $model, 'status' => self::$userStatus), false, true);
         } else {
             throw new CHttpException(403, Yii::t('yii', 'У Вас недостаточно прав доступа.'));
         }
