@@ -37,39 +37,6 @@ class DefaultController extends Controller
         $this->redirect(Yii::app()->homeUrl);
     }
     
-    public function sendMail($to, $typeMessage, $post)
-    {
-        $email = new TEmail;
-        $email->from_email = Yii::app()->params['adminEmail'];
-        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = $to;
-        $email->to_name    = '';
-        $email->subject    = 'Заявка на регистрацию';
-        $email->type = 'text/html';
-        if(!empty($typeMessage)){
-            $description = (!empty($post['description'])) ? '<p>Примечание:<b>'.$post['description'].'</b></p>' : '' ;
-            $email->body = '
-              <div>
-                  <p>Компания "'.$post['firmName'].'" подала заявку на регистрацию в бирже перевозок ЛБР АгроМаркет.</p>
-                  <p>Контактное лицо: <b>'.$post['name']. ' ' .$post['surname'].'</b></p>
-                  <p>Телефон: <b>'.$post['phone'].'</b></p>
-                  <p>Email: <b>'.$post['email'].'</b></p>'.
-                   $description .
-              '</div>
-              <hr/><h5>Это автоматическое уведомление, на него не следует отвечать.</h5>
-            ';
-        } else {
-            /*$email->body = '
-                <div> 
-                    <p>Ваши логин и пароль:</p>
-                    <p>Логин: '.$post['login'].'</p>
-                    <p>Пароль:'.$post['password'].'</p>
-                </div>
-            ';*/
-        }
-        $email->sendMail();
-    }
-    
     /* Show user options */
     public function actionOption()
     {

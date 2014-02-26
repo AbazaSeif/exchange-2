@@ -39,8 +39,9 @@ class UserController extends Controller {
                 );
                 if ($id_item = Yii::app()->user->getFlash('saved_id')){
                     $model = User::model()->findByPk($id_item);
-                    $group = UserGroup::getUserGroupArray();
-                    $view = $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), true, true);
+                    //$group = UserGroup::getUserGroupArray();
+                    //$view = $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), true, true);
+                    $view = $this->renderPartial('user/edituser', array('model'=>$model), true, true);
                 }
                 $this->render('user/users', array('data'=>$dataProvider, 'view'=>$view));
             }else{
@@ -101,7 +102,7 @@ class UserController extends Controller {
             if(Yii::app()->user->checkAccess('createUser'))
             {
                 $model = new User();
-                $group = UserGroup::getUserGroupArray();
+               // $group = UserGroup::getUserGroupArray();
                 if (isset($_POST['User'])){
                     $model->attributes = $_POST['User'];
                     if($model->save()){
@@ -110,7 +111,8 @@ class UserController extends Controller {
                         $this->redirect('/admin/user/');
                     }
                 }
-                $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), false, true);
+                //$this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), false, true);
+                $this->renderPartial('user/edituser', array('model'=>$model), false, true);
             }else{
                 throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
             }
