@@ -14,11 +14,15 @@ class RegistrationForm extends CFormModel
     public $phone;
     public $email;
     public $description;
+    public $ownership;
 
     public function rules()
     {
         return array(
-            array('company, country, region, city, district, inn, name, second_name, surname, phone, email', 'required'),
+            array('company, country, city, inn, name, second_name, surname, phone, email', 'required'),
+            array('inn', 'length', 'min' => 12, 'max'=>12, 
+            'tooShort'=>Yii::t("translation", "{attribute} должен содержать 12 символов."),
+            'tooLong'=>Yii::t("translation", "{attribute} должен содержать 12 символов.")),
             array('email', 'email'),
             array('phone', 'numerical')
         );
@@ -39,6 +43,7 @@ class RegistrationForm extends CFormModel
             'phone'=>'Телефон',
             'email'=>'Электронная почта',
             'description'=>'Примечание',
+            'ownership'=>'Форма собственности',
         );
     }
 }

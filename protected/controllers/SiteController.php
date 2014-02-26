@@ -24,21 +24,22 @@ class SiteController extends Controller
     {
         $model = new RegistrationForm;
         if(isset($_POST['RegistrationForm'])) {
-            /*
-            // Save in database
+            
+            /*// Save in database
             $userInfo = array();
             $newFerryman = new User;
             $newFerryman->attributes = $_POST['RegistrationForm'];
-            $newFerryman['group_id'] = Yii::app()->params['ferrymanGroup'];
             $newFerryman['status'] = User::USER_NOT_CONFIRMED;
+            
             //var_dump($newFerryman['phone']);exit;
             //$userInfo['login'] = $newFerryman['login'] = ;
             //$userInfo['password'] = $newFerryman['password'] = ;
             $newFerryman->save();
             //$this->sendMail($_POST['RegistrationForm']['email'], 0, ); // ferryman
-            
             */
-            $this->sendMail('tttanyattt@mail.ru', 1, $_POST['RegistrationForm']); // admin
+            
+            
+            $this->sendMail(Yii::app()->params['adminEmail'], 1, $_POST['RegistrationForm']);
 
             Yii::app()->user->setFlash('message', 'Ваша заявка отправлена. Спасибо за интерес, проявленный к нашей компании.');
             $this->redirect('/user/login/');
