@@ -116,7 +116,7 @@ return array(
         'meta_description' => 'перевозки, биржа перевозок, биржа ЛБР',
         'menu_admin' => array(
             'Пользователи' => '/admin/user/',
-            'Перевозки'    => '/admin/transport/',
+            'Перевозки' => '/admin/transport/',
             'История редактирования' => '/admin/changes/',
         ),
         'adminEmail' => 'krilova@lbr.ru',
