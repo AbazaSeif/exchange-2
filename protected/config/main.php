@@ -115,18 +115,13 @@ return array(
         'meta_title' => 'Биржа перевозок',
         'meta_description' => 'перевозки, биржа перевозок, биржа ЛБР',
         'menu_admin' => array(
-            'Пользователи' => array(
-                'Пользователи' => '/admin/user/',
-                'Группы пользователей' => '/admin/user/group/',
-                'Роли' => '/admin/user/role/',
-                'Операции' => '/admin/user/operation/',
-            ),
+            'Пользователи' => '/admin/user/',
             'Перевозки' => '/admin/transport/',
             'История редактирования' => '/admin/changes/',
         ),
         'adminEmail' => 'krilova@lbr.ru',
         'minNotyfy' => 30,
-        'hoursBefore' => 48,
+        'hoursBefore' => 24,
         'ferrymanGroup' => 4,
         'nds' => 0.1, // 10%
     ),
