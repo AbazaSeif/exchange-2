@@ -6,6 +6,7 @@ class WebUser extends CWebUser
     
     // Автоматический вход на сайт
     public $allowAutoLogin = true;
+    public $level = 0;
 
     public function getIsTransport()
     {

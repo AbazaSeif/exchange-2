@@ -1,9 +1,12 @@
-<?php $lastRate = null;
+<?php 
+$lastRate = null;
 $currency = '€';
 $defaultRate = false;
 $priceStep = Transport::INTER_PRICE_STEP;
 $now = date('Y m d H:i:s', strtotime('now'));
 $end = date('Y m d H:i:s', strtotime($transportInfo['date_from'] . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
+
+$allPoints = TransportInterPoint::getPoints($transportInfo['id']);
 
 //if($transportInfo['type']==Transport::RUS_TRANSPORT){
 if(!$transportInfo['currency']){
@@ -42,6 +45,13 @@ $inputSize = strlen((string)$lastRate)-1;
     <div class="width-60">
         <h1><?php echo $transportInfo['location_from'] . ' &mdash; ' . $transportInfo['location_to']; ?></h1>
         <span class="t-o-published">Опубликована <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_published'])) ?></span>
+        <?php if($allPoints):?>
+        <h4>
+            <span>
+                <?php echo $transportInfo['location_from'] . $allPoints . ' -> ' . $transportInfo['location_to'] ?>
+            </span>
+        </h4>
+        <?php endif; ?>
         <div class="t-o-info">
             <label class="r-header">Основная информация</label>
             <div class="r-description"><i><?php echo $transportInfo['description'] ?></i></div>
@@ -52,7 +62,8 @@ $inputSize = strlen((string)$lastRate)-1;
             <?php if (!empty($transportInfo['auto_info'])):?><div><span>Транспорт: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
         </div>	
     </div>
-    <?php if (!Yii::app()->user->isGuest && $lastRate > 0 && Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot): ?>
+    <?php //if (!Yii::app()->user->isGuest && $lastRate > 0 && Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot): ?>
+    <?php if (!Yii::app()->user->isGuest && $lastRate > 0 && Yii::app()->user->isTransport): ?>
     <div class="width-30-r timer-wrapper">
         <div id="t-container"></div>
         <?php if($transportInfo['status']): ?>
@@ -75,7 +86,7 @@ $inputSize = strlen((string)$lastRate)-1;
     <?php if (Yii::app()->user->isGuest): ?>
          <div class="width-30-r timer-wrapper">
              <div id="t-container"></div>
-             <div id="last-rate"><span><?php echo '****' . $currency?></span></div>
+             <div id="last-rate"><span><?php echo '**** ' . $currency?></span></div>
          </div>
     <?php elseif(Yii::app()->user->isRoot): ?>
         <div class="width-30-r timer-wrapper">
@@ -117,8 +128,10 @@ $(document).ready(function(){
         defaultRate: <?php echo ($defaultRate)? 1 : 0 ?>,
     };
     <?php if (!Yii::app()->user->isGuest): ?>
-        var socket = io.connect('http://localhost:3000/');
-        socket.emit('loadRates', <?php echo $transportInfo['id'] ?>);
+        var socket = io.connect('http://exchange.lbr.ru:3000/');
+        //var socket = io.connect('http://localhost:3000/');
+        socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>);
+        
 
         /*var newElement = "<div id='" + id + "' class='rate-one'>" + 
             "<div class='r-o-container'>" + 
@@ -142,20 +155,21 @@ $(document).ready(function(){
             ;
             //$('#rates').append(newElement);
         });*/
-        socket.on('endinit', function () {
+       /* socket.on('endinit', function () {
             $("#rates").mCustomScrollbar({
                 scrollButtons:{
                     enable:true
                 }
             });
-        });
+        });*/
 
         /***************************************************/
         
         rateList.data.socket = socket;
-        rateList.data.userId   = '<?php echo $userInfo[id] ?>',
-        rateList.data.name   = '<?php echo $userInfo[name] ?>',
-        rateList.data.surname = '<?php echo $userInfo[surname] ?>',
+        rateList.data.userId   = '<?php echo $userInfo[id] ?>';
+        rateList.data.transportId  = '<?php echo $transportInfo[id] ?>';
+        rateList.data.name   = '<?php echo $userInfo[name] ?>';
+        rateList.data.surname = '<?php echo $userInfo[surname] ?>';
         
         rateList.init();
     //setInterval(function(){rateList.update($('#rates'))}, 15000);

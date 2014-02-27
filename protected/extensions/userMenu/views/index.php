@@ -71,12 +71,12 @@ if(!Yii::app()->user->isGuest){
 $(document).ready(function(){
     <?php if(!Yii::app()->user->isGuest): ?>
     var userId = <?php echo $user->id ?>;
-    var socket = io.connect('http://localhost:3000/');
+    var socket = io.connect('http://exchange.lbr.ru:3000/');
     
-    socket.emit('init', userId);
+    socket.emit('init', userId, <?php echo Yii::app()->params['minNotyfy'] ?>);
     
     var countSubmenuElem = null;
-    if ($("#submenu")){
+    if ($("#submenu")) {
         countSubmenuElem = parseInt($('#submenu').children().length);
     }
     menu.countSubmenuElem = countSubmenuElem;
