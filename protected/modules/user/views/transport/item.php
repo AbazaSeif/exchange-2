@@ -86,7 +86,7 @@ $inputSize = strlen((string)$lastRate)-1;
     <?php if (Yii::app()->user->isGuest): ?>
          <div class="width-30-r timer-wrapper">
              <div id="t-container"></div>
-             <div id="last-rate"><span><?php echo '****' . $currency?></span></div>
+             <div id="last-rate"><span><?php echo '**** ' . $currency?></span></div>
          </div>
     <?php elseif(Yii::app()->user->isRoot): ?>
         <div class="width-30-r timer-wrapper">
@@ -128,7 +128,8 @@ $(document).ready(function(){
         defaultRate: <?php echo ($defaultRate)? 1 : 0 ?>,
     };
     <?php if (!Yii::app()->user->isGuest): ?>
-        var socket = io.connect('http://localhost:3000/');
+        var socket = io.connect('http://exchange.lbr.ru:3000/');
+        //var socket = io.connect('http://localhost:3000/');
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>);
         
 
