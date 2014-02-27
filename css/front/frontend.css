@@ -441,6 +441,10 @@ div.row{
     text-decoration: none;
     margin: 1px 0 6px;
 }
+.transport .t-header
+{
+    min-height: 40px;   
+}
 .transports .items .transport .t-date
 {
     
@@ -518,6 +522,8 @@ div.row{
 }
 .t-points{
     color: #666;
+    font-size: 11px;
+    padding-top: 7px;
 }
 /*--------Конец-Перевозки----------*/
 

@@ -5,17 +5,21 @@
     $action = '/transport/description/id/'. $data->id . '/';
     $status = $data->status;
     $rate = '****';
-    //echo 1111; exit;
+    
     $currency = ' €';
     $type = 'международная';
-    $allPoints = TransportInterPoint::getPoints($data->id);//$this->getPoints($data->id);
+    
+    $allPoints = TransportInterPoint::getPoints($data->id);
 
     if(!Yii::app()->user->isGuest){
-        $model = UserField::model()->find('user_id = :id', array('id' => Yii::app()->user->_id));   
-        
-        if((bool)$model->with_nds){
-            if(!empty($lastRate)) $rate = $lastRate + $lastRate * Yii::app()->params['nds'];
-            else $rate = $data->start_rate + $data->start_rate * Yii::app()->params['nds'];
+        if(Yii::app()->user->isTransport){
+            $model = UserField::model()->find('user_id = :id', array('id' => Yii::app()->user->_id));
+            if((bool)$model->with_nds){
+                if(!empty($lastRate)) $rate = $lastRate + $lastRate * Yii::app()->params['nds'];
+                else $rate = $data->start_rate + $data->start_rate * Yii::app()->params['nds'];
+            } else {
+                $rate = (!empty($lastRate))? $lastRate : $data->start_rate;
+            }
         } else {
             $rate = (!empty($lastRate))? $lastRate : $data->start_rate;
         }
@@ -56,30 +60,10 @@
             </div>
         </div>
         <?php if($allPoints):?>
+            <div style="clear:both"></div>
             <div class="t-points"><span><?php echo $data->location_from . $allPoints . ' -> ' . $data->location_to ?></span></div>
         <?php endif; ?>
     </div>
-    <!--div style="">
-        <div style="">
-            <div class="width-20">
-                <a class="t-header" href="<?php echo $action; ?>" >
-                    <?php echo $data->location_from ?>
-                </a>
-                <span class="t-d-form-to">Дата загрузки: <?php echo date('d.m.y', strtotime($data->date_from)) ?></span>
-            </div>
-            <div class="width-5">
-                <img src="/images/arrow.jpg" width="20px">
-            </div>
-            <div class="width-22">
-                <a class="t-header" href="<?php echo $action; ?>" >
-                    <?php echo $data->location_to ?>
-                </a>
-                <span class="t-d-form-to">Дата разгрузки: <?php echo date('d.m.y', strtotime($data->date_to)); ?></span>
-            </div>
-        </div>
-        <div style="padding-top: 5px; width: 40%; float: left">jjjj
-        </div>
-    </div-->
     <div class="width-19">
         <div class="t-rate">
             <span><?php echo $rate.$currency;?></span>
