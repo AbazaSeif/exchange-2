@@ -12,7 +12,10 @@ var rateList = {
             var initPrice = parseInt($('#rate-price').attr('init'));
             if(data.transportId == rateList.data.transportId){
                 var element = rateList.createElement(initPrice, data.date, data.name, data.price, data.surname);
+                //console.log($('#rates'));
+                //$('#rates').append(element);
                 $('#rates').prepend(element);
+                //$(element).appendTo('#rates');
             }
         });
         
@@ -125,6 +128,7 @@ var rateList = {
                 userId: rateList.data.userId,
                 transportId: rateList.data.transportId
             };
+            
             //rateList.add(obj);
             //console.log(getTime());
             //rateList.update(this.container, price, rateList.data.name);
@@ -273,22 +277,24 @@ var rateList = {
         price = Math.ceil(price + price * this.data.nds);
         if (typeof rate.id !=="undefined") id = rate.id;
         
-        /*if (typeof rate.time !=="undefined") {
+        /*
+        if (typeof rate.time !=="undefined") {
             time = "<div class='r-o-time'>" + rate.time + "</div>";
-        }*/
+        }
+        */
         var element = this.createElement(initPrice, rate.time, rate.name, price, rate.surname, id);
+        
         this.container.prepend(element);
     },
     createElement : function(initPrice, date, name, price, surname, id) {
         if(initPrice < price){
             $('#rate-price').attr('init', price);
         }
-        var newElement = '';
+        var newElement = "<div class='rate-one'>";
         if(typeof id !== 'undefined'){
             newElement = "<div id='" + id + "' class='rate-one'>";
-        } else {
-            newElement = "<div class='rate-one'>";
-        }
+        } 
+        
         newElement += "<div class='r-o-container'>" + 
                 "<span>" + date + "</span>" + 
                 "<div class='r-o-user'>" + name + ' ' + surname + "</div>" +
