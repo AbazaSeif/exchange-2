@@ -24,55 +24,59 @@ nav, menu, p, section,
     font: 13px 'Trebuchet MS' ;
     color: #333333;
 }
-header, .wrapper, footer
+.header, .wrapper, footer
 {
-    width: 1100px;
+    width: 100%;
     margin: 0 auto;
 }
-
-.w-left
+.header
 {
-    float: left;
-    width: 23%;
     position:relative;
     background:#fff;
-}
-.w-left:before,
-.w-left:after {
+    padding: 10px 0;
+}  
+.header:before,
+.header:after {
+    background: white;
     content:"";
     position:absolute;
     z-index:-2;
 }
- 
-.w-left:before {
-    top:10px;
-    bottom:10px;
-    left:0;
-    right:0;
-    -webkit-box-shadow:0 0 8px rgba(0,0,0,0.6);
-       -moz-box-shadow:0 0 8px rgba(0,0,0,0.6);
-            box-shadow:0 0 8px rgba(0,0,0,0.6);
-    -moz-border-radius:10px / 100px;
-         border-radius:10px / 100px;
-    behavior: url(ie-css3.htc);
+.header:before
+{
+    top:50%;
+    bottom:0px;
+    left:10px;
+    right:10px;
+    -webkit-box-shadow:0 0 10px rgb(200, 200, 200);
+       -moz-box-shadow:0 0 10px rgb(200, 200, 200);
+            box-shadow:0 0 10px rgb(200, 200, 200);
+    -moz-border-radius:100px / 10px;
+         border-radius:100px / 10px;
+}
+.w-left
+{
+    float: left;
+    width: 20%;
 }
 
 .w-right
 {
     /*background: url('/images/left-line.png') no-repeat left top;*/
     float: right;
-    width: 77%;
+    width: 80%;
 }
 .logo
 {
-    text-align: center;
-    margin: 25px 0px 10px;
+    text-align: left;
+    margin: 0px 0px 0px 35px;
 }
 .w-right h1
 {
     margin-top: 0;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: #444444;
+    font-weight: normal;
 }
 /*----------Начало ФОРМА ВХОДА-------*/
 .w-right #login-form{
@@ -80,7 +84,7 @@ header, .wrapper, footer
 }
 #login-form, #registration-form, .w-right .registration
 {
-    padding: 0px 20px 0;
+    padding: 20px 35px 0;
 }
 #login-form .row, #registration-form .row
 {
@@ -125,7 +129,6 @@ header, .wrapper, footer
     background: -ms-linear-gradient(top,#14AAAA,#008C8C);
     background: linear-gradient(top,#14AAAA,#008C8C);
     cursor: pointer;
-    cursor: hand;
 }
 
 #registration-form .row.buttons input.btn{
@@ -142,8 +145,8 @@ header, .wrapper, footer
 #login-form .row input[type='text'],
 #login-form .row input[type='password'], #registration-form .row input[type='text']
 {
-    padding: 1%;
-    width: 96%;
+    padding:2% 3%;
+    width: 92%;
     outline: none;
     color: #333;
     background-color: #fff;
@@ -151,7 +154,7 @@ header, .wrapper, footer
     background-position: right center;
     border: 1px solid #ccc;
     border-radius: 2px;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 3px rgb(200,200,200);
     vertical-align: middle;
 }
 
@@ -233,6 +236,7 @@ div.ui-widget-header {
 .registration{
     float: left;
     color: #666;
+    padding-top: 8px;
 }
 /*----------Конец ФОРМА ВХОДА-------*/
 
@@ -301,20 +305,11 @@ div.ui-widget-header {
 }
 #content
 {
-    padding: 20px 0 20px 20px;
+    padding: 20px 35px 20px 0px;
 }
 
 .row input[type='checkbox']{
-    width: 16px;
-    height:16px;
-    border: none;
-    color:#fff;
-    -moz-appearance:none;
-    -webkit-appearance:none;
-    -o-appearance:none;
-    border: 0px inset ThreeDFace ! important;
     margin: 0 0 0 5px;
-    padding: 5px 4px 3px 5px;
 } 
 
 div.row{
@@ -366,7 +361,7 @@ div.row{
 .transports .sorter ul
 {
     list-style: none;
-    border-bottom: 1px dashed rgb(200,200,200);
+    border-bottom: 1px dashed #555;
 }
 
 .transports .sorter ul li
@@ -375,7 +370,7 @@ div.row{
 }
 .transports .sorter ul li a
 {
-    color: #777;
+    color: #555;
     text-decoration: none;
     text-shadow: 0 1px 0 white;
     font-weight: bold;
@@ -397,9 +392,9 @@ div.row{
     content: '';
     position: absolute;
     top: 10px;
-    right: 0px;
     width: 0px;
     height: 0px;
+    margin-left: 10px;
 }
 .transports .sorter ul li a.asc:after
 {
@@ -413,6 +408,25 @@ div.row{
     border-right: 4px solid transparent;
     border-top: 6px solid rgb(239, 128, 27);
 }
+.transports .sorter ul li:first-child
+{
+    width: 25%;
+}
+.transports .sorter ul li:nth-child(2)
+{
+    width: 25%;
+}
+.transports .sorter ul li:nth-child(3)
+{
+    margin-left: 20%;
+    text-align: center;
+    width: 15%;
+}
+.transports .sorter ul li:last-child
+{
+    text-align: center;
+    width: 15%;
+}
 .transports .items
 {
     overflow: auto;
@@ -420,13 +434,10 @@ div.row{
 }
 .transports .items .transport
 {
-    border-bottom: 1px dashed rgb(200,200,200);
+    border-bottom: 1px solid #E8E8E8;
     padding: 5px 10px;
     position: relative;
-    min-height: 45px;
-}
-.transports .items .transport:last-child {
-    border-bottom:none;
+    min-height: 60px;
 }
 
 .transports .items .transport > div, .rate > div
@@ -439,11 +450,14 @@ div.row{
     font-size: 18px;
     color: rgb(0, 145, 124);
     text-decoration: none;
-    margin: 1px 0 6px;
+    margin: 1px 0 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .transport .t-header
 {
-    min-height: 40px;   
+    min-height: 25px;   
 }
 .transports .items .transport .t-date
 {
@@ -503,6 +517,10 @@ div.row{
 .transport span{
     cursor: default;
 }
+.transport > div
+{
+    min-height: 60px;
+}
 .items .transport div{
     text-align: left;
 }
@@ -523,7 +541,25 @@ div.row{
 .t-points{
     color: #666;
     font-size: 11px;
-    padding-top: 7px;
+    padding-top: 3px;
+}
+.transport .v-center
+{
+    height: 100%;
+    min-height: 60px;
+    position: relative;
+}
+.transports .items .transport .v-center .t-rate,
+.transports .items .transport .v-center .t-closed,
+.transports .items .transport .v-center .t-timer
+{
+    position: absolute;
+    height: 24px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 /*--------Конец-Перевозки----------*/
 
@@ -778,7 +814,6 @@ input.r-submit{
     width: 16px;
     height: 16px;
     cursor: pointer;
-    cursor: hand;
     border: 1px solid #eee;
 }
 
@@ -788,7 +823,6 @@ input.r-submit{
     width: 16px;
     height: 14px;
     cursor: pointer;
-    cursor: hand;
     border: 1px solid #eee;
 }
 
@@ -865,7 +899,9 @@ input.r-submit{
     width: 100%;
 }
 
-.width-5, .width-10, .width-15, .width-16, .width-18, .width-19, .width-20, .width-22, .width-23, .width-25,.width-30, .width-40, .width-45, .width-47, .width-50, .width-60, .width-70
+.width-5, .width-10, .width-15, .width-16, .width-18, .width-19,
+.width-20, .width-22, .width-23, .width-25,.width-30, .width-40,
+.width-45, .width-47, .width-50, .width-60, .width-70, .width-49
 {
     float: left;
 }
@@ -880,20 +916,26 @@ input.r-submit{
 .width-23{width: 22%; margin-right: 1%;}
 .width-25{width: 23%; margin-right: 2%;}
 .width-30{width: 30%;}
-.width-40{width: 39%; margin-right: 1%;}
-.width-45{width: 44%; margin-right: 1%;}
+.width-40{width: 40%;}
+.width-45{width: 45%;}
 .width-47{width: 47%;}
-.width-50{width: 46%; margin-left: 4%}
+.width-50{width: 50%;}
 .width-60{width: 60%;}
 .width-70{width: 70%;}
-
+.width-100{width: 100%;}
+.width-49{width: 49%; margin-left: 1%;}
+.width-49:first-child{margin-left: 0; margin-right: 1%;}
 .width-30-r{
     float: right;
     width: 30%;
 }
-
+.width-100{
+    clear: both;
+}
 header:after, .wrapper:after, footer:after, #login-form:after,
-.user-info:after, .transports .sorter ul:after, .transports .items .transport:after, .transport-one:after
+.user-info:after, .transports .sorter ul:after,
+.transports .items .transport:after, .transport-one:after,
+.width-100:after
 {
     content: '';
     display: block;
