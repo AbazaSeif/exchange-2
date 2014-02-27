@@ -13,23 +13,7 @@ class TransportController extends Controller
                    'pageVar' => 'page',
                 ),
                 'sort'=>array(
-                    'attributes'=>array(
-                        'date_from'=>array(
-                                'asc'=>'date_from ASC',
-                                'desc'=>'date_from DESC',
-                                'default'=>'desc',
-                        ),
-                        'date_to'=>array(
-                                'asc'=>'date_to ASC',
-                                'desc'=>'date_to DESC',
-                                'default'=>'desc',
-                        ),
-                        'date_published'=>array(
-                                'asc'=>'date_published ASC',
-                                'desc'=>'date_published DESC',
-                                'default'=>'desc',
-                        )
-                    ),
+                    
                     'defaultOrder'=>array(
                             'date_published' => CSort::SORT_DESC,
                     ),                        

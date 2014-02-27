@@ -31,13 +31,15 @@
         ?>
     </head>
     <body>
+        <div class="header">
+            <div class="logo">
+                <a href="/">
+                    <img src="/images/logo.png" title="ЛБР-Агромаркет" alt="Логотип ЛБР-Агромаркет"/>
+                </a>
+            </div>
+        </div>
         <div class="wrapper">
             <div class="w-left">
-                <div class="logo">
-                    <a href="/">
-                        <img src="/images/logo.png" title="ЛБР-Агромаркет" alt="Логотип ЛБР-Агромаркет"/>
-                    </a>
-                </div>
                 <?php $this->widget('ext.userMenu.UserMenu'); ?>
                 <div class="footer">
                     <p>2014 &copy; ООО "ЛБР-Агромаркет"</p>
