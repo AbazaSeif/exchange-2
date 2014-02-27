@@ -219,6 +219,7 @@ header, .wrapper, footer
     border-right: 7px solid #FF4040;
     border-bottom: 7px solid transparent;
 }
+
 #registration-form .row label{  
     display: block;
     float: left;

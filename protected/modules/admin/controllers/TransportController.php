@@ -63,9 +63,8 @@ class TransportController extends Controller
                 $model->currency = $_POST['Transport']['currency'];
                 $model->date_published = date('Y-m-d H:i:s');
                 if($model->save()){
-                   // var_dump(1111);exit;
                     $message = 'Создана перевозка ' . $model->location_from . ' — ' . $model->location_to;
-                    // Changes::saveChange($message);
+                    Changes::saveChange($message);
                     
                     Yii::app()->user->setFlash('saved_id', $model->id);
                     Yii::app()->user->setFlash('message', 'Перевозка создана успешно.');

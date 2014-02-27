@@ -728,18 +728,18 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
 }
 /*---- Конец Greed view ----*/
 
-#transport-form .field, #user-form .field
+.form .field
 {
     position: relative;
     margin-bottom: 10px;
 }
 
-#transport-form .errorMessage, #user-form .errorMessage
+.form .errorMessage
 {
     margin-top: -10px;
     color: #FF4040;
 }
-#transport-form .field.error .errorMessage, #user-form .field.error .errorMessage
+.form .field.error .errorMessage
 {
     position: absolute;
     width: 70%;
@@ -754,13 +754,13 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
     z-index: 10;
 }
 
-#transport-form .field.error .errorMessage, #user-form .field.error .errorMessage
+.form .field.error .errorMessage
 {
     left: 67%;
     width: 30%;
 }
 
-#transport-form .field.error .errorMessage:after, #user-form .field.error .errorMessage:after
+.form .field.error .errorMessage:after
 {
     content: '';
     display: block;
@@ -774,8 +774,22 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
     border-right: 7px solid #FF4040;
     border-bottom: 7px solid transparent;
 }
-
+/*
 #transport-form_es_.errorSummary
 {
     display: none !important;
+}*/
+
+div.form div.error input, div.form div.error textarea, div.form div.error select, div.form input.error, div.form textarea.error, div.form select.error {
+    background: none repeat scroll 0 0 #FFEEEE;
+    border-color: #CC0000;
+}
+
+div.form div.success input, div.form div.success textarea, div.form div.success select, div.form input.success, div.form textarea.success, div.form select.success {
+    background: none repeat scroll 0 0 #E6EFC2;
+    border-color: #C6D880;
+}
+
+div.form span.required {
+    color: #FF0000;
 }
