@@ -774,11 +774,11 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
     border-right: 7px solid #FF4040;
     border-bottom: 7px solid transparent;
 }
-/*
+
 #transport-form_es_.errorSummary
 {
     display: none !important;
-}*/
+}
 
 div.form div.error input, div.form div.error textarea, div.form div.error select, div.form input.error, div.form textarea.error, div.form select.error {
     background: none repeat scroll 0 0 #FFEEEE;

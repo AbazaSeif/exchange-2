@@ -42,7 +42,10 @@
     echo CHtml::button('Закрыть пользователя',array('onclick'=>'$(".total .right").html(" ");','class'=>'btn'));
     echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn btn-green')); ?>
 </div>
-
+<div class="password field">
+<?php  echo CHtml::label('Пароль', 'User_password');
+    echo CHtml::passwordField('User_password', '', array('id'=>'User_password')); ?>
+</div>
 <div class="login field">
     <?php  
         echo $form->error($model, 'login'); 
@@ -50,20 +53,57 @@
         echo $form->textField($model, 'login');
     ?>    
 </div>
-<div class="password field">
-<?php  echo CHtml::label('Пароль', 'User_password');
-    echo CHtml::passwordField('User_password', '', array('id'=>'User_password')); ?>
+<div class="company field">
+<?php  echo $form->error($model, 'company'); 
+    echo $form->labelEx($model, 'company');
+    echo $form->textField($model, 'company'); ?>
+</div>
+<div class="inn field">
+<?php  echo $form->error($model, 'inn'); 
+    echo $form->labelEx($model, 'inn');
+    echo $form->textField($model, 'inn'); ?>
+</div>
+<div class="country field">
+<?php  echo $form->error($model, 'country'); 
+    echo $form->labelEx($model, 'country');
+    echo $form->textField($model, 'country'); ?>
+</div>
+<div class="region field">
+<?php  echo $form->error($model, 'region'); 
+    echo $form->labelEx($model, 'region');
+    echo $form->textField($model, 'region'); ?>
+</div>
+<div class="city field">
+<?php  echo $form->error($model, 'city'); 
+    echo $form->labelEx($model, 'city');
+    echo $form->textField($model, 'city'); ?>
+</div>
+<div class="district field">
+<?php  echo $form->error($model, 'district'); 
+    echo $form->labelEx($model, 'district');
+    echo $form->textField($model, 'district'); ?>
+</div>
+
+<div class="surname field">
+<?php  echo $form->error($model, 'surname'); 
+    echo $form->labelEx($model, 'surname');
+    echo $form->textField($model, 'surname'); ?>
 </div>
 <div class="name field">
 <?php  echo $form->error($model, 'name'); 
     echo $form->labelEx($model, 'name');
     echo $form->textField($model, 'name');?>
 </div>
-<div class="surname field">
-<?php  echo $form->error($model, 'surname'); 
-    echo $form->labelEx($model, 'surname');
-    echo $form->textField($model, 'surname'); ?>
+<div class="secondname field">
+<?php  echo $form->error($model, 'secondname'); 
+    echo $form->labelEx($model, 'secondname');
+    echo $form->textField($model, 'secondname'); ?>
 </div>
+<!--div class="phone field">
+<?php  echo $form->error($model, 'phone');
+    echo $form->labelEx($model, 'phone');
+    echo $form->emailField($model, 'phone'); ?>
+</div-->
 <div class="email field">
 <?php  echo $form->error($model, 'email');
     echo $form->labelEx($model, 'email');
