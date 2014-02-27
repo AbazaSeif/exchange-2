@@ -32,6 +32,8 @@
 class User extends CActiveRecord
 {
         const USER_NOT_CONFIRMED = 0;
+        const USER_ACTIVE = 1;
+        const USER_WARNING = 2;
         const USER_TEMPORARY_BLOCKED = 3;
         const USER_BLOCKED = 4;	
         /**
@@ -51,6 +53,7 @@ class User extends CActiveRecord
             // will receive user inputs.
             return array(
                 array('inn, status, phone', 'numerical', 'integerOnly'=>true),
+                            array('company, country, city, inn, name, secondname, surname, phone, email', 'required'),
                 array('login', 'length', 'max'=>64),
                 array('email', 'email', 'message'=>'Неправильный Email адрес'),
                 array('company, country, region, city, district, name, secondname, surname, password, email', 'safe'),
@@ -98,7 +101,7 @@ class User extends CActiveRecord
                 'login' => 'Логин',
                 'password' => 'Пароль',
                 'phone' => 'Телефон',
-                'email' => 'Электронная почта',
+                'email' => 'Email',
             );
 	}
 

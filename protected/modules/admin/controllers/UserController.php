@@ -5,8 +5,8 @@ class UserController extends Controller {
 
     private static $userStatus = array(
         User::USER_NOT_CONFIRMED => 'Не подтвежден',
-        '1' => 'Активен',
-        '2' => 'Предупрежден',
+        User::USER_ACTIVE => 'Активен',
+        User::USER_WARNING => 'Предупрежден',
         User::USER_TEMPORARY_BLOCKED => 'Временно заблокирован',
         User::USER_BLOCKED => 'Заблокирован',
     );
@@ -51,71 +51,25 @@ class UserController extends Controller {
 
     public function actionCreateUser() 
     {
-        /*if (Yii::app()->user->checkAccess('createUser')) {
+        if(Yii::app()->user->checkAccess('createUser'))
+        {
             $model = new User();
-            $group = UserGroup::getUserGroupArray();
-            if (isset($_POST['User'])) {
+           // $group = UserGroup::getUserGroupArray();
+            if (isset($_POST['User'])){
                 $model->attributes = $_POST['User'];
-                $model->status = 1;
-
-                
-                if ($model->save()) {
-                    if (Yii::app()->params['ferrymanGroup'] == $model->group_id) {
-                        $modelUserField = new UserField;
-                        $data = array('mail_deadline' => true, 'site_transport_create_1' => true, 'site_transport_create_2' => true, 'site_kill_rate' => true, 'site_deadline' => true, 'site_before_deadline' => true);
-                        $modelUserField->attributes = $data;
-                        $modelUserField->user_id = Yii::app()->user->_id;
-                        $modelUserField->save();
-                    }
-
+                if($model->save()){
+                    //$message = 'Создан пользователь ' . $model->name . ' ' . $model->surname;
+                    //Changes::saveChange($message);
                     Yii::app()->user->setFlash('saved_id', $model->id);
-                    Yii::app()->user->setFlash('message', 'Пользователь ' . $model->login . ' создан успешно.');
-                    
-                    Changes::saveChange('Создан пользователь ' . $_POST['User']['name'] . ' ' . $_POST['User']['surname']);
-                    
+                    Yii::app()->user->setFlash('message', 'Пользователь '.$model->login.' создан успешно.');
                     $this->redirect('/admin/user/');
                 }
             }
-            $this->renderPartial('user/edituser', array('model' => $model, 'group' => $group, 'status' => self::$userStatus), false, true);
-        } else {
-            throw new CHttpException(403, Yii::t('yii', 'У Вас недостаточно прав доступа.'));
-        }*/
-        
-            /*if(Yii::app()->user->checkAccess('createUser'))
-            {
-                $model = new User();
-                $group = UserGroup::getUserGroupArray();
-                if (isset($_POST['User'])){
-                    $model->attributes = $_POST['User'];
-                    if($model->save()){
-                        Yii::app()->user->setFlash('saved_id', $model->id);
-                        Yii::app()->user->setFlash('message', 'Пользователь '.$model->login.' создан успешно.');
-                        $this->redirect('/admin/user/');
-                    }
-                }
-                $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group, 'status' => self::$userStatus), false, true);
-            }else{
-                throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
-            }
-            */
-            /**********/
-            if(Yii::app()->user->checkAccess('createUser'))
-            {
-                $model = new User();
-               // $group = UserGroup::getUserGroupArray();
-                if (isset($_POST['User'])){
-                    $model->attributes = $_POST['User'];
-                    if($model->save()){
-                        Yii::app()->user->setFlash('saved_id', $model->id);
-                        Yii::app()->user->setFlash('message', 'Пользователь '.$model->login.' создан успешно.');
-                        $this->redirect('/admin/user/');
-                    }
-                }
-                //$this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), false, true);
-                $this->renderPartial('user/edituser', array('model'=>$model), false, true);
-            }else{
-                throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
-            }
+            //$this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), false, true);
+            $this->renderPartial('user/edituser', array('model'=>$model), false, true);
+        }else{
+            throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
+        }
     }
 
     public function actionEditUser($id) 
@@ -161,8 +115,9 @@ class UserController extends Controller {
         $model = User::model()->findByPk($id);
         
         if (Yii::app()->user->checkAccess('deleteUser') && $id != Yii::app()->user->_id) {
+            $message = 'Удален пользователь ' . $model['name'] . ' ' . $model['surname'];
             if (User::model()->deleteByPk($id)) {
-                Changes::saveChange('Удален пользователь ' . $model['name'] . ' ' . $model['surname']);
+                Changes::saveChange($message);
                 Yii::app()->user->setFlash('message', 'Пользователь удален успешно.');
                 $this->redirect('/admin/user/');
             }

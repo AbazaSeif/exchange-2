@@ -10,7 +10,7 @@
     $header_form = 'Редактирование пользователя '.$model->login;
     $action = '/admin/user/edituser/id/'.$model->id;
     if ($model->isNewRecord){
-        $submit_text = 'Создать';
+        $submit_text = 'Подтвердить';
         $name = 'new';
         $header_form = 'Создание нового пользователя';
         $action = '/admin/user/createuser/';
@@ -19,9 +19,9 @@
 ?>
 <div class="form">
 <div class="header-form">
-    <? echo $header_form; ?>
+    <?php echo $header_form; ?>
 </div>
-<? $form = $this->beginWidget('CActiveForm', array('id'=>'form'.$model->id,
+<?php $form = $this->beginWidget('CActiveForm', array('id'=>'form'.$model->id,
     'action'=>$action,
     'enableClientValidation'=>true,
     'clientOptions'=>array(
@@ -38,12 +38,38 @@
     ),));
 ?>
 <div class="buttons">
-<?  echo $delete_button; 
+<?php  echo $delete_button; 
     echo CHtml::button('Закрыть пользователя',array('onclick'=>'$(".total .right").html(" ");','class'=>'btn'));
     echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn btn-green')); ?>
 </div>
 
-<?php 
+<div class="login field">
+    <?php  
+        echo $form->error($model, 'login'); 
+        echo $form->labelEx($model, 'login');
+        echo $form->textField($model, 'login');
+    ?>    
+</div>
+<div class="password field">
+<?php  echo CHtml::label('Пароль', 'User_password');
+    echo CHtml::passwordField('User_password', '', array('id'=>'User_password')); ?>
+</div>
+<div class="name field">
+<?php  echo $form->error($model, 'name'); 
+    echo $form->labelEx($model, 'name');
+    echo $form->textField($model, 'name');?>
+</div>
+<div class="surname field">
+<?php  echo $form->error($model, 'surname'); 
+    echo $form->labelEx($model, 'surname');
+    echo $form->textField($model, 'surname'); ?>
+</div>
+<div class="email field">
+<?php  echo $form->error($model, 'email');
+    echo $form->labelEx($model, 'email');
+    echo $form->emailField($model, 'email'); ?>
+</div>
+<?php /*
 $noshow = array('id', 'password');
 foreach ($model as $itm=>$v)
 {
@@ -54,14 +80,11 @@ foreach ($model as $itm=>$v)
         echo $form->textField($model, $itm);
         echo '</div>';
     endif;
-}
+}*/
 ?>
-<div class="password field">
-<?  echo CHtml::label('Пароль', 'User_password');
-    echo CHtml::passwordField('User_password', '', array('id'=>'User_password')); ?>
-</div>
+
 <div style="display:none;">
-<?  echo $form->hiddenField($model, 'password'); ?>
+<?php  echo $form->hiddenField($model, 'password'); ?>
 </div>
-<? $this->endWidget();?> 
+<?php $this->endWidget();?> 
 </div>
