@@ -42,7 +42,7 @@ $inputSize = strlen((string)$lastRate)-1;
 ?>
 
 <div class="transport-one">
-    <div class="width-60">
+    <div class="width-100">
         <h1><?php echo $transportInfo['location_from'] . ' &mdash; ' . $transportInfo['location_to']; ?></h1>
         <span class="t-o-published">Опубликована <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_published'])) ?></span>
         <span class="route">
@@ -56,48 +56,57 @@ $inputSize = strlen((string)$lastRate)-1;
                 <?php echo $transportInfo['location_to']; ?>
             </span>
         </span>
-        <div class="t-o-info">
-            <label class="r-header">Основная информация</label>
-            <div class="r-description"><i><?php echo $transportInfo['description'] ?></i></div>
-            <div><span>Пункт отправки: </span><strong><?php echo $transportInfo['location_from'] ?></strong></div>
-            <div><span>Пункт назначения: </span> <strong><?php echo $transportInfo['location_to'] ?></strong></div>
-            <div><span>Дата загрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_from'])) ?></strong></div>
-            <div><span>Дата разгрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_to'])) ?></strong></div>
-            <?php if (!empty($transportInfo['auto_info'])):?><div><span>Транспорт: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
-        </div>	
-    </div>
-    <?php //if (!Yii::app()->user->isGuest && $lastRate > 0 && Yii::app()->user->checkAccess('transport') && !Yii::app()->user->isRoot): ?>
-    <?php if (!Yii::app()->user->isGuest && $lastRate > 0 && Yii::app()->user->isTransport): ?>
-    <div class="width-30-r timer-wrapper">
-        <div id="t-container"></div>
-        <?php if($transportInfo['status']): ?>
-        <div id="t-error"></div>
-        
-        <div class="rate-wrapper">
-            <div class="r-block">
-                <div class="rate-btns-wrapper">
-                    <div id="rate-up" class="disabled"></div>
-                    <div id="rate-down" class="<?php echo ($minRate)?'disabled':''?>"></div>
-                </div>
-                <span class="text"><?php echo $currency ?></span>
-                <input id="rate-price" value="<?php echo $lastRate?>" init="<?php echo $lastRate?>" type="text" size="<?php echo $inputSize ?>"/>
+        <div class="width-100">
+            <div class="width-60 t-o-info">
+                <label class="r-header">Основная информация</label>
+                <div class="r-description"><i><?php echo $transportInfo['description'] ?></i></div>
+                <div><span>Пункт отправки: </span><strong><?php echo $transportInfo['location_from'] ?></strong></div>
+                <div><span>Пункт назначения: </span> <strong><?php echo $transportInfo['location_to'] ?></strong></div>
+                <div><span>Дата загрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_from'])) ?></strong></div>
+                <div><span>Дата разгрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_to'])) ?></strong></div>
+                <?php if (!empty($transportInfo['auto_info'])):?><div><span>Транспорт: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
             </div>
-            <div class="r-submit <?php echo ($defaultRate) ? '':disabled ?>"><span>OK</span></div>
+            <?php if (!Yii::app()->user->isGuest && $lastRate > 0 && Yii::app()->user->isTransport): ?>
+            <div class="width-40 timer-wrapper">
+                <label class="r-header">Текущие ставки</label>
+                <div class="width-100">
+                    <div id="t-container" class="width-40"></div>
+                    <?php if($transportInfo['status']): ?>
+                    <div id="t-error"></div>
+
+                    <div class="rate-wrapper width-60">
+                        <div class="r-block">
+                            <div class="rate-btns-wrapper">
+                                <div id="rate-up" class="disabled"></div>
+                                <div id="rate-down" class="<?php echo ($minRate)?'disabled':''?>"></div>
+                            </div>
+                            <span class="text"><?php echo $currency ?></span>
+                            <input id="rate-price" value="<?php echo $lastRate?>" init="<?php echo $lastRate?>" type="text" size="<?php echo $inputSize ?>"/>
+                        </div>
+                        <div class="r-submit <?php echo ($defaultRate) ? '':disabled ?>"><span>Сделать ставку</span></div>
+                    </div>
+                </div>
+                <?php endif; ?>
+                <?php if (!Yii::app()->user->isGuest): ?>
+                    <div id="rates">
+                    </div>
+            <?php endif; ?>
+            </div>
+            <?php endif; ?>
+            <?php if (Yii::app()->user->isGuest): ?>
+                 <div class="width-40 timer-wrapper">
+                     <div id="t-container"></div>
+                     <div id="last-rate"><span><?php echo '**** ' . $currency?></span></div>
+                 </div>
+            <?php elseif(Yii::app()->user->isRoot): ?>
+                <div class="width-40 timer-wrapper">
+                     <div id="t-container"></div>
+                     <div id="last-rate"><span><?php echo $lastRate . ' ' . $currency?></span></div>
+                </div>  
+            <?php endif; ?>
         </div>
-        <?php endif; ?>
     </div>
-    <?php endif; ?>
-    <?php if (Yii::app()->user->isGuest): ?>
-         <div class="width-30-r timer-wrapper">
-             <div id="t-container"></div>
-             <div id="last-rate"><span><?php echo '**** ' . $currency?></span></div>
-         </div>
-    <?php elseif(Yii::app()->user->isRoot): ?>
-        <div class="width-30-r timer-wrapper">
-             <div id="t-container"></div>
-             <div id="last-rate"><span><?php echo $lastRate . ' ' . $currency?></span></div>
-        </div>  
-    <?php endif; ?>
+    
 </div>
 <?php if(!Yii::app()->user->isGuest && !Yii::app()->user->isRoot): ?>
         <div>
@@ -106,10 +115,6 @@ $inputSize = strlen((string)$lastRate)-1;
                 'title'=>'Связаться с модератором',
             ));
         ?>
-        </div>
-<?php endif; ?>
-<?php if (!Yii::app()->user->isGuest): ?>
-        <div id="rates">
         </div>
 <?php endif; ?>
 <script>

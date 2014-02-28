@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:700&subset=latin,cyrillic);
-html, body, .wrapper
+html, body
 {
     height: 100%;
 }
@@ -634,7 +634,9 @@ div.row{
     padding: 5px 0 1px 15px;
 }
 
-.transport-one .t-o-info .r-header{
+.transport-one .t-o-info .r-header,
+.r-header
+{
     color: #00917C;
     font-size: 18px;
     margin: 1px 0 6px;
@@ -763,7 +765,7 @@ div.row{
    color: #EF801B;
    font-size: 23px;
    border: 0;
-   background-color: #fff;
+   background-color: #EFEFEF;
    margin-top: 3px;
    margin-right: 5px;
    text-align: right;
@@ -781,9 +783,13 @@ div.row{
 #t-container{
     font-size: 18px;
     text-align: center;
-    margin-top: 30px;
+    position: relative;
 }
-
+#t-container:before
+{
+    content: 'Осталось:';
+    
+}
 .shadow{
     box-shadow: 0 0 8px rgba(0,0,0,0.6);
 }
@@ -809,16 +815,18 @@ div.row{
 }
 
 .rate-wrapper {
-    width:100%;
-    height:100%;
-    text-align:center;
+    padding: 9px 0 6px;
+    background: #EFEFEF;
+    border-radius: 5px 0 0 5px;
 }
 .r-block {
     display:-moz-inline-box;
     display:inline-block;
     vertical-align:middle;
     position: relative;
-    padding: 5px;
+    padding: 0;
+    float: left;
+    padding-left: 10px;
 }
 .rate-btns-wrapper{
     float: right;
@@ -827,18 +835,17 @@ div.row{
 .rate-one{
     background-color: #ddd;
     display: block;
-	border: 1px solid #aaa;
-	margin-bottom: 4px;
-	padding: 4px;
-	overflow: auto;
+    margin-bottom: 4px;
+    padding: 4px;
+    overflow: auto;
 }
 .r-o-container{
     background-color:  #eee;
-	padding: 3px;
-	color: #333;
-	float: left;
-	overflow: auto;
-	margin-right: 10px;
+    padding: 3px;
+    color: #333;
+    float: left;
+    overflow: auto;
+    margin-right: 10px;
     width: 40%;
 }
 .r-o-price{
@@ -847,6 +854,7 @@ div.row{
 }
 
 .r-submit{
+    float: left;
     box-shadow: none;
     text-decoration: none;
     border-radius: 3px;
@@ -864,10 +872,9 @@ div.row{
     display:-moz-inline-box;
     display:inline-block;
     vertical-align:middle;
-    width: 40px;
-    padding: 3px 0;
+    padding: 8px 10px;
     cursor: pointer;
-    cursor: hand;
+    margin-left: 5px;
 }
 #rates, #addRate .row, #t-container, .transport-one:first-child {
     cursor: default;
@@ -904,7 +911,7 @@ input.r-submit{
 #rates{
    /* margin-top: 20px;*/
     /*margin-bottom: 10px;*/
-    padding: 3px;
+    padding: 10px 0 0;
     /*overflow-x: hidden;*/
     overflow-y: auto;
     /*min-height: 30px;*/
@@ -926,6 +933,7 @@ input.r-submit{
     position:relative;
     background:#fff;
     margin-top: 10px;
+    padding-bottom: 15px;
 }
 .timer-wrapper:before,
 .timer-wrapper:after {
@@ -944,6 +952,23 @@ input.r-submit{
             box-shadow:0 0 8px rgba(0,0,0,0.6);
     -moz-border-radius:10px / 100px;
          border-radius:10px / 100px;
+}
+.timer-wrapper:before{
+    top:10px;
+    bottom:10px;
+    right: 10px;
+    left: 0;
+    -webkit-box-shadow:0 0 8px rgba(0,0,0,0.6);
+       -moz-box-shadow:0 0 8px rgba(0,0,0,0.6);
+            box-shadow:0 0 8px rgba(0,0,0,0.6);
+    -moz-border-radius:10px / 100px;
+         border-radius:10px / 100px;
+}
+.timer-wrapper .r-header
+{
+    display: block;
+    text-align: center;
+    padding-top: 15px;
 }
 
 .disabled{
