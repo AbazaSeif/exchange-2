@@ -56,19 +56,18 @@ $inputSize = strlen((string)$lastRate)-1;
                 <?php echo $transportInfo['location_to']; ?>
             </span>
         </span>
-        <div class="width-100">
-            <div class="width-60 t-o-info">
+        <div class="width-100 one-item-content">
+            <div class="width-49 t-o-info">
                 <label class="r-header">Основная информация</label>
                 <div class="r-description"><i><?php echo $transportInfo['description'] ?></i></div>
-                <div><span>Пункт отправки: </span><strong><?php echo $transportInfo['location_from'] ?></strong></div>
-                <div><span>Пункт назначения: </span> <strong><?php echo $transportInfo['location_to'] ?></strong></div>
-                <div><span>Дата загрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_from'])) ?></strong></div>
-                <div><span>Дата разгрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_to'])) ?></strong></div>
+                <div class="r-params"><span>Пункт отправки: </span><strong><?php echo $transportInfo['location_from'] ?></strong></div>
+                <div class="r-params"><span>Пункт назначения: </span> <strong><?php echo $transportInfo['location_to'] ?></strong></div>
+                <div class="r-params"><span>Дата загрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_from'])) ?></strong></div>
+                <div class="r-params"><span>Дата разгрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_to'])) ?></strong></div>
                 <?php if (!empty($transportInfo['auto_info'])):?><div><span>Транспорт: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
             </div>
             <?php if (!Yii::app()->user->isGuest && $lastRate > 0 && Yii::app()->user->isTransport): ?>
-            <div class="width-40 timer-wrapper">
-                <label class="r-header">Текущие ставки</label>
+            <div class="width-50 timer-wrapper">
                 <div class="width-100">
                     <div id="t-container" class="width-40"></div>
                     <?php if($transportInfo['status']): ?>
@@ -87,36 +86,34 @@ $inputSize = strlen((string)$lastRate)-1;
                     </div>
                 </div>
                 <?php endif; ?>
-                <?php if (!Yii::app()->user->isGuest): ?>
+            <?php if (!Yii::app()->user->isGuest): ?>
+                    <label class="r-header">Текущие ставки</label>
                     <div id="rates">
                     </div>
             <?php endif; ?>
             </div>
             <?php endif; ?>
             <?php if (Yii::app()->user->isGuest): ?>
-                 <div class="width-40 timer-wrapper">
+                 <div class="width-50 timer-wrapper">
                      <div id="t-container"></div>
                      <div id="last-rate"><span><?php echo '**** ' . $currency?></span></div>
                  </div>
             <?php elseif(Yii::app()->user->isRoot): ?>
-                <div class="width-40 timer-wrapper">
+                <div class="width-50 timer-wrapper">
                      <div id="t-container"></div>
                      <div id="last-rate"><span><?php echo $lastRate . ' ' . $currency?></span></div>
                 </div>  
             <?php endif; ?>
         </div>
     </div>
-    
-</div>
 <?php if(!Yii::app()->user->isGuest && !Yii::app()->user->isRoot): ?>
-        <div>
         <?php echo CHtml::link('Связаться с модератором', '#', array(
                 'id' => 'dialog-connect',
                 'title'=>'Связаться с модератором',
             ));
         ?>
-        </div>
 <?php endif; ?>
+</div>
 <script>
 function getTime(){
     return "<?php echo date("Y-m-d H:i:s") ?>";
