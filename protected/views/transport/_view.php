@@ -9,7 +9,7 @@
     $currency = ' €';
     $type = 'международная';
     
-    $allPoints = TransportInterPoint::getPoints($data->id);
+    $allPoints = TransportInterPoint::getPointsMin($data->id);
 
     if(!Yii::app()->user->isGuest){
         if(Yii::app()->user->isTransport){

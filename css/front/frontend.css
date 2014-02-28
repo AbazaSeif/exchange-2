@@ -1,4 +1,4 @@
-﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans:700&subset=latin,cyrillic);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:700&subset=latin,cyrillic);
 html, body
 {
     height: 100%;
@@ -341,6 +341,7 @@ div.ui-widget-header {
 #content
 {
     padding: 20px 35px 20px 0px;
+    min-height: 400px;
 }
 
 .row input[type='checkbox']{
@@ -465,7 +466,6 @@ div.row{
 .transports .items
 {
     overflow: auto;
-    height: 500px;    
 }
 .transports .items .transport
 {
@@ -563,7 +563,6 @@ div.row{
     margin-top: 20px;
 }
 .transport .description{
-    height: 78px;
     overflow: hidden;
 }
 .transport .description-50{
@@ -601,7 +600,11 @@ div.row{
 /*--------Одна-перевозка-----------*/
 .transport-one
 {
-    
+    position: relative;
+}
+.one-item-content
+{
+    margin-top: 10px;
 }
 .transport-one h1
 {
@@ -624,6 +627,10 @@ div.row{
 {
     margin-top: 25px;
 }
+.transport-one .t-o-info .r-params
+{
+    margin: 5px 0;
+}
 .transport-one .t-o-info label {
     font-size: 16px;
     font-weight: bold;
@@ -631,7 +638,7 @@ div.row{
 
 .transport-one .t-o-info span{
     display: block;
-    padding: 5px 0 1px 15px;
+    padding: 0px 0 0px 20px;
 }
 
 .transport-one .t-o-info .r-header,
@@ -702,6 +709,9 @@ div.row{
 #dialog-connect {
     color: #666;
     padding-left: 6px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }
 
 
@@ -787,7 +797,8 @@ div.row{
 }
 #t-container:before
 {
-    content: 'Осталось:';
+    content: 'Осталось до закрытия:';
+    font-size: 14px;
     
 }
 .shadow{
@@ -824,18 +835,17 @@ div.row{
     display:inline-block;
     vertical-align:middle;
     position: relative;
-    padding: 0;
+    padding: 0 0 3px 10px;
     float: left;
-    padding-left: 10px;
 }
 .rate-btns-wrapper{
     float: right;
 }
 
 .rate-one{
-    background-color: #ddd;
+    background-color: #EEE;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     padding: 4px;
     overflow: auto;
 }
@@ -851,6 +861,9 @@ div.row{
 .r-o-price{
     color: #EF801B;
     font-size: 23px;
+    text-align: right;
+    padding-right: 20px;
+    padding-top: 6px;
 }
 
 .r-submit{
@@ -875,6 +888,7 @@ div.row{
     padding: 8px 10px;
     cursor: pointer;
     margin-left: 5px;
+    margin-top: 2px;
 }
 #rates, #addRate .row, #t-container, .transport-one:first-child {
     cursor: default;
@@ -905,15 +919,17 @@ input.r-submit{
 
 .rate-button input[type='button'], .button input[type='submit']{
     cursor: pointer;
-    cursor: hand;
 }
 
 #rates{
    /* margin-top: 20px;*/
     /*margin-bottom: 10px;*/
-    padding: 10px 0 0;
+    margin: 0;
     /*overflow-x: hidden;*/
     overflow-y: auto;
+    border-top: 1px dashed #DDD;
+    border-bottom: 1px dashed #DDD;
+    max-height: 300px;
     /*min-height: 30px;*/
     /*max-height: 350px;*/
     /*height: 350px;*/
@@ -925,7 +941,6 @@ input.r-submit{
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none;
 }
 
 .timer-wrapper
@@ -933,7 +948,7 @@ input.r-submit{
     position:relative;
     background:#fff;
     margin-top: 10px;
-    padding-bottom: 15px;
+    padding: 15px 0;
 }
 .timer-wrapper:before,
 .timer-wrapper:after {
@@ -967,8 +982,9 @@ input.r-submit{
 .timer-wrapper .r-header
 {
     display: block;
-    text-align: center;
+    text-align: left;
     padding-top: 15px;
+    padding-left: 10px;
 }
 
 .disabled{
@@ -987,11 +1003,9 @@ input.r-submit{
 /*--------Конец-Одна-ставка-----------*/
 .footer
 {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
     text-align: center;
     width: 100%;
+    margin: 15px 0;
 }
 
 .width-5, .width-10, .width-15, .width-16, .width-18, .width-19,
