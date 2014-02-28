@@ -9,7 +9,7 @@ io.sockets.on('connection', function (socket) {
     var fs = require("fs");
     //var file = "d:/server/domains/data/exchange.db";
     //var file = "/../../../data/exchange.db";
-	var file = "/var/www/vhosts/lbr.ru/httpdocs/data/exchange.db";
+    var file = "/var/www/vhosts/lbr.ru/httpdocs/data/exchange.db";
     var sqlite3 = require("sqlite3").verbose();
     var db = new sqlite3.Database(file);
     var arr = [];
@@ -96,9 +96,10 @@ io.sockets.on('connection', function (socket) {
     });
 	
     socket.on('setRate', function (data) {
-        db.each("SELECT user_id FROM rate WHERE transport_id = " + data.transportId + " and price = " + data.price, function(err, rate) {
-        }, function(err, rows) {
-            if(rows == 0) {
+	    
+		db.each("SELECT min(price) as price FROM rate WHERE transport_id = " + data.transportId, function(err, rate) {
+            //console.log('===== ' + rate.price);
+			if(data.price < rate.price || rate.price == null) {
                 db.each("SELECT rate_id, location_from, location_to FROM transport WHERE id = " + data.transportId, function(err, row) { 
 					if(row.rate_id != 'null') {
                         db.each("SELECT user_id FROM rate WHERE id = " + row.rate_id, function(err, user) {
@@ -109,14 +110,12 @@ io.sockets.on('connection', function (socket) {
                                             msg : 'Вашу ставку для перевозки "' + row.location_from + ' &mdash; ' + row.location_to + '" перебили'
                                         });
 
-                                        /*var stmt = db.prepare("INSERT INTO user_event(user_id, transport_id, status, type, event_type) VALUES (?, ?, ?, ?, ?)");
-                                        stmt.run(user.user_id, data.transportId, 0, 1, 5);
-                                        stmt.finalize();*/
-                                    } //else { // user offline
+                                        
+                                    } 
                                         var stmt = db.prepare("INSERT INTO user_event(user_id, transport_id, status, type, event_type) VALUES (?, ?, ?, ?, ?)");
                                         stmt.run(user.user_id, data.transportId, 1, 1, 5);
                                         stmt.finalize();
-                                    //}
+                                    
                                 }
                             });
                         });
@@ -154,5 +153,62 @@ io.sockets.on('connection', function (socket) {
                 });
             }
         });
+		/*
+        db.each("SELECT user_id FROM rate WHERE transport_id = " + data.transportId + " and price = " + data.price, function(err, rate) {
+        }, function(err, rows) {
+            if(rows == 0) {
+                db.each("SELECT rate_id, location_from, location_to FROM transport WHERE id = " + data.transportId, function(err, row) { 
+					if(row.rate_id != 'null') {
+                        db.each("SELECT user_id FROM rate WHERE id = " + row.rate_id, function(err, user) {
+                            db.each("SELECT site_kill_rate FROM user_field WHERE user_id = " + user.user_id, function(err, option) {
+                                if(option.site_kill_rate) {
+                                    if (user.user_id in allSockets) { // user online
+                                        io.sockets.socket(allSockets[user.user_id]).emit('onlineEvent', {
+                                            msg : 'Вашу ставку для перевозки "' + row.location_from + ' &mdash; ' + row.location_to + '" перебили'
+                                        });
+
+                                        
+                                    } 
+                                        var stmt = db.prepare("INSERT INTO user_event(user_id, transport_id, status, type, event_type) VALUES (?, ?, ?, ?, ?)");
+                                        stmt.run(user.user_id, data.transportId, 1, 1, 5);
+                                        stmt.finalize();
+                                    
+                                }
+                            });
+                        });
+                    }
+                });
+                
+                var stmt = db.prepare("INSERT INTO rate(transport_id, date, price, user_id) VALUES (?, ?, ?, ?)");
+                stmt.run(data.transportId, data.date, data.price, data.userId);
+                stmt.finalize();
+                
+                db.each("SELECT id FROM rate WHERE transport_id = " + data.transportId + " and price = " + data.price + " and user_id = " + data.userId, function(err, row) {
+                    var stmt = "UPDATE transport SET rate_id = " + row.id + " WHERE id = " + data.transportId;
+                    db.run(stmt);
+                });
+                
+
+                io.sockets.socket(socket.id).emit('setRate', {
+                    name : data.name,
+                    surname : data.surname,
+                    price : data.price,
+                    date: data.date,
+					transportId : data.transportId
+                });
+                
+                socket.broadcast.emit('setRate', {
+                    name : data.name,
+                    surname : data.surname,
+                    price : data.price,
+                    date: data.date,
+					transportId : data.transportId
+                });
+            } else {
+                io.sockets.socket(socket.id).emit('errorRate', {
+                    price : data.price
+                });
+            }
+        });*/
     }); 
 });
