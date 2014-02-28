@@ -48,14 +48,14 @@
         <div class="wrapper">
             <div class="w-left">
                 <?php $this->widget('ext.userMenu.UserMenu'); ?>
-                <div class="footer">
-                    <p>2014 &copy; ООО "ЛБР-Агромаркет"</p>
-                </div>
             </div>
             <div class="w-right">
                 <?php $this->renderPartial( 'user.views.site.dialog' ); ?>
                 <?php echo $content; ?>
             </div>
+        </div>
+        <div class="footer">
+            <p>2014 &copy; ООО "ЛБР-Агромаркет"</p>
         </div>
     </body>
 </html>

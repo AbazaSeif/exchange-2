@@ -122,4 +122,22 @@ class TransportInterPoint extends CActiveRecord
             }
             return $points;
         }
+        
+        public static function getPointsMin($id)
+        {
+            $points = '';        
+            $innerPoints = Yii::app()->db->createCommand()
+                ->select('point')
+                ->from('transport_inter_point')
+                ->where('t_id=:id', array(':id'=>$id))
+                ->order('date')
+                ->queryAll()
+            ;
+
+            foreach($innerPoints as $point){
+                if(isset($points))
+                    $points .= ' -> '.$point['point'];
+            }
+            return $points;
+        }
 }
