@@ -11,7 +11,7 @@
 
         var message = $('#online-event'); 
         // if not exists
-        if (!message.length) { 
+        if (!message.length) {
             $('body').prepend('<div id="online-event"></div>'); 
             var message = $('#online-event');
         }
