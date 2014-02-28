@@ -80,6 +80,12 @@
 		<?php echo $form->textField($model,'description'); ?>
 		<?php echo $form->error($model,'description'); ?>
 	</div>
+        <div class="row">
+		<?php echo $form->labelEx($model,'nds'); ?>
+		<?php //echo $form->textField($model,'nds'); ?>
+                <?php echo $form->dropDownList($model, 'nds', array('0'=>'Нет', '1' => 'Да')); ?>
+		<?php echo $form->error($model,'nds'); ?>
+	</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Подтвердить', array('class'=>'btn')); ?>
 	</div>

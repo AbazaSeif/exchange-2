@@ -15,6 +15,7 @@ class RegistrationForm extends CFormModel
     public $email;
     public $description;
     public $ownership;
+    public $nds;
 
     public function rules()
     {
@@ -45,6 +46,7 @@ class RegistrationForm extends CFormModel
             'email'=>'Электронная почта',
             'description'=>'Примечание',
             'ownership'=>'Форма собственности',
+            'nds' => 'Отображать цену с НДС'
         );
     }
 }

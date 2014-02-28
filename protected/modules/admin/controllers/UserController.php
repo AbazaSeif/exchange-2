@@ -54,19 +54,36 @@ class UserController extends Controller {
         if(Yii::app()->user->checkAccess('createUser'))
         {
             $model = new User();
+            $model->status=1;
            // $group = UserGroup::getUserGroupArray();
             if (isset($_POST['User'])){
                 $model->attributes = $_POST['User'];
                 if($model->save()){
-                    //$message = 'Создан пользователь ' . $model->name . ' ' . $model->surname;
-                    //Changes::saveChange($message);
+                    $message = 'Создан пользователь ' . $model->name . ' ' . $model->surname;
+                    Changes::saveChange($message);
+                    
+                    $newFerrymanFields = new UserField;
+                    $newFerrymanFields->user_id = $model->id;
+                    $newFerrymanFields->mail_transport_create_1 = false;
+                    $newFerrymanFields->mail_transport_create_2 = false;
+                    $newFerrymanFields->mail_kill_rate = false;
+                    $newFerrymanFields->mail_before_deadline = false;
+                    $newFerrymanFields->mail_deadline = true;
+                    $newFerrymanFields->site_transport_create_1 = true;
+                    $newFerrymanFields->site_transport_create_2 = true;
+                    $newFerrymanFields->site_kill_rate = true;
+                    $newFerrymanFields->site_deadline = true;
+                    $newFerrymanFields->site_before_deadline = true;            
+                    $newFerrymanFields->with_nds = false;            
+                    $newFerrymanFields->save();
+                    
                     Yii::app()->user->setFlash('saved_id', $model->id);
                     Yii::app()->user->setFlash('message', 'Пользователь '.$model->login.' создан успешно.');
                     $this->redirect('/admin/user/');
                 }
             }
-            //$this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), false, true);
-            $this->renderPartial('user/edituser', array('model'=>$model), false, true);
+            $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), false, true);
+            //$this->renderPartial('user/edituser', array('model'=>$model), false, true);
         }else{
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }

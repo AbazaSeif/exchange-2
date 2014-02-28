@@ -53,7 +53,7 @@ class User extends CActiveRecord
             // will receive user inputs.
             return array(
                 array('inn, status, phone', 'numerical', 'integerOnly'=>true),
-                            array('company, country, city, inn, name, secondname, surname, phone, email', 'required'),
+                array('login, company, country, city, inn, name, secondname, surname, phone, email', 'required'),
                 array('login', 'length', 'max'=>64),
                 array('email', 'email', 'message'=>'Неправильный Email адрес'),
                 array('company, country, region, city, district, name, secondname, surname, password, email', 'safe'),
@@ -88,7 +88,7 @@ class User extends CActiveRecord
 	{
             return array(
                 'id' => 'ID',
-                'company' => 'Название комании',
+                'company' => 'Комания',
                 'inn' => 'ИНН/УНП ',
                 'status' => 'Статус',
                 'country' => 'Страна',
