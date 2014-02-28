@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:700&subset=latin,cyrillic);
+﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans:700&subset=latin,cyrillic);
 html, body
 {
     height: 100%;
@@ -1101,7 +1101,7 @@ input.r-submit{
 
 #online-event{
     cursor: pointer;
-    cursor: hand;
+    z-index: 9999;
 }
 
 #online-event .event {
