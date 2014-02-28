@@ -50,6 +50,7 @@ return array(
             'rules' => array(
                 'transport/i/<page:\d+>' => 'transport/i',
                 '<_m:user>/<_a:\w+>' => 'user/default/<_a>',
+                '<_a:(feedback|help)>'=>'site/<_a>',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
@@ -111,7 +112,7 @@ return array(
     'params' => array(
         // this is used in contact page
         //'host'=>'lbr.test',
-        'host'=>'lbr.ru',
+        'host'=>'lbr.local',
         'meta_title' => 'Биржа перевозок',
         'meta_description' => 'перевозки, биржа перевозок, биржа ЛБР',
         'menu_admin' => array(

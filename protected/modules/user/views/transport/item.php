@@ -45,13 +45,17 @@ $inputSize = strlen((string)$lastRate)-1;
     <div class="width-60">
         <h1><?php echo $transportInfo['location_from'] . ' &mdash; ' . $transportInfo['location_to']; ?></h1>
         <span class="t-o-published">Опубликована <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_published'])) ?></span>
-        <?php if($allPoints):?>
-        <h4>
-            <span>
-                <?php echo $transportInfo['location_from'] . $allPoints . ' -> ' . $transportInfo['location_to'] ?>
+        <span class="route">
+            <span class="start-point point">
+                <?php echo $transportInfo['location_from']; ?>
             </span>
-        </h4>
+        <?php if($allPoints):?>
+            <?php echo $allPoints; ?>
         <?php endif; ?>
+            <span class="finish-point point">
+                <?php echo $transportInfo['location_to']; ?>
+            </span>
+        </span>
         <div class="t-o-info">
             <label class="r-header">Основная информация</label>
             <div class="r-description"><i><?php echo $transportInfo['description'] ?></i></div>

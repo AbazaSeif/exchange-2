@@ -37,6 +37,13 @@
                     <img src="/images/logo.png" title="ЛБР-Агромаркет" alt="Логотип ЛБР-Агромаркет"/>
                 </a>
             </div>
+            <div class="center">
+                <span>Онлайн биржа перевозок</span>
+            </div>
+            <ul class="menu">
+                <li><a href="/feedback/" title="Обратная связь">Обратная связь</a></li>
+                <li><a href="/help/" title="Помощь">Помощь</a></li>
+            </ul>
         </div>
         <div class="wrapper">
             <div class="w-left">
