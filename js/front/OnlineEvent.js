@@ -9,7 +9,8 @@
             position:{ top:0,right:0 } 
         }, obj);
 
-        var message = $('#online-event'); 
+		var message = $('#online-event');
+        console.log('111 = ' + !message.length);		
         // if not exists
         if (!message.length) {
             $('body').prepend('<div id="online-event"></div>'); 
