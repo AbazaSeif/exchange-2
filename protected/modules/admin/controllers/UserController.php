@@ -58,15 +58,15 @@ class UserController extends Controller {
             if (isset($_POST['User'])){
                 $model->attributes = $_POST['User'];
                 if($model->save()){
-                    //$message = 'Создан пользователь ' . $model->name . ' ' . $model->surname;
-                    //Changes::saveChange($message);
+                    $message = 'Создан пользователь ' . $model->name . ' ' . $model->surname;
+                    Changes::saveChange($message);
                     Yii::app()->user->setFlash('saved_id', $model->id);
                     Yii::app()->user->setFlash('message', 'Пользователь '.$model->login.' создан успешно.');
                     $this->redirect('/admin/user/');
                 }
             }
-            //$this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), false, true);
-            $this->renderPartial('user/edituser', array('model'=>$model), false, true);
+            $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), false, true);
+            //$this->renderPartial('user/edituser', array('model'=>$model), false, true);
         }else{
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
