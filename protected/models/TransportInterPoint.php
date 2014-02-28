@@ -117,8 +117,8 @@ class TransportInterPoint extends CActiveRecord
             ;
 
             foreach($innerPoints as $point){
-                if(isset($points)) $points .= ' -> ';
-                $points .= $point['point'];
+                if(isset($points))
+                    $points .= '<span class="point">'.$point['point'].'</span>';
             }
             return $points;
         }

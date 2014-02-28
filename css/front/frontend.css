@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:700&subset=latin,cyrillic);
-html, body, .wrapper
+html, body
 {
     height: 100%;
 }
@@ -34,9 +34,10 @@ nav, menu, p, section,
     position:relative;
     background:#fff;
     padding: 10px 0;
+    clear: both;
 }  
-.header:before,
-.header:after {
+.header:before
+{
     background: white;
     content:"";
     position:absolute;
@@ -66,10 +67,43 @@ nav, menu, p, section,
     float: right;
     width: 80%;
 }
-.logo
+.header .logo
 {
     text-align: left;
     margin: 0px 0px 0px 35px;
+    float: left;
+}
+.header .menu
+{
+    list-style: none;
+    float: right;
+    margin-right: 35px;
+    padding: 50px 0 0 0;
+}
+.header .menu li
+{
+    float: left;
+}
+.header .menu li a
+{
+    color: #555555;
+    padding: 5px 10px;
+}
+.header .center
+{
+    float: left;
+    padding: 45px 0 0 57px;
+}
+.header .center span
+{
+    color: #00917C;
+    font-family: FuturisXC;
+    font-weight: bold;
+    font-size: 21px;
+}
+.header .center:first-letter
+{
+    color: #EF801B;
 }
 .w-right h1
 {
@@ -243,7 +277,7 @@ div.ui-widget-header {
 
 .user-info
 {
-    margin: 0 20px 10px;
+    margin: 20px 20px 10px;
 }
 .user-info .user-name
 {
@@ -579,7 +613,7 @@ div.row{
     color: #CCC;
     padding-left: 7px;
     display: block;
-    margin-bottom: 7px;
+    margin-bottom: 15px;
 }
 .transport-one h4{
     padding-left: 7px;
@@ -588,7 +622,7 @@ div.row{
 }
 .transport-one .t-o-info
 {
-    
+    margin-top: 25px;
 }
 .transport-one .t-o-info label {
     font-size: 16px;
@@ -600,13 +634,50 @@ div.row{
     padding: 5px 0 1px 15px;
 }
 
-.transport-one .t-o-info .r-header{
+.transport-one .t-o-info .r-header,
+.r-header
+{
     color: #00917C;
     font-size: 18px;
     margin: 1px 0 6px;
     padding-left: 7px;
 }
-
+.transport-one .route
+{
+    position: relative;
+    border-bottom: 2px solid #00917C;
+    padding: 5px 0;
+}
+.transport-one .route .point
+{
+    position: relative;
+    padding: 0 10px 12px;
+    text-align: center;
+}
+.transport-one .route .point:after
+{
+    content: '';
+    display: block;
+    left: 50%;
+    margin-left: -6px;
+    bottom: 0;
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 6px;
+    background: #00917C
+}
+.transport-one .route .start-point:after
+{
+    left: 0;
+    margin-left: 0;
+}
+.transport-one .route .finish-point:after
+{
+    left: auto;
+    right: 0;
+    margin-left: 0;
+}
 .r-description{
     font-size: 13px;
     padding: 5px 0 5px 6px;
@@ -694,7 +765,7 @@ div.row{
    color: #EF801B;
    font-size: 23px;
    border: 0;
-   background-color: #fff;
+   background-color: #EFEFEF;
    margin-top: 3px;
    margin-right: 5px;
    text-align: right;
@@ -712,9 +783,13 @@ div.row{
 #t-container{
     font-size: 18px;
     text-align: center;
-    margin-top: 30px;
+    position: relative;
 }
-
+#t-container:before
+{
+    content: 'Осталось:';
+    
+}
 .shadow{
     box-shadow: 0 0 8px rgba(0,0,0,0.6);
 }
@@ -740,16 +815,18 @@ div.row{
 }
 
 .rate-wrapper {
-    width:100%;
-    height:100%;
-    text-align:center;
+    padding: 9px 0 6px;
+    background: #EFEFEF;
+    border-radius: 5px 0 0 5px;
 }
 .r-block {
     display:-moz-inline-box;
     display:inline-block;
     vertical-align:middle;
     position: relative;
-    padding: 5px;
+    padding: 0;
+    float: left;
+    padding-left: 10px;
 }
 .rate-btns-wrapper{
     float: right;
@@ -758,18 +835,17 @@ div.row{
 .rate-one{
     background-color: #ddd;
     display: block;
-	border: 1px solid #aaa;
-	margin-bottom: 4px;
-	padding: 4px;
-	overflow: auto;
+    margin-bottom: 4px;
+    padding: 4px;
+    overflow: auto;
 }
 .r-o-container{
     background-color:  #eee;
-	padding: 3px;
-	color: #333;
-	float: left;
-	overflow: auto;
-	margin-right: 10px;
+    padding: 3px;
+    color: #333;
+    float: left;
+    overflow: auto;
+    margin-right: 10px;
     width: 40%;
 }
 .r-o-price{
@@ -778,6 +854,7 @@ div.row{
 }
 
 .r-submit{
+    float: left;
     box-shadow: none;
     text-decoration: none;
     border-radius: 3px;
@@ -795,10 +872,9 @@ div.row{
     display:-moz-inline-box;
     display:inline-block;
     vertical-align:middle;
-    width: 40px;
-    padding: 3px 0;
+    padding: 8px 10px;
     cursor: pointer;
-    cursor: hand;
+    margin-left: 5px;
 }
 #rates, #addRate .row, #t-container, .transport-one:first-child {
     cursor: default;
@@ -835,7 +911,7 @@ input.r-submit{
 #rates{
    /* margin-top: 20px;*/
     /*margin-bottom: 10px;*/
-    padding: 3px;
+    padding: 10px 0 0;
     /*overflow-x: hidden;*/
     overflow-y: auto;
     /*min-height: 30px;*/
@@ -857,6 +933,7 @@ input.r-submit{
     position:relative;
     background:#fff;
     margin-top: 10px;
+    padding-bottom: 15px;
 }
 .timer-wrapper:before,
 .timer-wrapper:after {
@@ -875,6 +952,23 @@ input.r-submit{
             box-shadow:0 0 8px rgba(0,0,0,0.6);
     -moz-border-radius:10px / 100px;
          border-radius:10px / 100px;
+}
+.timer-wrapper:before{
+    top:10px;
+    bottom:10px;
+    right: 10px;
+    left: 0;
+    -webkit-box-shadow:0 0 8px rgba(0,0,0,0.6);
+       -moz-box-shadow:0 0 8px rgba(0,0,0,0.6);
+            box-shadow:0 0 8px rgba(0,0,0,0.6);
+    -moz-border-radius:10px / 100px;
+         border-radius:10px / 100px;
+}
+.timer-wrapper .r-header
+{
+    display: block;
+    text-align: center;
+    padding-top: 15px;
 }
 
 .disabled{
@@ -933,10 +1027,10 @@ input.r-submit{
 .width-100{
     clear: both;
 }
-header:after, .wrapper:after, footer:after, #login-form:after,
+.header:after, .wrapper:after, footer:after, #login-form:after,
 .user-info:after, .transports .sorter ul:after,
 .transports .items .transport:after, .transport-one:after,
-.width-100:after
+.width-100:after, .header .menu:after
 {
     content: '';
     display: block;

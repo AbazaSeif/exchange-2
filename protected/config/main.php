@@ -50,6 +50,7 @@ return array(
             'rules' => array(
                 'transport/i/<page:\d+>' => 'transport/i',
                 '<_m:user>/<_a:\w+>' => 'user/default/<_a>',
+                '<_a:(feedback|help)>'=>'site/<_a>',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',

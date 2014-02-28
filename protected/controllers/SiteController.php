@@ -21,6 +21,16 @@ class SiteController extends Controller
         $this->render('item', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
     }
     
+    public function actionFeedback()
+    {
+        $this->render('feedback');
+    }
+    
+    public function actionHelp()
+    {
+        $this->render('help');
+    }
+    
     public function actionRegistration()
     {
         
