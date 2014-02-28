@@ -107,14 +107,17 @@ io.sockets.on('connection', function (socket) {
                                             msg : 'Вашу ставку для перевозки "' + row.location_from + ' &mdash; ' + row.location_to + '" перебили'
                                         });
 
-                                        var stmt = db.prepare("INSERT INTO user_event(user_id, transport_id, status, type, event_type) VALUES (?, ?, ?, ?, ?)");
+                                        /*var stmt = db.prepare("INSERT INTO user_event(user_id, transport_id, status, type, event_type) VALUES (?, ?, ?, ?, ?)");
                                         stmt.run(user.user_id, data.transportId, 0, 1, 5);
                                         stmt.finalize();
-                                    } else { // user offline
-                                        var stmt = db.prepare("INSERT INTO user_event(user_id, transport_id, status, type, event_type) VALUES (?, ?, ?, ?, ?)");
-                                        stmt.run(user.user_id, data.transportId, 1, 1, 5);
-                                        stmt.finalize();
-                                    }
+										*/
+                                    } //else { // user offline
+									
+									var stmt = db.prepare("INSERT INTO user_event(user_id, transport_id, status, type, event_type) VALUES (?, ?, ?, ?, ?)");
+									stmt.run(user.user_id, data.transportId, 1, 1, 5);
+									stmt.finalize();
+                                    
+									//}
                                 }
                             });
                         });
