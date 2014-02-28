@@ -41,7 +41,7 @@ var rateList = {
         rateList.data.socket.on('onlineEvent', function (data) {
             //$.onlineEvent({ msg:'Вашу ставку для перевозки "' + data.name + '" перебили',className: 'classic', sticked:true, position:{right:0,bottom:0}, time:2000});
             //console.log(111);
-            $.onlineEvent({ msg : data.msg, className : 'classic', sticked:true, position:{right:0,bottom:0}, time:2000});
+            $.onlineEvent({ msg : data.msg, className : 'classic', sticked:true, position:{right:0,bottom:0}, time:10000});
         });
         
         $( "#rate-up" ).on('click', function() {
