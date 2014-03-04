@@ -503,7 +503,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     
     /* Начало список ставок */
 
-#rates-all{
+#rates-all, #points-all{
     background: #dfebf3;
     width: 360px;
     text-align: center;
@@ -516,10 +516,13 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     margin: .5em 0;
     border-radius: 2px;
 }
-#rates-all li:first-child{
+#points-all{
+    width: 220px;
+}
+#rates-all li:first-child, #points-all li:first-child{
     background: #b3cfe1;
 }
-#rates-all li{
+#rates-all li, #points-all li{
     border-color: #cae3f3;
     width: 100%;
     float: left;
@@ -530,34 +533,42 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     background: #f3f3f3 repeat-x top left;
 }
 
-#rates-all li > span{
+#rates-all li > span, #points-all li > span{
     float: left;
     width: 45%;
     text-align: center;
 }
+#points-all li > span{
+    width: 80%;
+}
 
-#rates-all li:first-child > span:first-child{
+#rates-all li:first-child > span:first-child{ 
    padding-left: 40px;
    width: 40%;
 }
 
-#rates-all li > span:last-child{
+#points-all li:first-child > span:first-child{
+   padding-left: 20px;
+   width: 60%;
+}
+
+#rates-all li > span:last-child, #points-all li > span:last-child{
     float: right;
     margin-right: 10px;
 }
 
-#rates-all li > span:first-child{
+#rates-all li > span:first-child, #points-all li > span:first-child{
     text-align: left;
     padding-left: 10px;
     cursor: default;
 }
 
-#rates-all li span.del-row{
+#rates-all li span.del-row, #points-all li span.del-row{
     background: url('/images/delete-icon.png') no-repeat left top;
     width: 16px;
     height: 16px;
 }
-#rates-all li span.del-row:hover{
+#rates-all li span.del-row:hover, #points-all li span.del-row:hover{
     cursor: pointer;
 }
 
@@ -565,8 +576,12 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
    margin-top: 10px;
 }
 
-input[name^="Rates"]{
+input[name^="Rates"], input[name^="Points"]{
     display: none;
+}
+
+.point input{
+    width: 170px;
 }
 
     /* Конец список ставок */

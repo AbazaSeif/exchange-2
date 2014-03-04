@@ -90,7 +90,7 @@ class TransportInterPoint extends CActiveRecord
 		$criteria->compare('sort',$this->sort);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+		    'criteria'=>$criteria,
 		));
 	}
 

@@ -10,12 +10,10 @@ var rateList = {
         
         rateList.data.socket.on('setRate', function (data) {
             var initPrice = parseInt($('#rate-price').attr('init'));
+            
             if(data.transportId == rateList.data.transportId){
                 var element = rateList.createElement(initPrice, data.date, data.name, data.price, data.surname);
-                //console.log($('#rates'));
-                //$('#rates').append(element);
                 $('#rates').prepend(element);
-                //$(element).appendTo('#rates');
             }
         });
         

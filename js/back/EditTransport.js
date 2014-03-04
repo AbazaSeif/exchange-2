@@ -48,6 +48,30 @@ function ЕditTransport() {
         $("#rates-all").on('click', 'li span.del-row', function () {
             $(this).parent().remove();
         });
+        /*************************************/
+        $("#points-all").on('dblclick', 'li span.p-point', function () {     
+            $(this).parent().addClass("clicked");
+            var origPrice = $(this).text();
+            $(this).attr('pval', origPrice)
+            $(this).text("");
+            $('<input>', {
+                type: 'text',
+                value: origPrice,
+            }).appendTo(this).focus();
+        });
+        
+        $("#points-all").on('focusout', 'li span.p-point > input', function () {
+            var newVal = $(this).val();
+            var parent = $(this).parent();
+            if (newVal == '') newVal = parent.attr('pval');
+            parent.text(newVal);
+            parent.next().val(newVal);
+            $(this).remove(); 
+        });
+        
+        $("#points-all").on('click', 'li span.del-row', function () {
+            $(this).parent().remove();
+        });
         
         /* press Enter button*/
         $(document).keypress(function(e) {

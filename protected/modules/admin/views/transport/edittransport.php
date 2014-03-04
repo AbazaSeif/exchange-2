@@ -20,9 +20,7 @@
 <?php $form = $this->beginWidget('CActiveForm', array(
         'id'=>'transport-form',
         'action'=>$action,
-        'enableClientValidation' => true,
-        'enableAjaxValidation' => true,
-        
+        'enableClientValidation' => true,        
         'clientOptions'=>array(
             'validateOnSubmit'=>true,
             'validateOnChange' => true,
@@ -44,9 +42,14 @@
     echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn btn-green')); 
 ?>
 </div>
-    <?php echo $form->errorSummary($model); ?>
-    <div id='error'></div>
-    
+<?php //echo $form->errorSummary($model); ?>
+<!--div id='error'></div-->
+
+<div class="field">
+<?php echo $form->error($model, 'type');
+    echo $form->labelEx($model, 'type');
+    echo $form->dropDownList($model, 'type', Transport::$group); ?>
+</div>
 <div class="field">
 <?php  echo $form->error($model, 'location_from'); 
     echo $form->labelEx($model, 'location_from');
@@ -63,6 +66,11 @@
     echo $form->labelEx($model, 'start_rate');
     echo $form->textField($model, 'start_rate');
 ?>    
+</div>
+<div class="field">
+<?php echo $form->error($model, 'currency');
+    echo $form->labelEx($model, 'currency');
+    echo $form->dropDownList($model, 'currency', Transport::$currencyGroup); ?>
 </div>
 <div class="field">
 <?php  echo $form->error($model, 'description'); 
@@ -86,22 +94,35 @@
     $model->date_to = date("d-m-Y", strtotime($model->date_to));
     echo $form->textField($model, 'date_to'); ?>    
 </div>
-<div class="field">
-<?php echo $form->error($model, 'type');
-    echo $form->labelEx($model, 'type');
-    echo $form->dropDownList($model, 'type', Transport::$group); ?>
-</div>
-<div class="field">
-<?php echo $form->error($model, 'currency');
-    echo $form->labelEx($model, 'currency');
-    echo $form->dropDownList($model, 'currency', Transport::$currencyGroup); ?>
-</div>
+
 <div class="field">
 <?php echo $form->hiddenField($model, 'id'); ?>
 </div>
 <?php if (!$model->isNewRecord): ?>
 <div>
-    <div class="header-h4">Все ставки</div>
+    <?php if(count($points)): ?>
+    <div class="header-h4">Промежуточные пункты маршрута</div>
+    <ul id="points-all">
+        <li>
+           <span>Название пункта</span>
+           <!--span>Порядок</span-->
+           <span class="del-col"></span>
+        </li>
+    <?php foreach ($points as $point){
+            echo '<li class="point">';
+            echo '<span>';
+                echo '<span class="p-point">'.$point->point.'</span>';
+                echo CHtml::textField('Points['.$point->id.']', $point->point, array('class'=>''));
+            echo '</span>';
+            //echo '<span>'.$point->sort.'</span>';
+            echo '<span class="del-col del-row"></span>';
+            echo '</li>';
+        }?>
+    </ul>
+    <?php endif; ?>
+</div>
+<div>
+    <div class="header-h4">Список ставок</div>
     <?php if(count($rates)): ?>
     <ul id="rates-all">
         <li>
@@ -132,6 +153,10 @@ $(document).ready(function(){
     editor.initCalendar();
     <?php if(Yii::app()->user->checkAccess('editRate')): ?>
         editor.initRateEditor();
+        
+        $( "#points-all" ).sortable({
+            revert: true
+        });
     <?php endif; ?>
 });
 </script>

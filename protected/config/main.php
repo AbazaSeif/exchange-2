@@ -116,7 +116,10 @@ return array(
         'meta_title' => 'Биржа перевозок',
         'meta_description' => 'перевозки, биржа перевозок, биржа ЛБР',
         'menu_admin' => array(
-            'Пользователи' => '/admin/user/',
+            'Перевозчики'=>array(
+                'Компании'=>'/admin/company/',
+                'Контактные лица'=>'/admin/user/',
+            ),
             'Перевозки' => '/admin/transport/',
             'История редактирования' => '/admin/changes/',
         ),

@@ -55,19 +55,41 @@ class Changes extends CActiveRecord
     }
     
     // Delete rates and save changes
-    public static function saveChangeInRates($criteria)
+    public static function saveChangeInRates($criteria, $transportId)
     {
         $ratesForDelete = Rate::model()->findAll($criteria);
         // Delete Rates
-        if(!empty($ratesForDelete)){
-            Rate::model()->deleteAll($criteria);
-            $message = 'В перевозке "' . $transportModel['location_from'] . ' — ' . $transportModel['location_to'] . '" были удалены следующие ставки: ';
+        if(!empty($ratesForDelete)) {
+            $transportModel = Transport::model()->findByPk($transportId);
+            //Rate::model()->deleteAll($criteria);
+            $message = 'В перевозке "' . $transportModel->location_from . ' — ' . $transportModel->location_to . '" были удалены следующие ставки: ';
             $k = 0;
+            
             foreach($ratesForDelete as $i=>$rate) {
                 $k++;
-                $message .= $k . ') Ставка с id = '. $rate['id'] . ' - цена ' . $rate['price'] . '; ';
+                $message .= $k . ') Ставка с id = '. $rate->id . ' - цена ' . $rate->price . '; ';
             
-                Rate::model()->deleteByPk($rate['id']);
+                Rate::model()->deleteByPk($rate->id);
+            }
+            Changes::saveChange($message);
+            return;
+        }
+    }
+    
+    public static function saveChangeInPoints($criteria, $transportId)
+    {
+        $pointsForDelete = TransportInterPoint::model()->findAll($criteria);
+        // Delete Points
+        if(!empty($pointsForDelete)){
+            $transportModel = Transport::model()->findByPk($transportId);
+            //TransportInterPoint::model()->deleteAll($criteria);
+            $message = 'В перевозке "' . $transportModel->location_from . ' — ' . $transportModel->location_to . '" были удалены следующие пункты: ';
+            $k = 0;
+            foreach($pointsForDelete as $i=>$point) {
+                $k++;
+                $message .= $k . ') Пункт с id = '. $point->id . ' "' . $point->point . '"; ';
+            
+                TransportInterPoint::model()->deleteByPk($point->id);
             }
             Changes::saveChange($message);
             return;

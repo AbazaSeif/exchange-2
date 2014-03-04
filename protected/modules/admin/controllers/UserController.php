@@ -49,16 +49,14 @@ class UserController extends Controller {
             }
     }
 
-    public function actionCreateUser() 
+    public function actionCreateUser()
     {
-        if(Yii::app()->user->checkAccess('createUser'))
-        {
-            $model = new User();
-            $model->status=1;
-           // $group = UserGroup::getUserGroupArray();
-            if (isset($_POST['User'])){
+        if(Yii::app()->user->checkAccess('createUser')) {
+            $model = new User;
+            if(isset($_POST['User'])) {
                 $model->attributes = $_POST['User'];
-                if($model->save()){
+                $model->status=1;
+                 if($model->save()){
                     $message = 'Создан пользователь ' . $model->name . ' ' . $model->surname;
                     Changes::saveChange($message);
                     
@@ -83,7 +81,6 @@ class UserController extends Controller {
                 }
             }
             $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), false, true);
-            //$this->renderPartial('user/edituser', array('model'=>$model), false, true);
         }else{
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
@@ -91,14 +88,11 @@ class UserController extends Controller {
 
     public function actionEditUser($id) 
     {
-       
-        $model = User::model()->findByPk($id);
-        
+        $model = User::model()->findByPk($id);   
         if (Yii::app()->user->checkAccess('editUser')) {
-            
             if (isset($_POST['User'])) {
+                $model->attributes = $_POST['User'];
                 $changes = array();
-                 //echo 112;exit;
                 foreach ($_POST['User'] as $key => $value) {
                     if (trim($model[$key]) != trim($value)) {
                         $changes[$key]['before'] = $model[$key];
@@ -115,7 +109,7 @@ class UserController extends Controller {
                     }
                     Changes::saveChange($message);
                 }
-                //$model->attributes = $_POST['User'];
+                
                 if ($model->save()) {
                     Yii::app()->user->setFlash('saved_id', $model->id);
                     Yii::app()->user->setFlash('message', 'Пользователь ' . $model->login . ' сохранен успешно.');
@@ -128,12 +122,12 @@ class UserController extends Controller {
         }
     }
 
-    public function actionDeleteUser($id) {
+    public function actionDeleteUser($id) 
+    {
         $model = User::model()->findByPk($id);
-        
-        if (Yii::app()->user->checkAccess('deleteUser') && $id != Yii::app()->user->_id) {
-            $message = 'Удален пользователь ' . $model['name'] . ' ' . $model['surname'];
+        if (Yii::app()->user->checkAccess('deleteUser')) {
             if (User::model()->deleteByPk($id)) {
+                $message = 'Удален пользователь ' . $model['name'] . ' ' . $model['surname'];
                 Changes::saveChange($message);
                 Yii::app()->user->setFlash('message', 'Пользователь удален успешно.');
                 $this->redirect('/admin/user/');

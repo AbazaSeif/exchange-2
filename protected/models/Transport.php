@@ -59,13 +59,18 @@ class Transport extends CActiveRecord
 	    // will receive user inputs.
 	    return array(
                 array('location_from, location_to, description, date_from, date_to, start_rate', 'required', 'message'=>'Заполните поле "{attribute}"'),
-                //array('date_from, date_to', 'date', 'pattern'=>'(/\d{2}[-]/', 'message'=>'Неверный формат даты в поле "{attribute}"'),
-                //array('date_from', 'date', 'format'=>'dd-mm-yyyy', 'allowEmpty'=>false),
-                //array('date_from', 'checkDate'),
+                //array('date_from, date_to', 'match', 'pattern'=>'/^(0[1-9]|[1-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-[0-9]{4}$/', 'message'=>'Поле "{attribute}" должно иметь формат dd-MM-yyyy'),
                 array('start_rate', 'numerical', 'integerOnly'=>true, 'min'=>0, 'message'=>'Поле "{attribute}" должно содержать число', 'tooSmall'=>'Значение поля "{attribute}" не может быть меньше нуля !'),
             );
 	}
         
+        public function authenticate($attribute,$params)
+        {
+            $pattern = '/^111$/';  
+            if(!preg_match($pattern, $this->$attribute))
+                $this->addError($attribute, 'your password is not strong enough !');
+        }
+        /*
         public function checkDate($attribute, $params)
         {
             //if($this->{$attribute} !== '123456')
@@ -73,7 +78,7 @@ class Transport extends CActiveRecord
             
             //var_dump('111');
             //$this->addError('date_from', 'Неверный формат даты');         
-        }
+        }*/
 
 	/**
 	 * @return array relational rules.
@@ -107,7 +112,7 @@ class Transport extends CActiveRecord
                 'location_to' => 'Место разгрузки',
                 'auto_info' => 'Транспорт',
                 'description' => 'Описание',
-                'date_from' => 'Время до закрытия',
+                'date_from' => 'Дата загрузки',
                 'date_to' => 'Дата разгрузки',
                 'date_published' => 'Дата публикации',
                 'currency' => 'Валюта',
@@ -168,9 +173,11 @@ class Transport extends CActiveRecord
     {
         parent::afterSave();
         $inputArray = $_POST['Rates'];
+        $pointsArray = $_POST['Points'];
+        $transportId = $_POST['Transport']['id'];
+        $transportModel = Transport::model()->findByPk($transportId);
         if (isset($inputArray)){
-            $transportId = $_POST['Transport']['id'];
-            $transportModel = Transport::model()->findByPk($transportId);
+            
             $arrayKeys = array();
             $priceChanges = array();
             // Edit Rates
@@ -200,10 +207,9 @@ class Transport extends CActiveRecord
             $criteria->addNotInCondition('id', $arrayKeys);
             
             // Delete rates and save changes
-            Changes::saveChangeInRates($criteria);
+            Changes::saveChangeInRates($criteria, $transportId);
             
             if(!in_array($transportModel['rate_id'], $arrayKeys)) {
-            
                 $minPrice = Yii::app()->db->createCommand()
                     ->select('min(price) as price')
                     ->from('rate')
@@ -221,6 +227,39 @@ class Transport extends CActiveRecord
                 $transportModel['rate_id'] = $model['id'];
                 $transportModel->save();
             }       
+        }
+        
+        if (isset($pointsArray)){
+            $arrayKeys = array();
+            $pointChanges = array();
+            // Edit Rates
+            foreach($pointsArray as $id=>$point) {
+                $arrayKeys[] = $id;
+                $model = TransportInterPoint::model()->findByPk($id);
+                if(trim($model['point']) != trim($point)) {
+                    $pointChanges[$id]['before'] = $model['point'];
+                    $pointChanges[$id]['after'] = $point;
+                    $model['point'] = $point;
+                    $model->save();
+                }
+            }
+            
+            if(!empty($pointChanges)){
+                $message = 'В перевозке "' . $transportModel['location_from'] . ' — ' . $transportModel['location_to'] . '" были изменены следующие промежуточные пункты: ';
+                $k = 0;
+                foreach($pointChanges as $key => $value){
+                    $k++;
+                    $message .= $k . ') Пункт с id = '. $key . ' - пункт ' . $pointChanges[$key]['before'] . ' на ' . $pointChanges[$key]['after'] . '; ';
+                }
+                Changes::saveChange($message);
+            }
+            
+            $criteria = new CDbCriteria;
+            $criteria->addCondition('t_id = ' . $transportId);
+            $criteria->addNotInCondition('id', $arrayKeys);
+            
+            // Delete points and save changes
+            Changes::saveChangeInPoints($criteria, $transportId);
         }
         return true;
     }

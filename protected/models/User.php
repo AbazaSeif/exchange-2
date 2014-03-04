@@ -36,6 +36,9 @@ class User extends CActiveRecord
         const USER_WARNING = 2;
         const USER_TEMPORARY_BLOCKED = 3;
         const USER_BLOCKED = 4;	
+        
+       
+
         /**
 	 * @return string the associated database table name
 	 */
@@ -53,10 +56,11 @@ class User extends CActiveRecord
             // will receive user inputs.
             return array(
                 array('inn, status, phone', 'numerical', 'integerOnly'=>true),
-                array('login, company, country, city, inn, name, secondname, surname, phone, email', 'required'),
+                array('login, company, country, region, district, inn, name, secondname, surname, phone, email', 'required'),
                 array('login', 'length', 'max'=>64),
+                array('name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),
                 array('email', 'email', 'message'=>'Неправильный Email адрес'),
-                array('company, country, region, city, district, name, secondname, surname, password, email', 'safe'),
+                //array('company, country, region, city, district, name, secondname, surname, password, email', 'safe'),
                 // The following rule is used by search().
                 // @todo Please remove those attributes that should not be searched.
                 array('id, company, inn, status, country, region, city, district, name, secondname, surname, login, password, phone, email', 'safe', 'on'=>'search'),

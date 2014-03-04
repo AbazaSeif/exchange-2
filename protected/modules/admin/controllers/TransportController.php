@@ -37,7 +37,8 @@ class TransportController extends Controller
             if ($id = Yii::app()->user->getFlash('saved_id')){
                 $model = Transport::model()->findByPk($id);
                 $rates = Rate::model()->findAll(array('order'=>'date desc', 'condition'=>'transport_id='.$id));
-                $view = $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates), true, true);
+                $points = TransportInterPoint::model()->findAll(array('order'=>'sort', 'condition'=>'t_id = ' . $id)); 
+                $view = $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'points'=>$points), true, true);
             }
             $this->render('transport', array('data'=>$dataProvider, 'view'=>$view));
         }else{
@@ -78,24 +79,18 @@ class TransportController extends Controller
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
     }
-   /* 
-    protected function performAjaxValidation($model)
-{
-    if(isset($_POST['ajax']) && $_POST['ajax']==='registration-form')
-    {
-        echo CActiveForm::validate($model);
-        Yii::app()->end();
-    }
-}
-*/
+
     public function actionEditTransport($id)
     {
         if(Yii::app()->user->checkAccess('editTransport')){
             $model = Transport::model()->findByPk($id);
             $rates = Rate::model()->findAll(array('order'=>'date desc', 'condition'=>'transport_id='.$id));
+            $points = TransportInterPoint::model()->findAll(array('order'=>'sort', 'condition'=>'t_id = ' . $id)); 
+            //echo '<pre>';
+            //var_dump($points);
             if (isset($_POST['Transport'])){
                 $changes = array();
-                foreach($_POST['Transport'] as $key=>$value){
+                foreach($_POST['Transport'] as $key=>$value) {
                     if($key == 'description') {
                         $value = $this->formatDescription($value);
                     } else if($key == 'date_from' || $key == 'date_to') {
@@ -125,23 +120,33 @@ class TransportController extends Controller
                     Changes::saveChange($message);
                 }
                 
-                if(!isset($_POST['Rates'])){
+                if(!isset($_POST['Rates'])) { // if no rates
                     $model['rate_id'] = NULL;
                     $criteria = new CDbCriteria;
                     $criteria->addCondition('transport_id = ' . $model['id']);
-                    // Delete rates and save changes
-                    Changes::saveChangeInRates($criteria);
+                    // Delete all rates and save changes
+                    Changes::saveChangeInRates($criteria, $model['id']);
                 }
+                
+                if(!isset($_POST['Points'])) { // if no points
+                    $criteria = new CDbCriteria;
+                    $criteria->addCondition('t_id = ' . $model['id']);
+                    // Delete all points and save changes
+                    Changes::saveChangeInPoints($criteria, $model['id']);
+                }
+
                 if($model->save()){
                     Yii::app()->user->setFlash('saved_id', $model->id);
                     Yii::app()->user->setFlash('message', 'Перевозка сохранена успешно.');
                     $this->redirect('/admin/transport/');
                 }
+                //var_dump($model->getErrors());
             }
             
-            $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates), false, true);
+            $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'points' => $points), false, true);
+            //$this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates), false, true);
         }else{
-            throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
+            throw new CHttpException(403, Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
     }
 
