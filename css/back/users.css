@@ -131,9 +131,9 @@
 .right form{
     position: relative;
 }
-.right form .buttons{
+/*.right form .buttons{
     margin-top: -42px;
-}
+}*/
 .right form .field{
     margin: 1em 0;
 }

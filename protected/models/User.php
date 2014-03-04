@@ -37,7 +37,13 @@ class User extends CActiveRecord
         const USER_TEMPORARY_BLOCKED = 3;
         const USER_BLOCKED = 4;	
         
-       
+        public static $userStatus = array(
+            User::USER_NOT_CONFIRMED => 'Не подтвежден',
+            User::USER_ACTIVE => 'Активен',
+            User::USER_WARNING => 'Предупрежден',
+            User::USER_TEMPORARY_BLOCKED => 'Временно заблокирован',
+            User::USER_BLOCKED => 'Заблокирован',
+        );
 
         /**
 	 * @return string the associated database table name

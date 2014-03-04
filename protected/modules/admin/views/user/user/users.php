@@ -3,7 +3,7 @@
     Yii::app()->clientScript->registerScriptFile('/js/back/AjaxContentLoader.js');
     Yii::app()->clientScript->registerScriptFile('/js/back/users.js');
 ?>
-<h1>Контактные лица</h1>
+<h1>Компании</h1>
 <div class="total">
     <div class="left">
     <div class="create-button">

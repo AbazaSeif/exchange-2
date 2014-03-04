@@ -1,17 +1,9 @@
 <?php
 
-class UserController extends Controller {
-    /* @const */
-
-    private static $userStatus = array(
-        User::USER_NOT_CONFIRMED => 'Не подтвежден',
-        User::USER_ACTIVE => 'Активен',
-        User::USER_WARNING => 'Предупрежден',
-        User::USER_TEMPORARY_BLOCKED => 'Временно заблокирован',
-        User::USER_BLOCKED => 'Заблокирован',
-    );
-
-    protected function beforeAction($action) {
+class UserController extends Controller 
+{
+    protected function beforeAction($action) 
+    {
         if (parent::beforeAction($action)) {
             // Добавление CSS файла для пользователей.
         }
@@ -22,31 +14,31 @@ class UserController extends Controller {
     public function actionIndex() 
     {
         if(Yii::app()->user->checkAccess('readUser'))
-            {
-                $criteria = new CDbCriteria();
-                $sort = new CSort();
-                $sort->sortVar = 'sort';
-                // сортировка по умолчанию 
-                $sort->defaultOrder = 'surname ASC';
-                $dataProvider = new CActiveDataProvider('User', 
-                        array(
-                            'criteria'=>$criteria,
-                            'sort'=>$sort,
-                            'pagination'=>array(
-                                'pageSize'=>'13'
-                            )
+        {
+            $criteria = new CDbCriteria();
+            $sort = new CSort();
+            $sort->sortVar = 'sort';
+            // сортировка по умолчанию 
+            $sort->defaultOrder = 'surname ASC';
+            $dataProvider = new CActiveDataProvider('User', 
+                    array(
+                        'criteria'=>$criteria,
+                        'sort'=>$sort,
+                        'pagination'=>array(
+                            'pageSize'=>'13'
                         )
-                );
-                if ($id_item = Yii::app()->user->getFlash('saved_id')){
-                    $model = User::model()->findByPk($id_item);
-                    //$group = UserGroup::getUserGroupArray();
-                    //$view = $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), true, true);
-                    $view = $this->renderPartial('user/edituser', array('model'=>$model), true, true);
-                }
-                $this->render('user/users', array('data'=>$dataProvider, 'view'=>$view));
-            }else{
-                throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
+                    )
+            );
+            if ($id_item = Yii::app()->user->getFlash('saved_id')){
+                $model = User::model()->findByPk($id_item);
+                //$group = UserGroup::getUserGroupArray();
+                //$view = $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), true, true);
+                $view = $this->renderPartial('user/edituser', array('model'=>$model), true, true);
             }
+            $this->render('user/users', array('data'=>$dataProvider, 'view'=>$view));
+        } else {
+            throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
+        }
     }
 
     public function actionCreateUser()
@@ -55,7 +47,6 @@ class UserController extends Controller {
             $model = new User;
             if(isset($_POST['User'])) {
                 $model->attributes = $_POST['User'];
-                $model->status=1;
                  if($model->save()){
                     $message = 'Создан пользователь ' . $model->name . ' ' . $model->surname;
                     Changes::saveChange($message);
@@ -80,8 +71,8 @@ class UserController extends Controller {
                     $this->redirect('/admin/user/');
                 }
             }
-            $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), false, true);
-        }else{
+            $this->renderPartial('user/edituser', array('model'=>$model), false, true);
+        } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
     }
@@ -91,7 +82,7 @@ class UserController extends Controller {
         $model = User::model()->findByPk($id);   
         if (Yii::app()->user->checkAccess('editUser')) {
             if (isset($_POST['User'])) {
-                $model->attributes = $_POST['User'];
+                
                 $changes = array();
                 foreach ($_POST['User'] as $key => $value) {
                     if (trim($model[$key]) != trim($value)) {
@@ -109,14 +100,15 @@ class UserController extends Controller {
                     }
                     Changes::saveChange($message);
                 }
-                
+                $model->attributes = $_POST['User'];
                 if ($model->save()) {
                     Yii::app()->user->setFlash('saved_id', $model->id);
                     Yii::app()->user->setFlash('message', 'Пользователь ' . $model->login . ' сохранен успешно.');
                     $this->redirect('/admin/user/');
                 }
             }
-            $this->renderPartial('user/edituser', array('model' => $model, 'status' => self::$userStatus), false, true);
+           // $this->renderPartial('user/edituser', array('model' => $model, 'status' => self::$userStatus), false, true);
+            $this->renderPartial('user/edituser', array('model' => $model), false, true);
         } else {
             throw new CHttpException(403, Yii::t('yii', 'У Вас недостаточно прав доступа.'));
         }

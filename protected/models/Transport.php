@@ -249,7 +249,7 @@ class Transport extends CActiveRecord
                 $k = 0;
                 foreach($pointChanges as $key => $value){
                     $k++;
-                    $message .= $k . ') Пункт с id = '. $key . ' - пункт ' . $pointChanges[$key]['before'] . ' на ' . $pointChanges[$key]['after'] . '; ';
+                    $message .= $k . ') Пункт с id = '. $key . ' - пункт "' . $pointChanges[$key]['before'] . '" на "' . $pointChanges[$key]['after'] . '"; ';
                 }
                 Changes::saveChange($message);
             }

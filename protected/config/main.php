@@ -117,8 +117,8 @@ return array(
         'meta_description' => 'перевозки, биржа перевозок, биржа ЛБР',
         'menu_admin' => array(
             'Перевозчики'=>array(
-                'Компании'=>'/admin/company/',
-                'Контактные лица'=>'/admin/user/',
+                'Компании'=>'/admin/user/',
+                'Контактные лица'=>'/admin/contact/',
             ),
             'Перевозки' => '/admin/transport/',
             'История редактирования' => '/admin/changes/',
