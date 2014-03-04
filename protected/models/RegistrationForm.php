@@ -20,7 +20,7 @@ class RegistrationForm extends CFormModel
     public function rules()
     {
         return array(
-            array('company, country, city, inn, name, secondname, surname, phone, email', 'required'),
+            array('company, country, region, district, inn, name, secondname, surname, phone, email', 'required'),
             array('email', 'email'),
             array('phone, inn', 'numerical'),
             array('inn', 'length', 'min' => 12, 'max'=>12, 

@@ -47,9 +47,9 @@ class SiteController extends Controller
             //var_dump($user->attributes);
             $user->status = 0; //User::USER_NOT_CONFIRMED;
             $user->company = $_POST['RegistrationForm']['ownership'] . ' "' . $_POST['RegistrationForm']['company'] . '"';
-            //$password = $this->randomPassword();
-            //$user->password = crypt($password, User::model()->blowfishSalt(16));
-            
+            $password = $this->randomPassword();
+            $user->password = crypt($password, User::model()->blowfishSalt(16));
+            $user->login = $user->inn;
             if($user->save()){
                 $newFerrymanFields = new UserField;
                 $newFerrymanFields->user_id = $user->id;
@@ -66,6 +66,7 @@ class SiteController extends Controller
                 $newFerrymanFields->with_nds = (bool)$_POST['RegistrationForm']['nds'];            
                 $newFerrymanFields->save();
             }
+            else var_dump($user->getErrors());
             $this->sendMail(Yii::app()->params['adminEmail'], 1, $_POST['RegistrationForm']);
 
             Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Спасибо за интерес, проявленный к нашей компании.');

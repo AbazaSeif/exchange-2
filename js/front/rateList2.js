@@ -11,7 +11,7 @@ var rateList = {
         rateList.data.socket.on('setRate', function (data) {
             var initPrice = parseInt($('#rate-price').attr('init'));
             
-            if(data.transportId == rateList.data.transportId) {
+            if(data.transportId == rateList.data.transportId){
                 var element = rateList.createElement(initPrice, data.date, data.name, data.price, data.surname);
                 $('#rates').prepend(element);
             }
@@ -30,21 +30,34 @@ var rateList = {
             rateList.add(obj);
         });
         
-        /*rateList.data.socket.on('errorRate', function (data) {
+        rateList.data.socket.on('errorRate', function (data) {
             var error = $('#t-error');
             error.css('display', 'block');
             error.html('Ставка с ценой "' + data.price + '" уже была сделана');
-        });*/
+        });
         
         rateList.data.socket.on('onlineEvent', function (data) {
+            //$.onlineEvent({ msg:'Вашу ставку для перевозки "' + data.name + '" перебили',className: 'classic', sticked:true, position:{right:0,bottom:0}, time:2000});
+            //console.log(111);
             $.onlineEvent({ msg : data.msg, className : 'classic', sticked:true, position:{right:0,bottom:0}, time:10000});
         });
         
         $( "#rate-up" ).on('click', function() {
-            var step = rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds;
-            element.val(parseInt(element.val()) + step);
-            var newRate = parseInt(element.val()) + rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds;
-            if(newRate <= element.attr('init')) element.val(newRate);
+            if(!$(this).hasClass('disabled')){
+                $( "#rate-down" ).removeClass('disabled');
+                var price = $('#rate-price');
+                if(parseInt(price.val()) < parseInt(price.attr('init'))){
+                   $( ".r-submit" ).removeClass('disabled');
+                } else $( ".r-submit" ).addClass('disabled');
+                var newRate = parseInt(element.val()) + rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds;
+                if(newRate <= element.attr('init')) element.val(newRate);
+                
+                if (parseInt(element.attr('init')) == element.val()) {
+                    $(this).addClass('disabled');
+                    $( ".r-submit" ).addClass('disabled');
+                }
+                else $(this).removeClass('disabled');
+            }
         });
         
         $( "#rate-up" ).mousedown(function(e) {
@@ -56,12 +69,24 @@ var rateList = {
             clearInterval(this.downTimer);
         });
 
-        $( "#rate-down" ).on('click', function() {              
-            var step = rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds;
-            var newRate = element.val() - step; 
-            if(newRate > 0) element.val(newRate);
-            if( (newRate - step) <= 0 ) {
-                $(this).addClass('disabled');
+        $( "#rate-down" ).on('click', function() {
+            if(!$(this).hasClass('disabled')) {
+                $( "#rate-up" ).removeClass('disabled');                
+                var step = rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds;
+                var newRate = element.val() - step; 
+                if(newRate > 0) element.val(newRate);
+                
+                var price = $('#rate-price');
+                if(parseInt(price.val()) < parseInt(price.attr('init'))){
+                   $( ".r-submit" ).removeClass('disabled');
+                } else {
+                   //console.log(parseInt(price.val()) +'>'+ parseInt(price.attr('init')));
+                   $( ".r-submit" ).addClass('disabled');
+                }
+                
+                if( (newRate - step) <= 0 ) {
+                    $(this).addClass('disabled');
+                }
             }
         });
         
@@ -83,6 +108,8 @@ var rateList = {
         
         $('#setRateBtn').live('click', function() {
             $('#addRate').dialog('close');
+            $('.r-submit').addClass('disabled');
+            $('#rate-up').addClass('disabled');  
             
             if(rateList.data.defaultRate) $('#rates').html('');
             $('#t-error').html('');
@@ -117,7 +144,7 @@ var rateList = {
         $('#rate-price').blur(function(){
             var inputVal = parseInt($(this).val());
 
-            if(inputVal < parseInt($(this).attr('init'))) {
+            if(inputVal < parseInt($(this).attr('init'))){ 
                 var kratnoe = rateList.data.priceStep;
                 var residue = inputVal % kratnoe;
                 if(residue != 0){
@@ -126,17 +153,17 @@ var rateList = {
                     inputVal = parseInt($(this).val());
                 }
 
-               /* if(inputVal - kratnoe < kratnoe){
+                if(inputVal - kratnoe < kratnoe){
                     $('#rate-down').addClass('disabled');
                 }
                 
                 if(inputVal < parseInt($(this).attr('init'))){
                     $('#rate-up').removeClass('disabled');
                     $('.r-submit').removeClass('disabled');
-                }*/
+                }
             } else {
                 $(this).val($(this).attr('init'));
-                //if(!rateList.data.defaultRate) $('.r-submit').addClass('disabled');
+                if(!rateList.data.defaultRate) $('.r-submit').addClass('disabled');
             }
         });
 
@@ -217,18 +244,18 @@ var rateList = {
                             var step = rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds;
                             
                             var price = $("#rate-price");
-                            /*if(price.val() > value && value > 0) {
+                            if(price.val() > value && value > 0) {
                                 price.val(value);
                                 price.attr('init', value);
                                 $( "#rate-up" ).addClass('disabled');
-                            }*/
+                            }
                             
                             var prevValue = value - (rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds);         
-                            //if(prevValue < 0) $( "#rate-down" ).addClass('disabled');
+                            if(prevValue < 0) $( "#rate-down" ).addClass('disabled');
                             $('#last-rate').html('<span>' + rates.price + rateList.data.currency + '</span>');
 
                             if(prevValue <= 0) {
-                                //$('.r-submit').addClass('disabled');
+                                $('.r-submit').addClass('disabled');
                                 $('.r-block').slideUp("slow");
                                 $('.r-submit').slideUp("slow");
                                 $('#t-container').html('<span class="t-closed">Перевозка закрыта</span>');

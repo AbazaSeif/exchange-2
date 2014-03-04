@@ -76,13 +76,13 @@ $inputSize = strlen((string)$lastRate)-1;
                     <div class="rate-wrapper width-60">
                         <div class="r-block">
                             <div class="rate-btns-wrapper">
-                                <div id="rate-up" class="disabled"></div>
+                                <div id="rate-up"></div>
                                 <div id="rate-down" class="<?php echo ($minRate)?'disabled':''?>"></div>
                             </div>
                             <span class="text"><?php echo $currency ?></span>
                             <input id="rate-price" value="<?php echo $lastRate?>" init="<?php echo $lastRate?>" type="text" size="<?php echo $inputSize ?>"/>
                         </div>
-                        <div class="r-submit <?php echo ($defaultRate) ? '':disabled ?>"><span>Сделать ставку</span></div>
+                        <div class="r-submit"><span>Сделать ставку</span></div>
                     </div>
                 </div>
                 <?php endif; ?>

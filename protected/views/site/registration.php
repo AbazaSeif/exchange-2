@@ -31,17 +31,17 @@
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'region'); ?>
-		<?php echo $form->textField($model,'region'); ?>
+		<?php echo $form->textField($model,'region', array('placeholder'=>'Заполните поле')); ?>
 		<?php echo $form->error($model,'region'); ?>
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'city'); ?>
-		<?php echo $form->textField($model,'city', array('placeholder'=>'Заполните поле')); ?>
+		<?php echo $form->textField($model,'city'); ?>
 		<?php echo $form->error($model,'city'); ?>
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'district'); ?>
-		<?php echo $form->textField($model,'district'); ?>
+		<?php echo $form->textField($model,'district', array('placeholder'=>'Заполните поле')); ?>
 		<?php echo $form->error($model,'district'); ?>
 	</div>
 	<div class="row">
