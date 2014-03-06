@@ -39,10 +39,11 @@ class UserField extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id', 'numerical', 'integerOnly'=>true),
-			array('mail_transport_create_1, mail_transport_create_2, mail_kill_rate, mail_deadline, mail_before_deadline, site_transport_create_1, site_transport_create_2, site_kill_rate, site_deadline, site_before_deadline', 'safe'),
+			//array('mail_transport_create_1, mail_transport_create_2, mail_kill_rate, mail_deadline, mail_before_deadline, site_transport_create_1, site_transport_create_2, site_kill_rate, site_deadline, site_before_deadline', 'safe'),
+			array('mail_transport_create_1, mail_transport_create_2, mail_kill_rate, mail_deadline, mail_before_deadline', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, mail_transport_create_1, mail_transport_create_2, mail_kill_rate, mail_deadline, mail_before_deadline, site_transport_create_1, site_transport_create_2, site_kill_rate, site_deadline, site_before_deadline', 'safe', 'on'=>'search'),
+			array('id, user_id, mail_transport_create_1, mail_transport_create_2, mail_kill_rate, mail_deadline, mail_before_deadline', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,11 +72,7 @@ class UserField extends CActiveRecord
 			'mail_kill_rate' => 'Mail Kill Rate',
 			'mail_deadline' => 'Mail Deadline',
 			'mail_before_deadline' => 'Mail Before Deadline',
-			'site_transport_create_1' => 'Site Transport Create 1',
-			'site_transport_create_2' => 'Site Transport Create 2',
-			'site_kill_rate' => 'Site Kill Rate',
-			'site_deadline' => 'Site Deadline',
-			'site_before_deadline' => 'Site Before Deadline',
+			
 		);
 	}
 
@@ -104,12 +101,12 @@ class UserField extends CActiveRecord
 		$criteria->compare('mail_kill_rate',$this->mail_kill_rate);
 		$criteria->compare('mail_deadline',$this->mail_deadline);
 		$criteria->compare('mail_before_deadline',$this->mail_before_deadline);
-		$criteria->compare('site_transport_create_1',$this->site_transport_create_1);
+		/*$criteria->compare('site_transport_create_1',$this->site_transport_create_1);
 		$criteria->compare('site_transport_create_2',$this->site_transport_create_2);
 		$criteria->compare('site_kill_rate',$this->site_kill_rate);
 		$criteria->compare('site_deadline',$this->site_deadline);
 		$criteria->compare('site_before_deadline',$this->site_before_deadline);
-
+*/
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
