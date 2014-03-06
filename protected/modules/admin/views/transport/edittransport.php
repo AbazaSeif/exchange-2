@@ -11,7 +11,6 @@
         $action = '/admin/transport/createtransport/';
         unset($delete_button);
     }
-    
 ?>
 
 <div class="form">
@@ -154,7 +153,6 @@ $(document).ready(function(){
     editor.initCalendar();
     <?php if(Yii::app()->user->checkAccess('editRate')): ?>
         editor.initRateEditor();
-        
         $( "#points-all" ).sortable({
             revert: true
         });

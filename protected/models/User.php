@@ -64,8 +64,8 @@ class User extends CActiveRecord
                 //array('inn', 'unique', 'attributeName'=>'inn', 'className'=>'User', 'allowEmpty'=>false, 'skipOnError'=>true),
             
                 array('inn, status, phone', 'numerical', 'integerOnly'=>true),
-                array('login, company, country, region, district, inn, name, secondname, surname, phone, email', 'required'),
-                array('login', 'length', 'max'=>64),
+                array('company, country, region, district, inn, name, secondname, surname, phone, email', 'required'),
+                //array('login', 'length', 'max'=>64),
                 array('name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),
                 array('email', 'email', 'message'=>'Неправильный Email адрес'),
                 //array('inn', 'unique', 'attributeName'=>'inn'),
@@ -73,7 +73,7 @@ class User extends CActiveRecord
                 //array('company, country, region, city, district, name, secondname, surname, password, email', 'safe'),
                 // The following rule is used by search().
                 // @todo Please remove those attributes that should not be searched.
-                array('id, company, inn, status, country, region, city, district, name, secondname, surname, login, password, phone, email', 'safe', 'on'=>'search'),
+                array('id, company, inn, status, country, region, city, district, name, secondname, surname, password phone, email', 'safe', 'on'=>'search'),
             );
 	}
 

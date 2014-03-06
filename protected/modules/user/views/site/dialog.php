@@ -19,7 +19,7 @@ if($flashes = Yii::app()->user->getFlashes()) {
                     */
                 ),
                 'htmlOptions'=>array(
-                        'class'=>'flash-success',
+                    'class'=>'flash-success',
                 ),
             ));
 

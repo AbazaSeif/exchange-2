@@ -64,29 +64,27 @@ class SiteController extends Controller
                     $newFerrymanFields->mail_kill_rate = false;
                     $newFerrymanFields->mail_before_deadline = false;
                     $newFerrymanFields->mail_deadline = true;
-                    /*
-                    $newFerrymanFields->site_transport_create_1 = true;
-                    $newFerrymanFields->site_transport_create_2 = true;
-                    $newFerrymanFields->site_kill_rate = true;
-                    $newFerrymanFields->site_deadline = true;
-                    $newFerrymanFields->site_before_deadline = true;            
-                    */
                     $newFerrymanFields->with_nds = (bool)$_POST['RegistrationForm']['nds'];            
-                    $newFerrymanFields->save();
-                }
+                    if(!$newFerrymanFields->save()) {
+                        var_dump($newFerrymanFields->getErrors()); 
+                        exit;
+                        
+                    };
                 
-                $this->sendMail(Yii::app()->params['adminEmail'], 1, $_POST['RegistrationForm']);
-                $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
+                
+                    $this->sendMail(Yii::app()->params['adminEmail'], 1, $_POST['RegistrationForm']);
+                    $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
 
-                Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Спасибо за интерес, проявленный к нашей компании.');
-                $this->redirect('/user/login/');
+                    Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Спасибо за интерес, проявленный к нашей компании.');
+                    $this->redirect('/user/login/');
+                }
             }
         } else {
             $this->render('registration', array('model' => $model));
         }
     }
     
-    public function actionRestore()
+    /*public function actionRestore()
     { 
         $model = new RestoreForm;
         //var_dump($_POST['RestoreForm']['inn']);exit;
@@ -99,31 +97,38 @@ class SiteController extends Controller
             
             if($user) {
                 if($user->email) {
-                    if(!isset($_POST['RestoreForm']['password'])) {
-                        $password = $this->randomPassword();
-                        $user->password = crypt($password, User::model()->blowfishSalt(16));
-                        $user->save();
-                        
-                        // отправить письмо самому
-                        $email = new TEmail;
-                        $email->from_email = Yii::app()->params['adminEmail'];
-                        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-                        $email->to_email   = $user->email;
-                        $email->to_name    = '';
-                        $email->subject    = 'Смена пароля';
-                        $email->type = 'text/html';
-                        $email->body = '<div>'.
-                                '<p>Ваш пароль для "Онлайн биржи перевозок ЛБР-АгроМаркет" был изменен:</p>'.
-                                '<p>Новый пароль: <b>'.$password.'</b></p>'.
-                                '<p>Для смены пароля зайдите в свой аккаунт и воспользуйтесь вкладкой "Настроки->Смена пароля"</p>'.
-                            '</div>
-                            <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
-                        ';
-                        $email->sendMail();
-                        
+                    //var_dump('has mail');exit;
+                    $password = 111111; //$this->randomPassword();
+                    $user->password = crypt($password, User::model()->blowfishSalt());
+                    if($user->save()) {
                         Dialog::message('flash-success', 'Внимание!', 'На ваш почтовый ящик были высланы инструкции для смены пароля.');
-                    }
+                        $this->redirect('/user/login/');
+                    } else var_dump($user->getErrors());
+                    
+                    //Dialog::message('flash-success', 'Внимание!', 'На ваш почтовый ящик были высланы инструкции для смены пароля.');
+
+                    // отправить письмо самому
+                    $email = new TEmail;
+                    $email->from_email = Yii::app()->params['adminEmail'];
+                    $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+                    $email->to_email   = $user->email;
+                    $email->to_name    = '';
+                    $email->subject    = 'Смена пароля';
+                    $email->type = 'text/html';
+                    $email->body = '<div>'.
+                            '<p>Ваш пароль для "Онлайн биржи перевозок ЛБР-АгроМаркет" был изменен:</p>'.
+                            '<p>Новый пароль: <b>'.$password.'</b></p>'.
+                            '<p>Для смены пароля зайдите в свой аккаунт и воспользуйтесь вкладкой "Настроки->Смена пароля"</p>'.
+                        '</div>
+                        <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+                    ';
+                    //$email->sendMail();
+                    //Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Спасибо за интерес, проявленный к нашей компании.');
+                    $this->redirect('/user/login/');
+
                 } else {
+                    Dialog::message('flash-success', 'Внимание!', 'Ваша заявка на восстановление доступа отправлена, в ближайшее время с вами свяжутся представители нашей компании.');
+                
                     $email = new TEmail;
                     $email->from_email = Yii::app()->params['adminEmail'];
                     $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
@@ -137,19 +142,18 @@ class SiteController extends Controller
                         '</div>
                         <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
                     ';
-                    $email->sendMail();
+                    //$email->sendMail();
                     // отправить письмо логисту
-                    Dialog::message('flash-success', 'Внимание!', 'Ваша заявка на восстановление доступа отправлена, в ближайшее время с вами свяжутся представители нашей компании.');
                 }
             } else {
-                Dialog::message('flash-error', 'Внимание!', 'Пользователя с таким "ИНН/УНП" не найдено, свяжитесь с отделом логистики.');
+                Dialog::message('flash-success', 'Внимание!', 'Пользователя с таким "ИНН/УНП" не найдено, свяжитесь с отделом логистики.');
             }
-            $this->redirect('/user/login/');
+            //$this->redirect('/user/login/');
             
         } else {
             $this->render('restore', array('model' => $model));
         }
-    }
+    }*/
      
     public function sendMail($to, $typeMessage, $post)
     {
@@ -179,12 +183,6 @@ class SiteController extends Controller
                 </div>
                 <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
             ';
-            
-            /*
-                    <p>Ваши логин и пароль:</p>
-                    <p>Логин: '.$post['inn'].'</p>
-                    <p>Пароль:'.$post['password'].'</p>
-            */
         }
         $email->sendMail();
     }
