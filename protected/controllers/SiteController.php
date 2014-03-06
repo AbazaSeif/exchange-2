@@ -84,7 +84,7 @@ class SiteController extends Controller
         }
     }
     
-    /*public function actionRestore()
+    public function actionRestore()
     { 
         $model = new RestoreForm;
         //var_dump($_POST['RestoreForm']['inn']);exit;
@@ -97,44 +97,37 @@ class SiteController extends Controller
             
             if($user) {
                 if($user->email) {
-                    //var_dump('has mail');exit;
                     $password = 111111; //$this->randomPassword();
                     $user->password = crypt($password, User::model()->blowfishSalt());
                     if($user->save()) {
-                        Dialog::message('flash-success', 'Внимание!', 'На ваш почтовый ящик были высланы инструкции для смены пароля.');
-                        $this->redirect('/user/login/');
-                    } else var_dump($user->getErrors());
-                    
-                    //Dialog::message('flash-success', 'Внимание!', 'На ваш почтовый ящик были высланы инструкции для смены пароля.');
-
-                    // отправить письмо самому
-                    $email = new TEmail;
-                    $email->from_email = Yii::app()->params['adminEmail'];
-                    $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-                    $email->to_email   = $user->email;
-                    $email->to_name    = '';
-                    $email->subject    = 'Смена пароля';
-                    $email->type = 'text/html';
-                    $email->body = '<div>'.
-                            '<p>Ваш пароль для "Онлайн биржи перевозок ЛБР-АгроМаркет" был изменен:</p>'.
-                            '<p>Новый пароль: <b>'.$password.'</b></p>'.
-                            '<p>Для смены пароля зайдите в свой аккаунт и воспользуйтесь вкладкой "Настроки->Смена пароля"</p>'.
-                        '</div>
-                        <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
-                    ';
-                    //$email->sendMail();
-                    //Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Спасибо за интерес, проявленный к нашей компании.');
-                    $this->redirect('/user/login/');
-
+                        // send mail to ferryman with new password
+                        $email = new TEmail;
+                        $email->from_email = Yii::app()->params['adminEmail'];
+                        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+                        $email->to_email   = $user->email;
+                        $email->to_name    = '';
+                        $email->subject    = 'Смена пароля';
+                        $email->type = 'text/html';
+                        $email->body = '<div>'.
+                                '<p>Ваш пароль для "Онлайн биржи перевозок ЛБР-АгроМаркет" был изменен:</p>'.
+                                '<p>Новый пароль: <b>'.$password.'</b></p>'.
+                                '<p>Для смены пароля зайдите в свой аккаунт и воспользуйтесь вкладкой "Настроки->Смена пароля"</p>'.
+                            '</div>
+                            <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+                        ';
+                        $email->sendMail();
+                        Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Спасибо за интерес, проявленный к нашей компании.');
+                        
+                    }
                 } else {
                     Dialog::message('flash-success', 'Внимание!', 'Ваша заявка на восстановление доступа отправлена, в ближайшее время с вами свяжутся представители нашей компании.');
-                
+                    // send mail to logist
                     $email = new TEmail;
                     $email->from_email = Yii::app()->params['adminEmail'];
                     $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
                     $email->to_email   = Yii::app()->params['logistEmail'];
                     $email->to_name    = '';
-                    $email->subject    = 'Смена пароля';
+                    $email->subject    = 'Восстановление доступа';
                     $email->type = 'text/html';
                     $email->body = '<div>'.
                             '<p>Перевозчик "'. $user->company. '" ИНН/УНП = '. $user->inn .' запросил восстановление доступов, однако он не указал email. </p>'.
@@ -142,18 +135,17 @@ class SiteController extends Controller
                         '</div>
                         <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
                     ';
-                    //$email->sendMail();
-                    // отправить письмо логисту
+                    $email->sendMail();
                 }
             } else {
-                Dialog::message('flash-success', 'Внимание!', 'Пользователя с таким "ИНН/УНП" не найдено, свяжитесь с отделом логистики.');
+                Dialog::message('flash-error', 'Внимание!', 'Пользователя с таким "ИНН/УНП" не найдено, свяжитесь с отделом логистики.');
             }
-            //$this->redirect('/user/login/');
+            $this->redirect('/user/login/');
             
         } else {
             $this->render('restore', array('model' => $model));
         }
-    }*/
+    }
      
     public function sendMail($to, $typeMessage, $post)
     {
