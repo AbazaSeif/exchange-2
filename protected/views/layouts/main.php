@@ -31,6 +31,7 @@
         ?>
     </head>
     <body>
+        <div id="online-event"></div>
         <div class="header">
             <div class="logo">
                 <a href="/">

@@ -9,13 +9,13 @@
             position:{ top:0,right:0 } 
         }, obj);
 
-		var message = $('#online-event');
+        var message = $('#online-event');
         //console.log('111 = ' + !message.length);		
         // if not exists
-        if (!message.length) {
+        /*if (!message.length) {
             $('body').prepend('<div id="online-event"></div>'); 
             var message = $('#online-event');
-        }
+        }*/
         
         message.css('position', 'fixed').css({ right:'auto', left:'auto', top:'auto', bottom:'auto'}).css(obj.position);
         var event = $('<div class="event"></div>');

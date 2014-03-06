@@ -23,7 +23,7 @@
 		<?php echo CHtml::label('За ' . Yii::app()->params['minNotyfy'] . ' минут до закрытия перевозки', 'mail_before_deadline'); ?>                
 		</div>
 	</div>
-	<div>
+	<!--div>
 		<div class="title"><img src="/images/notice.jpg"><span>Настройки для оповещения онлайн</span></div>
 		<div class="row">
 		<?php echo CHtml::checkBox('site_transport_create_1', (bool)$model['site_transport_create_1']); ?>
@@ -45,7 +45,7 @@
 		<?php echo CHtml::checkBox('site_before_deadline', (bool)$model['site_before_deadline']); ?>
 		<?php echo CHtml::label('За ' . Yii::app()->params['minNotyfy'] . ' минут до закрытия перевозки', 'site_before_deadline'); ?>                
 		</div>
-	</div>
+	</div-->
     <div>
         <div class="title"><img src="/images/option.jpg"><span>Параметры отображения</span></div>
         <div class="row">

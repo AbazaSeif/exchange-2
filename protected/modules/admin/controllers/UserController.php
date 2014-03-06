@@ -58,11 +58,13 @@ class UserController extends Controller
                     $newFerrymanFields->mail_kill_rate = false;
                     $newFerrymanFields->mail_before_deadline = false;
                     $newFerrymanFields->mail_deadline = true;
+                    /*
                     $newFerrymanFields->site_transport_create_1 = true;
                     $newFerrymanFields->site_transport_create_2 = true;
                     $newFerrymanFields->site_kill_rate = true;
                     $newFerrymanFields->site_deadline = true;
                     $newFerrymanFields->site_before_deadline = true;            
+                    */
                     $newFerrymanFields->with_nds = false;            
                     $newFerrymanFields->save();
                     

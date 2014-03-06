@@ -5,6 +5,7 @@ class TransportController extends Controller
     {
         $lastRates = array();	
         $criteria = new CDbCriteria();
+        $criteria->condition = 'status = 1';
         $dataProvider = new CActiveDataProvider('Transport',
             array(
                 'criteria' => $criteria,

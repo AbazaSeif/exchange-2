@@ -35,7 +35,7 @@ class CronCommand extends CConsoleCommand
             foreach($temp as $t){
                 $usersMail[] = $t['user_id'];
             }
-
+/*
             $temp = Yii::app()->db->createCommand()
                 ->select('user_id')
                 ->from('user_field')
@@ -45,7 +45,7 @@ class CronCommand extends CConsoleCommand
             foreach($temp as $t){
                 $usersSite[] = $t['user_id'];
             }
-
+*/
             foreach($transports as $transport){
                 $this->getUsers($transport['id'], 'mail_deadline', $usersMail, $usersSite, 1);
 
@@ -81,7 +81,7 @@ class CronCommand extends CConsoleCommand
             foreach($temp as $t){
                 $usersMail[] = $t['user_id'];
             }
-
+/*
             $temp = Yii::app()->db->createCommand()
                 ->select('user_id')
                 ->from('user_field')
@@ -91,7 +91,7 @@ class CronCommand extends CConsoleCommand
             foreach($temp as $t){
                 $usersSite[] = $t['user_id'];
             }
-
+*/
             foreach($transports as $transport) {
                 $transportId = $transport['id'];
                 $this->getUsers($transportId, 'mail_before_deadline', $usersMail, $usersSite, 2);
@@ -122,7 +122,8 @@ class CronCommand extends CConsoleCommand
                 $this->sendMailAboutDeadline($usersM, $transportId, $mailType);
             }
 
-            $usersS = array_intersect($usersAll, $usersSite);
+            //$usersS = array_intersect($usersAll, $usersSite);
+            $usersS = $usersAll;
             if(!empty($usersS)) {
                 foreach($usersS as $user) {
                     $obj = array(
@@ -160,7 +161,7 @@ class CronCommand extends CConsoleCommand
                 $id = $transport['id'];
                 $transportIds .= $id;
 
-                if($transport['type']){
+                if($transport['type']) {
                     $transportIdType[1][$id]['id'] = $id;
                     $transportIdType[1][$id]['from'] = $transport['location_from'];
                     $transportIdType[1][$id]['to'] = $transport['location_to'];
@@ -184,6 +185,8 @@ class CronCommand extends CConsoleCommand
                 foreach($temp as $t){
                     $usersInternational[] = $t['user_id'];
                 }
+                
+                /*
                 $temp = Yii::app()->db->createCommand()
                     ->select('user_id')
                     ->from('user_field')
@@ -193,22 +196,24 @@ class CronCommand extends CConsoleCommand
                 foreach($temp as $t){
                     $usersInternationalSite[] = $t['user_id'];
                 }
-                
+                */
                 $usersInternational = $this->searchUsers('mail_transport_create_1', $usersInternational);
-                $usersInternationalSite = $this->searchUsers('site_transport_create_1', $usersInternationalSite);
+                //$usersInternationalSite = $this->searchUsers('site_transport_create_1', $usersInternationalSite);
+                $usersInternationalSite = $usersInternational;
             }
 
-            if(!empty($transportIdType[1])){ // local transportation
+            if(!empty($transportIdType[1])) { // local transportation
                 $temp = Yii::app()->db->createCommand()
                     ->select('user_id')
                     ->from('user_field')
                     ->where('mail_transport_create_2 = :type', array(':type' => true))
                     ->queryAll()
                 ;
+                
                 foreach($temp as $t){
                     $usersLocal[] = $t['user_id'];
                 }
-
+/*
                 $temp = Yii::app()->db->createCommand()
                     ->select('user_id')
                     ->from('user_field')
@@ -218,9 +223,10 @@ class CronCommand extends CConsoleCommand
                 foreach($temp as $t){
                     $usersLocalSite[] = $t['user_id'];
                 }
-
+*/
                 $usersLocal = $this->searchUsers('mail_transport_create_2', $usersLocal);
-                $usersLocalSite = $this->searchUsers('site_transport_create_2', $usersLocalSite);
+                //$usersLocalSite = $this->searchUsers('site_transport_create_2', $usersLocalSite);
+                $usersLocalSite = $usersLocal;
             }
 
             if(!empty($usersInternational) && !empty($usersLocal)){ // both transportation
@@ -330,7 +336,7 @@ class CronCommand extends CConsoleCommand
             ->where($field . ' = :type', array(':type' => true))
             ->queryAll()
         ;
-        foreach($temp as $t){
+        foreach($temp as $t) {
             $array[] = $t['user_id'];
         }
         return $array;

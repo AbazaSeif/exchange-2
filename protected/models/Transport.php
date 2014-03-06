@@ -169,15 +169,14 @@ class Transport extends CActiveRecord
             return parent::model($className);
 	}
     
-    protected function afterSave() 
+    protected function afterSave()
     {
         parent::afterSave();
         $inputArray = $_POST['Rates'];
         $pointsArray = $_POST['Points'];
         $transportId = $_POST['Transport']['id'];
         $transportModel = Transport::model()->findByPk($transportId);
-        if (isset($inputArray)){
-            
+        if (isset($inputArray)) {
             $arrayKeys = array();
             $priceChanges = array();
             // Edit Rates

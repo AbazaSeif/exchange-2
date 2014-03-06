@@ -10,7 +10,6 @@ var rateList = {
         
         rateList.data.socket.on('setRate', function (data) {
             var initPrice = parseInt($('#rate-price').attr('init'));
-            
             if(data.transportId == rateList.data.transportId) {
                 var element = rateList.createElement(initPrice, data.date, data.name, data.price, data.surname);
                 $('#rates').prepend(element);
@@ -18,7 +17,6 @@ var rateList = {
         });
         
         rateList.data.socket.on('loadRates', function (data) {
-            //console.log(data.date);
             var obj = {
                 price: data.price,
                 time: data.date,
@@ -41,10 +39,8 @@ var rateList = {
         });
         
         $( "#rate-up" ).on('click', function() {
-            var step = rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds;
-            element.val(parseInt(element.val()) + step);
             var newRate = parseInt(element.val()) + rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds;
-            if(newRate <= element.attr('init')) element.val(newRate);
+            element.val(newRate);
         });
         
         $( "#rate-up" ).mousedown(function(e) {
@@ -58,7 +54,7 @@ var rateList = {
 
         $( "#rate-down" ).on('click', function() {              
             var step = rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds;
-            var newRate = element.val() - step; 
+            var newRate = element.val() - step;
             if(newRate > 0) element.val(newRate);
             if( (newRate - step) <= 0 ) {
                 $(this).addClass('disabled');
@@ -89,24 +85,25 @@ var rateList = {
             
             var price = parseInt($('#rate-price').val());
             var price = price*100/(100 + rateList.data.nds*100);
+            
+            // убрать аттрибут init !!!
             $(this).attr('init', price);
+            
             var time = getTime();
-            var obj = {
+            //console.log(time);
+            
+            /*var obj = {
                 price: price,
                 date: time,
                 name: rateList.data.name,
                 surname: rateList.data.surname,
                 userId: rateList.data.userId,
                 transportId: rateList.data.transportId
-            };
-            
-            //rateList.add(obj);
-            //console.log(getTime());
-            //rateList.update(this.container, price, rateList.data.name);
+            };*/
             
             rateList.data.socket.emit('setRate',{
                 transportId: rateList.data.transportId,
-                date: time,
+                //date: time,
                 userId: rateList.data.userId,
                 name : rateList.data.name, 
                 surname: rateList.data.surname,
@@ -117,16 +114,16 @@ var rateList = {
         $('#rate-price').blur(function(){
             var inputVal = parseInt($(this).val());
 
-            if(inputVal < parseInt($(this).attr('init'))) {
+            //if(inputVal < parseInt($(this).attr('init'))) {
                 var kratnoe = rateList.data.priceStep;
                 var residue = inputVal % kratnoe;
-                if(residue != 0){
+                if(residue != 0) {
                     if(residue < (kratnoe/2) && (inputVal - residue) > 0) $(this).val(inputVal - residue);
                     else $(this).val(inputVal - residue + kratnoe);
                     inputVal = parseInt($(this).val());
                 }
 
-               /* if(inputVal - kratnoe < kratnoe){
+                /* if(inputVal - kratnoe < kratnoe){
                     $('#rate-down').addClass('disabled');
                 }
                 
@@ -134,10 +131,10 @@ var rateList = {
                     $('#rate-up').removeClass('disabled');
                     $('.r-submit').removeClass('disabled');
                 }*/
-            } else {
+           /* } else {
                 $(this).val($(this).attr('init'));
                 //if(!rateList.data.defaultRate) $('.r-submit').addClass('disabled');
-            }
+            }*/
         });
 
         $(document).keypress(function(e) {

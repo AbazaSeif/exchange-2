@@ -239,7 +239,7 @@ nav, menu, p, section,
 
 #registration-form .row.error .errorMessage{
     left: 75%;
-    width: 35%;
+    width: 25%;
 }
 
 #login-form .row.error .errorMessage:after, #registration-form .row.error .errorMessage:after

@@ -7,9 +7,20 @@
     
     $form=$this->beginWidget('CActiveForm', array(
         'id'=>'registration-form',
-        'enableClientValidation'=>true,
+        'enableClientValidation' => true,        
+        // 'enableAjaxValidation' => true,        
         'clientOptions'=>array(
             'validateOnSubmit'=>true,
+            'validateOnChange' => true,
+            'afterValidate'=>'js:function( form, data, hasError ) 
+            {     
+                if( hasError ){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }'
         ),
     )); ?>
     <h1>Подать заявку на регистрацию</h1>
@@ -23,7 +34,11 @@
 		<?php echo $form->textField($model,'company', array('placeholder'=>'Заполните поле')); ?>
 		<?php echo $form->error($model,'company'); ?>
 	</div>
-        
+        <div class="row">
+		<?php echo $form->labelEx($model,'password'); ?>
+		<?php echo $form->textField($model,'password'); ?>
+		<?php echo $form->error($model,'password'); ?>
+	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'country'); ?>
 		<?php echo $form->textField($model,'country', array('placeholder'=>'Заполните поле')); ?>
@@ -82,7 +97,6 @@
 	</div>
         <div class="row">
 		<?php echo $form->labelEx($model,'nds'); ?>
-		<?php //echo $form->textField($model,'nds'); ?>
                 <?php echo $form->dropDownList($model, 'nds', array('0'=>'Нет', '1' => 'Да')); ?>
 		<?php echo $form->error($model,'nds'); ?>
 	</div>
