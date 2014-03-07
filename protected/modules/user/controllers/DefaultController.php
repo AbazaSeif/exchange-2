@@ -51,7 +51,7 @@ class DefaultController extends Controller
         if(isset($_POST['PasswordForm'])) {
             $user = User::model()->findByPk($userId);
             if ($user->password === crypt(trim($_POST['PasswordForm']['password']), $user->password)){
-                $user->password = crypt($_POST['new_password'], User::model()->blowfishSalt());
+                $user->password = crypt($_POST['PasswordForm']['new_password'], User::model()->blowfishSalt());
                 if($model->validate() && $user->save()){
                     Dialog::message('flash-success', 'Внимание!', 'Ваш пароль изменен');
                 }

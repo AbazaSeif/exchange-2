@@ -13,7 +13,7 @@ class PasswordForm extends CFormModel
     {
         return array(
             array('password, new_password, new_confirm', 'required'),    
-            //array('new_password', 'length', 'min'=>6, 'allowEmpty'=>false),
+            array('new_password', 'length', 'min'=>6, 'allowEmpty'=>false),
             array('password, new_password','match', 'pattern'=>'/^([a-zA-Zа-яА-ЯёЁ\d]+)$/i', 'message'=>'Пароль должен содержать только следующие символы: 0-9 a-z A-Z а-я А-Я'),
             array('new_password', 'match', 'pattern'=>'/([a-zA-Zа-яА-Я]+)/', 'message'=>'Пароль должен содержать минимум одну букву'),
             array('new_password', 'match', 'pattern'=>'/([0-9]+)/', 'message'=>'Пароль должен содержать минимум одну цифру'),
