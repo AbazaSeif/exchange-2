@@ -37,7 +37,7 @@ class DefaultController extends Controller
         $this->redirect(Yii::app()->homeUrl);
     }
     
-    /* Show user options */
+    /* User options and change password */
     public function actionOption()
     {
         $userId = Yii::app()->user->_id;
@@ -87,6 +87,23 @@ class DefaultController extends Controller
         );
         
         $this->render('event', array('data' => $dataProvider));
+    }
+    
+    /* Show user options */
+    public function actionContact()
+    {
+        $model = array();
+        $model = new UserContact;
+        if(isset($_POST['UserContact'])) {
+            $model->attributes = $_POST['UserContact'];
+            if($model->validate() && $model->save()){
+                //Yii::app()->user->setFlash('saved_id', $model->id);
+                //Yii::app()->user->setFlash('message', 'Контакт '.$model->login.' создан успешно.');
+                //$this->redirect('/admin/contact/');
+            }
+            //print_r($model->getErrors());
+        }
+        $this->render('contact', array('model' => $model), false, true);
     }
 
     public function getEventMessage($eventType)

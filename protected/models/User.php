@@ -68,6 +68,10 @@ class User extends CActiveRecord
                 //array('login', 'length', 'max'=>64),
                 array('name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),
                 array('email', 'email', 'message'=>'Неправильный Email адрес'),
+                array('inn', 'length', 'max'=>12, 
+                    //'tooShort'=>Yii::t("translation", "{attribute} должен содержать 12 символов."),
+                    'tooLong'=>Yii::t("translation", "{attribute} должен содержать максимум 12 символов.")
+                ),
                 //array('inn', 'unique', 'attributeName'=>'inn'),
                 //array('inn', 'unique', 'message' => 'Такой ИНН/УНП уже зарегистрирован'),  
                 //array('company, country, region, city, district, name, secondname, surname, password, email', 'safe'),

@@ -36,27 +36,23 @@ class SiteController extends Controller
         $model = new RegistrationForm;
 
         if(isset($_POST['RegistrationForm'])) {
-            $record = User::model()->find(array(
+            $newUser = User::model()->find(array(
                 'condition'=>'inn=:inn',
                 'params'=>array(':inn'=>$_POST['inn']))
             );
-
-            if($record === null) { //new user
-                //$this->password = crypt($_POST['User_password'], User::model()->blowfishSalt());
-                // Save in database
+            
+            //var_dump($newUser);exit;
+            
+            if(is_null($newUser)) {
                 $userInfo = array();
-
                 $user = new User();
                 $user->attributes = $_POST['RegistrationForm'];
                 //var_dump($user->attributes);
                 $user->status = 0; //User::USER_NOT_CONFIRMED;
                 $user->company = $_POST['RegistrationForm']['ownership'] . ' "' . $_POST['RegistrationForm']['company'] . '"';
-                
-                $password = $this->randomPassword();
-                $user->password = crypt($password, User::model()->blowfishSalt(16));
-                
+                $user->password = crypt($_POST['RegistrationForm']['password'], User::model()->blowfishSalt());
                 $user->login = $user->inn;
-                if($user->save()){
+                if($user->validate() && $user->save()) {
                     $newFerrymanFields = new UserField;
                     $newFerrymanFields->user_id = $user->id;
                     $newFerrymanFields->mail_transport_create_1 = false;
@@ -64,21 +60,23 @@ class SiteController extends Controller
                     $newFerrymanFields->mail_kill_rate = false;
                     $newFerrymanFields->mail_before_deadline = false;
                     $newFerrymanFields->mail_deadline = true;
-                    $newFerrymanFields->with_nds = (bool)$_POST['RegistrationForm']['nds'];            
-                    if(!$newFerrymanFields->save()) {
+                    $newFerrymanFields->with_nds = (bool)$_POST['RegistrationForm']['nds'];    
+                    $newFerrymanFields->save();
+
+                    /*if(!$newFerrymanFields->save()) {
                         var_dump($newFerrymanFields->getErrors()); 
                         exit;
-                        
-                    };
-                
-                
+                    };*/
+
                     $this->sendMail(Yii::app()->params['adminEmail'], 1, $_POST['RegistrationForm']);
                     $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
 
-                    Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Спасибо за интерес, проявленный к нашей компании.');
-                    $this->redirect('/user/login/');
+                    Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Вы получите на почту инструкции по активации, когда ваша заявка будет рассмотрена. Спасибо за интерес, проявленный к нашей компании');
                 }
+            } else {
+                Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким ИНН/УНП уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');  
             }
+            $this->redirect('/user/login/');
         } else {
             $this->render('registration', array('model' => $model));
         }

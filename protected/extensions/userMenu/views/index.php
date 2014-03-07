@@ -23,6 +23,7 @@ if(!Yii::app()->user->isGuest){
                     </ul>
                 </li>
                 <li><a href="/user/option/">Настройки</a></li>
+                <li><a href="/user/contact/">Контактные лица</a></li>
                 <li><a href="/user/logout/" class="exit">Выход</a></li>
             </ul>
     <?php }  else {?>

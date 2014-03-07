@@ -11,7 +11,7 @@ class ContactController extends Controller
     }
 
     //User block
-    public function actionIndex() 
+    public function actionIndex()
     {
         if(Yii::app()->user->checkAccess('readContact')) {
             $criteria = new CDbCriteria();
@@ -19,7 +19,7 @@ class ContactController extends Controller
             $sort->sortVar = 'sort';
             // сортировка по умолчанию 
             $sort->defaultOrder = 'surname ASC';
-            $dataProvider = new CActiveDataProvider('Contact', 
+            $dataProvider = new CActiveDataProvider('UserContact', 
                 array(
                     'criteria'=>$criteria,
                     'sort'=>$sort,
@@ -29,7 +29,7 @@ class ContactController extends Controller
                 )
             );
             if ($id_item = Yii::app()->user->getFlash('saved_id')) {
-                $model = Contact::model()->findByPk($id_item);
+                $model = UserContact::model()->findByPk($id_item);
                 //$group = UserGroup::getUserGroupArray();
                 //$view = $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), true, true);
                 $view = $this->renderPartial('editcontact', array('model'=>$model), true, true);
@@ -43,9 +43,9 @@ class ContactController extends Controller
     public function actionCreateContact()
     {
         if(Yii::app()->user->checkAccess('createContact')) {
-            $model = new Contact;
-            if(isset($_POST['Contact'])) {
-                $model->attributes = $_POST['Contact'];
+            $model = new UserContact;
+            if(isset($_POST['UserContact'])) {
+                $model->attributes = $_POST['UserContact'];
                  if($model->save()){
                     $message = 'Создан контакт ' . $model->name . ' ' . $model->surname;
                     Changes::saveChange($message);
@@ -54,7 +54,7 @@ class ContactController extends Controller
                     Yii::app()->user->setFlash('message', 'Контакт '.$model->login.' создан успешно.');
                     $this->redirect('/admin/contact/');
                 }
-                print_r($model->getErrors());
+                //print_r($model->getErrors());
             }
             $this->renderPartial('editcontact', array('model'=>$model), false, true);
         } else {
@@ -64,11 +64,11 @@ class ContactController extends Controller
 
     public function actionEditContact($id) 
     {
-        $model = Contact::model()->findByPk($id);   
+        $model = UserContact::model()->findByPk($id);   
         if (Yii::app()->user->checkAccess('editContact')) {
-            if (isset($_POST['Contact'])) {
+            if (isset($_POST['UserContact'])) {
                 $changes = array();
-                foreach ($_POST['Contact'] as $key => $value) {
+                foreach ($_POST['UserContact'] as $key => $value) {
                     if (trim($model[$key]) != trim($value)) {
                         $changes[$key]['before'] = $model[$key];
                         $changes[$key]['after'] = $value;
@@ -76,7 +76,7 @@ class ContactController extends Controller
                     }
                 }
                 
-                $model->attributes = $_POST['Contact'];
+                $model->attributes = $_POST['UserContact'];
                 if (!empty($changes)) {
                     $message = 'У контактного лица с id = ' . $id . ' были изменены слудующие поля: ';
                     $k = 0;

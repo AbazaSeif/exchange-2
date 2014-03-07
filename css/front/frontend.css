@@ -181,7 +181,9 @@ nav, menu, p, section,
     line-height: 27px;
 }
 #login-form .row input[type='text'],
-#login-form .row input[type='password'], #registration-form .row input[type='text']
+#login-form .row input[type='password'], 
+#registration-form .row input[type='text'],
+#registration-form .row input[type='password']
 {
     padding:2% 3%;
     width: 92%;
@@ -196,7 +198,7 @@ nav, menu, p, section,
     vertical-align: middle;
 }
 
-#registration-form .row input[type='text']{
+#registration-form .row input[type='text'], #registration-form .row input[type='password']{
     width: 50%;
     padding: 3px;
 }

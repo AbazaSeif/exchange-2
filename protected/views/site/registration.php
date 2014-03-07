@@ -30,78 +30,83 @@
             <?php echo $form->dropDownList($model, 'ownership', $ownership); ?>
         </div>
         <div class="row">
-		<?php echo $form->labelEx($model,'company'); ?>
-		<?php echo $form->textField($model,'company', array('placeholder'=>'Заполните поле')); ?>
-		<?php echo $form->error($model,'company'); ?>
+            <?php echo $form->labelEx($model,'company'); ?>
+            <?php echo $form->textField($model,'company', array('placeholder'=>'Заполните поле')); ?>
+            <?php echo $form->error($model,'company'); ?>
 	</div>
         <div class="row">
-		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->textField($model,'password'); ?>
-		<?php echo $form->error($model,'password'); ?>
+            <?php echo $form->labelEx($model,'password'); ?>
+            <?php echo $form->passwordField($model,'password', array('placeholder'=>'Заполните поле')); ?>
+            <?php echo $form->error($model,'password'); ?>
+	</div>
+        <div class="row">
+            <?php echo $form->labelEx($model,'confirm_password'); ?>
+            <?php echo $form->passwordField($model,'confirm_password', array('placeholder'=>'Подтвердите пароль')); ?>
+            <?php echo $form->error($model,'confirm_password'); ?>
 	</div>
 	<div class="row">
-		<?php echo $form->labelEx($model,'country'); ?>
-		<?php echo $form->textField($model,'country', array('placeholder'=>'Заполните поле')); ?>
-		<?php echo $form->error($model,'country'); ?>
+            <?php echo $form->labelEx($model,'country'); ?>
+            <?php echo $form->textField($model,'country', array('placeholder'=>'Заполните поле')); ?>
+            <?php echo $form->error($model,'country'); ?>
 	</div>
 	<div class="row">
-		<?php echo $form->labelEx($model,'region'); ?>
-		<?php echo $form->textField($model,'region', array('placeholder'=>'Заполните поле')); ?>
-		<?php echo $form->error($model,'region'); ?>
+            <?php echo $form->labelEx($model,'region'); ?>
+            <?php echo $form->textField($model,'region', array('placeholder'=>'Заполните поле')); ?>
+            <?php echo $form->error($model,'region'); ?>
 	</div>
 	<div class="row">
-		<?php echo $form->labelEx($model,'city'); ?>
-		<?php echo $form->textField($model,'city'); ?>
-		<?php echo $form->error($model,'city'); ?>
+            <?php echo $form->labelEx($model,'city'); ?>
+            <?php echo $form->textField($model,'city'); ?>
+            <?php echo $form->error($model,'city'); ?>
 	</div>
 	<div class="row">
-		<?php echo $form->labelEx($model,'district'); ?>
-		<?php echo $form->textField($model,'district', array('placeholder'=>'Заполните поле')); ?>
-		<?php echo $form->error($model,'district'); ?>
+            <?php echo $form->labelEx($model,'district'); ?>
+            <?php echo $form->textField($model,'district', array('placeholder'=>'Заполните поле')); ?>
+            <?php echo $form->error($model,'district'); ?>
 	</div>
 	<div class="row">
-		<?php echo $form->labelEx($model,'inn'); ?>
-		<?php echo $form->textField($model,'inn', array('placeholder'=>'Заполните поле')); ?>
-		<?php echo $form->error($model,'inn'); ?>
+            <?php echo $form->labelEx($model,'inn'); ?>
+            <?php echo $form->textField($model,'inn', array('placeholder'=>'Заполните поле')); ?>
+            <?php echo $form->error($model,'inn'); ?>
 	</div>
         
         <div class="row">
-		<?php echo $form->labelEx($model,'surname'); ?>
-		<?php echo $form->textField($model,'surname', array('placeholder'=>'Заполните поле')); ?>
-		<?php echo $form->error($model,'surname'); ?>
+            <?php echo $form->labelEx($model,'surname'); ?>
+            <?php echo $form->textField($model,'surname', array('placeholder'=>'Заполните поле')); ?>
+            <?php echo $form->error($model,'surname'); ?>
 	</div>
         <div class="row">
-		<?php echo $form->labelEx($model, 'name'); ?>
-		<?php echo $form->textField($model, 'name', array('placeholder'=>'Заполните поле')); ?>
-		<?php echo $form->error($model, 'name'); ?>
+            <?php echo $form->labelEx($model, 'name'); ?>
+            <?php echo $form->textField($model, 'name', array('placeholder'=>'Заполните поле')); ?>
+            <?php echo $form->error($model, 'name'); ?>
 	</div>
         <div class="row">
-		<?php echo $form->labelEx($model, 'secondname'); ?>
-		<?php echo $form->textField($model, 'secondname', array('placeholder'=>'Заполните поле')); ?>
-		<?php echo $form->error($model, 'secondname'); ?>
+            <?php echo $form->labelEx($model, 'secondname'); ?>
+            <?php echo $form->textField($model, 'secondname', array('placeholder'=>'Заполните поле')); ?>
+            <?php echo $form->error($model, 'secondname'); ?>
 	</div>
 	<div class="row">
-		<?php echo $form->labelEx($model,'phone'); ?>
-		<?php echo $form->textField($model,'phone', array('placeholder'=>'Заполните поле')); ?>
-		<?php echo $form->error($model,'phone'); ?>
+            <?php echo $form->labelEx($model,'phone'); ?>
+            <?php echo $form->textField($model,'phone', array('placeholder'=>'Заполните поле')); ?>
+            <?php echo $form->error($model,'phone'); ?>
 	</div>
 	<div class="row">
-		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textField($model,'email', array('placeholder'=>'Заполните поле')); ?>
-		<?php echo $form->error($model,'email'); ?>
+            <?php echo $form->labelEx($model,'email'); ?>
+            <?php echo $form->textField($model,'email', array('placeholder'=>'Заполните поле')); ?>
+            <?php echo $form->error($model,'email'); ?>
 	</div>
 	<div class="row">
-		<?php echo $form->labelEx($model,'description'); ?>
-		<?php echo $form->textField($model,'description'); ?>
-		<?php echo $form->error($model,'description'); ?>
+            <?php echo $form->labelEx($model,'description'); ?>
+            <?php echo $form->textField($model,'description'); ?>
+            <?php echo $form->error($model,'description'); ?>
 	</div>
         <div class="row">
-		<?php echo $form->labelEx($model,'nds'); ?>
-                <?php echo $form->dropDownList($model, 'nds', array('0'=>'Нет', '1' => 'Да')); ?>
-		<?php echo $form->error($model,'nds'); ?>
+            <?php echo $form->labelEx($model,'nds'); ?>
+            <?php echo $form->dropDownList($model, 'nds', array('0'=>'Нет', '1' => 'Да')); ?>
+            <?php echo $form->error($model,'nds'); ?>
 	</div>
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Подтвердить', array('class'=>'btn')); ?>
+            <?php echo CHtml::submitButton('Подтвердить', array('class'=>'btn')); ?>
 	</div>
 <?php $this->endWidget(); ?>
 </div><!-- form -->
