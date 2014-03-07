@@ -72,7 +72,7 @@
     ),));
 ?>
         <div>
-            <div class="title"><img src="/images/option.jpg"><span>Сменить пароль</span></div>
+            <div class="title"><img src="/images/pass.png"><span>Сменить пароль</span></div>
             <div class="row password">
             <?php  
                 echo $form->error($pass, 'password'); 
