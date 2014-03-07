@@ -48,7 +48,12 @@ if(!Yii::app()->user->isGuest){
 ?>
 </div><!-- form -->
 <?php if(Yii::app()->user->isGuest): ?>
-<div>
-<?php echo CHtml::link('Подать заявку на регистрацию', array('/site/registration'), array('class' => 'registration')); ?>
+
+<div class="restore">
+<?php echo CHtml::link('Восстановление доступа', array('/site/restore'), array('class' => 'color')); ?>
 </div>
+<div class="registration">
+<?php echo CHtml::link('Подать заявку на регистрацию', array('/site/registration'), array('class' => 'color')); ?>
+</div>
+
 <?php endif; ?>

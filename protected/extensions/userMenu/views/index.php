@@ -60,11 +60,11 @@ if(!Yii::app()->user->isGuest){
     <div class="row buttons">
             <?php echo CHtml::submitButton('Войти', array('class'=>'btn')); ?>
     </div>
-<div>
-    <?php echo CHtml::link('Восстановление доступа', array('/site/restore'), array('class' => 'registration')); ?>
+    <div class="position">
+    <?php echo CHtml::link('Восстановление доступа', array('/site/restore'), array('class' => 'color')); ?>
     </div>
     <div>
-    <?php echo CHtml::link('Заявка на регистрацию', array('/site/registration'), array('class' => 'registration')); ?>
+    <?php echo CHtml::link('Заявка на регистрацию', array('/site/registration'), array('class' => 'color')); ?>
     </div>
 <?php $this->endWidget();    
 }

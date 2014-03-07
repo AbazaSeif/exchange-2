@@ -97,7 +97,7 @@ class SiteController extends Controller
             
             if($user) {
                 if($user->email) {
-                    $password = 111111; //$this->randomPassword();
+                    $password = 333333; //$this->randomPassword();
                     $user->password = crypt($password, User::model()->blowfishSalt());
                     if($user->save()) {
                         // send mail to ferryman with new password
@@ -116,8 +116,7 @@ class SiteController extends Controller
                             <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
                         ';
                         $email->sendMail();
-                        Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Спасибо за интерес, проявленный к нашей компании.');
-                        
+                        Dialog::message('flash-success', 'Отправлено!', 'Инструкции к дальнейшим действиям были отправлены на ваш почтовый ящик.');
                     }
                 } else {
                     Dialog::message('flash-success', 'Внимание!', 'Ваша заявка на восстановление доступа отправлена, в ближайшее время с вами свяжутся представители нашей компании.');

@@ -22,8 +22,13 @@
  */
 class UserField extends CActiveRecord
 {
-	/**
-	 * @return string the associated database table name
+        /*public $password; // поле 'Введите новый пароль'
+        public $new_password; // поле 'Введите новый пароль'
+        public $new_confirm;  // поле 'Подтвердите новый пароль'
+	*/
+         /**
+         */
+	 /* @return string the associated database table name
 	 */
 	public function tableName()
 	{
@@ -44,7 +49,8 @@ class UserField extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, user_id, mail_transport_create_1, mail_transport_create_2, mail_kill_rate, mail_deadline, mail_before_deadline', 'safe', 'on'=>'search'),
-		);
+		        //array('new_confirm', 'compare', 'compareAttribute'=>'new_password', 'message'=>'Пароли не совпадают'),
+                );
 	}
 
 	/**
@@ -72,7 +78,9 @@ class UserField extends CActiveRecord
 			'mail_kill_rate' => 'Mail Kill Rate',
 			'mail_deadline' => 'Mail Deadline',
 			'mail_before_deadline' => 'Mail Before Deadline',
-			
+			/*'password' => 'Пароль',
+                        'new_password' => 'Новый пароль', 
+			'new_confirm' => 'Подтверждение пароля', */
 		);
 	}
 
@@ -108,7 +116,7 @@ class UserField extends CActiveRecord
 		$criteria->compare('site_before_deadline',$this->site_before_deadline);
 */
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+	             'criteria'=>$criteria,
 		));
 	}
 

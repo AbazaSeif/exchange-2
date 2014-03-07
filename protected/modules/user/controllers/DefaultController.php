@@ -41,18 +41,44 @@ class DefaultController extends Controller
     public function actionOption()
     {
         $userId = Yii::app()->user->_id;
-        $elementExitsts = UserField::model()->find(array('condition'=>'user_id = :id', 'params'=>array(':id' => $userId)));
-        if($elementExitsts) {
-            $model = UserField::model()->find('user_id = :id', array('id' => $userId));
-        } else {      
-            $model = new UserField;
-            $data = array('mail_deadline' => true, 'site_transport_create_1' => true, 'site_transport_create_2' => true, 'site_kill_rate' => true, 'site_deadline' => true, 'site_before_deadline' => true);
-            $model->attributes = $data;
-            $model->save(); 
+        $model = UserField::model()->find('user_id = :id', array('id' => $userId));
+        $pass = new PasswordForm();
+        //$pass->password = '';
+        //var_dump($pass);
+        //$pass->id = $userId;
+        if(isset($_POST['UserField'])) {
+            $model->attributes = $_POST['UserField'];
+            $model->save();
         }
-
-        $this->render('option', array('model' => $model));
+        /*
+        var_dump($_POST['PasswordForm']);
+        echo '<br>';
+        var_dump($_POST['PasswordForm']['password']);
+        echo '<br>';
+        var_dump($_POST['password']);
+        exit;
+        */
+        if(isset($_POST['PasswordForm'])) {
+            if(isset($_POST['PasswordForm']['password']) && isset($_POST['PasswordForm']['new_password'])){
+                //var_dump('"' . $_POST['PasswordForm']['password'] . '"'); exit;
+                $user = User::model()->findByPk($userId);
+                if ($user->password === crypt(trim($_POST['PasswordForm']['password']), $user->password)){
+                    //$user->password = crypt($_POST['new_password'], User::model()->blowfishSalt());
+                    //$user->save();
+                    Dialog::message('flash-success', 'Внимание!', 'Ваш пароль изменен');
+                } else {
+                    Dialog::message('flash-success', 'Внимание!', 'Вы ввели неверный пароль');
+                }
+                
+                //$pass = new PasswordForm();
+                //$pass->password = '';
+                //$pass = new PasswordForm();
+                //$this->render('option', array('model' => $model, 'pass' => $pass), false, true);
+            }
+        }
+        $this->render('option', array('model' => $model, 'pass' => $pass), false, true);
     }
+    
     /* Save user options */
     public function actionSaveOption()
     {

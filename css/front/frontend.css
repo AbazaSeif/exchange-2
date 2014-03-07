@@ -120,7 +120,7 @@ nav, menu, p, section,
 {
     padding: 20px 35px 0;
 }
-#login-form .row, #registration-form .row
+#login-form .row, #registration-form .row, #password .row
 {
     position: relative;
     margin-bottom: 10px;
@@ -142,9 +142,12 @@ nav, menu, p, section,
 {
     width: 40%;
 }
-#quick-form .button{
+
+#quick-form .button
+{
     margin-top: 10px;
 }
+
 #login-form .row.buttons input.btn, #registration-form .row.buttons input.btn, #quick-form input.btn, #setRateBtn, #abordRateBtn
 {
     width: 96%;
@@ -165,7 +168,8 @@ nav, menu, p, section,
     cursor: pointer;
 }
 
-#registration-form .row.buttons input.btn{
+#registration-form .row.buttons input.btn
+{
     margin-top: 10px;
     width: 50%;
 }
@@ -204,12 +208,12 @@ nav, menu, p, section,
 {
     color: #FF4040;
 }
-#login-form .row .errorMessage, #registration-form .row .errorMessage
+#login-form .row .errorMessage, #registration-form .row .errorMessage, #password  .row .errorMessage
 {
     margin-top: 5px;
     color: #FF4040;
 }
-#login-form .row.error .errorMessage
+#login-form .row.error .errorMessage, #password .row.error .errorMessage
 {
     position: absolute;
     width: 70%;
@@ -223,7 +227,7 @@ nav, menu, p, section,
     z-index: 10;
 }
 
-#registration-form .row.error .errorMessage
+#registration-form .row.error .errorMessage, #password .row.error .errorMessage
 {
     position: absolute;
     width: 70%;
@@ -237,12 +241,22 @@ nav, menu, p, section,
     z-index: 10;
 }
 
-#registration-form .row.error .errorMessage{
+#password .row.error .errorMessage {
+    padding: 0.5% 2%;
+}
+
+#registration-form .row.error .errorMessage
+{
     left: 75%;
     width: 25%;
 }
+#password .row.error .errorMessage
+{
+    left: 32%;
+    width: 25%;
+}
 
-#login-form .row.error .errorMessage:after, #registration-form .row.error .errorMessage:after
+#login-form .row.error .errorMessage:after, #registration-form .row.error .errorMessage:after, #password .row.error .errorMessage:after
 {
     content: '';
     display: block;
@@ -257,22 +271,36 @@ nav, menu, p, section,
     border-bottom: 7px solid transparent;
 }
 
-#registration-form .row label{  
+#registration-form .row label {  
     display: block;
     float: left;
     min-width: 20%;
 }
+
 div.ui-widget-header {
     background: url("/images/ui-bg_gloss-wave_35_f6a828_1x100.jpg") repeat-x scroll 0% 10% #CCCCCC;
     border: 1px solid #AAAAAA;
     color: #222222;
     font-weight: bold;
 }
-.registration{
-    float: left;
-    color: #666;
-    padding-top: 8px;
+
+.registration {
+    padding: 0 35px;
 }
+
+.restore {
+    padding: 10px 35px 0;
+}
+
+.color {
+    color: #666;
+    padding-left: 5px;
+}
+
+.position{
+    padding-bottom: 15px;
+}
+
 /*----------Конец ФОРМА ВХОДА-------*/
 
 .user-info
@@ -352,17 +380,22 @@ div.row{
     margin-top: 5px;
 }
 
-#options div.row{
+#options div.row, #password div.row{
     margin-left: 17px;
 }
 
-#options div.title{
+#options div.title, #password div.title{
     margin: 10px 0;
     font-size: 20px;
     color: #EF801B;
 }
-#options div.title span{
+#options div.title span, #password  div.title span{
     margin-left: 5px;
+}
+#password .row.password label{
+    min-width: 17%;
+    float:left;
+    display: block;
 }
 /*#options div.title .img{
     width: 20px;
@@ -1044,7 +1077,7 @@ input.r-submit{
 .header:after, .wrapper:after, footer:after, #login-form:after,
 .user-info:after, .transports .sorter ul:after,
 .transports .items .transport:after, .transport-one:after,
-.width-100:after, .header .menu:after
+.width-100:after, .header .menu:after, #options .row.submit:after
 {
     content: '';
     display: block;
