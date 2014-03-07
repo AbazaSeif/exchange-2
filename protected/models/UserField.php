@@ -11,11 +11,7 @@
  * @property boolean $mail_kill_rate
  * @property boolean $mail_deadline
  * @property boolean $mail_before_deadline
- * @property boolean $site_transport_create_1
- * @property boolean $site_transport_create_2
- * @property boolean $site_kill_rate
- * @property boolean $site_deadline
- * @property boolean $site_before_deadline
+ * @property boolean $with_nds
  *
  * The followings are the available model relations:
  * @property User $user
@@ -45,10 +41,10 @@ class UserField extends CActiveRecord
 		return array(
 			array('user_id', 'numerical', 'integerOnly'=>true),
 			//array('mail_transport_create_1, mail_transport_create_2, mail_kill_rate, mail_deadline, mail_before_deadline, site_transport_create_1, site_transport_create_2, site_kill_rate, site_deadline, site_before_deadline', 'safe'),
-			array('mail_transport_create_1, mail_transport_create_2, mail_kill_rate, mail_deadline, mail_before_deadline', 'safe'),
+			array('with_nds, mail_transport_create_1, mail_transport_create_2, mail_kill_rate, mail_deadline, mail_before_deadline', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, mail_transport_create_1, mail_transport_create_2, mail_kill_rate, mail_deadline, mail_before_deadline', 'safe', 'on'=>'search'),
+			array('id, with_nds, user_id, mail_transport_create_1, mail_transport_create_2, mail_kill_rate, mail_deadline, mail_before_deadline', 'safe', 'on'=>'search'),
 		        //array('new_confirm', 'compare', 'compareAttribute'=>'new_password', 'message'=>'Пароли не совпадают'),
                 );
 	}
@@ -73,14 +69,12 @@ class UserField extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'user_id' => 'User',
-			'mail_transport_create_1' => 'Mail Transport Create 1',
-			'mail_transport_create_2' => 'Mail Transport Create 2',
-			'mail_kill_rate' => 'Mail Kill Rate',
-			'mail_deadline' => 'Mail Deadline',
+			'mail_transport_create_1' => 'При создании международной заявки на перевозку',
+			'mail_transport_create_2' => 'При создании региональной заявки на перевозку',
+			'mail_kill_rate' => 'Если перебита ставка',
+			'mail_deadline' => 'При закрытии перевозки',
 			'mail_before_deadline' => 'Mail Before Deadline',
-			/*'password' => 'Пароль',
-                        'new_password' => 'Новый пароль', 
-			'new_confirm' => 'Подтверждение пароля', */
+			'with_nds' => 'Показывать цену с НДС',
 		);
 	}
 
@@ -109,12 +103,7 @@ class UserField extends CActiveRecord
 		$criteria->compare('mail_kill_rate',$this->mail_kill_rate);
 		$criteria->compare('mail_deadline',$this->mail_deadline);
 		$criteria->compare('mail_before_deadline',$this->mail_before_deadline);
-		/*$criteria->compare('site_transport_create_1',$this->site_transport_create_1);
-		$criteria->compare('site_transport_create_2',$this->site_transport_create_2);
-		$criteria->compare('site_kill_rate',$this->site_kill_rate);
-		$criteria->compare('site_deadline',$this->site_deadline);
-		$criteria->compare('site_before_deadline',$this->site_before_deadline);
-*/
+
 		return new CActiveDataProvider($this, array(
 	             'criteria'=>$criteria,
 		));

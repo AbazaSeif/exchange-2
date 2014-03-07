@@ -43,68 +43,25 @@ class DefaultController extends Controller
         $userId = Yii::app()->user->_id;
         $model = UserField::model()->find('user_id = :id', array('id' => $userId));
         $pass = new PasswordForm();
-        //$pass->password = '';
-        //var_dump($pass);
-        //$pass->id = $userId;
         if(isset($_POST['UserField'])) {
             $model->attributes = $_POST['UserField'];
             $model->save();
         }
-        /*
-        var_dump($_POST['PasswordForm']);
-        echo '<br>';
-        var_dump($_POST['PasswordForm']['password']);
-        echo '<br>';
-        var_dump($_POST['password']);
-        exit;
-        */
+        
         if(isset($_POST['PasswordForm'])) {
-            if(isset($_POST['PasswordForm']['password']) && isset($_POST['PasswordForm']['new_password'])){
-                //var_dump('"' . $_POST['PasswordForm']['password'] . '"'); exit;
-                $user = User::model()->findByPk($userId);
-                if ($user->password === crypt(trim($_POST['PasswordForm']['password']), $user->password)){
-                    //$user->password = crypt($_POST['new_password'], User::model()->blowfishSalt());
-                    //$user->save();
+            $user = User::model()->findByPk($userId);
+            if ($user->password === crypt(trim($_POST['PasswordForm']['password']), $user->password)){
+                $user->password = crypt($_POST['new_password'], User::model()->blowfishSalt());
+                if($model->validate() && $user->save()){
                     Dialog::message('flash-success', 'Внимание!', 'Ваш пароль изменен');
-                } else {
-                    Dialog::message('flash-success', 'Внимание!', 'Вы ввели неверный пароль');
                 }
-                
-                //$pass = new PasswordForm();
-                //$pass->password = '';
-                //$pass = new PasswordForm();
-                //$this->render('option', array('model' => $model, 'pass' => $pass), false, true);
+            } else {
+                Dialog::message('flash-success', 'Внимание!', 'Вы ввели неверный пароль');
             }
         }
         $this->render('option', array('model' => $model, 'pass' => $pass), false, true);
     }
     
-    /* Save user options */
-    public function actionSaveOption()
-    {
-        //$allModelFields = array('mail_transport_create_1', 'mail_transport_create_2', 'mail_kill_rate', 'mail_deadline', 'mail_before_deadline', 'site_transport_create_1', 'site_transport_create_2', 'site_kill_rate', 'site_deadline', 'site_before_deadline', 'with_nds');
-        $allModelFields = array('mail_transport_create_1', 'mail_transport_create_2', 'mail_kill_rate', 'mail_deadline', 'mail_before_deadline', 'with_nds');
-        $data = $_POST;
-        
-        $modelFields = array();
-        foreach($allModelFields as $field){
-            if(!array_key_exists($field, $data)) {
-                $modelFields[] = $field;
-            }
-        }
-        
-        $model = UserField::model()->find('user_id = :id', array('id' => Yii::app()->user->_id));
-        $model->attributes = $data;
-        $model['with_nds'] = true;
-        
-        foreach($modelFields as $field){
-            $model[$field] = false;
-        }
-       
-        $model->save();
-        $this->render('option', array('model' => $model));
-    }
-
     /* Show all events */
     public function actionEvent()
     {
