@@ -16,7 +16,8 @@ io.sockets.on('connection', function (socket) {
     var name = [];
     var i = 0;
 
-    socket.on('init', function (id, minNotyfy) {
+    socket.on('init', function (id, minNotyfy) 
+    {
         allSockets[id] = socket.id;
         seachNewEvents(id, minNotyfy);
         updateEventsCount(id);	
