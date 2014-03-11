@@ -4,6 +4,7 @@
             time: 5000, 
             speed: 'slow', 
             msg: null, 
+            id: null, 
             className: null, 
             evented: false,
             position:{ top:0,right:0 } 

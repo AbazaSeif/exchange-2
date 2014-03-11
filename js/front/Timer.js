@@ -38,25 +38,21 @@ Timer.prototype = {
     var futureDate = this.endDate;
     var currDate = new Date();
     currDate.setSeconds(currDate.getSeconds() + this.timeDiff);
-    /*this.seconds = this.datePartDiff(currDate.getSeconds(), futureDate.getSeconds(), 60);
+    this.seconds = this.datePartDiff(currDate.getSeconds(), futureDate.getSeconds(), 60);
     this.minutes = this.datePartDiff(currDate.getMinutes(), futureDate.getMinutes(), 60);
     this.hours = this.datePartDiff(currDate.getHours(), futureDate.getHours(), 24);
     this.days = this.datePartDiff(currDate.getDate(), futureDate.getDate(), this.numOfDays[futureDate.getMonth()]);
     this.months = this.datePartDiff(currDate.getMonth(), futureDate.getMonth(), 12);
     this.years = this.datePartDiff(currDate.getFullYear(), futureDate.getFullYear(),0);
- */
+ 
     /***************************************/
-    this.seconds = this.datePartDiff(currDate.getSeconds(), futureDate.getSeconds(), 60);
+    /*this.seconds = this.datePartDiff(currDate.getSeconds(), futureDate.getSeconds(), 60);
     this.minutes = this.datePartDiff(currDate.getMinutes(), futureDate.getMinutes(), 60);
-    //this.hours = this.datePartDiff(currDate.getHours(), futureDate.getHours(), 24);
-    //this.days = this.datePartDiff(currDate.getDate(), futureDate.getDate(), this.numOfDays[futureDate.getMonth()]);
-    //this.hours += this.days * 24;
     var delta = futureDate-currDate;
     this.hours = Math.floor(delta/(60*60*1000));
-    //this.minutes = Math.round((delta-this.hours*60*60*1000)/(60*1000));
-    //this.seconds = Math.round((delta-(this.hours*60*60*1000)-(this.minutes*60*1000))/1000);
     this.days = 0;
-    this.months = this.years = 0; 
+    this.months = this.years = 0; */
+      
   },
   addLeadingZero: function(value){
     return value < 10 ? ("0" + value) : value;
@@ -73,7 +69,7 @@ Timer.prototype = {
           this.calculate();
           this.formatTime();
           var years = months = days = hours = minutes = seconds = '';
-          /*if(this.years > 0) {
+          if(this.years > 0) {
               var title = 'лет';
               if(this.years == 1) {
                   title = 'год';
@@ -102,10 +98,10 @@ Timer.prototype = {
                   title = 'дня';
               }
               days = "<span class='t-days'><strong>" + this.days + "</strong> " + title + " </span>";
-          }*/
+          }
 
-          //this.container.innerHTML = years + months + days + ' <span class="t-time">' + this.hours + ':' + this.minutes + ':' + this.seconds + '</span>';
-          this.container.innerHTML = '<span class="t-time">' + this.hours + ':' + this.minutes + ':' + this.seconds + '</span>';
+          this.container.innerHTML = years + months + days + ' <span class="t-time">' + this.hours + ':' + this.minutes + ':' + this.seconds + '</span>';
+          //this.container.innerHTML = '<span class="t-time">' + this.hours + ':' + this.minutes + ':' + this.seconds + '</span>';
           var currDate = new Date();
           currDate.setSeconds(currDate.getSeconds() + this.timeDiff);
 

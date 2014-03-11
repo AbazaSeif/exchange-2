@@ -336,6 +336,17 @@ class TransportController extends Controller
         return $row['price'];
     }
     
+    public function getMinPrice($id)
+    {
+        $row = Yii::app()->db->createCommand()
+            ->select('min(price) as price')
+            ->from('rate')
+            ->where('transport_id = :id', array(':id' => $id))
+            ->queryScalar()
+        ;
+        return $row;
+    }
+    
     public function getPoints($id)
     {
         $points = '';        
