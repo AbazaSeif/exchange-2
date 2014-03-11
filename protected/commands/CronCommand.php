@@ -3,12 +3,18 @@ class CronCommand extends CConsoleCommand
 {
     public function run($args)
     {
+        $this->errorDate();
         $this->deadlineTransport();
         $this->beforeDeadlineTransport();
         $this->newTransport();
         $this->mailKillRate();
     }
-
+    
+    public function errorDate()
+    {
+        
+    }
+    
     // Search for transport with deadline	
     public function deadlineTransport()
     {
