@@ -63,7 +63,7 @@
     </div>
     <div class="width-50">
         <div class="width-40">
-            <span><?php echo $data->description ?></span>
+            <span><?php echo (!empty($data->description))? $data->description : 'Описание отсутствует' ?></span>
         </div>
         <div class="width-30 v-center">
             <div class="t-rate">
