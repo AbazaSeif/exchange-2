@@ -41,6 +41,7 @@ if (!Yii::app()->user->isGuest) {
 //$startValue = ($defaultRate)? $lastRate : ($lastRate - $priceStep);
 $minRate = (($minRateValue - $priceStep)<=0)? 1 : 0;
 $inputSize = strlen((string)$minRateValue)-1;
+if($inputSize == 0) $inputSize = 1;
 ?>
 
 <div class="transport-one">
