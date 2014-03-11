@@ -88,23 +88,26 @@ $inputSize = strlen((string)$lastRate)-1;
                     </div>
                 </div>
                 <?php endif; ?>
-            <?php endif; ?>
+            
             <?php if (!Yii::app()->user->isGuest): ?>
                     <label class="r-header">Текущие ставки</label>
                     <div id="rates">
                     </div>
             <?php endif; ?>
             </div>
-            
+            <?php endif; ?>
             <?php if (Yii::app()->user->isGuest): ?>
                  <div class="width-50 timer-wrapper">
                      <div id="t-container"></div>
                      <div id="last-rate"><span><?php echo '**** ' . $currency?></span></div>
                  </div>
-            <?php elseif(Yii::app()->user->isRoot): ?>
+            <?php elseif(!Yii::app()->user->isTransport): ?>
                 <div class="width-50 timer-wrapper">
                      <div id="t-container"></div>
-                     <div id="last-rate"><span><?php echo $lastRate . ' ' . $currency?></span></div>
+                     <div id="last-rate"><span><?php echo ((isset($minRateValue))? $minRateValue : $lastRate) . ' ' . $currency?></span></div>
+                     <label class="r-header">Текущие ставки</label>
+                     <div id="rates">
+                     </div>
                 </div>  
             <?php endif; ?>
         </div>
@@ -139,8 +142,8 @@ $(document).ready(function(){
     <?php if (!Yii::app()->user->isGuest): ?>
         <?php if(Yii::app()->user->isTransport): ?>
 
-        var socket = io.connect('http://exchange.lbr.ru:3000/');
-        //var socket = io.connect('http://localhost:3000/');
+        //var socket = io.connect('http://exchange.lbr.ru:3000/');
+        var socket = io.connect('http://localhost:3000/');
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>);
         
 
