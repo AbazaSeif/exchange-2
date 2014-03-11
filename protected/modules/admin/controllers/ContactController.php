@@ -47,6 +47,25 @@ class ContactController extends Controller
             if(isset($_POST['UserContact'])) {
                 $model->attributes = $_POST['UserContact'];
                  if($model->save()){
+                    $newFerrymanFields = new UserField;
+                    $newFerrymanFields->user_id = $model->id;
+                    $newFerrymanFields->mail_transport_create_1 = false;
+                    $newFerrymanFields->mail_transport_create_2 = false;
+                    $newFerrymanFields->mail_kill_rate = false;
+                    $newFerrymanFields->mail_before_deadline = false;
+                    $newFerrymanFields->mail_deadline = true;
+                    
+                    /*
+                    $newFerrymanFields->site_transport_create_1 = true;
+                    $newFerrymanFields->site_transport_create_2 = true;
+                    $newFerrymanFields->site_kill_rate = true;
+                    $newFerrymanFields->site_deadline = true;
+                    $newFerrymanFields->site_before_deadline = true;            
+                    */
+                    
+                    $newFerrymanFields->with_nds = false;            
+                    $newFerrymanFields->save();
+                    
                     $message = 'Создан контакт ' . $model->name . ' ' . $model->surname;
                     Changes::saveChange($message);
 

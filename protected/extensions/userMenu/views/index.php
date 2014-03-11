@@ -23,7 +23,7 @@ if(!Yii::app()->user->isGuest){
                     </ul>
                 </li>
                 <li><a href="/user/option/">Настройки</a></li>
-                <li><a href="/user/contact/">Контактные лица</a></li>
+                <!--li><a href="/user/contact/">Контактные лица</a></li-->
                 <li><a href="/user/logout/" class="exit">Выход</a></li>
             </ul>
     <?php }  else {?>
@@ -73,10 +73,10 @@ if(!Yii::app()->user->isGuest){
 
 <script>
 $(document).ready(function(){
-    <?php if(!Yii::app()->user->isGuest): ?>
+    <?php if(Yii::app()->user->isTransport): ?>
     var userId = <?php echo $user->id ?>;
-    //var socket = io.connect('http://exchange.lbr.ru:3000/');
-    var socket = io.connect('http://localhost:3000/');
+    var socket = io.connect('http://exchange.lbr.ru:3000/');
+    //var socket = io.connect('http://localhost:3000/');
     
     socket.emit('init', userId, <?php echo Yii::app()->params['minNotyfy'] ?>);
     
@@ -87,19 +87,16 @@ $(document).ready(function(){
     menu.countSubmenuElem = countSubmenuElem;
     menu.init();
     
-    
-    /*
-    setInterval(function(){
-        socket.emit('events', userId);
-    }, 1000);
-     */
-    
     socket.emit('events', userId);   
     socket.on('updateEvents', function (data) {
         if(parseInt(data.count) != 0){
             $('#event-counter').html(data.count);    
         } else $('#event-counter').html('');    
               
+    });
+    
+    socket.on('onlineEvent', function (data) {
+        $.onlineEvent({ msg : data.msg, className : 'classic', sticked:true, position:{right:0,bottom:0}, time:10000});
     });
     <?php endif;?>
 });

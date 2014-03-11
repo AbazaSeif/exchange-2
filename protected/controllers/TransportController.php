@@ -118,12 +118,24 @@ class TransportController extends Controller
     public function getPrice($id)
     {
         $row = Yii::app()->db->createCommand()
-            ->select()
+            ->select('price')
             ->from('rate')
             ->where('id = :id', array(':id' => $id))
-            ->queryRow()
+            ->queryScalar()
         ;
-        return $row['price'];
+        return $row;
+    }
+    
+    /* Get latest price for current transport */
+    public function getMinPrice($id)
+    {
+        $row = Yii::app()->db->createCommand()
+            ->select('min(price) as price')
+            ->from('rate')
+            ->where('transport_id = :id', array(':id' => $id))
+            ->queryScalar()
+        ;
+        return $row;
     }
 	
     // Send mail to user if his rate was killed

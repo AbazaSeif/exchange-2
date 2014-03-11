@@ -1,5 +1,6 @@
 <?php 
 $lastRate = null;
+$minRateValue = null;
 $currency = '€';
 $defaultRate = false;
 $priceStep = Transport::INTER_PRICE_STEP;
@@ -21,6 +22,7 @@ if(!$transportInfo['currency']){
 
 if (!empty($transportInfo['rate_id'])) {
     $lastRate = $this->getPrice($transportInfo['rate_id']);
+    $minRateValue = $this->getMinPrice($transportInfo['id']);
 } else {
     $lastRate = $transportInfo['start_rate'];
     $defaultRate = true;
@@ -80,19 +82,20 @@ $inputSize = strlen((string)$lastRate)-1;
                                 <div id="rate-down" class="<?php echo ($minRate)?'disabled':''?>"></div>
                             </div>
                             <span class="text"><?php echo $currency ?></span>
-                            <input id="rate-price" value="<?php echo $lastRate?>" init="<?php echo $lastRate?>" type="text" size="<?php echo $inputSize ?>"/>
+                            <input id="rate-price" value="<?php echo (isset($minRateValue))? $minRateValue : $lastRate ?>" init="<?php echo $lastRate?>" type="text" size="<?php echo $inputSize ?>"/>
                         </div>
                         <div class="r-submit"><span>Сделать ставку</span></div>
                     </div>
                 </div>
                 <?php endif; ?>
+            <?php endif; ?>
             <?php if (!Yii::app()->user->isGuest): ?>
                     <label class="r-header">Текущие ставки</label>
                     <div id="rates">
                     </div>
             <?php endif; ?>
             </div>
-            <?php endif; ?>
+            
             <?php if (Yii::app()->user->isGuest): ?>
                  <div class="width-50 timer-wrapper">
                      <div id="t-container"></div>
@@ -134,8 +137,10 @@ $(document).ready(function(){
         defaultRate: <?php echo ($defaultRate)? 1 : 0 ?>,
     };
     <?php if (!Yii::app()->user->isGuest): ?>
-        //var socket = io.connect('http://exchange.lbr.ru:3000/');
-        var socket = io.connect('http://localhost:3000/');
+        <?php if(Yii::app()->user->isTransport): ?>
+
+        var socket = io.connect('http://exchange.lbr.ru:3000/');
+        //var socket = io.connect('http://localhost:3000/');
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>);
         
 
@@ -177,7 +182,7 @@ $(document).ready(function(){
         rateList.data.name   = '<?php echo $userInfo[name] ?>';
         rateList.data.surname = '<?php echo $userInfo[surname] ?>';
         
-        rateList.init();
+        //rateList.init();
     //setInterval(function(){rateList.update($('#rates'))}, 15000);
     
     
@@ -199,6 +204,11 @@ $(document).ready(function(){
         }
     });*/
     
+    <?php else: ?> 
+        //admin or logist
+ 
+    <?php endif; ?> 
+        rateList.init();
     <?php endif; ?> 
     
 });

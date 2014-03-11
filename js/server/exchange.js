@@ -23,17 +23,20 @@ io.sockets.on('connection', function (socket) {
     socket.on('init', function (id, minNotyfy) 
     {
         allSockets[id] = socket.id;
-        db.each("SELECT site_deadline, site_before_deadline, site_transport_create_1, site_transport_create_2  FROM user_field WHERE user_id = " + id, function(err, option) {
+        /*db.each("SELECT site_deadline, site_before_deadline, site_transport_create_1, site_transport_create_2  FROM user_field WHERE user_id = " + id, function(err, option) {
             if(option.site_deadline)  seachNewEvents(id, 1);
             if(option.site_before_deadline) seachNewEvents(id, 2, minNotyfy);
             if(option.site_transport_create_1) seachNewEvents(id, 3);
             if(option.site_transport_create_2) seachNewEvents(id, 4);
-        });
+        });*/
+        
+        seachNewEvents(id, minNotyfy);
         updateEventsCount(id);	
     });
 	
     /* ----- Update count of messages in frontend ----- */
 	
+    /*
     function seachNewEvents(id, type, minNotyfy)
     {
         setTimeout(function() {
@@ -56,6 +59,31 @@ io.sockets.on('connection', function (socket) {
             });
         }, 2000);
     }
+    */
+    
+    function seachNewEvents(id, minNotyfy)
+    {
+        setTimeout(function() {
+            db.each('SELECT id, transport_id, type FROM user_event WHERE status = 1 and status_online = 1 and user_id = ' + id, function(err, event) {
+                db.each('SELECT location_from, location_to FROM transport WHERE id = ' + event.transport_id, function(err, transport) {	              
+                    if (id in allSockets) { // user online
+                        var message = 'Перевозка "' + transport.location_from + ' &mdash; ' + transport.location_to + '" была закрыта';
+                        if(event.type == 2) message = 'Перевозка "' + transport.location_from + ' &mdash; ' + transport.location_to + '" будет закрыта через ' + minNotyfy + ' минут';
+                        if(event.type == 3) message = 'Создана новая международная перевозка "' + transport.location_from + ' &mdash; ' + transport.location_to + '"';
+                        if(event.type == 4) message = 'Создана новая региональная перевозка "' + transport.location_from + ' &mdash; ' + transport.location_to + '"';
+
+                        io.sockets.socket(socket.id).emit('onlineEvent', {
+                            msg : message
+                        });
+                        
+                        var stmt = "UPDATE user_event set status_online = 0 WHERE id = " + event.id;
+                        db.run(stmt);
+                        seachNewEvents(id, minNotyfy);
+                    }
+                });
+            });
+        }, 2000);
+    }
 	
     function updateEventsCount(id)
     {
@@ -66,7 +94,7 @@ io.sockets.on('connection', function (socket) {
                     count : rows
                 });
             });
-			updateEventsCount(id)
+	    updateEventsCount(id)
         }, 2000);
     }
     

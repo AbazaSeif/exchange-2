@@ -130,6 +130,7 @@ class CronCommand extends CConsoleCommand
                         'user_id' => $user,
                         'transport_id' => $transportId,
                         'status' => 1,
+                        'status_online' => 1,
                         'type' => 1,
                         'event_type' => $messageType,
                     );
@@ -268,6 +269,7 @@ class CronCommand extends CConsoleCommand
                     'user_id' => $user,
                     'transport_id' => $transportId['id'],
                     'status' => 1,
+                    'status_online' => 1,
                     'type' => 1,
                     'event_type' => $event,
                 );
