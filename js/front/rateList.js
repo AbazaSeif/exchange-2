@@ -34,7 +34,7 @@ var rateList = {
             });*/
 
             $( "#rate-up" ).on('click', function() {
-                var newRate = parseInt(element.val()) + rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds;
+                var newRate = parseInt(element.val()) + rateList.data.priceStep;// + rateList.data.priceStep * rateList.data.nds;
                 element.val(newRate);
             });
 
@@ -48,7 +48,7 @@ var rateList = {
             });
 
             $( "#rate-down" ).on('click', function() {              
-                var step = rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds;
+                var step = rateList.data.priceStep;// + rateList.data.priceStep * rateList.data.nds;
                 var newRate = element.val() - step;
                 if(newRate > 0) element.val(newRate);
                 if( (newRate - step) <= 0 ) {

@@ -1,5 +1,6 @@
 <?php
-    $lastRate = $this->getPrice($data->rate_id);
+    //$lastRate = $this->getPrice($data->rate_id);
+    $minPriceVal = $this->getMinPrice($data->id);
     $now = date('Y/m/d H:i:s', strtotime('now'));
     $end = date('Y/m/d H:i:s', strtotime($data->date_from  . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
     $action = '/transport/description/id/'. $data->id . '/';
@@ -15,14 +16,15 @@
         if(Yii::app()->user->isTransport){
             $model = UserField::model()->find('user_id = :id', array('id' => Yii::app()->user->_id));
             if((bool)$model->with_nds){
-                if(!empty($lastRate)) $rate = $lastRate + $lastRate * Yii::app()->params['nds'];
+                if(!empty($minPriceVal)) $rate = $minPriceVal + $minPriceVal * Yii::app()->params['nds'];
                 else $rate = $data->start_rate + $data->start_rate * Yii::app()->params['nds'];
             } else {
-                $rate = (!empty($lastRate))? $lastRate : $data->start_rate;
+                $rate = (!empty($minPriceVal))? $minPriceVal : $data->start_rate;
             }
         } else {
-            $rate = (!empty($lastRate))? $lastRate : $data->start_rate;
+            $rate = (!empty($minPriceVal))? $minPriceVal : $data->start_rate;
         }
+        $rate = ceil($rate);
     }
     if($data->type==Transport::RUS_TRANSPORT){
         $type = "российская";
@@ -34,43 +36,42 @@
     }
 ?>
 <div class="transport">
-    <?php if($allPoints):?>
-        <div class="width-19 description">
-    <?php else: ?>
-        <div class="width-19 description-50">
-    <?php endif; ?>
-        <span><?php echo $data->description ?></span>
-    </div>
-    <div class="width-47">
-        <div class="t-wrapper">
-            <div class="width-45">
+    <div class="width-50">
+        <div class="width-100">
+            <div class="width-49">
                 <a class="t-header" href="<?php echo $action; ?>" >
                     <?php echo $data->location_from ?>
                 </a>
-                <span class="t-d-form-to">Дата загрузки: <?php echo date('d.m.y', strtotime($data->date_from)) ?></span>
             </div>
-            <div class="width-5">
-                <img src="/images/arrow.jpg" width="20px">
-            </div>
-            <div class="width-50">
+            <div class="width-49">
                 <a class="t-header" href="<?php echo $action; ?>" >
                     <?php echo $data->location_to ?>
                 </a>
+            </div>
+        </div>
+        <div class="width-100">
+            <div class="width-49">
+                <span class="t-d-form-to">Дата загрузки: <?php echo date('d.m.y', strtotime($data->date_from)) ?></span>
+            </div>
+            <div class="width-49">
                 <span class="t-d-form-to">Дата разгрузки: <?php echo date('d.m.y', strtotime($data->date_to)); ?></span>
             </div>
         </div>
-        <?php if($allPoints):?>
-            <div style="clear:both"></div>
+        <div class="width-100">
             <div class="t-points"><span><?php echo $data->location_from . $allPoints . ' -> ' . $data->location_to ?></span></div>
-        <?php endif; ?>
-    </div>
-    <div class="width-19">
-        <div class="t-rate">
-            <span><?php echo $rate.$currency;?></span>
         </div>
-    </div>    
-    <div class="width-15"> 
-        <div class="t-timer" id="counter-<?php echo $data->id; ?>" now="<?php echo $now ?>" end="<?php echo $end ?>" status="<?php echo $status ?>"></div>
+    </div>
+    <div class="width-50">
+        <div class="width-40">
+            <span><?php echo $data->description ?></span>
+        </div>
+        <div class="width-30 v-center">
+            <div class="t-rate">
+                <span><?php echo $rate.$currency;?></span>
+            </div>
+        </div>
+        <div class="width-30 v-center"> 
+            <div class="t-timer" id="counter-<?php echo $data->id; ?>" now="<?php echo $now ?>" end="<?php echo $end ?>" status="<?php echo $status ?>"></div>
+        </div>
     </div>
 </div>
-

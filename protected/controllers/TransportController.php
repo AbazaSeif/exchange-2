@@ -126,7 +126,6 @@ class TransportController extends Controller
         return $row;
     }
     
-    /* Get latest price for current transport */
     public function getMinPrice($id)
     {
         $row = Yii::app()->db->createCommand()

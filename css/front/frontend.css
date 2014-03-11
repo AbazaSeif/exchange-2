@@ -832,7 +832,8 @@ div.row{
 }
 #t-container:before
 {
-    content: 'Осталось до закрытия:';
+    content: 'Осталось до закрытия: ';
+    display: block;
     font-size: 14px;
     
 }
@@ -1130,9 +1131,13 @@ input.r-submit{
 }
 
 /*-------- Всплывающие оповещения -----------*/
+#online-event a{
+    color: #fff;
+    cursor: pointer;
+}
 
 #online-event{
-    cursor: pointer;
+    cursor: default;
     z-index: 9999;
 }
 

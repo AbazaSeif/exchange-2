@@ -1,5 +1,6 @@
 <?php
     $lastRate = $this->getPrice($data->rate_id);
+    $minPriceVal = $this->getMinPrice($data->id);
     $now = date('Y/m/d H:i:s', strtotime('now'));
     $end = date('Y/m/d H:i:s', strtotime($data->date_from  . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
     $action = '/transport/description/id/'. $data->id . '/';
@@ -15,14 +16,15 @@
         if(Yii::app()->user->isTransport){
             $model = UserField::model()->find('user_id = :id', array('id' => Yii::app()->user->_id));
             if((bool)$model->with_nds){
-                if(!empty($lastRate)) $rate = $lastRate + $lastRate * Yii::app()->params['nds'];
+                if(!empty($minPriceVal)) $rate = $minPriceVal + $minPriceVal * Yii::app()->params['nds'];
                 else $rate = $data->start_rate + $data->start_rate * Yii::app()->params['nds'];
             } else {
-                $rate = (!empty($lastRate))? $lastRate : $data->start_rate;
+                $rate = (!empty($minPriceVal))? $minPriceVal : $data->start_rate;
             }
         } else {
-            $rate = (!empty($lastRate))? $lastRate : $data->start_rate;
+            $rate = (!empty($minPriceVal))? $minPriceVal : $data->start_rate;
         }
+        $rate = ceil($rate);
     }
     if($data->type==Transport::RUS_TRANSPORT){
         $type = "российская";

@@ -1,5 +1,5 @@
 <?php 
-$lastRate = null;
+//$lastRate = null;
 $minRateValue = null;
 $currency = '€';
 $defaultRate = false;
@@ -21,10 +21,10 @@ if(!$transportInfo['currency']){
 }
 
 if (!empty($transportInfo['rate_id'])) {
-    $lastRate = $this->getPrice($transportInfo['rate_id']);
+    //$lastRate = $this->getPrice($transportInfo['rate_id']);
     $minRateValue = $this->getMinPrice($transportInfo['id']);
 } else {
-    $lastRate = $transportInfo['start_rate'];
+    $minRateValue = $transportInfo['start_rate'];
     $defaultRate = true;
 }
 
@@ -33,14 +33,14 @@ if (!Yii::app()->user->isGuest) {
     $model = UserField::model()->find('user_id = :id', array('id' => $userId));
     //$originalPrice = $lastRate;
     if((bool)$model->with_nds){
-        $lastRate = $lastRate + $lastRate * Yii::app()->params['nds'];
+        $minRateValue = ceil($minRateValue + $minRateValue * Yii::app()->params['nds']);
     }
     $userInfo = User::model()->findByPk($userId);
 }
 
 //$startValue = ($defaultRate)? $lastRate : ($lastRate - $priceStep);
-$minRate = (($lastRate - $priceStep)<=0)? 1 : 0;
-$inputSize = strlen((string)$lastRate)-1;
+$minRate = (($minRateValue - $priceStep)<=0)? 1 : 0;
+$inputSize = strlen((string)$minRateValue)-1;
 ?>
 
 <div class="transport-one">
@@ -68,7 +68,7 @@ $inputSize = strlen((string)$lastRate)-1;
                 <div class="r-params"><span>Дата разгрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_to'])) ?></strong></div>
                 <?php if (!empty($transportInfo['auto_info'])):?><div><span>Транспорт: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
             </div>
-            <?php if (!Yii::app()->user->isGuest && $lastRate > 0 && Yii::app()->user->isTransport): ?>
+            <?php if (!Yii::app()->user->isGuest && $minRateValue > 0 && Yii::app()->user->isTransport): ?>
             <div class="width-50 timer-wrapper">
                 <div class="width-100">
                     <div id="t-container" class="width-40"></div>
@@ -82,7 +82,7 @@ $inputSize = strlen((string)$lastRate)-1;
                                 <div id="rate-down" class="<?php echo ($minRate)?'disabled':''?>"></div>
                             </div>
                             <span class="text"><?php echo $currency ?></span>
-                            <input id="rate-price" value="<?php echo (isset($minRateValue))? $minRateValue : $lastRate ?>" init="<?php echo $lastRate?>" type="text" size="<?php echo $inputSize ?>"/>
+                            <input id="rate-price" value="<?php echo $minRateValue ?>" init="<?php echo $minRateValue?>" type="text" size="<?php echo $inputSize ?>"/>
                         </div>
                         <div class="r-submit"><span>Сделать ставку</span></div>
                     </div>
@@ -104,7 +104,7 @@ $inputSize = strlen((string)$lastRate)-1;
             <?php elseif(!Yii::app()->user->isTransport): ?>
                 <div class="width-50 timer-wrapper">
                      <div id="t-container"></div>
-                     <div id="last-rate"><span><?php echo ((isset($minRateValue))? $minRateValue : $lastRate) . ' ' . $currency?></span></div>
+                     <div id="last-rate"><span><?php echo $minRateValue . ' ' . $currency?></span></div>
                      <label class="r-header">Текущие ставки</label>
                      <div id="rates">
                      </div>
