@@ -1,11 +1,14 @@
 var Timer = function(){};
 Timer.prototype = {
   init: function(serverDate, initDate, id, status){
+    //console.log(111);
     var dateNow = new Date(); // время на ПК
     var dateNowServer = new Date(serverDate); // время на сервере
     this.timeDiff = (dateNowServer - dateNow)/1000; // сек, временная разница между сервером и клиентом 
     this.status = status;
     this.endDate = new Date(initDate); // дата и время от которых идет обратный отсчет
+    //console.log(initDate);
+    //console.log(this.endDate);
     this.str = '#' + id;
     if ($(this.str).length > 0) {
         this.container = document.getElementById(id);
@@ -106,6 +109,7 @@ Timer.prototype = {
           currDate.setSeconds(currDate.getSeconds() + this.timeDiff);
 
           if(typeof rateList.data !== "undefined" && typeof rateList.data.status !== "undefined") this.status = parseInt(rateList.data.status);
+          //console.log(this.endDate + '>' + currDate);
           if ( this.endDate > currDate && this.status ) { //проверка не обнулился ли таймер
               var self = this;
               setTimeout(function(){self.updateCounter();}, 1000);
