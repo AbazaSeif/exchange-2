@@ -283,7 +283,7 @@ class CronCommand extends CConsoleCommand
     public function mailKillRate()
     {
         $transportKillRate = Yii::app()->db->createCommand()
-            ->select('transport_id, prev_id')
+            ->select('transport_id, prev_id, id')
             ->from('user_event')
             ->where('status = :status and event_type = :type', array(':status' => 1, ':type' => 5))
             ->queryAll()
@@ -322,8 +322,9 @@ class CronCommand extends CConsoleCommand
                             ;
                             $email->sendMail();
                         }
+                        UserField::model()->updateByPk($transport['id'], array('status' => 0));
                     }
-                }	
+                }
             }
         }
     }
