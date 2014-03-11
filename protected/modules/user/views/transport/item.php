@@ -4,8 +4,8 @@ $minRateValue = null;
 $currency = '€';
 $defaultRate = false;
 $priceStep = Transport::INTER_PRICE_STEP;
-$now = date('Y m d H:i:s', strtotime('now'));
-$end = date('Y m d H:i:s', strtotime($transportInfo['date_from'] . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
+$now = date('m/d/Y H:i:s', strtotime('now'));
+$end = date('m/d/Y H:i:s', strtotime($transportInfo['date_from'] . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
 
 $allPoints = TransportInterPoint::getPoints($transportInfo['id']);
 
@@ -125,11 +125,9 @@ function getTime(){
     return "<?php echo date("Y-m-d H:i:s") ?>";
 }
 
-
 $(document).ready(function(){
     var timer = new Timer();
     timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>);
-    
     rateList.data = {
         currency : ' <?php echo $currency ?>',
         priceStep : <?php echo $priceStep ?>,

@@ -1,8 +1,8 @@
 <?php
     $lastRate = $this->getPrice($data->rate_id);
     $minPriceVal = $this->getMinPrice($data->id);
-    $now = date('Y/m/d H:i:s', strtotime('now'));
-    $end = date('Y/m/d H:i:s', strtotime($data->date_from  . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
+    $now = date('m/d/Y H:i:s', strtotime('now'));
+    $end = date('m/d/Y H:i:s', strtotime($data->date_from  . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
     $action = '/transport/description/id/'. $data->id . '/';
     $status = $data->status;
     $rate = '****';
