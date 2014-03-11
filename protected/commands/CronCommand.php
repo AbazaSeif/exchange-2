@@ -3,16 +3,26 @@ class CronCommand extends CConsoleCommand
 {
     public function run($args)
     {
-        $this->errorDate();
         $this->deadlineTransport();
         $this->beforeDeadlineTransport();
         $this->newTransport();
         $this->mailKillRate();
+        $this->errorDate();
     }
     
     public function errorDate()
     {
+        $timeNow = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['hoursBefore'] . " hours"));
         
+        $transports = Yii::app()->db->createCommand()
+            ->select('id, date_from')
+            ->from('transport')
+            ->where('status = 1 and date_from between "1980-01-01" and "' . $timeNow. '"')
+            ->queryAll()
+        ;
+        foreach($transports as $transport){
+            Transport::model()->updateByPk($transport['id'], array('status' => 0));
+        }
     }
     
     // Search for transport with deadline	
