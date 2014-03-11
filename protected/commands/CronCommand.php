@@ -322,7 +322,7 @@ class CronCommand extends CConsoleCommand
                             ;
                             $email->sendMail();
                         }
-                        UserField::model()->updateByPk($transport['id'], array('status' => 0));
+                        UserEvent::model()->updateByPk($transport['id'], array('status' => 0));
                     }
                 }
             }
