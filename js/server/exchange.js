@@ -114,7 +114,7 @@ io.sockets.on('connection', function (socket) {
             var time = getDateTime();
             if(row.rate_id) { // not null		
                 // check if it's min rate
-                db.each("SELECT min(price) as price FROM rate WHERE transport_id = " + data.transportId + " group by transport_id order by date desc", function(err, min) {
+                db.each("SELECT min(price) as price, user_id FROM rate WHERE transport_id = " + data.transportId + " group by transport_id order by date desc", function(err, min) {
                     if(min.price > data.price) {
                         var stmt = db.prepare("INSERT INTO rate(transport_id, date, price, user_id) VALUES (?, ?, ?, ?)");
                         stmt.run(data.transportId, time, data.price, data.userId);
@@ -133,8 +133,8 @@ io.sockets.on('connection', function (socket) {
                                 });
                             }
 
-                            var stmt = db.prepare("INSERT INTO user_event(user_id, transport_id, status, status_online, type, event_type) VALUES (?, ?, ?, ?, ?, ?)");
-                            stmt.run(user.user_id, data.transportId, 1, 0, 1, 5);
+                            var stmt = db.prepare("INSERT INTO user_event(user_id, transport_id, status, status_online, type, event_type, prev_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                            stmt.run(user.user_id, data.transportId, 1, 0, 1, 5, min.user_id);
                             stmt.finalize();
                         });
                     } else {

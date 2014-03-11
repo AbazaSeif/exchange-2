@@ -6,6 +6,7 @@ class CronCommand extends CConsoleCommand
         $this->deadlineTransport();
         $this->beforeDeadlineTransport();
         $this->newTransport();
+        $this->mailKillRate();
     }
 
     // Search for transport with deadline	
@@ -63,10 +64,10 @@ class CronCommand extends CConsoleCommand
         $time = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['hoursBefore'] . " hours " . Yii::app()->params['minNotify'] . " minutes"));
 
         $transports = Yii::app()->db->createCommand()
-                ->select('id')
-                ->from('transport')
-                ->where('date_to like :time', array(':time' => $time . '%'))
-                ->queryAll()
+            ->select('id')
+            ->from('transport')
+            ->where('date_to like :time', array(':time' => $time . '%'))
+            ->queryAll()
         ;
         $count = count($transports);
 
@@ -275,6 +276,54 @@ class CronCommand extends CConsoleCommand
                 );
 
                 Yii::app()->db->createCommand()->insert('user_event',$obj);
+            }
+        }
+    }
+    
+    public function mailKillRate()
+    {
+        $transportKillRate = Yii::app()->db->createCommand()
+            ->select('transport_id, prev_id')
+            ->from('user_event')
+            ->where('status = :status and event_type = :type', array(':status' => 1, ':type' => 5))
+            ->queryAll()
+        ;
+
+        $count = count($transportKillRate);
+
+        if($count){
+            $users = array();
+            $temp = Yii::app()->db->createCommand()
+                ->select('user_id')
+                ->from('user_field')
+                ->where('mail_kill_rate = :type', array(':type' => true))
+                ->queryAll()
+            ;
+            foreach($temp as $t){
+                $users[] = $t['user_id'];
+            }
+            
+            if(isset($users)){
+                foreach($transportKillRate as $transport) {
+                    if(in_array($transport['prev_id'], $users)){
+                        $transportElement = Transport::model()->findByPk($transport['transport_id']);
+                        $userElement = User::model()->findByPk($transport['prev_id']);
+                        if(isset($userElement->email)){
+                            $email = new TEmail;
+                            $email->from_email = Yii::app()->params['adminEmail'];
+                            $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+                            $email->to_email   = $userElement->email;
+                            $email->to_name    = '';
+                            $email->subject    = 'Перебита ставка';
+                            $email->type = 'text/html';
+                            $email->body = '<h1>Уважаемый(ая) ' . $userElement->name . ' ' . $userElement->surname . ', </h1>' . 
+                                '<div>Ваша ставка для перевозки "'.$transportElement->location_from . ' - ' . $transportElement->location_to.'" была перебита</div>'.
+                                '<hr><h5>Это сообщение является автоматическим, на него не нужно отвечать.</h5>'
+                            ;
+                            $email->sendMail();
+                        }
+                    }
+                }	
             }
         }
     }
