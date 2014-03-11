@@ -34,14 +34,13 @@ io.sockets.on('connection', function (socket) {
             db.each('SELECT id, transport_id, type FROM user_event WHERE status = 1 and status_online = 1 and user_id = ' + id, function(err, event) {
                 db.each('SELECT location_from, location_to FROM transport WHERE id = ' + event.transport_id, function(err, transport) {	              
                     if (id in allSockets) { // user online
-                        var message = 'Перевозка "' + transport.location_from + ' &mdash; ' + transport.location_to + '" была закрыта';
-                        if(event.type == 2) message = 'Перевозка "' + transport.location_from + ' &mdash; ' + transport.location_to + '" будет закрыта через ' + minNotyfy + ' минут';
-                        if(event.type == 3) message = 'Создана новая международная перевозка "' + transport.location_from + ' &mdash; ' + transport.location_to + '"';
-                        if(event.type == 4) message = 'Создана новая региональная перевозка "' + transport.location_from + ' &mdash; ' + transport.location_to + '"';
-
+                        var message = 'Перевозка "<a href="http://exchange.lbr.ru/transport/description/id/' + event.transport_id + '">' + transport.location_from + ' &mdash; ' + transport.location_to + '</a>" была закрыта';
+                        if(event.type == 2) message = 'Перевозка "<a href="http://exchange.lbr.ru/transport/description/id/' + event.transport_id + '">' + transport.location_from + ' &mdash; ' + transport.location_to + '</a>" будет закрыта через ' + minNotyfy + ' минут';
+                        if(event.type == 3) message = 'Создана новая международная перевозка "<a href="http://exchange.lbr.ru/transport/description/id/' + event.transport_id + '">' + transport.location_from + ' &mdash; ' + transport.location_to + '</a>"';
+                        if(event.type == 4) message = 'Создана новая региональная перевозка "<a href="http://exchange.lbr.ru/transport/description/id/' + event.transport_id + '">' + transport.location_from + ' &mdash; ' + transport.location_to + '</a>"';
+                        
                         io.sockets.socket(socket.id).emit('onlineEvent', {
-                            msg : message,
-                            id  : event.transport_id
+                            msg : message
                         });
                     }
 					
@@ -62,16 +61,14 @@ io.sockets.on('connection', function (socket) {
                     count : rows
                 });
             });
-			updateEventsCount(id)
-        }, 2000);
+	    updateEventsCount(id)
+        }, 200);
     }
     
     /* ----- Rates ----- */
 	
 	function getDateTime() 
 	{
-	    //process.env.TZ = 'Moscow';
-		
 		var date = new Date();
 		var hour = date.getHours();
 		hour = (hour < 10 ? "0" : "") + hour;
@@ -91,7 +88,7 @@ io.sockets.on('connection', function (socket) {
     /* Load all rates when open transport page in the first time  */
     socket.on('loadRates', function (id, t_id) {
         db.serialize(function() {
-            db.each("SELECT user_id, price, date FROM rate WHERE transport_id = " + t_id + " order by date asc, price desc", function(err, row) {
+            db.each("SELECT user_id, price, date FROM rate WHERE transport_id = " + t_id + " order by date", function(err, row) {
                 arr[i] = new Array (row.user_id, row.price, row.date);
 		        i++;
             }, function(err, rows) {	
@@ -117,7 +114,7 @@ io.sockets.on('connection', function (socket) {
                 db.each("SELECT user_id FROM rate WHERE id = " + row.rate_id, function(err, user) {
                     if (user.user_id in allSockets) { // user online
                         io.sockets.socket(allSockets[user.user_id]).emit('onlineEvent', {
-                            msg : 'Вашу ставку для перевозки "' + row.location_from + ' &mdash; ' + row.location_to + '" перебили'
+                            msg : 'Вашу ставку для перевозки ' + '"<a href="http://exchange.lbr.ru/transport/description/id/' + data.transportId + '">' + row.location_from + ' &mdash; ' + row.location_to + '</a>" перебили'
                         });
                     } 
 
