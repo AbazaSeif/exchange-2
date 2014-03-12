@@ -95,7 +95,7 @@ class SiteController extends Controller
             
             if($user) {
                 if($user->email) {
-                    $password = 333333; //$this->randomPassword();
+                    $password = $this->randomPassword();
                     $user->password = crypt($password, User::model()->blowfishSalt());
                     if($user->save()) {
                         // send mail to ferryman with new password
