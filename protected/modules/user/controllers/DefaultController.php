@@ -63,13 +63,13 @@ class DefaultController extends Controller
         
         if(isset($_POST['MailForm'])) {
             $user = User::model()->findByPk($userId);
-            if ($user->email == trim($_POST['MailForm']['email'])) {
+            if ($user->password === crypt(trim($_POST['MailForm']['password']), $user->password)) {
                 $user->email = trim($_POST['MailForm']['new_email']);
                 if($user->save() && $model->validate()) {
                     Dialog::message('flash-success', 'Внимание!', 'Ваш email изменен');
                 }
             } else {
-                Dialog::message('flash-success', 'Внимание!', 'Вы ввели неверный email');
+                Dialog::message('flash-success', 'Внимание!', 'Вы ввели неверный пароль');
             }
         }
         
