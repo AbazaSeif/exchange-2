@@ -113,7 +113,7 @@ if($inputSize < 5 ) $inputSize = 5;
             <?php endif; ?>
         </div>
     </div>
-<?php if(Yii::app()->user->isTransport): ?>
+<?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
         <?php echo CHtml::link('Связаться с модератором', '#', array(
                 'id' => 'dialog-connect',
                 'title'=>'Связаться с модератором',
@@ -215,7 +215,7 @@ $(document).ready(function(){
     
 });
 </script>
-<?php if (Yii::app()->user->isTransport):?>
+<?php if (!Yii::app()->user->isGuest && Yii::app()->user->isTransport):?>
 <div>
     <?php
     $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
