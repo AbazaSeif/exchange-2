@@ -12,12 +12,6 @@ class MailCommand extends CConsoleCommand
             ->from('user')
             ->queryAll()
         ;
-        
-        $contactUsers = Yii::app()->db->createCommand()
-            ->select('id')
-            ->from('user_contact')
-            ->queryAll()
-        ;
 
         if(!empty($users)) {
             foreach($users as $user) {
@@ -25,11 +19,19 @@ class MailCommand extends CConsoleCommand
             }
         }
         
+        /*
+        $contactUsers = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('user_contact')
+            ->queryAll()
+        ;
+        
         if(!empty($contactUsers)) {
             foreach($contactUsers as $contact) {
                $this->sendMail($contact['id'], 'user_contact');
             }
         }
+        */
     }
 
     public function sendMail($userId, $table)
@@ -40,8 +42,13 @@ class MailCommand extends CConsoleCommand
             ->where('id = :id', array(':id' => $userId))
             ->queryRow()
         ;
-        
+
         if(isset($user['email'])) {
+            $password = $this->randomPassword();
+            $curUser = User::model()->findByPK($userId);
+            $curUser->password = crypt($password, User::model()->blowfishSalt());
+            $curUser->save();
+            
             $email = new TEmail;
             $email->from_email = Yii::app()->params['adminEmail'];
             $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
@@ -51,9 +58,23 @@ class MailCommand extends CConsoleCommand
             $email->type = 'text/html';
             $email->body = "<h1>Уважаемый(ая) " . $user['name'] . ' ' . $user['secondname'] . ", </h1>" . 
                 "Приглашаем Вас воспользоваться биржей перевозок <a href='http://exchange.lbr.ru'>ЛБР АгроМаркет по ссылке</a>" .
+                "Ваш логин: " . $user['email'] . "<br>" .
+                "Ваш пароль: " . $password . "<br>" .
+                "Изменить пароль Вы можете зайдя в кабинет пользователя с помощью указанных логина и пароля. " . 
                 "<hr><h5>Это сообщение является автоматическим, на него не следует отвечать</h5>"
             ;
             $email->sendMail();
         }
+    }
+    
+    public function randomPassword() {
+        $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < 16; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        return implode($pass); //turn the array into a string
     }
 }

@@ -550,7 +550,7 @@ div.row{
 {
     text-align: center;
     font-size: 14px;
-    width: 95%; 
+    width: 95%;
 }
 .transports .items .transport .t-timer .t-year,
 .transports .items .transport .t-timer .t-month,
@@ -1033,6 +1033,10 @@ input.r-submit{
     -moz-opacity: 0.4; /* Mozilla 1.6 и ниже */
     -khtml-opacity: 0.4; /* Konqueror 3.1, Safari 1.1 */
     opacity: 0.4; /* CSS3 - Mozilla 1.7b +, Firefox 0.9 +, Safari 1.2+, Opera 9+ */
+}
+
+.hide{
+    display: none;
 }
 
 .transport-one + div{
