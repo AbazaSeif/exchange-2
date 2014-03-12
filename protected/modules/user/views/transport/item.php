@@ -113,7 +113,7 @@ if($inputSize < 5 ) $inputSize = 5;
             <?php endif; ?>
         </div>
     </div>
-<?php if(!Yii::app()->user->isGuest && !Yii::app()->user->isRoot): ?>
+<?php if(Yii::app()->user->isTransport): ?>
         <?php echo CHtml::link('Связаться с модератором', '#', array(
                 'id' => 'dialog-connect',
                 'title'=>'Связаться с модератором',
@@ -141,8 +141,8 @@ $(document).ready(function(){
     <?php if (!Yii::app()->user->isGuest): ?>
         <?php if(Yii::app()->user->isTransport): ?>
 
-        //var socket = io.connect('http://exchange.lbr.ru:3000/');
-        var socket = io.connect('http://localhost:3000/');
+        var socket = io.connect('http://exchange.lbr.ru:3000/');
+        //var socket = io.connect('http://localhost:3000/');
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>);
         
 
@@ -215,7 +215,7 @@ $(document).ready(function(){
     
 });
 </script>
-<?php if (!Yii::app()->user->isGuest && !Yii::app()->user->isRoot):?>
+<?php if (Yii::app()->user->isTransport):?>
 <div>
     <?php
     $this->beginWidget('zii.widgets.jui.CJuiDialog', array(

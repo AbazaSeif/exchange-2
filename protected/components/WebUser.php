@@ -6,13 +6,17 @@ class WebUser extends CWebUser
     
     // Автоматический вход на сайт
     public $allowAutoLogin = true;
-    public $level = 0;
 
     public function getIsTransport()
     {
-        return $this->transport=='1';
+        return $this->transport=='1' || $this->transport=='2';
     }
 
+    public function getIsContactUser()
+    {
+        return $this->transport=='2';
+    }
+    
     // Проверка на суперпользователя(root)
     public function getIsRoot()
     {

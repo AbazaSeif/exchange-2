@@ -111,8 +111,8 @@ return array(
     // using Yii::app()->params['paramName']
     'params' => array(
         // this is used in contact page
-        'host'=>'lbr.test',
-        //'host'=>'lbr.ru',
+        //'host'=>'lbr.test',
+        'host'=>'lbr.ru',
         'meta_title' => 'Биржа перевозок',
         'meta_description' => 'перевозки, биржа перевозок, биржа ЛБР',
         'menu_admin' => array(
@@ -123,8 +123,8 @@ return array(
             'Перевозки' => '/admin/transport/',
             'История редактирования' => '/admin/changes/',
         ),
-        'adminEmail'  => 'tttanyattt@mail.ru',
-        'logistEmail' => 'tttanyattt@mail.ru',
+        'adminEmail'  => 'nazarova@lbr.ru',
+        'logistEmail' => 'nazarova@lbr.ru',
         'minNotyfy' => 30,
         'hoursBefore' => 24,
         'ferrymanGroup' => 4,
