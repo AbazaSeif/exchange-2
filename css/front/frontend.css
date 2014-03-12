@@ -493,6 +493,7 @@ div.row{
     margin-left: 20%;
     text-align: center;
     width: 15%;
+    color: white;
 }
 .transports .sorter ul li:last-child
 {
