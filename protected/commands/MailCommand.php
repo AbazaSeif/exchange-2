@@ -57,7 +57,7 @@ class MailCommand extends CConsoleCommand
             $email->subject    = "Приглашение";
             $email->type = 'text/html';
             $email->body = "<h1>Уважаемый(ая) " . $user['name'] . ' ' . $user['secondname'] . ", </h1>" . 
-                "Приглашаем Вас воспользоваться биржей перевозок <a href='http://exchange.lbr.ru'>ЛБР АгроМаркет по ссылке</a>" .
+                "Приглашаем Вас воспользоваться биржей перевозок <a href='http://exchange.lbr.ru'>ЛБР АгроМаркет</a>" . "<br>" .
                 "Ваш логин: " . $user['email'] . "<br>" .
                 "Ваш пароль: " . $password . "<br>" .
                 "Изменить пароль Вы можете зайдя в кабинет пользователя с помощью указанных логина и пароля. " . 
