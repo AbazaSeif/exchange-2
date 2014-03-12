@@ -62,11 +62,31 @@ class DefaultController extends Controller
         }
         
         if(isset($_POST['MailForm'])) {
-            $user = User::model()->findByPk($userId);
+            if(Yii::app()->user->isContactUser) $user = UserContact::model()->findByPk($userId);
+            else $user = User::model()->findByPk($userId);
+            
             if ($user->password === crypt(trim($_POST['MailForm']['password']), $user->password)) {
-                $user->email = trim($_POST['MailForm']['new_email']);
-                if($user->save() && $model->validate()) {
-                    Dialog::message('flash-success', 'Внимание!', 'Ваш email изменен');
+                $exists = User::model()->find(array(
+                    'select'=>'email',
+                    'condition'=>'email=:email',
+                    'params'=>array(':email'=>$_POST['MailForm']['new_email']))
+                );
+                
+                if(empty($exists)) { 
+                    $exists = UserContact::model()->find(array(
+                        'select'=>'email',
+                        'condition'=>'email=:email',
+                        'params'=>array(':email'=>$_POST['MailForm']['new_email']))
+                    );
+                }
+                
+                if(empty($exists)) { 
+                    $user->email = trim($_POST['MailForm']['new_email']);
+                    if($user->save() && $model->validate()) {
+                        Dialog::message('flash-success', 'Внимание!', 'Ваш email изменен');
+                    }
+                } else {
+                    Dialog::message('flash-success', 'Внимание!', 'Такой email уже используется');
                 }
             } else {
                 Dialog::message('flash-success', 'Внимание!', 'Вы ввели неверный пароль');
