@@ -90,7 +90,7 @@ $inputSize = strlen((string)$lastRate)-1;
         <div id="rates"></div>
 <?php endif; ?>
 <div>
-    <?php if (!Yii::app()->user->isGuest && !Yii::app()->user->isRoot):
+    <?php if (!Yii::app()->user->isTransport):
         echo CHtml::link('Связаться с модератором', '#', array(
             'id' => 'dialog-connect',
             'title'=>'Связаться с модератором',

@@ -11,18 +11,28 @@ class UserIdentity extends CUserIdentity
 
     public function authenticate()
     {
-        $record = User::model()->findByAttributes(array('login'=>$this->username));
-        $statusUser = 1;
-        if(!$record){
-            $record = AuthUser::model()->findByAttributes(array('login'=>$this->username));
-            $statusUser = 0;
+        $status = 1;
+        if(is_numeric($this->username)){
+           $record = User::model()->findByAttributes(array('inn'=>$this->username));
+        }else{
+            $record = User::model()->findByAttributes(array('email'=>$this->username));
+            if(!$record){
+                $record = UserContact::model()->findByAttributes(array('email'=>$this->username));
+                $status = 2;
+                if(!$record){
+                    $record = AuthUser::model()->findByAttributes(array('login'=>$this->username));
+                    $status = 0;
+                }
+            }
         }
+        
+        
         $this->errorCode = $this->getError($record);
 
         if($this->errorCode==self::ERROR_NONE) {
             $this->setState('_id', $record->id);
-            $this->setState('transport', $statusUser);
-            if($statusUser=='0'){
+            $this->setState('transport', $status);
+            if($status=='0'){
                 $this->setState('_id', $record->g_id);
                 $this->setState('level', AuthGroup::model()->findByPk($record->g_id)->level);
             }

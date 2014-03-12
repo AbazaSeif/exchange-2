@@ -554,17 +554,17 @@ div.row{
 .transports .items .transport .t-timer .t-month,
 .transports .items .transport .t-timer .t-days
 {
-    font-size: 11px;
+    font-size: 12px;
 }
 .transports .items .transport .t-timer .t-year strong,
 .transports .items .transport .t-timer .t-month strong,
 .transports .items .transport .t-timer .t-days strong
 {
-    font-size: 13px;
+    font-size: 15px;
 }
 .transports .items .transport .t-timer .t-time
 {
-    font-size: 23px;
+    font-size: 24px;
 }
 .transports .items .transport .t-timer .t-closed, .rate
 {
@@ -832,9 +832,9 @@ div.row{
 }
 #t-container:before
 {
-    content: 'Осталось до закрытия: ';
+    content: 'До закрытия заявки осталось: ';
     display: block;
-    font-size: 14px;
+    font-size: 12px;
     
 }
 .shadow{
