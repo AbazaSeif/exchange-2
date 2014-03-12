@@ -34,6 +34,7 @@ var rateList = {
             });*/
 
             $( "#rate-up" ).on('click', function() {
+                if($('#rate-down').hasClass('disabled'))$('#rate-down').removeClass('disabled');
                 var newRate = parseInt(element.val()) + rateList.data.priceStep;// + rateList.data.priceStep * rateList.data.nds;
                 element.val(newRate);
             });
@@ -117,6 +118,8 @@ var rateList = {
                         else $(this).val(inputVal - residue + kratnoe);
                         inputVal = parseInt($(this).val());
                     }
+                    
+                    if((parseInt($(this).val()) - kratnoe) <= 0) $('#rate-down').addClass('disabled');
 
                     /* if(inputVal - kratnoe < kratnoe){
                         $('#rate-down').addClass('disabled');

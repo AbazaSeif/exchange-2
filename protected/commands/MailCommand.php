@@ -12,12 +12,6 @@ class MailCommand extends CConsoleCommand
             ->from('user')
             ->queryAll()
         ;
-        
-        $contactUsers = Yii::app()->db->createCommand()
-            ->select('id')
-            ->from('user_contact')
-            ->queryAll()
-        ;
 
         if(!empty($users)) {
             foreach($users as $user) {
@@ -25,11 +19,19 @@ class MailCommand extends CConsoleCommand
             }
         }
         
+        /*
+        $contactUsers = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('user_contact')
+            ->queryAll()
+        ;
+        
         if(!empty($contactUsers)) {
             foreach($contactUsers as $contact) {
                $this->sendMail($contact['id'], 'user_contact');
             }
         }
+        */
     }
 
     public function sendMail($userId, $table)

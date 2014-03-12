@@ -78,14 +78,14 @@ if($inputSize < 5 ) $inputSize = 5;
 
                     <div class="rate-wrapper width-60">
                         <div class="r-block">
-                            <div class="rate-btns-wrapper <?php echo (($now > $end) || $transportInfo['status'])? 'hide': '' ?>">
+                            <div class="rate-btns-wrapper <?php echo (($now > $end) || !$transportInfo['status'])? 'hide': '' ?>">
                                 <div id="rate-up"></div>
                                 <div id="rate-down" class="<?php echo ($minRate)?'disabled':''?>"></div>
                             </div>
                             <span class="text"><?php echo $currency ?></span>
-                            <input id="rate-price" value="<?php echo $minRateValue ?>" init="<?php echo $minRateValue?>" type="text" size="<?php echo $inputSize ?>" <?php echo (($now > $end) || $transportInfo['status'])? 'disabled="hide"': '' ?>/>
+                            <input id="rate-price" value="<?php echo $minRateValue ?>" init="<?php echo $minRateValue?>" type="text" size="<?php echo $inputSize ?>" <?php echo (($now > $end) || !$transportInfo['status'])? 'disabled="hide"': '' ?>/>
                         </div>
-                        <div class="r-submit <?php echo (($now > $end) || $transportInfo['status'])? 'hide': '' ?>"><span>Сделать ставку</span></div>
+                        <div class="r-submit <?php echo (($now > $end) || !$transportInfo['status'])? 'hide': '' ?>"><span>Сделать ставку</span></div>
                     </div>
                 </div>
                 <?php //endif; ?>
