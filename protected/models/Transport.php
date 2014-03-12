@@ -112,7 +112,7 @@ class Transport extends CActiveRecord
                 'location_to' => 'Место разгрузки',
                 'auto_info' => 'Транспорт',
                 'description' => 'Описание',
-                'date_from' => 'Дата загрузки',
+                'date_from' => 'Время до закрытия заявки',
                 'date_to' => 'Дата разгрузки',
                 'date_published' => 'Дата публикации',
                 'currency' => 'Валюта',
