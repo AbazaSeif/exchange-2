@@ -141,14 +141,9 @@ io.sockets.on('connection', function (socket) {
                         var stmt = db.prepare("INSERT INTO rate(transport_id, date, price, user_id) VALUES (?, ?, ?, ?)");
                         stmt.run(data.transportId, time, data.price, data.userId);
                         stmt.finalize();
-
-                        db.each("SELECT id FROM rate WHERE transport_id = " + data.transportId + " and price = " + data.price + " and user_id = " + data.userId, function(err, row) {
-                            var stmt = "UPDATE transport SET rate_id = " + row.id + " WHERE id = " + data.transportId;
-                            db.run(stmt);
-                        });
                     }
                 });
-            } else {
+            } else { //first rate
                 var stmt = db.prepare("INSERT INTO rate(transport_id, date, price, user_id) VALUES (?, ?, ?, ?)");
                 stmt.run(data.transportId, time, data.price, data.userId);
                 stmt.finalize();

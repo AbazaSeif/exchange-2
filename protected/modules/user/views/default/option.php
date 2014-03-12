@@ -106,5 +106,46 @@
     <?php $this->endWidget();?> 
 </div>
 
+<div class="form">
+<?php $form = $this->beginWidget('CActiveForm', array('id'=>'mail',
+    'action'=>'/user/option/',
+    'enableClientValidation'=>true,
+    'clientOptions'=>array(
+        'validateOnSubmit'=>true,
+        'afterValidate'=>'js:function( form, data, hasError ) {     
+                if( hasError ){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }'
+    ),));
+?>
+        <div>
+            <div class="title"><img src="/images/pass.png"><span>Сменить email</span></div>
+            <div class="row">
+            <?php  
+                echo $form->error($mail, 'email'); 
+                echo $form->labelEx($mail, 'email');
+                echo $form->textField($mail, 'email', array('value' => ''));
+            ?>
+            </div>
+            <div class="row">
+            <?php
+                echo $form->error($mail, 'new_email'); 
+                echo $form->labelEx($mail, 'new_email');
+                echo $form->textField($mail, 'new_email', array('value' => ''));
+            ?>    
+            </div>            
+        </div>
+	<div class="row submit">
+	<?php 
+	    echo CHtml::submitButton('Подтвердить', array('class' => 'r-submit')); 
+	?>
+	</div>
+    <?php $this->endWidget();?> 
+</div>
+
 
 

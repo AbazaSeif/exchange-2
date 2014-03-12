@@ -43,6 +43,7 @@ class DefaultController extends Controller
         $userId = Yii::app()->user->_id;
         $model = UserField::model()->find('user_id = :id', array('id' => $userId));
         $pass = new PasswordForm();
+        $mail = new MailForm();
         if(isset($_POST['UserField'])) {
             $model->attributes = $_POST['UserField'];
             $model->save();
@@ -59,7 +60,20 @@ class DefaultController extends Controller
                 Dialog::message('flash-success', 'Внимание!', 'Вы ввели неверный пароль');
             }
         }
-        $this->render('option', array('model' => $model, 'pass' => $pass), false, true);
+        
+        if(isset($_POST['MailForm'])) {
+            $user = User::model()->findByPk($userId);
+            if ($user->email == trim($_POST['MailForm']['email'])) {
+                $user->email = trim($_POST['MailForm']['new_email']);
+                if($user->save() && $model->validate()) {
+                    Dialog::message('flash-success', 'Внимание!', 'Ваш email изменен');
+                }
+            } else {
+                Dialog::message('flash-success', 'Внимание!', 'Вы ввели неверный email');
+            }
+        }
+        
+        $this->render('option', array('model' => $model, 'pass' => $pass, 'mail' => $mail), false, true);
     }
     
     /* Show all events */

@@ -29,13 +29,13 @@
         if (obj.className) event.addClass(obj.className); 
         event.html(obj.msg);
         
-        var exit = $('<div class="event-exit"></div>'); 
+       /* var exit = $('<div class="event-exit"></div>'); 
         event.prepend(exit);
         exit.click(function(){
             event.fadeOut(obj.speed,function(){
                 $(this).remove();
             });
-        });
+        });*/
         setTimeout(function(){ 
             event.fadeOut(obj.speed,function(){ 
                 $(this).remove();

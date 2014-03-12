@@ -120,7 +120,7 @@ nav, menu, p, section,
 {
     padding: 20px 35px 0;
 }
-#login-form .row, #registration-form .row, #password .row
+#login-form .row, #registration-form .row, #password .row, #mail .row
 {
     position: relative;
     margin-bottom: 10px;
@@ -210,12 +210,12 @@ nav, menu, p, section,
 {
     color: #FF4040;
 }
-#login-form .row .errorMessage, #registration-form .row .errorMessage, #password  .row .errorMessage
+#login-form .row .errorMessage, #registration-form .row .errorMessage, #password  .row .errorMessage, #mail  .row .errorMessage
 {
     margin-top: 5px;
     color: #FF4040;
 }
-#login-form .row.error .errorMessage, #password .row.error .errorMessage
+#login-form .row.error .errorMessage, #mail .row.error .errorMessage
 {
     position: absolute;
     width: 70%;
@@ -229,7 +229,7 @@ nav, menu, p, section,
     z-index: 10;
 }
 
-#registration-form .row.error .errorMessage, #password .row.error .errorMessage
+#registration-form .row.error .errorMessage, #password .row.error .errorMessage, #mail .row.error .errorMessage
 {
     position: absolute;
     width: 70%;
@@ -243,7 +243,7 @@ nav, menu, p, section,
     z-index: 10;
 }
 
-#password .row.error .errorMessage {
+#password .row.error .errorMessage, #mail .row.error .errorMessage {
     padding: 0.5% 2%;
 }
 
@@ -252,13 +252,14 @@ nav, menu, p, section,
     left: 75%;
     width: 25%;
 }
-#password .row.error .errorMessage
+
+#password .row.error .errorMessage, #mail .row.error .errorMessage
 {
     left: 32%;
     width: 25%;
 }
 
-#login-form .row.error .errorMessage:after, #registration-form .row.error .errorMessage:after, #password .row.error .errorMessage:after
+#login-form .row.error .errorMessage:after, #registration-form .row.error .errorMessage:after, #password .row.error .errorMessage:after, #mail .row.error .errorMessage:after
 {
     content: '';
     display: block;
@@ -382,19 +383,19 @@ div.row{
     margin-top: 5px;
 }
 
-#options div.row, #password div.row{
+#options div.row, #password div.row, #mail div.row{
     margin-left: 17px;
 }
 
-#options div.title, #password div.title{
+#options div.title, #password div.title, #mail div.title{
     margin: 10px 0;
     font-size: 20px;
     color: #EF801B;
 }
-#options div.title span, #password  div.title span{
+#options div.title span, #password  div.title span, #mail  div.title span{
     margin-left: 5px;
 }
-#password .row.password label{
+#password .row.password label, #mail .row label{
     min-width: 17%;
     float:left;
     display: block;
@@ -932,7 +933,8 @@ div.row{
 
 input.r-submit{
     margin-top: 10px;
-    width: 100px;
+   /* width: 100px;*/
+    padding: 3px 10px;
 }
 
 #rate-up{
@@ -1080,7 +1082,7 @@ input.r-submit{
 .header:after, .wrapper:after, footer:after, #login-form:after,
 .user-info:after, .transports .sorter ul:after,
 .transports .items .transport:after, .transport-one:after,
-.width-100:after, .header .menu:after, #options .row.submit:after
+.width-100:after, .header .menu:after, #options .row.submit:after, #password .row.submit:after
 {
     content: '';
     display: block;
