@@ -73,22 +73,22 @@ if($inputSize < 5 ) $inputSize = 5;
             <div class="width-50 timer-wrapper">
                 <div class="width-100">
                     <div id="t-container" class="width-40"></div>
-                    <?php if($transportInfo['status']): ?>
+                    <?php //if($transportInfo['status']): ?>
                     <div id="t-error"></div>
 
                     <div class="rate-wrapper width-60">
                         <div class="r-block">
-                            <div class="rate-btns-wrapper">
+                            <div class="rate-btns-wrapper <?php echo (($now > $end) || $transportInfo['status'])? 'hide': '' ?>">
                                 <div id="rate-up"></div>
                                 <div id="rate-down" class="<?php echo ($minRate)?'disabled':''?>"></div>
                             </div>
                             <span class="text"><?php echo $currency ?></span>
-                            <input id="rate-price" value="<?php echo $minRateValue ?>" init="<?php echo $minRateValue?>" type="text" size="<?php echo $inputSize ?>"/>
+                            <input id="rate-price" value="<?php echo $minRateValue ?>" init="<?php echo $minRateValue?>" type="text" size="<?php echo $inputSize ?>" <?php echo (($now > $end) || $transportInfo['status'])? 'disabled="hide"': '' ?>/>
                         </div>
-                        <div class="r-submit"><span>Сделать ставку</span></div>
+                        <div class="r-submit <?php echo (($now > $end) || $transportInfo['status'])? 'hide': '' ?>"><span>Сделать ставку</span></div>
                     </div>
                 </div>
-                <?php endif; ?>
+                <?php //endif; ?>
             
             <?php if (!Yii::app()->user->isGuest): ?>
                     <label class="r-header">Текущие ставки</label>

@@ -70,7 +70,7 @@ class CronCommand extends CConsoleCommand
                 $transportIds .= $transport['id'];
             }
 
-            Transport::model()->updateAll(array('status' => 0), 'id in (' . $transportIds . ')');			
+            Transport::model()->updateAll(array('status' => 0), 'id in (' . $transportIds . ')');		
         }
     }
 

@@ -1034,6 +1034,10 @@ input.r-submit{
     opacity: 0.4; /* CSS3 - Mozilla 1.7b +, Firefox 0.9 +, Safari 1.2+, Opera 9+ */
 }
 
+.hide{
+    display: none;
+}
+
 .transport-one + div{
     margin-top: 10px;
     margin-bottom: 20px;
