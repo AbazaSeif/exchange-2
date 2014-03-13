@@ -41,6 +41,7 @@
                 </a>
             </div>
             <div class="center">
+                <noscript><p class="no-script">К сожалению Вы не сможете воспользоваться биржой, т.к. Ваш браузер не поддерживает JavaScript! </p></noscript> 
                 <span>Онлайн биржа перевозок</span>
             </div>
             <ul class="menu">

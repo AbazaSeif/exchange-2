@@ -1208,4 +1208,9 @@ input.r-submit{
     width: 80%;
 }
 */
-
+.no-script
+{
+    color: red;
+    position: absolute;
+    top: 10px;
+}
