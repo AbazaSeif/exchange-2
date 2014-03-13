@@ -269,7 +269,8 @@ var rateList = {
                 "<div class='r-o-user'>" + company;
         
         // Если контактное лицо
-        /*if(name || surname) {
+        /*
+        if(name || surname) {
             newElement += ' (';
             if(name) newElement += name;
             if(surname) newElement += ' ' + surname;

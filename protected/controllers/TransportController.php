@@ -84,7 +84,7 @@ class TransportController extends Controller
         }
         
         $data = Yii::app()->db->createCommand()
-            ->select('r.*, u.name, u.surname')
+            ->select('r.*, u.company, u.name, u.surname')
             ->from('rate r')
             ->join('user u', 'r.user_id=u.id')
             ->where('r.transport_id=:id', array(':id'=>$id))
