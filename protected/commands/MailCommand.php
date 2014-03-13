@@ -47,23 +47,23 @@ class MailCommand extends CConsoleCommand
             $password = $this->randomPassword();
             $curUser = User::model()->findByPK($userId);
             $curUser->password = crypt($password, User::model()->blowfishSalt());
-            $curUser->save();
-            
-            $email = new TEmail;
-            $email->from_email = Yii::app()->params['adminEmail'];
-            $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-            $email->to_email   = $user['email'];
-            $email->to_name    = '';
-            $email->subject    = "Приглашение";
-            $email->type = 'text/html';
-            $email->body = "<h1>Уважаемый(ая) " . $user['name'] . ' ' . $user['secondname'] . ", </h1>" . 
-                "Приглашаем Вас воспользоваться биржей перевозок <a href='http://exchange.lbr.ru'>ЛБР АгроМаркет</a>" . "<br>" .
-                "Ваш логин: " . $user['email'] . "<br>" .
-                "Ваш пароль: " . $password . "<br>" .
-                "Изменить пароль Вы можете зайдя в кабинет пользователя с помощью указанных логина и пароля. " . 
-                "<hr><h5>Это сообщение является автоматическим, на него не следует отвечать</h5>"
-            ;
-            $email->sendMail();
+            if($curUser->save()) {
+                $email = new TEmail;
+                $email->from_email = Yii::app()->params['adminEmail'];
+                $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+                $email->to_email   = $user['email'];
+                $email->to_name    = '';
+                $email->subject    = "Приглашение";
+                $email->type = 'text/html';
+                $email->body = "<h1>Уважаемый(ая) " . $user['name'] . ' ' . $user['secondname'] . ", </h1>" . 
+                    "Приглашаем Вас воспользоваться биржей перевозок <a href='http://exchange.lbr.ru'>ЛБР АгроМаркет</a>" . "<br>" .
+                    "Ваш логин: " . $user['email'] . "<br>" .
+                    "Ваш пароль: " . $password . "<br>" .
+                    "Изменить пароль Вы можете зайдя в кабинет пользователя с помощью указанных логина и пароля. " . 
+                    "<hr><h5>Это сообщение является автоматическим, на него не следует отвечать</h5>"
+                ;
+                $email->sendMail();
+            }
         }
     }
     

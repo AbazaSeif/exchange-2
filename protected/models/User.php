@@ -64,11 +64,12 @@ class User extends CActiveRecord
                 //array('inn', 'unique', 'attributeName'=>'inn', 'className'=>'User', 'allowEmpty'=>false, 'skipOnError'=>true),
             
                 array('inn, status, phone', 'numerical', 'integerOnly'=>true),
-                array('company, country, region, district, inn, name, secondname, surname, phone, email', 'required'),
+                //array('company, country, region, district, inn, name, secondname, surname, phone, email', 'required'),
+                //array('company, country, region, district, inn, name, secondname, surname, phone, email', 'required'),
                 //array('login', 'length', 'max'=>64),
                 array('name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),
                 array('email', 'email', 'message'=>'Неправильный Email адрес'),
-                array('inn', 'length', 'max'=>12, 
+                array('inn', 'length', 'max'=>12,
                     //'tooShort'=>Yii::t("translation", "{attribute} должен содержать 12 символов."),
                     'tooLong'=>Yii::t("translation", "{attribute} должен содержать максимум 12 символов.")
                 ),
