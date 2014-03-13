@@ -15,7 +15,8 @@ class MailCommand extends CConsoleCommand
 
         if(!empty($users)) {
             foreach($users as $user) {
-               $this->sendMail($user['id'], 'user');
+               //$this->sendMailPassword($user['id'], 'user');
+               $this->sendMailOpology($user['id'], 'user');
             }
         }
         
@@ -34,7 +35,7 @@ class MailCommand extends CConsoleCommand
         */
     }
 
-    public function sendMail($userId, $table)
+    public function sendMailPassword($userId, $table)
     {
         $user = Yii::app()->db->createCommand()
             ->select('name, secondname, email')
@@ -65,6 +66,29 @@ class MailCommand extends CConsoleCommand
                 $email->sendMail();
             }
         }
+    }
+    
+    public function sendMailOpology($userId, $table) {
+        $user = Yii::app()->db->createCommand()
+            ->select('name, secondname, email')
+            ->from($table)
+            ->where('id = :id', array(':id' => $userId))
+            ->queryRow()
+        ;
+        
+        $email = new TEmail;
+        $email->from_email = Yii::app()->params['adminEmail'];
+        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+        $email->to_email   = $user['email'];
+        $email->to_name    = '';
+        $email->subject    = "Приглашение";
+        $email->type = 'text/html';
+        $email->body = "<h1>Уважаемый(ая) " . $user['name'] . ' ' . $user['secondname'] . ", </h1>" . 
+            
+            "Изменить пароль Вы можете зайдя в кабинет пользователя с помощью указанных логина и пароля. " . 
+            "<hr><h5>Это сообщение является автоматическим, на него не следует отвечать</h5>"
+        ;
+        $email->sendMail();
     }
     
     public function randomPassword() {

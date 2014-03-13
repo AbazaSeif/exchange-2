@@ -21,6 +21,36 @@ class SiteController extends Controller
         $this->render('item', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
     }
     
+    public function actionFields()
+    {
+        $users = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('user')
+            ->queryAll()
+        ;
+
+        if(!empty($users)) {
+            foreach($users as $user) {
+                $record = UserField::model()->find(array(
+                    'select'=>'id',
+                    'condition'=>'user_id=:id',
+                    'params'=>array(':id'=>$user['id']))
+                );
+                if(empty($record)){
+                    $newFerrymanFields = new UserField;
+                    $newFerrymanFields->user_id = $user['id'];
+                    $newFerrymanFields->mail_transport_create_1 = false;
+                    $newFerrymanFields->mail_transport_create_2 = false;
+                    $newFerrymanFields->mail_kill_rate = false;
+                    $newFerrymanFields->mail_before_deadline = false;
+                    $newFerrymanFields->mail_deadline = true;
+                    $newFerrymanFields->with_nds = false;            
+                    $newFerrymanFields->save(); 
+                }
+            }
+        }
+    }
+    
     public function actionFeedback()
     {
         $this->render('feedback');

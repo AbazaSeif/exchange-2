@@ -30,7 +30,6 @@ class DefaultController extends Controller
         $this->render('login',array('model'=>$model));
     }
     
-        
     public function actionLogout()
     {
         Yii::app()->user->logout();
