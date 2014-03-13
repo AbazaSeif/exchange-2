@@ -95,15 +95,17 @@ class TransportController extends Controller
                 foreach($_POST['Transport'] as $key=>$value) {
                     if($key == 'description') {
                         $value = $this->formatDescription($value);
-                    } /*else if($key == 'date_from' || $key == 'date_to') {
-                         $value = $value . ' 08:00:00';
-                    }*/
+                    } else if($key == 'date_from' || $key == 'date_to') {
+                        $value = date('Y-m-d H:i:s', strtotime($value));
+                        //$value = date('Y-m-d H:i:s', strtotime($value . ' 08:00:00');
+                    }
+                    
                     if(trim($model->$key) != trim($value)){
                         $changes[$key]['before'] = $model[$key];
                         $changes[$key]['after'] = $value;
                         if($key == 'date_from' || $key == 'date_to') {
-                            $model->$key = date('Y-m-d H:i:s', strtotime($value));
-                        } else $model->$key = trim($value);
+                            $model->$key = $value; //date('Y-m-d H:i:s', strtotime($value));
+                        }
                     }    
                 }
                 if(!empty($changes)){
