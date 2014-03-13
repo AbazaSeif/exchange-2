@@ -258,6 +258,7 @@ var rateList = {
             $('#rate-price').attr('init', price);
         }
         var newElement = "<div class='rate-one'>";
+        
         if(typeof id !== 'undefined') {
             newElement = "<div id='" + id + "' class='rate-one'>";
         } 
@@ -265,8 +266,7 @@ var rateList = {
         newElement += "<div class='r-o-container'>" + 
                 "<span>" + date + "</span>" + 
                 "<div class='r-o-user'>" + name;
-		
-        if(typeof surname !== 'undefined') {
+        if(surname) {
             newElement += ' ' + surname;
         }
 
