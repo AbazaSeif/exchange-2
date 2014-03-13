@@ -18,9 +18,12 @@ class UserModule extends CWebModule
 	{
 		if(parent::beforeControllerAction($controller, $action))
 		{
-			// this method is called before any module controller action is performed
-			// you may place customized code here
-			return true;
+                    if(Yii::app()->user->isGuest){
+                        Yii::app()->user->returnUrl = Yii::app()->request->requestUri;
+                        Yii::app()->request->redirect('/users/login/');
+                    } else{
+                        return true;
+                    }
 		}
 		else
 			return false;
