@@ -6,7 +6,15 @@ var rateList = {
             rateList.data.socket.on('setRate', function (data) {
                 var initPrice = parseInt($('#rate-price').attr('init'));
                 if(data.transportId == rateList.data.transportId) {
-                    var element = rateList.createElement(initPrice, data.date, data.name, data.price, data.surname);
+                    //var element = rateList.createElement(initPrice, data.date, data.name, data.price, data.surname);
+                    
+                    var price = data.price;
+                    if(rateList.data.nds) {
+                          price = Math.ceil(price * (100 + rateList.data.nds*100) / 100);
+                    }
+                    
+                    var element = rateList.createElement(initPrice, data.date, price, '', data.company, data.name , data.surname);
+                    //this.createElement(initPrice, rate.time, price, id, rate.company, rate.name, rate.surname);
                     $('#rates').prepend(element);
                 }
             });
@@ -79,10 +87,17 @@ var rateList = {
 
                 if(rateList.data.defaultRate) $('#rates').html('');
                 $('#t-error').html('');
-
+           
                 var price = parseInt($('#rate-price').val());
-                var price = price*100/(100 + rateList.data.nds*100);
-
+                if(rateList.data.nds) {
+                    price = Math.floor(price*100/(100 + rateList.data.nds*100));
+                }
+                
+                console.log('before - ' + price);
+                //if(price%10 != 0) price = Math.round(price/10) * 10;
+                //console.log('after - ' + price);
+                
+                
                 // убрать аттрибут init !!!
                 $(this).attr('init', price);
 
