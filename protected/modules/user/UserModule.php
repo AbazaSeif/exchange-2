@@ -24,6 +24,7 @@ class UserModule extends CWebModule
                     } else{
                         return true;
                     }*/
+                    return true;
 		}
 		else
 			return false;
