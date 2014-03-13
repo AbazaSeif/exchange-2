@@ -15,6 +15,7 @@ var rateList = {
                 var obj = {
                     price: data.price,
                     time: data.date,
+                    company: data.company,
                     name: data.name,
                     surname: data.surname,
                     //userId: rateList.data.userId,
@@ -99,8 +100,8 @@ var rateList = {
 
                 rateList.data.socket.emit('setRate',{
                     transportId: rateList.data.transportId,
-                    //date: time,
                     userId: rateList.data.userId,
+                    company: rateList.data.company,
                     name : rateList.data.name, 
                     surname: rateList.data.surname,
                     price : price,
@@ -242,33 +243,39 @@ var rateList = {
         var id = 0;
         var price = parseInt(rate.price);
         price = Math.ceil(price + price * this.data.nds);
-        if (typeof rate.id !=="undefined") id = rate.id;
+        if (rate.id) id = rate.id;
         
         /*
         if (typeof rate.time !=="undefined") {
             time = "<div class='r-o-time'>" + rate.time + "</div>";
         }
         */
-        var element = this.createElement(initPrice, rate.time, rate.name, price, rate.surname, id);
+        var element = this.createElement(initPrice, rate.time, price, id, rate.company, rate.name, rate.surname);
         
         this.container.prepend(element);
     },
-    createElement : function(initPrice, date, name, price, surname, id) {
+    createElement : function(initPrice, date, price, id, company, name, surname) {
         if(initPrice < price){
             $('#rate-price').attr('init', price);
         }
         var newElement = "<div class='rate-one'>";
         
-        if(typeof id !== 'undefined') {
+        if(id) {
             newElement = "<div id='" + id + "' class='rate-one'>";
         } 
         
         newElement += "<div class='r-o-container'>" + 
                 "<span>" + date + "</span>" + 
-                "<div class='r-o-user'>" + name;
-        if(surname) {
-            newElement += ' ' + surname;
-        }
+                "<div class='r-o-user'>" + company;
+        
+        // Если контактное лицо
+        /*if(name || surname) {
+            newElement += ' (';
+            if(name) newElement += name;
+            if(surname) newElement += ' ' + surname;
+            newElement += ')';
+        }*/
+        
 
         newElement += "</div>" +
             "</div>" +

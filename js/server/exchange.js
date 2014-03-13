@@ -95,12 +95,13 @@ io.sockets.on('connection', function (socket) {
             }, function(err, rows) {	
                 for(var j = 0; j < rows; j++) {
                     var k = 0;
-                    db.each("SELECT id, name, surname FROM user WHERE id = " + arr[j][0], function(err, user) {
+                    db.each("SELECT id, company, name, surname FROM user WHERE id = " + arr[j][0], function(err, user) {
                         io.sockets.socket(socket.id).emit('loadRates', {
                             price : arr[k][1],
-			    date  : arr[k][2],
-                            name  : user.name,
-			    surname : user.surname,
+							date  : arr[k][2],
+                            company  : user.company,
+							name     : user.name,
+							surname  : user.surname,
                         });
                         k++;
                     });
@@ -158,6 +159,7 @@ io.sockets.on('connection', function (socket) {
             io.sockets.socket(socket.id).emit('setRate', {
                 name : data.name,
                 surname : data.surname,
+                company : data.company,
                 price : data.price,
                 date: time,
                 transportId : data.transportId
@@ -166,6 +168,7 @@ io.sockets.on('connection', function (socket) {
             socket.broadcast.emit('setRate', {
                 name : data.name,
                 surname : data.surname,
+		company : data.company,
                 price : data.price,
                 date: time,
                 transportId : data.transportId
