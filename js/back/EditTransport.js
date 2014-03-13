@@ -15,12 +15,23 @@ function ЕditTransport() {
             isRTL: false,
         };
         $.datepicker.setDefaults($.datepicker.regional['ru']); 
-        $( "#Transport_date_from" ).datepicker({
+        /*$( "#Transport_date_from" ).datepicker({
             dateFormat: 'dd-mm-yy',
         });
 
         $( "#Transport_date_to" ).datepicker({
             dateFormat: 'dd-mm-yy',
+        });
+		*/
+		
+		$( "#Transport_date_from" ).datetimepicker({
+            dateFormat: 'dd-mm-yy',
+            timeFormat: 'HH:mm',
+        });
+
+        $( "#Transport_date_to" ).datetimepicker({
+            dateFormat: 'dd-mm-yy',
+            timeFormat: 'HH:mm',
         });
     };
     
