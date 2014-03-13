@@ -90,7 +90,7 @@ class TransportController extends Controller
             )
         );
 
-        $this->render('view', array('data' => $dataProvider, 'title'=>'Все перевозки'));
+        $this->render('view', array('data' => $dataProvider, 'title'=>'Мои перевозки'));
     }
     
     /* Show all transports where user takes part */

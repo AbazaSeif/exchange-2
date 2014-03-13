@@ -21,6 +21,7 @@ class SiteController extends Controller
         $this->render('item', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
     }
     
+    /* check if in table user_field doesn't exists row for user and create it */
     public function actionFields()
     {
         $users = Yii::app()->db->createCommand()
@@ -83,6 +84,7 @@ class SiteController extends Controller
                 $user->password = crypt($_POST['RegistrationForm']['password'], User::model()->blowfishSalt());
                 $user->login = $user->inn;
                 if($user->validate() && $user->save()) {
+                    
                     $newFerrymanFields = new UserField;
                     $newFerrymanFields->user_id = $user->id;
                     $newFerrymanFields->mail_transport_create_1 = false;
