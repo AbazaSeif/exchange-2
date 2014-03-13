@@ -55,8 +55,10 @@ class TransportController extends Controller
             $model->date_to = date('d-m-Y');
             if(isset($_POST['Transport'])) {
                 $model->attributes = $_POST['Transport'];
-                $model->date_from = date('Y-m-d H:i:s', strtotime($model->date_from . ' 08:00:00'));
-                $model->date_to = date('Y-m-d H:i:s', strtotime($model->date_to . ' 08:00:00'));
+                //$model->date_from = date('Y-m-d H:i:s', strtotime($model->date_from . ' 08:00:00'));
+                $model->date_from = date('Y-m-d H:i:s', strtotime($model->date_from));
+                //$model->date_to = date('Y-m-d H:i:s', strtotime($model->date_to . ' 08:00:00'));
+                $model->date_to = date('Y-m-d H:i:s', strtotime($model->date_to));
                 $model->description = $this->formatDescription($model->description);      
                 $model->new_transport = 1;
                 $model->status  = 1;
@@ -93,9 +95,9 @@ class TransportController extends Controller
                 foreach($_POST['Transport'] as $key=>$value) {
                     if($key == 'description') {
                         $value = $this->formatDescription($value);
-                    } else if($key == 'date_from' || $key == 'date_to') {
+                    } /*else if($key == 'date_from' || $key == 'date_to') {
                          $value = $value . ' 08:00:00';
-                    }
+                    }*/
                     if(trim($model->$key) != trim($value)){
                         $changes[$key]['before'] = $model[$key];
                         $changes[$key]['after'] = $value;

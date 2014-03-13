@@ -367,7 +367,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     margin: 1em 0 0;
 }
 .right form label{
-    min-width: 15%;
+    min-width: 20%;
     float: left;
     line-height: 27px;
     display: block;
