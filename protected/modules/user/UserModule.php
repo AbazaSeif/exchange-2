@@ -18,13 +18,14 @@ class UserModule extends CWebModule
 	{
 		if(parent::beforeControllerAction($controller, $action))
 		{
-                    /*if(Yii::app()->user->isGuest){
+                    if(Yii::app()->user->isGuest){
                         Yii::app()->user->returnUrl = Yii::app()->request->requestUri;
                         Yii::app()->request->redirect('/');
                     } else{
                         return true;
-                    }*/
-                    return true;
+                    }
+                    
+                    //return true;
 		}
 		else
 			return false;

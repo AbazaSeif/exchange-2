@@ -5,6 +5,29 @@ class SiteController extends Controller
     {
         $this->forward('/transport/i/');
     }
+    
+    public function actionLogin()
+    {
+        $model = new LoginForm;
+
+        // if it is ajax validation request
+        if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+
+        // collect user input data
+        if(isset($_POST['LoginForm']))
+        {
+            $model->attributes=$_POST['LoginForm'];
+            // validate user input and redirect to the previous page if valid
+            if($model->validate() && $model->login())
+                $this->redirect(Yii::app()->user->returnUrl);
+        }
+        // display the login form
+        $this->render('login',array('model'=>$model));
+    }
 
     public function actionDescription($id)
     {
@@ -71,10 +94,8 @@ class SiteController extends Controller
                 'condition'=>'inn=:inn',
                 'params'=>array(':inn'=>$_POST['inn']))
             );
-            
-            //var_dump($newUser);exit;
-            
-            if(is_null($newUser)) {
+
+            if($newUser) {
                 $userInfo = array();
                 $user = new User();
                 $user->attributes = $_POST['RegistrationForm'];
@@ -84,7 +105,6 @@ class SiteController extends Controller
                 $user->password = crypt($_POST['RegistrationForm']['password'], User::model()->blowfishSalt());
                 $user->login = $user->inn;
                 if($user->validate() && $user->save()) {
-                    
                     $newFerrymanFields = new UserField;
                     $newFerrymanFields->user_id = $user->id;
                     $newFerrymanFields->mail_transport_create_1 = false;
@@ -108,7 +128,7 @@ class SiteController extends Controller
             } else {
                 Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким ИНН/УНП уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');  
             }
-            $this->redirect('/user/login/');
+            $this->redirect('/site/login/');
         } else {
             $this->render('registration', array('model' => $model));
         }
