@@ -34,7 +34,7 @@ class CronCommand extends CConsoleCommand
         $transports = Yii::app()->db->createCommand()
             ->select('id')
             ->from('transport')
-            ->where('date_to like :time', array(':time' => $timeNow . '%'))
+            ->where('date_from like :time', array(':time' => $timeNow . '%'))
             ->queryAll()
         ;
 
@@ -82,7 +82,7 @@ class CronCommand extends CConsoleCommand
         $transports = Yii::app()->db->createCommand()
             ->select('id')
             ->from('transport')
-            ->where('date_to like :time', array(':time' => $time . '%'))
+            ->where('date_from like :time', array(':time' => $time . '%'))
             ->queryAll()
         ;
         $count = count($transports);
@@ -140,7 +140,7 @@ class CronCommand extends CConsoleCommand
             }
 
             //$usersS = array_intersect($usersAll, $usersSite);
-            $usersS = $usersAll;
+            $usersS = $usersM;
             if(!empty($usersS)) {
                 foreach($usersS as $user) {
                     $obj = array(
