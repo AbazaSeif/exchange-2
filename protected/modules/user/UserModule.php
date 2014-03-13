@@ -20,7 +20,7 @@ class UserModule extends CWebModule
 		{
                     if(Yii::app()->user->isGuest){
                         Yii::app()->user->returnUrl = Yii::app()->request->requestUri;
-                        Yii::app()->request->redirect('/');
+                        Yii::app()->request->redirect('/site/login/');
                     } else{
                         return true;
                     }

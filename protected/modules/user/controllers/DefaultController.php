@@ -7,7 +7,7 @@ class DefaultController extends Controller
         $this->render('index');
     }
     
-/*
+
     public function actionLogin()
     {
         $model = new LoginForm;
@@ -30,7 +30,7 @@ class DefaultController extends Controller
         // display the login form
         $this->render('login',array('model'=>$model));
     }
-*/
+
     
     public function actionLogout()
     {
