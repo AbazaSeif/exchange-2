@@ -92,10 +92,10 @@ return array(
         'log' => array(
             'class' => 'CLogRouter',
             'routes' => array(
-                array(
+                /*array(
                     //  'class'=>'CWebLogRoute',  'levels'=>'trace, info, error, warning',
                     'class' => 'CWebLogRoute', 'levels' => 'info, error, warning',
-                ),
+                ),*/
                 array(
                     'class' => 'CFileLogRoute', 'levels' => 'trace, info, error, warning',
                 ),
