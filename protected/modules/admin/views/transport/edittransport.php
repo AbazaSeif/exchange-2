@@ -83,10 +83,17 @@
     echo $form->textArea($model, 'auto_info');?>    
 </div>
 <div class="field">
+    <?php
+        echo CHtml::label('Время закрытия заявки', 'timer_deadline');
+        $value = date("d-m-Y H:i", strtotime($model->date_from . "-" . Yii::app()->params['hoursBefore'] . " hours"));
+        echo CHtml::textField('timer_deadline', $value, array('disabled'=>true));
+    ?>
+</div>
+<div class="field">
 <?php  echo $form->error($model, 'date_from'); 
     echo $form->labelEx($model, 'date_from');
     $model->date_from = date("d-m-Y H:i", strtotime($model->date_from));
-    echo $form->textField($model, 'date_from'); ?>    
+    echo $form->textField($model, 'date_from', array('onchange'=>'updateFieldTimerDeadline();')); ?>    
 </div>
 <div class="field">
 <?php echo $form->error($model, 'date_to'); 
@@ -127,15 +134,18 @@
     <ul id="rates-all">
         <li>
            <span>Дата</span>
+           <span>Компания</span>
            <span>Размер ставки</span>
            <span class="del-col"></span>
         </li>
     <?php foreach ($rates as $item){
-            echo '<li class="item">';
-            echo '<span>'.$item->date.'</span>';
+            if($minRateId == $item['id']) echo '<li class="item win">';
+            else echo '<li class="item">';
+            echo '<span>'.$item['date'].'</span>';
+            echo '<span>'.$item['company'].'</span>';
             echo '<span>';
-            echo '<span class="price">'.$item->price.'</span>';
-            echo CHtml::textField('Rates['.$item->id.']', $item->price, array('class'=>'form-price'));
+            echo '<span class="price">'.$item['price'].'</span>';
+            echo CHtml::textField('Rates['.$item['id'].']', $item->price, array('class'=>'form-price'));
             echo '</span>';
             echo '<span class="del-col del-row"></span>';
             echo '</li>';
@@ -158,4 +168,22 @@ $(document).ready(function(){
         });
     <?php endif; ?>
 });
+
+function updateFieldTimerDeadline() {
+    var input = $('#Transport_date_from').val();
+    m = input.match(/(\d+)-(\d+)-(\d+) (\d+):(\d+)/)
+    var startDate = new Date(m[3], m[2]-1, m[1], m[4], m[5]);
+    startDate.setHours(startDate.getHours()-<?php echo Yii::app()->params['hoursBefore'] ?>);
+    var day = startDate.getDate();
+    if(day < 10) day = '0' + day;
+    var month = startDate.getMonth() + 1;
+    if(month < 10) month = '0' + month;
+    var year = startDate.getFullYear();
+    var hour = startDate.getHours();
+    if(hour < 10) hour = '0' + hour;
+    var min = startDate.getMinutes();
+    if(min < 10) min = '0' + min;
+    var timer = day + '-' + month + '-' + year + ' '+ hour + ':' + min;
+    $('#timer_deadline').val(timer);
+}
 </script>
