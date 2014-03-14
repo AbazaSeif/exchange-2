@@ -22,9 +22,9 @@ function ЕditTransport() {
         $( "#Transport_date_to" ).datepicker({
             dateFormat: 'dd-mm-yy',
         });
-		*/
+        */
 		
-		$( "#Transport_date_from" ).datetimepicker({
+        $( "#Transport_date_from" ).datetimepicker({
             dateFormat: 'dd-mm-yy',
             timeFormat: 'HH:mm',
         });

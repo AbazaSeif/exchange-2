@@ -11,8 +11,6 @@
         $action = '/admin/transport/createtransport/';
         unset($delete_button);
     }
-    //echo '<pre>';
-    //var_dump($rates);
 ?>
 
 <div class="form">
@@ -144,7 +142,7 @@
             if($minRateId == $item['id']) echo '<li class="item win">';
             else echo '<li class="item">';
             echo '<span>'.$item['date'].'</span>';
-            echo '<span>' . '=' . $item['company']. '=' .'</span>';
+            echo '<span>' . $item['company'] .'</span>';
             echo '<span>';
             echo '<span class="price">'.$item['price'].'</span>';
             echo CHtml::textField('Rates['.$item['id'].']', $item['price'], array('class'=>'form-price'));
@@ -163,6 +161,15 @@
 $(document).ready(function(){
     var editor = new ЕditTransport();
     editor.initCalendar();
+    /*$( "#Transport_date_from" ).datetimepicker({
+        dateFormat: 'dd-mm-yy',
+        timeFormat: 'HH:mm',
+    });
+
+    $( "#Transport_date_to" ).datetimepicker({
+        dateFormat: 'dd-mm-yy',
+        timeFormat: 'HH:mm',
+    });*/
     <?php if(Yii::app()->user->checkAccess('editRate')): ?>
         editor.initRateEditor();
         $( "#points-all" ).sortable({

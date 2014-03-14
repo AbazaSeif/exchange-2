@@ -909,6 +909,7 @@
 				if (tp_inst) {
 					if (tp_inst._defaults.timeOnly && (inst.input.val() !== inst.lastVal)) {
 						try {
+						console.log(5);
 							$.datepicker._updateDatepicker(inst);
 						} catch (err) {
 							$.timepicker.log(err);
@@ -1339,9 +1340,9 @@
 	*/
 	$.datepicker._base_selectDate = $.datepicker._selectDate;
 	$.datepicker._selectDate = function (id, dateStr) {
+	console.log(22);
 		var inst = this._getInst($(id)[0]),
 			tp_inst = this._get(inst, 'timepicker');
-
 		if (tp_inst) {
 			tp_inst._limitMinMaxDateTime(inst, true);
 			inst.inline = inst.stay_open = true;
@@ -1349,6 +1350,7 @@
 			this._base_selectDate(id, dateStr);
 			inst.inline = inst.stay_open = false;
 			this._notifyChange(inst);
+			console.log(6);
 			this._updateDatepicker(inst);
 		} else {
 			this._base_selectDate(id, dateStr);
@@ -1361,7 +1363,7 @@
 	*/
 	$.datepicker._base_updateDatepicker = $.datepicker._updateDatepicker;
 	$.datepicker._updateDatepicker = function (inst) {
-
+        console.log(1);
 		// don't popup the datepicker if there is another instance already opened
 		var input = inst.input[0];
 		if ($.datepicker._curInst && $.datepicker._curInst !== inst && $.datepicker._datepickerShowing && $.datepicker._lastInput !== input) {
@@ -1369,9 +1371,8 @@
 		}
 
 		if (typeof(inst.stay_open) !== 'boolean' || inst.stay_open === false) {
-
 			this._base_updateDatepicker(inst);
-
+console.log(7);
 			// Reload the time control when changing something in the input text field.
 			var tp_inst = this._get(inst, 'timepicker');
 			if (tp_inst) {
@@ -1456,7 +1457,7 @@
 	$.datepicker._doKeyUp = function (event) {
 		var inst = $.datepicker._getInst(event.target),
 			tp_inst = $.datepicker._get(inst, 'timepicker');
-
+console.log(3);
 		if (tp_inst) {
 			if (tp_inst._defaults.timeOnly && (inst.input.val() !== inst.lastVal)) {
 				try {
@@ -1613,7 +1614,7 @@
 			date = $.timepicker.timezoneAdjust(date, tp_inst.timezone);
 			tp_date = $.timepicker.timezoneAdjust(tp_date, tp_inst.timezone);
 		}
-
+console.log(4);
 		this._updateDatepicker(inst);
 		this._base_setDateDatepicker.apply(this, arguments);
 		this._setTimeDatepicker(target, tp_date, true);
