@@ -12,7 +12,7 @@ class TransportController extends Controller
             $sort->defaultOrder = 'location_from ASC';
             $sort->attributes = array(
                 'location_from' => array(
-                    'location_from' => 'Место загрузки111',
+                    'location_from' => 'Место разгрузки',
                     'asc' => 'location_from ASC',
                     'desc' => 'location_from DESC',
                     'default' => 'asc',
@@ -86,7 +86,23 @@ class TransportController extends Controller
     {
         if(Yii::app()->user->checkAccess('editTransport')){
             $model = Transport::model()->findByPk($id);
-            $rates = Rate::model()->findAll(array('order'=>'date desc', 'condition'=>'transport_id='.$id));
+            
+            $rates = Yii::app()->db->createCommand()
+                ->select('r.id, r.date, r.price, u.company')
+                ->from('rate r')
+                ->join('user u', 'r.user_id=u.id')
+                ->where('r.transport_id=:id', array(':id'=>$id))
+                ->order('r.date desc')
+                ->queryAll()
+            ;
+            
+            $minRateId = Yii::app()->db->createCommand()
+                ->select('rate_id')
+                ->from('transport')
+                ->where('id = :id', array(':id' => $id))
+                ->queryScalar()
+            ;
+            
             $points = TransportInterPoint::model()->findAll(array('order'=>'sort', 'condition'=>'t_id = ' . $id)); 
             //echo '<pre>';
             //var_dump($points);
@@ -100,7 +116,7 @@ class TransportController extends Controller
                         //$value = date('Y-m-d H:i:s', strtotime($value . ' 08:00:00');
                     }
                     
-                    if(trim($model->$key) != trim($value)){
+                    if(trim($model->$key) != trim($value)) {
                         $changes[$key]['before'] = $model[$key];
                         $changes[$key]['after'] = $value;
                         if($key == 'date_from' || $key == 'date_to') {
@@ -147,7 +163,7 @@ class TransportController extends Controller
                 //var_dump($model->getErrors());
             }
             
-            $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'points' => $points), false, true);
+            $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'minRateId'=>$minRateId, 'points' => $points), false, true);
             //$this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates), false, true);
         }else{
             throw new CHttpException(403, Yii::t('yii','У Вас недостаточно прав доступа.'));

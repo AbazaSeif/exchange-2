@@ -11,7 +11,7 @@
         'itemsTagName' => 'div',
         'template'     => '{sorter}{items}{pager}',
         'htmlOptions'  => array('class'=>'transports'),
-        'sortableAttributes' => array('location_from', 'location_to', 'l', 'date_from'),
+        'sortableAttributes' => array('location_from', 'location_to', 'l', 'date_from'=>'Время до закрытия заявки'),
         'sorterHeader' => '',
         'pager'        => array(
             'header'   => false,

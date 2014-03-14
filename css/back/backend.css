@@ -32,6 +32,11 @@ input, textarea{
     vertical-align: middle;
     width: 50%;
 }
+#timer_deadline{
+    border: none;
+    cursor: default;
+    box-shadow: none;
+}
 .btn{
     padding: 0 10px;
     width: auto;
@@ -505,7 +510,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 
 #rates-all, #points-all{
     background: #dfebf3;
-    width: 360px;
+    /*width: 360px;*/
     text-align: center;
     box-shadow: 0 0 3px #C0C0C0;
     overflow:hidden;
@@ -515,6 +520,9 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     background: rgb(238, 238, 238);
     margin: .5em 0;
     border-radius: 2px;
+}
+#rates-all li.item.win{
+    background-color: #60b044;
 }
 #points-all{
     width: 220px;
@@ -535,16 +543,16 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 
 #rates-all li > span, #points-all li > span{
     float: left;
-    width: 45%;
+    width: 30%;
     text-align: center;
 }
 #points-all li > span{
     width: 80%;
 }
 
-#rates-all li:first-child > span:first-child{ 
-   padding-left: 40px;
-   width: 40%;
+#rates-all li:first-child span:first-child{ 
+   margin-left: 40px;
+   width: 25%;
 }
 
 #points-all li:first-child > span:first-child{
