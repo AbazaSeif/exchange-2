@@ -84,6 +84,12 @@
 </div>
 <div class="field">
     <?php
+        echo CHtml::label('Часовой Пояс:', 'timer_label');
+        echo CHtml::textField('timer_label', 'Московское время', array('disabled'=>true));
+    ?>
+</div>
+<div class="field">
+    <?php
         echo CHtml::label('Время закрытия заявки', 'timer_deadline');
         $value = date("d-m-Y H:i", strtotime($model->date_from . "-" . Yii::app()->params['hoursBefore'] . " hours"));
         echo CHtml::textField('timer_deadline', $value, array('disabled'=>true));
@@ -180,7 +186,7 @@ $(document).ready(function(){
 
 function updateFieldTimerDeadline() {
     var input = $('#Transport_date_from').val();
-    m = input.match(/(\d+)-(\d+)-(\d+) (\d+):(\d+)/)
+    m = input.match(/(\d+)-(\d+)-(\d+) (\d+):(\d+)/);
     var startDate = new Date(m[3], m[2]-1, m[1], m[4], m[5]);
     startDate.setHours(startDate.getHours()-<?php echo Yii::app()->params['hoursBefore'] ?>);
     var day = startDate.getDate();
@@ -195,4 +201,5 @@ function updateFieldTimerDeadline() {
     var timer = day + '-' + month + '-' + year + ' '+ hour + ':' + min;
     $('#timer_deadline').val(timer);
 }
+
 </script>
