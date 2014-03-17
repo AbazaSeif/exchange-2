@@ -40,6 +40,6 @@ return array(
             // this is used in contact page
             'adminEmail'=>'nazarova@lbr.ru',
             'minNotyfy' => 30,
-            'hoursBefore' => 8, 
+            'hoursBefore' => 24, 
 	),
 );
