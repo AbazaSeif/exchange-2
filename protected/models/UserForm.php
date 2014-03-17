@@ -1,0 +1,55 @@
+<?php
+
+class UserForm extends CFormModel
+{
+    public $id;
+    public $password;
+    public $status;
+    public $company;
+    public $inn;
+    public $country;
+    public $region;
+    public $city;
+    public $district;
+    public $name;
+    public $secondname;
+    public $surname;
+    public $phone;
+    public $email;
+
+    public function rules()
+    {
+        return array(
+                array('inn, status, phone', 'numerical', 'integerOnly'=>true),
+                array('company, country, region, district, inn, name, surname, phone, email', 'required'),
+                array('name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),
+                array('email', 'email', 'message'=>'Неправильный Email адрес'),
+                array('inn', 'length', 'max'=>12,
+                    'tooLong'=>Yii::t("translation", "{attribute} должен содержать максимум 12 символов.")
+                ),
+                array('password', 'length', 'min'=>6, 'allowEmpty'=>true),
+                array('password', 'match', 'pattern'=>'/^([a-zA-Zа-яА-ЯёЁ\d]+)$/i', 'message'=>'Пароль должен содержать только следующие символы: 0-9 a-z A-Z а-я А-Я'),
+                array('password', 'match', 'pattern'=>'/([a-zA-Zа-яА-Я]+)/', 'message'=>'Пароль должен содержать минимум одну букву'),
+                array('password', 'match', 'pattern'=>'/([0-9]+)/', 'message'=>'Пароль должен содержать минимум одну цифру'),
+            );
+    }
+    
+    public function attributeLabels()
+    {
+        return array(
+            'company' => 'Комания',
+            'inn' => 'ИНН/УНП ',
+            'status' => 'Статус',
+            'country' => 'Страна',
+            'region' => 'Область',
+            'city' => 'Город',
+            'district' => 'Район',
+            'name' => 'Имя',
+            'secondname' => 'Отчество',
+            'surname' => 'Фамилия',
+            'password' => 'Пароль',
+            'phone' => 'Телефон',
+            'email' => 'Email',
+        );
+    }
+}

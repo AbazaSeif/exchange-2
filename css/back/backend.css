@@ -380,6 +380,13 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     line-height: 27px;
     display: block;
 }
+#contactform label{
+    min-width: 15%;
+}
+#userform label{
+    min-width: 10%;
+}
+
 .right form .description textarea{
     max-height: 44px;
 }
@@ -442,6 +449,9 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     right: 2.9%;
     width: 90.5%;
 }
+.right .message.error{    
+}
+
 .right .quick_buttons .btn{
     width: 90%;
     font-size: .85em;
@@ -786,8 +796,13 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
 
 .form .field.error .errorMessage
 {
-    left: 67%;
+    left: 65%;
     width: 30%;
+}
+
+#contactform .field.error .errorMessage
+{
+    left: 70%;
 }
 
 .form .field.error .errorMessage:after

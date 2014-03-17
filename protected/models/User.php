@@ -61,24 +61,6 @@ class User extends CActiveRecord
             // NOTE: you should only define rules for those attributes that
             // will receive user inputs.
             return array(
-                //array('inn', 'unique', 'attributeName'=>'inn', 'className'=>'User', 'allowEmpty'=>false, 'skipOnError'=>true),
-            
-                //array('inn, status, phone', 'numerical', 'integerOnly'=>true),
-                //array('company, country, region, district, inn, name, secondname, surname, phone, email', 'required'),
-                //array('company, country, region, district, inn, name, secondname, surname, phone, email', 'required'),
-                //array('login', 'length', 'max'=>64),
-                //array('name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),
-                //array('email', 'email', 'message'=>'Неправильный Email адрес'),
-                /*array('inn', 'length', 'max'=>12,
-                    //'tooShort'=>Yii::t("translation", "{attribute} должен содержать 12 символов."),
-                    'tooLong'=>Yii::t("translation", "{attribute} должен содержать максимум 12 символов.")
-                ),*/
-                //array('inn', 'unique', 'attributeName'=>'inn'),
-                //array('inn', 'unique', 'message' => 'Такой ИНН/УНП уже зарегистрирован'),  
-                //array('company, country, region, city, district, name, secondname, surname, password, email', 'safe'),
-                // The following rule is used by search().
-                // @todo Please remove those attributes that should not be searched.
-                //array('id, company, inn, status, country, region, city, district, name, secondname, surname, password phone, email', 'safe', 'on'=>'search'),
             );
 	}
 
@@ -175,13 +157,13 @@ class User extends CActiveRecord
 	}
         
         //  Метод проверяет изменен ли пароль
-        protected function beforeSave() {
+       /* protected function beforeSave() {
             parent::beforeSave();
             if (isset($_POST['User_password']) && $_POST['User_password']!='') {
                 $this->password = crypt($_POST['User_password'], User::model()->blowfishSalt());
             }
             return true;
-        }
+        }*/
 
         //  Метод возвращет $cost значное число для хэширования пароля, где: 
         //  $cost - количество возвращаемых знаков

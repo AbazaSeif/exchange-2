@@ -6,7 +6,6 @@
  * The followings are the available columns in table 'contact':
  * @property integer $id
  * @property integer $u_id
- * @property string $login
  * @property string $password
  * @property string $name
  * @property string $surname
@@ -21,7 +20,6 @@
  */
 class UserContact extends CActiveRecord
 {
-        public $confirm_password;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -38,21 +36,7 @@ class UserContact extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('u_id, status, phone, phone2', 'numerical', 'integerOnly'=>true),
-			array('login', 'length', 'max'=>64),
-			array('password, name, surname, secondname, email', 'safe'),
-                        array('login, name, secondname, surname, phone, email', 'required'),
-                        array('name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),
-                        array('password', 'length', 'min'=>6, 'allowEmpty'=>false),
-                        array('password','match', 'pattern'=>'/^([a-zA-Zа-яА-ЯёЁ\d]+)$/i', 'message'=>'Пароль должен содержать только следующие символы: 0-9 a-z A-Z а-я А-Я'),
-                        array('password', 'match', 'pattern'=>'/([a-zA-Zа-яА-Я]+)/', 'message'=>'Пароль должен содержать минимум одну букву'),
-                        array('password', 'match', 'pattern'=>'/([0-9]+)/', 'message'=>'Пароль должен содержать минимум одну цифру'),
-                        array('confirm_password', 'compare', 'compareAttribute'=>'password', 'message'=>'Пароли не совпадают'),
-
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, u_id, login, password, name, surname, secondname, email, status, phone, phone2', 'safe', 'on'=>'search'),
-		);
+	        );
 	}
 
 	/**
@@ -63,7 +47,7 @@ class UserContact extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'u' => array(self::BELONGS_TO, 'User', 'u_id'),
+		    'u' => array(self::BELONGS_TO, 'User', 'u_id'),
 		);
 	}
 
@@ -73,18 +57,16 @@ class UserContact extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'u_id' => 'Фирма',
-			'login' => 'Логин',
-			'password' => 'Пароль',
-                        'confirm_password' => 'Подтверждение пароля',
-			'name' => 'Имя',
-			'surname' => 'Фамилия',
-			'secondname' => 'Отчество',
-			'email' => 'Email',
-			'status' => 'Статус',
-			'phone' => 'Телефон',
-			'phone2' => 'Телефон №2',
+                    'id' => 'ID',
+                    'u_id' => 'Контактное лицо',
+                    'password' => 'Пароль',
+                    'name' => 'Имя',
+                    'surname' => 'Фамилия',
+                    'secondname' => 'Отчество',
+                    'email' => 'Email',
+                    'status' => 'Статус',
+                    'phone' => 'Телефон',
+                    'phone2' => 'Телефон №2',
 		);
 	}
 
@@ -108,7 +90,6 @@ class UserContact extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('u_id',$this->u_id);
-		$criteria->compare('login',$this->login,true);
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('surname',$this->surname,true);

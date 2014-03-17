@@ -84,7 +84,7 @@
 </div>
 <div class="field">
     <?php
-        echo CHtml::label('Часовой Пояс:', 'timer_label');
+        echo CHtml::label('Часовой Пояс', 'timer_label');
         echo CHtml::textField('timer_label', 'Московское время', array('disabled'=>true));
     ?>
 </div>

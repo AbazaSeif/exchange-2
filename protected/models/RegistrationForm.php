@@ -18,9 +18,6 @@ class RegistrationForm extends CFormModel
     public $description;
     public $ownership;
     public $nds;
-    
-    const WEAK = 0;
-    const STRONG = 1;
 
     public function rules()
     {//Yii::log("------------------------------------",'info', 'application');
@@ -47,14 +44,14 @@ class RegistrationForm extends CFormModel
             )
         );
     }
-
+/*
     public function checkMyUniqunessInBrand($attribute,$params) {
         //if($this->getIsNewRecord()  &&  Realisation:model()->count('name=:name AND brand_id=:brand_id',
            // array(':name'=>$this->name,':brand_id'=>$this->brand_id)) > 0) {
             $this->addError( $attribute, "$attribute must be unique in user scope!" );
        // }
     }
-    
+    */
     public function attributeLabels()
     {
         return array(

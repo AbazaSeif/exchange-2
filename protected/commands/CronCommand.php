@@ -40,7 +40,7 @@ class CronCommand extends CConsoleCommand
 
         $count = count($transports);
 
-        if($count){
+        if($count) {
             // users who want to get mail
             $usersMail = $usersSite = array();
             $temp = Yii::app()->db->createCommand()
@@ -64,6 +64,7 @@ class CronCommand extends CConsoleCommand
             }
 */
             foreach($transports as $transport){
+                $this->sendMailToLogist($transport['id']);
                 $this->getUsers($transport['id'], 'mail_deadline', $usersMail, $usersSite, 1);
 
                 if(!empty($transportIds)) $transportIds .= ', ';
@@ -111,6 +112,7 @@ class CronCommand extends CConsoleCommand
 */
             foreach($transports as $transport) {
                 $transportId = $transport['id'];
+                
                 $this->getUsers($transportId, 'mail_before_deadline', $usersMail, $usersSite, 2);
             }		
         }
@@ -382,11 +384,11 @@ class CronCommand extends CConsoleCommand
         $message = '';
         $transport = Transport::model()->findByPk($transportId);
         if($mailType == 'mail_deadline'){
-            $message .= '<p>Перевозка  "<a href="http://exchange.lbr.ru/transport/description/id/' . $transportId . '">' . $transport['location_from'] . ' &mdash; ' . $transport['location_to'] . '</a>" закрыта.</p>';
+            $message .= '<p>Заявка на перевозку "<a href="http://exchange.lbr.ru/transport/description/id/' . $transportId . '">' . $transport['location_from'] . ' &mdash; ' . $transport['location_to'] . '</a>" закрыта.</p>';
             $subject = 'Уведомление о завершении перевозки';
         } else if($mailType == 'mail_before_deadline'){
-            $message .= '<p>Перевозка  "<a href="http://exchange.lbr.ru/transport/description/id/' . $transportId . '">' . $transport['location_from'] . ' &mdash; ' . $transport['location_to'] . '</a>" будет закрыта через ' . Yii::app()->params['minNotify'] . ' минут.</p>';
-            $subject = 'Уведомление о скором завершении перевозки';
+            $message .= '<p>Заявка на перевозку "<a href="http://exchange.lbr.ru/transport/description/id/' . $transportId . '">' . $transport['location_from'] . ' &mdash; ' . $transport['location_to'] . '</a>" будет закрыта через ' . Yii::app()->params['minNotify'] . ' минут.</p>';
+            $subject = 'Уведомление о скором закрытии заявки на перевозку';
         } else {
             $message .= '<p>Ваше предложение для перевозки "<a href="http://exchange.lbr.ru/transport/description/id/' . $transportId . '">' . $transport['location_from'] . ' &mdash; ' . $transport['location_to'] . '</a>" было перебито.</p>';
         }
@@ -429,6 +431,23 @@ class CronCommand extends CConsoleCommand
         $email->body = "<h1>Уважаемый(ая) " . $user['name'] . " " . $user['surname'] . ", </h1>" . 
             $message . "<hr><h5>Это сообщение является автоматическим, на него не нужно отвечать.</h5>"
         ;
+        $email->sendMail();
+    }
+    
+    public function sendMailToLogist($transportId)
+    {
+        $transport = Transport::model()->findByPk($transportId);  
+        $email = new TEmail;
+        $email->from_email = Yii::app()->params['adminEmail'];
+        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+        $email->to_email   = Yii::app()->params['logistEmail'];
+        $email->to_name    = '';
+        $email->subject    = 'Заявка на перевозку закрыта';
+        $email->type = 'text/html';
+        $email->body = '<p>Заявка на перевозку "<a href="http://exchange.lbr.ru/transport/description/id/' . $transportId . '">' . $transport['location_from'] . ' &mdash; ' . $transport['location_to'] . '</a>" закрыта.</p>'.
+            '<hr><h5>Это сообщение является автоматическим, на него не нужно отвечать.</h5>';
+        ;
+        
         $email->sendMail();
     }
 }
