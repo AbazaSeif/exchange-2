@@ -176,9 +176,12 @@ class Transport extends CActiveRecord
         $pointsArray = $_POST['Points'];
         $transportId = $_POST['Transport']['id'];
         $transportModel = Transport::model()->findByPk($transportId);
+
         if (isset($inputArray)) {
             $arrayKeys = array();
             $priceChanges = array();
+            //var_dump($inputArray);
+            
             // Edit Rates
             foreach($inputArray as $id=>$price) {
                 $arrayKeys[] = $id;
@@ -191,14 +194,26 @@ class Transport extends CActiveRecord
                 }
             }
             
-            if(!empty($priceChanges)){
+            if(!empty($priceChanges)) {
+                $minRate = Rate::model()->findByPk($transportModel->rate_id);
+                $minPrice = $minRate->price;
+                //var_dump($minPrice);exit;
                 $message = 'В перевозке "' . $transportModel['location_from'] . ' — ' . $transportModel['location_to'] . '" были изменены следующие ставки: ';
                 $k = 0;
+                
                 foreach($priceChanges as $key => $value){
                     $k++;
                     $message .= $k . ') Ставка с id = '. $key . ' - цена ' . $priceChanges[$key]['before'] . ' на ' . $priceChanges[$key]['after'] . '; ';
+                    
+                    if($minPrice > $priceChanges[$key]['after']){
+                        //$minRateId = 
+                        $transportModel->rate_id = $minRateId;
+                        $transportModel->save();
+                    }
                 }
+                
                 Changes::saveChange($message);
+                
             }
             
             $criteria = new CDbCriteria;
@@ -207,8 +222,8 @@ class Transport extends CActiveRecord
             
             // Delete rates and save changes
             Changes::saveChangeInRates($criteria, $transportId);
-            
-            if(!in_array($transportModel['rate_id'], $arrayKeys)) {
+            // if min rate was delete
+            if(!in_array($transportModel['rate_id'], $arrayKeys) || array_key_exists($transportModel->rate_id, $priceChanges)) {
                 $minPrice = Yii::app()->db->createCommand()
                     ->select('min(price) as price')
                     ->from('rate')
@@ -216,7 +231,7 @@ class Transport extends CActiveRecord
                     ->group('transport_id')
                     ->queryRow()
                 ;
-                //$minPrice
+                
                 $model = Yii::app()->db->createCommand()
                     ->select('id')
                     ->from('rate')
@@ -225,7 +240,14 @@ class Transport extends CActiveRecord
                 ;
                 $transportModel['rate_id'] = $model['id'];
                 $transportModel->save();
-            }       
+            }
+            
+            //if(array_key_exists($transportModel->rate_id, $priceChanges)) $minPrice = $priceChanges[$key]['after'];
+            /*
+            $minRateId = 
+            $transportModel->rate_id = $minRateId;
+            $transportModel->save();
+            */
         }
         
         if (isset($pointsArray)){

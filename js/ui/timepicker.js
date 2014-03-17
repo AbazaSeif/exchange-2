@@ -357,10 +357,11 @@
 
 			// Prevent displaying twice
 			if ($dp.find("div.ui-timepicker-div").length === 0 && o.showTimepicker) {
+			//console.log(9);
 				var noDisplay = ' style="display:none;"',
 					html = '<div class="ui-timepicker-div' + (o.isRTL ? ' ui-timepicker-rtl' : '') + '"><dl>' + '<dt class="ui_tpicker_time_label"' + ((o.showTime) ? '' : noDisplay) + '>' + o.timeText + '<span class="ui_tpicker_time">' + ((o.showTime) ? '' : noDisplay) + '</span>' + '</dt>';
 					/*'<dd class="ui_tpicker_time"' + ((o.showTime) ? '' : noDisplay) + '></dd>'*/
-
+//console.log('1 = ' + html);
 				// Create the markup
 				for (i = 0, l = this.units.length; i < l; i++) {
 					litem = this.units[i];
@@ -375,7 +376,7 @@
 
 					html += '<dt class="ui_tpicker_' + litem + '_label"' + (show ? '' : noDisplay) + '>' + o[litem + 'Text'] + '</dt>' +
 								'<dd class="ui_tpicker_' + litem + '"><div class="ui_tpicker_' + litem + '_slider"' + (show ? '' : noDisplay) + '></div>';
-
+//console.log('2 = ' + html);
 					if (show && o[litem + 'Grid'] > 0) {
 						html += '<div style="padding-left: 1px"><table class="ui-tpicker-grid-label"><tr>';
 
@@ -402,7 +403,7 @@
 				var showTz = o.showTimezone !== null ? o.showTimezone : this.support.timezone;
 				html += '<dt class="ui_tpicker_timezone_label"' + (showTz ? '' : noDisplay) + '>' + o.timezoneText + '</dt>';
 				html += '<dd class="ui_tpicker_timezone" ' + (showTz ? '' : noDisplay) + '></dd>';
-
+//console.log('3 = ' + html);
 				// Create the elements from string
 				html += '</dl></div>';
 				var $tp = $(html);
@@ -909,6 +910,7 @@
 				if (tp_inst) {
 					if (tp_inst._defaults.timeOnly && (inst.input.val() !== inst.lastVal)) {
 						try {
+						//console.log(5);
 							$.datepicker._updateDatepicker(inst);
 						} catch (err) {
 							$.timepicker.log(err);
@@ -1339,9 +1341,9 @@
 	*/
 	$.datepicker._base_selectDate = $.datepicker._selectDate;
 	$.datepicker._selectDate = function (id, dateStr) {
+	//console.log(22);
 		var inst = this._getInst($(id)[0]),
 			tp_inst = this._get(inst, 'timepicker');
-
 		if (tp_inst) {
 			tp_inst._limitMinMaxDateTime(inst, true);
 			inst.inline = inst.stay_open = true;
@@ -1349,6 +1351,7 @@
 			this._base_selectDate(id, dateStr);
 			inst.inline = inst.stay_open = false;
 			this._notifyChange(inst);
+			//console.log(6);
 			this._updateDatepicker(inst);
 		} else {
 			this._base_selectDate(id, dateStr);
@@ -1361,7 +1364,7 @@
 	*/
 	$.datepicker._base_updateDatepicker = $.datepicker._updateDatepicker;
 	$.datepicker._updateDatepicker = function (inst) {
-
+        //console.log(1);
 		// don't popup the datepicker if there is another instance already opened
 		var input = inst.input[0];
 		if ($.datepicker._curInst && $.datepicker._curInst !== inst && $.datepicker._datepickerShowing && $.datepicker._lastInput !== input) {
@@ -1369,7 +1372,6 @@
 		}
 
 		if (typeof(inst.stay_open) !== 'boolean' || inst.stay_open === false) {
-
 			this._base_updateDatepicker(inst);
 
 			// Reload the time control when changing something in the input text field.
@@ -1456,7 +1458,7 @@
 	$.datepicker._doKeyUp = function (event) {
 		var inst = $.datepicker._getInst(event.target),
 			tp_inst = $.datepicker._get(inst, 'timepicker');
-
+//console.log(3);
 		if (tp_inst) {
 			if (tp_inst._defaults.timeOnly && (inst.input.val() !== inst.lastVal)) {
 				try {
@@ -1613,7 +1615,7 @@
 			date = $.timepicker.timezoneAdjust(date, tp_inst.timezone);
 			tp_date = $.timepicker.timezoneAdjust(tp_date, tp_inst.timezone);
 		}
-
+//console.log(4);
 		this._updateDatepicker(inst);
 		this._base_setDateDatepicker.apply(this, arguments);
 		this._setTimeDatepicker(target, tp_date, true);

@@ -86,26 +86,6 @@ class TransportController extends Controller
     {
         if(Yii::app()->user->checkAccess('editTransport')){
             $model = Transport::model()->findByPk($id);
-            
-            $rates = Yii::app()->db->createCommand()
-                ->select('r.id, r.date, r.price, u.company')
-                ->from('rate r')
-                ->join('user u', 'r.user_id=u.id')
-                ->where('r.transport_id=:id', array(':id'=>$id))
-                ->order('r.date desc')
-                ->queryAll()
-            ;
-            
-            $minRateId = Yii::app()->db->createCommand()
-                ->select('rate_id')
-                ->from('transport')
-                ->where('id = :id', array(':id' => $id))
-                ->queryScalar()
-            ;
-            
-            $points = TransportInterPoint::model()->findAll(array('order'=>'sort', 'condition'=>'t_id = ' . $id)); 
-            //echo '<pre>';
-            //var_dump($points);
             if (isset($_POST['Transport'])){
                 $changes = array();
                 foreach($_POST['Transport'] as $key=>$value) {
@@ -124,6 +104,7 @@ class TransportController extends Controller
                         }
                     }    
                 }
+                
                 if(!empty($changes)){
                     $message = 'В перевозке с id = '.$id.' были изменены слудующие поля: ';
                     $k = 0;
@@ -131,7 +112,7 @@ class TransportController extends Controller
                         $k++;
                         if($key == 'currency'){
                             $changes[$key]['before'] = Transport::$currencyGroup[$changes[$key]['before']];
-                            $changes[$key]['after'] = Transport::$currencyGroup[$changes[$key]['after']];
+                            $changes[$key]['after']  = Transport::$currencyGroup[$changes[$key]['after']];
                         }
                         
                         $message .= $k . ') Поле '. $key . ' c ' . $changes[$key]['before'] . ' на ' . $changes[$key]['after'] . '; ';
@@ -158,14 +139,84 @@ class TransportController extends Controller
                 if($model->save()){
                     Yii::app()->user->setFlash('saved_id', $model->id);
                     Yii::app()->user->setFlash('message', 'Перевозка сохранена успешно.');
-                    $this->redirect('/admin/transport/');
+                    
+                    
+                    $rates = Yii::app()->db->createCommand()
+                        ->select('r.id, r.date, r.price, u.company')
+                        ->from('rate r')
+                        ->join('user u', 'r.user_id=u.id')
+                        ->where('r.transport_id=:id', array(':id'=>$id))
+                        ->order('r.date desc')
+                        ->queryAll()
+                    ;
+
+                    $minRateId = Yii::app()->db->createCommand()
+                        ->select('rate_id')
+                        ->from('transport')
+                        ->where('id = :id', array(':id' => $id))
+                        ->queryScalar()
+                    ;
+
+                    $points = TransportInterPoint::model()->findAll(array('order'=>'sort', 'condition'=>'t_id = ' . $id));
+                    
+                    /**************************/
+                    $criteria = new CDbCriteria();
+                    $sort = new CSort();
+                    $sort->sortVar = 'sort';
+                    $sort->defaultOrder = 'location_from ASC';
+                    $sort->attributes = array(
+                        'location_from' => array(
+                            'location_from' => 'Место разгрузки',
+                            'asc' => 'location_from ASC',
+                            'desc' => 'location_from DESC',
+                            'default' => 'asc',
+                        ),
+                        'location_to' => array(
+                            'location_to' => 'Место загрузки',
+                            'asc' => 'location_to ASC',
+                            'desc' => 'location_to DESC',
+                            'default' => 'asc',
+                        ),
+                    );
+                    $dataProvider = new CActiveDataProvider('Transport', 
+                        array(
+                            'criteria'=>$criteria,
+                            'sort'=>$sort,
+                            'pagination'=>array(
+                                'pageSize'=>'10'
+                            )
+                        )
+                    );
+                    //echo '-------------------------';
+                    $view = $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'minRateId'=>$minRateId, 'points' => $points), true, true);
+                    
+                    $this->render('transport', array('data'=>$dataProvider, 'view'=>$view));
+                    
+                     
                 }
                 //var_dump($model->getErrors());
+            } else {
+                $rates = Yii::app()->db->createCommand()
+                    ->select('r.id, r.date, r.price, u.company')
+                    ->from('rate r')
+                    ->join('user u', 'r.user_id=u.id')
+                    ->where('r.transport_id=:id', array(':id'=>$id))
+                    ->order('r.date desc')
+                    ->queryAll()
+                ;
+
+                $minRateId = Yii::app()->db->createCommand()
+                    ->select('rate_id')
+                    ->from('transport')
+                    ->where('id = :id', array(':id' => $id))
+                    ->queryScalar()
+                ;
+
+                $points = TransportInterPoint::model()->findAll(array('order'=>'sort', 'condition'=>'t_id = ' . $id)); 
+
+                $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'minRateId'=>$minRateId, 'points' => $points), false, true);
             }
-            
-            $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'minRateId'=>$minRateId, 'points' => $points), false, true);
-            //$this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates), false, true);
-        }else{
+        } else {
             throw new CHttpException(403, Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
     }

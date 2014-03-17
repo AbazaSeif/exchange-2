@@ -32,10 +32,13 @@ input, textarea{
     vertical-align: middle;
     width: 50%;
 }
-#timer_deadline{
+#timer_deadline, #timer_label{
     border: none;
     cursor: default;
     box-shadow: none;
+}
+#timer_label{
+    color: green;
 }
 .btn{
     padding: 0 10px;
@@ -568,6 +571,10 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 #rates-all li > span:first-child, #points-all li > span:first-child{
     text-align: left;
     padding-left: 10px;
+    cursor: default;
+}
+
+#rates-all li > span:nth-child(2){
     cursor: default;
 }
 

@@ -8285,7 +8285,7 @@ $.extend(Datepicker.prototype, {
 		if (input.nodeName.toLowerCase() !== "input") { // find from button/image trigger
 			input = $("input", input.parentNode)[0];
 		}
-
+console.log(555);
 		if ($.datepicker._isDisabledDatepicker(input) || $.datepicker._lastInput === input) { // already here
 			return;
 		}
@@ -8331,15 +8331,19 @@ $.extend(Datepicker.prototype, {
 		//to avoid flashes on Firefox
 		inst.dpDiv.empty();
 		// determine sizing offscreen
+
 		inst.dpDiv.css({position: "absolute", display: "block", top: "-1000px"});
+		//console.log(inst);
+		//console.log(inst.dpDiv);
 		$.datepicker._updateDatepicker(inst);
 		// fix width for dynamic number of date pickers
 		// and adjust position before showing
 		offset = $.datepicker._checkOffset(inst, offset, isFixed);
+
 		inst.dpDiv.css({position: ($.datepicker._inDialog && $.blockUI ?
 			"static" : (isFixed ? "fixed" : "absolute")), display: "none",
 			left: offset.left + "px", top: offset.top + "px"});
-
+		//console.log(inst.dpDiv);
 		if (!inst.inline) {
 			showAnim = $.datepicker._get(inst, "showAnim");
 			duration = $.datepicker._get(inst, "duration");
@@ -8349,7 +8353,13 @@ $.extend(Datepicker.prototype, {
 			if ( $.effects && $.effects.effect[ showAnim ] ) {
 				inst.dpDiv.show(showAnim, $.datepicker._get(inst, "showOptions"), duration);
 			} else {
+			    // open window
+				// !!! original // inst.dpDiv[showAnim || "show"](showAnim ? duration : null);
+				
 				inst.dpDiv[showAnim || "show"](showAnim ? duration : null);
+				console.log(inst.dpDiv);
+				//inst.dpDiv.fadeIn();
+				//$('div#ui-datepicker-div.ui-datepicker').fadeIn();
 			}
 
 			if ( $.datepicker._shouldFocusInput( inst ) ) {
