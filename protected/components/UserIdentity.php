@@ -30,12 +30,12 @@ class UserIdentity extends CUserIdentity
         $this->errorCode = $this->getError($record);
 
         if($this->errorCode==self::ERROR_NONE) {
-            $this->setState('_id', $record->id);
-            $this->setState('transport', $status);
             if($status=='0'){
-                $this->setState('_id', $record->g_id);
+                $this->_id = $record->g_id;
                 $this->setState('level', AuthGroup::model()->findByPk($record->g_id)->level);
             }
+            $this->setState('_id', $record->id);
+            $this->setState('transport', $status);
         }
         return $this->errorCode;
     }
