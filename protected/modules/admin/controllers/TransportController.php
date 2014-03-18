@@ -50,6 +50,7 @@ class TransportController extends Controller
     {
         if(Yii::app()->user->checkAccess('createTransport')){
             $model = new Transport;
+            $model->status  = 1;
             $model->date_from = date('d-m-Y');
             $model->date_to = date('d-m-Y');
             if(isset($_POST['Transport'])) {
@@ -58,7 +59,6 @@ class TransportController extends Controller
                 $model->date_to = date('Y-m-d H:i:s', strtotime($model->date_to));
                 $model->description = $this->formatDescription($model->description);      
                 $model->new_transport = 1;
-                $model->status  = 1;
                 $model->user_id = Yii::app()->user->_id;
                 $model->date_published = date('Y-m-d H:i:s');
                 if($model->save()){
@@ -98,7 +98,7 @@ class TransportController extends Controller
                         }
                     }    
                 }
-                
+                $model->attributes = $_POST['Transport'];
                 if(!empty($changes)){
                     $message = 'В перевозке с id = '.$id.' были изменены слудующие поля: ';
                     $k = 0;
@@ -131,7 +131,7 @@ class TransportController extends Controller
                     // Delete all points and save changes
                     Changes::saveChangeInPoints($criteria, $model['id']);
                 }
-
+                
                 if($model->save()){
                     Yii::app()->user->setFlash('saved_id', $model->id);
                     Yii::app()->user->setFlash('message', 'Перевозка сохранена успешно.');

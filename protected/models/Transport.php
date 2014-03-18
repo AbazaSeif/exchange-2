@@ -42,6 +42,11 @@ class Transport extends CActiveRecord
         1=>'Доллары ($)',
         2=>'Евро (€)',
     );
+    
+    public static $status = array(
+        0=>'Архивная',
+        1=>'Активная',
+    );
     /**
 	 * @return string the associated database table name
 	 */
@@ -60,7 +65,7 @@ class Transport extends CActiveRecord
 	    return array(
                 array('location_from, location_to, description, date_from, date_to, start_rate', 'required', 'message'=>'Заполните поле "{attribute}"'),
                 array('start_rate', 'numerical', 'integerOnly'=>true, 'min'=>0, 'message'=>'Поле "{attribute}" должно содержать число', 'tooSmall'=>'Значение поля "{attribute}" не может быть меньше нуля !'),
-                array('currency', 'safe'),
+                array('currency, status, type, start_rate, location_from, location_to, description, date_from, date_to, t_id, new_transport, rate_id, auto_info, description', 'safe'),
             
             );
 	}

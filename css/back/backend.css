@@ -827,6 +827,9 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
 {
     display: none !important;
 }
+#tabs-3 #transport-form label{
+    min-width: 400px;
+}
 
 div.form div.error input, div.form div.error textarea, div.form div.error select, div.form input.error, div.form textarea.error, div.form select.error {
     background: none repeat scroll 0 0 #FFEEEE;
