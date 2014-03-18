@@ -51,7 +51,6 @@ class WebUser extends CWebUser
     // для дальнейшей автоматической авторизации на других ресурсах ЛБР
     protected function saveToCookie($duration)
     {
-        $this->setId($this->_id);
         $app=Yii::app();
         $cookie=$this->createIdentityCookie($this->getStateKeyPrefix());
         $cookie->expire=time()+$duration;
@@ -79,7 +78,6 @@ class WebUser extends CWebUser
         $key->date = $time;
         if($key->save())
             $app->getRequest()->getCookies()->add($cookie->name,$cookie);
-
     }
 
     protected function restoreFromCookie()
