@@ -6,10 +6,16 @@ class TransportController extends Controller
     {
         if(Yii::app()->user->checkAccess('readTransport'))
         {
-            $criteria = new CDbCriteria();
+            $criteriaActive = new CDbCriteria();
+            $criteriaActive->condition = 'status = 1';
+            
+            $criteriaArchive = new CDbCriteria();
+            $criteriaArchive->compare('status', 0);
+            
             $sort = new CSort();
             $sort->sortVar = 'sort';
             $sort->defaultOrder = 'location_from ASC';
+            
             $sort->attributes = array(
                 'location_from' => array(
                     'location_from' => 'Место разгрузки',
@@ -24,24 +30,36 @@ class TransportController extends Controller
                     'default' => 'asc',
                 ),
             );
-            $dataProvider = new CActiveDataProvider('Transport', 
+            
+            $dataActive = new CActiveDataProvider('Transport', 
                 array(
-                    'criteria'=>$criteria,
-                    'sort'=>$sort,
-                    'pagination'=>array(
+                    'criteria' => $criteriaActive,
+                    'sort' => $sort,
+                    'pagination' => array(
+                        'pageSize' => '10'
+                    )
+                )
+            );
+            
+            $dataArchive = new CActiveDataProvider('Transport', 
+                array(
+                    'criteria' => $criteriaArchive,
+                    'sort' => $sort,
+                    'pagination' => array(
                         'pageSize'=>'10'
                     )
                 )
             );
 
-            if ($id = Yii::app()->user->getFlash('saved_id')){
+            if ($id = Yii::app()->user->getFlash('saved_id')) {
                 $model = Transport::model()->findByPk($id);
                 $rates = Rate::model()->findAll(array('order'=>'date desc', 'condition'=>'transport_id='.$id));
                 $points = TransportInterPoint::model()->findAll(array('order'=>'sort', 'condition'=>'t_id = ' . $id)); 
                 $view = $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'points'=>$points), true, true);
             }
-            $this->render('transport', array('data'=>$dataProvider, 'view'=>$view));
-        }else{
+            
+            $this->render('transport', array('dataActive'=>$dataActive, 'dataArchive'=>$dataArchive, 'view'=>$view));
+        } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
     }

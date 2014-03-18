@@ -32,6 +32,10 @@ input, textarea{
     vertical-align: middle;
     width: 50%;
 }
+#transport-form input:not(.btn), #transport-form textarea{
+    padding: 2px;
+    width: 49%;
+}
 #timer_deadline, #timer_label{
     border: none;
     cursor: default;
@@ -368,7 +372,10 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 .right form .field{
     margin: 1em 0;
 }
-
+#transport-form .field{
+    margin-top: 0;
+    margin-bottom: 5px;
+}
 .right .header-h4{
     font-size: 1.1em;
     font-weight: bold;
@@ -797,6 +804,10 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
     z-index: 10;
 }
 
+#transport-form .field.error .errorMessage{
+    padding: 0.5%;
+}
+
 .form .field.error .errorMessage
 {
     left: 65%;
@@ -828,7 +839,7 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
     display: none !important;
 }
 #tabs-3 #transport-form label{
-    min-width: 400px;
+    min-width: 15%;
 }
 
 div.form div.error input, div.form div.error textarea, div.form div.error select, div.form input.error, div.form textarea.error, div.form select.error {
