@@ -13,7 +13,7 @@ class ContactController extends Controller
     //User block
     public function actionIndex()
     {
-        if(Yii::app()->user->checkAccess('readContact')) {
+        if(Yii::app()->user->checkAccess('trReadUserContact')) {
             $criteria = new CDbCriteria();
             $sort = new CSort();
             $sort->sortVar = 'sort';
@@ -42,7 +42,7 @@ class ContactController extends Controller
 
     public function actionCreateContact()
     {
-        if(Yii::app()->user->checkAccess('createContact')) {
+        if(Yii::app()->user->checkAccess('trCreateUserContact')) {
             $model = new UserContact;
             if(isset($_POST['UserContact'])) {
                 $model->attributes = $_POST['UserContact'];
@@ -84,7 +84,7 @@ class ContactController extends Controller
     public function actionEditContact($id) 
     {
         $model = UserContact::model()->findByPk($id);   
-        if (Yii::app()->user->checkAccess('editContact')) {
+        if (Yii::app()->user->checkAccess('trEditUserContact')) {
             if (isset($_POST['UserContact'])) {
                 $changes = array();
                 foreach ($_POST['UserContact'] as $key => $value) {
@@ -122,7 +122,7 @@ class ContactController extends Controller
     public function actionDeleteContact($id) 
     {
         $model = User::model()->findByPk($id);
-        if (Yii::app()->user->checkAccess('deleteContact')) {
+        if (Yii::app()->user->checkAccess('trDeleteUserContact')) {
             if (User::model()->deleteByPk($id)) {
                 $message = 'Удален контакт ' . $model['name'] . ' ' . $model['surname'];
                 Changes::saveChange($message);

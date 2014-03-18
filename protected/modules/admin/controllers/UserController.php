@@ -13,7 +13,7 @@ class UserController extends Controller
     //User block
     public function actionIndex() 
     {
-        if(Yii::app()->user->checkAccess('readUser'))
+        if(Yii::app()->user->checkAccess('trReadUser'))
         {
             $criteria = new CDbCriteria();
             $sort = new CSort();
@@ -43,7 +43,7 @@ class UserController extends Controller
 
     public function actionCreateUser()
     {
-        if(Yii::app()->user->checkAccess('createUser')) {
+        if(Yii::app()->user->checkAccess('trCreateUser')) {
             $model = new User;
             if(isset($_POST['User'])) {
                 $model->attributes = $_POST['User'];
@@ -75,7 +75,7 @@ class UserController extends Controller
     public function actionEditUser($id) 
     {
         $model = User::model()->findByPk($id);   
-        if (Yii::app()->user->checkAccess('editUser')) {
+        if (Yii::app()->user->checkAccess('trEditUser')) {
             if (isset($_POST['User'])) {
                 
                 $changes = array();
@@ -112,7 +112,7 @@ class UserController extends Controller
     public function actionDeleteUser($id) 
     {
         $model = User::model()->findByPk($id);
-        if (Yii::app()->user->checkAccess('deleteUser')) {
+        if (Yii::app()->user->checkAccess('trDeleteUser')) {
             if (User::model()->deleteByPk($id)) {
                 $message = 'Удален пользователь ' . $model['name'] . ' ' . $model['surname'];
                 Changes::saveChange($message);
