@@ -12,7 +12,7 @@ class UserController extends Controller
 
     public function actionIndex() 
     {
-        if(Yii::app()->user->checkAccess('readUser'))
+        if(Yii::app()->user->checkAccess('trReadUser'))
         {
             $criteria = new CDbCriteria();
             $sort = new CSort();
@@ -43,7 +43,7 @@ class UserController extends Controller
 
     public function actionCreateUser()
     {
-        if(Yii::app()->user->checkAccess('createUser')) {
+        if(Yii::app()->user->checkAccess('trCreateUser')) {
             $form = new UserForm;
             if(isset($_POST['UserForm'])) {
                 $emailExists = User::model()->find(array(
@@ -127,7 +127,7 @@ class UserController extends Controller
         $form = new UserForm;
         $form->attributes = $model->attributes;
         $form->id = $id;
-        if (Yii::app()->user->checkAccess('editUser')) {
+        if (Yii::app()->user->checkAccess('trEditUser')) {
             if (isset($_POST['UserForm'])) {
                 $changes = $innExists = $emailExists = array();
                 foreach ($_POST['UserForm'] as $key => $value) {
@@ -223,7 +223,7 @@ class UserController extends Controller
     public function actionDeleteUser($id) 
     {
         $model = User::model()->findByPk($id);
-        if (Yii::app()->user->checkAccess('deleteUser')) {
+        if (Yii::app()->user->checkAccess('trDeleteUser')) {
             if (User::model()->deleteByPk($id)) {
                 $message = 'Удален пользователь ' . $model['name'] . ' ' . $model['surname'];
                 Changes::saveChange($message);

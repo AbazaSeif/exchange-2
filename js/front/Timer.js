@@ -1,14 +1,11 @@
 var Timer = function(){};
 Timer.prototype = {
   init: function(serverDate, initDate, id, status){
-    //console.log(111);
     var dateNow = new Date(); // время на ПК
     var dateNowServer = new Date(serverDate); // время на сервере
     this.timeDiff = (dateNowServer - dateNow)/1000; // сек, временная разница между сервером и клиентом 
     this.status = status;
     this.endDate = new Date(initDate); // дата и время от которых идет обратный отсчет
-    //console.log(initDate);
-    //console.log(this.endDate);
     this.str = '#' + id;
     if ($(this.str).length > 0) {
         this.container = document.getElementById(id);
@@ -47,15 +44,6 @@ Timer.prototype = {
     this.days = this.datePartDiff(currDate.getDate(), futureDate.getDate(), this.numOfDays[futureDate.getMonth()]);
     this.months = this.datePartDiff(currDate.getMonth(), futureDate.getMonth(), 12);
     this.years = this.datePartDiff(currDate.getFullYear(), futureDate.getFullYear(),0);
- 
-    /***************************************/
-    /*this.seconds = this.datePartDiff(currDate.getSeconds(), futureDate.getSeconds(), 60);
-    this.minutes = this.datePartDiff(currDate.getMinutes(), futureDate.getMinutes(), 60);
-    var delta = futureDate-currDate;
-    this.hours = Math.floor(delta/(60*60*1000));
-    this.days = 0;
-    this.months = this.years = 0; */
-      
   },
   addLeadingZero: function(value){
     return value < 10 ? ("0" + value) : value;
@@ -104,20 +92,19 @@ Timer.prototype = {
           }
 
           this.container.innerHTML = years + months + days + ' <span class="t-time">' + this.hours + ':' + this.minutes + ':' + this.seconds + '</span>';
-          //this.container.innerHTML = '<span class="t-time">' + this.hours + ':' + this.minutes + ':' + this.seconds + '</span>';
           var currDate = new Date();
           currDate.setSeconds(currDate.getSeconds() + this.timeDiff);
 
           if(typeof rateList.data !== "undefined" && typeof rateList.data.status !== "undefined") this.status = parseInt(rateList.data.status);
-          //console.log(this.endDate + '>' + currDate);
           if ( this.endDate > currDate && this.status ) { //проверка не обнулился ли таймер
               var self = this;
               setTimeout(function(){self.updateCounter();}, 1000);
           } else {
               this.container.innerHTML = '<span class="t-closed">Перевозка закрыта</span>';
-              $('#rate-btn').addClass('disabled');
-              $('.rate-btns').slideUp("slow");
-              $('#rate-btn').slideUp("slow");
+			  if($('.r-submit').length) {
+				  $('.r-submit').addClass('disabled');
+				  $('.rate-wrapper').slideUp("slow");
+			  }
           }
        }
     }
