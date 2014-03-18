@@ -59,8 +59,9 @@ class Transport extends CActiveRecord
 	    // will receive user inputs.
 	    return array(
                 array('location_from, location_to, description, date_from, date_to, start_rate', 'required', 'message'=>'Заполните поле "{attribute}"'),
-                //array('date_from, date_to', 'match', 'pattern'=>'/^(0[1-9]|[1-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-[0-9]{4}$/', 'message'=>'Поле "{attribute}" должно иметь формат dd-MM-yyyy'),
                 array('start_rate', 'numerical', 'integerOnly'=>true, 'min'=>0, 'message'=>'Поле "{attribute}" должно содержать число', 'tooSmall'=>'Значение поля "{attribute}" не может быть меньше нуля !'),
+                array('currency', 'safe'),
+            
             );
 	}
         
@@ -70,16 +71,7 @@ class Transport extends CActiveRecord
             if(!preg_match($pattern, $this->$attribute))
                 $this->addError($attribute, 'your password is not strong enough !');
         }
-        /*
-        public function checkDate($attribute, $params)
-        {
-            //if($this->{$attribute} !== '123456')
-            //$this->addError('date_from','Field shoud be 123456');
-            
-            //var_dump('111');
-            //$this->addError('date_from', 'Неверный формат даты');         
-        }*/
-
+        
 	/**
 	 * @return array relational rules.
 	 */
@@ -180,7 +172,6 @@ class Transport extends CActiveRecord
         if (isset($inputArray)) {
             $arrayKeys = array();
             $priceChanges = array();
-            //var_dump($inputArray);
             
             // Edit Rates
             foreach($inputArray as $id=>$price) {
@@ -197,7 +188,6 @@ class Transport extends CActiveRecord
             if(!empty($priceChanges)) {
                 $minRate = Rate::model()->findByPk($transportModel->rate_id);
                 $minPrice = $minRate->price;
-                //var_dump($minPrice);exit;
                 $message = 'В перевозке "' . $transportModel['location_from'] . ' — ' . $transportModel['location_to'] . '" были изменены следующие ставки: ';
                 $k = 0;
                 
@@ -206,7 +196,6 @@ class Transport extends CActiveRecord
                     $message .= $k . ') Ставка с id = '. $key . ' - цена ' . $priceChanges[$key]['before'] . ' на ' . $priceChanges[$key]['after'] . '; ';
                     
                     if($minPrice > $priceChanges[$key]['after']){
-                        //$minRateId = 
                         $transportModel->rate_id = $minRateId;
                         $transportModel->save();
                     }
@@ -241,13 +230,6 @@ class Transport extends CActiveRecord
                 $transportModel['rate_id'] = $model['id'];
                 $transportModel->save();
             }
-            
-            //if(array_key_exists($transportModel->rate_id, $priceChanges)) $minPrice = $priceChanges[$key]['after'];
-            /*
-            $minRateId = 
-            $transportModel->rate_id = $minRateId;
-            $transportModel->save();
-            */
         }
         
         if (isset($pointsArray)){

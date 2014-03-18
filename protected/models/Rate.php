@@ -34,7 +34,7 @@ class Rate extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('transport_id, price, user_id', 'numerical', 'integerOnly'=>true),
-			array('date', 'safe'),
+			array('date, price', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, transport_id, date, price, user_id', 'safe', 'on'=>'search'),

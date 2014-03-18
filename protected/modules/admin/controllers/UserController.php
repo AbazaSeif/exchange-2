@@ -10,7 +10,6 @@ class UserController extends Controller
         return true;
     }
 
-    //User block
     public function actionIndex() 
     {
         if(Yii::app()->user->checkAccess('readUser'))
@@ -31,12 +30,9 @@ class UserController extends Controller
             );
             if ($id_item = Yii::app()->user->getFlash('saved_id')){
                 $model = User::model()->findByPk($id_item);
-                $form = new UserForm;
+                $form  = new UserForm;
                 $form->attributes = $model->attributes;
                 $form->id = $id_item;
-                $form->password = '';
-                //$group = UserGroup::getUserGroupArray();
-                //$view = $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), true, true);
                 $view = $this->renderPartial('user/edituser', array('model'=>$form), true, true);
             }
             $this->render('user/users', array('data'=>$dataProvider, 'view'=>$view));

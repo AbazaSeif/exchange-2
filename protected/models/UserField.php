@@ -18,12 +18,6 @@
  */
 class UserField extends CActiveRecord
 {
-        /*public $password; // поле 'Введите новый пароль'
-        public $new_password; // поле 'Введите новый пароль'
-        public $new_confirm;  // поле 'Подтвердите новый пароль'
-	*/
-         /**
-         */
 	 /* @return string the associated database table name
 	 */
 	public function tableName()
@@ -39,13 +33,10 @@ class UserField extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			//array('user_id', 'numerical', 'integerOnly'=>true),
-			//array('mail_transport_create_1, mail_transport_create_2, mail_kill_rate, mail_deadline, mail_before_deadline, site_transport_create_1, site_transport_create_2, site_kill_rate, site_deadline, site_before_deadline', 'safe'),
 			array('with_nds, mail_transport_create_1, mail_transport_create_2, mail_kill_rate, mail_deadline, mail_before_deadline', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, with_nds, user_id, mail_transport_create_1, mail_transport_create_2, mail_kill_rate, mail_deadline, mail_before_deadline', 'safe', 'on'=>'search'),
-		        //array('new_confirm', 'compare', 'compareAttribute'=>'new_password', 'message'=>'Пароли не совпадают'),
                 );
 	}
 
@@ -117,6 +108,6 @@ class UserField extends CActiveRecord
 	 */
 	public static function model($className=__CLASS__)
 	{
-		return parent::model($className);
+                return parent::model($className);
 	}
 }

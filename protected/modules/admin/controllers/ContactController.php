@@ -10,7 +10,6 @@ class ContactController extends Controller
         return true;
     }
 
-    //User block
     public function actionIndex()
     {
         if(Yii::app()->user->checkAccess('readContact')) {
@@ -33,8 +32,6 @@ class ContactController extends Controller
                 $form = new UserContactForm;
                 $form->attributes = $model->attributes;
                 $form->id = $id_item;
-                //$group = UserGroup::getUserGroupArray();
-                //$view = $this->renderPartial('user/edituser', array('model'=>$model, 'group'=>$group), true, true);
                 $view = $this->renderPartial('editcontact', array('model'=>$form), true, true);
             }
             $this->render('contacts', array('data'=>$dataProvider, 'view'=>$view));
@@ -53,6 +50,7 @@ class ContactController extends Controller
                     'condition'=>'email=:email',
                     'params'=>array(':email'=>$_POST['UserContactForm']['email']))
                 );
+                
                 if(empty($emailExists)){
                     $emailExists=User::model()->find(array(
                         'select'=>'email',
@@ -60,6 +58,7 @@ class ContactController extends Controller
                         'params'=>array(':email'=>$_POST['UserContactForm']['email']))
                     );
                 }
+                
                 if(empty($emailExists)){
                     $model = new UserContact;
                     $model->attributes = $_POST['UserContactForm'];
@@ -152,31 +151,23 @@ class ContactController extends Controller
                             $emailExists = User::model()->find(array(
                                 'select'    => 'email',
                                 'condition' => 'email=:email',
-                                'params'    => array(':email'=>$_POST['UserForm']['email']))
+                                'params'    => array(':email'=>$_POST['UserContactForm']['email']))
                             );
 
                             if(empty($emailExists)) {
                                 $emailExists = UserContact::model()->find(array(
                                     'select'    => 'email',
                                     'condition' => 'email=:email',
-                                    'params'    => array(':email'=>$_POST['UserForm']['email']))
+                                    'params'    => array(':email'=>$_POST['UserContactForm']['email']))
                                 );
                             }
 
-                            if(!empty($emailExists)) Yii::app()->user->setFlash('error', 'Указанный email уже используется. ');
-                            
+                            if(!empty($emailExists)) Yii::app()->user->setFlash('error', 'Указанный email уже используется. '); 
                         }
                     }
-                    Changes::saveChange($message);
                 }
                 
-                if ($model->save()) {
-                    Yii::app()->user->setFlash('saved_id', $model->id);
-                    Yii::app()->user->setFlash('message', 'Контактное лицо "' . $model->surname . ' ' . $model->name . '" сохранено успешно.');
-                    $this->redirect('/admin/contact/');
-                }
-                
-                /*if(!empty($emailExists)) {
+                if(!empty($emailExists)) {
                     $criteria = new CDbCriteria();
                     $sort = new CSort();
                     $sort->sortVar = 'sort';
@@ -191,24 +182,24 @@ class ContactController extends Controller
                         )
                     );
 
-                    $form->attributes = $_POST['UserForm'];
-                    $view = $this->renderPartial('user/edituser', array('model'=>$form), true, true);
-                    $this->render('user/users', array('data'=>$dataProvider, 'view'=>$view));
+                    $form->attributes = $_POST['UserContactForm'];
+                    $view = $this->renderPartial('editcontact', array('model'=>$form), true, true);
+                    $this->render('contacts', array('data'=>$dataProvider, 'view'=>$view));
                 } else {
                     if(!empty($message)) {
                         Changes::saveChange($message);
                 
-                        $model->attributes = $_POST['UserForm'];
-                        if (!empty($_POST['UserForm']['password_confirm'])) {
-                            $model->password = crypt($_POST['UserForm']['password_confirm'], User::model()->blowfishSalt());
+                        $model->attributes = $_POST['UserContactForm'];
+                        if (!empty($_POST['UserContactForm']['password_confirm'])) {
+                            $model->password = crypt($_POST['UserContactForm']['password_confirm'], User::model()->blowfishSalt());
                         }
                     }
                     if ($model->save()) {
                         Yii::app()->user->setFlash('saved_id', $model->id);
-                        Yii::app()->user->setFlash('message', 'Пользователь "' . $model->company . '" сохранен успешно.');
-                        $this->redirect('/admin/user/');
+                        Yii::app()->user->setFlash('message', 'Контактное лицо "' . $model->surname . ' ' . $model->name . '" сохранено успешно.');
+                        $this->redirect('/admin/contact/');
                     }
-                }*/
+                }
             } else $this->renderPartial('editcontact', array('model' => $form), false, true);
         } else {
             throw new CHttpException(403, Yii::t('yii', 'У Вас недостаточно прав доступа.'));
@@ -217,12 +208,12 @@ class ContactController extends Controller
 
     public function actionDeleteContact($id)
     {
-        $model = User::model()->findByPk($id);
+        $model = UserContact::model()->findByPk($id);
         if (Yii::app()->user->checkAccess('deleteContact')) {
-            if (User::model()->deleteByPk($id)) {
+            if (UserContact::model()->deleteByPk($id)) {
                 $message = 'Удален контакт ' . $model['name'] . ' ' . $model['surname'];
                 Changes::saveChange($message);
-                Yii::app()->user->setFlash('message', 'Контакт удален успешно.');
+                Yii::app()->user->setFlash('message', 'Контактное лицо удалено успешно.');
                 $this->redirect('/admin/contact/');
             }
         } else {

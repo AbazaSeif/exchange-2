@@ -50,20 +50,16 @@ class TransportController extends Controller
     {
         if(Yii::app()->user->checkAccess('createTransport')){
             $model = new Transport;
-            //$this->performAjaxValidation($model);
             $model->date_from = date('d-m-Y');
             $model->date_to = date('d-m-Y');
             if(isset($_POST['Transport'])) {
                 $model->attributes = $_POST['Transport'];
-                //$model->date_from = date('Y-m-d H:i:s', strtotime($model->date_from . ' 08:00:00'));
                 $model->date_from = date('Y-m-d H:i:s', strtotime($model->date_from));
-                //$model->date_to = date('Y-m-d H:i:s', strtotime($model->date_to . ' 08:00:00'));
                 $model->date_to = date('Y-m-d H:i:s', strtotime($model->date_to));
                 $model->description = $this->formatDescription($model->description);      
                 $model->new_transport = 1;
                 $model->status  = 1;
                 $model->user_id = Yii::app()->user->_id;
-                $model->currency = $_POST['Transport']['currency'];
                 $model->date_published = date('Y-m-d H:i:s');
                 if($model->save()){
                     $message = 'Создана перевозка ' . $model->location_from . ' — ' . $model->location_to;
@@ -72,8 +68,7 @@ class TransportController extends Controller
                     Yii::app()->user->setFlash('saved_id', $model->id);
                     Yii::app()->user->setFlash('message', 'Перевозка создана успешно.');
                     
-                    $this->redirect('/admin/');
-                    //$this->redirect('/admin/transport/');
+                    $this->redirect('/admin/transport/');
                 }
             }
             $this->renderPartial('edittransport', array('model'=>$model), false, true);
@@ -93,14 +88,13 @@ class TransportController extends Controller
                         $value = $this->formatDescription($value);
                     } else if($key == 'date_from' || $key == 'date_to') {
                         $value = date('Y-m-d H:i:s', strtotime($value));
-                        //$value = date('Y-m-d H:i:s', strtotime($value . ' 08:00:00');
                     }
                     
                     if(trim($model->$key) != trim($value)) {
                         $changes[$key]['before'] = $model[$key];
                         $changes[$key]['after'] = $value;
                         if($key == 'date_from' || $key == 'date_to') {
-                            $model->$key = $value; //date('Y-m-d H:i:s', strtotime($value));
+                            $model->$key = $value;
                         }
                     }    
                 }
@@ -125,6 +119,7 @@ class TransportController extends Controller
                     $model['rate_id'] = NULL;
                     $criteria = new CDbCriteria;
                     $criteria->addCondition('transport_id = ' . $model['id']);
+                    
                     // Delete all rates and save changes
                     Changes::saveChangeInRates($criteria, $model['id']);
                 }
@@ -132,6 +127,7 @@ class TransportController extends Controller
                 if(!isset($_POST['Points'])) { // if no points
                     $criteria = new CDbCriteria;
                     $criteria->addCondition('t_id = ' . $model['id']);
+                    
                     // Delete all points and save changes
                     Changes::saveChangeInPoints($criteria, $model['id']);
                 }
@@ -187,14 +183,10 @@ class TransportController extends Controller
                             )
                         )
                     );
-                    //echo '-------------------------';
+                    
                     $view = $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'minRateId'=>$minRateId, 'points' => $points), true, true);
-                    
-                    $this->render('transport', array('data'=>$dataProvider, 'view'=>$view));
-                    
-                     
+                    $this->render('transport', array('data'=>$dataProvider, 'view'=>$view)); 
                 }
-                //var_dump($model->getErrors());
             } else {
                 $rates = Yii::app()->db->createCommand()
                     ->select('r.id, r.date, r.price, u.company')
