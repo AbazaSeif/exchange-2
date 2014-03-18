@@ -35,7 +35,8 @@ class User extends CActiveRecord
         const USER_ACTIVE = 1;
         const USER_WARNING = 2;
         const USER_TEMPORARY_BLOCKED = 3;
-        const USER_BLOCKED = 4;	
+        const USER_BLOCKED = 4;
+        public $password_confirm;
         
         public static $userStatus = array(
             User::USER_NOT_CONFIRMED => 'Не подтвежден',
@@ -61,6 +62,7 @@ class User extends CActiveRecord
             // NOTE: you should only define rules for those attributes that
             // will receive user inputs.
             return array(
+                array('company, inn, name, surname, secondname, password, status, country, region, city, district, phone, email', 'safe'),
             );
 	}
 
@@ -99,7 +101,7 @@ class User extends CActiveRecord
                 'name' => 'Имя',
                 'secondname' => 'Отчество',
                 'surname' => 'Фамилия',
-                'login' => 'Логин',
+               // 'login' => 'Логин',
                 'password' => 'Пароль',
                 'phone' => 'Телефон',
                 'email' => 'Email',

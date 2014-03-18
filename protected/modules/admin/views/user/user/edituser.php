@@ -69,9 +69,16 @@
     echo $form->textField($model, 'secondname'); ?>
 </div>
 <div class="password field">
-<?php  echo $form->error($model, 'password');
-    echo $form->labelEx($model, 'password');
-    echo $form->passwordField($model, 'password');
+<?php  
+    if ($model->id) {
+        echo $form->error($model, 'password_confirm');
+        echo $form->labelEx($model, 'password_confirm');
+        echo $form->passwordField($model, 'password_confirm');
+    } else {
+        echo $form->error($model, 'password');
+        echo $form->labelEx($model, 'password');
+        echo $form->passwordField($model, 'password');
+    }
 ?>
 </div>
 <div class="status field">
@@ -111,8 +118,10 @@
     echo $form->labelEx($model, 'email');
     echo $form->emailField($model, 'email'); ?>
 </div>
+<?php if ($model->id): ?>
 <div style="display:none;">
 <?php  echo $form->hiddenField($model, 'password'); ?>
 </div>
+<?php endif; ?>
 <?php $this->endWidget();?> 
 </div>

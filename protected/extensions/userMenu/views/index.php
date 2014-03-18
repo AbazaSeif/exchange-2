@@ -2,6 +2,8 @@
 if(!Yii::app()->user->isGuest){
     if(Yii::app()->user->isTransport) {
         $user = User::model()->findByPk(Yii::app()->user->_id);
+    } else if(Yii::app()->user->isContactUser) {
+        $user = UserContact::model()->findByPk(Yii::app()->user->_id);
     } else {
         $user = AuthUser::model()->findByPk(Yii::app()->user->_id);
     }

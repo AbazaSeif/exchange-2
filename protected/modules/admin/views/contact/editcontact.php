@@ -11,7 +11,7 @@
     $delete_button = CHtml::link('Удалить', '/admin/contact/deletecontact/id/'.$model->id, array('id'=>'del_'.$model->name,'class'=>'btn del', 'onclick'=>'return confirm("Внимание! Контактное лицо будет безвозвратно удалено. Продолжить?")'));
     $header_form = 'Редактирование контактного лица "'.$model->name . ' ' . $model->surname . '"';
     $action = '/admin/contact/editcontact/id/'.$model->id;
-    //if ($model->isNewRecord){
+    //if ($model->isNewRecord) {
     if (!$model->id) {
         $submit_text = 'Подтвердить';
         $name = 'new';
@@ -70,9 +70,17 @@
     echo $form->textField($model, 'secondname'); ?>
 </div>
 <div class="secondname field">
-<?php  echo $form->error($model, 'password'); 
-    echo $form->labelEx($model, 'password');
-    echo $form->passwordField($model, 'password'); ?>
+<?php 
+    if($model->id){
+        echo $form->error($model, 'password_confirm'); 
+        echo $form->labelEx($model, 'password_confirm');
+        echo $form->passwordField($model, 'password_confirm'); 
+    } else {
+        echo $form->error($model, 'password'); 
+        echo $form->labelEx($model, 'password');
+        echo $form->passwordField($model, 'password'); 
+    }
+?>
 </div>
 <div class="email field">
 <?php  echo $form->error($model, 'email');
@@ -94,8 +102,12 @@
     echo $form->labelEx($model, 'status');
     echo $form->dropDownList($model, 'status', User::$userStatus); ?>
 </div>
+<?php if($model->id):?>
 <div style="display:none;">
 <?php  echo $form->hiddenField($model, 'password'); ?>
 </div>
-<?php $this->endWidget();?> 
+<?php
+    endif;
+    $this->endWidget();
+?> 
 </div>

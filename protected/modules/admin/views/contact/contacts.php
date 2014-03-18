@@ -37,7 +37,7 @@
         <?php 
         if ($mess = Yii::app()->user->getFlash('message')){
             echo '<div class="message success">'.$mess.'</div>';
-        } else if($mess = Yii::app()->user->getFlash('error')){
+        } else if ($mess = Yii::app()->user->getFlash('error')){
             echo '<div class="message error">'.$mess.'</div>';
         }
         if ($view){

@@ -20,6 +20,7 @@
  */
 class UserContact extends CActiveRecord
 {
+        public $password_confirm;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -36,6 +37,7 @@ class UserContact extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+                    array('u_id, name, surname, secondname, phone, phone2, email, password, status', 'safe'),
 	        );
 	}
 
