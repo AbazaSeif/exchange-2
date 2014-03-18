@@ -33,7 +33,8 @@ class UserIdentity extends CUserIdentity
             $this->setState('_id', $record->id);
             $this->setState('transport', $status);
             if($status=='0'){
-                $this->setState('_id', $record->g_id);
+                $this->_id = $record->g_id;
+                $this->setState('_id', $record->id);
                 $this->setState('level', AuthGroup::model()->findByPk($record->g_id)->level);
             }
         }
