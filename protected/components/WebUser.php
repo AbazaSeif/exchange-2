@@ -69,9 +69,9 @@ class WebUser extends CWebUser
             $this->saveIdentityStates()
         );
         $cookie->value=$app->getSecurityManager()->hashData(serialize($data));
-
-        // Регенерирует ключ, либо создает новый в базе
-        $key = AuthKey::model()->find('user_id=:u', array(':u'=>$this->getId()));
+//        var_dump($this->getId()); die();
+         // Регенерирует ключ, либо создает новый в базе
+        $key = AuthKey::model()->find('user_id=:u OR key=:key', array(':u'=>$this->getId(), ':key'=>$cookie->value));
 
         if(!$key)
             $key = new AuthKey();
