@@ -109,7 +109,7 @@ class UserController extends Controller
         }
     }
 
-    public function actionDeleteUser($id) 
+    public function actionDeleteUser($id)
     {
         $model = User::model()->findByPk($id);
         if (Yii::app()->user->checkAccess('trDeleteUser')) {
