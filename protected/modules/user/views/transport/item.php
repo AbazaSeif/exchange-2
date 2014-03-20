@@ -32,16 +32,23 @@ if (!Yii::app()->user->isGuest) {
     $userId = Yii::app()->user->_id;
     $model = UserField::model()->find('user_id = :id', array('id' => $userId));
     //$originalPrice = $lastRate;
-    if((bool)$model->with_nds){
-        $minRateValue = ceil($minRateValue + $minRateValue * Yii::app()->params['nds']);
-    }
+    if((bool)$model->with_nds) {
+        $minRateValue = floor($minRateValue + $minRateValue * Yii::app()->params['nds']);
+    } else $minRateValue = floor($minRateValue);
+    
     $userInfo = User::model()->findByPk($userId);
 }
+$residue = $minRateValue % $priceStep;
+if($residue != 0) {
+    if(($minRateValue - $residue) > 0){
+        $minRateValue = $minRateValue  - $residue;
+    } else $minRateValue = $priceStep;
+}
 
-//$startValue = ($defaultRate)? $lastRate : ($lastRate - $priceStep);
 $minRate = (($minRateValue - $priceStep)<=0)? 1 : 0;
 $inputSize = strlen((string)$minRateValue)-1;
 if($inputSize < 5 ) $inputSize = 5;
+
 ?>
 
 <div class="transport-one">
@@ -83,7 +90,7 @@ if($inputSize < 5 ) $inputSize = 5;
                                 <div id="rate-down" class="<?php echo ($minRate)?'disabled':''?>"></div>
                             </div>
                             <span class="text"><?php echo $currency ?></span>
-                            <input id="rate-price" value="<?php echo ceil($minRateValue) ?>" init="<?php echo $minRateValue?>" type="text" size="<?php echo $inputSize ?>" <?php echo (($now > $end) || !$transportInfo['status'])? 'disabled="hide"': '' ?>/>
+                            <input id="rate-price" value="<?php echo $minRateValue ?>" init="<?php echo $minRateValue?>" type="text" size="<?php echo $inputSize ?>" <?php echo (($now > $end) || !$transportInfo['status'])? 'disabled="hide"': '' ?>/>
                         </div>
                         <div class="r-submit <?php echo (($now > $end) || !$transportInfo['status'])? 'hide': '' ?>"><span>Сделать ставку</span></div>
                     </div>
@@ -105,7 +112,7 @@ if($inputSize < 5 ) $inputSize = 5;
             <?php elseif(!Yii::app()->user->isTransport): ?>
                 <div class="width-50 timer-wrapper">
                      <div id="t-container"></div>
-                     <div id="last-rate"><span><?php echo ceil($minRateValue) . ' ' . $currency?></span></div>
+                     <div id="last-rate"><span><?php echo floor($minRateValue) . ' ' . $currency?></span></div>
                      <label class="r-header">Текущие ставки</label>
                      <div id="rates">
                      </div>
@@ -136,6 +143,7 @@ $(document).ready(function(){
         status: <?php echo $transportInfo['status'] ?>,
         step: <?php echo $priceStep ?>,
         nds: <?php echo ((bool)$model->with_nds) ? Yii::app()->params['nds'] : 0 ?>,
+        ndsValue: <?php echo Yii::app()->params['nds'] ?>,
         defaultRate: <?php echo ($defaultRate)? 1 : 0 ?>,
     };
     <?php if (!Yii::app()->user->isGuest): ?>
