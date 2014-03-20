@@ -24,6 +24,10 @@ function ЕditTransport() {
         });
         */
 		
+        $( "#Transport_date_close" ).datetimepicker({
+            dateFormat: 'dd-mm-yy',
+            timeFormat: 'HH:mm',
+        });
         $( "#Transport_date_from" ).datetimepicker({
             dateFormat: 'dd-mm-yy',
             timeFormat: 'HH:mm',

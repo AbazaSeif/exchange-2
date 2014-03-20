@@ -125,8 +125,10 @@ class TransportController extends Controller
         if(Yii::app()->user->checkAccess('createTransport')){
             $model = new Transport;
             $model->status  = 1;
-            $model->date_from = date('d-m-Y');
-            $model->date_to = date('d-m-Y');
+            $model->date_close = date('d-m-Y H:i', strtotime("+" . 2*Yii::app()->params['hoursBefore'] . " hours"));
+            $model->date_from = date('d-m-Y H:i', strtotime("+" . 3*Yii::app()->params['hoursBefore'] . " hours"));
+            $model->date_to = date('d-m-Y H:i', strtotime("+" . 4*Yii::app()->params['hoursBefore'] . " hours"));
+
             if(isset($_POST['Transport'])) {
                 $model->attributes = $_POST['Transport'];
                 $model->date_from = date('Y-m-d H:i:s', strtotime($model->date_from));
@@ -142,10 +144,12 @@ class TransportController extends Controller
                     Yii::app()->user->setFlash('saved_id', $model->id);
                     Yii::app()->user->setFlash('message', 'Перевозка создана успешно.');
                     
-                    $this->redirect('/admin/transport/');
+                    //$this->redirect('/admin/transport/');
+                    $this->redirect(array('/admin/transport/edittransport', 'id'=>$model->id));
                 }
             }
-            $this->renderPartial('edittransport', array('model'=>$model), false, true);
+            //$this->renderPartial('edittransport', array('model'=>$model), false, true);
+            $this->render('edittransport', array('model'=>$model), false, true);
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }

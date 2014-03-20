@@ -513,7 +513,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 .right .dropper li:first-child{
     border-top-width: 1px;
 }
-.right .dropper li.placeholder{
+.right .dropper li.placeholder {
     border-top-width: 1px;
     border: 1px dashed orange !important;
     background: white;
@@ -543,14 +543,14 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     /* конец чекбоксы */
     /*--------Начало-Перевозки----------*/
 .width-5, .width-10, .width-15, .width-16, .width-18, .width-19,
-.width-20, .width-22, .width-23, .width-25,.width-30, .width-40,
+.width-20, .width-22, .width-23, .width-25,.width-30, .width-35, .width-40,
 .width-45, .width-47, .width-50, .width-60, .width-70, .width-49
 {
     float: left;
 }
 .width-5{width: 3%; margin-right: 2%}
 .width-10{width: 10%;}
-.width-15{width: 15%;}
+.width-15{width: 13%; margin-right: 2%}
 .width-16{width: 16%;}
 .width-18{width: 17%; margin-right: 1%;}
 .width-19{width: 18%; margin-right: 1%;}
@@ -559,7 +559,8 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 .width-23{width: 22%; margin-right: 1%;}
 .width-25{width: 23%; margin-right: 2%;}
 .width-30{width: 30%;}
-.width-40{width: 40%;}
+.width-35{width: 33%; margin-right: 2%}
+.width-40{width: 38%; margin-right: 2%}
 .width-45{width: 45%;}
 .width-47{width: 47%;}
 .width-50{width: 50%;}
@@ -575,38 +576,80 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 .width-100{
     clear: both;
 }
-
+#tabs.ui-tabs .ui-tabs-nav li a{
+    color: #4183C4;
+}
+#tabs .ui-widget-header {
+    /*border-color: #4183C4;*/
+    background: url("/images/bg_menu_admin.png") repeat-x scroll left top #F3F3F3;
+}
+#tabs{
+    border-radius: 2px;
+    box-shadow: 0 0 3px #C0C0C0;
+    overflow: hidden;
+}
 .sorter ul li {
     float: left;
 }
-.sorter ul li:nth-child(1), .sorter ul li:nth-child(2)  {
+.sorter ul li:nth-child(1){
+    width: 10%;
+}
+.sorter ul li:nth-child(2){
+    width: 15%;
+}
+.sorter ul li:nth-child(4){
+    width: 24%;
+}
+.sorter ul li:nth-child(5){
+    width: 20%;
+}
+#tabs .list-view .sorter li{
+    margin: 0;  
+}
+
+.list-view .sorter a{
+    margin: 0 0 5px;
+    text-align: left;
+}
+
+/*.sorter ul li:nth-child(1), .sorter ul li:nth-child(2)  {
     width: 10%;
     text-align: left;
 }
 .sorter ul li:nth-child(2){
     width: 15%;
 }
+
 .sorter ul li:nth-child(1) a {
     padding-left: 20px;
 }
+*/
 
 .sorter ul li:nth-child(3){
-    text-align: left;
-    margin-right: 20px;
+    margin-right: 20px !important;
 }
 
-.sorter ul li a {
+.sorter ul li {
     color: #555555;
     display: block;
     font-weight: bold;
-    padding: 4px 12px;
-    position: relative;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+.list-view .sorter ul li a{
     text-decoration: none;
+    position: relative;
+   /* padding: 4px 12px;*/
     text-shadow: 0 1px 0 #FFFFFF;
 }
-
 .transport{
-    padding-bottom: 20px;
+    margin-bottom: 5px;
+    background-color: #eee;
+}
+.create-transport a{
+    margin: 0;
+    margin-bottom: 10px;
 }
 .transport:after, .sorter ul:after{
     clear: both;
@@ -773,7 +816,7 @@ input[name^="Rates"], input[name^="Points"]{
 .change{
     position: relative;
 }
-
+/*
 .width-5, .width-10, .width-15, .width-20, .width-25,.width-30, .width-40, .width-50, .width-60, .width-70
 {
     float: left;
@@ -788,7 +831,7 @@ input[name^="Rates"], input[name^="Points"]{
 .width-50{width: 50%;}
 .width-60{width: 60%;}
 .width-70{width: 70%;}
-
+*/
 /*-----Конец-changes-----------*/
 footer{
     
@@ -956,7 +999,7 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
 
 .form .field.error .errorMessage
 {
-    left: 65%;
+    left: 72%;
     width: 30%;
 }
 

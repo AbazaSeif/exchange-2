@@ -14,7 +14,6 @@ class TransportController extends Controller
                    'pageVar' => 'page',
                 ),
                 'sort'=>array(
-                    
                     'defaultOrder'=>array(
                             'date_published' => CSort::SORT_DESC,
                     ),                        

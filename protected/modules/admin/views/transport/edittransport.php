@@ -1,13 +1,15 @@
 <?php
     $header_form = '"'.$model->location_from.' &mdash; '.$model->location_to . '"';
     $submit_text = 'Сохранить';
+    $close_text = 'Закрыть редактирование';
     $delete_button = CHtml::link('Удалить перевозку', '/admin/transport/deletetransport/id/'.$model->id, array('id'=>'del_'.$model->id,'class'=>'btn del', 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
-
+    
     $action = '/admin/transport/edittransport/id/'.$model->id;
     if ($model->isNewRecord) {
         $submit_text = 'Создать';
+        $close_text = 'Закрыть';
         $name = 'new';
-        $header_form = 'Создание новой перевозки';
+        $header_form = '';
         $action = '/admin/transport/createtransport/';
         unset($delete_button);
     }
@@ -23,7 +25,7 @@
         <div class="header-form">
             <?php echo $header_form; ?>
         </div>
-        <div>Для того, чтобы вернуться к списку перевозок нажмите кнопку "Закрыть редактирование"
+        <div>Для того, чтобы вернуться к списку перевозок нажмите кнопку "<?php echo $close_text?>"
         </div>
     </div>
 <div class="right">
@@ -54,7 +56,7 @@
 ?>
 <div class="buttons">
 <?php  echo $delete_button; 
-    echo CHtml::button('Закрыть редактирование',array('id'=>'close-transport', 'class'=>'btn'));
+    echo CHtml::button($close_text,array('id'=>'close-transport', 'class'=>'btn'));
     echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn btn-green')); 
 ?>
 </div>
@@ -108,16 +110,17 @@
 </div>
 <div class="field">
     <?php
-        echo CHtml::label('Время закрытия заявки', 'timer_deadline');
-        $value = date("d-m-Y H:i", strtotime($model->date_from . "-" . Yii::app()->params['hoursBefore'] . " hours"));
-        echo CHtml::textField('timer_deadline', $value, array('disabled'=>true));
+        echo $form->error($model, 'date_close'); 
+        echo $form->labelEx($model, 'date_close');
+        $model->date_close = date("d-m-Y H:i", strtotime($model->date_close));
+        echo $form->textField($model, 'date_close'); 
     ?>
 </div>
 <div class="field">
 <?php  echo $form->error($model, 'date_from'); 
     echo $form->labelEx($model, 'date_from');
     $model->date_from = date("d-m-Y H:i", strtotime($model->date_from));
-    echo $form->textField($model, 'date_from', array('onchange'=>'updateFieldTimerDeadline();')); ?>    
+    echo $form->textField($model, 'date_from'); ?>    
 </div>
 <div class="field">
 <?php echo $form->error($model, 'date_to'); 
@@ -206,7 +209,7 @@ $(document).ready(function(){
         
     $('#close-transport').click(function(){document.location.href = "http://exchange.lbr.test/admin/transport/";})
 });
-
+/*
 function updateFieldTimerDeadline() {
     var input = $('#Transport_date_from').val();
     m = input.match(/(\d+)-(\d+)-(\d+) (\d+):(\d+)/);
@@ -224,5 +227,5 @@ function updateFieldTimerDeadline() {
     var timer = day + '-' + month + '-' + year + ' '+ hour + ':' + min;
     $('#timer_deadline').val(timer);
 }
-
+*/
 </script>
