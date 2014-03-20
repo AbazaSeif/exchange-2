@@ -1,5 +1,5 @@
 <?php
-    $header_form = 'Редактирование перевозки "'.$model->location_from.' &mdash; '.$model->location_to . '"';
+    $header_form = '"'.$model->location_from.' &mdash; '.$model->location_to . '"';
     $submit_text = 'Сохранить';
     $delete_button = CHtml::link('Удалить перевозку', '/admin/transport/deletetransport/id/'.$model->id, array('id'=>'del_'.$model->id,'class'=>'btn del', 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
 
@@ -13,10 +13,26 @@
     }
 ?>
 
+<div class="total">
+    <div class="left">
+        <?php if ($model->isNewRecord): ?>
+        <h1>Создание перевозки</h1>
+        <?php else: ?>
+        <h1>Редактирование перевозки</h1>
+        <?php endif?>
+        <div class="header-form">
+            <?php echo $header_form; ?>
+        </div>
+        <div>Для того, чтобы вернуться к списку перевозок нажмите кнопку "Закрыть редактирование"
+        </div>
+    </div>
+<div class="right">
 <div class="form">
-<div class="header-form">
-    <?php echo $header_form; ?>
-</div>
+<?php
+    if ($mess = Yii::app()->user->getFlash('message')){
+        echo '<div class="trMessage success">'.$mess.'</div>';
+    }
+?>
 <?php $form = $this->beginWidget('CActiveForm', array(
         'id'=>'transport-form',
         'action'=>$action,
@@ -38,13 +54,10 @@
 ?>
 <div class="buttons">
 <?php  echo $delete_button; 
-    echo CHtml::button('Закрыть перевозку',array('onclick'=>'$(".total .right").html(" ");','class'=>'btn'));
+    echo CHtml::button('Закрыть редактирование',array('id'=>'close-transport', 'class'=>'btn'));
     echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn btn-green')); 
 ?>
 </div>
-<?php //echo $form->errorSummary($model); ?>
-<!--div id='error'></div-->
-
 <div class="field">
 <?php echo $form->error($model, 'type');
     echo $form->labelEx($model, 'type');
@@ -168,6 +181,8 @@
 <?php endif; ?>
 <?php $this->endWidget(); ?> 
 </div>
+</div>
+</div>
 <script>
 $(document).ready(function(){
     var editor = new ЕditTransport();
@@ -187,6 +202,9 @@ $(document).ready(function(){
             revert: true
         });
     <?php endif; ?>
+        
+        
+    $('#close-transport').click(function(){document.location.href = "http://exchange.lbr.test/admin/transport/";})
 });
 
 function updateFieldTimerDeadline() {

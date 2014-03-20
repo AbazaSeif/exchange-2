@@ -7,7 +7,20 @@ class TransportController extends Controller
         if(Yii::app()->user->checkAccess('readTransport'))
         {
             $criteriaActive = new CDbCriteria();
-            $criteriaActive->condition = 'status = 1';
+            /*$criteriaActive->with = array('rates');
+            $criteriaActive->together = true;
+            $criteriaActive->select = '*';
+            $criteriaActive->alias = 't';
+            */
+             //$criteriaActive->join = 'LEFT JOIN `rate` ON `t`.`rate_id` = `rate`.`id`';
+             
+            //$criteriaActive->join='LEFT JOIN rate ON rate.id = t.rate_id';
+
+            //$criteriaActive->join .= 'LEFT JOIN `user` ON `rate`.`user_id` = `user`.`id`';
+            
+            $criteriaActive->condition = 't.status = :status';
+            $criteriaActive->params = array(':status' => 1);
+            
             
             $criteriaArchive = new CDbCriteria();
             $criteriaArchive->compare('status', 0);
@@ -29,6 +42,49 @@ class TransportController extends Controller
                     'desc' => 'location_to DESC',
                     'default' => 'asc',
                 ),
+                't_id' => array(
+                    't_id' => 'Id перевозки',
+                    'asc' => 't_id ASC',
+                    'desc' => 't_id DESC',
+                    'default' => 'asc',
+                ),
+                'date_from' => array(
+                    'date_from' => 'Дата закрузки',
+                    'asc' => 'date_from ASC',
+                    'desc' => 'date_from DESC',
+                    'default' => 'asc',
+                ),
+            );
+            
+            $sortArchive = new CSort();
+            $sortArchive->sortVar = 'sort';
+            $sortArchive->defaultOrder = 'location_from ASC';
+            
+            $sortArchive->attributes = array(
+                'location_from' => array(
+                    'location_from' => 'Место разгрузки',
+                    'asc' => 'location_from ASC',
+                    'desc' => 'location_from DESC',
+                    'default' => 'asc',
+                ),
+                'location_to' => array(
+                    'location_to' => 'Место загрузки',
+                    'asc' => 'location_to ASC',
+                    'desc' => 'location_to DESC',
+                    'default' => 'asc',
+                ),
+                't_id' => array(
+                    't_id' => 'Id перевозки',
+                    'asc' => 't_id ASC',
+                    'desc' => 't_id DESC',
+                    'default' => 'asc',
+                ),
+                'date_from' => array(
+                    'date_from' => 'Дата закрузки',
+                    'asc' => 'date_from ASC',
+                    'desc' => 'date_from DESC',
+                    'default' => 'asc',
+                ),
             );
             
             $dataActive = new CActiveDataProvider('Transport', 
@@ -44,7 +100,7 @@ class TransportController extends Controller
             $dataArchive = new CActiveDataProvider('Transport', 
                 array(
                     'criteria' => $criteriaArchive,
-                    'sort' => $sort,
+                    'sort' => $sortArchive,
                     'pagination' => array(
                         'pageSize'=>'10'
                     )
@@ -202,8 +258,8 @@ class TransportController extends Controller
                         )
                     );
                     
-                    $view = $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'minRateId'=>$minRateId, 'points' => $points), true, true);
-                    $this->render('transport', array('data'=>$dataProvider, 'view'=>$view)); 
+                    //$view = $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'minRateId'=>$minRateId, 'points' => $points), true, true);
+                    //$this->render('transport', array('data'=>$dataProvider, 'view'=>$view)); 
                 }
             } else {
                 $rates = Yii::app()->db->createCommand()
@@ -224,8 +280,10 @@ class TransportController extends Controller
 
                 $points = TransportInterPoint::model()->findAll(array('order'=>'sort', 'condition'=>'t_id = ' . $id)); 
 
-                $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'minRateId'=>$minRateId, 'points' => $points), false, true);
+                //$this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'minRateId'=>$minRateId, 'points' => $points), false, true);
+                //$this->render('edittransport', array('model'=>$model, 'rates'=>$rates, 'minRateId'=>$minRateId, 'points' => $points), false, true);
             }
+            $this->render('edittransport', array('model'=>$model, 'rates'=>$rates, 'minRateId'=>$minRateId, 'points' => $points), false, true);
         } else {
             throw new CHttpException(403, Yii::t('yii','У Вас недостаточно прав доступа.'));
         }

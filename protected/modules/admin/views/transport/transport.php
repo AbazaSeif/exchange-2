@@ -1,58 +1,4 @@
 <h1>Перевозки</h1>
-<!--div class="total">
-    <div class="left">
-    <div class="create-button">
-     <?php
-     echo CHtml::ajaxLink('Создать', '/admin/transport/createtransport/', array('update'=>'.right'), array('class'=>'btn-green btn'));
-     ?>   
-    </div>
-    <?php
-    /*$this->widget('zii.widgets.CListView', array(
-        'dataProvider'=>$data,
-        'itemView'=>'_item', // представление для одной записи
-        'ajaxUpdate'=>false, // отключаем ajax поведение
-        'emptyText'=>'Нет перевозок',
-        'template'=>'{sorter} {items} {pager}',
-        'sorterHeader'=>'',
-        'itemsTagName'=>'ul',
-        'sortableAttributes'=>array('location_from', 'location_to'),
-        'pager'=>array(
-            'class'=>'CLinkPager',
-            'header'=>false,
-            'prevPageLabel'=>'<',
-            'nextPageLabel'=>'>',
-            'lastPageLabel'=>'>>',
-            'firstPageLabel'=>'<<'
-        ),
-    ));*/
-    ?>
-    </div>
-    <div class="right">
-        <?php
-        if ($mess = Yii::app()->user->getFlash('message')){
-            echo '<div class="message success">'.$mess.'</div>';
-        }
-        if ($view){
-            echo $view;
-        }
-        ?>
-    </div>
-</div>
-<?php if($data->pagination->pageCount!=0) { 
-    $c = ($data->pagination->pageCount+4);
-    ?>
-    <style>
-    #search-index .pager ul.yiiPager li{
-        width: <?php echo 100/($c>14?14:$c); ?>%;
-    }
-    </style>
-<?php } ?>
-<script>
-    $(document).ready(function(){
-        var start = new AjaxContentLoader();
-        start.init('.left', '.ajax', '.right' ,false);
-    });
-</script-->
 <div class="right">
     <?php 
     if ($mess = Yii::app()->user->getFlash('message')){
@@ -63,7 +9,6 @@
         <ul>
             <li><a href="#tabs-1">Активные</a></li>
             <li><a href="#tabs-2">Архивные</a></li>
-            <li><a href="#tabs-3">Создать перевозку</a></li>
         </ul>
         <div id="tabs-1">
             <?php
@@ -75,7 +20,7 @@
                     'template'=>'{sorter} {items} {pager}',
                     'sorterHeader'=>'',
                     'itemsTagName'=>'ul',
-                    'sortableAttributes'=>array('location_from', 'location_to'),
+                    'sortableAttributes'=>array('t_id', 'date_from', 'location_from', 'location_to'/*, 'price'=>'Лучшая цена'*/),
                     'pager'=>array(
                         'class'=>'CLinkPager',
                         'header'=>false,
@@ -97,7 +42,7 @@
             'template'=>'{sorter} {items} {pager}',
             'sorterHeader'=>'',
             'itemsTagName'=>'ul',
-            'sortableAttributes'=>array('location_from', 'location_to'),
+            'sortableAttributes'=>array('t_id', 'date_from', 'location_from', 'location_to'/*, 'price' => 'Лучшая цена'*/),
             'pager'=>array(
                 'class'=>'CLinkPager',
                 'header'=>false,
@@ -109,118 +54,21 @@
         ));
         ?>
         </div>
-        <div id="tabs-3">
-            <div class="form">
-                <?php 
-                $newTransport = new Transport;
-                $form = $this->beginWidget('CActiveForm', array(
-                        'id'=>'transport-form',
-                        'action'=>$action,
-                        'enableClientValidation' => true,        
-                        'clientOptions'=>array(
-                            'validateOnSubmit'=>true,
-                            'validateOnChange' => true,
-                            'afterValidate'=>'js:function( form, data, hasError ) 
-                            {     
-                                if( hasError ){
-                                    return false;
-                                }
-                                else{
-                                    return true;
-                                }
-                            }'
-                        ),
-                    ));
-                ?>
-                <div class="buttons">
-                <?php  
-                    //echo CHtml::button('Закрыть перевозку',array('onclick'=>'$(".total .right").html(" ");','class'=>'btn'));
-                    //echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn btn-green')); 
-                ?>
-                </div>
-                <div class="field">
-                <?php echo $form->error($newTransport, 'type');
-                    echo $form->labelEx($newTransport, 'type');
-                    echo $form->dropDownList($newTransport, 'type', Transport::$group); ?>
-                </div>
-                <div class="field">
-                <?php  echo $form->error($newTransport, 'location_from'); 
-                    echo $form->labelEx($newTransport, 'location_from');
-                    echo $form->textField($newTransport, 'location_from');
-                ?>    
-                </div>
-                <div class="field">
-                <?php  echo $form->error($newTransport, 'location_to'); 
-                    echo $form->labelEx($newTransport, 'location_to');
-                    echo $form->textField($newTransport, 'location_to');?>    
-                </div>
-                <div class="field">
-                <?php echo $form->error($newTransport, 'start_rate'); 
-                    echo $form->labelEx($newTransport, 'start_rate');
-                    echo $form->textField($newTransport, 'start_rate');
-                ?>    
-                </div>
-                <div class="field">
-                <?php echo $form->error($newTransport, 'currency');
-                    echo $form->labelEx($newTransport, 'currency');
-                    echo $form->dropDownList($newTransport, 'currency', Transport::$currencyGroup); ?>
-                </div>
-                <div class="field">
-                <?php  echo $form->error($newTransport, 'description'); 
-                    echo $form->labelEx($newTransport, 'description');
-                    echo $form->textArea($newTransport, 'description');?>    
-                </div>
-                <div class="field">
-                <?php  echo $form->error($newTransport, 'auto_info'); 
-                    echo $form->labelEx($newTransport, 'auto_info');
-                    echo $form->textArea($newTransport, 'auto_info');?>    
-                </div>
-                <div class="field">
-                <?php echo $form->error($newTransport, 'status');
-                    echo $form->labelEx($newTransport, 'status');
-                    echo $form->dropDownList($newTransport, 'status', Transport::$status); ?>
-                </div>
-                <div class="field">
-                    <?php
-                        echo CHtml::label('Часовой Пояс', 'timer_label');
-                        echo CHtml::textField('timer_label', 'Московское время', array('disabled'=>true));
-                    ?>
-                </div>
-                <div class="field">
-                    <?php
-                        echo CHtml::label('Время закрытия заявки', 'timer_deadline');
-                        $value = date("d-m-Y H:i", strtotime('now' . "-" . Yii::app()->params['hoursBefore'] . " hours"));
-                        echo CHtml::textField('timer_deadline', $value, array('disabled'=>true));
-                    ?>
-                </div>
-                <div class="field">
-                <?php  echo $form->error($newTransport, 'date_from'); 
-                    echo $form->labelEx($newTransport, 'date_from');
-                    $newTransport->date_from = date("d-m-Y H:i", strtotime('now'));
-                    echo $form->textField($newTransport, 'date_from', array('onchange'=>'updateFieldTimerDeadline();')); ?>    
-                </div>
-                <div class="field">
-                <?php echo $form->error($newTransport, 'date_to'); 
-                    echo $form->labelEx($newTransport, 'date_to');
-                    $newTransport->date_to = date("d-m-Y H:i", strtotime('now'));
-                    echo $form->textField($newTransport, 'date_to'); ?>    
-                </div>
-                <?php echo CHtml::submitButton('Сохранить',array('class'=>'btn btn-green')); ?>
-            <?php $this->endWidget(); ?> 
-            </div>
-        </div>
     </div>
 </div>
 
     
 <script>
     $(function() {
+        var activeTab = parseInt(sessionStorage.getItem('transportActive'));
+        if(isNaN(activeTab)) {
+            $("#tabs").tabs({active: 0});
+        } else $("#tabs").tabs({active: activeTab});
         $( "#tabs").tabs();
         
-        //aria-selected
-        
-        /*$('.sorter li a').on('click', function(){
-            console.log(222);
-        });*/
+        $('li.ui-state-default.ui-corner-top > a').click(function(){
+            var active = $("#tabs").tabs("option", "active");
+            sessionStorage.setItem('transportActive', active);
+        });        
     });
 </script>

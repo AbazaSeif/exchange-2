@@ -33,9 +33,10 @@ input, textarea{
     width: 50%;
 }
 #transport-form input:not(.btn), #transport-form textarea{
-    padding: 2px;
+    padding: 3px;
     width: 49%;
 }
+
 #timer_deadline, #timer_label{
     border: none;
     cursor: default;
@@ -365,6 +366,11 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     font-weight: bold;
     margin: 0 0 1em;
 }
+.left .header-form{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 1em;
+}
 .right form{
     position: relative;
 }
@@ -373,7 +379,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     margin: 1em 0;
 }
 #transport-form .field{
-    margin-top: 0;
+   /* margin-top: 0;*/
     margin-bottom: 5px;
 }
 .right .header-h4{
@@ -404,6 +410,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     margin-left: 10%;
     padding: 0 .5em;
 }
+
 .right form .level span{
     width: 50px;
 }
@@ -441,7 +448,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     border-radius: 2px;
 }
 
-.right .message {
+.right .message, .right .trMessage {
     padding: 1.2% 2%;
     margin-bottom: .53em;
     background: #E6EFC2;
@@ -456,6 +463,12 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     bottom: 100%;
     right: 2.9%;
     width: 90.5%;
+}
+.right .trMessage {
+    bottom: 95%;
+    padding: 0.5%;
+    left: 2.9%;
+    width: 45%;
 }
 
 .right .message.error{
@@ -528,6 +541,138 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     margin: 0;
 }
     /* конец чекбоксы */
+    /*--------Начало-Перевозки----------*/
+.width-5, .width-10, .width-15, .width-16, .width-18, .width-19,
+.width-20, .width-22, .width-23, .width-25,.width-30, .width-40,
+.width-45, .width-47, .width-50, .width-60, .width-70, .width-49
+{
+    float: left;
+}
+.width-5{width: 3%; margin-right: 2%}
+.width-10{width: 10%;}
+.width-15{width: 15%;}
+.width-16{width: 16%;}
+.width-18{width: 17%; margin-right: 1%;}
+.width-19{width: 18%; margin-right: 1%;}
+.width-20{width: 19%; margin-right: 1%;}
+.width-22{width: 21%; margin-right: 1%;}
+.width-23{width: 22%; margin-right: 1%;}
+.width-25{width: 23%; margin-right: 2%;}
+.width-30{width: 30%;}
+.width-40{width: 40%;}
+.width-45{width: 45%;}
+.width-47{width: 47%;}
+.width-50{width: 50%;}
+.width-60{width: 60%;}
+.width-70{width: 70%;}
+.width-100{width: 100%;}
+.width-49{width: 49%; margin-left: 1%;}
+.width-49:first-child{margin-left: 0; margin-right: 1%;}
+.width-30-r{
+    float: right;
+    width: 30%;
+}
+.width-100{
+    clear: both;
+}
+
+.sorter ul li {
+    float: left;
+}
+.sorter ul li:nth-child(1), .sorter ul li:nth-child(2)  {
+    width: 10%;
+    text-align: left;
+}
+.sorter ul li:nth-child(2){
+    width: 15%;
+}
+.sorter ul li:nth-child(1) a {
+    padding-left: 20px;
+}
+
+.sorter ul li:nth-child(3){
+    text-align: left;
+    margin-right: 20px;
+}
+
+.sorter ul li a {
+    color: #555555;
+    display: block;
+    font-weight: bold;
+    padding: 4px 12px;
+    position: relative;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+
+.transport{
+    padding-bottom: 20px;
+}
+.transport:after, .sorter ul:after{
+    clear: both;
+    content: "";
+    display: block;
+}
+
+.transport .t-header {
+    color: #00917C;
+    display: block;
+    /*font-size: 18px;*/
+    font-weight: bold;
+    margin: 1px 0 2px;
+    overflow: hidden;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.transport > div
+{
+    min-height: 60px;
+}
+
+.transport div{
+    text-align: left;
+}
+
+.transport img{
+    margin-top: 20px;
+}
+.transport .description{
+    overflow: hidden;
+}
+.transport .description-50{
+    height: 50px;
+    overflow: hidden;
+}
+.transport .t-wrapper .width-50{
+    margin-bottom: 5px;
+}
+.t-points{
+    color: #666;
+    font-size: 11px;
+    padding-top: 3px;
+}
+.transport .v-center
+{
+    height: 100%;
+    min-height: 40px;
+    position: relative;
+}
+.transports .items .transport .v-center .t-rate,
+.transports .items .transport .v-center .t-closed,
+.transports .items .transport .v-center .t-timer
+{
+    position: absolute;
+    height: 24px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+/*--------Конец-Перевозки----------*/
+
     
     /* Начало список ставок */
 
@@ -596,6 +741,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 
 #rates-all li > span:nth-child(2){
     cursor: default;
+    text-align: left;
 }
 
 #rates-all li span.del-row, #points-all li span.del-row{

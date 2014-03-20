@@ -168,7 +168,7 @@ io.sockets.on('connection', function (socket) {
             socket.broadcast.emit('setRate', {
                 name : data.name,
                 surname : data.surname,
-		company : data.company,
+		        company : data.company,
                 price : data.price,
                 date: time,
                 transportId : data.transportId

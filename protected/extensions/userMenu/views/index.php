@@ -91,10 +91,9 @@ $(document).ready(function(){
     
     socket.emit('events', userId);   
     socket.on('updateEvents', function (data) {
-        if(parseInt(data.count) != 0){
+        if(parseInt(data.count) != 0) {
             $('#event-counter').html(data.count);    
-        } else $('#event-counter').html('');    
-              
+        } else $('#event-counter').html('');
     });
     
     socket.on('onlineEvent', function (data) {

@@ -4,6 +4,7 @@ var menu = {
         //setInterval(function(){menu.updateCounter()}, 5000);
         
         //null - если не активен пункт меню
+		
         var activeElement = parseInt(sessionStorage.getItem('menu'));
         var activeSubElement = parseInt(sessionStorage.getItem('submenu'));
         
@@ -41,6 +42,7 @@ var menu = {
             }
         });
     },
+	
     /*updateCounter : function(){
         $.ajax({
             url: '/user/updateEventCounter',

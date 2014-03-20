@@ -4,6 +4,7 @@
     Yii::app()->clientScript->registerScriptFile('/js/back/users.js');
     $allCompanies = $this->getCompanies();
 ?>
+
 <h1>Контактные лица</h1>
 <?php if(!empty($allCompanies)): ?>
 <div class="total">
@@ -54,6 +55,7 @@
 <?php else: ?>
 <span>Предварительно cоздайте  компании ( меню Перевозчики->компании )</span>
 <?php endif; ?>
+
 <style>
 .left .list-view .pager ul.yiiPager li.page{
     width: <?php //echo 100/$data->pagination->pageCount; ?>%;
