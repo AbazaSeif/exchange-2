@@ -258,14 +258,14 @@ var rateList = {
         var time = '';
         var id = 0;
         var price = parseInt(rate.price);
-        //price = Math.ceil(price + price * this.data.nds);
+        price = Math.ceil(price + price * this.data.nds);
 
         if (rate.id) id = rate.id;
-        var element = this.createElement(initPrice, rate.time, price, id, rate.company, rate.name, rate.surname, parseInt(rate.with_nds));
+        var element = this.createElement(initPrice, rate.time, price, id, rate.company, rate.name, rate.surname, parseInt(rate.with_nds), parseInt(rate.price));
         
         this.container.prepend(element);
     },
-    createElement : function(initPrice, date, price, id, company, name, surname, nds) {
+    createElement : function(initPrice, date, price, id, company, name, surname, nds, ratePrice) {
         if(initPrice < price){
             $('#rate-price').attr('init', price);
         }
@@ -279,32 +279,20 @@ var rateList = {
                 "<span>" + date + "</span>" + 
                 "<div class='r-o-user'>" + company;
         
-        // Если контактное лицо
-        /*
-        if(name || surname) {
-            newElement += ' (';
-            if(name) newElement += name;
-            if(surname) newElement += ' ' + surname;
-            newElement += ')';
-        }*/
-        
-
         newElement += "</div>" +
             "</div>"
         ;
         
         if(nds){
-            var withNds = Math.ceil(price + price * rateList.data.ndsValue);
-            
-            //console.log(rateList.data.nds);
+            var withNds = Math.ceil(ratePrice + ratePrice * rateList.data.ndsValue);
             newElement += "<div class='price-container'>" + 
-                "<div class='r-o-price'>" + Math.ceil(price + price * rateList.data.nds) + rateList.data.currency + 
+                "<div class='r-o-price'>" + price + rateList.data.currency + 
                 "</div>" +
                 "<div class='r-o-nds'>" + '(c НДС: ' + withNds + rateList.data.currency + ') '+ 
                 "</div>" +
             "</div>";
         } else {
-            newElement += "<div class='r-o-price'>" + Math.ceil(price + price * rateList.data.nds) + rateList.data.currency + "</div>";
+            newElement += "<div class='r-o-price'>" + price + rateList.data.currency + "</div>";
         }
         newElement += "</div>";
         
