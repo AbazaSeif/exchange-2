@@ -21,7 +21,7 @@
         <?php echo $data->t_id ?>
     </div>
     <div class="width-15">
-        <?php echo date('d.m.Y H:i', strtotime($data->date_from)) ?>
+        <?php echo date('d.m.Y H:i', strtotime($data->date_close)) ?>
     </div>
     <div class="width-35">
         <div class="width-100">
