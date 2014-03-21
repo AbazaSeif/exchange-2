@@ -61,10 +61,10 @@ class Rate extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'transport_id' => 'Transport',
-			'date' => 'Date',
-			'price' => 'Price',
-			'user_id' => 'User',
+			'transport_id' => 'ID перевозки',
+			'date' => 'Дата',
+			'price' => 'Размер ставки',
+			'user_id' => 'Пользователь',
 		);
 	}
 
