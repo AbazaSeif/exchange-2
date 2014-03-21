@@ -93,7 +93,6 @@ return array(
             'class' => 'CLogRouter',
             'routes' => array(
                 /*array(
-                    //  'class'=>'CWebLogRoute',  'levels'=>'trace, info, error, warning',
                     'class' => 'CWebLogRoute', 'levels' => 'info, error, warning',
                 ),*/
                 array(

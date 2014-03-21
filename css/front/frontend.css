@@ -482,12 +482,18 @@ div.row{
     border-right: 4px solid transparent;
     border-bottom: 6px solid rgb(239, 128, 27);
 }
+
 .transports .sorter ul li a.desc:after
 {
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
     border-top: 6px solid rgb(239, 128, 27);
 }
+
+.transports .sorter ul li:last-child a.asc:after, .transports .sorter ul li a.desc:after{
+    margin-top: 15px;
+}
+
 .transports .sorter ul li:first-child
 {
     width: 25%;

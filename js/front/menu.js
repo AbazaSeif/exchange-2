@@ -3,7 +3,7 @@ var menu = {
         //this.updateCounter();
         //setInterval(function(){menu.updateCounter()}, 5000);
         
-        //null - если не активен пункт меню
+        //null - пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 		
         var activeElement = parseInt(sessionStorage.getItem('menu'));
         var activeSubElement = parseInt(sessionStorage.getItem('submenu'));
@@ -39,6 +39,14 @@ var menu = {
                 } else {
                     sessionStorage.setItem('menu', null);
                 }
+            }
+        });
+        
+        $(document).keypress(function(e) {
+            var code = e.keyCode || e.which;
+            console.log(code);
+            if (e.which == 13) {
+                console.log('back2');
             }
         });
     },

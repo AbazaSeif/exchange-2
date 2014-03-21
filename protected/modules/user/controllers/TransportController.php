@@ -15,9 +15,9 @@ class TransportController extends Controller
                 ),
                 'sort'=>array(
                     'attributes'=>array(
-                        'date_from'=>array(
-                            'asc'=>'date_from ASC',
-                            'desc'=>'date_from DESC',
+                        'date_close'=>array(
+                            'asc'=>'date_close ASC',
+                            'desc'=>'date_close DESC',
                             'default'=>'desc',
                         ),
                         'date_to'=>array(
@@ -67,9 +67,9 @@ class TransportController extends Controller
                 ),
                 'sort' => array(
                     'attributes'=>array(
-                        'date_from'=>array(
-                            'asc'=>'date_from ASC',
-                            'desc'=>'date_from DESC',
+                        'date_close'=>array(
+                            'asc'=>'date_close ASC',
+                            'desc'=>'date_close DESC',
                             'default'=>'desc',
                         ),
                         'date_to'=>array(
@@ -121,9 +121,9 @@ class TransportController extends Controller
                 ),
                 'sort' => array(
                     'attributes'=>array(
-                        'date_from'=>array(
-                            'asc'=>'date_from ASC',
-                            'desc'=>'date_from DESC',
+                        'date_close'=>array(
+                            'asc'=>'date_close ASC',
+                            'desc'=>'date_close DESC',
                             'default'=>'desc',
                         ),
                         'date_to'=>array(
@@ -219,9 +219,9 @@ class TransportController extends Controller
 
                 'sort' => array(
                     'attributes'=>array(
-                        'date_from'=>array(
-                            'asc'=>'date_from ASC',
-                            'desc'=>'date_from DESC',
+                        'date_close'=>array(
+                            'asc'=>'date_close ASC',
+                            'desc'=>'date_close DESC',
                             'default'=>'desc',
                         ),
                         'date_to'=>array(

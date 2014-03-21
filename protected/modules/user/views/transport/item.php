@@ -25,16 +25,19 @@ if(!$transportInfo['currency']){
    $currency = '$';
 }
 
-if($winFerrymanShowNds->with_nds) {
-    $showWithNds = ' (с НДС: ' . floor($winRate->price + $winRate->price * Yii::app()->params['nds']) . ' ' . $currency . ') ' . $winFerryman->company;    
-}
-
 if (!empty($transportInfo['rate_id'])) {
     $minRateValue = $this->getMinPrice($transportInfo['id']);
 } else {
     $minRateValue = $transportInfo['start_rate'];
     $defaultRate = true;
 }
+
+if($winFerrymanShowNds->with_nds) {
+    $showWithNds = ' (с НДС: ' . floor($winRate->price + $winRate->price * Yii::app()->params['nds']) . ' ' . $currency . ') ' . $winFerryman->company;    
+} else if(!$defaultRate){
+    $showWithNds = $winFerryman->company;    
+}
+
 
 if (!Yii::app()->user->isGuest) {
     $userId = Yii::app()->user->_id;
