@@ -448,7 +448,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     border-radius: 2px;
 }
 
-.right .message, .right .trMessage {
+.right .message, .right .trMessage, .right .trDelMessage {
     padding: 1.2% 2%;
     margin-bottom: .53em;
     background: #E6EFC2;
@@ -464,10 +464,17 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     right: 2.9%;
     width: 90.5%;
 }
+
 .right .trMessage {
     bottom: 95%;
     padding: 0.5%;
     left: 2.9%;
+    width: 45%;
+}
+
+.right .trDelMessage {
+    padding: 0.5%;
+    left: 10%;
     width: 45%;
 }
 

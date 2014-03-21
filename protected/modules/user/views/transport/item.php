@@ -7,6 +7,10 @@ $priceStep = Transport::INTER_PRICE_STEP;
 $now = date('m/d/Y H:i:s', strtotime('now'));
 //$end = date('m/d/Y H:i:s', strtotime($transportInfo['date_from'] . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
 $end = date('m/d/Y H:i:s', strtotime($transportInfo['date_close']));
+$winRate = Rate::model()->findByPk($transportInfo['rate_id']);
+$winFerryman = User::model()->findByPk($winRate->user_id);
+$winFerrymanShowNds = UserField::model()->findByAttributes(array('user_id'=>$winRate->user_id));
+$showWithNds = '';
 
 $allPoints = TransportInterPoint::getPoints($transportInfo['id']);
 
@@ -21,8 +25,11 @@ if(!$transportInfo['currency']){
    $currency = '$';
 }
 
+if($winFerrymanShowNds->with_nds) {
+    $showWithNds = ' (с НДС: ' . floor($winRate->price + $winRate->price * Yii::app()->params['nds']) . ' ' . $currency . ') ' . $winFerryman->company;    
+}
+
 if (!empty($transportInfo['rate_id'])) {
-    //$lastRate = $this->getPrice($transportInfo['rate_id']);
     $minRateValue = $this->getMinPrice($transportInfo['id']);
 } else {
     $minRateValue = $transportInfo['start_rate'];
@@ -32,24 +39,26 @@ if (!empty($transportInfo['rate_id'])) {
 if (!Yii::app()->user->isGuest) {
     $userId = Yii::app()->user->_id;
     $model = UserField::model()->find('user_id = :id', array('id' => $userId));
-    //$originalPrice = $lastRate;
+
     if((bool)$model->with_nds) {
         $minRateValue = floor($minRateValue + $minRateValue * Yii::app()->params['nds']);
     } else $minRateValue = floor($minRateValue);
     
     $userInfo = User::model()->findByPk($userId);
-}
-$residue = $minRateValue % $priceStep;
-if($residue != 0) {
-    if(($minRateValue - $residue) > 0){
-        $minRateValue = $minRateValue  - $residue;
-    } else $minRateValue = $priceStep;
-}
 
-$minRate = (($minRateValue - $priceStep)<=0)? 1 : 0;
-$inputSize = strlen((string)$minRateValue)-1;
-if($inputSize < 5 ) $inputSize = 5;
+    if(Yii::app()->user->isTransport) {
+        $residue = $minRateValue % $priceStep;
+        if($residue != 0) {
+            if(($minRateValue - $residue) > 0){
+                $minRateValue = $minRateValue  - $residue;
+            } else $minRateValue = $priceStep;
+        }
+    }
 
+    $minRate = (($minRateValue - $priceStep)<=0)? 1 : 0;
+    $inputSize = strlen((string)$minRateValue)-1;
+    if($inputSize < 5 ) $inputSize = 5;
+}
 ?>
 
 <div class="transport-one">
@@ -113,7 +122,12 @@ if($inputSize < 5 ) $inputSize = 5;
             <?php elseif(!Yii::app()->user->isTransport): ?>
                 <div class="width-50 timer-wrapper">
                      <div id="t-container"></div>
-                     <div id="last-rate"><span><?php echo floor($minRateValue) . ' ' . $currency?></span></div>
+                     <div id="last-rate">
+                         <span><?php echo $minRateValue . ' ' . $currency?></span>
+                         <?php if($showWithNds): ?>
+                             <div><?php echo $showWithNds ?></div> 
+                         <?php endif; ?>
+                     </div>
                      <label class="r-header">Текущие ставки</label>
                      <div id="rates">
                      </div>

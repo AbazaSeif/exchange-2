@@ -88,7 +88,7 @@ class UserController extends Controller
                         Yii::app()->user->setFlash('saved_id', $model->id);
                         Yii::app()->user->setFlash('message', 'Пользователь "'.$model->company.'" создан успешно.');
                         $this->redirect('/admin/user/');
-                    }
+                    } else Yii::log($model->getErrors(), 'error');
                 } else {
                     if(!empty($emailExists) && !empty($innExists)) {
                         Yii::app()->user->setFlash('error', 'Указанные email и inn уже используются. ');
@@ -212,7 +212,7 @@ class UserController extends Controller
                         Yii::app()->user->setFlash('saved_id', $model->id);
                         Yii::app()->user->setFlash('message', 'Пользователь "' . $model->company . '" сохранен успешно.');
                         $this->redirect('/admin/user/');
-                    }
+                    } else Yii::log($model->getErrors(), 'error');
                 }
             } else $this->renderPartial('user/edituser', array('model' => $form), false, true);
         } else {

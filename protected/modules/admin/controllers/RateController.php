@@ -9,7 +9,7 @@ class RateController extends Controller
             $model['date'] = date('Y-m-d H:i');
             if (isset($_POST['Rate'])){
                 $model->attributes = $_POST['Rate'];
-                $model->save();
+                if(!$model->save()) Yii::log($model->getErrors(), 'error');
             }
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
@@ -23,7 +23,7 @@ class RateController extends Controller
         {
             if (isset($_POST['Rate'])){
                 $model->attributes = $_POST['Rate'];
-                $model->save();
+                if(!$model->save()) Yii::log($model->getErrors(), 'error');
             }
         } else {
              throw new CHttpException(403,Yii::t('yii', 'У Вас недостаточно прав доступа.'));

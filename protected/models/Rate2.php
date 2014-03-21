@@ -7,7 +7,7 @@
  * @property integer $id
  * @property integer $transport_id
  * @property string $date
- * @property double $price
+ * @property integer $price
  * @property integer $user_id
  *
  * The followings are the available model relations:
@@ -16,6 +16,7 @@
  */
 class Rate extends CActiveRecord
 {
+        public $company;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -32,9 +33,8 @@ class Rate extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('transport_id, user_id', 'numerical', 'integerOnly'=>true),
-			array('price', 'numerical'),
-			array('date', 'safe'),
+			array('transport_id, price, user_id', 'numerical', 'integerOnly'=>true),
+			array('date, price', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, transport_id, date, price, user_id', 'safe', 'on'=>'search'),
@@ -61,10 +61,10 @@ class Rate extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'transport_id' => 'Transport',
-			'date' => 'Date',
-			'price' => 'Price',
-			'user_id' => 'User',
+			'transport_id' => 'ID перевозки',
+			'date' => 'Дата',
+			'price' => 'Размер ставки',
+			'user_id' => 'Пользователь',
 		);
 	}
 

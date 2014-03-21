@@ -439,7 +439,7 @@ class CronCommand extends CConsoleCommand
     
     public function sendMailToLogist($transportId)
     {
-        $transport = Transport::model()->findByPk($transportId);  
+        $transport = Transport::model()->findByPk($transportId);
         $email = new TEmail;
         $email->from_email = Yii::app()->params['adminEmail'];
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';

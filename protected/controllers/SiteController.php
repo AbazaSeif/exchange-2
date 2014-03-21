@@ -74,6 +74,25 @@ class SiteController extends Controller
             }
         }
     }
+    /* check if in field date_close is empty */
+    public function actionDateClose()
+    {
+        $users = Yii::app()->db->createCommand()
+            ->select('id, date_close')
+            ->from('user')
+            ->queryAll()
+        ;
+
+        if(!empty($users)) {
+            foreach($users as $user) {
+                if(empty($user['date_close'])){
+                    $user = User::model()->findByPk($user['id']);
+                    $user->date_close = date("Y-m-d H:i", strtotime($user->date_from . "-" . Yii::app()->params['hoursBefore'] . " hours"));
+                    if(!$user->save()) Yii::log($model->getErrors(), 'error');
+                }
+            }
+        }
+    }
     
     public function actionFeedback()
     {
@@ -124,7 +143,7 @@ class SiteController extends Controller
                     $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
 
                     Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Вы получите на почту инструкции по активации, когда ваша заявка будет рассмотрена. Спасибо за интерес, проявленный к нашей компании');
-                }
+                } else Yii::log($user->getErrors(), 'error');
             } else {
                 Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким ИНН/УНП уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');  
             }
@@ -167,7 +186,7 @@ class SiteController extends Controller
                         ';
                         $email->sendMail();
                         Dialog::message('flash-success', 'Отправлено!', 'Инструкции к дальнейшим действиям были отправлены на ваш почтовый ящик.');
-                    }
+                    } else Yii::log($user->getErrors(), 'error');
                 } else {
                     Dialog::message('flash-success', 'Внимание!', 'Ваша заявка на восстановление доступа отправлена, в ближайшее время с вами свяжутся представители нашей компании.');
                     // send mail to logist

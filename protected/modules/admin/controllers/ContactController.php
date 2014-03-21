@@ -84,7 +84,7 @@ class ContactController extends Controller
                         Yii::app()->user->setFlash('saved_id', $model->id);
                         Yii::app()->user->setFlash('message', 'Контакт "'.$model->surname.' '.$model->name.'" создан успешно.');
                         $this->redirect('/admin/contact/');
-                    }
+                    } else Yii::log($model->getErrors(), 'error');
                 } else {
                     $criteria = new CDbCriteria();
                     $sort = new CSort();
@@ -198,7 +198,7 @@ class ContactController extends Controller
                         Yii::app()->user->setFlash('saved_id', $model->id);
                         Yii::app()->user->setFlash('message', 'Контактное лицо "' . $model->surname . ' ' . $model->name . '" сохранено успешно.');
                         $this->redirect('/admin/contact/');
-                    }
+                    } else Yii::log($model->getErrors(), 'error');
                 }
             } else $this->renderPartial('editcontact', array('model' => $form), false, true);
         } else {

@@ -214,6 +214,7 @@ var rateList = {
                         
                         rateList.container.html('');
                         var initPrice = parseInt($('#rate-price').attr('init'));
+                        
                         $.each( rates.all, function( key, value ) {
                             rateList.add(value, initPrice);
                         });

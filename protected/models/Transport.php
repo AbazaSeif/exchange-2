@@ -45,6 +45,11 @@ class Transport extends CActiveRecord
         1=>'Доллары ($)',
         2=>'Евро (€)',
     );
+    
+    public static $status = array(
+        0=>'Архивная',
+        1=>'Активная',
+    );
     /**
 	 * @return string the associated database table name
 	 */

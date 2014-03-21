@@ -48,10 +48,9 @@ class TransportController extends Controller
                     'desc' => 't_id DESC',
                     'default' => 'asc',
                 ),
-                'date_from' => array(
-                    'date_from' => 'Дата закрузки',
-                    'asc' => 'date_from ASC',
-                    'desc' => 'date_from DESC',
+                'date_close' => array(
+                    'asc' => 'date_close ASC',
+                    'desc' => 'date_close DESC',
                     'default' => 'asc',
                 ),
             );
@@ -79,10 +78,9 @@ class TransportController extends Controller
                     'desc' => 't_id DESC',
                     'default' => 'asc',
                 ),
-                'date_from' => array(
-                    'date_from' => 'Дата закрузки',
-                    'asc' => 'date_from ASC',
-                    'desc' => 'date_from DESC',
+                'date_close' => array(
+                    'asc' => 'date_close ASC',
+                    'desc' => 'date_close DESC',
                     'default' => 'asc',
                 ),
             );
@@ -138,15 +136,14 @@ class TransportController extends Controller
                 $model->user_id = Yii::app()->user->_id;
                 $model->date_published = date('Y-m-d H:i:s');
                 if($model->save()){
-                    $message = 'Создана перевозка ' . $model->location_from . ' — ' . $model->location_to;
+                    $message = 'Создана перевозка "' . $model->location_from . ' — ' . $model->location_to . '"';
                     Changes::saveChange($message);
-                    
                     Yii::app()->user->setFlash('saved_id', $model->id);
                     Yii::app()->user->setFlash('message', 'Перевозка создана успешно.');
                     
                     //$this->redirect('/admin/transport/');
                     $this->redirect(array('/admin/transport/edittransport', 'id'=>$model->id));
-                }
+                } else Yii::log($model->getErrors(), 'error');
             }
             //$this->renderPartial('edittransport', array('model'=>$model), false, true);
             $this->render('edittransport', array('model'=>$model), false, true);
@@ -264,7 +261,7 @@ class TransportController extends Controller
                     
                     //$view = $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'minRateId'=>$minRateId, 'points' => $points), true, true);
                     //$this->render('transport', array('data'=>$dataProvider, 'view'=>$view)); 
-                }
+                } else Yii::log($model->getErrors(), 'error');
             } else {
                 $rates = Yii::app()->db->createCommand()
                     ->select('r.id, r.date, r.price, u.company')
@@ -297,10 +294,11 @@ class TransportController extends Controller
     {
         if(Yii::app()->user->checkAccess('deleteTransport')){
             $model = Transport::model()->findByPk($id);
+            $transportName = $model->location_from . ' — ' . $model->location_to;
             if(Transport::model()->deleteByPk($id)){
-                $message = 'Удалена перевозка ' . $model['location_from'] . ' — ' . $model['location_to'];
+                $message = 'Удалена перевозка "' . $transportName . '"';
                 Changes::saveChange($message);
-                Yii::app()->user->setFlash('message', 'Перевозка "' . $model->location_from . ' &mdash; ' . $model->location_to . '" удалена успешно.');
+                Yii::app()->user->setFlash('message', 'Перевозка "' . $transportName . '" удалена успешно.');
                 $this->redirect('/admin/transport/');
             }
         } else {

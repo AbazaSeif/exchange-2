@@ -2,10 +2,18 @@
 <div class="create-transport">
     <?php
         echo CHtml::link('Создать', '/admin/transport/createtransport/', array('class' => 'btn-green btn'));
+        /*if ($mess = Yii::app()->user->getFlash('message')){
+            echo '<div class="trMessage success">'.$mess.'</div>';
+        }*/
     ?>
 </div>
 <div style="clear: both"></div>
-<div class="right">   
+<div class="right">
+    <?php 
+        if ($mess = Yii::app()->user->getFlash('message')){
+            echo '<div class="trDelMessage success">'.$mess.'</div>';
+        }
+    ?>
     <div id="tabs">
         <ul>
             <li><a href="#tabs-1">Активные</a></li>
@@ -21,7 +29,7 @@
                     'template'=>'{sorter} {items} {pager}',
                     'sorterHeader'=>'',
                     'itemsTagName'=>'ul',
-                    'sortableAttributes'=>array('t_id', 'date_from', 'location_from', 'location_to', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка'),
+                    'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка'),
                     'pager'=>array(
                         'class'=>'CLinkPager',
                         'header'=>false,
@@ -43,7 +51,7 @@
             'template'=>'{sorter} {items} {pager}',
             'sorterHeader'=>'',
             'itemsTagName'=>'ul',
-            'sortableAttributes'=>array('t_id', 'date_from', 'location_from', 'location_to', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка'),
+            'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка'),
             'pager'=>array(
                 'class'=>'CLinkPager',
                 'header'=>false,
