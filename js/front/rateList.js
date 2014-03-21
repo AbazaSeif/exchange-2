@@ -26,6 +26,7 @@ var rateList = {
                     company: data.company,
                     name: data.name,
                     surname: data.surname,
+                    with_nds: 0,
                     //userId: rateList.data.userId,
                     //transportId: rateList.data.transportId
                 };
@@ -90,10 +91,10 @@ var rateList = {
            
                 var price = parseInt($('#rate-price').val());
                 if(rateList.data.nds) {
-                    price = Math.floor(price*100/(100 + rateList.data.nds*100));
+                    price = price * 100/(100 + rateList.data.nds*100);
                 }
-                
-                console.log('before - ' + price);
+                        //console.log('цена = ' + price);
+                //console.log('before - ' + price);
                 //if(price%10 != 0) price = Math.round(price/10) * 10;
                 //console.log('after - ' + price);
                 
@@ -130,8 +131,8 @@ var rateList = {
                     var kratnoe = rateList.data.priceStep;
                     var residue = inputVal % kratnoe;
                     if(residue != 0) {
-                        if(residue < (kratnoe/2) && (inputVal - residue) > 0) $(this).val(inputVal - residue);
-                        else $(this).val(inputVal - residue + kratnoe);
+                        if((inputVal - residue) > 0) $(this).val(inputVal - residue);
+                        else $(this).val(kratnoe);
                         inputVal = parseInt($(this).val());
                     }
                     
@@ -160,8 +161,6 @@ var rateList = {
             rateList.load(this.container);
         }        
     },
-    // ----
-    //update : function(posts, price) {
     update : function(posts, price, userName) {
         if (this.container.length > 0) {
             price = typeof price !== 'undefined' ? price : '';
@@ -198,12 +197,14 @@ var rateList = {
                     step: this.data.step,
                 },
                 success: function(rates) {
-                    /*if(rates.error) {
+                    /*
+                    if(rates.error) {
                         var error = $('#t-error');
                         error.css('display', 'block');
                         error.html('Ставка с ценой "' + $( "#rate-price" ).val() + '" уже была сделана');
                     }
                     */
+                   
                     if(rates.all.length) {
                         var container = $("#rates");
                         var height = 49;
@@ -258,18 +259,13 @@ var rateList = {
         var id = 0;
         var price = parseInt(rate.price);
         price = Math.ceil(price + price * this.data.nds);
+
         if (rate.id) id = rate.id;
-        
-        /*
-        if (typeof rate.time !=="undefined") {
-            time = "<div class='r-o-time'>" + rate.time + "</div>";
-        }
-        */
-        var element = this.createElement(initPrice, rate.time, price, id, rate.company, rate.name, rate.surname);
+        var element = this.createElement(initPrice, rate.time, price, id, rate.company, rate.name, rate.surname, parseInt(rate.with_nds), parseInt(rate.price));
         
         this.container.prepend(element);
     },
-    createElement : function(initPrice, date, price, id, company, name, surname) {
+    createElement : function(initPrice, date, price, id, company, name, surname, nds, ratePrice) {
         if(initPrice < price){
             $('#rate-price').attr('init', price);
         }
@@ -283,21 +279,21 @@ var rateList = {
                 "<span>" + date + "</span>" + 
                 "<div class='r-o-user'>" + company;
         
-        // Если контактное лицо
-        /*
-        if(name || surname) {
-            newElement += ' (';
-            if(name) newElement += name;
-            if(surname) newElement += ' ' + surname;
-            newElement += ')';
-        }*/
-        
-
         newElement += "</div>" +
-            "</div>" +
-            "<div class='r-o-price'>" + price + rateList.data.currency + "</div>"
-            
+            "</div>"
         ;
+        
+        if(nds){
+            var withNds = Math.ceil(ratePrice + ratePrice * rateList.data.ndsValue);
+            newElement += "<div class='price-container'>" + 
+                "<div class='r-o-price'>" + price + rateList.data.currency + 
+                "</div>" +
+                "<div class='r-o-nds'>" + '(c НДС: ' + withNds + rateList.data.currency + ') '+ 
+                "</div>" +
+            "</div>";
+        } else {
+            newElement += "<div class='r-o-price'>" + price + rateList.data.currency + "</div>";
+        }
         newElement += "</div>";
         
         return newElement;

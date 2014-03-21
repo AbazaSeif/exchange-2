@@ -30,27 +30,22 @@
  */
 class Transport extends CActiveRecord
 {
-        CONST INTER_TRANSPORT = 0;
-        CONST RUS_TRANSPORT = 1;
-        CONST INTER_PRICE_STEP = 50;
-        CONST RUS_PRICE_STEP = 500;
-
-        public static $group = array(
-            0=>'Международная',
-            1=>'Региональная',
-        );
-
-        public static $currencyGroup = array(
-            0=>'Рубли (руб.)',
-            1=>'Доллары ($)',
-            2=>'Евро (€)',
-        );
-
-        public static $status = array(
-            0=>'Архивная',
-            1=>'Активная',
-        );
-	/**
+    CONST INTER_TRANSPORT = 0;
+    CONST RUS_TRANSPORT = 1;
+    CONST INTER_PRICE_STEP = 50;
+    CONST RUS_PRICE_STEP = 200;
+    
+    public static $group = array(
+        0=>'Международная',
+        1=>'Региональная',
+    );
+    
+    public static $currencyGroup = array(
+        0=>'Рубли (руб.)',
+        1=>'Доллары ($)',
+        2=>'Евро (€)',
+    );
+    /**
 	 * @return string the associated database table name
 	 */
 	public function tableName()

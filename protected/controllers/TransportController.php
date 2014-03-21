@@ -43,11 +43,11 @@ class TransportController extends Controller
     {
         $id = $_POST['id'];
         $price = '';
-        $newPrice = $_POST['newRate'];
-        $priceStep = $_POST['step'];
+        //$newPrice = $_POST['newRate'];
+        //$priceStep = $_POST['step'];
         $error = 0;
         
-        if($newPrice) {
+        /*if($newPrice) {
             $elementExitsts = Rate::model()->find(array(
                 'condition'=>'price = :price AND transport_id = :id',
                 'params'=>array(':price' => (int)$newPrice, ':id' => $id),
@@ -80,12 +80,13 @@ class TransportController extends Controller
             } else {
                 $error = 1;
             }
-        }
+        }*/
         
         $data = Yii::app()->db->createCommand()
-            ->select('r.*, u.company, u.name, u.surname')
+            ->select('r.*, u.company, u.name, u.surname, f.with_nds')
             ->from('rate r')
             ->join('user u', 'r.user_id=u.id')
+            ->join('user_field f', 'f.user_id=u.id')
             ->where('r.transport_id=:id', array(':id'=>$id))
             ->order('r.date asc, r.price desc')
             ->queryAll()

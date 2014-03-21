@@ -51,7 +51,9 @@ class WebUser extends CWebUser
     // для дальнейшей автоматической авторизации на других ресурсах ЛБР
     protected function saveToCookie($duration)
     {
-        $this->setId($this->_id);
+        if($this->getIsTransport())
+            $this->setId($this->_id);
+        
         $app=Yii::app();
         $cookie=$this->createIdentityCookie($this->getStateKeyPrefix());
         $cookie->expire=time()+$duration;
@@ -67,9 +69,9 @@ class WebUser extends CWebUser
             $this->saveIdentityStates()
         );
         $cookie->value=$app->getSecurityManager()->hashData(serialize($data));
-
-        // Регенерирует ключ, либо создает новый в базе
-        $key = AuthKey::model()->find('user_id=:u', array(':u'=>$this->getId()));
+//        var_dump($this->getId()); die();
+         // Регенерирует ключ, либо создает новый в базе
+        $key = AuthKey::model()->find('user_id=:u OR key=:key', array(':u'=>$this->getId(), ':key'=>$cookie->value));
 
         if(!$key)
             $key = new AuthKey();
@@ -79,7 +81,6 @@ class WebUser extends CWebUser
         $key->date = $time;
         if($key->save())
             $app->getRequest()->getCookies()->add($cookie->name,$cookie);
-
     }
 
     protected function restoreFromCookie()

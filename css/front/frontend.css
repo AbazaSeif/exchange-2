@@ -913,6 +913,11 @@ div.row{
     padding-top: 6px;
 }
 
+.r-o-nds{
+    text-align: right;
+    padding-right: 20px;
+}
+
 .r-submit{
     float: left;
     box-shadow: none;
@@ -1096,7 +1101,7 @@ input.r-submit{
 .header:after, .wrapper:after, footer:after, #login-form:after,
 .user-info:after, .transports .sorter ul:after,
 .transports .items .transport:after, .transport-one:after,
-.width-100:after, .header .menu:after, #options .row.submit:after, #password .row.submit:after
+.width-100:after, .header .menu:after, #options .row.submit:after, #password .row.submit:after, .o-event:after
 {
     content: '';
     display: block;

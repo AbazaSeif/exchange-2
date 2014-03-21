@@ -25,7 +25,7 @@
         } else {
             $rate = (!empty($minPriceVal))? $minPriceVal : $data->start_rate;
         }
-        $rate = ceil($rate);
+        $rate = floor($rate);
     }
     if($data->type==Transport::RUS_TRANSPORT){
         $type = "российская";

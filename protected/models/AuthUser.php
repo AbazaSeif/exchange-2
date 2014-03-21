@@ -29,7 +29,8 @@
 class AuthUser extends CActiveRecord
 {
 
-    public function getDbConnection(){
+    public function getDbConnection()
+    {
         return Yii::app()->db_auth;
     }
 
@@ -38,7 +39,7 @@ class AuthUser extends CActiveRecord
      */
     public function tableName()
     {
-        return 'user';
+            return 'user';
     }
 
     /**
@@ -46,15 +47,15 @@ class AuthUser extends CActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
-        return array(
-            array('g_id, status', 'numerical', 'integerOnly' => true),
-            array('u_id, login, password, email, name, surname, secondname, gender, dob, date_hire, phone_in, phone_mb, phone_mr, photo, skype', 'safe'),
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
-            array('id, u_id, g_id, login, password, email, name, surname, secondname, gender, dob, date_hire, phone_in, phone_mb, phone_mr, photo, skype, status', 'safe', 'on' => 'search'),
-        );
+            // NOTE: you should only define rules for those attributes that
+            // will receive user inputs.
+            return array(
+                    array('g_id, status', 'numerical', 'integerOnly'=>true),
+                    array('f_id, login, password, email, name, surname, secondname, gender, dob, date_hire, phone_in, phone_mb, phone_mr, photo, skype', 'safe'),
+                    // The following rule is used by search().
+                    // @todo Please remove those attributes that should not be searched.
+                    array('id, g_id, login, password, email, name, surname, secondname, gender, dob, date_hire, phone_in, phone_mb, phone_mr, photo, skype, status, f_id', 'safe', 'on'=>'search'),
+            );
     }
 
     /**
@@ -62,11 +63,10 @@ class AuthUser extends CActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
-        return array(
-            'g' => array(self::BELONGS_TO, 'AuthGroup', 'g_id'),
-        );
+            // NOTE: you may need to adjust the relation name and the related
+            // class name for the relations automatically generated below.
+            return array(
+            );
     }
 
     /**
@@ -74,26 +74,26 @@ class AuthUser extends CActiveRecord
      */
     public function attributeLabels()
     {
-        return array(
-            'id' => 'ID',
-            'u_id' => 'U',
-            'g_id' => 'G',
-            'login' => 'Login',
-            'password' => 'Password',
-            'email' => 'Email',
-            'name' => 'Name',
-            'surname' => 'Surname',
-            'secondname' => 'Secondname',
-            'gender' => 'Gender',
-            'dob' => 'Dob',
-            'date_hire' => 'Date Hire',
-            'phone_in' => 'Phone In',
-            'phone_mb' => 'Phone Mb',
-            'phone_mr' => 'Phone Mr',
-            'photo' => 'Photo',
-            'skype' => 'Skype',
-            'status' => 'Status',
-        );
+            return array(
+                    'id' => 'ID',
+                    'g_id' => 'G',
+                    'login' => 'Login',
+                    'password' => 'Password',
+                    'email' => 'Email',
+                    'name' => 'Name',
+                    'surname' => 'Surname',
+                    'secondname' => 'Secondname',
+                    'gender' => 'Gender',
+                    'dob' => 'Dob',
+                    'date_hire' => 'Date Hire',
+                    'phone_in' => 'Phone In',
+                    'phone_mb' => 'Phone Mb',
+                    'phone_mr' => 'Phone Mr',
+                    'photo' => 'Photo',
+                    'skype' => 'Skype',
+                    'status' => 'Status',
+                    'f_id' => 'Филиал',
+            );
     }
 
     /**
@@ -110,43 +110,43 @@ class AuthUser extends CActiveRecord
      */
     public function search()
     {
-        // @todo Please modify the following code to remove attributes that should not be searched.
+            // @todo Please modify the following code to remove attributes that should not be searched.
 
-        $criteria = new CDbCriteria;
+            $criteria=new CDbCriteria;
 
-        $criteria->compare('id', $this->id);
-        $criteria->compare('u_id', $this->u_id, true);
-        $criteria->compare('g_id', $this->g_id);
-        $criteria->compare('login', $this->login, true);
-        $criteria->compare('password', $this->password, true);
-        $criteria->compare('email', $this->email, true);
-        $criteria->compare('name', $this->name, true);
-        $criteria->compare('surname', $this->surname, true);
-        $criteria->compare('secondname', $this->secondname, true);
-        $criteria->compare('gender', $this->gender);
-        $criteria->compare('dob', $this->dob, true);
-        $criteria->compare('date_hire', $this->date_hire, true);
-        $criteria->compare('phone_in', $this->phone_in, true);
-        $criteria->compare('phone_mb', $this->phone_mb, true);
-        $criteria->compare('phone_mr', $this->phone_mr, true);
-        $criteria->compare('photo', $this->photo, true);
-        $criteria->compare('skype', $this->skype, true);
-        $criteria->compare('status', $this->status);
+            $criteria->compare('id',$this->id);
+            $criteria->compare('g_id',$this->g_id);
+            $criteria->compare('login',$this->login,true);
+            $criteria->compare('password',$this->password,true);
+            $criteria->compare('email',$this->email,true);
+            $criteria->compare('name',$this->name,true);
+            $criteria->compare('surname',$this->surname,true);
+            $criteria->compare('secondname',$this->secondname,true);
+            $criteria->compare('gender',$this->gender);
+            $criteria->compare('dob',$this->dob,true);
+            $criteria->compare('date_hire',$this->date_hire,true);
+            $criteria->compare('phone_in',$this->phone_in,true);
+            $criteria->compare('phone_mb',$this->phone_mb,true);
+            $criteria->compare('phone_mr',$this->phone_mr,true);
+            $criteria->compare('photo',$this->photo,true);
+            $criteria->compare('skype',$this->skype,true);
+            $criteria->compare('status',$this->status);
+            $criteria->compare('f_id',$this->f_id);
 
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
+            return new CActiveDataProvider($this, array(
+                    'criteria'=>$criteria,
+            ));
     }
 
     /**
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return AuthUser the static model class
+     * @return User the static model class
      */
-    public static function model($className = __CLASS__)
+    public static function model($className=__CLASS__)
     {
-        return parent::model($className);
+            return parent::model($className);
     }
 
     //  Метод проверяет доступ к пользователю, где:
