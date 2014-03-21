@@ -18,11 +18,13 @@ class RegistrationForm extends CFormModel
     public $description;
     public $ownership;
     public $nds;
+    public $iagree;
 
     public function rules()
     {//Yii::log("------------------------------------",'info', 'application');
         return array(
-            array('company, password, confirm_password, country, region, district, inn, name, secondname, surname, phone, email', 'required'),
+            array('company, iagree, password, confirm_password, country, region, district, inn, name, secondname, surname, phone, email', 'required'),
+            array('iagree', 'compare', 'compareValue' => true, 'message' => 'Для отправки формы на обработку требуется Ваше согласие' ),
             array('email', 'email'),
             array('phone, inn', 'numerical'),
             array('password', 'length', 'min'=>6, 'allowEmpty'=>false),
@@ -70,7 +72,8 @@ class RegistrationForm extends CFormModel
             'email'=>'Электронная почта',
             'description'=>'Примечание',
             'ownership'=>'Форма собственности',
-            'nds' => 'Отображать цену с НДС'
+            'nds' => 'Отображать цену с НДС',
+            'iagree' => 'Согласен на обработку персональных данных, введенных в форму'
         );
     }
 }

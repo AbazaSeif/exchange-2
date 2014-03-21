@@ -105,6 +105,11 @@
             <?php echo $form->dropDownList($model, 'nds', array('0'=>'Нет', '1' => 'Да')); ?>
             <?php echo $form->error($model,'nds'); ?>
 	</div>
+        <div class="row">
+            <?php echo $form->labelEx($model,'iagree'); ?>
+            <?php echo $form->checkBox($model, 'iagree'); ?>
+            <?php echo $form->error($model,'iagree'); ?>
+	</div>
 	<div class="row buttons">
             <?php echo CHtml::submitButton('Подтвердить', array('class'=>'btn')); ?>
 	</div>

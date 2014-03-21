@@ -12,12 +12,13 @@ class CronCommand extends CConsoleCommand
     
     public function errorDate()
     {
-        $timeNow = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['hoursBefore'] . " hours"));
+        //$timeNow = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['hoursBefore'] . " hours"));
+        $timeNow = date("Y-m-d H:i");
         
         $transports = Yii::app()->db->createCommand()
             ->select('id, date_from')
             ->from('transport')
-            ->where('status = 1 and date_from between "1980-01-01" and "' . $timeNow. '"')
+            ->where('status = 1 and date_close between "1980-01-01" and "' . $timeNow. '"')
             ->queryAll()
         ;
         foreach($transports as $transport){
@@ -28,13 +29,14 @@ class CronCommand extends CConsoleCommand
     // Search for transport with deadline	
     public function deadlineTransport()
     {
-        $timeNow = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['hoursBefore'] . " hours"));
+        //$timeNow = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['hoursBefore'] . " hours"));
+        $timeNow = date("Y-m-d H:i");
         $transportIds = '';
 
         $transports = Yii::app()->db->createCommand()
             ->select('id')
             ->from('transport')
-            ->where('date_from like :time', array(':time' => $timeNow . '%'))
+            ->where('date_close like :time', array(':time' => $timeNow . '%'))
             ->queryAll()
         ;
 
@@ -78,12 +80,13 @@ class CronCommand extends CConsoleCommand
     // Search for transport before deadline	
     public function beforeDeadlineTransport()
     {
-        $time = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['hoursBefore'] . " hours " . Yii::app()->params['minNotify'] . " minutes"));
+        //$time = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['hoursBefore'] . " hours " . Yii::app()->params['minNotify'] . " minutes"));
+        $time = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['minNotify'] . " minutes"));
 
         $transports = Yii::app()->db->createCommand()
             ->select('id')
             ->from('transport')
-            ->where('date_from like :time', array(':time' => $time . '%'))
+            ->where('date_close like :time', array(':time' => $time . '%'))
             ->queryAll()
         ;
         $count = count($transports);

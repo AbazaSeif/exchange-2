@@ -5,7 +5,8 @@ $currency = '€';
 $defaultRate = false;
 $priceStep = Transport::INTER_PRICE_STEP;
 $now = date('m/d/Y H:i:s', strtotime('now'));
-$end = date('m/d/Y H:i:s', strtotime($transportInfo['date_from'] . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
+//$end = date('m/d/Y H:i:s', strtotime($transportInfo['date_from'] . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
+$end = date('m/d/Y H:i:s', strtotime($transportInfo['date_close']));
 
 $allPoints = TransportInterPoint::getPoints($transportInfo['id']);
 

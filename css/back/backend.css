@@ -588,26 +588,29 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     box-shadow: 0 0 3px #C0C0C0;
     overflow: hidden;
 }
-.sorter ul li {
+#tabs .sorter ul li {
     float: left;
 }
-.sorter ul li:nth-child(1){
+#tabs .sorter ul li:nth-child(1){
     width: 10%;
 }
-.sorter ul li:nth-child(2){
+#tabs .sorter ul li:nth-child(1) a{
+    padding-left: 20px;
+}
+#tabs .sorter ul li:nth-child(2){
     width: 15%;
 }
-.sorter ul li:nth-child(4){
+#tabs .sorter ul li:nth-child(4){
     width: 24%;
 }
-.sorter ul li:nth-child(5){
+#tabs .sorter ul li:nth-child(5){
     width: 20%;
 }
 #tabs .list-view .sorter li{
     margin: 0;  
 }
 
-.list-view .sorter a{
+#tabs .list-view .sorter a{
     margin: 0 0 5px;
     text-align: left;
 }
@@ -625,11 +628,11 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 }
 */
 
-.sorter ul li:nth-child(3){
+#tabs .sorter ul li:nth-child(3){
     margin-right: 20px !important;
 }
 
-.sorter ul li {
+#tabs .sorter ul li {
     color: #555555;
     display: block;
     font-weight: bold;
@@ -637,15 +640,18 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     padding: 0;
     text-align: left;
 }
-.list-view .sorter ul li a{
+#tabs .list-view .sorter ul li a{
     text-decoration: none;
     position: relative;
    /* padding: 4px 12px;*/
     text-shadow: 0 1px 0 #FFFFFF;
 }
-.transport{
+#tabs .transport{
     margin-bottom: 5px;
     background-color: #eee;
+}
+.transport > div:first-child{
+    text-align: center;
 }
 .create-transport a{
     margin: 0;
@@ -671,7 +677,8 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 
 .transport > div
 {
-    min-height: 60px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .transport div{

@@ -247,10 +247,14 @@ nav, menu, p, section,
     padding: 0.5% 2%;
 }
 
+#registration-form .row.error .errorMessage{
+    padding: 0.5% 0.5% 0.5% 1%;
+}
+
 #registration-form .row.error .errorMessage
 {
     left: 75%;
-    width: 25%;
+    width: 30%;
 }
 
 #password .row.error .errorMessage, #mail .row.error .errorMessage
@@ -278,6 +282,10 @@ nav, menu, p, section,
     display: block;
     float: left;
     min-width: 20%;
+}
+
+#registration-form .row label[for="RegistrationForm_iagree"] {
+    margin-right: 10px;
 }
 
 div.ui-widget-header {

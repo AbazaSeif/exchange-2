@@ -103,7 +103,7 @@ class SiteController extends Controller
                 $user->status = 0; //User::USER_NOT_CONFIRMED;
                 $user->company = $_POST['RegistrationForm']['ownership'] . ' "' . $_POST['RegistrationForm']['company'] . '"';
                 $user->password = crypt($_POST['RegistrationForm']['password'], User::model()->blowfishSalt());
-                $user->login = $user->inn;
+                //$user->login = $user->inn;
                 if($user->validate() && $user->save()) {
                     $newFerrymanFields = new UserField;
                     $newFerrymanFields->user_id = $user->id;
