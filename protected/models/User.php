@@ -185,17 +185,14 @@ class User extends CActiveRecord
             return $salt;
         }
 
-        //  Метод проверяет доступ к пользователю, где:
-        //  $params - массив с двумя значениями:
-        //  1. group - id группы изменяемого пользователя
-        //  2. userid - id изменяемого пользователя
-        /*static function usersAccess($params){
-            if ($params){
-                $group = UserGroup::model()->findByPk($params['group']);
-                if ($group->level > Yii::app()->user->_level || $params['userid']==Yii::app()->user->_id)
-                //if ($group->level > Yii::app()->user->level || $params['userid']==Yii::app()->user->_id)
-                    return true;
+        public static function randomPassword() {
+            $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+            $pass = array(); //remember to declare $pass as an array
+            $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+            for ($i = 0; $i < 16; $i++) {
+                $n = rand(0, $alphaLength);
+                $pass[] = $alphabet[$n];
             }
-            return false;
-        }*/
+            return implode($pass); //turn the array into a string
+        }
 }

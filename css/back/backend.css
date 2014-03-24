@@ -981,8 +981,7 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
 }
 /*---- Конец Greed view ----*/
 
-.form .field
-{
+form .field {
     position: relative;
     margin-bottom: 10px;
 }

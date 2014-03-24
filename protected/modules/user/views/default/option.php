@@ -146,11 +146,17 @@
         <?php $this->endWidget();?> 
     </div>
 </div>
+<?php if(!Yii::app()->user->isContactUser): ?>
 <div class="o-right">
     <div>
+        <?php 
+        if ($mess = Yii::app()->user->getFlash('message')){
+            echo '<div class="message success">'.$mess.'</div>';
+        }
+        ?>
         <div class="title"><img src="/images/contacts.jpg">
              <span>Контактные лица</span>
-             <span><?php echo CHtml::link('Создать', '/user/default/editcontact/', array('class' => 'btn')); ?></span>
+             <span><?php echo CHtml::link('Создать', '/user/default/createcontact/', array('class' => 'btn')); ?></span>
         </div>
         <div class="o-contacts">
             <?php
@@ -176,6 +182,7 @@
         </div>
     </div>
 </div>
+<?php endif; ?>
 
 
 

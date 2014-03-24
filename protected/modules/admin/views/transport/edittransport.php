@@ -207,7 +207,7 @@ $(document).ready(function(){
     <?php endif; ?>
         
         
-    $('#close-transport').click(function(){document.location.href = "http://exchange.lbr.test/admin/transport/";})
+    $('#close-transport').click(function(){document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/transport/";})
 });
 /*
 function updateFieldTimerDeadline() {

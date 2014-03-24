@@ -135,7 +135,7 @@ class TransportController extends Controller
                 $model->new_transport = 1;
                 $model->user_id = Yii::app()->user->_id;
                 $model->date_published = date('Y-m-d H:i:s');
-                if($model->save()){
+                if($model->save()) {
                     $message = 'Создана перевозка "' . $model->location_from . ' — ' . $model->location_to . '"';
                     Changes::saveChange($message);
                     Yii::app()->user->setFlash('saved_id', $model->id);

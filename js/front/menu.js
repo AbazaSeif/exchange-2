@@ -42,13 +42,12 @@ var menu = {
             }
         });
         
-        $(document).keypress(function(e) {
+        /*$(document).keypress(function(e) {
             var code = e.keyCode || e.which;
-            console.log(code);
             if (e.which == 13) {
                 console.log('back2');
             }
-        });
+        });*/
     },
 	
     /*updateCounter : function(){

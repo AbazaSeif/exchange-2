@@ -96,7 +96,8 @@ class DefaultController extends Controller
         }
         
         $criteriaContacts = new CDbCriteria();
-        //$criteriaContacts->compare('status', 0);
+        $criteriaContacts->compare('u_id', $userId);
+        
         $sort = new CSort();
         $sort->sortVar = 'sort';
         $sort->defaultOrder = 'surname ASC';
@@ -121,7 +122,6 @@ class DefaultController extends Controller
         
          
         $this->render('option', array('model' => $model, 'pass' => $pass, 'mail' => $mail, 'dataContacts' => $dataContacts), false, true);
-        //$this->render('option', array('model' => $model, 'pass' => $pass, 'mail' => $mail), false, true);
     }
     
     /* Show all events */
@@ -158,7 +158,7 @@ class DefaultController extends Controller
         $model = new UserContact;
         if(isset($_POST['UserContact'])) {
             $model->attributes = $_POST['UserContact'];
-            if($model->validate() && $model->save()){
+            if($model->validate() && $model->save()) {
                 $newFerrymanFields = new UserField;
                 $newFerrymanFields->user_id = $model->id;
                 $newFerrymanFields->mail_transport_create_1 = false;
@@ -166,22 +166,11 @@ class DefaultController extends Controller
                 $newFerrymanFields->mail_kill_rate = false;
                 $newFerrymanFields->mail_before_deadline = false;
                 $newFerrymanFields->mail_deadline = true;
-                /*
-                $newFerrymanFields->site_transport_create_1 = true;
-                $newFerrymanFields->site_transport_create_2 = true;
-                $newFerrymanFields->site_kill_rate = true;
-                $newFerrymanFields->site_deadline = true;
-                $newFerrymanFields->site_before_deadline = true;            
-                */
                 $newFerrymanFields->with_nds = false;            
                 $newFerrymanFields->save();
-
-                //Yii::app()->user->setFlash('saved_id', $model->id);
-                //Yii::app()->user->setFlash('message', 'Контакт '.$model->login.' создан успешно.');
-                //$this->redirect('/admin/contact/');
             }
-            //print_r($model->getErrors());
         }
+        
         $this->render('contact', array('model' => $model), false, true);
     }
 
@@ -200,7 +189,85 @@ class DefaultController extends Controller
     
     public function actionEditContact($id)
     {
-        echo 'edit'; exit;
+        $user = UserContact::model()->findByPk($id);
+        $model = new UserContactForm;
+        $model->attributes = $user->attributes;
+        $model->id = $id;
+        if(isset($_POST['UserContactForm'])) {
+            $user->attributes = $_POST['UserContactForm'];
+            if($user->save()) {
+                $this->redirect(array('/user/default/editcontact', 'id'=>$user->id));
+            } else {
+                Yii::log($user->getErrors(), 'error');
+            }
+        }
+        $this->render('editcontact', array('model'=>$model), false, true);
+    }
+    
+    public function actionCreateContact()
+    {
+        $model = new UserContactForm;
+        $model->status = 1;
+        if(isset($_POST['UserContactForm'])) {
+            $emailExists=UserContact::model()->find(array(
+                'select'=>'email',
+                'condition'=>'email=:email',
+                'params'=>array(':email'=>$_POST['UserContactForm']['email']))
+            );
+
+            if(empty($emailExists)){
+                $emailExists=User::model()->find(array(
+                    'select'=>'email',
+                    'condition'=>'email=:email',
+                    'params'=>array(':email'=>$_POST['UserContactForm']['email']))
+                );
+            }
+
+            if(empty($emailExists)) {
+                $password = User::randomPassword();
+                $curUser = User::model()->findByPk(Yii::app()->user->_id);
+                $user = new UserContact;
+                $user->attributes = $_POST['UserContactForm'];
+                $user->u_id = Yii::app()->user->_id;
+                $user->password = crypt($password, User::model()->blowfishSalt());
+
+                if($user->save()) {
+                    $email = new TEmail;
+                    $email->from_email = Yii::app()->params['adminEmail'];
+                    $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+                    $email->to_email   = $user->email;
+                    $email->to_name    = '';
+                    $email->subject    = "Приглашение";
+                    $email->type = 'text/html';
+                    $email->body = '<h1>Уважаемый(ая) ' . $user->name . ' ' . $user->secondname . ', </h1>' . 
+                        '<p>Вы были зарегистрированы как контактное лицо "' . $curUser->company . '"</p>' .
+                        '<p>Логин: ' . $user->email . '</p>' .
+                        '<p>Пароль: ' . $password . '</p>' .
+                        '<p>Изменить пароль Вы можете зайдя в кабинет пользователя с помощью указанных логина и пароля. </p>' . 
+                        '<hr><h5>Это сообщение является автоматическим, на него не следует отвечать</h5>'
+                    ;
+                    $email->sendMail();
+                    $this->redirect(array('/user/default/editcontact', 'id'=>$user->id));
+                } else {
+                    Yii::log($user->getErrors(), 'error');
+                }
+            } else {
+                $model->attributes = $_POST['UserContactForm'];
+                Yii::app()->user->setFlash('error', 'Указанный email уже используется. ');
+            }
+        }
+        
+        $this->render('editcontact', array('model'=>$model), false, true);
+    }
+    
+    public function actionDeleteContact($id)
+    {
+        $model = UserContact::model()->findByPk($id);
+        $contactName = $model->surname . ' ' . $model->name;
+        if(UserContact::model()->deleteByPk($id)){
+            Yii::app()->user->setFlash('message', 'Контактное лицо "' . $contactName . '" удалено успешно.');
+            $this->redirect('/user/option/');
+        }
     }
     
     public function actionUpdateEventCounter()

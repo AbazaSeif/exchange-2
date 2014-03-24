@@ -166,7 +166,7 @@ class SiteController extends Controller
             
             if($user) {
                 if($user->email) {
-                    $password = $this->randomPassword();
+                    $password = User::randomPassword();
                     $user->password = crypt($password, User::model()->blowfishSalt());
                     if($user->save()) {
                         // send mail to ferryman with new password
@@ -277,7 +277,7 @@ class SiteController extends Controller
         $this->redirect(array('transport/description/id/1'));
     }
     
-    private function randomPassword() {
+    /*private function randomPassword() {
         $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
         $pass = array(); //remember to declare $pass as an array
         $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
@@ -286,7 +286,7 @@ class SiteController extends Controller
             $pass[] = $alphabet[$n];
         }
         return implode($pass); //turn the array into a string
-    }
+    }*/
     
     public function actionError()
     {

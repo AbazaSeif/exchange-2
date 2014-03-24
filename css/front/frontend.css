@@ -210,7 +210,7 @@ nav, menu, p, section,
 {
     color: #FF4040;
 }
-#login-form .row .errorMessage, #registration-form .row .errorMessage, #password  .row .errorMessage, #mail  .row .errorMessage
+#login-form .row .errorMessage, #registration-form .row .errorMessage, #password  .row .errorMessage, #mail  .row .errorMessage, #o-edit-contact .errorMessage
 {
     margin-top: 5px;
     color: #FF4040;
@@ -229,7 +229,7 @@ nav, menu, p, section,
     z-index: 10;
 }
 
-#registration-form .row.error .errorMessage, #password .row.error .errorMessage, #mail .row.error .errorMessage
+#registration-form .row.error .errorMessage, #password .row.error .errorMessage, #mail .row.error .errorMessage, #o-edit-contact .errorMessage
 {
     position: absolute;
     width: 70%;
@@ -262,8 +262,12 @@ nav, menu, p, section,
     left: 32%;
     width: 25%;
 }
-
-#login-form .row.error .errorMessage:after, #registration-form .row.error .errorMessage:after, #password .row.error .errorMessage:after, #mail .row.error .errorMessage:after
+#o-edit-contact .errorMessage
+{
+    left: 38%;
+    width: 50%;
+}
+#login-form .row.error .errorMessage:after, #registration-form .row.error .errorMessage:after, #password .row.error .errorMessage:after, #mail .row.error .errorMessage:after, #o-edit-contact .errorMessage:after
 {
     content: '';
     display: block;
@@ -361,7 +365,7 @@ div.ui-widget-header {
 }
 .user-menu li a:hover
 {
-    background: #e8e7e7;/*f7f7f7;*/
+    background: #e8e7e7;
 }
 
 .user-menu li a.menu-active
@@ -395,12 +399,16 @@ div.row{
     margin-left: 17px;
 }
 
-#options div.title, #password div.title, #mail div.title, .o-right div.title {
+#options div.title, #password div.title, #mail div.title, .o-right div.title, #o-edit-contact h2 {
     margin: 10px 0;
     font-size: 20px;
     color: #EF801B;
 }
 
+#o-edit-contact h2 {
+    margin-bottom: 20px;
+    width: 80%;
+}
 #options div.title span, #password  div.title span, #mail  div.title span, .o-right div.title span{
     margin-left: 5px;
 }
@@ -414,18 +422,32 @@ div.row{
 .o-contacts .items .contact{
     margin-left: 23px;
 }
-.o-contacts a{
+
+.o-contacts a {
    color: #636262;
    font-size: bold;
    text-decoration: none;
    font-size: 16px;
 }
 
-.o-right .title{
-    margin-bottom: 20px;    
+.o-contacts .list-view .sorter a {
+   color: #00917C;
+   font-size: 18px;
 }
 
-.o-contacts .sorter{
+.o-contacts .items .contact
+{
+    border-bottom: 1px solid #E8E8E8;
+    padding: 5px 10px;
+    position: relative;
+    min-height: 20px;
+}
+
+.o-right .title {
+    margin-bottom: 20px;  
+}
+
+.o-contacts .sorter {
     text-align: left;
     margin-left: 20px;
 }
@@ -439,14 +461,8 @@ div.row{
      padding: 3px 10px;
      font-size: 14px;
      float: right;
+     border: 0;
 }
-/*
-#options div.title .img{
-    width: 20px;
-    height: 20px;
-    background-image: url(/images/notice.jpg);
-}
-*/
 
 .w-right #content .o-right {
     float: right;
@@ -456,10 +472,33 @@ div.row{
 .w-right #content .o-left {
     float: left;
     width: 50%;
+    
+}
+.o-right .message {
+    /*background: #E6EFC2;
+    border-color: #C6D880;
+    color: green;*/
+    color: #fff;
+    background: #48b5b5;
+    -moz-box-shadow: 0px 0px 3px rgba(0,0,0,0.075);
+    -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.075);
+    -o-box-shadow: 0px 0px 3px rgba(0,0,0,0.075);
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.075);
+}
+#close-contact{
+    margin-left: 10px;    
 }
 
-.o-right .o-contacts {
-    
+form#contactform .field
+{
+    position: relative;
+    margin-bottom: 10px;
+    width: 70%;
+}
+
+form#contactform label {
+    float: left;
+    min-width: 15%;
 }
 
 /*--------Перевозки----------------*/
@@ -1157,7 +1196,7 @@ input.r-submit{
 .header:after, .wrapper:after, footer:after, #login-form:after,
 .user-info:after, .transports .sorter ul:after,
 .transports .items .transport:after, .transport-one:after,
-.width-100:after, .header .menu:after, #options .row.submit:after, #password .row.submit:after, #mail .row.submit:after, .o-event:after
+.width-100:after, .header .menu:after, #options .row.submit:after, #password .row.submit:after, #mail .row.submit:after, .o-event:after, .contact:after
 {
     content: '';
     display: block;

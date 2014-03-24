@@ -67,7 +67,7 @@ class MailCommand extends CConsoleCommand
             }
         }
     }
-    
+    /*
     public function sendMailOpology($userId, $table) {
         $user = Yii::app()->db->createCommand()
             ->select('name, secondname, email')
@@ -84,13 +84,13 @@ class MailCommand extends CConsoleCommand
         $email->subject    = "Приглашение";
         $email->type = 'text/html';
         $email->body = "<h1>Уважаемый(ая) " . $user['name'] . ' ' . $user['secondname'] . ", </h1>" . 
-            
+
             "Изменить пароль Вы можете зайдя в кабинет пользователя с помощью указанных логина и пароля. " . 
             "<hr><h5>Это сообщение является автоматическим, на него не следует отвечать</h5>"
         ;
         $email->sendMail();
     }
-    
+    */
     public function randomPassword() {
         $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
         $pass = array(); //remember to declare $pass as an array
