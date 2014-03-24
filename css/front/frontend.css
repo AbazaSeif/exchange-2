@@ -247,7 +247,7 @@ nav, menu, p, section,
     padding: 0.5% 2%;
 }
 
-#registration-form .row.error .errorMessage{
+#registration-form .row.error .errorMessage {
     padding: 0.5% 0.5% 0.5% 1%;
 }
 
@@ -395,24 +395,72 @@ div.row{
     margin-left: 17px;
 }
 
-#options div.title, #password div.title, #mail div.title{
+#options div.title, #password div.title, #mail div.title, .o-right div.title {
     margin: 10px 0;
     font-size: 20px;
     color: #EF801B;
 }
-#options div.title span, #password  div.title span, #mail  div.title span{
+
+#options div.title span, #password  div.title span, #mail  div.title span, .o-right div.title span{
     margin-left: 5px;
 }
+
 #password .row.password label, #mail .row label{
-    min-width: 17%;
+    min-width: 35%;
     float:left;
     display: block;
 }
-/*#options div.title .img{
+
+.o-contacts .items .contact{
+    margin-left: 23px;
+}
+.o-contacts a{
+   color: #636262;
+   font-size: bold;
+   text-decoration: none;
+   font-size: 16px;
+}
+
+.o-right .title{
+    margin-bottom: 20px;    
+}
+
+.o-contacts .sorter{
+    text-align: left;
+    margin-left: 20px;
+}
+
+.btn{
+    text-decoration: none;
+     background: -moz-linear-gradient(center top , #14AAAA, #008C8C) repeat scroll 0 0 rgba(0, 0, 0, 0);
+     color: #fff;
+     cursor: pointer;
+     border-radius: 3px;
+     padding: 3px 10px;
+     font-size: 14px;
+     float: right;
+}
+/*
+#options div.title .img{
     width: 20px;
     height: 20px;
     background-image: url(/images/notice.jpg);
-}*/
+}
+*/
+
+.w-right #content .o-right {
+    float: right;
+    width: 50%;
+}
+
+.w-right #content .o-left {
+    float: left;
+    width: 50%;
+}
+
+.o-right .o-contacts {
+    
+}
 
 /*--------Перевозки----------------*/
 .message{
@@ -662,7 +710,9 @@ div.row{
 {
     margin: 0;
     padding: 0;
+    padding-top: 30px;
 }
+
 .transport-one .t-o-published
 {
     color: #CCC;
@@ -1107,7 +1157,7 @@ input.r-submit{
 .header:after, .wrapper:after, footer:after, #login-form:after,
 .user-info:after, .transports .sorter ul:after,
 .transports .items .transport:after, .transport-one:after,
-.width-100:after, .header .menu:after, #options .row.submit:after, #password .row.submit:after, .o-event:after
+.width-100:after, .header .menu:after, #options .row.submit:after, #password .row.submit:after, #mail .row.submit:after, .o-event:after
 {
     content: '';
     display: block;

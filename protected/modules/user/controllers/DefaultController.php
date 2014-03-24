@@ -7,7 +7,6 @@ class DefaultController extends Controller
         $this->render('index');
     }
     
-
     public function actionLogin()
     {
         $model = new LoginForm;
@@ -45,6 +44,8 @@ class DefaultController extends Controller
         $model = UserField::model()->find('user_id = :id', array('id' => $userId));
         $pass = new PasswordForm();
         $mail = new MailForm();
+        $dataContacts = array();
+        
         if(isset($_POST['UserField'])) {
             $model->attributes = $_POST['UserField'];
             $model->save();
@@ -94,7 +95,33 @@ class DefaultController extends Controller
             }
         }
         
-        $this->render('option', array('model' => $model, 'pass' => $pass, 'mail' => $mail), false, true);
+        $criteriaContacts = new CDbCriteria();
+        //$criteriaContacts->compare('status', 0);
+        $sort = new CSort();
+        $sort->sortVar = 'sort';
+        $sort->defaultOrder = 'surname ASC';
+
+        $sort->attributes = array (
+            'surname' => array (
+                'asc' => 'surname ASC',
+                'desc' => 'surname DESC',
+                'default' => 'asc',
+            ),
+        );
+
+        $dataContacts = new CActiveDataProvider('UserContact',
+            array(
+                'criteria' => $criteriaContacts,
+                'sort' => $sort,
+                'pagination' => array(
+                    'pageSize' => '10'
+                )
+            )
+        );
+        
+         
+        $this->render('option', array('model' => $model, 'pass' => $pass, 'mail' => $mail, 'dataContacts' => $dataContacts), false, true);
+        //$this->render('option', array('model' => $model, 'pass' => $pass, 'mail' => $mail), false, true);
     }
     
     /* Show all events */
@@ -170,7 +197,12 @@ class DefaultController extends Controller
 
         return $message[$eventType];
     }
-
+    
+    public function actionEditContact($id)
+    {
+        echo 'edit'; exit;
+    }
+    
     public function actionUpdateEventCounter()
     {
         $sql = 'select count(*) from user_event where status = 1 and user_id = ' . Yii::app()->user->_id;

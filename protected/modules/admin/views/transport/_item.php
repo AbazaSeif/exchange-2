@@ -5,9 +5,10 @@
     $ferrymanField = UserField::model()->findByAttributes(array('user_id'=>$rate->user_id));
     $showRate = $withNds = '';
     $currency = ' €';
+    
     if(!$data->currency) {
        $currency = ' руб.';
-    } else if($data->currency == 1){
+    } else if($data->currency == 1) {
        $currency = ' $';
     }
     
@@ -16,6 +17,7 @@
         if($ferrymanField->with_nds) $withNds .= ' (c НДС: '. floor($rate->price + $rate->price * Yii::app()->params['nds']) . ' '. $currency . ')';
     }
 ?>
+
 <div class="transport">
     <div class="width-10">
         <?php echo $data->t_id ?>
