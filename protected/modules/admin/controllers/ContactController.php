@@ -58,7 +58,7 @@ class ContactController extends Controller
                     $model->attributes = $_POST['UserContactForm'];
                     $model->password = crypt($_POST['UserContactForm']['password'], User::model()->blowfishSalt());
                     $model->type_contact = 1;
-                    $model->company = 'Контактное лицо ' . $curUser->company . ' ('.$model->name.' '.$model->surname.')';
+                    $model->company = 'Контактное лицо "' . $curUser->company . '" ('.$model->name.' '.$model->surname.')';
                     
                     if($model->save()) {
                         $newFerrymanFields = new UserField;
@@ -215,6 +215,7 @@ class ContactController extends Controller
         return $allCompanies = Yii::app()->db->createCommand()
             ->select('id, company')
             ->from('user')
+            ->where('type_contact = 0')
             ->order('company')
             ->queryAll()
         ;

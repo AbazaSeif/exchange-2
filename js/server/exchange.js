@@ -16,7 +16,7 @@ io.sockets.on('connection', function (socket) {
     var name = [];
     var i = 0;
 
-    socket.on('init', function (id, minNotyfy) 
+    socket.on('init', function (id, minNotyfy)
     {
         allSockets[id] = socket.id;
         seachNewEvents(id, minNotyfy);
@@ -89,23 +89,14 @@ io.sockets.on('connection', function (socket) {
     /* Load all rates when open transport page in the first time  */
     socket.on('loadRates', function (id, t_id) {
         db.serialize(function() {
-            db.each("SELECT user_id, price, date FROM rate WHERE transport_id = " + t_id + " order by date", function(err, row) {
-                arr[i] = new Array (row.user_id, row.price, row.date);
+            db.each("SELECT rate.user_id, rate.price, rate.date, user.company as company FROM rate JOIN user WHERE user.id = rate.user_id and rate.transport_id = " + t_id + " order by date", function(err, row) {
+                arr[i] = new Array (row.user_id, row.price, row.date, row.company);
                 i++;
-            }, function(err, rows) {	
-                for(var j = 0; j < rows; j++) {
-                    var k = 0;
-                    db.each("SELECT id, company, name, surname FROM user WHERE id = " + arr[j][0], function(err, user) {
-                        io.sockets.socket(socket.id).emit('loadRates', {
-                            price : arr[k][1],
-							date  : arr[k][2],
-                            company  : user.company,
-							name     : user.name,
-							surname  : user.surname,
-                        });
-                        k++;
-                    });
-                }
+            }, function(err, rows) {
+                io.sockets.socket(socket.id).emit('loadRates', {
+                    arr  : arr,
+                    rows : arr.length,
+                });
             });
         });
     });
@@ -157,8 +148,6 @@ io.sockets.on('connection', function (socket) {
 
             // to sender
             io.sockets.socket(socket.id).emit('setRate', {
-                name : data.name,
-                surname : data.surname,
                 company : data.company,
                 price : data.price,
                 date: time,
@@ -166,9 +155,7 @@ io.sockets.on('connection', function (socket) {
             });
             // to all other
             socket.broadcast.emit('setRate', {
-                name : data.name,
-                surname : data.surname,
-		        company : data.company,
+		company : data.company,
                 price : data.price,
                 date: time,
                 transportId : data.transportId

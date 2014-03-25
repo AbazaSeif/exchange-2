@@ -6,44 +6,33 @@ var rateList = {
             rateList.data.socket.on('setRate', function (data) {
                 var initPrice = parseInt($('#rate-price').attr('init'));
                 if(data.transportId == rateList.data.transportId) {
-                    //var element = rateList.createElement(initPrice, data.date, data.name, data.price, data.surname);
-                    
                     var price = data.price;
                     if(rateList.data.nds) {
-                          price = Math.ceil(price * (100 + rateList.data.nds*100) / 100);
+                        price = Math.ceil(price * (100 + rateList.data.nds*100) / 100);
                     }
                     
-                    var element = rateList.createElement(initPrice, data.date, price, '', data.company, data.name , data.surname);
-                    //this.createElement(initPrice, rate.time, price, id, rate.company, rate.name, rate.surname);
+                    var element = rateList.createElement(initPrice, data.date, price, '', data.company);
                     $('#rates').prepend(element);
                 }
             });
 
             rateList.data.socket.on('loadRates', function (data) {
                 $("#r-preloader").css('display', 'none');
-                var obj = {
-                    price: data.price,
-                    time: data.date,
-                    company: data.company,
-                    name: data.name,
-                    surname: data.surname,
-                    with_nds: 0,
-                    //userId: rateList.data.userId,
-                    //transportId: rateList.data.transportId
-                };
-                rateList.add(obj);
+                //console.log(data.rows);
+                for(var j = 0; j < data.rows; j++) {
+                    //
+                    var obj = {
+                        price: data.arr[j][1],
+                        time: data.arr[j][2],
+                        company: data.arr[j][3],
+                        with_nds: 0,
+                    };
+                    rateList.add(obj);
+                }
             });
 
-            /*rateList.data.socket.on('errorRate', function (data) {
-                var error = $('#t-error');
-                error.css('display', 'block');
-                error.html('Ставка с ценой "' + data.price + '" уже была сделана');
-            });*/
             /****** Сообещение *********/
-            /*rateList.data.socket.on('onlineEvent', function (data) {
-                $.onlineEvent({ msg : data.msg, className : 'classic', sticked:true, position:{right:0,bottom:0}, time:10000});
-            });*/
-
+            
             $( "#rate-up" ).on('click', function() {
                 if($('#rate-down').hasClass('disabled'))$('#rate-down').removeClass('disabled');
                 var newRate = parseInt(element.val()) + rateList.data.priceStep;// + rateList.data.priceStep * rateList.data.nds;
@@ -60,7 +49,7 @@ var rateList = {
             });
 
             $( "#rate-down" ).on('click', function() {              
-                var step = rateList.data.priceStep;// + rateList.data.priceStep * rateList.data.nds;
+                var step = rateList.data.priceStep;
                 var newRate = element.val() - step;
                 if(newRate > 0) element.val(newRate);
                 if( (newRate - step) <= 0 ) {
@@ -94,63 +83,30 @@ var rateList = {
                 if(rateList.data.nds) {
                     price = price * 100/(100 + rateList.data.nds*100);
                 }
-                        //console.log('цена = ' + price);
-                //console.log('before - ' + price);
-                //if(price%10 != 0) price = Math.round(price/10) * 10;
-                //console.log('after - ' + price);
-                
-                
-                // убрать аттрибут init !!!
+
                 $(this).attr('init', price);
 
                 var time = getTime();
-                //console.log(time);
-
-                /*var obj = {
-                    price: price,
-                    date: time,
-                    name: rateList.data.name,
-                    surname: rateList.data.surname,
-                    userId: rateList.data.userId,
-                    transportId: rateList.data.transportId
-                };*/
-
+                
                 rateList.data.socket.emit('setRate',{
                     transportId: rateList.data.transportId,
                     userId: rateList.data.userId,
                     company: rateList.data.company,
-                    name : rateList.data.name, 
-                    surname: rateList.data.surname,
                     price : price,
                 });   
             });
 
-            $('#rate-price').blur(function(){
+            $('#rate-price').blur(function() {
                 var inputVal = parseInt($(this).val());
+                var kratnoe = rateList.data.priceStep;
+                var residue = inputVal % kratnoe;
+                if(residue != 0) {
+                    if((inputVal - residue) > 0) $(this).val(inputVal - residue);
+                    else $(this).val(kratnoe);
+                    inputVal = parseInt($(this).val());
+                }
 
-                //if(inputVal < parseInt($(this).attr('init'))) {
-                    var kratnoe = rateList.data.priceStep;
-                    var residue = inputVal % kratnoe;
-                    if(residue != 0) {
-                        if((inputVal - residue) > 0) $(this).val(inputVal - residue);
-                        else $(this).val(kratnoe);
-                        inputVal = parseInt($(this).val());
-                    }
-                    
-                    if((parseInt($(this).val()) - kratnoe) <= 0) $('#rate-down').addClass('disabled');
-
-                    /* if(inputVal - kratnoe < kratnoe){
-                        $('#rate-down').addClass('disabled');
-                    }
-
-                    if(inputVal < parseInt($(this).attr('init'))){
-                        $('#rate-up').removeClass('disabled');
-                        $('.r-submit').removeClass('disabled');
-                    }*/
-               /* } else {
-                    $(this).val($(this).attr('init'));
-                    //if(!rateList.data.defaultRate) $('.r-submit').addClass('disabled');
-                }*/
+                if((parseInt($(this).val()) - kratnoe) <= 0) $('#rate-down').addClass('disabled');
             });
 
             $(document).keypress(function(e) {
@@ -198,14 +154,6 @@ var rateList = {
                     step: this.data.step,
                 },
                 success: function(rates) {
-                    /*
-                    if(rates.error) {
-                        var error = $('#t-error');
-                        error.css('display', 'block');
-                        error.html('Ставка с ценой "' + $( "#rate-price" ).val() + '" уже была сделана');
-                    }
-                    */
-                   
                     if(rates.all.length) {
                         var container = $("#rates");
                         var height = 49;
@@ -232,23 +180,6 @@ var rateList = {
                             var step = rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds;
                             
                             var price = $("#rate-price");
-                            /*if(price.val() > value && value > 0) {
-                                price.val(value);
-                                price.attr('init', value);
-                                $( "#rate-up" ).addClass('disabled');
-                            }*/
-                            
-                            //var prevValue = value - (rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds);         
-                            //if(prevValue < 0) $( "#rate-down" ).addClass('disabled');
-                           // $('#last-rate').html('<span>' + rates.price + rateList.data.currency + '</span>');
-
-                            /*if(prevValue <= 0) {
-                                //$('.r-submit').addClass('disabled');
-                                $('.r-block').slideUp("slow");
-                                $('.r-submit').slideUp("slow");
-                                $('#t-container').html('<span class="t-closed">Перевозка закрыта</span>');
-                                rateList.data.status = true;
-                            }*/
                         } 
                     } else {
                         rateList.container.html('<span>Нет предложений</span>');
@@ -263,11 +194,11 @@ var rateList = {
         price = Math.ceil(price + price * this.data.nds);
 
         if (rate.id) id = rate.id;
-        var element = this.createElement(initPrice, rate.time, price, id, rate.company, rate.name, rate.surname, parseInt(rate.with_nds), parseInt(rate.price));
+        var element = this.createElement(initPrice, rate.time, price, id, rate.company, parseInt(rate.with_nds), parseInt(rate.price));
         
         this.container.prepend(element);
     },
-    createElement : function(initPrice, date, price, id, company, name, surname, nds, ratePrice) {
+    createElement : function(initPrice, date, price, id, company, nds, ratePrice) {
         if(initPrice < price){
             $('#rate-price').attr('init', price);
         }
