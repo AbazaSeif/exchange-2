@@ -20,6 +20,7 @@ var rateList = {
             });
 
             rateList.data.socket.on('loadRates', function (data) {
+                $("#r-preloader").css('display', 'none');
                 var obj = {
                     price: data.price,
                     time: data.date,

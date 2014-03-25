@@ -1090,7 +1090,9 @@ input.r-submit{
     -moz-user-select: none;
     -ms-user-select: none;
 }
-
+#r-preloader img {
+    margin-left: 30%;
+}
 .timer-wrapper
 {
     position:relative;

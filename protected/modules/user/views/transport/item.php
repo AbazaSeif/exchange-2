@@ -115,6 +115,9 @@ if (!Yii::app()->user->isGuest) {
             <?php if (!Yii::app()->user->isGuest): ?>
                     <label class="r-header">Текущие ставки</label>
                     <div id="rates">
+                        <div id="r-preloader">
+                            <img src="/images/loading.gif"/>
+                        </div>
                     </div>
             <?php endif; ?>
             </div>
