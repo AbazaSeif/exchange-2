@@ -48,6 +48,8 @@ if (!Yii::app()->user->isGuest) {
     } else $minRateValue = floor($minRateValue);
     
     $userInfo = User::model()->findByPk($userId);
+    
+    //$userInfo = User::model()->findByPk($userId);
 
     if(Yii::app()->user->isTransport) {
         $residue = $minRateValue % $priceStep;
@@ -169,10 +171,17 @@ $(document).ready(function(){
 
         //var socket = io.connect('http://exchange.lbr.ru:3000/');
         var socket = io.connect('http://localhost:3000/');
-        socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>);
         
+        // ??? user_id
+        <?php //if(Yii::app()->user->isContactUser): ?>
+            //socket.emit('loadRates', <?php //echo $userId ?>, <?php //echo $transportInfo['id'] ?>);
+        <?php //else: ?> 
+            //socket.emit('loadRates', <?php //echo $userId ?>, <?php //echo $transportInfo['id'] ?>);
+        <?php //endif; ?>
 
-        /*var newElement = "<div id='" + id + "' class='rate-one'>" + 
+        socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>);
+        /*  
+        var newElement = "<div id='" + id + "' class='rate-one'>" + 
             "<div class='r-o-container'>" + 
                 time +
                 "<div class='r-o-user'>" + rate.name + ' ' + rate.surname + "</div>" +
@@ -180,7 +189,9 @@ $(document).ready(function(){
             "<div class='r-o-price'>" + price + rateList.data.currency + "</div>" +
             "</div>"
         ;
-        $('#test').prepend(newElement);*/
+    
+        $('#test').prepend(newElement);
+        */
 
         /*var k = 0;
         socket.on('init', function (data) {
@@ -189,18 +200,22 @@ $(document).ready(function(){
                     //time +
                     "<div class='r-o-user'>" + data.name + "</div>" +
                 "</div>" +
-                "<div class='r-o-price'>" + data.price + " <?php echo $currency ?>" + "</div>" +
+                "<div class='r-o-price'>" + data.price + " <?php// echo $currency ?>" + "</div>" +
                 "</div>"
             ;
             //$('#rates').append(newElement);
-        });*/
-       /* socket.on('endinit', function () {
+        });
+        */
+        
+        /*
+        socket.on('endinit', function () {
             $("#rates").mCustomScrollbar({
                 scrollButtons:{
                     enable:true
                 }
             });
-        });*/
+        });
+        */
 
         /***************************************************/
         

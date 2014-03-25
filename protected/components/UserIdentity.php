@@ -12,25 +12,21 @@ class UserIdentity extends CUserIdentity
     public function authenticate()
     {
         $status = 1;
-        if(is_numeric($this->username)){
+        if(is_numeric($this->username)) {
            $record = User::model()->findByAttributes(array('inn'=>$this->username));
-        }else{
+        } else {
             $record = User::model()->findByAttributes(array('email'=>$this->username));
-            if(!$record){
-                $record = UserContact::model()->findByAttributes(array('email'=>$this->username));
+            if(!$record) {
+                $record = AuthUser::model()->findByAttributes(array('login'=>$this->username));
+                $status = 0;
+            } else if($record->type_contact){
                 $status = 2;
-                if(!$record){
-                    $record = AuthUser::model()->findByAttributes(array('login'=>$this->username));
-                    $status = 0;
-                }
             }
         }
         
-        
         $this->errorCode = $this->getError($record);
-
         if($this->errorCode==self::ERROR_NONE) {
-            if($status=='0'){
+            if($status=='0') {
                 $this->_id = $record->g_id;
                 $this->setState('level', AuthGroup::model()->findByPk($record->g_id)->level);
             }

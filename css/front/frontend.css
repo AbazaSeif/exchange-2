@@ -244,7 +244,7 @@ nav, menu, p, section,
 }
 
 #password .row.error .errorMessage, #mail .row.error .errorMessage {
-    padding: 0.5% 2%;
+    padding: 1% 2%;
 }
 
 #registration-form .row.error .errorMessage {
@@ -259,8 +259,8 @@ nav, menu, p, section,
 
 #password .row.error .errorMessage, #mail .row.error .errorMessage
 {
-    left: 32%;
-    width: 25%;
+    left: 70%;
+    width: 60%;
 }
 #o-edit-contact .errorMessage
 {

@@ -396,6 +396,9 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 #contactform label{
     min-width: 15%;
 }
+#contactform select{
+    width: 50%;
+}
 #userform label{
     min-width: 10%;
 }

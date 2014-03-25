@@ -14,11 +14,12 @@ class ContactController extends Controller
     {
         if(Yii::app()->user->checkAccess('trReadUserContact')) {
             $criteria = new CDbCriteria();
+            $criteria->condition = 'type_contact = 1';
             $sort = new CSort();
             $sort->sortVar = 'sort';
             // сортировка по умолчанию 
             $sort->defaultOrder = 'surname ASC';
-            $dataProvider = new CActiveDataProvider('UserContact', 
+            $dataProvider = new CActiveDataProvider('User', 
                 array(
                     'criteria'=>$criteria,
                     'sort'=>$sort,
@@ -28,7 +29,7 @@ class ContactController extends Controller
                 )
             );
             if ($id_item = Yii::app()->user->getFlash('saved_id')) {
-                $model = UserContact::model()->findByPk($id_item);
+                $model = User::model()->findByPk($id_item);
                 $form = new UserContactForm;
                 $form->attributes = $model->attributes;
                 $form->id = $id_item;
@@ -45,30 +46,22 @@ class ContactController extends Controller
         if(Yii::app()->user->checkAccess('trCreateUserContact')) {
             $form = new UserContactForm;
             if(isset($_POST['UserContactForm'])) {
-                $emailExists=UserContact::model()->find(array(
+                $emailExists=User::model()->find(array(
                     'select'=>'email',
                     'condition'=>'email=:email',
                     'params'=>array(':email'=>$_POST['UserContactForm']['email']))
                 );
                 
-                if(empty($emailExists)){
-                    $emailExists=User::model()->find(array(
-                        'select'=>'email',
-                        'condition'=>'email=:email',
-                        'params'=>array(':email'=>$_POST['UserContactForm']['email']))
-                    );
-                }
-                
-                if(empty($emailExists)){
-                    $model = new UserContact;
+                if(empty($emailExists)) {
+                    $curUser = User::model()->findByPk($_POST['UserContactForm']['parent']);
+                    $model = new User;
                     $model->attributes = $_POST['UserContactForm'];
                     $model->password = crypt($_POST['UserContactForm']['password'], User::model()->blowfishSalt());
-
+                    $model->type_contact = 1;
+                    $model->company = 'Контактное лицо ' . $curUser->company . ' ('.$model->name.' '.$model->surname.')';
+                    
                     if($model->save()) {
-                        $model->c_id = 'contact_' . $model->id;
-                        $model->save();
-
-                        $newFerrymanFields = new UserFieldContact;
+                        $newFerrymanFields = new UserField;
                         $newFerrymanFields->user_id = $model->id;
                         $newFerrymanFields->mail_transport_create_1 = false;
                         $newFerrymanFields->mail_transport_create_2 = false;
@@ -112,13 +105,15 @@ class ContactController extends Controller
         }
     }
 
-    public function actionEditContact($id) 
+    public function actionEditContact($id)
     {
-        $model = UserContact::model()->findByPk($id);  
+        $model = User::model()->findByPk($id);  
         $message = '';
         $form = new UserContactForm;
         $form->attributes = $model->attributes;
         $form->id = $id;
+        $form->parent = $model->parent;
+        
         if (Yii::app()->user->checkAccess('trEditUserContact')) {
             if (isset($_POST['UserContactForm'])) {
                 $changes = $emailExists = array();
@@ -153,14 +148,6 @@ class ContactController extends Controller
                                 'condition' => 'email=:email',
                                 'params'    => array(':email'=>$_POST['UserContactForm']['email']))
                             );
-
-                            if(empty($emailExists)) {
-                                $emailExists = UserContact::model()->find(array(
-                                    'select'    => 'email',
-                                    'condition' => 'email=:email',
-                                    'params'    => array(':email'=>$_POST['UserContactForm']['email']))
-                                );
-                            }
 
                             if(!empty($emailExists)) Yii::app()->user->setFlash('error', 'Указанный email уже используется. '); 
                         }
@@ -208,10 +195,12 @@ class ContactController extends Controller
 
     public function actionDeleteContact($id)
     {
-        $model = UserContact::model()->findByPk($id);
+        $model = User::model()->findByPk($id);
+        $name = $model['name'] . ' ' . $model['surname'];
+        
         if (Yii::app()->user->checkAccess('trDeleteUserContact')) {
-            if (UserContact::model()->deleteByPk($id)) {
-                $message = 'Удален контакт ' . $model['name'] . ' ' . $model['surname'];
+            if (User::model()->deleteByPk($id)) {
+                $message = 'Удален контакт ' . $name;
                 Changes::saveChange($message);
                 Yii::app()->user->setFlash('message', 'Контактное лицо удалено успешно.');
                 $this->redirect('/admin/contact/');
@@ -221,7 +210,7 @@ class ContactController extends Controller
         }
     }
     
-    public function getCompanies() 
+    public function getCompanies()
     {
         return $allCompanies = Yii::app()->db->createCommand()
             ->select('id, company')

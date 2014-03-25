@@ -64,8 +64,7 @@ class DefaultController extends Controller
         }
         
         if(isset($_POST['MailForm'])) {
-            if(Yii::app()->user->isContactUser) $user = UserContact::model()->findByPk($userId);
-            else $user = User::model()->findByPk($userId);
+            $user = User::model()->findByPk($userId);
             
             if ($user->password === crypt(trim($_POST['MailForm']['password']), $user->password)) {
                 $exists = User::model()->find(array(
@@ -73,14 +72,6 @@ class DefaultController extends Controller
                     'condition'=>'email=:email',
                     'params'=>array(':email'=>$_POST['MailForm']['new_email']))
                 );
-                
-                if(empty($exists)) { 
-                    $exists = UserContact::model()->find(array(
-                        'select'=>'email',
-                        'condition'=>'email=:email',
-                        'params'=>array(':email'=>$_POST['MailForm']['new_email']))
-                    );
-                }
                 
                 if(empty($exists)) { 
                     $user->email = trim($_POST['MailForm']['new_email']);
@@ -96,7 +87,8 @@ class DefaultController extends Controller
         }
         
         $criteriaContacts = new CDbCriteria();
-        $criteriaContacts->compare('u_id', $userId);
+        $criteriaContacts->compare('parent', $userId);
+        $criteriaContacts->compare('type_contact', 1);
         
         $sort = new CSort();
         $sort->sortVar = 'sort';
@@ -110,7 +102,7 @@ class DefaultController extends Controller
             ),
         );
 
-        $dataContacts = new CActiveDataProvider('UserContact',
+        $dataContacts = new CActiveDataProvider('User',
             array(
                 'criteria' => $criteriaContacts,
                 'sort' => $sort,
@@ -152,10 +144,10 @@ class DefaultController extends Controller
     }
     
     /* Show user options */
-    public function actionContact()
+    /*public function actionContact()
     {
         $model = array();
-        $model = new UserContact;
+        $model = new User;
         if(isset($_POST['UserContact'])) {
             $model->attributes = $_POST['UserContact'];
             if($model->validate() && $model->save()) {
@@ -172,7 +164,7 @@ class DefaultController extends Controller
         }
         
         $this->render('contact', array('model' => $model), false, true);
-    }
+    }*/
 
     public function getEventMessage($eventType)
     {
@@ -189,7 +181,7 @@ class DefaultController extends Controller
     
     public function actionEditContact($id)
     {
-        $user = UserContact::model()->findByPk($id);
+        $user = User::model()->findByPk($id);
         $model = new UserContactForm;
         $model->attributes = $user->attributes;
         $model->id = $id;
@@ -226,12 +218,22 @@ class DefaultController extends Controller
             if(empty($emailExists)) {
                 $password = User::randomPassword();
                 $curUser = User::model()->findByPk(Yii::app()->user->_id);
-                $user = new UserContact;
+                $user = new User;
                 $user->attributes = $_POST['UserContactForm'];
-                $user->u_id = Yii::app()->user->_id;
+                $user->parent = Yii::app()->user->_id;
                 $user->password = crypt($password, User::model()->blowfishSalt());
 
                 if($user->save()) {
+                    $newFerrymanFields = new UserField;
+                    $newFerrymanFields->user_id = $user->id;
+                    $newFerrymanFields->mail_transport_create_1 = false;
+                    $newFerrymanFields->mail_transport_create_2 = false;
+                    $newFerrymanFields->mail_kill_rate = false;
+                    $newFerrymanFields->mail_before_deadline = false;
+                    $newFerrymanFields->mail_deadline = true;
+                    $newFerrymanFields->with_nds = false;            
+                    $newFerrymanFields->save();
+                
                     $email = new TEmail;
                     $email->from_email = Yii::app()->params['adminEmail'];
                     $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
@@ -262,9 +264,9 @@ class DefaultController extends Controller
     
     public function actionDeleteContact($id)
     {
-        $model = UserContact::model()->findByPk($id);
+        $model = User::model()->findByPk($id);
         $contactName = $model->surname . ' ' . $model->name;
-        if(UserContact::model()->deleteByPk($id)){
+        if(User::model()->deleteByPk($id)){
             Yii::app()->user->setFlash('message', 'Контактное лицо "' . $contactName . '" удалено успешно.');
             $this->redirect('/user/option/');
         }

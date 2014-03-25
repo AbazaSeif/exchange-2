@@ -15,6 +15,7 @@ class UserController extends Controller
         if(Yii::app()->user->checkAccess('trReadUser'))
         {
             $criteria = new CDbCriteria();
+            $criteria->condition = 'type_contact = 0';
             $sort = new CSort();
             $sort->sortVar = 'sort';
             // сортировка по умолчанию 
@@ -70,7 +71,8 @@ class UserController extends Controller
                     $model = new User;
                     $model->attributes = $_POST['UserForm'];
                     $model->password = crypt($_POST['UserForm']['password'], User::model()->blowfishSalt());
-
+                    $model->type_contact = 0;
+                    
                     if($model->save()) {
                         $message = 'Создан пользователь ' . $model->name . ' ' . $model->surname;
                         Changes::saveChange($message);

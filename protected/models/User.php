@@ -18,6 +18,9 @@
  * @property string $login
  * @property string $password
  * @property integer $phone
+ * @property integer $phone2
+ * @property integer $parent
+ * @property integer $type_contact
  * @property string $email
  *
  * The followings are the available model relations:
@@ -62,7 +65,7 @@ class User extends CActiveRecord
             // NOTE: you should only define rules for those attributes that
             // will receive user inputs.
             return array(
-                array('company, inn, name, surname, secondname, password, status, country, region, city, district, phone, email', 'safe'),
+                array('company, inn, name, surname, secondname, password, status, country, region, city, district, phone, phone2, type_contact, parent, email', 'safe'),
             );
 	}
 
@@ -101,9 +104,12 @@ class User extends CActiveRecord
                 'name' => 'Имя',
                 'secondname' => 'Отчество',
                 'surname' => 'Фамилия',
-               // 'login' => 'Логин',
+                // 'login' => 'Логин',
                 'password' => 'Пароль',
                 'phone' => 'Телефон',
+                'phone2' => 'Телефон №2',
+                'parent' => 'Родитель',
+                'type_contact' => 'Тип',
                 'email' => 'Email',
             );
 	}
@@ -140,6 +146,9 @@ class User extends CActiveRecord
             $criteria->compare('login',$this->login,true);
             $criteria->compare('password',$this->password,true);
             $criteria->compare('phone',$this->phone);
+            $criteria->compare('phone2',$this->phone2);
+            $criteria->compare('parent',$this->parent);
+            $criteria->compare('type_contact',$this->type_contact);
             $criteria->compare('email',$this->email,true);
 
             return new CActiveDataProvider($this, array(

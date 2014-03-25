@@ -106,12 +106,15 @@
     echo $form->labelEx($model, 'district');
     echo $form->textField($model, 'district'); ?>
 </div>
-
-
 <div class="phone field">
 <?php  echo $form->error($model, 'phone');
     echo $form->labelEx($model, 'phone');
     echo $form->textField($model, 'phone'); ?>
+</div>
+<div class="phone2 field">
+<?php  echo $form->error($model, 'phone2');
+    echo $form->labelEx($model, 'phone2');
+    echo $form->textField($model, 'phone2'); ?>
 </div>
 <div class="email field">
 <?php  echo $form->error($model, 'email');

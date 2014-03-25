@@ -20,7 +20,7 @@
         unset($delete_button);
     }
     
-    foreach($allCompanies as $one){
+    foreach($allCompanies as $one) {
         $companies[$one['id']] = $one['company'];
     }
 ?>
@@ -50,9 +50,9 @@
     echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn btn-green')); ?>
 </div>
 <div class="firm field">
-<?php echo $form->error($model, 'u_id');
-    echo $form->labelEx($model, 'u_id');
-    echo $form->dropDownList($model, 'u_id', $companies); ?>
+<?php echo $form->error($model, 'parent');
+    echo $form->labelEx($model, 'parent');
+    echo $form->dropDownList($model, 'parent', $companies); ?>
 </div>
 <div class="surname field">
 <?php  echo $form->error($model, 'surname'); 

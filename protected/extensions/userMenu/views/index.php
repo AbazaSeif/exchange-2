@@ -1,12 +1,18 @@
 <?php
-if(!Yii::app()->user->isGuest){
+if(!Yii::app()->user->isGuest) {
     if(Yii::app()->user->isTransport) {
         $user = User::model()->findByPk(Yii::app()->user->_id);
-    } else if(Yii::app()->user->isContactUser) {
-        $user = UserContact::model()->findByPk(Yii::app()->user->_id);
     } else {
         $user = AuthUser::model()->findByPk(Yii::app()->user->_id);
     }
+    
+    /*
+    
+    else if(Yii::app()->user->isContactUser) {
+        $user = UserContact::model()->findByPk(Yii::app()->user->_id);
+    }
+    
+    */
 ?>
     <div class='user-info'>
         <?php echo '<span class="user-name"> Добро пожаловать, '.$user->name.'!</span>'; ?>
@@ -37,7 +43,7 @@ if(!Yii::app()->user->isGuest){
                     <li><a href="/user/logout/" class="exit">Выход</a></li>
                 </ul>
             <?php }
-}else{
+} else {
     $form=$this->beginWidget('CActiveForm', array(
         'id'=>'login-form',
         'enableClientValidation'=>true,
@@ -77,21 +83,27 @@ if(!Yii::app()->user->isGuest){
 $(document).ready(function(){
     <?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
     var userId = <?php echo $user->id ?>;
+    
     //var socket = io.connect('http://exchange.lbr.ru:3000/');
     var socket = io.connect('http://localhost:3000/');
     
-    socket.emit('init', userId, <?php echo Yii::app()->params['minNotyfy'] ?>);
+    <?php if(Yii::app()->user->isContactUser): ?>
+        socket.emit('init', userId, <?php echo Yii::app()->params['minNotyfy'] ?>, 1);
+    <?php else: ?>
+        socket.emit('init', userId, <?php echo Yii::app()->params['minNotyfy'] ?>, 0);
+    <?php endif; ?>
     
     var countSubmenuElem = null;
     if ($("#submenu")) {
         countSubmenuElem = parseInt($('#submenu').children().length);
     }
+    
     menu.countSubmenuElem = countSubmenuElem;
     menu.init();
     
-    socket.emit('events', userId);   
+    socket.emit('events', userId); 
     socket.on('updateEvents', function (data) {
-        if(parseInt(data.count) != 0) {
+        if (parseInt(data.count) != 0) {
             $('#event-counter').html(data.count);    
         } else $('#event-counter').html('');
     });
