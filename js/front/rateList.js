@@ -2,10 +2,10 @@ var rateList = {
     init : function(){
         this.container = $("#rates");
         var element = $( "#rate-price" );
-        if(typeof(rateList.data.socket) !== 'undefined'){
+        if(typeof(rateList.data.socket) !== 'undefined') {
             rateList.data.socket.on('setRate', function (data) {
                 var initPrice = parseInt($('#rate-price').attr('init'));
-                if(data.transportId == rateList.data.transportId) {
+                if (data.transportId == rateList.data.transportId) {
                     var price = data.price;
                     if(rateList.data.nds) {
                         price = Math.ceil(price * (100 + rateList.data.nds*100) / 100);
@@ -15,7 +15,7 @@ var rateList = {
                     $('#rates').prepend(element);
                 }
             });
-
+            
             rateList.data.socket.on('loadRates', function (data) {
                 $("#r-preloader").css('display', 'none');
                 //console.log(data.rows);
