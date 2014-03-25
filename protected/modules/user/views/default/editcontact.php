@@ -55,33 +55,37 @@
 <div class="surname field">
 <?php  echo $form->error($model, 'surname'); 
     echo $form->labelEx($model, 'surname');
-    echo $form->textField($model, 'surname'); ?>
+    echo $form->textField($model, 'surname', array('disabled' => ($model->id)?true:false)); ?>
 </div>
 <div class="name field">
 <?php  echo $form->error($model, 'name'); 
     echo $form->labelEx($model, 'name');
-    echo $form->textField($model, 'name');?>
+    echo $form->textField($model, 'name', array('disabled' => ($model->id)?true:false));?>
 </div>
+<?php if(!$model->id): ?>
 <div class="secondname field">
 <?php  echo $form->error($model, 'secondname'); 
     echo $form->labelEx($model, 'secondname');
     echo $form->textField($model, 'secondname'); ?>
 </div>
+<?php endif ?>
 <div class="email field">
 <?php  echo $form->error($model, 'email');
     echo $form->labelEx($model, 'email');
-    echo $form->emailField($model, 'email'); ?>
+    echo $form->emailField($model, 'email', array('disabled' => ($model->id)?true:false)); ?>
 </div>
 <div class="phone field">
 <?php  echo $form->error($model, 'phone');
     echo $form->labelEx($model, 'phone');
-    echo $form->textField($model, 'phone'); ?>
+    echo $form->textField($model, 'phone', array('disabled' => ($model->id)?true:false)); ?>
 </div>
+<?php if(!$model->id): ?>
 <div class="phone2 field">
 <?php  echo $form->error($model, 'phone2');
     echo $form->labelEx($model, 'phone2');
     echo $form->textField($model, 'phone2'); ?>
 </div>
+<?php endif ?>
 <?php if ($model->id): ?>
 <div style="display:none;">
 <?php  echo $form->hiddenField($model, 'password'); ?>
