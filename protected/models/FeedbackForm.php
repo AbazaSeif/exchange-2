@@ -22,7 +22,7 @@ class FeedbackForm extends CFormModel
         return array(
             'name'=>'Имя',
             'surname'=>'Фамилия',
-            'email'=>'email',
+            'email'=>'Email',
             'message'=>'Текст сообщения',
             'phone'=>'Телефон',
             'password'=>'Пароль',

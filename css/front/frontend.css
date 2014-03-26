@@ -120,7 +120,7 @@ nav, menu, p, section,
 {
     padding: 20px 35px 0;
 }
-#login-form .row, #registration-form .row, #password .row, #mail .row
+#login-form .row, #registration-form .row, #password .row, #mail .row, #feedback-form .row
 {
     position: relative;
     margin-bottom: 10px;
@@ -229,7 +229,7 @@ nav, menu, p, section,
     z-index: 10;
 }
 
-#registration-form .row.error .errorMessage, #password .row.error .errorMessage, #mail .row.error .errorMessage, #o-edit-contact .errorMessage
+#registration-form .row.error .errorMessage, #password .row.error .errorMessage, #mail .row.error .errorMessage, #o-edit-contact .errorMessage, #feedback-form .row.error .errorMessage
 {
     position: absolute;
     width: 70%;
@@ -243,7 +243,7 @@ nav, menu, p, section,
     z-index: 10;
 }
 
-#password .row.error .errorMessage, #mail .row.error .errorMessage {
+#password .row.error .errorMessage, #mail .row.error .errorMessage, #feedback-form .row.error .errorMessage {
     padding: 1% 2%;
 }
 
@@ -262,12 +262,12 @@ nav, menu, p, section,
     left: 70%;
     width: 60%;
 }
-#o-edit-contact .errorMessage
+#o-edit-contact .errorMessage, #feedback-form .row.error .errorMessage
 {
     left: 38%;
     width: 50%;
 }
-#login-form .row.error .errorMessage:after, #registration-form .row.error .errorMessage:after, #password .row.error .errorMessage:after, #mail .row.error .errorMessage:after, #o-edit-contact .errorMessage:after
+#login-form .row.error .errorMessage:after, #registration-form .row.error .errorMessage:after, #password .row.error .errorMessage:after, #mail .row.error .errorMessage:after, #o-edit-contact .errorMessage:after, #feedback-form .errorMessage:after
 {
     content: '';
     display: block;
@@ -282,10 +282,19 @@ nav, menu, p, section,
     border-bottom: 7px solid transparent;
 }
 
-#registration-form .row label {  
+#registration-form .row label{  
     display: block;
     float: left;
     min-width: 20%;
+}
+
+#feedback-form .row label {  
+    display: block;
+    float: left;
+    min-width: 15%;
+}
+#feedback-form{
+    margin-top: 20px;
 }
 
 #registration-form .row label[for="RegistrationForm_iagree"] {
