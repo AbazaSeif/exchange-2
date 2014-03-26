@@ -6,6 +6,16 @@ class SiteController extends Controller
         $this->forward('/transport/i/');
     }
     
+    public function actions()
+    {
+        return array(
+            'captcha'=>array(
+                'class'=>'CCaptchaAction',
+                'backColor' => 0xFFFFFF,
+            ),
+        );
+    }
+
     public function actionLogin()
     {
         $model = new LoginForm;
@@ -98,9 +108,29 @@ class SiteController extends Controller
     {
         $model = new FeedbackForm();
         if(isset($_POST['FeedbackForm'])) {
-            
-        }
-        $this->render('feedback', array('model' => $model));
+            $phone = '';
+            if(!empty($_POST['FeedbackForm']['phone'])) $phone = '<p>Телефон: '.$_POST['FeedbackForm']['phone'].'</p>';
+            $email = new TEmail;
+            $email->from_email = $_POST['FeedbackForm']['email'];
+            $email->from_name  = $_POST['FeedbackForm']['surname'] . ' ' . $_POST['FeedbackForm']['name'];
+            $email->to_email   = Yii::app()->params['adminEmail'];
+            $email->to_name    = '';
+            $email->subject    = 'Биржа перевозок "Обратная связь"';
+            $email->type = 'text/html';
+            $email->body = '<div>'.
+                    'Пользователь воспользовался формой обратной связи на "Бирже перевозок ЛБР"'.
+                    '<p>'.$_POST['FeedbackForm']['surname'].' '.$_POST['FeedbackForm']['name'].'</p>'.
+                    '<p>Email: '.$_POST['FeedbackForm']['email'].'</p>'.
+                    $phone.
+                    '<p>Текст сообщения: </p>'.
+                    '<p>'.$_POST['FeedbackForm']['message'].'</p>'.
+                '</div>
+                <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+            ';
+            $email->sendMail();
+            Dialog::message('flash-success', 'Отправлено!', 'Ваше сообщение отправлено');
+            $this->redirect('/');
+        } else $this->render('feedback', array('model' => $model));
     }
     
     public function actionHelp()
@@ -137,11 +167,6 @@ class SiteController extends Controller
                     $newFerrymanFields->mail_deadline = true;
                     $newFerrymanFields->with_nds = (bool)$_POST['RegistrationForm']['nds'];    
                     $newFerrymanFields->save();
-
-                    /*if(!$newFerrymanFields->save()) {
-                        var_dump($newFerrymanFields->getErrors()); 
-                        exit;
-                    };*/
 
                     $this->sendMail(Yii::app()->params['adminEmail'], 1, $_POST['RegistrationForm']);
                     $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);

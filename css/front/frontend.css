@@ -243,12 +243,25 @@ nav, menu, p, section,
     z-index: 10;
 }
 
-#password .row.error .errorMessage, #mail .row.error .errorMessage, #feedback-form .row.error .errorMessage {
+#password .row.error .errorMessage, #mail .row.error .errorMessage {
     padding: 1% 2%;
 }
 
 #registration-form .row.error .errorMessage {
     padding: 0.5% 0.5% 0.5% 1%;
+}
+
+#feedback-form .row.error .errorMessage {
+    padding: 0.5% 1%;
+    margin-top: 0.5%;
+}
+
+#feedback-form .row input, #feedback-form .row textarea{
+    width: 200px;
+}
+
+#feedback-form .btn {
+    float: left;
 }
 
 #registration-form .row.error .errorMessage
@@ -267,6 +280,12 @@ nav, menu, p, section,
     left: 38%;
     width: 50%;
 }
+
+#feedback-form .row.capture
+{
+    margin-left: 15%;
+}
+
 #login-form .row.error .errorMessage:after, #registration-form .row.error .errorMessage:after, #password .row.error .errorMessage:after, #mail .row.error .errorMessage:after, #o-edit-contact .errorMessage:after, #feedback-form .errorMessage:after
 {
     content: '';
