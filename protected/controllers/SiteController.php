@@ -96,7 +96,11 @@ class SiteController extends Controller
     
     public function actionFeedback()
     {
-        $this->render('feedback');
+        $model = new FeedbackForm();
+        if(isset($_POST['FeedbackForm'])) {
+            
+        }
+        $this->render('feedback', array('model' => $model));
     }
     
     public function actionHelp()

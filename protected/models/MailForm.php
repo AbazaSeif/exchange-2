@@ -2,8 +2,6 @@
 
 class MailForm extends CFormModel
 {
-    //public $id; // для хранения идентификатора пользователя
-
     // дополнительные поля для новых данных
     public $password; // поле 'Введите текущий email'
     public $new_email; // поле 'Введите новый email
