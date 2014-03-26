@@ -33,6 +33,8 @@ class ContactController extends Controller
                 $form = new UserContactForm;
                 $form->attributes = $model->attributes;
                 $form->id = $id_item;
+                $form->parent = $model->parent;
+                
                 $view = $this->renderPartial('editcontact', array('model'=>$form), true, true);
             }
             $this->render('contacts', array('data'=>$dataProvider, 'view'=>$view));
@@ -107,15 +109,17 @@ class ContactController extends Controller
 
     public function actionEditContact($id)
     {
-        $model = User::model()->findByPk($id);  
+        $model = User::model()->findByPk($id);
         $message = '';
         $form = new UserContactForm;
         $form->attributes = $model->attributes;
         $form->id = $id;
         $form->parent = $model->parent;
-        
+        //var_dump(' = ' . $model);
         if (Yii::app()->user->checkAccess('trEditUserContact')) {
             if (isset($_POST['UserContactForm'])) {
+                //var_dump(2);
+                $curUser = User::model()->findByPk($_POST['UserContactForm']['parent']);
                 $changes = $emailExists = array();
                 foreach ($_POST['UserContactForm'] as $key => $value) {
                     if (trim($model[$key]) != trim($value) && $key != 'password') {
@@ -128,6 +132,8 @@ class ContactController extends Controller
                 }
                 
                 $model->attributes = $_POST['UserContact'];
+                $model->company = 'Контактное лицо "' . $curUser->company . '" ('.$model->name.' '.$model->surname.')';
+                
                 if(!empty($_POST['UserContactForm']['password_confirm'])){
                     $model->password = crypt($_POST['UserContactForm']['password_confirm'], User::model()->blowfishSalt());
                 }
@@ -181,13 +187,16 @@ class ContactController extends Controller
                             $model->password = crypt($_POST['UserContactForm']['password_confirm'], User::model()->blowfishSalt());
                         }
                     }
+                    
                     if ($model->save()) {
                         Yii::app()->user->setFlash('saved_id', $model->id);
                         Yii::app()->user->setFlash('message', 'Контактное лицо "' . $model->surname . ' ' . $model->name . '" сохранено успешно.');
                         $this->redirect('/admin/contact/');
                     } else Yii::log($model->getErrors(), 'error');
                 }
-            } else $this->renderPartial('editcontact', array('model' => $form), false, true);
+            } else {
+                $this->renderPartial('editcontact', array('model' => $form), false, true);
+            }
         } else {
             throw new CHttpException(403, Yii::t('yii', 'У Вас недостаточно прав доступа.'));
         }

@@ -11,7 +11,6 @@
     $delete_button = CHtml::link('Удалить', '/admin/contact/deletecontact/id/'.$model->id, array('id'=>'del_'.$model->name,'class'=>'btn del', 'onclick'=>'return confirm("Внимание! Контактное лицо будет безвозвратно удалено. Продолжить?")'));
     $header_form = 'Редактирование контактного лица "'.$model->name . ' ' . $model->surname . '"';
     $action = '/admin/contact/editcontact/id/'.$model->id;
-    //if ($model->isNewRecord) {
     if (!$model->id) {
         $submit_text = 'Подтвердить';
         $name = 'new';
@@ -19,7 +18,7 @@
         $action = '/admin/contact/createcontact/';
         unset($delete_button);
     }
-    
+
     foreach($allCompanies as $one) {
         $companies[$one['id']] = $one['company'];
     }
