@@ -285,6 +285,9 @@ nav, menu, p, section,
 {
     margin-left: 15%;
 }
+#feedback-form .row.capture a img{
+    margin-bottom: 12px;
+}
 
 #login-form .row.error .errorMessage:after, #registration-form .row.error .errorMessage:after, #password .row.error .errorMessage:after, #mail .row.error .errorMessage:after, #o-edit-contact .errorMessage:after, #feedback-form .errorMessage:after
 {
