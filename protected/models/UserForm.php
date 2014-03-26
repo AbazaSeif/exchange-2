@@ -16,12 +16,13 @@ class UserForm extends CFormModel
     public $secondname;
     public $surname;
     public $phone;
+    public $phone2;
     public $email;
 
     public function rules()
     {
         return array(
-            array('inn, status, phone', 'numerical', 'integerOnly'=>true),
+            array('inn, status, phone, phone2', 'numerical', 'integerOnly'=>true),
             array('company, country, password, region, district, inn, name, surname, phone, email', 'required'),
             array('password, name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),
             array('email', 'email', 'message'=>'Неправильный Email адрес'),
@@ -51,6 +52,7 @@ class UserForm extends CFormModel
             'password' => 'Пароль',
             'password_confirm' => 'Пароль',
             'phone' => 'Телефон',
+            'phone2' => 'Телефон №2',
             'email' => 'Email',
         );
     }
