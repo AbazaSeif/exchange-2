@@ -68,7 +68,9 @@ class ContactController extends Controller
                         $newFerrymanFields->mail_kill_rate = false;
                         $newFerrymanFields->mail_before_deadline = false;
                         $newFerrymanFields->mail_deadline = true;
-                        $newFerrymanFields->with_nds = false;         
+                        $newFerrymanFields->with_nds = false;   
+                        $newFerrymanFields->show_intl = true;
+                        $newFerrymanFields->show_regl = true;
                         $newFerrymanFields->save();
 
                         $message = 'Создан контакт ' . $model->name . ' ' . $model->surname;

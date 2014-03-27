@@ -227,7 +227,9 @@ class DefaultController extends Controller
                     $newFerrymanFields->mail_kill_rate = false;
                     $newFerrymanFields->mail_before_deadline = false;
                     $newFerrymanFields->mail_deadline = true;
-                    $newFerrymanFields->with_nds = false;            
+                    $newFerrymanFields->with_nds = false; 
+                    $newFerrymanFields->show_regl = true;
+                    $newFerrymanFields->show_intl = true;
                     $newFerrymanFields->save();
                 
                     $email = new TEmail;

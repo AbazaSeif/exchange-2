@@ -18,6 +18,7 @@ class RegistrationForm extends CFormModel
     public $description;
     public $ownership;
     public $nds;
+    public $show;
     public $iagree;
 
     public function rules()
@@ -73,6 +74,7 @@ class RegistrationForm extends CFormModel
             'description'=>'Примечание',
             'ownership'=>'Форма собственности',
             'nds' => 'Отображать цену с НДС',
+            'show' => 'Показывать перевозки',
             'iagree' => 'Согласен на обработку персональных данных, введенных в форму'
         );
     }
