@@ -3,9 +3,15 @@ class TransportController extends Controller
 {
     public function actionI()
     {
-        $lastRates = array();	
+        $lastRates = array();
         $criteria = new CDbCriteria();
-        $criteria->condition = 'status = 1';
+        $criteria->compare('status', 1);
+        if(!Yii::app()->user->isGuest) {
+            $userInfo = UserField::model()->findByAttributes(array('user_id'=>Yii::app()->user->_id));
+            if($userInfo->show_intl && !$userInfo->show_regl) $criteria->compare('type', 0);
+            if($userInfo->show_regl && !$userInfo->show_intl) $criteria->compare('type', 1);
+        }
+        
         $dataProvider = new CActiveDataProvider('Transport',
             array(
                 'criteria' => $criteria,
@@ -15,7 +21,7 @@ class TransportController extends Controller
                 ),
                 'sort'=>array(
                     'defaultOrder'=>array(
-                            'date_published' => CSort::SORT_DESC,
+                        'date_published' => CSort::SORT_DESC,
                     ),                        
                 ),
             )
@@ -80,7 +86,8 @@ class TransportController extends Controller
             } else {
                 $error = 1;
             }
-        }*/
+        }
+         */
         
         $data = Yii::app()->db->createCommand()
             ->select('r.*, u.company, u.name, u.surname, f.with_nds')

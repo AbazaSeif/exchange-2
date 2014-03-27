@@ -42,6 +42,10 @@
             <div>
                 <div class="title"><img src="/images/nds.jpg"><span>Параметры отображения</span></div>
                 <div class="row">
+                    <?php $accountStatus = array('regl'=>'Отображать только региональные заявки на перевозку', 'intl'=>'Отображать только международные заявки на перевозку', 'all'=>'Отображать все заявки на перевозку'); ?>
+                    <?php echo $form->radioButtonList($model,'show',$accountStatus); ?>
+                </div>
+                <div class="row">
                     <?php echo $form->checkBox($model, 'with_nds'); ?>
                     <?php echo $form->label($model, 'with_nds'); ?>
                 </div>

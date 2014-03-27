@@ -12,12 +12,15 @@
  * @property boolean $mail_deadline
  * @property boolean $mail_before_deadline
  * @property boolean $with_nds
+ * @property boolean $show_regl
+ * @property boolean $show_intl
  *
  * The followings are the available model relations:
  * @property User $user
  */
 class UserField extends CActiveRecord
 {
+        public $show;
 	 /* @return string the associated database table name
 	 */
 	public function tableName()
@@ -33,7 +36,7 @@ class UserField extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('with_nds, mail_transport_create_1, mail_transport_create_2, mail_kill_rate, mail_deadline, mail_before_deadline', 'safe'),
+			array('with_nds, mail_transport_create_1, show_regl, show_intl, mail_transport_create_2, mail_kill_rate, mail_deadline, mail_before_deadline', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, with_nds, user_id, mail_transport_create_1, mail_transport_create_2, mail_kill_rate, mail_deadline, mail_before_deadline', 'safe', 'on'=>'search'),
@@ -66,6 +69,8 @@ class UserField extends CActiveRecord
 			'mail_deadline' => 'При закрытии перевозки',
 			'mail_before_deadline' => 'Mail Before Deadline',
 			'with_nds' => 'Показывать цену с НДС',
+			'show_regl' => 'Региональные перевозки',
+			'show_intl' => 'Международные перевозки',
 		);
 	}
 

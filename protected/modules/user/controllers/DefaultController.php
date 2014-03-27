@@ -41,14 +41,30 @@ class DefaultController extends Controller
     public function actionOption()
     {
         $userId = Yii::app()->user->_id;
-        $model = UserField::model()->find('user_id = :id', array('id' => $userId));
         $pass = new PasswordForm();
         $mail = new MailForm();
         $dataContacts = array();
+        $model = UserField::model()->find('user_id = :id', array('id' => $userId));
+        
         
         if(isset($_POST['UserField'])) {
             $model->attributes = $_POST['UserField'];
+            $model->show = $_POST['UserField']['show'];
+            if($_POST['UserField']['show'] == 'all') {
+                $model->show_intl = true;
+                $model->show_regl = true;
+            } else if($_POST['UserField']['show'] == 'regl'){
+                $model->show_regl = true;
+                $model->show_intl = false;
+            } else {
+                $model->show_regl = false;
+                $model->show_intl = true;
+            }
             $model->save();
+        } else {
+            if($model->show_intl && $model->show_regl) $model->show = 'all';
+            else if($model->show_intl) $model->show = 'intl';
+            else $model->show = 'regl';
         }
         
         if(isset($_POST['PasswordForm'])) {
@@ -143,29 +159,6 @@ class DefaultController extends Controller
         $this->render('event', array('data' => $dataProvider));
     }
     
-    /* Show user options */
-    /*public function actionContact()
-    {
-        $model = array();
-        $model = new User;
-        if(isset($_POST['UserContact'])) {
-            $model->attributes = $_POST['UserContact'];
-            if($model->validate() && $model->save()) {
-                $newFerrymanFields = new UserField;
-                $newFerrymanFields->user_id = $model->id;
-                $newFerrymanFields->mail_transport_create_1 = false;
-                $newFerrymanFields->mail_transport_create_2 = false;
-                $newFerrymanFields->mail_kill_rate = false;
-                $newFerrymanFields->mail_before_deadline = false;
-                $newFerrymanFields->mail_deadline = true;
-                $newFerrymanFields->with_nds = false;            
-                $newFerrymanFields->save();
-            }
-        }
-        
-        $this->render('contact', array('model' => $model), false, true);
-    }*/
-
     public function getEventMessage($eventType)
     {
         $message = array(

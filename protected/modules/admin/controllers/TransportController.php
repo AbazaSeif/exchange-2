@@ -128,6 +128,7 @@ class TransportController extends Controller
             $model->date_to = date('d-m-Y H:i', strtotime("+" . 4*Yii::app()->params['hoursBefore'] . " hours"));
 
             if(isset($_POST['Transport'])) {
+                $user = User::model()->find(Yii::app()->user->_id);
                 $model->attributes = $_POST['Transport'];
                 $model->date_from = date('Y-m-d H:i:s', strtotime($model->date_from));
                 $model->date_to = date('Y-m-d H:i:s', strtotime($model->date_to));
