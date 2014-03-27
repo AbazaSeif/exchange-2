@@ -122,8 +122,11 @@ return array(
             'Перевозки' => '/admin/transport/',
             'История редактирования' => '/admin/changes/',
         ),
-        'adminEmail'  => 'nazarova@lbr.ru',
-        'logistEmail' => 'nazarova@lbr.ru',
+
+        'supportEmail' => 'support.ex@lbr.ru',
+        'adminEmail'   => 'help.ex@lbr.ru',
+        'logistEmail'  => 'nazarova@lbr.ru',
+        
         'minNotyfy' => 30,
         'hoursBefore' => 24,
         'ferrymanGroup' => 4,

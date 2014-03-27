@@ -201,7 +201,7 @@ class DefaultController extends Controller
         $model = new UserContactForm;
         $model->status = 1;
         if(isset($_POST['UserContactForm'])) {
-            $emailExists=UserContact::model()->find(array(
+            $emailExists=User::model()->find(array(
                 'select'=>'email',
                 'condition'=>'email=:email',
                 'params'=>array(':email'=>$_POST['UserContactForm']['email']))
@@ -220,9 +220,12 @@ class DefaultController extends Controller
                 $curUser = User::model()->findByPk(Yii::app()->user->_id);
                 $user = new User;
                 $user->attributes = $_POST['UserContactForm'];
+                $user->type_contact = 1;
+                $user->status = 1;
                 $user->parent = Yii::app()->user->_id;
                 $user->password = crypt($password, User::model()->blowfishSalt());
-
+                $user->company = 'Контактное лицо "' . $curUser->company . '" ('.$user->name.' '.$user->surname.')';
+                
                 if($user->save()) {
                     $newFerrymanFields = new UserField;
                     $newFerrymanFields->user_id = $user->id;

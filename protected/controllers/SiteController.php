@@ -6,6 +6,16 @@ class SiteController extends Controller
         $this->forward('/transport/i/');
     }
     
+    public function actions()
+    {
+        return array(
+            'captcha'=>array(
+                'class'=>'CCaptchaAction',
+                'backColor' => 0xFFFFFF,
+            ),
+        );
+    }
+
     public function actionLogin()
     {
         $model = new LoginForm;
@@ -96,7 +106,31 @@ class SiteController extends Controller
     
     public function actionFeedback()
     {
-        $this->render('feedback');
+        $model = new FeedbackForm();
+        if(isset($_POST['FeedbackForm'])) {
+            $phone = '';
+            if(!empty($_POST['FeedbackForm']['phone'])) $phone = '<p>Телефон: '.$_POST['FeedbackForm']['phone'].'</p>';
+            $email = new TEmail;
+            $email->from_email = $_POST['FeedbackForm']['email'];
+            $email->from_name  = $_POST['FeedbackForm']['surname'] . ' ' . $_POST['FeedbackForm']['name'];
+            $email->to_email   = Yii::app()->params['supportEmail'];
+            $email->to_name    = '';
+            $email->subject    = 'Биржа перевозок "Обратная связь"';
+            $email->type = 'text/html';
+            $email->body = '<div>'.
+                    '<p>Пользователь воспользовался формой обратной связи на "Бирже перевозок ЛБР".</p>'.
+                    '<p>'.$_POST['FeedbackForm']['surname'].' '.$_POST['FeedbackForm']['name'].'</p>'.
+                    '<p>Email: '.$_POST['FeedbackForm']['email'].'</p>'.
+                    $phone.
+                    '<p>Текст сообщения: </p>'.
+                    '<p>'.$_POST['FeedbackForm']['message'].'</p>'.
+                '</div>
+                <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+            ';
+            $email->sendMail();
+            Dialog::message('flash-success', 'Отправлено!', 'Ваше сообщение отправлено');
+            $this->redirect('/');
+        } else $this->render('feedback', array('model' => $model));
     }
     
     public function actionHelp()
@@ -108,7 +142,7 @@ class SiteController extends Controller
     { 
         $model = new RegistrationForm;
 
-        if(isset($_POST['RegistrationForm'])) {
+        if (isset($_POST['RegistrationForm'])) {
             $newUser = User::model()->find(array(
                 'condition'=>'inn=:inn',
                 'params'=>array(':inn'=>$_POST['inn']))
@@ -134,12 +168,7 @@ class SiteController extends Controller
                     $newFerrymanFields->with_nds = (bool)$_POST['RegistrationForm']['nds'];    
                     $newFerrymanFields->save();
 
-                    /*if(!$newFerrymanFields->save()) {
-                        var_dump($newFerrymanFields->getErrors()); 
-                        exit;
-                    };*/
-
-                    $this->sendMail(Yii::app()->params['adminEmail'], 1, $_POST['RegistrationForm']);
+                    $this->sendMail(Yii::app()->params['supportEmail'], 1, $_POST['RegistrationForm']);
                     $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
 
                     Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Вы получите на почту инструкции по активации, когда ваша заявка будет рассмотрена. Спасибо за интерес, проявленный к нашей компании');
@@ -223,7 +252,8 @@ class SiteController extends Controller
         $email->to_email   = $to;
         $email->to_name    = '';
         $email->subject    = 'Заявка на регистрацию';
-        $email->type = 'text/html';
+        $email->type       = 'text/html';
+        
         if(!empty($typeMessage)) {
             $description = (!empty($post['description'])) ? '<p>Примечание:<b>'.$post['description'].'</b></p>' : '' ;
             $email->body = '
@@ -244,6 +274,7 @@ class SiteController extends Controller
                 <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
             ';
         }
+        
         $email->sendMail();
     }
      
@@ -252,18 +283,18 @@ class SiteController extends Controller
         $model = new QuickForm;
         $model->attributes = $_POST['QuickForm'];
         if($model->validate()) {
-            $user = User::model()->findByPk($model->user); 
+            $user = User::model()->findByPk($model->user);
             $email = new TEmail;
             $email->from_email = $user->email;
             $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-            $email->to_email   = Yii::app()->params['adminEmail'];
+            $email->to_email   = Yii::app()->params['supportEmail'];
             $email->to_name    = 'Модератору';
             $email->subject    = '';
             $email->type = 'text/html';
             
             $email->body = "<div>
                     <p>
-                      Пользоваетель " . $user->name." (" . $user->email . ") 
+                      Пользоваетель " . $user->company." (" . $user->email . ") 
                       находясь в перевозке с id = ".$model->transport." обратился к модератору Биржи перевозок ЛБР 'АгроМаркет'
                       со следующим обращением:
                     </p>
@@ -290,9 +321,8 @@ class SiteController extends Controller
     
     public function actionError()
     {
-        if($error=Yii::app()->errorHandler->error)
-        {
-            if(Yii::app()->request->isAjaxRequest)
+        if($error=Yii::app()->errorHandler->error) {
+            if (Yii::app()->request->isAjaxRequest)
                 echo $error['message'];
             else
                 $this->render('error', $error);

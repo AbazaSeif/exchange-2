@@ -120,7 +120,7 @@ nav, menu, p, section,
 {
     padding: 20px 35px 0;
 }
-#login-form .row, #registration-form .row, #password .row, #mail .row
+#login-form .row, #registration-form .row, #password .row, #mail .row, #feedback-form .row
 {
     position: relative;
     margin-bottom: 10px;
@@ -229,7 +229,7 @@ nav, menu, p, section,
     z-index: 10;
 }
 
-#registration-form .row.error .errorMessage, #password .row.error .errorMessage, #mail .row.error .errorMessage, #o-edit-contact .errorMessage
+#registration-form .row.error .errorMessage, #password .row.error .errorMessage, #mail .row.error .errorMessage, #o-edit-contact .errorMessage, #feedback-form .row.error .errorMessage
 {
     position: absolute;
     width: 70%;
@@ -251,6 +251,19 @@ nav, menu, p, section,
     padding: 0.5% 0.5% 0.5% 1%;
 }
 
+#feedback-form .row.error .errorMessage {
+    padding: 0.5% 1%;
+    margin-top: 0.5%;
+}
+
+#feedback-form .row input, #feedback-form .row textarea{
+    width: 200px;
+}
+
+#feedback-form .btn {
+    float: left;
+}
+
 #registration-form .row.error .errorMessage
 {
     left: 75%;
@@ -262,12 +275,21 @@ nav, menu, p, section,
     left: 70%;
     width: 60%;
 }
-#o-edit-contact .errorMessage
+#o-edit-contact .errorMessage, #feedback-form .row.error .errorMessage
 {
     left: 38%;
     width: 50%;
 }
-#login-form .row.error .errorMessage:after, #registration-form .row.error .errorMessage:after, #password .row.error .errorMessage:after, #mail .row.error .errorMessage:after, #o-edit-contact .errorMessage:after
+
+#feedback-form .row.capture
+{
+    margin-left: 15%;
+}
+#feedback-form .row.capture a img{
+    margin-bottom: 12px;
+}
+
+#login-form .row.error .errorMessage:after, #registration-form .row.error .errorMessage:after, #password .row.error .errorMessage:after, #mail .row.error .errorMessage:after, #o-edit-contact .errorMessage:after, #feedback-form .errorMessage:after
 {
     content: '';
     display: block;
@@ -282,10 +304,19 @@ nav, menu, p, section,
     border-bottom: 7px solid transparent;
 }
 
-#registration-form .row label {  
+#registration-form .row label{  
     display: block;
     float: left;
     min-width: 20%;
+}
+
+#feedback-form .row label {  
+    display: block;
+    float: left;
+    min-width: 15%;
+}
+#feedback-form{
+    margin-top: 20px;
 }
 
 #registration-form .row label[for="RegistrationForm_iagree"] {
@@ -501,6 +532,37 @@ form#contactform label {
     min-width: 15%;
 }
 
+/*-------- страница "Помощь" ----------------*/
+#help{
+    margin-left: 20px;    
+}
+
+#help img{
+    margin: 20px 0;
+}
+
+#help p{
+    margin: 5px 0;
+}
+
+#help .title {
+    color: #EF801B;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#help ol{
+    list-style-type: none; /* Убираем исходные маркеры */
+    counter-reset:  item; /* Обнуляем счетчик списка */
+    padding-left: 0;
+}
+
+#help li:before {
+  content: counter(item) ') '; /* Добавляем к числам скобку */
+  counter-increment: item; /* Задаём имя счетчика */
+}
+
+/*-------- конец страница "Помощь" ----------------*/
 /*--------Перевозки----------------*/
 .message{
     padding: 1.2% 2%;

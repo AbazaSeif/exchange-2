@@ -42,7 +42,7 @@ class UserIdentity extends CUserIdentity
             return self::ERROR_USERNAME_INVALID;
         elseif($user->password!==crypt($this->password,$user->password))
             return self::ERROR_PASSWORD_INVALID;
-        elseif($user->status && in_array($user->status, array(User::USER_TEMPORARY_BLOCKED, User::USER_BLOCKED, User::USER_NOT_CONFIRMED)))
+        elseif(in_array($user->status, array(User::USER_TEMPORARY_BLOCKED, User::USER_BLOCKED, User::USER_NOT_CONFIRMED)))
             return 1000 + $user->status;
         else
             return self::ERROR_NONE;
