@@ -46,7 +46,6 @@ class DefaultController extends Controller
         $dataContacts = array();
         $model = UserField::model()->find('user_id = :id', array('id' => $userId));
         
-        
         if(isset($_POST['UserField'])) {
             $model->attributes = $_POST['UserField'];
             $model->show = $_POST['UserField']['show'];
@@ -62,8 +61,8 @@ class DefaultController extends Controller
             }
             $model->save();
         } else {
-            if($model->show_intl && $model->show_regl) $model->show = 'all';
-            else if($model->show_intl) $model->show = 'intl';
+            if((int)$model->show_intl && (int)$model->show_regl) $model->show = 'all';
+            else if((int)$model->show_intl) $model->show = 'intl';
             else $model->show = 'regl';
         }
         
