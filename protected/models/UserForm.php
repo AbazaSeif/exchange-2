@@ -18,6 +18,7 @@ class UserForm extends CFormModel
     public $phone;
     public $phone2;
     public $email;
+    public $show;
 
     public function rules()
     {
@@ -54,6 +55,7 @@ class UserForm extends CFormModel
             'phone' => 'Телефон',
             'phone2' => 'Телефон №2',
             'email' => 'Email',
+            'show'  => 'Показывать перевозки',
         );
     }
 }

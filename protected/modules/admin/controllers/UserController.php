@@ -84,7 +84,9 @@ class UserController extends Controller
                         $newFerrymanFields->mail_kill_rate = false;
                         $newFerrymanFields->mail_before_deadline = false;
                         $newFerrymanFields->mail_deadline = true;
-                        $newFerrymanFields->with_nds = false;            
+                        $newFerrymanFields->with_nds = false;  
+                        $newFerrymanFields->show_intl = true;
+                        $newFerrymanFields->show_regl = true;
                         $newFerrymanFields->save();
 
                         Yii::app()->user->setFlash('saved_id', $model->id);
@@ -133,12 +135,14 @@ class UserController extends Controller
             if (isset($_POST['UserForm'])) {
                 $changes = $innExists = $emailExists = array();
                 foreach ($_POST['UserForm'] as $key => $value) {
-                    if (trim($model[$key]) != trim($value) && $key != 'password') {
-                        $changes[$key]['before'] = $model[$key];
-                        $changes[$key]['after'] = $value;
-                        $model[$key] = trim($value);
-                    } else if($key == 'password' && !empty($_POST['UserForm']['password_confirm'])) {
-                        $changes[$key] = 'Изменен пароль';
+                    if($key != 'show'){
+                        if (trim($model[$key]) != trim($value) && $key != 'password') {
+                            $changes[$key]['before'] = $model[$key];
+                            $changes[$key]['after'] = $value;
+                            $model[$key] = trim($value);
+                        } else if($key == 'password' && !empty($_POST['UserForm']['password_confirm'])) {
+                            $changes[$key] = 'Изменен пароль';
+                        }
                     }
                 }
                 
@@ -226,9 +230,11 @@ class UserController extends Controller
     {
         $model = User::model()->findByPk($id);
         if (Yii::app()->user->checkAccess('trDeleteUser')) {
+            $name = $model['name'] . ' ' . $model['surname'];
             if (User::model()->deleteByPk($id)) {
-                $message = 'Удален пользователь ' . $model['name'] . ' ' . $model['surname'];
+                $message = 'Удален пользователь "' . $name . '"';
                 Changes::saveChange($message);
+                User::model()->deleteAllByAttributes(array('parent'=>$id));
                 Yii::app()->user->setFlash('message', 'Пользователь удален успешно.');
                 $this->redirect('/admin/user/');
             }

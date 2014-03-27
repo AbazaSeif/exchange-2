@@ -139,25 +139,23 @@ class SiteController extends Controller
     }
     
     public function actionRegistration()
-    { 
+    {
         $model = new RegistrationForm;
 
         if (isset($_POST['RegistrationForm'])) {
             $newUser = User::model()->find(array(
                 'condition'=>'inn=:inn',
-                'params'=>array(':inn'=>$_POST['inn']))
+                'params'=>array(':inn'=>$_POST['RegistrationForm']['inn']))
             );
-
-            if($newUser) {
+            if(empty($newUser)) {
                 $userInfo = array();
                 $user = new User();
                 $user->attributes = $_POST['RegistrationForm'];
-                //var_dump($user->attributes);
-                $user->status = 0; //User::USER_NOT_CONFIRMED;
+                $user->status = User::USER_NOT_CONFIRMED;
                 $user->company = $_POST['RegistrationForm']['ownership'] . ' "' . $_POST['RegistrationForm']['company'] . '"';
                 $user->password = crypt($_POST['RegistrationForm']['password'], User::model()->blowfishSalt());
-                //$user->login = $user->inn;
-                if($user->validate() && $user->save()) {
+                
+                if($user->save()) {
                     $newFerrymanFields = new UserField;
                     $newFerrymanFields->user_id = $user->id;
                     $newFerrymanFields->mail_transport_create_1 = false;
@@ -165,7 +163,17 @@ class SiteController extends Controller
                     $newFerrymanFields->mail_kill_rate = false;
                     $newFerrymanFields->mail_before_deadline = false;
                     $newFerrymanFields->mail_deadline = true;
-                    $newFerrymanFields->with_nds = (bool)$_POST['RegistrationForm']['nds'];    
+                    $newFerrymanFields->with_nds = (bool)$_POST['RegistrationForm']['nds'];
+                    if((int)$_POST['RegistrationForm']['show'] == 0){
+                        $newFerrymanFields->show_intl = true;
+                        $newFerrymanFields->show_regl = true;
+                    } else if((int)$_POST['RegistrationForm']['show'] == 1){
+                        $newFerrymanFields->show_intl = true;
+                        $newFerrymanFields->show_regl = false;
+                    } else {
+                        $newFerrymanFields->show_intl = false;
+                        $newFerrymanFields->show_regl = true;
+                    }
                     $newFerrymanFields->save();
 
                     $this->sendMail(Yii::app()->params['supportEmail'], 1, $_POST['RegistrationForm']);
@@ -185,7 +193,6 @@ class SiteController extends Controller
     public function actionRestore()
     { 
         $model = new RestoreForm;
-        //var_dump($_POST['RestoreForm']['inn']);exit;
         if(isset($_POST['RestoreForm'])) {
             $inn = $_POST['RestoreForm']['inn'];
             $user = User::model()->find(array(
@@ -307,17 +314,6 @@ class SiteController extends Controller
         Dialog::message('flash-success', 'Отправлено!', 'Спасибо, '.$user->name.'! Ваше письмо отправлено!');
         $this->redirect(array('transport/description/id/1'));
     }
-    
-    /*private function randomPassword() {
-        $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
-        $pass = array(); //remember to declare $pass as an array
-        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
-        for ($i = 0; $i < 16; $i++) {
-            $n = rand(0, $alphaLength);
-            $pass[] = $alphabet[$n];
-        }
-        return implode($pass); //turn the array into a string
-    }*/
     
     public function actionError()
     {

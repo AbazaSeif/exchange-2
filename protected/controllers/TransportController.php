@@ -6,7 +6,7 @@ class TransportController extends Controller
         $lastRates = array();
         $criteria = new CDbCriteria();
         $criteria->compare('status', 1);
-        if(!Yii::app()->user->isGuest) {
+        if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport) {
             $userInfo = UserField::model()->findByAttributes(array('user_id'=>Yii::app()->user->_id));
             if($userInfo->show_intl && !$userInfo->show_regl) $criteria->compare('type', 0);
             if($userInfo->show_regl && !$userInfo->show_intl) $criteria->compare('type', 1);

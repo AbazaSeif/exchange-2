@@ -101,6 +101,11 @@
             <?php echo $form->error($model,'description'); ?>
 	</div>
         <div class="row">
+            <?php echo $form->labelEx($model,'show'); ?>
+            <?php echo $form->dropDownList($model, 'show', array('0'=>'Все', '1' => 'Международные', '2' => 'Региональные')); ?>
+            <?php echo $form->error($model,'show'); ?>
+	</div>
+        <div class="row">
             <?php echo $form->labelEx($model,'nds'); ?>
             <?php echo $form->dropDownList($model, 'nds', array('0'=>'Нет', '1' => 'Да')); ?>
             <?php echo $form->error($model,'nds'); ?>
