@@ -53,7 +53,6 @@ class ContactController extends Controller
                     'condition'=>'email=:email',
                     'params'=>array(':email'=>$_POST['UserContactForm']['email']))
                 );
-                
                 if(empty($emailExists)) {
                     $curUser = User::model()->findByPk($_POST['UserContactForm']['parent']);
                     $model = new User;
@@ -61,7 +60,6 @@ class ContactController extends Controller
                     $model->password = crypt($_POST['UserContactForm']['password'], User::model()->blowfishSalt());
                     $model->type_contact = 1;
                     $model->company = 'Контактное лицо "' . $curUser->company . '" ('.$model->name.' '.$model->surname.')';
-                    
                     if($model->save()) {
                         $newFerrymanFields = new UserField;
                         $newFerrymanFields->user_id = $model->id;
@@ -85,7 +83,7 @@ class ContactController extends Controller
                     $sort = new CSort();
                     $sort->sortVar = 'sort';
                     $sort->defaultOrder = 'surname ASC';
-                    $dataProvider = new CActiveDataProvider('UserContact', 
+                    $dataProvider = new CActiveDataProvider('User', 
                         array(
                             'criteria'=>$criteria,
                             'sort'=>$sort,
@@ -115,10 +113,8 @@ class ContactController extends Controller
         $form->attributes = $model->attributes;
         $form->id = $id;
         $form->parent = $model->parent;
-        //var_dump(' = ' . $model);
         if (Yii::app()->user->checkAccess('trEditUserContact')) {
             if (isset($_POST['UserContactForm'])) {
-                //var_dump(2);
                 $curUser = User::model()->findByPk($_POST['UserContactForm']['parent']);
                 $changes = $emailExists = array();
                 foreach ($_POST['UserContactForm'] as $key => $value) {
@@ -131,7 +127,7 @@ class ContactController extends Controller
                     }
                 }
                 
-                $model->attributes = $_POST['UserContact'];
+                $model->attributes = $_POST['UserContactForm'];
                 $model->company = 'Контактное лицо "' . $curUser->company . '" ('.$model->name.' '.$model->surname.')';
                 
                 if(!empty($_POST['UserContactForm']['password_confirm'])){

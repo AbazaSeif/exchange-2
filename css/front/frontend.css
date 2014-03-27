@@ -532,6 +532,37 @@ form#contactform label {
     min-width: 15%;
 }
 
+/*-------- страница "Помощь" ----------------*/
+#help{
+    margin-left: 20px;    
+}
+
+#help img{
+    margin: 20px 0;
+}
+
+#help p{
+    margin: 5px 0;
+}
+
+#help .title {
+    color: #EF801B;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#help ol{
+    list-style-type: none; /* Убираем исходные маркеры */
+    counter-reset:  item; /* Обнуляем счетчик списка */
+    padding-left: 0;
+}
+
+#help li:before {
+  content: counter(item) ') '; /* Добавляем к числам скобку */
+  counter-increment: item; /* Задаём имя счетчика */
+}
+
+/*-------- конец страница "Помощь" ----------------*/
 /*--------Перевозки----------------*/
 .message{
     padding: 1.2% 2%;
