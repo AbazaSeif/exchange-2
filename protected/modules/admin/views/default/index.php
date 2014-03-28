@@ -23,7 +23,7 @@ $user = AuthUser::model()->findByPk(Yii::app()->user->_id);
             Перевозчики
         </li>
         <li>
-            <span>Всего перевозчиков: <?php echo User::model()->count('type=0');?></span>
+            <span>Всего перевозчиков: <?php echo User::model()->count();?></span>
         </li>
         <li>
             <span>Активных: <?php echo User::model()->count('status='.User::USER_ACTIVE);?></span>
