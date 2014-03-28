@@ -1060,3 +1060,15 @@ div.form div.success input, div.form div.success textarea, div.form div.success 
 div.form span.required {
     color: #FF0000;
 }
+.info
+{
+    
+}
+.info .info-list
+{
+    list-style: none;
+}
+.info .info-list li
+{
+    color: #777777;
+}

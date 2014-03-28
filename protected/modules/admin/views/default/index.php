@@ -1,17 +1,18 @@
 <?php
-/* @var $this DefaultController */
-
-$this->breadcrumbs=array(
-	$this->module->id,
-);
+$user = User::model()->findByPk(Yii::app()->user->_id);
 ?>
-<h1><?php echo $this->uniqueId . '/' . $this->action->id; ?></h1>
 
-<p>
-This is the view content for action "<?php echo $this->action->id; ?>".
-The action belongs to the controller "<?php echo get_class($this); ?>"
-in the "<?php echo $this->module->id; ?>" module.
-</p>
-<p>
-You may customize this page by editing <tt><?php echo __FILE__; ?></tt>
-</p>
+<h1>Добрый день, <?php $user->name;?></h1>
+<div class="info">
+    <ul class="info-list">
+        <li>
+            <span>Всего перевозок: <?php echo Transport::model()->count();?></span>
+        </li>
+        <li>
+            <span>Активных перевозок: <?php echo Transport::model()->count('status=1');?></span>
+        </li>
+        <li>
+            <span>Активных перевозок: <?php echo Transport::model()->count('status=0');?></span>
+        </li>
+    </ul>
+</div>
