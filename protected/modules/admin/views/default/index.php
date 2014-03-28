@@ -2,7 +2,7 @@
 $user = AuthUser::model()->findByPk(Yii::app()->user->_id);
 ?>
 
-<h1>Добрый день, <?php $user->name;?></h1>
+<h1>Добрый день, <?php echo $user->name;?></h1>
 <div class="info">
     
     <ul class="info-list">
