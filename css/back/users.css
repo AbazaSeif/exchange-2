@@ -47,6 +47,7 @@
 }
 .left .list-view .sorter ul{
     padding: 0 10px;
+    display: block;
 }
 .left .list-view .sorter ul li{
     margin: 0 7px;
