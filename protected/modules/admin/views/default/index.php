@@ -26,19 +26,19 @@ $user = AuthUser::model()->findByPk(Yii::app()->user->_id);
             <span>Всего перевозчиков: <?php echo User::model()->count('type=0');?></span>
         </li>
         <li>
-            <span>Активных: <?php echo Transport::model()->count('status='.User::USER_ACTIVE);?></span>
+            <span>Активных: <?php echo User::model()->count('status='.User::USER_ACTIVE);?></span>
         </li>
         <li>
-            <span>Не подтвержденных: <?php echo Transport::model()->count('status='.User::USER_NOT_CONFIRMED);?></span>
+            <span>Не подтвержденных: <?php echo User::model()->count('status='.User::USER_NOT_CONFIRMED);?></span>
         </li>
         <li>
-            <span>Предупрежденных: <?php echo Transport::model()->count('status='.User::USER_WARNING);?></span>
+            <span>Предупрежденных: <?php echo User::model()->count('status='.User::USER_WARNING);?></span>
         </li>
         <li>
-            <span>Временно заблокированных: <?php echo Transport::model()->count('status='.User::USER_TEMPORARY_BLOCKED);?></span>
+            <span>Временно заблокированных: <?php echo User::model()->count('status='.User::USER_TEMPORARY_BLOCKED);?></span>
         </li>
         <li>
-            <span>Заблокированных: <?php echo Transport::model()->count('status='.User::USER_BLOCKED);?></span>
+            <span>Заблокированных: <?php echo User::model()->count('status='.User::USER_BLOCKED);?></span>
         </li>
     </ul>
 </div>
