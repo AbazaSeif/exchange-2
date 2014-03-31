@@ -51,6 +51,7 @@
 						this.$elm.bind('mousemove.poshytip', $.proxy(this.mousemove, this));
 					if (this.opts.allowTipHover)
 						this.$tip.hover($.proxy(this.clearTimeouts, this), $.proxy(this.hide, this));
+						
 					break;
 				case 'focus':
 					this.$elm.bind({
@@ -146,8 +147,15 @@
 			}
 
 			// reset position to avoid text wrapping, etc.
-			this.$tip.css({left: 0, top: 0}).appendTo(document.body);
-
+			//this.$tip.css({left: 0, top: 0}).appendTo(document.body);
+			//var mouseX = 0;
+            //var mouseY = 0;
+			/*$().mousemove( function(e) {
+			    mouseX = e.pageX;
+			    mouseY = e.pageY;
+			});*/
+			this.$tip.css({left: this.eventY, top: this.eventX}).appendTo(document.body);
+            //console.log(this.eventX);
 			// save default opacity
 			if (this.opacity === undefined)
 				this.opacity = this.$tip.css('opacity');

@@ -170,12 +170,6 @@ function getTime(){
 }
 
 $(document).ready(function(){
-    //$('.point').dotdotdot();
-    $('.point[title]').poshytip({
-	className: 'tip-darkgray',
-	bgImageFrameSize: 11,
-	offsetX: -25
-    });
     var timer = new Timer();
     timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>);
     rateList.data = {
@@ -277,7 +271,11 @@ $(document).ready(function(){
     <?php endif; ?> 
         rateList.init();
     <?php endif; ?> 
-    
+    $('.point[title]').poshytip({
+	className: 'tip-darkgray',
+	bgImageFrameSize: 11,
+	offsetX: -25,
+    });
 });
 </script>
 <?php if (!Yii::app()->user->isGuest && Yii::app()->user->isTransport):?>
