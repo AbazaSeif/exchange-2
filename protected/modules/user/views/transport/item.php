@@ -79,7 +79,7 @@ if (!Yii::app()->user->isGuest) {
         <span class="t-o-published">Опубликована <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_published'])) ?></span>
         <span class="route">
             <span class="start-point point" title="<?php echo date('d.m.Y H:i', strtotime($transportInfo['date_from']))?>">
-                <?php echo $transportInfo['location_from']; ?>
+                <span class="inner-point"><?php echo $transportInfo['location_from']; ?></span>
             </span>
         <?php if($allPoints):?>
             <?php echo $allPoints; ?>
@@ -96,6 +96,7 @@ if (!Yii::app()->user->isGuest) {
                 <div class="r-params"><span>Пункт назначения: </span> <strong><?php echo $transportInfo['location_to'] ?></strong></div>
                 <div class="r-params"><span>Дата загрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_from'])) ?></strong></div>
                 <div class="r-params"><span>Дата разгрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_to'])) ?></strong></div>
+
                 <?php// if($transportInfo['type'] == 0) :?>
                 <!--div class="r-params"><span>Место таможенного оформления в ЕС: </span><strong><?php// echo $customs_clearance_EU ?></strong></div>
                 <div class="r-params"><span>Место таможенной очистки в РФ: </span><strong><?php// echo $customs_clearance_RF ?></strong></div>
@@ -169,7 +170,7 @@ function getTime(){
 }
 
 $(document).ready(function(){
-    
+    //$('.point').dotdotdot();
     $('.point[title]').poshytip({
 	className: 'tip-darkgray',
 	bgImageFrameSize: 11,

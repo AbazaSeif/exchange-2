@@ -885,7 +885,18 @@ form#contactform label {
     position: relative;
     padding: 0 10px 12px;
     text-align: center;
+    display: inline-block;
+    max-width: 15%;
 }
+
+.inner-point{
+    width: 100%;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .transport-one .route .point:after
 {
     content: '';
@@ -904,15 +915,23 @@ form#contactform label {
     left: 0;
     margin-left: 0;
 }
+
 .transport-one .route .finish-point:after
 {
     left: auto;
     right: 0;
     margin-left: 0;
 }
+
 .r-description{
     font-size: 13px;
     padding: 5px 0 5px 6px;
+}
+
+.transport-one .point .inner-point{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #t-error{
