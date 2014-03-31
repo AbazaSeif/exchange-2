@@ -139,13 +139,13 @@ class TransportController extends Controller
                     if(!empty($_POST['TransportForm']['date_to_customs_clearance_RF'])) {
                         if($model->save()) {
                             if($form->type == 0) {
-                                $maxSort = Yii::app()->db->createCommand()
+                                /*$maxSort = Yii::app()->db->createCommand()
                                     ->select('max(sort) as sort')
                                     ->from('transport_inter_point')
                                     ->where('t_id = :id', array(':id' => $model->id))
                                     ->group('t_id')
                                     ->queryRow()
-                                ;
+                                ;*/
 
                                 
 
@@ -153,14 +153,14 @@ class TransportController extends Controller
                                 $point->t_id = $model->id;
                                 $point->point = $_POST['TransportForm']['customs_clearance_EU'];
                                 //$point->date = date('Y-m-d H:i:s', strtotime($_POST['TransportForm']['date_to_customs_clearance_EU']));
-                                $point->sort = $maxSort + 1;
+                                $point->sort = 1;
                                 $point->save();
                                 
                                 $point = new TransportInterPoint;
                                 $point->t_id = $model->id;
                                 $point->point = $_POST['TransportForm']['customs_clearance_RF'];
                                 $point->date = date('Y-m-d H:i:s', strtotime($_POST['TransportForm']['date_to_customs_clearance_RF']));
-                                $point->sort = $maxSort + 2;
+                                $point->sort = 2;
                                 $point->save();
                             }
                             $message = 'Создана перевозка "' . $model->location_from . ' — ' . $model->location_to . '"';

@@ -189,7 +189,7 @@ $(document).ready(function(){
         //var socket = io.connect('http://exchange.lbr.ru:3000/');
         var socket = io.connect('http://localhost:3000/');
         
-        // ??? user_id
+        // user_id
         <?php //if(Yii::app()->user->isContactUser): ?>
             //socket.emit('loadRates', <?php //echo $userId ?>, <?php //echo $transportInfo['id'] ?>);
         <?php //else: ?> 
