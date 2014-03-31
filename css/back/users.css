@@ -43,9 +43,11 @@
     background: url("/images/bg_menu_admin.png") #f3f3f3 repeat-x top left;
     line-height: 33px;
     border-bottom: 1px solid rgb(65, 131, 196);
+    display: block;
 }
 .left .list-view .sorter ul{
     padding: 0 10px;
+    display: block;
 }
 .left .list-view .sorter ul li{
     margin: 0 7px;

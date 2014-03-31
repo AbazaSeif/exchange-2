@@ -1064,3 +1064,39 @@ div.form div.success input, div.form div.success textarea, div.form div.success 
 div.form span.required {
     color: #FF0000;
 }
+.info
+{
+    
+}
+.info .info-list
+{
+    list-style: none;
+    display: table;
+    overflow: hidden;
+    box-shadow: 0px 0px 3px rgb(192, 192, 192);
+    border-radius: 2px;
+    background: rgb(238, 238, 238);
+    float: left;
+    margin: 0 20px;
+}
+.info .info-list li
+{
+    text-decoration: none;
+    padding: .5em 1em;
+    display: block;
+    border-bottom: 1px solid rgb(222, 222, 222);
+    color: #777777;
+}
+.info .info-list li:first-child
+{
+     color: rgb(119, 119, 119);
+    text-decoration: none;
+    text-shadow: 0px 1px 0px white;
+    font-weight: bold;
+    display: block;
+    margin: 0;
+    padding: 0 1em;
+    background: url("/images/bg_menu_admin.png") #f3f3f3 repeat-x top left;
+    line-height: 33px;
+    border-bottom: 1px solid rgb(65, 131, 196);
+}
