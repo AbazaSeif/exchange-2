@@ -45,7 +45,7 @@
                     <?php $accountStatus = array('regl'=>'Отображать только региональные заявки на перевозку', 'intl'=>'Отображать только международные заявки на перевозку', 'all'=>'Отображать все заявки на перевозку'); ?>
                     <?php echo $form->radioButtonList($model,'show',$accountStatus); ?>
                 </div>
-                <div class="row">
+                <div class="row nds">
                     <?php echo $form->checkBox($model, 'with_nds'); ?>
                     <?php echo $form->label($model, 'with_nds'); ?>
                 </div>

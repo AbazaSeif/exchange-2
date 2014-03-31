@@ -3,9 +3,9 @@
     $submit_text = 'Сохранить';
     $close_text = 'Закрыть редактирование';
     $delete_button = CHtml::link('Удалить перевозку', '/admin/transport/deletetransport/id/'.$model->id, array('id'=>'del_'.$model->id,'class'=>'btn del', 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
-    
     $action = '/admin/transport/edittransport/id/'.$model->id;
-    if ($model->isNewRecord) {
+    //if ($model->isNewRecord) {
+    if (!$model->id) {
         $submit_text = 'Создать';
         $close_text = 'Закрыть';
         $name = 'new';
@@ -17,7 +17,8 @@
 
 <div class="total">
     <div class="left">
-        <?php if ($model->isNewRecord): ?>
+        <?php //if ($model->isNewRecord): ?>
+        <?php if (!$model->id): ?>
         <h1>Создание перевозки</h1>
         <?php else: ?>
         <h1>Редактирование перевозки</h1>
@@ -33,6 +34,8 @@
 <?php
     if ($mess = Yii::app()->user->getFlash('message')){
         echo '<div class="trMessage success">'.$mess.'</div>';
+    } else if ($mess = Yii::app()->user->getFlash('error')) {
+        echo '<div class="trMessage error">'.$mess.'</div>';
     }
 ?>
 <?php $form = $this->beginWidget('CActiveForm', array(
@@ -75,6 +78,16 @@
 <?php  echo $form->error($model, 'location_to'); 
     echo $form->labelEx($model, 'location_to');
     echo $form->textField($model, 'location_to');?>    
+</div>
+<div class="field custom">
+<?php  echo $form->error($model, 'customs_clearance_EU'); 
+    echo $form->labelEx($model, 'customs_clearance_EU');
+    echo $form->textField($model, 'customs_clearance_EU');?>    
+</div>
+<div class="field custom">
+<?php  echo $form->error($model, 'customs_clearance_RF'); 
+    echo $form->labelEx($model, 'customs_clearance_RF');
+    echo $form->textField($model, 'customs_clearance_RF');?>    
 </div>
 <div class="field">
 <?php echo $form->error($model, 'start_rate'); 
@@ -128,11 +141,18 @@
     $model->date_to = date("d-m-Y H:i", strtotime($model->date_to));
     echo $form->textField($model, 'date_to'); ?>    
 </div>
+<div class="field custom">
+<?php echo $form->error($model, 'date_to_customs_clearance_RF'); 
+    echo $form->labelEx($model, 'date_to_customs_clearance_RF');
+    //$model->date_to_customs_clearance_RF = date("d-m-Y H:i", strtotime($model->date_to_customs_clearance_RF));
+    echo $form->textField($model, 'date_to_customs_clearance_RF'); ?>    
+</div>
 
 <div class="field">
 <?php echo $form->hiddenField($model, 'id'); ?>
 </div>
-<?php if (!$model->isNewRecord): ?>
+<?php //if (!$model->isNewRecord): ?>
+<?php if ($model->id): ?>
 <div>
     <?php if(count($points)): ?>
     <div class="header-h4">Промежуточные пункты маршрута</div>
@@ -149,7 +169,7 @@
                 echo CHtml::textField('Points['.$point->id.']', $point->point, array('class'=>''));
             echo '</span>';
             //echo '<span>'.$point->sort.'</span>';
-            echo '<span class="del-col del-row"></span>';
+            //echo '<span class="del-col del-row"></span>';
             echo '</li>';
         }?>
     </ul>
@@ -190,42 +210,18 @@
 $(document).ready(function(){
     var editor = new ЕditTransport();
     editor.initCalendar();
-    /*$( "#Transport_date_from" ).datetimepicker({
-        dateFormat: 'dd-mm-yy',
-        timeFormat: 'HH:mm',
+    editor.showFieldsForInternational();
+    $('#TransportForm_type').change(function(){
+         editor.showFieldsForInternational();
     });
-
-    $( "#Transport_date_to" ).datetimepicker({
-        dateFormat: 'dd-mm-yy',
-        timeFormat: 'HH:mm',
-    });*/
+    
     <?php if(Yii::app()->user->checkAccess('editRate')): ?>
         editor.initRateEditor();
-        $( "#points-all" ).sortable({
+        // сортировка перетаскиванием промежуточных пунктов
+       /* $( "#points-all" ).sortable({
             revert: true
-        });
-    <?php endif; ?>
-        
-        
+        });*/
+    <?php endif; ?>   
     $('#close-transport').click(function(){document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/transport/";})
 });
-/*
-function updateFieldTimerDeadline() {
-    var input = $('#Transport_date_from').val();
-    m = input.match(/(\d+)-(\d+)-(\d+) (\d+):(\d+)/);
-    var startDate = new Date(m[3], m[2]-1, m[1], m[4], m[5]);
-    startDate.setHours(startDate.getHours()-<?php echo Yii::app()->params['hoursBefore'] ?>);
-    var day = startDate.getDate();
-    if(day < 10) day = '0' + day;
-    var month = startDate.getMonth() + 1;
-    if(month < 10) month = '0' + month;
-    var year = startDate.getFullYear();
-    var hour = startDate.getHours();
-    if(hour < 10) hour = '0' + hour;
-    var min = startDate.getMinutes();
-    if(min < 10) min = '0' + min;
-    var timer = day + '-' + month + '-' + year + ' '+ hour + ':' + min;
-    $('#timer_deadline').val(timer);
-}
-*/
 </script>

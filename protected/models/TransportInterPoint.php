@@ -109,16 +109,19 @@ class TransportInterPoint extends CActiveRecord
         {
             $points = '';        
             $innerPoints = Yii::app()->db->createCommand()
-                ->select('point')
+                ->select('point, date')
                 ->from('transport_inter_point')
                 ->where('t_id=:id', array(':id'=>$id))
                 ->order('date')
                 ->queryAll()
             ;
 
-            foreach($innerPoints as $point){
-                if(isset($points))
-                    $points .= '<span class="point">'.$point['point'].'</span>';
+            foreach($innerPoints as $point) {
+                if(isset($points)){
+                    if(!empty($point['date']))
+                        $points .= '<span class="point" title="'.date('d.m.Y H:i', strtotime($point['date'])).'">'.$point['point'].'</span>';
+                    else $points .= '<span class="point">'.$point['point'].'</span>'; 
+                }
             }
             return $points;
         }

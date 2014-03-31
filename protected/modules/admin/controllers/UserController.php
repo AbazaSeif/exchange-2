@@ -21,13 +21,13 @@ class UserController extends Controller
             // сортировка по умолчанию 
             $sort->defaultOrder = 'surname ASC';
             $dataProvider = new CActiveDataProvider('User', 
-                    array(
-                        'criteria'=>$criteria,
-                        'sort'=>$sort,
-                        'pagination'=>array(
-                            'pageSize'=>'13'
-                        )
+                array(
+                    'criteria'=>$criteria,
+                    'sort'=>$sort,
+                    'pagination'=>array(
+                        'pageSize'=>'13'
                     )
+                )
             );
             if ($id_item = Yii::app()->user->getFlash('saved_id')){
                 $model = User::model()->findByPk($id_item);
@@ -117,7 +117,7 @@ class UserController extends Controller
                     $form->attributes = $_POST['UserForm'];
                     $view = $this->renderPartial('user/edituser', array('model'=>$form), true, true);
                     $this->render('user/users', array('data'=>$dataProvider, 'view'=>$view));
-                }
+               }
             } else $this->renderPartial('user/edituser', array('model'=>$form), false, true);
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));

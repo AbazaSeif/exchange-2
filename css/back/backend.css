@@ -481,7 +481,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     width: 45%;
 }
 
-.right .message.error{
+.right .message.error, .trMessage.error{
     background-color: #FFEEEE;
 }
 
@@ -532,7 +532,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 .right .dropper li span{
     cursor: default;
 }
-.right .dropper li input{
+.right .dropper li input, .hide{
     display: none;
 }
 .right #checkbox-selected{
@@ -1007,6 +1007,10 @@ form .field {
     /*padding: 2% 5%;*/
     padding: 1% 1% 1% 2%;
     z-index: 10;
+}
+#transport-form .field.custom label{
+    line-height: normal;
+    width: 20%;
 }
 
 #transport-form .field.error .errorMessage{

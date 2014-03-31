@@ -14,31 +14,43 @@ function ЕditTransport() {
             firstDay: 1,
             isRTL: false,
         };
-        $.datepicker.setDefaults($.datepicker.regional['ru']); 
-        /*$( "#Transport_date_from" ).datepicker({
-            dateFormat: 'dd-mm-yy',
-        });
-
-        $( "#Transport_date_to" ).datepicker({
-            dateFormat: 'dd-mm-yy',
-        });
-        */
+        $.datepicker.setDefaults($.datepicker.regional['ru']);
 		
-        $( "#Transport_date_close" ).datetimepicker({
+        $( "#TransportForm_date_close" ).datetimepicker({
             dateFormat: 'dd-mm-yy',
             timeFormat: 'HH:mm',
         });
-        $( "#Transport_date_from" ).datetimepicker({
+        $( "#TransportForm_date_from" ).datetimepicker({
             dateFormat: 'dd-mm-yy',
             timeFormat: 'HH:mm',
         });
         
-        $( "#Transport_date_to" ).datetimepicker({
+        $( "#TransportForm_date_to" ).datetimepicker({
             dateFormat: 'dd-mm-yy',
             timeFormat: 'HH:mm',
         });
+		
+		$( "#TransportForm_date_to_customs_clearance_RF" ).datetimepicker({
+            dateFormat: 'dd-mm-yy',
+            timeFormat: 'HH:mm',
+        });
+		
     };
     
+    this.showFieldsForInternational = function(){
+	    if($('#TransportForm_type').val() == 0){
+           $('#TransportForm_customs_clearance_EU').parent().removeClass('hide');
+           $('#TransportForm_customs_clearance_RF').parent().removeClass('hide');
+           $('#TransportForm_date_to_customs_clearance_RF').parent().removeClass('hide');
+           $('#TransportForm_currency').val(2);
+        } else {
+           $('#TransportForm_customs_clearance_EU').parent().addClass('hide');
+           $('#TransportForm_customs_clearance_RF').parent().addClass('hide');
+           $('#TransportForm_date_to_customs_clearance_RF').parent().addClass('hide');
+           $('#TransportForm_currency').val(0);
+        }
+	};
+	
     this.initRateEditor = function(){
         $("#rates-all").on('dblclick', 'li span.price', function () {     
             $(this).parent().addClass("clicked");
@@ -64,7 +76,7 @@ function ЕditTransport() {
             $(this).parent().remove();
         });
         /*************************************/
-        $("#points-all").on('dblclick', 'li span.p-point', function () {     
+        /*$("#points-all").on('dblclick', 'li span.p-point', function () {     
             $(this).parent().addClass("clicked");
             var origPrice = $(this).text();
             $(this).attr('pval', origPrice)
@@ -87,7 +99,9 @@ function ЕditTransport() {
         $("#points-all").on('click', 'li span.del-row', function () {
             $(this).parent().remove();
         });
-        
+        */
+       
+       
         /* press Enter button*/
         $(document).keypress(function(e) {
             if(e.which == 13) {
@@ -96,6 +110,10 @@ function ЕditTransport() {
                 element.removeClass("clicked");
             }
         });
+        
+         /* tooltip for points */
+        
+        
     };
 }
     

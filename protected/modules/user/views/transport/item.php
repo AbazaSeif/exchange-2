@@ -13,7 +13,7 @@ $winFerrymanShowNds = UserField::model()->findByAttributes(array('user_id'=>$win
 $showWithNds = '';
 
 $allPoints = TransportInterPoint::getPoints($transportInfo['id']);
-
+//var_dump($allPoints);
 //if($transportInfo['type']==Transport::RUS_TRANSPORT){
 if(!$transportInfo['currency']){
     $priceStep = Transport::RUS_PRICE_STEP; 
@@ -63,6 +63,13 @@ if (!Yii::app()->user->isGuest) {
     $minRate = (($minRateValue - $priceStep)<=0)? 1 : 0;
     $inputSize = strlen((string)$minRateValue)-1;
     if($inputSize < 5 ) $inputSize = 5;
+    
+    /*if($transportInfo['type'] == 0) {
+        $pointsCustom = TransportInterPoint::model()->findAll(array('order'=>'sort desc', 'condition'=>'t_id = ' . $transportInfo['id'], 'limit'=>2));
+        $customs_clearance_EU = $pointsCustom[1]['point'];
+        $customs_clearance_RF = $pointsCustom[0]['point'];
+        $date_to_customs_clearance_RF = date('d.m.Y', strtotime($pointsCustom[0]['date']));            
+    }*/
 }
 ?>
 
@@ -71,13 +78,13 @@ if (!Yii::app()->user->isGuest) {
         <h1><?php echo $transportInfo['location_from'] . ' &mdash; ' . $transportInfo['location_to']; ?></h1>
         <span class="t-o-published">Опубликована <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_published'])) ?></span>
         <span class="route">
-            <span class="start-point point">
+            <span class="start-point point" title="<?php echo date('d.m.Y H:i', strtotime($transportInfo['date_from']))?>">
                 <?php echo $transportInfo['location_from']; ?>
             </span>
         <?php if($allPoints):?>
             <?php echo $allPoints; ?>
         <?php endif; ?>
-            <span class="finish-point point">
+            <span class="finish-point point" title="<?php echo date('d.m.Y H:i', strtotime($transportInfo['date_to']))?>">
                 <?php echo $transportInfo['location_to']; ?>
             </span>
         </span>
@@ -89,6 +96,11 @@ if (!Yii::app()->user->isGuest) {
                 <div class="r-params"><span>Пункт назначения: </span> <strong><?php echo $transportInfo['location_to'] ?></strong></div>
                 <div class="r-params"><span>Дата загрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_from'])) ?></strong></div>
                 <div class="r-params"><span>Дата разгрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_to'])) ?></strong></div>
+                <?php// if($transportInfo['type'] == 0) :?>
+                <!--div class="r-params"><span>Место таможенного оформления в ЕС: </span><strong><?php// echo $customs_clearance_EU ?></strong></div>
+                <div class="r-params"><span>Место таможенной очистки в РФ: </span><strong><?php// echo $customs_clearance_RF ?></strong></div>
+                <div class="r-params"><span>Дата таможенной очистки в РФ: </span><strong><?php// echo $date_to_customs_clearance_RF ?></strong></div-->
+                <?php// endif; ?>
                 <?php if (!empty($transportInfo['auto_info'])):?><div><span>Транспорт: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
             </div>
             <?php if (!Yii::app()->user->isGuest && $minRateValue > 0 && Yii::app()->user->isTransport): ?>
@@ -157,6 +169,12 @@ function getTime(){
 }
 
 $(document).ready(function(){
+    
+    $('.point[title]').poshytip({
+	className: 'tip-darkgray',
+	bgImageFrameSize: 11,
+	offsetX: -25
+    });
     var timer = new Timer();
     timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>);
     rateList.data = {
@@ -169,11 +187,12 @@ $(document).ready(function(){
         ndsValue: <?php echo Yii::app()->params['nds'] ?>,
         defaultRate: <?php echo ($defaultRate)? 1 : 0 ?>,
     };
+    
     <?php if (!Yii::app()->user->isGuest): ?>
         <?php if(Yii::app()->user->isTransport): ?>
 
-        var socket = io.connect('http://exchange.lbr.ru:3000/');
-        //var socket = io.connect('http://localhost:3000/');
+        //var socket = io.connect('http://exchange.lbr.ru:3000/');
+        var socket = io.connect('http://localhost:3000/');
         
         // ??? user_id
         <?php //if(Yii::app()->user->isContactUser): ?>

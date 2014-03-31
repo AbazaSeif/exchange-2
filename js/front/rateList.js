@@ -137,7 +137,7 @@ var rateList = {
                              price : price
                         });   
                     } else {
-                        rateList.container.html('<span>Нет предложений</span>');
+                        //rateList.container.after('<div id="no-rates">Нет предложений</div>');
                     }
             }});
         }
@@ -148,7 +148,7 @@ var rateList = {
                 type: 'POST',
                 url: '/transport/updateRates',
                 dataType: 'json',
-                data:{
+                data: {
                     id: this.data.transportId,
                     newRate: '',
                     step: this.data.step,
@@ -180,9 +180,9 @@ var rateList = {
                             var step = rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds;
                             
                             var price = $("#rate-price");
-                        } 
+                        }
                     } else {
-                        rateList.container.html('<span>Нет предложений</span>');
+                        rateList.container.after('<div id="no-rates">Нет предложений</div>');
                     }
             }});
         }

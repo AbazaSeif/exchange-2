@@ -427,7 +427,13 @@ div.row{
 }
 
 #options div.row, #password div.row, #mail div.row{
-    margin-left: 17px;
+    margin-left: 22px;
+}
+#options div.row.nds{
+    padding-top: 10px;
+}
+#password div.row.password, #mail div.row:not(.submit){
+    margin-left: 27px;
 }
 
 #options div.title, #password div.title, #mail div.title, .o-right div.title, #o-edit-contact h2 {
@@ -463,9 +469,24 @@ div.row{
 
 .o-contacts .list-view .sorter a {
    color: #00917C;
-   font-size: 18px;
+   font-size: 14px;
 }
-
+.o-contacts .list-view .sorter a.desc, .o-contacts .list-view .sorter{
+    border-bottom: 2px solid #00917C;
+    padding: 5px 10px 5px 5px;
+}
+.o-contacts .items .contact:first-child{
+    margin-top: 0;
+    padding-top: 0;
+}
+.o-contacts .list-view .sorter a.desc, .o-contacts .list-view .sorter a.asc{ 
+    padding-right: 15px;
+    font-weight: 500;
+}
+.o-contacts .list-view .sorter li{
+    /*margin-bottom: 1px dashed grey;*/
+    
+}
 .o-contacts .items .contact
 {
     border-bottom: 1px solid #E8E8E8;
@@ -549,6 +570,7 @@ form#contactform label {
     color: #EF801B;
     font-size: 20px;
     margin-bottom: 10px;
+    margin-left: 30px;
 }
 
 #help ol{
@@ -1103,10 +1125,13 @@ form#contactform label {
     cursor: default;
 }
 
-input.r-submit{
-    margin-top: 10px;
+input.r-submit {
+    /*margin-top: 10px;*/
    /* width: 100px;*/
     padding: 3px 10px;
+}
+#options .r-submit{
+    margin-top: 10px;
 }
 
 #rate-up{
@@ -1151,6 +1176,9 @@ input.r-submit{
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+}
+#no-rates{
+    margin: 10px;
 }
 #r-preloader img {
     margin-left: 30%;

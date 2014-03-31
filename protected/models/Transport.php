@@ -35,6 +35,14 @@ class Transport extends CActiveRecord
     CONST INTER_PRICE_STEP = 50;
     CONST RUS_PRICE_STEP = 200;
     
+    public $date_to_customs_clearance_RF;
+    public $customs_clearance_RF; // Russian Federation
+    public $customs_clearance_EU; // Euro Union
+    
+   /* public $date_to_customs_clearance_RF;
+    public $customs_clearance_RF;
+    public $customs_clearance_EU;
+    */
     public static $group = array(
         0=>'Международная',
         1=>'Региональная',
@@ -63,18 +71,9 @@ class Transport extends CActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-                        array('location_from, location_to, description, date_close, date_from, date_to, start_rate', 'required', 'message'=>'Заполните поле "{attribute}"'),
-                        array('start_rate', 'numerical', 'integerOnly'=>true, 'min'=>0, 'message'=>'Поле "{attribute}" должно содержать число', 'tooSmall'=>'Значение поля "{attribute}" не может быть меньше нуля !'),
-			array('new_transport, rate_id, start_rate, status, type, currency', 'numerical', 'integerOnly'=>true),
-			array('t_id, user_id', 'length', 'max'=>64),
-			array('location_from, location_to, auto_info, description, date_close, date_from, date_to, date_published', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, t_id, new_transport, rate_id, start_rate, status, type, user_id, currency, location_from, location_to, auto_info, description, date_close, date_from, date_to, date_published', 'safe', 'on'=>'search'),
-		);
+            return array(
+		array('location_from, new_transport, rate_id, start_rate, status, type, user_id, currency, customs_clearance_RF, customs_clearance_EU, location_to, auto_info, description, date_to_customs_clearance_RF, date_close, date_from, date_to, date_published', 'safe')
+            );
 	}
 
 	/**
@@ -240,7 +239,7 @@ class Transport extends CActiveRecord
                 }
             }
 
-            if (isset($pointsArray)){
+            /*if (isset($pointsArray)){
                 $arrayKeys = array();
                 $pointChanges = array();
                 // Edit Rates
@@ -271,7 +270,7 @@ class Transport extends CActiveRecord
 
                 // Delete points and save changes
                 Changes::saveChangeInPoints($criteria, $transportId);
-            }
+            }*/
             return true;
         }
 }
