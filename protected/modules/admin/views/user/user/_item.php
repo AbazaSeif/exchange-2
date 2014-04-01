@@ -1,6 +1,6 @@
 <li>
 <?php
-if(Yii::app()->user->checkAccess('editUser'))
+if(Yii::app()->user->checkAccess('trEditUser'))
 {
     echo CHtml::link($data->company, '/admin/user/edituser/id/'.$data->id.'/', array('id'=>'li_'.$data->id, 'class'=>'ajax'));
 }else{

@@ -13,10 +13,10 @@
     
     $allPoints = TransportInterPoint::getPointsMin($data->id);
 
-    if(!Yii::app()->user->isGuest){
-        if(Yii::app()->user->isTransport){
+    if(!Yii::app()->user->isGuest) {
+        if(Yii::app()->user->isTransport) {
             $model = UserField::model()->find('user_id = :id', array('id' => Yii::app()->user->_id));
-            if((bool)$model->with_nds){
+            if((bool)$model->with_nds) {
                 if(!empty($minPriceVal)) $rate = $minPriceVal + $minPriceVal * Yii::app()->params['nds'];
                 else $rate = $data->start_rate + $data->start_rate * Yii::app()->params['nds'];
             } else {

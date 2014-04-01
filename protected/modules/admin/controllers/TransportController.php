@@ -145,7 +145,8 @@ class TransportController extends Controller
                                     ->where('t_id = :id', array(':id' => $model->id))
                                     ->group('t_id')
                                     ->queryRow()
-                                ;*/
+                                ;
+                                */
 
                                 
 
@@ -254,7 +255,7 @@ class TransportController extends Controller
                     Changes::saveChangeInPoints($criteria, $model['id']);
                 }*/
                 
-                if($model->save()) {
+                if($model->save(false)) {
                     Yii::app()->user->setFlash('saved_id', $model->id);
                     Yii::app()->user->setFlash('message', 'Перевозка сохранена успешно.');
                     /*if($form->type == 0) {

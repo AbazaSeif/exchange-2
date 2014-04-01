@@ -43,7 +43,8 @@ if (!Yii::app()->user->isGuest) {
     $userId = Yii::app()->user->_id;
     $model = UserField::model()->find('user_id = :id', array('id' => $userId));
 
-    if((bool)$model->with_nds) {
+    if((bool)$model->with_nds && Yii::app()->user->isTransport) {
+    //if((bool)$model->with_nds) {
         $minRateValue = floor($minRateValue + $minRateValue * Yii::app()->params['nds']);
     } else $minRateValue = floor($minRateValue);
     
@@ -178,7 +179,7 @@ $(document).ready(function(){
         transportId : <?php echo $transportInfo['id'] ?>,
         status: <?php echo $transportInfo['status'] ?>,
         step: <?php echo $priceStep ?>,
-        nds: <?php echo ((bool)$model->with_nds) ? Yii::app()->params['nds'] : 0 ?>,
+        nds: <?php echo ((bool)$model->with_nds && Yii::app()->user->isTransport) ? Yii::app()->params['nds'] : 0 ?>,
         ndsValue: <?php echo Yii::app()->params['nds'] ?>,
         defaultRate: <?php echo ($defaultRate)? 1 : 0 ?>,
     };
