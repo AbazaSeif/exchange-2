@@ -13,8 +13,7 @@ $winFerrymanShowNds = UserField::model()->findByAttributes(array('user_id'=>$win
 $showWithNds = '';
 
 $allPoints = TransportInterPoint::getPoints($transportInfo['id']);
-//var_dump($allPoints);
-//if($transportInfo['type']==Transport::RUS_TRANSPORT){
+
 if(!$transportInfo['currency']){
     $priceStep = Transport::RUS_PRICE_STEP; 
 }
