@@ -169,7 +169,6 @@
             
             echo '<span>'.((!empty($point->date))? date("d-m-Y H:i", strtotime($point->date)) : '').'</span>';
             //echo '<span class="del-col del-row"></span>';
-            echo '<span></span>';
             echo '</li>';
         }?>
     </ul>
@@ -188,7 +187,7 @@
     <?php foreach ($rates as $item){
             if($minRateId == $item['id']) echo '<li class="item win">';
             else echo '<li class="item">';
-            echo '<span>'.date("d-m-Y H:i", strtotime($item['date'])).'</span>';
+            echo '<span>'.$item['date'].'</span>';
             echo '<span>' . $item['company'] .'</span>';
             echo '<span>';
             echo '<span class="price">'.$item['price'].'</span>';

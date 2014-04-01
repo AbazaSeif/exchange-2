@@ -38,18 +38,20 @@ function ЕditTransport() {
     };
     
     this.showFieldsForInternational = function(){
-	    if($('#TransportForm_type').val() == 0){
+        if($('#TransportForm_type').val() == 0){
            $('#TransportForm_customs_clearance_EU').parent().removeClass('hide');
            $('#TransportForm_customs_clearance_RF').parent().removeClass('hide');
            $('#TransportForm_date_to_customs_clearance_RF').parent().removeClass('hide');
+           $('#TransportForm_date_to').parent().addClass('hide');
            $('#TransportForm_currency').val(2);
         } else {
            $('#TransportForm_customs_clearance_EU').parent().addClass('hide');
            $('#TransportForm_customs_clearance_RF').parent().addClass('hide');
            $('#TransportForm_date_to_customs_clearance_RF').parent().addClass('hide');
+           $('#TransportForm_date_to').parent().removeClass('hide');
            $('#TransportForm_currency').val(0);
         }
-	};
+    };
 	
     this.initRateEditor = function(){
         $("#rates-all").on('dblclick', 'li span.price', function () {     

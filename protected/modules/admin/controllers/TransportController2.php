@@ -144,7 +144,7 @@ class TransportController extends Controller
                                 $point->save();
                             }
                             
-                            $message = 'Создана перевозка "' . $model->location_from . ' — ' . $model->location_to . '" (id = '.$model->id.')';
+                            $message = 'Создана перевозка "' . $model->location_from . ' — ' . $model->location_to . '"';
                             Changes::saveChange($message);
                             Yii::app()->user->setFlash('saved_id', $model->id);
                             Yii::app()->user->setFlash('message', 'Перевозка создана успешно.');
@@ -211,48 +211,28 @@ class TransportController extends Controller
                 $form->customs_clearance_RF = $customs_clearance_RF->point;
                 $form->date_to_customs_clearance_RF = date('d-m-Y H:i', strtotime($customs_clearance_RF->date));
             }
-            
             if (isset($_POST['TransportForm'])) {
                 $changes = array();
-                if($form->type == 0) {
-                    $customs_clearance_EU = TransportInterPoint::model()->find(array('order'=>'sort', 'condition'=>'t_id = ' . $id, 'limit'=>1));
-                    $customs_clearance_RF = TransportInterPoint::model()->find(array('order'=>'sort desc', 'condition'=>'t_id = ' . $id, 'limit'=>1));
-                }
-                
                 foreach($_POST['TransportForm'] as $key=>$value) {
                     if($key == 'description') {
                         $value = $this->formatDescription($value);
                     } else if($key == 'date_from' || $key == 'date_to' || $key == 'date_close') {
                         $value = date('Y-m-d H:i:s', strtotime($value));
-                    } else if($form->type == 0){
-                        if($key == 'customs_clearance_EU' && trim($customs_clearance_EU->point) != trim($_POST['TransportForm']['customs_clearance_EU'])) {
-                            $changes[$key]['before'] = $customs_clearance_EU->point;
-                            $changes[$key]['after']  = trim($_POST['TransportForm']['customs_clearance_EU']);
-                        } 
-                        if($key == 'customs_clearance_RF' && trim($customs_clearance_RF->point) != trim($_POST['TransportForm']['customs_clearance_RF'])) {
-                            $changes[$key]['before'] = $customs_clearance_RF->point;
-                            $changes[$key]['after']  = trim($_POST['TransportForm']['customs_clearance_RF']);
-                        }
-                        if($key == 'date_to_customs_clearance_RF' && date('Y-m-d H:i:s', strtotime($customs_clearance_RF->date)) != date('Y-m-d H:i:s', strtotime($_POST['TransportForm']['date_to_customs_clearance_RF']))) {
-                            $changes[$key]['before'] = date('Y-m-d H:i:s', strtotime($customs_clearance_RF->date));
-                            $changes[$key]['after']  = date('Y-m-d H:i:s', strtotime(trim($_POST['TransportForm']['date_to_customs_clearance_RF'])));
-                        }
                     }
                     
-                    if(trim($model->$key) != trim($value) && !empty($model->$key)) {
-                        $changes[$key]['before'] = $model->$key;
+                    if(trim($model->$key) != trim($value)) {
+                        $changes[$key]['before'] = $model[$key];
                         $changes[$key]['after']  = $value;
                     }
                 }
                 
                 $model->attributes = $_POST['TransportForm'];
-                $form->attributes = $_POST['TransportForm'];
                 $model->date_from = date('Y-m-d H:i:s', strtotime($model->date_from));
                 $model->date_to = date('Y-m-d H:i:s', strtotime($model->date_to));
                 $model->date_close = date('Y-m-d H:i:s', strtotime($model->date_close));
                 
                 if(!empty($changes)) {
-                    $message = 'В перевозке "'.$model->location_from.' - '.$model->location_to.'" (id = '.$id.') были изменены слудующие поля: ';
+                    $message = 'В перевозке с id = '.$id.' были изменены слудующие поля: ';
                     $k = 0;
                     foreach($changes as $key => $value){
                         $k++;
@@ -261,7 +241,7 @@ class TransportController extends Controller
                             $changes[$key]['after']  = Transport::$currencyGroup[$changes[$key]['after']];
                         }
                         
-                        $message .= $k . ') Поле '. $key . ' c "' . $changes[$key]['before'] . '" на "' . $changes[$key]['after'] . '"; ';
+                        $message .= $k . ') Поле '. $key . ' c ' . $changes[$key]['before'] . ' на ' . $changes[$key]['after'] . '; ';
                     }
                     
                     Changes::saveChange($message);
@@ -276,7 +256,7 @@ class TransportController extends Controller
                     Changes::saveChangeInRates($criteria, $model['id']);
                 }
                 
-                /* if(!isset($_POST['Points'])) { // if no points
+               /* if(!isset($_POST['Points'])) { // if no points
                     $criteria = new CDbCriteria;
                     $criteria->addCondition('t_id = ' . $model['id']);
                     
@@ -288,10 +268,12 @@ class TransportController extends Controller
                     Yii::app()->user->setFlash('saved_id', $model->id);
                     Yii::app()->user->setFlash('message', 'Перевозка сохранена успешно.');
                     if($form->type == 0) {
+                        $customs_clearance_EU = TransportInterPoint::model()->find(array('order'=>'sort', 'condition'=>'t_id = ' . $id, 'limit'=>1));
                         $customs_clearance_EU->point = $_POST['TransportForm']['customs_clearance_EU'];
                         $customs_clearance_EU->save();
                         $form->customs_clearance_EU = $customs_clearance_EU->point;
                         
+                        $customs_clearance_RF = TransportInterPoint::model()->find(array('order'=>'sort desc', 'condition'=>'t_id = ' . $id, 'limit'=>1));
                         $customs_clearance_RF->point = $_POST['TransportForm']['customs_clearance_RF'];
                         $customs_clearance_RF->date = date('Y-m-d H:i:s', strtotime($_POST['TransportForm']['date_to_customs_clearance_RF']));
                         $customs_clearance_RF->save();
