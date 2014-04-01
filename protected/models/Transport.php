@@ -113,6 +113,9 @@ class Transport extends CActiveRecord
                     'date_to' => 'Дата разгрузки',
                     'date_published' => 'Дата публикации',
                     'currency' => 'Валюта',
+                    'date_to_customs_clearance_RF' => 'Дата доставки в пункт таможенной очистки в РФ',
+                    'customs_clearance_RF' => 'Место таможенной очистки в РФ',
+                    'customs_clearance_EU' => 'Место таможенного оформления в ЕС',
 		);
 	}
 

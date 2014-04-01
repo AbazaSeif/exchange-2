@@ -55,7 +55,7 @@ class Changes extends CActiveRecord
     }
     
     // Delete rates and save changes
-    public static function saveChangeInRates($criteria, $transportId, $arrayKeys, $priceChanges)
+    public static function saveChangeInRates($criteria, $transportId, $arrayKeys = array(), $priceChanges = array())
     {
         $ratesForDelete = Rate::model()->findAll($criteria);
         // Delete Rates

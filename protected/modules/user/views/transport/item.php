@@ -43,7 +43,6 @@ if (!Yii::app()->user->isGuest) {
     $model = UserField::model()->find('user_id = :id', array('id' => $userId));
 
     if((bool)$model->with_nds && Yii::app()->user->isTransport) {
-    //if((bool)$model->with_nds) {
         $minRateValue = floor($minRateValue + $minRateValue * Yii::app()->params['nds']);
     } else $minRateValue = floor($minRateValue);
     
@@ -64,12 +63,10 @@ if (!Yii::app()->user->isGuest) {
     $inputSize = strlen((string)$minRateValue)-1;
     if($inputSize < 5 ) $inputSize = 5;
     
-    /*if($transportInfo['type'] == 0) {
-        $pointsCustom = TransportInterPoint::model()->findAll(array('order'=>'sort desc', 'condition'=>'t_id = ' . $transportInfo['id'], 'limit'=>2));
-        $customs_clearance_EU = $pointsCustom[1]['point'];
-        $customs_clearance_RF = $pointsCustom[0]['point'];
-        $date_to_customs_clearance_RF = date('d.m.Y', strtotime($pointsCustom[0]['date']));            
-    }*/
+    if($transportInfo['type'] == 0) {
+        $pointsCustom = TransportInterPoint::model()->findAll(array('order'=>'sort desc', 'condition'=>'t_id = ' . $transportInfo['id'], 'limit'=>1));
+        $date_to_customs_clearance_RF = date('d.m.Y', strtotime($pointsCustom[0]['date']));
+    }
 }
 ?>
 
@@ -95,13 +92,19 @@ if (!Yii::app()->user->isGuest) {
                 <div class="r-params"><span>Пункт отправки: </span><strong><?php echo $transportInfo['location_from'] ?></strong></div>
                 <div class="r-params"><span>Пункт назначения: </span> <strong><?php echo $transportInfo['location_to'] ?></strong></div>
                 <div class="r-params"><span>Дата загрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_from'])) ?></strong></div>
-                <div class="r-params"><span>Дата разгрузки: </span><strong><?php echo date('d.m.Y', strtotime($transportInfo['date_to'])) ?></strong></div>
-
-                <?php// if($transportInfo['type'] == 0) :?>
-                <!--div class="r-params"><span>Место таможенного оформления в ЕС: </span><strong><?php// echo $customs_clearance_EU ?></strong></div>
-                <div class="r-params"><span>Место таможенной очистки в РФ: </span><strong><?php// echo $customs_clearance_RF ?></strong></div>
-                <div class="r-params"><span>Дата таможенной очистки в РФ: </span><strong><?php// echo $date_to_customs_clearance_RF ?></strong></div-->
-                <?php// endif; ?>
+                <div class="r-params">
+                    <?php if($transportInfo['type'] == 0): ?>
+                    <span>Дата доставки в пункт таможенной очистки в РФ: </span>
+                    <strong>
+                    <?php echo $date_to_customs_clearance_RF; ?>
+                    </strong>
+                    <?php else: ?>
+                    <span>Дата разгрузки: </span>
+                    <strong>
+                    <?php echo date('d.m.Y', strtotime($transportInfo['date_to'])) ?>
+                    </strong>
+                    <?php endif; ?>
+                </div>
                 <?php if (!empty($transportInfo['auto_info'])):?><div><span>Транспорт: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
             </div>
             <?php if (!Yii::app()->user->isGuest && $minRateValue > 0 && Yii::app()->user->isTransport): ?>

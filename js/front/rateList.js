@@ -18,7 +18,6 @@ var rateList = {
             
             rateList.data.socket.on('loadRates', function (data) {
                 $("#r-preloader").css('display', 'none');
-                //console.log(data.rows);
                 for(var j = 0; j < data.rows; j++) {
                     //
                     var obj = {

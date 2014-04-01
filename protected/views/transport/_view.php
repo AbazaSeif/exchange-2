@@ -29,7 +29,11 @@
     }
     if($data->type==Transport::RUS_TRANSPORT){
         $type = "российская";
+    } else { // international transport
+        $pointsCustom = TransportInterPoint::model()->findAll(array('order'=>'sort desc', 'condition'=>'t_id = ' . $data->id, 'limit'=>1));
+        $date_to_customs_clearance_RF = date('d.m.y', strtotime($pointsCustom[0]['date']));  
     }
+    
     if(!$data->currency){
        $currency = ' руб.';
     } else if($data->currency == 1){
@@ -54,9 +58,15 @@
             <div class="width-49">
                 <span class="t-d-form-to">Дата загрузки: <?php echo date('d.m.y', strtotime($data->date_from)) ?></span>
             </div>
+            <?php if($data->type == 0): ?>
+            <div class="width-49">
+                <span class="t-d-form-to">Дата доставки в пункт таможенной очистки в РФ: <?php echo $date_to_customs_clearance_RF; ?></span>
+            </div>
+            <?php else: ?>
             <div class="width-49">
                 <span class="t-d-form-to">Дата разгрузки: <?php echo date('d.m.y', strtotime($data->date_to)); ?></span>
             </div>
+            <?php endif; ?>
         </div>
         <div class="width-100">
             <div class="t-points"><span><?php echo $data->location_from . $allPoints . ' -> ' . $data->location_to ?></span></div>

@@ -41,20 +41,5 @@ var menu = {
                 }
             }
         });
-        
-        /*$(document).keypress(function(e) {
-            var code = e.keyCode || e.which;
-            if (e.which == 13) {
-                console.log('back2');
-            }
-        });*/
     },
-	
-    /*updateCounter : function(){
-        $.ajax({
-            url: '/user/updateEventCounter',
-            success: function(data){
-            //$('#event-counter').html(data);
-        }});
-    }*/
 };
