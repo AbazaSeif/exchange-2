@@ -118,6 +118,7 @@ class TransportController extends Controller
             if(isset($_POST['TransportForm'])) {
                 $model = new Transport;
                 $model->attributes = $_POST['TransportForm'];
+                $model->auto_info = $_POST['TransportForm']['auto_info'];
                 $model->date_from = date('Y-m-d H:i:s', strtotime($model->date_from));
                 $model->date_to = date('Y-m-d H:i:s', strtotime($model->date_to));
                 $model->date_close = date('Y-m-d H:i:s', strtotime($model->date_close));
@@ -203,6 +204,7 @@ class TransportController extends Controller
             $form->attributes = $model->attributes;
             $form->id = $model->id;
             $form->date_to = $model->date_to;
+            $form->auto_info = $model->auto_info;
             if($form->type == 0) {
                 $customs_clearance_EU = TransportInterPoint::model()->find(array('order'=>'sort', 'condition'=>'t_id = ' . $id, 'limit'=>1));
                 $form->customs_clearance_EU = $customs_clearance_EU->point;
@@ -247,6 +249,7 @@ class TransportController extends Controller
                 
                 $model->attributes = $_POST['TransportForm'];
                 $form->attributes = $_POST['TransportForm'];
+                $form->auto_info = $_POST['TransportForm']['auto_info'];
                 $model->date_from = date('Y-m-d H:i:s', strtotime($model->date_from));
                 $model->date_to = date('Y-m-d H:i:s', strtotime($model->date_to));
                 $model->date_close = date('Y-m-d H:i:s', strtotime($model->date_close));
@@ -384,6 +387,18 @@ class TransportController extends Controller
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
+    }
+    
+    public function actionDuplicateTransport($id)
+    {
+        $model = Transport::model()->findByPk($id);
+        $newModel = new Transport;
+        $newModel->attributes = $model->attributes;
+        $newModel->location_from = 'Копия ' . $newModel->location_from;
+        $newModel->status = 1;
+        $newModel->save();
+        
+        $this->render('edittransport', array('model'=>$newModel), false, true);
     }
     
     public function formatDescription($value)

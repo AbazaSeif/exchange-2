@@ -3,6 +3,7 @@
     $submit_text = 'Сохранить';
     $close_text = 'Закрыть редактирование';
     $delete_button = CHtml::link('Удалить перевозку', '/admin/transport/deletetransport/id/'.$model->id, array('id'=>'del_'.$model->id,'class'=>'btn del', 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
+    $duplicate_button = CHtml::link('Дублировать перевозку', '/admin/transport/duplicatetransport/id/'.$model->id, array('id'=>'dup_'.$model->id,'class'=>'btn'));//, 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
     $action = '/admin/transport/edittransport/id/'.$model->id;
     if (!$model->id) {
         $submit_text = 'Создать';
@@ -56,7 +57,9 @@
     ));
 ?>
 <div class="buttons">
-<?php  echo $delete_button; 
+<?php
+    echo $duplicate_button;
+    echo $delete_button; 
     echo CHtml::button($close_text,array('id'=>'close-transport', 'class'=>'btn'));
     echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn btn-green')); 
 ?>
