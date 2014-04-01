@@ -114,7 +114,7 @@ class TransportController extends Controller
             $form->date_from = date('d-m-Y H:i', strtotime("+" . 3*Yii::app()->params['hoursBefore'] . " hours"));
             $form->date_to = date('d-m-Y H:i', strtotime("+" . 4*Yii::app()->params['hoursBefore'] . " hours"));
             $form->date_to_customs_clearance_RF = date('d-m-Y H:i', strtotime("+" . 4*Yii::app()->params['hoursBefore'] . " hours"));
-
+            
             if(isset($_POST['TransportForm'])) {
                 $model = new Transport;
                 $model->attributes = $_POST['TransportForm'];
@@ -392,11 +392,21 @@ class TransportController extends Controller
     public function actionDuplicateTransport($id)
     {
         $model = Transport::model()->findByPk($id);
-        $newModel = new Transport;
+        $newModel = new TransportForm;
         $newModel->attributes = $model->attributes;
         $newModel->location_from = 'Копия ' . $newModel->location_from;
         $newModel->status = 1;
-        $newModel->save();
+        
+        if($model->type == 1)  $newModel->date_to = $model->date_to;
+        else{
+            $customs_clearance_EU = TransportInterPoint::model()->find(array('order'=>'sort', 'condition'=>'t_id = ' . $id, 'limit'=>1));
+            $newModel->customs_clearance_EU = $customs_clearance_EU->point;
+
+            $customs_clearance_RF = TransportInterPoint::model()->find(array('order'=>'sort desc', 'condition'=>'t_id = ' . $id, 'limit'=>1)); 
+            $newModel->customs_clearance_RF = $customs_clearance_RF->point;
+            $newModel->date_to_customs_clearance_RF = date('d-m-Y H:i', strtotime($customs_clearance_RF->date));
+            $newModel->date_to = date('d-m-Y H:i', strtotime($customs_clearance_RF->date));
+        }
         
         $this->render('edittransport', array('model'=>$newModel), false, true);
     }

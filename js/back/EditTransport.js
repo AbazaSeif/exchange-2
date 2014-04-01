@@ -37,7 +37,7 @@ function ЕditTransport() {
 		
     };
     
-    this.showFieldsForInternational = function(){
+    this.showFieldsForInternational = function(){  
         if($('#TransportForm_type').val() == 0){
            $('#TransportForm_customs_clearance_EU').parent().removeClass('hide');
            $('#TransportForm_customs_clearance_RF').parent().removeClass('hide');

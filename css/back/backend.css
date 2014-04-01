@@ -81,6 +81,16 @@ input, textarea{
     background-repeat: repeat-x;
     border: 1px solid #5ca941;
 }
+.btn-orange{
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+    background-color: #fba222;
+    background-image: -moz-linear-gradient(#dedede, #4183C4);
+    background-image: -webkit-linear-gradient(#dedede, #4183C4);
+    background-image: linear-gradient(#dedede, #4183C4);
+    background-repeat: repeat-x;
+    border: 1px solid #4183C4;
+}
 .del{
     background-color: #bd362f;
     background-image: -moz-linear-gradient(#bd362f, #942a25);
