@@ -55,12 +55,13 @@ class Changes extends CActiveRecord
     }
     
     // Delete rates and save changes
-    public static function saveChangeInRates($criteria, $transportId)
+    public static function saveChangeInRates($criteria, $transportId, $arrayKeys, $priceChanges)
     {
         $ratesForDelete = Rate::model()->findAll($criteria);
         // Delete Rates
+        $transportModel = Transport::model()->findByPk($transportId);
         if(!empty($ratesForDelete)) {
-            $transportModel = Transport::model()->findByPk($transportId);
+            
             //Rate::model()->deleteAll($criteria);
             $message = 'В перевозке "' . $transportModel->location_from . ' — ' . $transportModel->location_to . '" были удалены следующие ставки: ';
             $k = 0;
@@ -74,6 +75,25 @@ class Changes extends CActiveRecord
             Changes::saveChange($message);
             return;
         }
+        if(!in_array($transportModel->rate_id, $arrayKeys) || array_key_exists($transportModel->rate_id, $priceChanges)) {
+            $minPrice = Yii::app()->db->createCommand()
+                ->select('min(price) as price')
+                ->from('rate')
+                ->where('transport_id = :id', array(':id' => $transportId))
+                ->group('transport_id')
+                ->queryRow()
+            ;
+
+            $model = Yii::app()->db->createCommand()
+                ->select('id')
+                ->from('rate')
+                ->where('transport_id = :id and price = :price', array(':id' => $transportId, ':price' => $minPrice['price']))
+                ->queryRow()
+            ;
+
+            $transportModel['rate_id'] = $model['id'];
+            $transportModel->save();
+        }   
     }
     
     public static function saveChangeInPoints($criteria, $transportId)
