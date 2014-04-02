@@ -229,7 +229,7 @@ class SiteController extends Controller
                     $email = new TEmail;
                     $email->from_email = Yii::app()->params['adminEmail'];
                     $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-                    $email->to_email   = Yii::app()->params['logistEmail'];
+                    $email->to_email   = Yii::app()->params['supportEmail'];
                     $email->to_name    = '';
                     $email->subject    = 'Восстановление доступа';
                     $email->type = 'text/html';

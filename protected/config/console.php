@@ -37,8 +37,11 @@ return array(
 	),
 	'params'=>array(
             // this is used in contact page
-            'adminEmail'  => 'nazarova@lbr.ru',
+            'supportEmail' => 'support.ex@lbr.ru',
+            'adminEmail'   => 'help.ex@lbr.ru',
+            'logistEmailRegional'       => 'nazarova@lbr.ru',
+            'logistEmailInternational'  => 'valok@lbr.ru',
             'minNotify'   => 30,
-            'hoursBefore' => 24, 
+            'hoursBefore' => 24,
 	),
 );

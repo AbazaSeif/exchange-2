@@ -373,11 +373,14 @@ class CronCommand extends CConsoleCommand
         $email = new TEmail;
         $email->from_email = Yii::app()->params['adminEmail'];
         $email->from_name = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email = Yii::app()->params['logistEmail'];
+        
+        if($transport->type == 0) $email->to_email = Yii::app()->params['logistEmailInternational'];
+        else $email->to_email = Yii::app()->params['logistEmailRegional'];
+        
         $email->to_name = '';
         $email->subject = 'Заявка на перевозку закрыта';
         $email->type = 'text/html';
-        $email->body = '<p>Заявка на перевозку "<a href="http://exchange.lbr.ru/transport/description/id/' . $transportId . '">' . $transport['location_from'] . ' &mdash; ' . $transport['location_to'] . '</a>" закрыта.</p>'.
+        $email->body = '<p>Заявка на перевозку "<a href="http://exchange.lbr.ru/transport/description/id/' . $transportId . '">' . $transport->location_from . ' &mdash; ' . $transport->location_to . '</a>" закрыта.</p>'.
             '<hr><h5>Это сообщение является автоматическим, на него не нужно отвечать.</h5>';
         ;
         
