@@ -28,6 +28,8 @@ class ContactController extends Controller
                     )
                 )
             );
+            //echo '<pre>';
+            //var_dump($dataProvider);
             if ($id_item = Yii::app()->user->getFlash('saved_id')) {
                 $model = User::model()->findByPk($id_item);
                 $form = new UserContactForm;

@@ -22,7 +22,7 @@
         'template'=>'{sorter} {items} {pager}',
         'sorterHeader'=>'',
         'itemsTagName'=>'ul',
-        'sortableAttributes'=>array('surname', 'name'),
+        'sortableAttributes'=>array('surname', 'name', 'company'),
         'pager'=>array(
             'class'=>'CLinkPager',
             'header'=>false,
