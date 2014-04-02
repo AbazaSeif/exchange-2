@@ -240,10 +240,11 @@ class TransportController extends Controller
                             $changes[$key]['after']  = date('Y-m-d H:i:s', strtotime(trim($_POST['TransportForm']['date_to_customs_clearance_RF'])));
                         }
                     }
-                    
-                    if(trim($model->$key) != trim($value) && !empty($model->$key)) {
-                        $changes[$key]['before'] = $model->$key;
-                        $changes[$key]['after']  = $value;
+                    if($key != 'customs_clearance_EU' && $key != 'customs_clearance_RF' && $key != 'date_to_customs_clearance_RF'){
+                        if(trim($model->$key) != trim($value)) {
+                            $changes[$key]['before'] = $model->$key;
+                            $changes[$key]['after']  = $value;
+                        }
                     }
                 }
                 
