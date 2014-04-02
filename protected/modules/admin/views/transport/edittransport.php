@@ -70,6 +70,12 @@
     echo $form->dropDownList($model, 'type', Transport::$group); ?>
 </div>
 <div class="field">
+<?php echo $form->error($model, 't_id'); 
+    echo $form->labelEx($model, 't_id');
+    echo $form->textField($model, 't_id');
+?>    
+</div>
+<div class="field">
 <?php  echo $form->error($model, 'location_from'); 
     echo $form->labelEx($model, 'location_from');
     echo $form->textField($model, 'location_from');
@@ -189,6 +195,7 @@
            <span class="del-col"></span>
         </li>
     <?php foreach ($rates as $item){
+        //var_dump($item);
             if($minRateId == $item['id']) echo '<li class="item win">';
             else echo '<li class="item">';
             echo '<span>'.date("d-m-Y H:i", strtotime($item['date'])).'</span>';

@@ -16,6 +16,7 @@
  */
 class Rate extends CActiveRecord
 {
+        public $company;
 	/**
 	 * @return string the associated database table name
 	 */

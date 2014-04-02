@@ -107,9 +107,9 @@ class TransportController extends Controller
 
     public function actionCreateTransport()
     {
-        if(Yii::app()->user->checkAccess('createTransport')){
+        if(Yii::app()->user->checkAccess('createTransport')) {
             $form = new TransportForm;
-            $form->status  = 1;
+            $form->status = 1;
             $form->date_close = date('d-m-Y H:i', strtotime("+" . 2*Yii::app()->params['hoursBefore'] . " hours"));
             $form->date_from = date('d-m-Y H:i', strtotime("+" . 3*Yii::app()->params['hoursBefore'] . " hours"));
             $form->date_to = date('d-m-Y H:i', strtotime("+" . 4*Yii::app()->params['hoursBefore'] . " hours"));

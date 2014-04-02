@@ -39,7 +39,7 @@ class ChangesController extends Controller
         }
     }
     
-    public function actionShowChanges($id, $login)
+    public function actionShowChanges($id)
     {
         if(Yii::app()->user->checkAccess('readChanges')) {
             $criteria = new CDbCriteria();

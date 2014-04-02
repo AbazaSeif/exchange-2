@@ -72,7 +72,7 @@ class Transport extends CActiveRecord
 	public function rules()
 	{
             return array(
-		array('location_from, new_transport, rate_id, start_rate, status, type, user_id, currency, customs_clearance_RF, customs_clearance_EU, location_to, auto_info, description, date_to_customs_clearance_RF, date_close, date_from, date_to, date_published', 'safe')
+		array('t_id, location_from, new_transport, rate_id, start_rate, status, type, user_id, currency, customs_clearance_RF, customs_clearance_EU, location_to, auto_info, description, date_to_customs_clearance_RF, date_close, date_from, date_to, date_published', 'safe')
             );
 	}
 
