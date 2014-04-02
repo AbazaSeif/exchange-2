@@ -1,11 +1,11 @@
 <?php
-class CronCommand extends CConsoleCommand
+class CronCommand extends CConsoleCommand 
 {
     public function run($args)
     {
         //$this->deadlineTransport();
-        $this->beforeDeadlineTransport();
-        //$this->newTransport();
+        //$this->beforeDeadlineTransport();
+        $this->newTransport();
         //$this->mailKillRate();
         //$this->errorDate();
     }
@@ -13,7 +13,6 @@ class CronCommand extends CConsoleCommand
     public function errorDate()
     {
         $timeNow = date("Y-m-d H:i");
-        
         $transports = Yii::app()->db->createCommand()
             ->select('id')
             ->from('transport')
@@ -25,7 +24,7 @@ class CronCommand extends CConsoleCommand
         }
     }
     
-    // Search for transport with deadline
+    // Search for transport with deadline	
     public function deadlineTransport()
     {
         $timeNow = date("Y-m-d H:i");
@@ -61,11 +60,11 @@ class CronCommand extends CConsoleCommand
                 $transportIds .= $transport['id'];
             }
 
-            Transport::model()->updateAll(array('status' => 0), 'id in (' . $transportIds . ')');	
+            Transport::model()->updateAll(array('status' => 0), 'id in (' . $transportIds . ')');		
         }
     }
 
-    // Search for transport before deadline
+    // Search for transport before deadline	
     public function beforeDeadlineTransport()
     {
         $time = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['minNotify'] . " minutes"));
@@ -91,14 +90,15 @@ class CronCommand extends CConsoleCommand
             }
 
             foreach($transports as $transport) {
-                $transportId = $transport['id'];   
+                $transportId = $transport['id'];
+                
                 $this->getUsers($transportId, 'mail_before_deadline', $usersMail, $usersSite, 2);
-            }
+            }		
         }
     }
 
     /* get users who made a rate for current transportation*/
-    public function getUsers($transportId, $mailType, $usersMail, $usersSite, $messageType)
+    public function getUsers($transportId, $mailType, $usersMail, $usersSite, $messageType) 
     {
         // list of users for current transportation
         $rateMembers = Yii::app()->db->createCommand()
@@ -150,7 +150,7 @@ class CronCommand extends CConsoleCommand
             ->where('new_transport = :status', array(':status' => 1))
             ->queryAll()
         ;
-
+        
         $count = count($transportNew);
         $transportIdType = array(0 => array(), 1 => array());
         
@@ -174,12 +174,49 @@ class CronCommand extends CConsoleCommand
             Transport::model()->updateAll(array('new_transport' => 0), 'id in (' . $transportIds . ')');
 
             if(!empty($transportIdType[0])){ // international transportation
+                /*$temp = Yii::app()->db->createCommand()
+                    ->select('user_id')
+                    ->from('user_field')
+                    ->where('mail_transport_create_1 = :type', array(':type' => true))
+                    ->queryAll()
+                ;
+                
+                foreach($temp as $t){
+                    $usersInternational[] = $t['user_id'];
+                }*/
+                
                 $usersInternational = $this->searchUsers('mail_transport_create_1', $usersInternational);
                 $usersInternationalSite = $usersInternational;
             }
 
             if(!empty($transportIdType[1])) { // local transportation
+                /*$temp = Yii::app()->db->createCommand()
+                    ->select('user_id')
+                    ->from('user_field')
+                    ->where('mail_transport_create_2 = :type', array(':type' => true))
+                    ->queryAll()
+                ;
+                
+                foreach($temp as $t) {
+                    $usersLocal[] = $t['user_id'];
+                }*/
+
                 $usersLocal = $this->searchUsers('mail_transport_create_2', $usersLocal);
+                
+                /*foreach($usersLocal as $key=>$userId){
+                    $email = new TEmail;
+                    $email->from_email = Yii::app()->params['adminEmail'];
+                    $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+                    $email->to_email   = 'kkk@mail.ru';
+                    $email->to_name    = '';
+                    $email->subject    = $subject;
+                    $email->type = 'text/html';
+                    $email->body = "<h1>Уважаемый(ая) , </h1>" . 
+                        '= '. $key . ' - '. $userId . "<hr><h5>Это сообщение является автоматическим, на него не нужно отвечать.</h5>"
+                    ;
+                    $email->sendMail();
+                }*/
+                
                 $usersLocalSite = $usersLocal;
             }
 
@@ -190,14 +227,15 @@ class CronCommand extends CConsoleCommand
                 $usersInternational = $temp;
             }
 
+            /*
             if(!empty($usersInternational)){
                 $this->sendMailAboutNew($usersInternational, $transportIdType, 0);
             }
-
+*/
             if(!empty($usersLocal)){
                 $this->sendMailAboutNew($usersLocal, $transportIdType, 1);
             }
-
+/*
             if(!empty($usersInternationalAndLocal)){
                 $this->sendMailAboutNew($usersInternationalAndLocal, $transportIdType);
             }
@@ -209,6 +247,7 @@ class CronCommand extends CConsoleCommand
             if(!empty($usersLocalSite)){
                 $this->saveNewTransportEvent($transportIdType[1], $usersLocalSite, 1);
             }
+            */
         }
     }
 
@@ -263,12 +302,12 @@ class CronCommand extends CConsoleCommand
                         if(isset($userElement->email)){
                             $email = new TEmail;
                             $email->from_email = Yii::app()->params['adminEmail'];
-                            $email->from_name = 'Биржа перевозок ЛБР АгроМаркет';
-                            $email->to_email = $userElement->email;
-                            $email->to_name = '';
-                            $email->subject = 'Перебита ставка';
+                            $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+                            $email->to_email   = $userElement->email;
+                            $email->to_name    = '';
+                            $email->subject    = 'Перебита ставка';
                             $email->type = 'text/html';
-                            $email->body = '<h1>Уважаемый(ая) ' . $userElement->name . ' ' . $userElement->surname . ', </h1>' .
+                            $email->body = '<h1>Уважаемый(ая) ' . $userElement->name . ' ' . $userElement->surname . ', </h1>' . 
                                 '<div>Ваша ставка для перевозки "'.$transportElement->location_from . ' - ' . $transportElement->location_to.'" была перебита</div>'.
                                 '<hr><h5>Это сообщение является автоматическим, на него не нужно отвечать.</h5>'
                             ;
@@ -298,7 +337,7 @@ class CronCommand extends CConsoleCommand
            foreach($transportIds[0] as $item){
                $message .= '<p><a href="http://exchange.lbr.ru/transport/description/'.$item['id'].'">'.$item['from'].' &mdash; '.$item['to'].'</a></p>';
            }
-        }
+        } 
         if($type == 1 || $type == 2){
            $message .= "<p><b>Региональные</b> перевозки:</p>";
            foreach($transportIds[1] as $item){
@@ -307,7 +346,7 @@ class CronCommand extends CConsoleCommand
         }	
         
         foreach($users as $userId){
-            $this->sendMail($userId, $subject, $message);	
+            $this->sendMail($userId, $subject, $message);
         }
     }
 
@@ -357,12 +396,12 @@ class CronCommand extends CConsoleCommand
         
         $email = new TEmail;
         $email->from_email = Yii::app()->params['adminEmail'];
-        $email->from_name = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email = $user['email'];
-        $email->to_name = '';
-        $email->subject = $subject;
+        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+        $email->to_email   = $user['email'];
+        $email->to_name    = '';
+        $email->subject    = $subject;
         $email->type = 'text/html';
-        $email->body = "<h1>Уважаемый(ая) " . $user['name'] . " " . $user['surname'] . ", </h1>" .
+        $email->body = "<h1>Уважаемый(ая) " . $user['name'] . " " . $user['surname'] . ", </h1>" . 
             $message . "<hr><h5>Это сообщение является автоматическим, на него не нужно отвечать.</h5>"
         ;
         $email->sendMail();
@@ -373,10 +412,10 @@ class CronCommand extends CConsoleCommand
         $transport = Transport::model()->findByPk($transportId);
         $email = new TEmail;
         $email->from_email = Yii::app()->params['adminEmail'];
-        $email->from_name = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email = Yii::app()->params['logistEmail'];
-        $email->to_name = '';
-        $email->subject = 'Заявка на перевозку закрыта';
+        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+        $email->to_email   = Yii::app()->params['logistEmail'];
+        $email->to_name    = '';
+        $email->subject    = 'Заявка на перевозку закрыта';
         $email->type = 'text/html';
         $email->body = '<p>Заявка на перевозку "<a href="http://exchange.lbr.ru/transport/description/id/' . $transportId . '">' . $transport['location_from'] . ' &mdash; ' . $transport['location_to'] . '</a>" закрыта.</p>'.
             '<hr><h5>Это сообщение является автоматическим, на него не нужно отвечать.</h5>';
