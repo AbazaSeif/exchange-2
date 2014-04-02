@@ -16,10 +16,10 @@ io.sockets.on('connection', function (socket) {
     var name = [];
     var i = 0;
 
-    socket.on('init', function (id, minNotyfy)
+    socket.on('init', function (id, minNotify)
     {
         allSockets[id] = socket.id;
-        seachNewEvents(id, minNotyfy);
+        seachNewEvents(id, minNotify);
         updateEventsCount(id);	
     });
 	
@@ -29,14 +29,14 @@ io.sockets.on('connection', function (socket) {
 	
     /* ----- Update count of messages in frontend and search for online messages ----- */
 
-    function seachNewEvents(id, minNotyfy)
+    function seachNewEvents(id, minNotify)
     {
         setTimeout(function() {
             db.each('SELECT id, transport_id, type FROM user_event WHERE status = 1 and status_online = 1 and user_id = ' + id, function(err, event) {
                 db.each('SELECT location_from, location_to FROM transport WHERE id = ' + event.transport_id, function(err, transport) {	              
                     if (id in allSockets) { // user online
                         var message = 'Перевозка "<a href="http://exchange.lbr.ru/transport/description/id/' + event.transport_id + '">' + transport.location_from + ' &mdash; ' + transport.location_to + '</a>" была закрыта';
-                        if(event.type == 2) message = 'Перевозка "<a href="http://exchange.lbr.ru/transport/description/id/' + event.transport_id + '">' + transport.location_from + ' &mdash; ' + transport.location_to + '</a>" будет закрыта через ' + minNotyfy + ' минут';
+                        if(event.type == 2) message = 'Перевозка "<a href="http://exchange.lbr.ru/transport/description/id/' + event.transport_id + '">' + transport.location_from + ' &mdash; ' + transport.location_to + '</a>" будет закрыта через ' + minNotify + ' минут';
                         if(event.type == 3) message = 'Создана новая международная перевозка "<a href="http://exchange.lbr.ru/transport/description/id/' + event.transport_id + '">' + transport.location_from + ' &mdash; ' + transport.location_to + '</a>"';
                         if(event.type == 4) message = 'Создана новая региональная перевозка "<a href="http://exchange.lbr.ru/transport/description/id/' + event.transport_id + '">' + transport.location_from + ' &mdash; ' + transport.location_to + '</a>"';
                         
@@ -47,7 +47,7 @@ io.sockets.on('connection', function (socket) {
 					
                     var stmt = "UPDATE user_event set status_online = 0 WHERE id = " + event.id;
                     db.run(stmt);
-                    seachNewEvents(id, minNotyfy);
+                    seachNewEvents(id, minNotify);
                 });
             });
         }, 2000);

@@ -69,7 +69,6 @@ class CronCommand extends CConsoleCommand
     public function beforeDeadlineTransport()
     {
         $time = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['minNotify'] . " minutes"));
-
         $transports = Yii::app()->db->createCommand()
             ->select('id')
             ->from('transport')
