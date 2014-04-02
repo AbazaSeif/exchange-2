@@ -3,11 +3,11 @@ class CronCommand extends CConsoleCommand
 {
     public function run($args)
     {
-        //$this->deadlineTransport();
+        $this->deadlineTransport();
         $this->beforeDeadlineTransport();
-        //$this->newTransport();
-        //$this->mailKillRate();
-        //$this->errorDate();
+        $this->newTransport();
+        $this->mailKillRate();
+        $this->errorDate();
     }
     
     public function errorDate()
@@ -69,7 +69,6 @@ class CronCommand extends CConsoleCommand
     public function beforeDeadlineTransport()
     {
         $time = date("Y-m-d H:i", strtotime("+" . Yii::app()->params['minNotify'] . " minutes"));
-
         $transports = Yii::app()->db->createCommand()
             ->select('id')
             ->from('transport')

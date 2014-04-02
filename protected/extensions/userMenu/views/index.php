@@ -88,9 +88,9 @@ $(document).ready(function(){
     var socket = io.connect('http://localhost:3000/');
     
     <?php if(Yii::app()->user->isContactUser): ?>
-        socket.emit('init', userId, <?php echo Yii::app()->params['minNotyfy'] ?>, 1);
+        socket.emit('init', userId, <?php echo Yii::app()->params['minNotify'] ?>, 1);
     <?php else: ?>
-        socket.emit('init', userId, <?php echo Yii::app()->params['minNotyfy'] ?>, 0);
+        socket.emit('init', userId, <?php echo Yii::app()->params['minNotify'] ?>, 0);
     <?php endif; ?>
     
     var countSubmenuElem = null;

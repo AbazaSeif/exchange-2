@@ -36,7 +36,7 @@
                     </div>
                     <div class="row">
                     <?php echo $form->checkBox($model, 'mail_before_deadline'); ?>
-                    <?php echo CHtml::label('За ' . Yii::app()->params['minNotyfy'] . ' минут до закрытия перевозки', 'mail_before_deadline'); ?>                
+                    <?php echo CHtml::label('За ' . Yii::app()->params['minNotify'] . ' минут до закрытия перевозки', 'mail_before_deadline'); ?>                
                     </div>
             </div>
             <div>

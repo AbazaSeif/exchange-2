@@ -127,7 +127,7 @@ return array(
         'adminEmail'   => 'help.ex@lbr.ru',
         'logistEmail'  => 'nazarova@lbr.ru',
         
-        'minNotyfy' => 30,
+        'minNotify' => 30,
         'hoursBefore' => 24,
         'ferrymanGroup' => 4,
         'nds' => 0.1, // 10%
