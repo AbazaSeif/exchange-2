@@ -125,7 +125,8 @@ return array(
 
         'supportEmail' => 'support.ex@lbr.ru',
         'adminEmail'   => 'help.ex@lbr.ru',
-        'logistEmail'  => 'nazarova@lbr.ru',
+        'logistEmailRegional'       => 'nazarova@lbr.ru',
+        'logistEmailInternational'  => 'valok@lbr.ru',
         
         'minNotify' => 30,
         'hoursBefore' => 24,
