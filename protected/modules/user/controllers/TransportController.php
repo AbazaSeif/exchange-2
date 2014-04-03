@@ -247,6 +247,10 @@ class TransportController extends Controller
     
     public function actionDescription($id)
     {
+        $id_exists = Transport::model()->exists('id = :id', array(":id"=>$id));
+        if (!$id_exists){
+             throw new CHttpException(404,Yii::t('yii','Страница не найдена'));
+        }
         $transportInfo=Yii::app()->db->createCommand("SELECT * from transport where id='".$id."'")->queryRow();
         $dataProvider = Yii::app()->db->createCommand()
             ->select('r.date, r.price, u.name')
