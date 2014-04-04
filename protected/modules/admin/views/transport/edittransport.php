@@ -12,6 +12,7 @@
         $header_form = '';
         $action = '/admin/transport/createtransport/';
         unset($delete_button);
+        unset($duplicate_button);
     }
 ?>
 

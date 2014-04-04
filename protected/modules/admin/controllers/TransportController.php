@@ -110,10 +110,10 @@ class TransportController extends Controller
         if(Yii::app()->user->checkAccess('createTransport')) {
             $form = new TransportForm;
             $form->status = 1;
-            $form->date_close = date('d-m-Y H:i', strtotime("+" . 2*Yii::app()->params['hoursBefore'] . " hours"));
-            $form->date_from = date('d-m-Y H:i', strtotime("+" . 3*Yii::app()->params['hoursBefore'] . " hours"));
-            $form->date_to = date('d-m-Y H:i', strtotime("+" . 4*Yii::app()->params['hoursBefore'] . " hours"));
-            $form->date_to_customs_clearance_RF = date('d-m-Y H:i', strtotime("+" . 4*Yii::app()->params['hoursBefore'] . " hours"));
+            $form->date_close = date('d-m-Y', strtotime("+" . 2*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
+            $form->date_from = date('d-m-Y', strtotime("+" . 3*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
+            $form->date_to = date('d-m-Y', strtotime("+" . 4*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
+            $form->date_to_customs_clearance_RF = date('d-m-Y', strtotime("+" . 4*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
             
             if(isset($_POST['TransportForm'])) {
                 $model = new Transport;
