@@ -48,8 +48,22 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <!--td style="padding: 0 0 50px; width: 200px">
+                                                    <p style="padding: 0; font-size: 15pt; font-family: Calibri; color: black; margin: 0; text-align: justify; line-height: 13pt;" style="text-align: left;"><a href="http://exchange.lbr.ru/transport/description/20"><img src="http://exchange.lbr.ru/images/button.jpg" width="116" height="25" style="border: 0; margin-right: 10px;" alt="Кнопка"></a><a href="http://exchange.lbr.ru/transport/description/20" style="font-weight: bold; color: #008672 !important">jjj - ооо</a></p>
+                                                </td-->
+                                                <td style="padding: 0 0 50px; width: 200px">
+                                                    <a href="http://exchange.lbr.ru/transport/description/20"><img src="http://exchange.lbr.ru/images/button.jpg" width="116" height="25" style="border: 0; margin-right: 10px;" alt="Кнопка"></a><a href="http://exchange.lbr.ru/transport/description/20" style="font-weight: bold; color: #008672 !important">jjj - ооо</a>
+                                                </td>
+                                                <td style="padding: 0 0 50px; width: 200px">
+                                                    <a href="http://exchange.lbr.ru/transport/description/20"><img src="http://exchange.lbr.ru/images/button.jpg" width="116" height="25" style="border: 0; margin-right: 10px;" alt="Кнопка"></a><a href="http://exchange.lbr.ru/transport/description/20" style="font-weight: bold; color: #008672 !important">jjj - ооо</a>
+                                                </td>
+                                                <td style="padding: 0 0 50px; width: 200px">
+                                                    <p style="padding: 0; font-size: 15pt; font-family: Calibri; color: black; margin: 0; text-align: justify; line-height: 13pt;" style="text-align: left;"><a href="http://exchange.lbr.ru/transport/description/20"><img src="http://exchange.lbr.ru/images/button.jpg" width="116" height="25" style="border: 0; margin-right: 10px;" alt="Кнопка"></a><a href="http://exchange.lbr.ru/transport/description/20" style="font-weight: bold; color: #008672 !important">jjj - ооо</a></p>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td style="padding: 0 0 50px;">
-                                                    <p style="padding: 0; font-size: 15pt; font-family: Calibri; color: black; margin: 0; text-align: justify; line-height: 13pt;" style="text-align: left;"><a href="http://exchange.lbr.ru/transport/description/20" style="font-weight: bold; color: #008672 !important">jjj - ооо</a></p>
+                                                    <p style="padding: 0; font-size: 15pt; font-family: Calibri; color: black; margin: 0; text-align: justify; line-height: 13pt;" style="text-align: left;"><a href="http://exchange.lbr.ru/transport/description/20"><img src="http://exchange.lbr.ru/images/button.jpg" width="116" height="25" style="border: 0; margin-right: 10px;" alt="Кнопка"></a><a href="http://exchange.lbr.ru/transport/description/20" style="font-weight: bold; color: #008672 !important">Свердловская область, г. Березовский, Режевской тракт,15 км - Амурская обл., г. Благовещенск , с.Садовое</a></p>
                                                 </td>
                                             </tr>
                                         </table>
@@ -65,7 +79,7 @@
                     </tr>
                     <tr>
                         <td style="background-color: #ccc; height: 38px; width: 500px;">
-                            <a href="http://exchange.lbr.ru/" style="color: #008672 !important">www.exchange.lbr.ru</a>  
+                            <a href="http://exchange.lbr.ru/" style="color: #008672 !important; padding-left: 20px">www.exchange.lbr.ru</a>  
                         </td>
                     </tr>
                 </table>
