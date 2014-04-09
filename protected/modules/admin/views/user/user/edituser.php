@@ -6,7 +6,7 @@
  */
     $submit_text = 'Сохранить';
     $name = $model->id;
-    $delete_button = CHtml::link('Удалить пользователя', '/admin/user/deleteuser/id/'.$model->id, array('id'=>'del_'.$model->name,'class'=>'btn del', 'onclick'=>'return confirm("Внимание! Пользователь будет безвозвратно удален. Продолжить?")'));
+    $delete_button = CHtml::link('Удалить пользователя', '/admin/user/deleteuser/id/'.$model->id, array('id'=>'del_'.$model->name,'class'=>'btn-admin btn-del', 'onclick'=>'return confirm("Внимание! Пользователь будет безвозвратно удален. Продолжить?")'));
     $header_form = 'Редактирование пользователя "'.$model->company. '"';
     $action = '/admin/user/edituser/id/'.$model->id;
     if (!$model->id) {
@@ -39,9 +39,10 @@
     ),));
 ?>
 <div class="buttons">
-<?php  echo $delete_button; 
-    echo CHtml::button('Закрыть пользователя',array('onclick'=>'$(".total .right").html(" ");','class'=>'btn'));
-    echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn btn-green')); ?>
+<?php  
+    echo CHtml::button('Закрыть',array('onclick'=>'$(".total .right").html(" ");','class'=>'btn-admin'));
+    echo $delete_button; 
+    echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn-admin')); ?>
 </div>
 <div class="company field">
 <?php  echo $form->error($model, 'company'); 

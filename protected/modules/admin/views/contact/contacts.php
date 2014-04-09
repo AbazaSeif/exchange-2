@@ -11,7 +11,7 @@
     <div class="left">
     <div class="create-button">
      <?php
-         echo CHtml::ajaxLink('Создать', '/admin/contact/createcontact/', array('update'=>'.right'), array('class'=>'btn-green btn'));
+         echo CHtml::ajaxLink('Создать контактное лицо', '/admin/contact/createcontact/', array('update'=>'.right'), array('class'=>'btn-admin btn-create'));
      ?>   
     </div>
     <?php $this->widget('zii.widgets.CListView', array(

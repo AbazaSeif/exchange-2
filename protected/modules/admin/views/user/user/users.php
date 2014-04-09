@@ -8,7 +8,7 @@
     <div class="left">
     <div class="create-button">
      <?php
-         echo CHtml::ajaxLink('Создать', '/admin/user/createuser/', array('update'=>'.right'), array('class'=>'btn-green btn'));
+         echo CHtml::ajaxLink('Создать пользователя', '/admin/user/createuser/', array('update'=>'.right'), array('class'=>'btn-admin btn-create'));
      ?>   
     </div>
     <?php $this->widget('zii.widgets.CListView', array(
