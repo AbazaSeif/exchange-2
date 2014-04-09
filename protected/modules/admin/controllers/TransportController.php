@@ -198,7 +198,7 @@ class TransportController extends Controller
 
     public function actionEditTransport($id)
     {
-        if(Yii::app()->user->checkAccess('editTransport')){
+        if(Yii::app()->user->checkAccess('editTransport')) {
             $model = Transport::model()->findByPk($id);
             $form = new TransportForm;
             $form->attributes = $model->attributes;
@@ -270,24 +270,7 @@ class TransportController extends Controller
                     
                     Changes::saveChange($message);
                 }
-                
-                if(!isset($_POST['Rates'])) { // if no rates
-                    $model['rate_id'] = NULL;
-                    $criteria = new CDbCriteria;
-                    $criteria->addCondition('transport_id = ' . $model['id']);
-                    
-                    // Delete all rates and save changes
-                    Changes::saveChangeInRates($criteria, $model['id']);
-                }
-                
-                /* if(!isset($_POST['Points'])) { // if no points
-                    $criteria = new CDbCriteria;
-                    $criteria->addCondition('t_id = ' . $model['id']);
-                    
-                    // Delete all points and save changes
-                    Changes::saveChangeInPoints($criteria, $model['id']);
-                }*/
-                
+
                 if($model->save()) {
                     Yii::app()->user->setFlash('saved_id', $model->id);
                     Yii::app()->user->setFlash('message', 'Перевозка сохранена успешно.');

@@ -8,7 +8,7 @@
     $name = $model->id;
     $allCompanies = $this->getCompanies();
     $companies = array();
-    $delete_button = CHtml::link('Удалить', '/admin/contact/deletecontact/id/'.$model->id, array('id'=>'del_'.$model->name,'class'=>'btn del', 'onclick'=>'return confirm("Внимание! Контактное лицо будет безвозвратно удалено. Продолжить?")'));
+    $delete_button = CHtml::link('Удалить', '/admin/contact/deletecontact/id/'.$model->id, array('id'=>'del_'.$model->name,'class'=>'btn-admin btn-del', 'onclick'=>'return confirm("Внимание! Контактное лицо будет безвозвратно удалено. Продолжить?")'));
     $header_form = 'Редактирование контактного лица "'.$model->name . ' ' . $model->surname . '"';
     $action = '/admin/contact/editcontact/id/'.$model->id;
     if (!$model->id) {
@@ -44,9 +44,10 @@
     ),));
 ?>
 <div class="buttons">
-<?php  echo $delete_button;
-    echo CHtml::button('Закрыть',array('onclick'=>'$(".total .right").html(" ");','class'=>'btn'));
-    echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn btn-green')); ?>
+<?php  
+    echo CHtml::button('Закрыть',array('onclick'=>'$(".total .right").html(" ");','class'=>'btn-admin'));
+    echo $delete_button;
+    echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn-admin')); ?>
 </div>
 <div class="firm field">
 <?php echo $form->error($model, 'parent');

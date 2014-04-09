@@ -2,7 +2,7 @@
     $header_form = '"'.$model->location_from.' &mdash; '.$model->location_to . '"';
     $submit_text = 'Сохранить';
     $close_text = 'Закрыть';
-    $delete_button = CHtml::link('Удалить перевозку', '/admin/transport/deletetransport/id/'.$model->id, array('id'=>'del_'.$model->id,'class'=>'btn-admin btn-del', 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
+    $delete_button = CHtml::link('Удалить перевозку', '/admin/transport/deletetransport/id/'.$model->id, array('id'=>$model->id,'class'=>'btn-admin btn-del', 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
     $duplicate_button = CHtml::link('Копировать', '/admin/transport/duplicatetransport/id/'.$model->id, array('id'=>'dup_'.$model->id,'class'=>'btn-admin'));//, 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
     $action = '/admin/transport/edittransport/id/'.$model->id;
     if (!$model->id) {
@@ -187,6 +187,7 @@
 </div>
 <div>
     <div class="header-h4">Список ставок</div>
+    <div id="rate-message" class="hide"><div></div></div>
     <?php if(count($rates)): ?>
     <ul id="rates-all">
         <li>
@@ -197,15 +198,15 @@
         </li>
     <?php foreach ($rates as $item){
         //var_dump($item);
-            if($minRateId == $item['id']) echo '<li class="item win">';
-            else echo '<li class="item">';
+            if($minRateId == $item['id']) echo '<li class="item win" r-id="'.$item['id'].'">';
+            else echo '<li class="item" r-id="'.$item['id'].'">';
             echo '<span>'.date("d-m-Y H:i", strtotime($item['date'])).'</span>';
-            echo '<span>' . $item['company'] .'</span>';
+            echo '<span>' . $item['company'] . '</span>';
             echo '<span>';
             echo '<span class="price">'.$item['price'].'</span>';
             echo CHtml::textField('Rates['.$item['id'].']', $item['price'], array('class'=>'form-price'));
             echo '</span>';
-            echo '<span class="del-col del-row"></span>';
+            echo '<span>' . '<span class="hide">' . CHtml::button('',array('class'=>'del-col confirm-row')) . '</span>' . '<span>' . CHtml::button('',array('class'=>'del-col del-row')) . '</span>';
             echo '</li>';
         }?>
     </ul>

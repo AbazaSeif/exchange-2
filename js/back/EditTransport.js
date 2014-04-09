@@ -30,11 +30,53 @@ function ЕditTransport() {
             timeFormat: 'HH:mm',
         });
 		
-		$( "#TransportForm_date_to_customs_clearance_RF" ).datetimepicker({
+	$( "#TransportForm_date_to_customs_clearance_RF" ).datetimepicker({
             dateFormat: 'dd-mm-yy',
             timeFormat: 'HH:mm',
         });
-		
+        
+        $( ".del-row" ).on('click', function() {
+            $.ajax({
+                type: 'POST',
+                url: '/admin/rate/deleteRate',
+                dataType: 'json',
+                data:{
+                    id: $(this).parent().parent().parent().attr('r-id'),
+                    transportId: $('.btn-del').attr('id'),
+                },
+                success: function(response) {
+                    $("li.item[r-id='" + response.id + "']").css('display', 'none');
+                    if(response.minRateId === 'close') {
+                        var rates = $('#rates-all');
+                        rates.css('display', 'none');
+                        rates.parent().append('<div class="no-rates">Нет ставок</div>');
+                    } else if(response.minRateId !== null) $("li.item[r-id='" + response.minRateId + "']").addClass('win');
+                    
+                    $('#rate-message div').html(response.message);
+                    $('#rate-message').removeClass('hide');
+            }}); 
+                     
+        });
+        $( ".confirm-row" ).on('click', function() {
+            $.ajax({
+                type: 'POST',
+                url: '/admin/rate/editRate',
+                dataType: 'json',
+                data:{
+                    id: $(this).parent().parent().parent().attr('r-id'),
+                    value: $(this).parent().parent().parent().find('.price').text(),
+                    transportId: $('.btn-del').attr('id'),
+                },
+                success: function(response) {
+                    $('.confirm-row').parent().addClass('hide');
+                    if(response.minRateId !== null) {
+                        $("li.item.win").removeClass('win');
+                        $("li.item[r-id='" + response.minRateId + "']").addClass('win');
+                    };
+                    $('#rate-message div').html(response.message);
+                    $('#rate-message').removeClass('hide');
+            }});     
+        });
     };
     
     this.showFieldsForInternational = function(){  
@@ -72,6 +114,7 @@ function ЕditTransport() {
             parent.text(newVal);
             parent.next().val(newVal);
             $(this).remove(); 
+            parent.parent().parent().find('span.hide').removeClass('hide');
         });
         
         $("#rates-all").on('click', 'li span.del-row', function () {

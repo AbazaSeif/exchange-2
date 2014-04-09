@@ -96,7 +96,7 @@ class Transport extends CActiveRecord
 	 */
 	public function attributeLabels()
 	{
-		return array(
+                return array(
                     'id' => 'ID',
                     't_id' => 'Id 1c',
                     'rate_id' => 'ID Ставки',
@@ -116,7 +116,7 @@ class Transport extends CActiveRecord
                     'date_to_customs_clearance_RF' => 'Дата доставки в пункт таможенной очистки в РФ',
                     'customs_clearance_RF' => 'Место таможенной очистки в РФ',
                     'customs_clearance_EU' => 'Место таможенного оформления в ЕС',
-		);
+                );
 	}
 
 	/**
@@ -170,115 +170,4 @@ class Transport extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-        
-        protected function afterSave()
-        {
-            //echo '<pre>';
-            //var_dump(111);
-            
-            parent::afterSave();
-            $inputArray = $_POST['Rates'];
-            $pointsArray = $_POST['Points'];
-            $transportId = $_POST['TransportForm']['id'];
-            $transportModel = Transport::model()->findByPk($transportId);
-            
-            if (isset($inputArray)) {
-                $arrayKeys = array();
-                $priceChanges = array();
-
-                // Edit Rates
-                foreach($inputArray as $id=>$price) {
-                    $arrayKeys[] = $id;
-                    $model = Rate::model()->findByPk($id);
-                    
-                    if(trim($model['price']) != trim($price)) {
-                        $priceChanges[$id]['before'] = $model['price'];
-                        $priceChanges[$id]['after'] = $price;
-                        $model['price'] = $price;
-                        $model->save();
-                    }
-                }
-/*
-                if(!empty($priceChanges)) {
-                    $minRate = Rate::model()->findByPk($transportModel->rate_id);
-                    $minPrice = $minRate->price;
-                    $message = 'В перевозке "' . $transportModel['location_from'] . ' — ' . $transportModel['location_to'] . '" были изменены следующие ставки: ';
-                    $k = 0;
-
-                    foreach($priceChanges as $key => $value){
-                        $k++;
-                        $message .= $k . ') Ставка с id = '. $key . ' - цена ' . $priceChanges[$key]['before'] . ' на ' . $priceChanges[$key]['after'] . '; ';
-
-                        if($minPrice > $priceChanges[$key]['after']){
-                            $transportModel->rate_id = $minRateId;
-                            $transportModel->save();
-                        }
-                    }
-
-                    Changes::saveChange($message);
-
-                }
-*/
-                $criteria = new CDbCriteria;
-                $criteria->addCondition('transport_id = ' . $transportId);
-                $criteria->addNotInCondition('id', $arrayKeys);
-
-                // Delete rates and save changes
-                Changes::saveChangeInRates($criteria, $transportId, $arrayKeys, $priceChanges);
-                // if min rate was delete
-                /*if(!in_array($transportModel->rate_id, $arrayKeys) || array_key_exists($transportModel->rate_id, $priceChanges)) {
-                    $minPrice = Yii::app()->db->createCommand()
-                        ->select('min(price) as price')
-                        ->from('rate')
-                        ->where('transport_id = :id', array(':id' => $transportId))
-                        ->group('transport_id')
-                        ->queryRow()
-                    ;
-
-                    $model = Yii::app()->db->createCommand()
-                        ->select('id')
-                        ->from('rate')
-                        ->where('transport_id = :id and price = :price', array(':id' => $transportId, ':price' => $minPrice['price']))
-                        ->queryRow()
-                    ;
-                    
-                    $transportModel['rate_id'] = $model['id'];
-                    //$transportModel->save();
-                }*/
-            }
-
-            /*if (isset($pointsArray)){
-                $arrayKeys = array();
-                $pointChanges = array();
-                // Edit Rates
-                foreach($pointsArray as $id=>$point) {
-                    $arrayKeys[] = $id;
-                    $model = TransportInterPoint::model()->findByPk($id);
-                    if(trim($model['point']) != trim($point)) {
-                        $pointChanges[$id]['before'] = $model['point'];
-                        $pointChanges[$id]['after'] = $point;
-                        $model['point'] = $point;
-                        $model->save();
-                    }
-                }
-
-                if(!empty($pointChanges)){
-                    $message = 'В перевозке "' . $transportModel['location_from'] . ' — ' . $transportModel['location_to'] . '" были изменены следующие промежуточные пункты: ';
-                    $k = 0;
-                    foreach($pointChanges as $key => $value){
-                        $k++;
-                        $message .= $k . ') Пункт с id = '. $key . ' - пункт "' . $pointChanges[$key]['before'] . '" на "' . $pointChanges[$key]['after'] . '"; ';
-                    }
-                    Changes::saveChange($message);
-                }
-
-                $criteria = new CDbCriteria;
-                $criteria->addCondition('t_id = ' . $transportId);
-                $criteria->addNotInCondition('id', $arrayKeys);
-
-                // Delete points and save changes
-                Changes::saveChangeInPoints($criteria, $transportId);
-            }*/
-            return true;
-        }
 }
