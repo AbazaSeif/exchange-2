@@ -1,10 +1,7 @@
 <h1>Перевозки</h1>
 <div class="create-transport">
     <?php
-        echo CHtml::link('Создать перевозку', '/admin/transport/createtransport/', array('class' => 'btn-admin btn'));
-        /*if ($mess = Yii::app()->user->getFlash('message')){
-            echo '<div class="trMessage success">'.$mess.'</div>';
-        }*/
+        echo CHtml::link('Создать перевозку', '/admin/transport/createtransport/', array('class' => 'btn-admin btn-create'));
     ?>
 </div>
 <div style="clear: both"></div>
