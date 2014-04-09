@@ -95,6 +95,10 @@ input, textarea{
 input.btn-admin{
     padding: 0 20px;
 }
+.btn-admin.btn-create{
+    margin-bottom: 10px !important;
+    margin-left: 0 !important;
+}
 .btn-create:before {
     content: url("/images/ico-create.png");
 }
