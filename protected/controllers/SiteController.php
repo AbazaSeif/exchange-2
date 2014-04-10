@@ -201,50 +201,57 @@ class SiteController extends Controller
             );
             
             if($user) {
-                if($user->email) {
-                    $password = User::randomPassword();
-                    $user->password = crypt($password, User::model()->blowfishSalt());
-                    if($user->save()) {
-                        // send mail to ferryman with new password
+                if($user->status != User::USER_NOT_CONFIRMED && $user->status != User::USER_TEMPORARY_BLOCKED && $user->status != User::USER_BLOCKED){
+                    if($user->email) {
+                        $password = User::randomPassword();
+                        $user->password = crypt($password, User::model()->blowfishSalt());
+                        if($user->save()) {
+                            // send mail to ferryman with new password
+                            $email = new TEmail;
+                            $email->from_email = Yii::app()->params['adminEmail'];
+                            $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+                            $email->to_email   = $user->email;
+                            $email->to_name    = '';
+                            $email->subject    = 'Смена пароля';
+                            $email->type = 'text/html';
+                            $email->body = '<div>'.
+                                    '<p>Ваш пароль для "Онлайн биржи перевозок ЛБР-АгроМаркет" был изменен:</p>'.
+                                    '<p>Новый пароль: <b>'.$password.'</b></p>'.
+                                    '<p>Для смены пароля зайдите в свой аккаунт и воспользуйтесь вкладкой "Настроки->Смена пароля"</p>'.
+                                '</div>
+                                <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+                            ';
+                            $email->sendMail();
+                            Dialog::message('flash-success', 'Отправлено!', 'Инструкции к дальнейшим действиям были отправлены на ваш почтовый ящик.');
+                        } else Yii::log($user->getErrors(), 'error');
+                    } else {
+                        Dialog::message('flash-success', 'Внимание!', 'Ваша заявка на восстановление доступа отправлена, в ближайшее время с вами свяжутся представители нашей компании.');
+                        // send mail to logist
                         $email = new TEmail;
                         $email->from_email = Yii::app()->params['adminEmail'];
                         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-                        $email->to_email   = $user->email;
+                        $email->to_email   = Yii::app()->params['supportEmail'];
                         $email->to_name    = '';
-                        $email->subject    = 'Смена пароля';
+                        $email->subject    = 'Восстановление доступа';
                         $email->type = 'text/html';
                         $email->body = '<div>'.
-                                '<p>Ваш пароль для "Онлайн биржи перевозок ЛБР-АгроМаркет" был изменен:</p>'.
-                                '<p>Новый пароль: <b>'.$password.'</b></p>'.
-                                '<p>Для смены пароля зайдите в свой аккаунт и воспользуйтесь вкладкой "Настроки->Смена пароля"</p>'.
+                                '<p>Перевозчик "'. $user->company. '" ИНН/УНП = '. $user->inn .' запросил восстановление доступов, однако он не указал email. </p>'.
+                                '<p>Контактный телефон: '. $user->phone . '</p>'.
                             '</div>
                             <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
                         ';
                         $email->sendMail();
-                        Dialog::message('flash-success', 'Отправлено!', 'Инструкции к дальнейшим действиям были отправлены на ваш почтовый ящик.');
-                    } else Yii::log($user->getErrors(), 'error');
+                    }
                 } else {
-                    Dialog::message('flash-success', 'Внимание!', 'Ваша заявка на восстановление доступа отправлена, в ближайшее время с вами свяжутся представители нашей компании.');
-                    // send mail to logist
-                    $email = new TEmail;
-                    $email->from_email = Yii::app()->params['adminEmail'];
-                    $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-                    $email->to_email   = Yii::app()->params['supportEmail'];
-                    $email->to_name    = '';
-                    $email->subject    = 'Восстановление доступа';
-                    $email->type = 'text/html';
-                    $email->body = '<div>'.
-                            '<p>Перевозчик "'. $user->company. '" ИНН/УНП = '. $user->inn .' запросил восстановление доступов, однако он не указал email. </p>'.
-                            '<p>Контактный телефон: '. $user->phone . '</p>'.
-                        '</div>
-                        <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
-                    ';
-                    $email->sendMail();
+                    if(User::USER_NOT_CONFIRMED == $user->status) $message = 'не подтверждена';
+                    else if(User::USER_TEMPORARY_BLOCKED == $user->status) $message = 'временно заблокирована';
+                    else if(User::USER_BLOCKED == $user->status) $message = 'заблокирована';
+                    Dialog::message('flash-error', 'Внимание!', ' Восстановление доступа невозможно. Ваша учетная запись ' . $message.'.');
                 }
             } else {
                 Dialog::message('flash-error', 'Внимание!', 'Пользователя с таким "ИНН/УНП" не найдено, свяжитесь с отделом логистики.');
             }
-            $this->redirect('/user/login/');
+            $this->redirect('/');
             
         } else {
             $this->render('restore', array('model' => $model));
@@ -254,9 +261,9 @@ class SiteController extends Controller
     public function sendMail($to, $typeMessage, $post)
     {
         $email = new TEmail;
-        $email->from_email = Yii::app()->params['adminEmail'];
+        $email->from_email = 'cheshenkov@lbr.ru'; //Yii::app()->params['adminEmail'];
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = 'support.ex@lbr.ru';//$to;
+        $email->to_email   = 'krilova@lbr.ru';    //'support.ex@lbr.ru';//$to;
         $email->to_name    = '';
         $email->subject    = 'Заявка на регистрацию';
         $email->type       = 'text/html';
