@@ -220,6 +220,11 @@
 </div>
 <script>
 $(document).ready(function(){
+    var activeType = parseInt(sessionStorage.getItem('transportType'));
+    $('#close-transport').click(function(){
+        if(isNaN(activeType)) document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/transport";
+        else document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/transport/index/transportType/"+activeType;
+    });
     var editor = new ЕditTransport();
     editor.initCalendar();
     editor.showFieldsForInternational();
@@ -233,7 +238,6 @@ $(document).ready(function(){
        /* $( "#points-all" ).sortable({
             revert: true
         });*/
-    <?php endif; ?>   
-    $('#close-transport').click(function(){document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/transport/";})
+    <?php endif; ?>
 });
 </script>

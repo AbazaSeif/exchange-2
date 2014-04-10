@@ -2,19 +2,31 @@
 
 class TransportController extends Controller
 {
-    public function actionIndex()
+    public function actionIndex($transportType = 2)
     {
         if(Yii::app()->user->checkAccess('readTransport'))
         {
             $criteriaActive = new CDbCriteria();            
-            $criteriaActive->condition = 't.status = :status';
-            $criteriaActive->params = array(':status' => 1);
+            if($transportType != 2) {
+                $criteriaActive->condition = 't.status = :status and t.type = :type';
+                $criteriaActive->params = array(':status' => 1, ':type' => $transportType);
+            } else {
+                $criteriaActive->condition = 't.status = :status';
+                $criteriaActive->params = array(':status' => 1);
+            }
+            
             $criteriaArchive = new CDbCriteria();
-            $criteriaArchive->compare('status', 0);
+            if($transportType != 2) {
+                $criteriaArchive->condition = 't.status = :status and t.type = :type';
+                $criteriaArchive->params = array(':status' => 0, ':type' => $transportType);
+            } else {
+                $criteriaArchive->condition = 't.status = :status';
+                $criteriaArchive->params = array(':status' => 0);
+            }
             
             $sort = new CSort();
             $sort->sortVar = 'sort';
-            $sort->defaultOrder = 'location_from ASC';
+            $sort->defaultOrder = 'date_close desc';
             
             $sort->attributes = array(
                 'location_from' => array(
@@ -41,37 +53,7 @@ class TransportController extends Controller
                     'default' => 'asc',
                 ),
             );
-            
-            $sortArchive = new CSort();
-            $sortArchive->sortVar = 'sort';
-            $sortArchive->defaultOrder = 'location_from ASC';
-            
-            $sortArchive->attributes = array(
-                'location_from' => array(
-                    'location_from' => 'Место разгрузки',
-                    'asc' => 'location_from ASC',
-                    'desc' => 'location_from DESC',
-                    'default' => 'asc',
-                ),
-                'location_to' => array(
-                    'location_to' => 'Место загрузки',
-                    'asc' => 'location_to ASC',
-                    'desc' => 'location_to DESC',
-                    'default' => 'asc',
-                ),
-                't_id' => array(
-                    't_id' => 'Id перевозки',
-                    'asc' => 't_id ASC',
-                    'desc' => 't_id DESC',
-                    'default' => 'asc',
-                ),
-                'date_close' => array(
-                    'asc' => 'date_close ASC',
-                    'desc' => 'date_close DESC',
-                    'default' => 'asc',
-                ),
-            );
-            
+
             $dataActive = new CActiveDataProvider('Transport', 
                 array(
                     'criteria' => $criteriaActive,
@@ -85,7 +67,7 @@ class TransportController extends Controller
             $dataArchive = new CActiveDataProvider('Transport', 
                 array(
                     'criteria' => $criteriaArchive,
-                    'sort' => $sortArchive,
+                    'sort' => $sort,
                     'pagination' => array(
                         'pageSize'=>'10'
                     )
@@ -99,7 +81,7 @@ class TransportController extends Controller
                 $view = $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'points'=>$points), true, true);
             }
             
-            $this->render('transport', array('dataActive'=>$dataActive, 'dataArchive'=>$dataArchive, 'view'=>$view));
+            $this->render('transport', array('dataActive'=>$dataActive, 'dataArchive'=>$dataArchive, 'view'=>$view, 'type' => $transportType));
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }

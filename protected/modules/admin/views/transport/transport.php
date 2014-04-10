@@ -2,6 +2,12 @@
 <div class="create-transport">
     <?php
         echo CHtml::link('Создать перевозку', '/admin/transport/createtransport/', array('class' => 'btn-admin btn-create'));
+
+        echo CHtml::dropDownList('type-transport', $type, array(
+            0=>'Международные перевозки',
+            1=>'Региональные перевозки',
+            2=>'Все перевозки',
+        )); 
     ?>
 </div>
 <div style="clear: both"></div>
@@ -71,10 +77,16 @@
             $("#tabs").tabs({active: 0});
         } else $("#tabs").tabs({active: activeTab});
         $( "#tabs").tabs();
-        
         $('li.ui-state-default.ui-corner-top > a').click(function(){
             var active = $("#tabs").tabs("option", "active");
             sessionStorage.setItem('transportActive', active);
-        });        
+        });
+        
+        var activeType = parseInt(sessionStorage.getItem('transportType'));
+        if(!isNaN(activeType)) $('#type-transport').val(activeType);
+        $('#type-transport').change(function(){
+            sessionStorage.setItem('transportType', this.value);
+            document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/transport/index/transportType/" + this.value;
+        });
     });
 </script>
