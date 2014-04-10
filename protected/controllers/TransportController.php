@@ -32,20 +32,24 @@ class TransportController extends Controller
 
     public function actionDescription($id)
     {
-        $id_exists = Transport::model()->exists('id = :id', array(":id"=>$id));
-        if (!$id_exists){
-             throw new CHttpException(404,Yii::t('yii','Страница не найдена'));
+        if(!Yii::app()->user->isGuest){
+            $id_exists = Transport::model()->exists('id = :id', array(":id"=>$id));
+            if (!$id_exists){
+                 throw new CHttpException(404,Yii::t('yii','Страница не найдена'));
+            }
+            $transportInfo=Yii::app()->db->createCommand("SELECT * from transport where id='".$id."'")->queryRow();
+            $allRatesForTransport = Yii::app()->db->createCommand()
+                ->select('r.date, r.price, u.name')
+                ->from('rate r')
+                ->join('user u', 'r.user_id=u.id')
+                ->where('r.transport_id=:id', array(':id'=>$id))
+                ->order('r.date desc')
+                ->queryAll()
+            ;
+            $this->render('user.views.transport.item', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
+        } else {
+            $this->redirect('/');
         }
-        $transportInfo=Yii::app()->db->createCommand("SELECT * from transport where id='".$id."'")->queryRow();
-        $allRatesForTransport = Yii::app()->db->createCommand()
-            ->select('r.date, r.price, u.name')
-            ->from('rate r')
-            ->join('user u', 'r.user_id=u.id')
-            ->where('r.transport_id=:id', array(':id'=>$id))
-            ->order('r.date desc')
-            ->queryAll()
-        ;
-        $this->render('user.views.transport.item', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
     }
 
     /* Ajax update rate for current transport */
