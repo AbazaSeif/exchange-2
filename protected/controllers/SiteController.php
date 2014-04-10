@@ -201,7 +201,7 @@ class SiteController extends Controller
             );
             
             if($user) {
-                if(!$user->status){
+                if($user->status != User::USER_NOT_CONFIRMED && $user->status != User::USER_TEMPORARY_BLOCKED && $user->status != User::USER_BLOCKED){
                     if($user->email) {
                         $password = User::randomPassword();
                         $user->password = crypt($password, User::model()->blowfishSalt());
@@ -242,11 +242,16 @@ class SiteController extends Controller
                         ';
                         $email->sendMail();
                     }
+                } else {
+                    if(User::USER_NOT_CONFIRMED == $user->status) $message = 'не подтверждена';
+                    else if(User::USER_TEMPORARY_BLOCKED == $user->status) $message = 'временно заблокирована';
+                    else if(User::USER_BLOCKED == $user->status) $message = 'заблокирована';
+                    Dialog::message('flash-error', 'Внимание!', ' Восстановление доступа невозможно. Ваша учетная запись ' . $message.'.');
                 }
             } else {
                 Dialog::message('flash-error', 'Внимание!', 'Пользователя с таким "ИНН/УНП" не найдено, свяжитесь с отделом логистики.');
             }
-            $this->redirect('/user/login/');
+            $this->redirect('/');
             
         } else {
             $this->render('restore', array('model' => $model));
