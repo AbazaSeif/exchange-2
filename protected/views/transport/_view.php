@@ -12,7 +12,6 @@
     $type = 'международная';
     
     $allPoints = TransportInterPoint::getPointsMin($data->id);
-
     if(!Yii::app()->user->isGuest){
         if(Yii::app()->user->isTransport){
             $model = UserField::model()->find('user_id = :id', array('id' => Yii::app()->user->_id));
@@ -44,14 +43,26 @@
     <div class="width-50">
         <div class="width-100">
             <div class="width-49">
+                <?php if(!Yii::app()->user->isGuest): ?>
                 <a class="t-header" href="<?php echo $action; ?>" >
                     <?php echo $data->location_from ?>
                 </a>
+                <?php else: ?>
+                <div class="t-header">
+                <?php echo $data->location_from ?>
+                </div>
+                <?php endif; ?>
             </div>
             <div class="width-49">
+                <?php if(!Yii::app()->user->isGuest): ?>
                 <a class="t-header" href="<?php echo $action; ?>" >
                     <?php echo $data->location_to ?>
                 </a>
+                <?php else: ?>
+                <div class="t-header">
+                <?php echo $data->location_to ?>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
         <div class="width-100">

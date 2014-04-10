@@ -254,9 +254,9 @@ class SiteController extends Controller
     public function sendMail($to, $typeMessage, $post)
     {
         $email = new TEmail;
-        $email->from_email = 'cheshenkov@lbr.ru';//Yii::app()->params['adminEmail'];
+        $email->from_email = 'cheshenkov@lbr.ru'; //Yii::app()->params['adminEmail'];
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = 'krilova@lbr.ru';//'support.ex@lbr.ru';//$to;
+        $email->to_email   = 'krilova@lbr.ru';    //'support.ex@lbr.ru';//$to;
         $email->to_name    = '';
         $email->subject    = 'Заявка на регистрацию';
         $email->type       = 'text/html';
