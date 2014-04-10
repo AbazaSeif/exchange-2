@@ -265,7 +265,8 @@ class SiteController extends Controller
             $description = (!empty($post['description'])) ? '<p>Примечание:<b>'.$post['description'].'</b></p>' : '' ;
             $email->body = '
               <div>
-                  <p>Компания "'.$post['firmName'].'" подала заявку на регистрацию в бирже перевозок ЛБР АгроМаркет.</p>
+                  '.$to.'
+                  <p>Компания "'.$post['company'].'" подала заявку на регистрацию в бирже перевозок ЛБР АгроМаркет.</p>
                   <p>Контактное лицо: <b>'.$post['name']. ' ' .$post['surname'].'</b></p>
                   <p>Телефон: <b>'.$post['phone'].'</b></p>
                   <p>Email: <b>'.$post['email'].'</b></p>'.

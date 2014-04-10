@@ -1,10 +1,17 @@
-<li>
 <?php
-if(Yii::app()->user->checkAccess('trEditUser'))
-{
-    echo CHtml::link($data->company, '/admin/user/edituser/id/'.$data->id.'/', array('id'=>'li_'.$data->id, 'class'=>'ajax'));
-}else{
-    echo '<span>'.$data->company.'</span>';
-}
+    $action = '/admin/user/edituser/id/'.$data->id.'/';
 ?>
-</li>
+<div class="a-user">
+    <div class="width-35">
+        <div class="width-100">
+            <a class="t-header" href="<?php echo $action; ?>" >
+                <?php echo '"' . $data->company . '"'?>
+            </a>
+        </div>
+    </div>
+    <div class="width-35">
+        <div class="width-100">
+            <img src=""/>
+        </div>
+    </div>
+</div>

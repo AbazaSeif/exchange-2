@@ -115,15 +115,17 @@ class UserController extends Controller
                         )
                     );
                     $form->attributes = $_POST['UserForm'];
-                    $view = $this->renderPartial('user/edituser', array('model'=>$form), true, true);
-                    $this->render('user/users', array('data'=>$dataProvider, 'view'=>$view));
+                    //$view = $this->renderPartial('user/edituser', array('model'=>$form), true, true);
+                    //$this->render('user/users', array('data'=>$dataProvider, 'view'=>$view));
+                    $this->render('user/edituser', array('model'=>$form), false, true);
                }
-            } else $this->renderPartial('user/edituser', array('model'=>$form), false, true);
+            } else $this->render('user/edituser', array('model'=>$form), false, true);
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
     }
 
+    
     public function actionEditUser($id) 
     {
         $model = User::model()->findByPk($id);   
@@ -220,7 +222,9 @@ class UserController extends Controller
                         $this->redirect('/admin/user/');
                     } else Yii::log($model->getErrors(), 'error');
                 }
-            } else $this->renderPartial('user/edituser', array('model' => $form), false, true);
+            } 
+            //else $this->renderPartial('user/edituser', array('model' => $form), false, true);
+            else $this->render('user/edituser', array('model' => $form), false, true);
         } else {
             throw new CHttpException(403, Yii::t('yii', 'У Вас недостаточно прав доступа.'));
         }
