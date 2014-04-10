@@ -47,8 +47,9 @@ class RateController extends Controller
                 $minRateId = $minRatePrice['id'];
                 $transportModel = Transport::model()->findByPk($transportId);
                 
-                $message = 'В перевозке "' . $transportModel->location_from . ' — ' . $transportModel->location_to . '" была изменена ставка ';
-                $message .= 'с id = '. $id . ' - цена "' . $oldPrice . '" на "' . $newPrice . '"';
+                $message = 'Изменена ставка с id = '. $id . ' в перевозке "' . $transportModel->location_from . ' — ' . $transportModel->location_to . '" '.
+                    ' - цена "' . $oldPrice . '" на "' . $newPrice . '"'
+                ;
                 
                 $transportModel->rate_id = $minRatePrice['id'];
                 $transportModel->save();
@@ -69,6 +70,8 @@ class RateController extends Controller
         if(Yii::app()->user->checkAccess('deleteRate') && $id != Yii::app()->user->getState('_id')) {
             $transportModel = Transport::model()->findByPk($transportId);
             Rate::model()->deleteByPk($id);
+            $message = 'Удалена ставка с id = '.$id.' в перевозке "' . $transportModel->location_from . ' — ' . $transportModel->location_to . '"';
+            Changes::saveChange($message);
             if((int)$transportModel->rate_id == (int)$id) {
                 $minPrice = Yii::app()->db->createCommand()
                     ->select('min(price) as price, id')
