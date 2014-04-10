@@ -661,7 +661,7 @@ form#contactform label {
     border-top: 6px solid rgb(239, 128, 27);
 }
 
-.transports .sorter ul li:last-child a.asc:after, .transports .sorter ul li a.desc:after{
+.transports .sorter ul li:last-child a.asc:after, .transports .sorter ul li:last-child a.desc:after{
     margin-top: 15px;
 }
 
