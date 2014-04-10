@@ -671,6 +671,8 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 #type-transport{
     float: right;
     margin: 0;
+    padding: 3px 4px 3px 5px;
+    margin-bottom: 10px;
 }
 /*.sorter ul li:nth-child(1), .sorter ul li:nth-child(2)  {
     width: 10%;
