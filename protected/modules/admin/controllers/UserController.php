@@ -230,7 +230,7 @@ class UserController extends Controller
     {
         $model = User::model()->findByPk($id);
         if (Yii::app()->user->checkAccess('trDeleteUser')) {
-            $name = $model['name'] . ' ' . $model['surname'];
+            $name = $model->company;
             if (User::model()->deleteByPk($id)) {
                 $message = 'Удален пользователь "' . $name . '"';
                 Changes::saveChange($message);
