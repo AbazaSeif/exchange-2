@@ -207,6 +207,26 @@ class SiteController extends Controller
                 $user->password = crypt($_POST['RegistrationForm']['password'], User::model()->blowfishSalt());
                 
                 if($user->save()) {
+                    $newFerrymanFields = new UserField;
+                    $newFerrymanFields->user_id = $user->id;
+                    $newFerrymanFields->mail_transport_create_1 = false;
+                    $newFerrymanFields->mail_transport_create_2 = false;
+                    $newFerrymanFields->mail_kill_rate = false;
+                    $newFerrymanFields->mail_before_deadline = false;
+                    $newFerrymanFields->mail_deadline = true;
+                    $newFerrymanFields->with_nds = (bool)$_POST['RegistrationForm']['nds'];
+                    if((int)$_POST['RegistrationForm']['show'] == 0){
+                        $newFerrymanFields->show_intl = true;
+                        $newFerrymanFields->show_regl = true;
+                    } else if((int)$_POST['RegistrationForm']['show'] == 1){
+                        $newFerrymanFields->show_intl = true;
+                        $newFerrymanFields->show_regl = false;
+                    } else {
+                        $newFerrymanFields->show_intl = false;
+                        $newFerrymanFields->show_regl = true;
+                    }
+                    $newFerrymanFields->save();
+                    /*****************************/
                     $email = new TEmail;
                     $email->from_email = Yii::app()->params['supportEmail'];
                     $email->from_name = 'Биржа перевозок ЛБР АгроМаркет';
@@ -218,6 +238,9 @@ class SiteController extends Controller
                         '<h5>test</h5>'
                     ;
                     $email->sendMail();
+                    /***************************************/
+                    $this->sendMail(Yii::app()->params['supportEmail'], 1, $_POST['RegistrationForm']);
+                    
                     Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Вы получите на почту инструкции по активации, когда ваша заявка будет рассмотрена. Спасибо за интерес, проявленный к нашей компании');
             
                 } else Yii::log($user->getErrors(), 'error');
@@ -291,12 +314,44 @@ class SiteController extends Controller
         }
     }
      
-    public function sendMail($to, $typeMessage, $post)
+    /*public function sendMail($to, $typeMessage, $post)
     {
         $email = new TEmail;
         $email->from_email = Yii::app()->params['adminEmail'];
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
         $email->to_email   = $to;
+        $email->to_name    = '';
+        $email->subject    = 'Заявка на регистрацию';
+        $email->type       = 'text/html';
+        
+        if(!empty($typeMessage)) {
+            $description = (!empty($post['description'])) ? '<p>Примечание:<b>'.$post['description'].'</b></p>' : '' ;
+            $email->body = '
+              <div>
+                  <p>Компания "'.$post['company'].'" подала заявку на регистрацию в бирже перевозок ЛБР АгроМаркет.</p>
+                  <p>Контактное лицо: <b>'.$post['name']. ' ' .$post['surname'].'</b></p>
+                  <p>Телефон: <b>'.$post['phone'].'</b></p>
+                  <p>Email: <b>'.$post['email'].'</b></p>'.
+                   $description .
+              '</div>
+              <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+            ';
+        } else {
+            $email->body = '
+                <div> 
+                    <p>Ваша регистрация будет рассмотрена и Вам будут высланы инструкции с дальнейшими действиями. </p>
+                </div>
+                <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+            ';
+        }
+        $email->sendMail();
+    }*/
+    public function sendMail($to, $typeMessage, $post)
+    {
+        $email = new TEmail;
+        $email->from_email = Yii::app()->params['adminEmail'];
+        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+        $email->to_email   = 'tttanyattt@mail.ru';//$to;
         $email->to_name    = '';
         $email->subject    = 'Заявка на регистрацию';
         $email->type       = 'text/html';
