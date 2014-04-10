@@ -20,12 +20,13 @@ class RateController extends Controller
     {
         $id = $_POST['id'];
         $minRateId = null;
-        $value = $_POST['value'];
+        $newPrice = $_POST['value'];
         $transportId = $_POST['transportId'];
         $model = Rate::model()->findByPk($id);
         if(Yii::app()->user->checkAccess('editRate')) {
             $prevPrice = $model->price;
-            $model->price = $value;
+            $oldPrice = $model->price;
+            $model->price = $newPrice;
             if($model->save()){
                 $minPrice = Yii::app()->db->createCommand()
                     ->select('min(price) as price')
@@ -45,8 +46,13 @@ class RateController extends Controller
                 
                 $minRateId = $minRatePrice['id'];
                 $transportModel = Transport::model()->findByPk($transportId);
+                
+                $message = 'В перевозке "' . $transportModel->location_from . ' — ' . $transportModel->location_to . '" была изменена ставка ';
+                $message .= 'с id = '. $id . ' - цена "' . $oldPrice . '" на "' . $newPrice . '"';
+                
                 $transportModel->rate_id = $minRatePrice['id'];
                 $transportModel->save();
+                Changes::saveChange($message);
                 $array = array('message'=>'Ставка успешно сохранена', 'minRateId'=>$minRateId);
                 echo json_encode($array);
             }
