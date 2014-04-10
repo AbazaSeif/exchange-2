@@ -138,7 +138,7 @@ class SiteController extends Controller
         $this->render('help');
     }
     
-    /*public function actionRegistration()
+    public function actionRegistration()
     {
         $model = new RegistrationForm;
 
@@ -188,8 +188,8 @@ class SiteController extends Controller
         } else {
             $this->render('registration', array('model' => $model));
         }
-    }*/
-    public function actionRegistration()
+    }
+    /*public function actionRegistration()
     {
         $model = new RegistrationForm;
 
@@ -226,7 +226,7 @@ class SiteController extends Controller
                         $newFerrymanFields->show_regl = true;
                     }
                     $newFerrymanFields->save();
-                    /*****************************/
+        
                     $email = new TEmail;
                     $email->from_email = Yii::app()->params['supportEmail'];
                     $email->from_name = 'Биржа перевозок ЛБР АгроМаркет';
@@ -238,7 +238,7 @@ class SiteController extends Controller
                         '<h5>test</h5>'
                     ;
                     $email->sendMail();
-                    /***************************************/
+                  
                     $this->sendMail(Yii::app()->params['supportEmail'], 1, $_POST['RegistrationForm']);
                     
                     Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Вы получите на почту инструкции по активации, когда ваша заявка будет рассмотрена. Спасибо за интерес, проявленный к нашей компании');
@@ -251,7 +251,7 @@ class SiteController extends Controller
         } else {
             $this->render('registration', array('model' => $model));
         }
-    }
+    }*/
     
     public function actionRestore()
     { 
