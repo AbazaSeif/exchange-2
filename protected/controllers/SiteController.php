@@ -138,7 +138,7 @@ class SiteController extends Controller
         $this->render('help');
     }
     
-    public function actionRegistration()
+    /*public function actionRegistration()
     {
         $model = new RegistrationForm;
 
@@ -185,6 +185,26 @@ class SiteController extends Controller
                 Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким ИНН/УНП уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');  
             }
             $this->redirect('/site/login/');
+        } else {
+            $this->render('registration', array('model' => $model));
+        }
+    }*/
+    public function actionRegistration()
+    {
+        $model = new RegistrationForm;
+
+        if (isset($_POST['RegistrationForm'])) {
+            $email = new TEmail;
+            $email->from_email = Yii::app()->params['supportEmail'];
+            $email->from_name = 'Биржа перевозок ЛБР АгроМаркет';
+            $email->to_email = 'tttanyattt@mail.ru';
+            $email->to_name = '';
+            $email->subject = 'test';
+            $email->type = 'text/html';
+            $email->body =
+                '<h5>test</h5>'
+            ;
+            $email->sendMail();
         } else {
             $this->render('registration', array('model' => $model));
         }
@@ -256,12 +276,12 @@ class SiteController extends Controller
         $email = new TEmail;
         $email->from_email = Yii::app()->params['adminEmail'];
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = 'tttanyattt@mail.ru';//$to;
+        $email->to_email   = $to;
         $email->to_name    = '';
         $email->subject    = 'Заявка на регистрацию';
         $email->type       = 'text/html';
         
-        /*if(!empty($typeMessage)) {
+        if(!empty($typeMessage)) {
             $description = (!empty($post['description'])) ? '<p>Примечание:<b>'.$post['description'].'</b></p>' : '' ;
             $email->body = '
               <div>
@@ -280,8 +300,7 @@ class SiteController extends Controller
                 </div>
                 <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
             ';
-        }*/
-        $email->body = 'test';
+        }
         $email->sendMail();
     }
      
