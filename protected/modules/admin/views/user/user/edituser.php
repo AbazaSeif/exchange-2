@@ -6,7 +6,7 @@
  */
     $submit_text = 'Сохранить';
     $name = $model->id;
-    $delete_button = CHtml::link('Удалить пользователя', '/admin/user/deleteuser/id/'.$model->id, array('id'=>'del_'.$model->name,'class'=>'btn-admin btn-del', 'onclick'=>'return confirm("Внимание! Пользователь будет безвозвратно удален. Продолжить?")'));
+    $delete_button = CHtml::link('Удалить', '/admin/user/deleteuser/id/'.$model->id, array('id'=>'del_'.$model->name,'class'=>'btn-admin btn-del', 'onclick'=>'return confirm("Внимание! Пользователь будет безвозвратно удален. Продолжить?")'));
     $header_form = 'Редактирование пользователя "'.$model->company. '"';
     $action = '/admin/user/edituser/id/'.$model->id;
     if (!$model->id) {
