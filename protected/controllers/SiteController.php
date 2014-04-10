@@ -351,7 +351,7 @@ class SiteController extends Controller
         $email = new TEmail;
         $email->from_email = Yii::app()->params['adminEmail'];
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = 'support.ex@lbr.ru';//$to;
+        $email->to_email   = 'support.ex@lbr.ru';//'tttanyattt@mail.ru';//$to;
         $email->to_name    = '';
         $email->subject    = 'Заявка на регистрацию';
         $email->type       = 'text/html';
@@ -361,6 +361,7 @@ class SiteController extends Controller
             $email->body = '
               <div>
                   <p>Компания "'.$post['company'].'" подала заявку на регистрацию в бирже перевозок ЛБР АгроМаркет.</p>
+                  <p>ИНН: "'.$post['inn'].'"</p>
                   <p>Контактное лицо: <b>'.$post['name']. ' ' .$post['surname'].'</b></p>
                   <p>Телефон: <b>'.$post['phone'].'</b></p>
                   <p>Email: <b>'.$post['email'].'</b></p>'.
@@ -371,7 +372,7 @@ class SiteController extends Controller
         } else {
             $email->body = '
                 <div> 
-                    <p>Ваша регистрация будет рассмотрена и Вам будут высланы инструкции с дальнейшими действиями. </p>
+                    <p>Ваша регистрация будет рассмотрена и Вам будeт выслано подтверждение на указанный почтовый ящик. </p>
                 </div>
                 <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
             ';
