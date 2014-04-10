@@ -256,16 +256,16 @@ class SiteController extends Controller
         $email = new TEmail;
         $email->from_email = Yii::app()->params['adminEmail'];
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = $to;
+        $email->to_email   = 'tttanyattt@mail.ru';//$to;
         $email->to_name    = '';
         $email->subject    = 'Заявка на регистрацию';
         $email->type       = 'text/html';
         
-        if(!empty($typeMessage)) {
+        /*if(!empty($typeMessage)) {
             $description = (!empty($post['description'])) ? '<p>Примечание:<b>'.$post['description'].'</b></p>' : '' ;
             $email->body = '
               <div>
-                  <p>Компания "'.$post['firmName'].'" подала заявку на регистрацию в бирже перевозок ЛБР АгроМаркет.</p>
+                  <p>Компания "'.$post['company'].'" подала заявку на регистрацию в бирже перевозок ЛБР АгроМаркет.</p>
                   <p>Контактное лицо: <b>'.$post['name']. ' ' .$post['surname'].'</b></p>
                   <p>Телефон: <b>'.$post['phone'].'</b></p>
                   <p>Email: <b>'.$post['email'].'</b></p>'.
@@ -280,8 +280,8 @@ class SiteController extends Controller
                 </div>
                 <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
             ';
-        }
-        
+        }*/
+        $email->body = 'test';
         $email->sendMail();
     }
      
