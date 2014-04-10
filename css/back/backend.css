@@ -674,15 +674,12 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     margin: 0 0 5px;
     text-align: left;
 }
-
-#u-content .sorter a{
-    color: #222222;
-    font-weight: bold;
-    font-size: 1.1em;
-    text-decoration: none;
-    float: left;
+#type-transport{
+    float: right;
+    margin: 0;
+    padding: 3px 4px 3px 5px;
+    margin-bottom: 10px;
 }
-
 /*.sorter ul li:nth-child(1), .sorter ul li:nth-child(2)  {
     width: 10%;
     text-align: left;

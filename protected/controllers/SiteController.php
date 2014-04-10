@@ -256,7 +256,7 @@ class SiteController extends Controller
         $email = new TEmail;
         $email->from_email = Yii::app()->params['adminEmail'];
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = $to;
+        $email->to_email   = 'support.ex@lbr.ru';//$to;
         $email->to_name    = '';
         $email->subject    = 'Заявка на регистрацию';
         $email->type       = 'text/html';
@@ -265,8 +265,7 @@ class SiteController extends Controller
             $description = (!empty($post['description'])) ? '<p>Примечание:<b>'.$post['description'].'</b></p>' : '' ;
             $email->body = '
               <div>
-                  '.$to.'
-                  <p>Компания "'.$post['company'].'" подала заявку на регистрацию в бирже перевозок ЛБР АгроМаркет.</p>
+                  <p>Компания "'. $post['ownership'] . ' '.$post['company'].'" подала заявку на регистрацию в бирже перевозок ЛБР АгроМаркет.</p>
                   <p>Контактное лицо: <b>'.$post['name']. ' ' .$post['surname'].'</b></p>
                   <p>Телефон: <b>'.$post['phone'].'</b></p>
                   <p>Email: <b>'.$post['email'].'</b></p>'.
@@ -277,12 +276,11 @@ class SiteController extends Controller
         } else {
             $email->body = '
                 <div> 
-                    <p>Ваша регистрация будет рассмотрена и Вам будут высланы инструкции с дальнейшими действиями. </p>
+                    <p>Ваша регистрация будет рассмотрена и Вам будет выслано подтверждение на почтовый ящик. </p>
                 </div>
                 <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
             ';
         }
-        
         $email->sendMail();
     }
      
