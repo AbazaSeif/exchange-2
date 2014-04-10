@@ -194,17 +194,26 @@ class SiteController extends Controller
         $model = new RegistrationForm;
 
         if (isset($_POST['RegistrationForm'])) {
-            $email = new TEmail;
-            $email->from_email = Yii::app()->params['supportEmail'];
-            $email->from_name = 'Биржа перевозок ЛБР АгроМаркет';
-            $email->to_email = 'tttanyattt@mail.ru';
-            $email->to_name = '';
-            $email->subject = 'test';
-            $email->type = 'text/html';
-            $email->body =
-                '<h5>test</h5>'
-            ;
-            $email->sendMail();
+            $newUser = User::model()->find(array(
+                'condition'=>'inn=:inn',
+                'params'=>array(':inn'=>$_POST['RegistrationForm']['inn']))
+            );
+            if(empty($newUser)) {
+                $email = new TEmail;
+                $email->from_email = Yii::app()->params['supportEmail'];
+                $email->from_name = 'Биржа перевозок ЛБР АгроМаркет';
+                $email->to_email = 'tttanyattt@mail.ru';
+                $email->to_name = '';
+                $email->subject = 'test';
+                $email->type = 'text/html';
+                $email->body =
+                    '<h5>test</h5>'
+                ;
+                $email->sendMail();
+            } else {
+                Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким ИНН/УНП уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');  
+            }
+            $this->redirect('/site/login/');
         } else {
             $this->render('registration', array('model' => $model));
         }
