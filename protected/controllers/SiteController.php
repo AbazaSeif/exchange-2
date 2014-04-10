@@ -199,18 +199,28 @@ class SiteController extends Controller
                 'params'=>array(':inn'=>$_POST['RegistrationForm']['inn']))
             );
             if(empty($newUser)) {
-                $email = new TEmail;
-                $email->from_email = Yii::app()->params['supportEmail'];
-                $email->from_name = 'Биржа перевозок ЛБР АгроМаркет';
-                $email->to_email = 'tttanyattt@mail.ru';
-                $email->to_name = '';
-                $email->subject = 'test';
-                $email->type = 'text/html';
-                $email->body =
-                    '<h5>test</h5>'
-                ;
-                $email->sendMail();
-                Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Вы получите на почту инструкции по активации, когда ваша заявка будет рассмотрена. Спасибо за интерес, проявленный к нашей компании');
+                $userInfo = array();
+                $user = new User();
+                $user->attributes = $_POST['RegistrationForm'];
+                $user->status = User::USER_NOT_CONFIRMED;
+                $user->company = $_POST['RegistrationForm']['ownership'] . ' "' . $_POST['RegistrationForm']['company'] . '"';
+                $user->password = crypt($_POST['RegistrationForm']['password'], User::model()->blowfishSalt());
+                
+                if($user->save()) {
+                    $email = new TEmail;
+                    $email->from_email = Yii::app()->params['supportEmail'];
+                    $email->from_name = 'Биржа перевозок ЛБР АгроМаркет';
+                    $email->to_email = 'tttanyattt@mail.ru';
+                    $email->to_name = '';
+                    $email->subject = 'test';
+                    $email->type = 'text/html';
+                    $email->body =
+                        '<h5>test</h5>'
+                    ;
+                    $email->sendMail();
+                    Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Вы получите на почту инструкции по активации, когда ваша заявка будет рассмотрена. Спасибо за интерес, проявленный к нашей компании');
+            
+                } else Yii::log($user->getErrors(), 'error');
             } else {
                 Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким ИНН/УНП уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');  
             }
