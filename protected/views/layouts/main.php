@@ -52,8 +52,10 @@
                 <?php $this->widget('ext.userMenu.UserMenu'); ?>
             </div>
             <div class="w-right">
+                <noscript><div style="display: none"></noscript>
                 <?php $this->renderPartial( 'user.views.site.dialog' ); ?>
                 <?php echo $content; ?>
+                <noscript></div></noscript>
             </div>
         </div>
         <div class="footer">
