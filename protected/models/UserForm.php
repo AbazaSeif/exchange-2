@@ -24,7 +24,8 @@ class UserForm extends CFormModel
     {
         return array(
             array('inn, status, phone, phone2', 'numerical', 'integerOnly'=>true),
-            array('company, country, password, region, district, inn, name, surname, phone, email', 'required'),
+            //array('company, country, password, region, district, inn, name, surname, phone, email', 'required'),
+            array('company, inn, name', 'required'),
             array('password, name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),
             array('email', 'email', 'message'=>'Неправильный Email адрес'),
             array('inn', 'length', 'max'=>12,

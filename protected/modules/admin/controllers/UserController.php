@@ -129,7 +129,20 @@ class UserController extends Controller
         $model = User::model()->findByPk($id);   
         $message = '';
         $form = new UserForm;
-        $form->attributes = $model->attributes;
+        //$form->attributes = $model->attributes;
+        
+        $form->country = $model->country;
+        $form->company = $model->company;
+        $form->country = $model->country;
+        $form->password = $model->password;
+        $form->region = $model->region;
+        $form->district = $model->district;
+        $form->inn = $model->inn;
+        $form->name = $model->name;
+        $form->surname = $model->surname;
+        $form->phone = $model->phone;
+        $form->email = $model->email;
+        
         $form->id = $id;
         if (Yii::app()->user->checkAccess('trEditUser')) {
             if (isset($_POST['UserForm'])) {

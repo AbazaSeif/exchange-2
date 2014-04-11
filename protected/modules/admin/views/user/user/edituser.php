@@ -37,6 +37,8 @@
                 }
             }'
     ),));
+//echo '<pre>';
+//var_dump($model->attributes);
 ?>
 <div class="buttons">
 <?php  
