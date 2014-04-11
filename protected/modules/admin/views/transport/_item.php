@@ -14,7 +14,7 @@
     
     if ($rate->price) {
         $showRate = floor($rate->price) . $currency;
-        if($ferrymanField->with_nds) $withNds .= ' (c НДС: '. ceil($rate->price + $rate->price * Yii::app()->params['nds']) . ' '. $currency . ')';
+        if($ferrymanField->with_nds) $withNds .= ' (c НДС: '. floor($rate->price + $rate->price * Yii::app()->params['nds']) . ' '. $currency . ')';
     }
 ?>
 
