@@ -20,11 +20,12 @@ class RegistrationForm extends CFormModel
     public $nds;
     public $show;
     public $iagree;
+    public $verifyCode;
 
     public function rules()
     {//Yii::log("------------------------------------",'info', 'application');
         return array(
-            array('company, iagree, password, confirm_password, country, region, district, inn, name, secondname, surname, phone, email', 'required'),
+            array('company, iagree, password, confirm_password, country, region, district, inn, name, secondname, surname, phone, email, verifyCode', 'required'),
             array('iagree', 'compare', 'compareValue' => true, 'message' => 'Для отправки формы на обработку требуется Ваше согласие' ),
             array('email', 'email'),
             array('company','match', 'pattern'=>'/^([\sa-zA-Zа-яА-ЯёЁ\d]+)$/i', 'message'=>'Поле "{attribute}" должно содержать только следующие символы: 0-9,a-z,A-Z,а-я,А-Я и пробел'),
@@ -34,7 +35,7 @@ class RegistrationForm extends CFormModel
             array('password', 'match', 'pattern'=>'/([a-zA-Zа-яА-Я]+)/', 'message'=>'Пароль должен содержать минимум одну букву'),
             array('password', 'match', 'pattern'=>'/([0-9]+)/', 'message'=>'Пароль должен содержать минимум одну цифру'),
             array('confirm_password', 'compare', 'compareAttribute'=>'password', 'message'=>'Пароли не совпадают'),
-            
+            array('verifyCode', 'captcha'),
             //array('password', 'passwordStrength'),
             //array('inn', 'unique', 'attributeName'=>'inn', 'className'=>'User', 'allowEmpty'=>false, 'skipOnError'=>true),
             //array('inn', 'unique', 'message' => 'Такой ИНН/УНП уже зарегистрирован'),
@@ -76,7 +77,8 @@ class RegistrationForm extends CFormModel
             'ownership'=>'Форма собственности',
             'nds' => 'Отображать цену с НДС',
             'show' => 'Показывать перевозки',
-            'iagree' => 'Согласен на обработку персональных данных, введенных в форму'
+            'iagree' => 'Согласен на обработку персональных данных, введенных в форму',
+            'verifyCode' => 'Код проверки',
         );
     }
 }

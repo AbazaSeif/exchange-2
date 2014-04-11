@@ -281,10 +281,7 @@ nav, menu, p, section,
     width: 50%;
 }
 
-#feedback-form .row.capture
-{
-    margin-left: 15%;
-}
+
 #feedback-form .row.capture a img{
     margin-bottom: 12px;
 }
@@ -307,7 +304,11 @@ nav, menu, p, section,
 #registration-form .row label{  
     display: block;
     float: left;
-    min-width: 20%;
+    min-width: 18%;
+}
+.row.capture
+{
+    margin-left: 18%;
 }
 
 #feedback-form .row label {  
