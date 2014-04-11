@@ -198,18 +198,21 @@ var rateList = {
         this.container.prepend(element);
     },
     createElement : function(initPrice, date, price, id, company, nds, ratePrice) {
-        if(initPrice < price){
+        var companyName = company;
+        var pos = companyName.indexOf("(");
+        if(pos > -1) companyName = companyName.substring(0, pos);
+        if(initPrice < price) {
             $('#rate-price').attr('init', price);
         }
         var newElement = "<div class='rate-one'>";
         
         if(id) {
             newElement = "<div id='" + id + "' class='rate-one'>";
-        } 
+        }
         
         newElement += "<div class='r-o-container'>" + 
                 "<span>" + date + "</span>" + 
-                "<div class='r-o-user'>" + company;
+                "<div class='r-o-user'>" + companyName;
         
         newElement += "</div>" +
             "</div>"
