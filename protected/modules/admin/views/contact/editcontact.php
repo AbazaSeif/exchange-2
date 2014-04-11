@@ -57,7 +57,7 @@
 <div class="firm field">
 <?php echo $form->error($model, 'company');
     echo $form->labelEx($model, 'company');
-    echo $form->textField($model, 'company'); ?>
+    echo $form->textField($model, 'company', array('disabled'=>true)); ?>
 </div>
 <div class="surname field">
 <?php  echo $form->error($model, 'surname'); 

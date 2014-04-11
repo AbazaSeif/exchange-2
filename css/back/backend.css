@@ -39,7 +39,7 @@ input, textarea{
     width: 49%;
 }
 
-#timer_deadline, #timer_label{
+#timer_deadline, #timer_label, #UserContactForm_company{
     border: none;
     cursor: default;
     box-shadow: none;
