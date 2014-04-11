@@ -33,6 +33,20 @@ class UserController extends Controller
                 $model = User::model()->findByPk($id_item);
                 $form  = new UserForm;
                 $form->attributes = $model->attributes;
+                
+                $form->country = $model->country;
+                $form->company = $model->company;
+                $form->country = $model->country;
+                $form->password = $model->password;
+                $form->region = $model->region;
+                $form->district = $model->district;
+                $form->inn = $model->inn;
+                $form->name = $model->name;
+                $form->surname = $model->surname;
+                $form->phone = $model->phone;
+                $form->email = $model->email;
+                $form->status = $model->status;
+                
                 $form->id = $id_item;
                 $view = $this->renderPartial('user/edituser', array('model'=>$form), true, true);
             }
@@ -125,8 +139,7 @@ class UserController extends Controller
         }
     }
 
-    
-    public function actionEditUser($id) 
+    public function actionEditUser($id)
     {
         $model = User::model()->findByPk($id);   
         $message = '';
@@ -144,6 +157,7 @@ class UserController extends Controller
         $form->surname = $model->surname;
         $form->phone = $model->phone;
         $form->email = $model->email;
+        $form->status = $model->status;
         
         $form->id = $id;
         if (Yii::app()->user->checkAccess('trEditUser')) {
@@ -151,10 +165,27 @@ class UserController extends Controller
                 $changes = $innExists = $emailExists = array();
                 foreach ($_POST['UserForm'] as $key => $value) {
                     if($key != 'show'){
-                        if (trim($model[$key]) != trim($value) && $key != 'password') {
+                        if (trim($model[$key]) != trim($value) && $key != 'password' && $key != 'password_confirm') {
                             $changes[$key]['before'] = $model[$key];
                             $changes[$key]['after'] = $value;
                             $model[$key] = trim($value);
+                            if($key == 'company'){
+                                $allContacts = Yii::app()->db->createCommand()
+                                    ->select('id')
+                                    ->from('user')
+                                    ->where('parent = '. $model->id)
+                                    ->queryAll()
+                                ;
+                                if(!empty($allContacts)){
+                                    foreach ($allContacts as $contact) {
+                                        $modelContact = User::model()->findByPk($contact['id']);
+                                        $contactName = $modelContact->name;
+                                        if(!empty($modelContact->surname)) $contactName .= ' '.$modelContact->surname;
+                                        $modelContact->company = 'Контактное лицо "' . $model->company . '" ('.$contactName.')';
+                                        $modelContact->save();
+                                    }
+                                }
+                            }
                         } else if($key == 'password' && !empty($_POST['UserForm']['password_confirm'])) {
                             $changes[$key] = 'Изменен пароль';
                         }
@@ -224,7 +255,7 @@ class UserController extends Controller
                     if(!empty($message)) {
                         Changes::saveChange($message);
                 
-                        $model->attributes = $_POST['UserForm'];
+                        //$model->attributes = $_POST['UserForm'];
                         if (!empty($_POST['UserForm']['password_confirm'])) {
                             $model->password = crypt($_POST['UserForm']['password_confirm'], User::model()->blowfishSalt());
                         }

@@ -13,6 +13,7 @@ class UserContactForm extends CFormModel
     public $phone;
     public $phone2;
     public $email;
+    public $company; // !!!
 
     public function rules()
     {
@@ -21,7 +22,7 @@ class UserContactForm extends CFormModel
             array('name, email', 'required'),
             array('status, phone, phone2', 'numerical', 'integerOnly'=>true),
             array('email', 'email', 'message'=>'Неправильный Email адрес'),
-            array('name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),
+            //array('name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),
             //array('parent', 'match', 'pattern'=>'/^[0]$/', 'message'=>'Выберите фирму'),
             array('password, password_confirm', 'length', 'min'=>6, 'allowEmpty'=>true),
             array('password, password_confirm', 'match', 'pattern'=>'/^([a-zA-Zа-яА-ЯёЁ\d]+)$/i', 'message'=>'Пароль должен содержать только следующие символы: 0-9 a-z A-Z а-я А-Я'),
@@ -45,6 +46,7 @@ class UserContactForm extends CFormModel
             'phone'  => 'Телефон',
             'phone2' => 'Телефон №2',
             'parent' => 'Фирма',
+            'company' => 'Надпись', //!!!
         );
     }
 }

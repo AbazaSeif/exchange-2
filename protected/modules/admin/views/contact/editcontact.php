@@ -54,6 +54,11 @@
     echo $form->labelEx($model, 'parent');
     echo $form->dropDownList($model, 'parent', $companies); ?>
 </div>
+<div class="firm field">
+<?php echo $form->error($model, 'company');
+    echo $form->labelEx($model, 'company');
+    echo $form->textField($model, 'company', array('disabled'=>true)); ?>
+</div>
 <div class="surname field">
 <?php  echo $form->error($model, 'surname'); 
     echo $form->labelEx($model, 'surname');
