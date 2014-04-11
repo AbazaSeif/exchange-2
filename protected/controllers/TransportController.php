@@ -32,7 +32,7 @@ class TransportController extends Controller
 
     public function actionDescription($id)
     {
-        if(!Yii::app()->user->isGuest){
+        if(!Yii::app()->user->isGuest) {
             $id_exists = Transport::model()->exists('id = :id', array(":id"=>$id));
             if (!$id_exists){
                  throw new CHttpException(404,Yii::t('yii','Страница не найдена'));
@@ -48,7 +48,7 @@ class TransportController extends Controller
             ;
             $this->render('user.views.transport.item', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
         } else {
-            $this->redirect('/');
+            $this->redirect('/user/login/');
         }
     }
 

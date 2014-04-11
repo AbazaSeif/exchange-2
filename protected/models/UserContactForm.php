@@ -17,7 +17,8 @@ class UserContactForm extends CFormModel
     public function rules()
     {
         return array(
-            array('name, surname, phone, email, password', 'required'),
+            //array('name, surname, phone, email, password', 'required'),
+            array('name, email', 'required'),
             array('status, phone, phone2', 'numerical', 'integerOnly'=>true),
             array('email', 'email', 'message'=>'Неправильный Email адрес'),
             array('name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),
