@@ -32,7 +32,9 @@ if (!empty($transportInfo['rate_id'])) {
 }
 
 if($winFerrymanShowNds->with_nds) {
-    $showWithNds = ' (с НДС: ' . floor($winRate->price + $winRate->price * Yii::app()->params['nds']) . ' ' . $currency . ') ' . $winFerryman->company;    
+    $price = ceil($winRate->price + $winRate->price * Yii::app()->params['nds']);
+    if($price%10 != 0) $price -= $price%10;
+    $showWithNds = ' (с НДС: ' . $price . ' ' . $currency . ') ' . $winFerryman->company;    
 } else if(!$defaultRate) {
     $showWithNds = $winFerryman->company;    
 }
