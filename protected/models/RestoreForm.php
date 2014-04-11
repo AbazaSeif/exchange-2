@@ -3,16 +3,14 @@
 class RestoreForm extends CFormModel
 {
     public $inn;
+    public $verifyCode;
 
     public function rules()
     {
         return array(
-            array('inn', 'required'),
+            array('inn, verifyCode', 'required'),
             array('inn', 'numerical'),
-            /*array('inn', 'length', 'min' => 12, 'max'=>12, 
-                'tooShort'=>Yii::t("translation", "{attribute} должен содержать 12 символов."),
-                'tooLong'=>Yii::t("translation", "{attribute} должен содержать 12 символов.")
-            )*/
+            array('verifyCode', 'captcha'),
         );
     }
 
@@ -20,6 +18,7 @@ class RestoreForm extends CFormModel
     {
         return array(
             'inn' => 'ИНН/УНП ',
+            'verifyCode' => 'Код проверки',
         );
     }
 }

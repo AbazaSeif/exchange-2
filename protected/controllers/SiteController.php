@@ -152,8 +152,17 @@ class SiteController extends Controller
                 $user = new User();
                 $user->attributes = $_POST['RegistrationForm'];
                 $user->status = User::USER_NOT_CONFIRMED;
-                $user->company = $_POST['RegistrationForm']['ownership'] . ' "' . $_POST['RegistrationForm']['company'] . '"';
+                $user->company = $_POST['RegistrationForm']['ownership'] . ' "' . trim($_POST['RegistrationForm']['company']) . '"';
                 $user->password = crypt($_POST['RegistrationForm']['password'], User::model()->blowfishSalt());
+                $user->inn = trim($_POST['RegistrationForm']['inn']);
+                $user->country = trim($_POST['RegistrationForm']['country']);
+                $user->region = trim($_POST['RegistrationForm']['region']);
+                $user->city = trim($_POST['RegistrationForm']['city']);
+                $user->district = trim($_POST['RegistrationForm']['district']);
+                $user->secondname = trim($_POST['RegistrationForm']['secondname']);
+                $user->surname = trim($_POST['RegistrationForm']['surname']);
+                $user->phone = trim($_POST['RegistrationForm']['phone']);
+                $user->email = trim($_POST['RegistrationForm']['email']);
                 
                 if($user->save()) {
                     $newFerrymanFields = new UserField;

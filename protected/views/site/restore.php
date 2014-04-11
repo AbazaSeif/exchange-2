@@ -24,6 +24,22 @@
         <?php echo $form->textField($model, 'inn'); ?>
         <?php echo $form->error($model,'inn'); ?>
     </div>
+    
+    <div class="row capture">
+        <?php $this->widget('CCaptcha', array('clickableImage'=>true, 
+            'showRefreshButton'=>true, 
+            'buttonLabel' => CHtml::image(Yii::app()->baseUrl . '/images/upload.jpg'),
+            'imageOptions'=>array('style'=>'border:none;', 
+                'height'=>'40px',
+                'alt'=>'Обновить', 
+                'title'=>'Нажмите чтобы обновить картинку'))); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->labelEx($model,'verifyCode'); ?>
+        <?php echo $form->textField($model,'verifyCode'); ?>
+        <?php echo $form->error($model,'verifyCode'); ?>
+    </div>
+    
     <div class="row buttons">
         <?php echo CHtml::submitButton('Восстановить', array('class'=>'btn')); ?>
     </div>
