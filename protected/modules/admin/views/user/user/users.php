@@ -8,7 +8,7 @@
 <div class="right">
     <div id="user-wrapper">
         <div class="u-header">
-            Поиск
+            Список компаний
         </div>
         <div id="u-content">
             <?php $this->widget('zii.widgets.CListView', array(
