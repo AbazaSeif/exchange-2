@@ -28,12 +28,12 @@ class ContactController extends Controller
                     )
                 )
             );
-            //echo '<pre>';
-            //var_dump($dataProvider);
+
             if ($id_item = Yii::app()->user->getFlash('saved_id')) {
                 $model = User::model()->findByPk($id_item);
                 $form = new UserContactForm;
                 $form->attributes = $model->attributes;
+                $form->company = $model->company;
                 $form->id = $id_item;
                 $form->parent = $model->parent;
                 
@@ -115,31 +115,29 @@ class ContactController extends Controller
         $message = '';
         $form = new UserContactForm;
         $form->attributes = $model->attributes;
-        
-        /*$form->password = $model->password;
-        $form->name = $model->name;
-        $form->surname = $model->surname;
-        $form->phone = $model->phone;
-        $form->email = $model->email;         
-        */
+        $form->company = $model->company;
         $form->id = $id;
         $form->parent = $model->parent;
+        
         if (Yii::app()->user->checkAccess('trEditUserContact')) {
             if (isset($_POST['UserContactForm'])) {
                 $curUser = User::model()->findByPk($_POST['UserContactForm']['parent']);
                 $changes = $emailExists = array();
                 foreach ($_POST['UserContactForm'] as $key => $value) {
-                    if (trim($model[$key]) != trim($value) && $key != 'password') {
+                    if (trim($model[$key]) != trim($value) && $key != 'password' && $key != 'password_confirm') {
                         $changes[$key]['before'] = $model[$key];
                         $changes[$key]['after'] = $value;
                         $model[$key] = trim($value);
-                    } else if($key == 'password' && $model->password !== crypt(trim($_POST['UserContactForm']['password_confirm']), $model->password)) {
+                    } else if($key == 'password' && !empty($_POST['UserContactForm']['password_confirm']) && $model->password !== crypt(trim($_POST['UserContactForm']['password_confirm']), $model->password)) {
                         $changes[$key] = 'Изменен пароль';
                     }
                 }
                 
                 $model->attributes = $_POST['UserContactForm'];
-                $model->company = 'Контактное лицо "' . $curUser->company . '" ('.$model->name.' '.$model->surname.')';
+                
+                $contactName = $model->name;
+                if(!empty($model->surname)) $contactName .= ' '.$model->surname;
+                $model->company = 'Контактное лицо "' . $curUser->company . '" ('.$contactName.')';
                 
                 if(!empty($_POST['UserContactForm']['password_confirm'])){
                     $model->password = crypt($_POST['UserContactForm']['password_confirm'], User::model()->blowfishSalt());
@@ -188,8 +186,6 @@ class ContactController extends Controller
                 } else {
                     if(!empty($message)) {
                         Changes::saveChange($message);
-                
-                        $model->attributes = $_POST['UserContactForm'];
                         if (!empty($_POST['UserContactForm']['password_confirm'])) {
                             $model->password = crypt($_POST['UserContactForm']['password_confirm'], User::model()->blowfishSalt());
                         }
