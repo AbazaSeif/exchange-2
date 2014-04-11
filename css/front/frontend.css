@@ -783,6 +783,9 @@ form#contactform label {
 .items .transport div{
     text-align: left;
 }
+.items .transport div.t-description{
+    text-align: center;
+}
 .transport img{
     margin-top: 20px;
 }
