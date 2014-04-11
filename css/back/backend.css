@@ -44,6 +44,9 @@ input, textarea{
     cursor: default;
     box-shadow: none;
 }
+#UserContactForm_company{
+    width: 80%;
+}
 #timer_label{
     color: green;
 }

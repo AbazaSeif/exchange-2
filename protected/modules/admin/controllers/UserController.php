@@ -168,6 +168,23 @@ class UserController extends Controller
                             $changes[$key]['before'] = $model[$key];
                             $changes[$key]['after'] = $value;
                             $model[$key] = trim($value);
+                            if($key == 'company'){
+                                $allContacts = Yii::app()->db->createCommand()
+                                    ->select('id')
+                                    ->from('user')
+                                    ->where('parent = '. $model->id)
+                                    ->queryAll()
+                                ;
+                                if(!empty($allContacts)){
+                                    foreach ($allContacts as $contact) {
+                                        $modelContact = User::model()->findByPk($contact['id']);
+                                        $contactName = $modelContact->name;
+                                        if(!empty($modelContact->surname)) $contactName .= ' '.$modelContact->surname;
+                                        $modelContact->company = 'Контактное лицо "' . $model->company . '" ('.$contactName.')';
+                                        $modelContact->save();
+                                    }
+                                }
+                            }
                         } else if($key == 'password' && !empty($_POST['UserForm']['password_confirm'])) {
                             $changes[$key] = 'Изменен пароль';
                         }
