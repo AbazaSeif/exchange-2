@@ -27,6 +27,7 @@ class RegistrationForm extends CFormModel
             array('company, iagree, password, confirm_password, country, region, district, inn, name, secondname, surname, phone, email', 'required'),
             array('iagree', 'compare', 'compareValue' => true, 'message' => 'Для отправки формы на обработку требуется Ваше согласие' ),
             array('email', 'email'),
+            array('company','match', 'pattern'=>'/^([\sa-zA-Zа-яА-ЯёЁ\d]+)$/i', 'message'=>'Поле "{attribute}" должно содержать только следующие символы: 0-9,a-z,A-Z,а-я,А-Я и пробел'),
             array('phone, inn', 'numerical'),
             array('password', 'length', 'min'=>6, 'allowEmpty'=>false),
             array('password','match', 'pattern'=>'/^([a-zA-Zа-яА-ЯёЁ\d]+)$/i', 'message'=>'Пароль должен содержать только следующие символы: 0-9 a-z A-Z а-я А-Я'),
