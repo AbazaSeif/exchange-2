@@ -115,6 +115,13 @@ class ContactController extends Controller
         $message = '';
         $form = new UserContactForm;
         $form->attributes = $model->attributes;
+        
+        /*$form->password = $model->password;
+        $form->name = $model->name;
+        $form->surname = $model->surname;
+        $form->phone = $model->phone;
+        $form->email = $model->email;         
+        */
         $form->id = $id;
         $form->parent = $model->parent;
         if (Yii::app()->user->checkAccess('trEditUserContact')) {
