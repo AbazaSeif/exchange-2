@@ -148,8 +148,10 @@
 </div>
 <script>
 $(document).ready(function(){ 
+    var activeStatus = parseInt(sessionStorage.getItem('userStatus'));
     $('#close-user').click(function(){
-        document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/";
+        if(isNaN(activeStatus)) document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/";
+        else document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/index/userStatus/" + activeStatus;
     });
 });
 </script>

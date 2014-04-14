@@ -5,9 +5,7 @@ if(!Yii::app()->user->isGuest) {
     } else {
         $user = AuthUser::model()->findByPk(Yii::app()->user->_id);
     }
-    
     /*
-    
     else if(Yii::app()->user->isContactUser) {
         $user = UserContact::model()->findByPk(Yii::app()->user->_id);
     }

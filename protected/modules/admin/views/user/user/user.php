@@ -2,6 +2,15 @@
 <div class="create-transport">
     <?php
         echo CHtml::link('Создать компанию', '/admin/user/createuser/', array('class' => 'btn-admin btn-create'));
+        echo CHtml::dropDownList('type-status', $type, array(
+            0=>'Не подтвержден',
+            1=>'Активный',
+            2=>'Предупрежден',
+            3=>'Временно заблокирован',
+            4=>'Заблокирован',
+            5=>'Все',
+        ));     
+        echo CHtml::label('Статус', 'type-status');
     ?>
 </div>
 <div style="clear: both"></div>
@@ -38,3 +47,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(function() {
+        var activeStatus = parseInt(sessionStorage.getItem('userStatus'));
+        if(!isNaN(activeStatus)) $('#type-status').val(activeStatus);
+        $('#type-status').change(function() {
+            sessionStorage.setItem('userStatus', this.value);
+            document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/index/userStatus/" + this.value;
+        });
+    });
+</script>

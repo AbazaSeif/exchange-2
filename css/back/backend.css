@@ -686,11 +686,17 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     margin: 0 0 5px;
     text-align: left;
 }
-#type-transport{
+#type-transport, #type-status, .create-transport label{
     float: right;
     margin: 0;
     padding: 3px 4px 3px 5px;
     margin-bottom: 10px;
+}
+.create-transport label{
+    color: #00917C;
+    font-weight: bold;
+    padding-top: 5px;
+    padding-right: 6px;
 }
 /*.sorter ul li:nth-child(1), .sorter ul li:nth-child(2)  {
     width: 10%;
