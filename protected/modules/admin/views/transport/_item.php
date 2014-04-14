@@ -6,12 +6,14 @@
     $rateCount = Rate::model()->countByAttributes(array(
         'transport_id'=> $data->id
     ));
-    $userCount = Yii::app()->db->createCommand(array(
-        'select'   => '',
+    $users = Yii::app()->db->createCommand(array(
+        'select'   => 'user_id',
         'distinct' => 'true',
-        'from'     => 'tbl_student',
+        'from'     => 'rate',
+        'where'    => 'transport_id = ' . $data->id,
     ))->queryAll();
-
+    $userCount = count($users);
+    
     $showRate = $withNds = '';
     $currency = ' €';
     
