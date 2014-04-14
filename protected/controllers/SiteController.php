@@ -141,7 +141,19 @@ class SiteController extends Controller
     public function actionRegistration()
     {
         $model = new RegistrationForm;
-
+        /************************/
+        $email = new TEmail;
+        $email->from_email = 'cheshenkov@lbr.ru'; //Yii::app()->params['adminEmail'];
+        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+        $email->to_email   = 'tttanyattt@mail.ru';    //'support.ex@lbr.ru';//$to;
+        $email->to_name    = '';
+        $email->subject    = 'Заявка на регистрацию';
+        $email->type       = 'text/html';
+        $email->body = '<div>jjjjjjjjjjjjjjjjjjjj</div>
+          <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+        ';
+        $email->sendMail();
+         /************************/
         if (isset($_POST['RegistrationForm'])) {
             $newUser = User::model()->find(array(
                 'condition'=>'inn=:inn',
