@@ -29,7 +29,7 @@
     <div class="width-15">
         <?php echo date('d.m.Y H:i', strtotime($data->date_close)) ?>
     </div>
-    <div class="width-35">
+    <div class="width-30">
         <div class="width-100">
             <a class="t-header" href="<?php echo $action; ?>" >
                 <?php echo '"' . $data->location_from . ' &mdash; ' . $data->location_to . '"'?>
@@ -39,7 +39,13 @@
             <div class="t-points"><span><?php echo $data->location_from . $allPoints . ' -> ' . $data->location_to ?></span></div>
         </div>
     </div>
-    <div class="width-20">
+    <div class="width-5 t-number">
+        <?php echo 100 ?>
+    </div>
+    <div class="width-5 t-number">
+        <?php echo 200 ?>
+    </div>
+    <div class="width-20 t-company">
         <?php echo ($ferryman->company) ? $ferryman->company : 'Нет ставок'?>
     </div>
     <div class="width-15">
