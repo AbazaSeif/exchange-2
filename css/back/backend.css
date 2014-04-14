@@ -605,7 +605,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 {
     float: left;
 }
-.width-5{width: 3%; margin-right: 2%}
+.width-5{width: 3%; margin-right: 1%; margin-left: 1%}
 .width-10{width: 10%;}
 .width-15{width: 13%; margin-right: 2%}
 .width-16{width: 16%;}
@@ -658,11 +658,21 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     width: 15%;
 }
 #tabs .sorter ul li:nth-child(4){
-    width: 24%;
+    width: 19%;
 }
 #tabs .sorter ul li:nth-child(5){
+    width: 5%;
+}
+#tabs .sorter ul li:nth-child(6){
+    width: 5%;
+}
+#tabs .sorter ul li:nth-child(7){
     width: 20%;
 }
+#tabs .sorter ul li:nth-child(8){
+    width: 14%;
+}
+
 #tabs .list-view .sorter li{
     margin: 0;  
 }
@@ -737,7 +747,10 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
+/*
+.transport div.t-company{
+    text-align: center;
+}*/
 .transport > div
 {
     padding-top: 5px;
