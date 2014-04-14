@@ -10,16 +10,16 @@ class UserController extends Controller
         return true;
     }
 
-    public function actionIndex($userStatus = 5) 
+    public function actionIndex($status = 5) 
     {
         if(Yii::app()->user->checkAccess('trReadUser'))
         {
             $criteria = new CDbCriteria();
             $criteria->condition = 'type_contact = 0';
             
-            if($userStatus != 5) {
+            if($status != 5) {
                 $criteria->condition = 't.status = :status';
-                $criteria->params = array(':status' => $userStatus);
+                $criteria->params = array(':status' => $status);
             }
             
             $sort = new CSort();

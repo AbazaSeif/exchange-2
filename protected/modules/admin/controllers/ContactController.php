@@ -10,21 +10,26 @@ class ContactController extends Controller
         return true;
     }
 
-    public function actionIndex()
+    public function actionIndex($status = 5)
     {
         if(Yii::app()->user->checkAccess('trReadUserContact')) {
             $criteria = new CDbCriteria();
             $criteria->condition = 'type_contact = 1';
+            
+            if($status != 5) {
+                $criteria->condition = 't.status = :status';
+                $criteria->params = array(':status' => $status);
+            }
+            
             $sort = new CSort();
             $sort->sortVar = 'sort';
-            // сортировка по умолчанию 
-            $sort->defaultOrder = 'surname ASC';
+            $sort->defaultOrder = 'company ASC';
             $dataProvider = new CActiveDataProvider('User', 
                 array(
                     'criteria'=>$criteria,
                     'sort'=>$sort,
                     'pagination'=>array(
-                        'pageSize'=>'13'
+                        'pageSize'=>'10'
                     )
                 )
             );
@@ -39,7 +44,7 @@ class ContactController extends Controller
                 
                 $view = $this->renderPartial('editcontact', array('model'=>$form), true, true);
             }
-            $this->render('contacts', array('data'=>$dataProvider, 'view'=>$view));
+            $this->render('contact', array('data'=>$dataProvider, 'view'=>$view));
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
@@ -80,7 +85,7 @@ class ContactController extends Controller
 
                         Yii::app()->user->setFlash('saved_id', $model->id);
                         Yii::app()->user->setFlash('message', 'Контакт "'.$model->surname.' '.$model->name.'" создан успешно.');
-                        $this->redirect('/admin/contact/');
+                        $form->attributes = $model->attributes;
                     } else Yii::log($model->getErrors(), 'error');
                 } else {
                     $criteria = new CDbCriteria();
@@ -98,12 +103,10 @@ class ContactController extends Controller
                     );
                     
                     $form->attributes = $_POST['UserContactForm'];
-                    $view = $this->renderPartial('editcontact', array('model'=>$form), true, true);
-                    
                     Yii::app()->user->setFlash('error', 'Указанный email уже используется. ');
-                    $this->render('contacts', array('data'=>$dataProvider, 'view'=>$view));
                 }
-            } else $this->renderPartial('editcontact', array('model'=>$form), false, true);
+            } 
+            $this->render('editcontact', array('model'=>$form), false, true);
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
@@ -182,7 +185,7 @@ class ContactController extends Controller
 
                     $form->attributes = $_POST['UserContactForm'];
                     $view = $this->renderPartial('editcontact', array('model'=>$form), true, true);
-                    $this->render('contacts', array('data'=>$dataProvider, 'view'=>$view));
+                    $this->render('contact', array('data'=>$dataProvider, 'view'=>$view));
                 } else {
                     if(!empty($message)) {
                         Changes::saveChange($message);
@@ -194,12 +197,14 @@ class ContactController extends Controller
                     if ($model->save()) {
                         Yii::app()->user->setFlash('saved_id', $model->id);
                         Yii::app()->user->setFlash('message', 'Контактное лицо "' . $model->surname . ' ' . $model->name . '" сохранено успешно.');
-                        $this->redirect('/admin/contact/');
+                        //$this->redirect('/admin/contact/');
+                        $form->attributes = $_POST['UserContactForm'];
                     } else Yii::log($model->getErrors(), 'error');
                 }
-            } else {
-                $this->renderPartial('editcontact', array('model' => $form), false, true);
-            }
+            } //else {
+                //$this->renderPartial('editcontact', array('model' => $form), false, true);
+            //}
+            $this->render('editcontact', array('model' => $form), false, true);
         } else {
             throw new CHttpException(403, Yii::t('yii', 'У Вас недостаточно прав доступа.'));
         }

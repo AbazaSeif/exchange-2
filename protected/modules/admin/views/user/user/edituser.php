@@ -4,7 +4,7 @@
     $close_text = 'Закрыть';
     $delete_button = CHtml::link('Удалить', '/admin/user/deleteuser/id/'.$model->id, array('id'=>'del_'.$model->name,'class'=>'btn-admin btn-del', 'onclick'=>'return confirm("Внимание! Пользователь будет безвозвратно удален. Продолжить?")'));
     $action = '/admin/user/edituser/id/'.$model->id;
-    
+    $name = $model->id;
     if (!$model->id) {
     //if ($model->isNewRecord) {
         $submit_text = 'Создать';
@@ -151,7 +151,7 @@ $(document).ready(function(){
     var activeStatus = parseInt(sessionStorage.getItem('userStatus'));
     $('#close-user').click(function(){
         if(isNaN(activeStatus)) document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/";
-        else document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/index/userStatus/" + activeStatus;
+        else document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/index/status/" + activeStatus;
     });
 });
 </script>

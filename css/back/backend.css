@@ -498,7 +498,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     border-radius: 2px;
 }
 
-.right .message, .right .trMessage, .right .trDelMessage, .right .uMessage, .right .uDelMessage {
+.right .message, .right .trMessage, .right .trDelMessage, .right .uMessage, .right .uDelMessage,.right .cDelMessage {
     padding: 1.2% 2%;
     margin-bottom: .53em;
     background: #E6EFC2;
@@ -528,10 +528,13 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     width: 50%;
 }
 
-.right .trDelMessage, .right .uDelMessage {
+.right .trDelMessage, .right .uDelMessage, .right .cDelMessage {
     padding: 0.5%;
     left: 15%;
     width: 45%;
+}
+.right .cDelMessage {
+    left: 18%;
 }
 
 .right .message.error, .trMessage.error, .uMessage.error{
@@ -651,7 +654,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     box-shadow: 0 0 3px #C0C0C0;
     overflow: hidden;
 }
-#tabs .sorter ul li, #user-wrapper .sorter ul li{
+#tabs .sorter ul li, #user-wrapper .sorter ul li, #contact-wrapper .sorter ul li{
     float: left;
 }
 #tabs .sorter ul li:nth-child(1){
@@ -686,13 +689,13 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     margin: 0 0 5px;
     text-align: left;
 }
-#type-transport, #type-status, .create-transport label{
+#type-transport, #type-status, #type-c-status, .create-user label{
     float: right;
     margin: 0;
     padding: 3px 4px 3px 5px;
     margin-bottom: 10px;
 }
-.create-transport label{
+.create-user label{
     color: #00917C;
     font-weight: bold;
     padding-top: 5px;
@@ -716,17 +719,22 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 }
 
 #user-wrapper ul li:nth-child(1){
-    width: 49%;
+    width: 48%;
 }
 
 #user-wrapper ul li:nth-child(2){
-    width: 18%;
+    width: 19%;
 }
 #user-wrapper ul li:nth-child(3){
     width: 11%;
 }
-
-#tabs .sorter ul li, #user-wrapper .sorter ul li{
+#contact-wrapper ul li:nth-child(1){
+    width: 50%;
+}
+#contact-wrapper ul li:nth-child(2){
+    width: 15%;
+}
+#tabs .sorter ul li, #user-wrapper .sorter ul li, #contact-wrapper .sorter ul li{
     color: #555555;
     display: block;
     font-weight: bold;
@@ -734,24 +742,24 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     padding: 0;
     text-align: left;
 }
-#user-wrapper .sorter a{
+#user-wrapper .sorter a, #contact-wrapper .sorter a{
     font-size: 1em;
     color: #222222;
 }
-#tabs .list-view .sorter ul li a, #user-wrapper .list-view .sorter ul li a{
+#tabs .list-view .sorter ul li a, #user-wrapper .list-view .sorter ul li a, #contact-wrapper .list-view .sorter ul li a{
     text-decoration: none;
     position: relative;
    /* padding: 4px 12px;*/
     text-shadow: 0 1px 0 #FFFFFF;
 }
-#tabs .transport, .a-user{
+#tabs .transport, .a-user, .c-user{
     margin-bottom: 5px;
     background-color: #eee;
 }
 .transport > div:first-child {
     text-align: center;
 }
-.a-user > div:first-child {
+.a-user > div:first-child, .c-user > div:first-child  {
     margin-left: 15px;
 }
 
@@ -765,13 +773,13 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     margin: 0;
     margin-bottom: 10px;
 }
-.transport:after, .sorter ul:after, .a-user:after{
+.transport:after, .sorter ul:after, .a-user:after, .c-user:after{
     clear: both;
     content: "";
     display: block;
 }
 
-.transport .t-header, .a-user .t-header {
+.transport .t-header, .a-user .t-header, .c-user .t-header {
     color: #00917C;
     display: block;
     /*font-size: 18px;*/
@@ -783,7 +791,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     white-space: nowrap;
 }
 
-.transport > div, .a-user > div
+.transport > div, .a-user > div, .c-user > div
 {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -831,7 +839,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 }
 /*-------- Конец-Перевозки----------*/
 /*-------- Начало-Перевозки----------*/
-#user-wrapper
+#user-wrapper, #contact-wrapper
 {
     background: url("/images/ui-bg_flat_75_ffffff_40x100.png") repeat-x scroll 50% 50% #FFFFFF;
     border: 1px solid #AAAAAA;
@@ -843,7 +851,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     overflow: hidden;
     padding: 0.2em;
 }
-#user-wrapper .u-header
+#user-wrapper .u-header, #contact-wrapper .c-header
 {    
     border: 1px solid #AAAAAA;
     background: url("/images/bg_menu_admin.png") repeat-x scroll left top #F3F3F3;
@@ -855,7 +863,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     color: #0857A6;
 }
 
-#user-wrapper #u-content{
+#user-wrapper #u-content, #contact-wrapper #c-content{
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
     border-width: 0;
     display: block;

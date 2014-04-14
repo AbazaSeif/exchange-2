@@ -20,6 +20,7 @@ class UserContactForm extends CFormModel
         return array(
             //array('name, surname, phone, email, password', 'required'),
             array('name, email', 'required'),
+            array('id, parent, company, name, surname, secondname, password, status, phone, phone2, email', 'safe'),
             array('status, phone, phone2', 'numerical', 'integerOnly'=>true),
             array('email', 'email', 'message'=>'Неправильный Email адрес'),
             //array('name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),

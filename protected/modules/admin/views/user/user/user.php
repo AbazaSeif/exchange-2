@@ -1,5 +1,5 @@
 <h1>Компании</h1>
-<div class="create-transport">
+<div class="create-user">
     <?php
         echo CHtml::link('Создать компанию', '/admin/user/createuser/', array('class' => 'btn-admin btn-create'));
         echo CHtml::dropDownList('type-status', $type, array(
@@ -51,13 +51,12 @@
 <script>
     $(function() {
         var activeStatus = parseInt(sessionStorage.getItem('userStatus'));
-        console.log();
         if(!isNaN(activeStatus)) $('#type-status').val(activeStatus);
         else $('#type-status').val(5);
         
         $('#type-status').change(function() {
             sessionStorage.setItem('userStatus', this.value);
-            document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/index/userStatus/" + this.value;
+            document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/index/status/" + this.value;
         });
     });
 </script>

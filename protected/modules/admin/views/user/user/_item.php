@@ -11,9 +11,15 @@
 <div class="a-user">
     <div class="width-45">
         <div class="width-100">
+            <?php if(Yii::app()->user->checkAccess('trEditUser')): ?>
             <a class="t-header" href="<?php echo $action; ?>" >
                 <?php echo '"' . $data->company . '"'?>
             </a>
+            <?php else:  ?>
+            <span class="t-header">
+                <?php echo '"' . $data->company . '"'?>
+            </span>
+            <?php endif; ?>
         </div>
     </div>
     <div class="width-15 u-inn">
