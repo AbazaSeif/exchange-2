@@ -41,3 +41,12 @@ function returnMenu($arr){
     return $menu;
   }
 ?>
+
+<script>
+     $(function() {
+        $('.menu .nav li.item').click(function(){
+            //console.log(11);
+            sessionStorage.clear();
+        });
+     });
+</script>

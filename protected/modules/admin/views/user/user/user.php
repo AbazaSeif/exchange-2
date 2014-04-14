@@ -51,7 +51,10 @@
 <script>
     $(function() {
         var activeStatus = parseInt(sessionStorage.getItem('userStatus'));
+        console.log();
         if(!isNaN(activeStatus)) $('#type-status').val(activeStatus);
+        else $('#type-status').val(5);
+        
         $('#type-status').change(function() {
             sessionStorage.setItem('userStatus', this.value);
             document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/index/userStatus/" + this.value;
