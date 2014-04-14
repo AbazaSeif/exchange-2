@@ -3,6 +3,15 @@
     $rate = Rate::model()->findByPk($data->rate_id);
     $ferryman = User::model()->findByPk($rate->user_id);
     $ferrymanField = UserField::model()->findByAttributes(array('user_id'=>$rate->user_id));
+    $rateCount = Rate::model()->countByAttributes(array(
+        'transport_id'=> $data->id
+    ));
+    $userCount = Yii::app()->db->createCommand(array(
+        'select'   => '',
+        'distinct' => 'true',
+        'from'     => 'tbl_student',
+    ))->queryAll();
+
     $showRate = $withNds = '';
     $currency = ' €';
     
@@ -39,11 +48,11 @@
             <div class="t-points"><span><?php echo $data->location_from . $allPoints . ' -> ' . $data->location_to ?></span></div>
         </div>
     </div>
-    <div class="width-5 t-number">
-        <?php echo 100 ?>
+    <div class="width-5">
+        <?php echo $rateCount ?>
     </div>
-    <div class="width-5 t-number">
-        <?php echo 200 ?>
+    <div class="width-5">
+        <?php echo $userCount ?>
     </div>
     <div class="width-20 t-company">
         <?php echo ($ferryman->company) ? $ferryman->company : 'Нет ставок'?>
