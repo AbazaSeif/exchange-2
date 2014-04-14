@@ -1,11 +1,9 @@
-<?php 
-//$lastRate = null;
+<?php
 $minRateValue = null;
 $currency = '€';
 $defaultRate = false;
 $priceStep = Transport::INTER_PRICE_STEP;
 $now = date('m/d/Y H:i:s', strtotime('now'));
-//$end = date('m/d/Y H:i:s', strtotime($transportInfo['date_from'] . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
 $end = date('m/d/Y H:i:s', strtotime($transportInfo['date_close']));
 $winRate = Rate::model()->findByPk($transportInfo['rate_id']);
 $winFerryman = User::model()->findByPk($winRate->user_id);
@@ -49,9 +47,6 @@ if (!Yii::app()->user->isGuest) {
     } else $minRateValue = floor($minRateValue);
     
     $userInfo = User::model()->findByPk($userId);
-    
-    //$userInfo = User::model()->findByPk($userId);
-
     if(Yii::app()->user->isTransport) {
         $residue = $minRateValue % $priceStep;
         if($residue != 0) {
@@ -113,9 +108,7 @@ if (!Yii::app()->user->isGuest) {
             <div class="width-50 timer-wrapper">
                 <div class="width-100">
                     <div id="t-container" class="width-40"></div>
-                    <?php //if($transportInfo['status']): ?>
                     <div id="t-error"></div>
-
                     <div class="rate-wrapper width-60">
                         <div class="r-block">
                             <div class="rate-btns-wrapper <?php echo (($now > $end) || !$transportInfo['status'])? 'hide': '' ?>">
@@ -128,7 +121,6 @@ if (!Yii::app()->user->isGuest) {
                         <div class="r-submit <?php echo (($now > $end) || !$transportInfo['status'])? 'hide': '' ?>"><span>Сделать ставку</span></div>
                     </div>
                 </div>
-                <?php //endif; ?>
             
             <?php if (!Yii::app()->user->isGuest): ?>
                     <label class="r-header">Текущие ставки</label>
@@ -191,55 +183,10 @@ $(document).ready(function(){
     <?php if (!Yii::app()->user->isGuest): ?>
         <?php if(Yii::app()->user->isTransport): ?>
 
-        var socket = io.connect('http://exchange.lbr.ru:3000/');
-        //var socket = io.connect('http://localhost:3000/');
+        //var socket = io.connect('http://exchange.lbr.ru:3000/');
+        var socket = io.connect('http://localhost:3000/');
         
-        // user_id
-        <?php //if(Yii::app()->user->isContactUser): ?>
-            //socket.emit('loadRates', <?php //echo $userId ?>, <?php //echo $transportInfo['id'] ?>);
-        <?php //else: ?> 
-            //socket.emit('loadRates', <?php //echo $userId ?>, <?php //echo $transportInfo['id'] ?>);
-        <?php //endif; ?>
-
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>);
-        /*  
-        var newElement = "<div id='" + id + "' class='rate-one'>" + 
-            "<div class='r-o-container'>" + 
-                time +
-                "<div class='r-o-user'>" + rate.name + ' ' + rate.surname + "</div>" +
-            "</div>" +
-            "<div class='r-o-price'>" + price + rateList.data.currency + "</div>" +
-            "</div>"
-        ;
-    
-        $('#test').prepend(newElement);
-        */
-
-        /*var k = 0;
-        socket.on('init', function (data) {
-            var newElement = "<div class='rate-one'>" + 
-                "<div class='r-o-container'>" + 
-                    //time +
-                    "<div class='r-o-user'>" + data.name + "</div>" +
-                "</div>" +
-                "<div class='r-o-price'>" + data.price + " <?php// echo $currency ?>" + "</div>" +
-                "</div>"
-            ;
-            //$('#rates').append(newElement);
-        });
-        */
-        
-        /*
-        socket.on('endinit', function () {
-            $("#rates").mCustomScrollbar({
-                scrollButtons:{
-                    enable:true
-                }
-            });
-        });
-        */
-
-        /***************************************************/
         
         rateList.data.socket = socket;
         rateList.data.userId   = '<?php echo $userInfo[id] ?>';
@@ -248,39 +195,29 @@ $(document).ready(function(){
         rateList.data.name   = '<?php echo $userInfo[name] ?>';
         rateList.data.surname = '<?php echo $userInfo[surname] ?>';
         
-        //rateList.init();
-    //setInterval(function(){rateList.update($('#rates'))}, 15000);
+        $('#dialog-connect').live('click', function() {
+            $("#modalDialog").dialog("open");
+        });
+
+        $('.ui-widget-overlay').live('click', function() {
+            $(".ui-dialog-content").dialog( "close" );
+        });
+
+        $( "#abordRateBtn" ).live('click', function() {
+            $(".ui-dialog-content").dialog( "close" );
+        });
     
-    
-    $('#dialog-connect').live('click', function() {
-        $("#modalDialog").dialog("open");
-    });
-     
-    $('.ui-widget-overlay').live('click', function() {
-        $(".ui-dialog-content").dialog( "close" );
-    });
-    
-    $( "#abordRateBtn" ).live('click', function() {
-        $(".ui-dialog-content").dialog( "close" );
-    });
-    
-    /*$(".content").mCustomScrollbar({
-        scrollButtons:{
-            enable:true
-        }
-    });*/
-    
-    <?php else: ?> 
-        //admin or logist
- 
-    <?php endif; ?> 
-        rateList.init();
-    <?php endif; ?> 
-    $('.point[title]').poshytip({
-	className: 'tip-darkgray',
-	bgImageFrameSize: 11,
-	offsetX: -25,
-    });
+        <?php else: ?> 
+            //admin or logist
+
+        <?php endif; ?> 
+            rateList.init();
+        <?php endif; ?> 
+        $('.point[title]').poshytip({
+            className: 'tip-darkgray',
+            bgImageFrameSize: 11,
+            offsetX: -25,
+        });
 });
 </script>
 <?php if (!Yii::app()->user->isGuest && Yii::app()->user->isTransport):?>

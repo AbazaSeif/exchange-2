@@ -164,7 +164,9 @@ class SiteController extends Controller
                 $user->phone = trim($_POST['RegistrationForm']['phone']);
                 $user->email = trim($_POST['RegistrationForm']['email']);
                 
-                if($user->save()) {
+                if($model->validate() && $user->save()) {
+                //if($model->validate() && $user->validate() && $user->save()) {
+                //if($user->save()) {
                     $newFerrymanFields = new UserField;
                     $newFerrymanFields->user_id = $user->id;
                     $newFerrymanFields->mail_transport_create_1 = false;
@@ -188,15 +190,32 @@ class SiteController extends Controller
                     $this->sendMail(Yii::app()->params['supportEmail'], 1, $_POST['RegistrationForm']);
                     $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
 
-                    Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Вы получите на почту инструкции по активации, когда ваша заявка будет рассмотрена. Спасибо за интерес, проявленный к нашей компании');
-                } else Yii::log($user->getErrors(), 'error');
-            } else {
+                    Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Когда ваша заявка будет рассмотрена, Вам будет выслано письмо с подтверждением на указанный почтовый ящик. Спасибо за интерес, проявленный к нашей компании');
+                } else {
+                    Yii::log($model->getErrors(), 'error');
+                    //Yii::log($user->getErrors(), 'error');
+                    $this->showError($model->getErrors());
+                }
+            } else if(!empty($_POST['RegistrationForm']['inn'])){
                 Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким ИНН/УНП уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');  
+            } else {
+                $this->showError();
             }
             $this->redirect('/site/login/');
         } else {
             $this->render('registration', array('model' => $model));
         }
+    }
+    
+    public function showError($errors = array())
+    {
+        $message = 'Вы заполнили не все обязательные поля формы либо заполнили их не по требованиям. Ваша заявка отклонена. Требования: ';
+        $count = 0;
+        foreach ($errors as $error) {
+            $count++;
+            $message .= $count . ') ' . $error[0];  
+        }
+        Dialog::message('flash-success', 'Ошибка!',  $message);
     }
     
     public function actionRestore()
@@ -272,7 +291,7 @@ class SiteController extends Controller
         $email = new TEmail;
         $email->from_email = 'cheshenkov@lbr.ru'; //Yii::app()->params['adminEmail'];
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = 'krilova@lbr.ru';    //'support.ex@lbr.ru';//$to;
+        $email->to_email   = 'tttanyattt@mail.ru';//'krilova@lbr.ru';    //'support.ex@lbr.ru';//$to;
         $email->to_name    = '';
         $email->subject    = 'Заявка на регистрацию';
         $email->type       = 'text/html';

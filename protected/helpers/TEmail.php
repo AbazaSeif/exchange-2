@@ -24,7 +24,8 @@ class TEmail{
         $headers.="Content-type: ".$this->type."; charset=".$sc."\r\n";
         $headers.="From: ".$enc_from."\r\n";
         //Отправляем
-        return mail($enc_to,$enc_subject,$enc_body,$headers);
+        //return mail($enc_to,$enc_subject,$enc_body,$headers);
+        return ssmtp($enc_to,$enc_subject,$enc_body,$headers);
     }
     
     function mimeHeaderEncode($str, $data_charset, $send_charset){

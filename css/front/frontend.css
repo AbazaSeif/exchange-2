@@ -1402,7 +1402,11 @@ input.r-submit {
 {
     color: red;
     position: absolute;
+    font-weight: bold;
     top: 10px;
+}
+.no-script-label{
+    font-weight: bold; 
 }
 
 /*------- Страница ошибок ------------------------------*/
