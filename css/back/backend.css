@@ -660,7 +660,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 #tabs .sorter ul li:nth-child(1){
     width: 10%;
 }
-#tabs .sorter ul li:nth-child(1) a, #user-wrapper .sorter ul li:nth-child(1) a{
+#tabs .sorter ul li:nth-child(1) a, #user-wrapper .sorter ul li:nth-child(1) a, #contact-wrapper .sorter ul li:nth-child(1) a{
     padding-left: 20px;
 }
 #tabs .sorter ul li:nth-child(2){
