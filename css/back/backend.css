@@ -498,7 +498,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     border-radius: 2px;
 }
 
-.right .message, .right .trMessage, .right .trDelMessage {
+.right .message, .right .trMessage, .right .trDelMessage, .right .uMessage, .right .uDelMessage {
     padding: 1.2% 2%;
     margin-bottom: .53em;
     background: #E6EFC2;
@@ -521,14 +521,20 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     left: 2.9%;
     width: 30%;
 }
-
-.right .trDelMessage {
+.right .uMessage {
+    bottom: 93%;
     padding: 0.5%;
-    left: 10%;
+    left: 2.9%;
+    width: 50%;
+}
+
+.right .trDelMessage, .right .uDelMessage {
+    padding: 0.5%;
+    left: 15%;
     width: 45%;
 }
 
-.right .message.error, .trMessage.error{
+.right .message.error, .trMessage.error, .uMessage.error{
     background-color: #FFEEEE;
 }
 
@@ -605,7 +611,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 {
     float: left;
 }
-.width-5{width: 3%; margin-right: 2%}
+.width-5{width: 3%; margin-right: 1%; margin-left: 1%}
 .width-10{width: 10%;}
 .width-15{width: 13%; margin-right: 2%}
 .width-16{width: 16%;}
@@ -645,23 +651,32 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     box-shadow: 0 0 3px #C0C0C0;
     overflow: hidden;
 }
-#tabs .sorter ul li {
+#tabs .sorter ul li, #user-wrapper .sorter ul li{
     float: left;
 }
 #tabs .sorter ul li:nth-child(1){
     width: 10%;
 }
-#tabs .sorter ul li:nth-child(1) a{
+#tabs .sorter ul li:nth-child(1) a, #user-wrapper .sorter ul li:nth-child(1) a{
     padding-left: 20px;
 }
 #tabs .sorter ul li:nth-child(2){
     width: 15%;
 }
 #tabs .sorter ul li:nth-child(4){
-    width: 24%;
+    width: 19%;
 }
 #tabs .sorter ul li:nth-child(5){
+    width: 5%;
+}
+#tabs .sorter ul li:nth-child(6){
+    width: 5%;
+}
+#tabs .sorter ul li:nth-child(7){
     width: 20%;
+}
+#tabs .sorter ul li:nth-child(8){
+    width: 14%;
 }
 #tabs .list-view .sorter li{
     margin: 0;  
@@ -694,7 +709,18 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     margin-right: 20px !important;
 }
 
-#tabs .sorter ul li {
+#user-wrapper ul li:nth-child(1){
+    width: 49%;
+}
+
+#user-wrapper ul li:nth-child(2){
+    width: 18%;
+}
+#user-wrapper ul li:nth-child(3){
+    width: 11%;
+}
+
+#tabs .sorter ul li, #user-wrapper .sorter ul li{
     color: #555555;
     display: block;
     font-weight: bold;
@@ -702,7 +728,11 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     padding: 0;
     text-align: left;
 }
-#tabs .list-view .sorter ul li a{
+#user-wrapper .sorter a{
+    font-size: 1em;
+    color: #222222;
+}
+#tabs .list-view .sorter ul li a, #user-wrapper .list-view .sorter ul li a{
     text-decoration: none;
     position: relative;
    /* padding: 4px 12px;*/

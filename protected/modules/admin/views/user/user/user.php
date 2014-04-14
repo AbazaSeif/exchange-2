@@ -6,6 +6,11 @@
 </div>
 <div style="clear: both"></div>
 <div class="right">
+    <?php 
+        if ($mess = Yii::app()->user->getFlash('message')){
+            echo '<div class="trDelMessage success">'.$mess.'</div>';
+        }
+    ?>
     <div id="user-wrapper">
         <div class="u-header">
             Список компаний
@@ -19,7 +24,7 @@
                 'template'=>'{sorter} {items} {pager}',
                 'sorterHeader'=>'',
                 'itemsTagName'=>'ul',
-                'sortableAttributes'=>array('company'),
+                'sortableAttributes'=>array('company', 'inn', 'status', 'email'),
                 'pager'=>array(
                     'class'=>'CLinkPager',
                     'header'=>false,

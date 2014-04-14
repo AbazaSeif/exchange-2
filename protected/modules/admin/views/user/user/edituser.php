@@ -4,6 +4,7 @@
     $close_text = 'Закрыть';
     $delete_button = CHtml::link('Удалить', '/admin/user/deleteuser/id/'.$model->id, array('id'=>'del_'.$model->name,'class'=>'btn-admin btn-del', 'onclick'=>'return confirm("Внимание! Пользователь будет безвозвратно удален. Продолжить?")'));
     $action = '/admin/user/edituser/id/'.$model->id;
+    
     if (!$model->id) {
     //if ($model->isNewRecord) {
         $submit_text = 'Создать';
@@ -28,6 +29,13 @@
     </div>
     <div class="right">
         <div class="form">
+            <?php
+                if ($mess = Yii::app()->user->getFlash('message')){
+                    echo '<div class="uMessage success">'.$mess.'</div>';
+                } else if ($mess = Yii::app()->user->getFlash('error')) {
+                    echo '<div class="uMessage error">'.$mess.'</div>';
+                }
+            ?>
             <?php $form = $this->beginWidget('CActiveForm', array('id'=>'userform',
                 'action'=>$action,
                 'enableClientValidation'=>true,

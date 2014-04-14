@@ -19,13 +19,13 @@ class UserController extends Controller
             $sort = new CSort();
             $sort->sortVar = 'sort';
             // сортировка по умолчанию 
-            $sort->defaultOrder = 'surname ASC';
+            $sort->defaultOrder = 'company ASC';
             $dataProvider = new CActiveDataProvider('User', 
                 array(
                     'criteria'=>$criteria,
                     'sort'=>$sort,
                     'pagination'=>array(
-                        'pageSize'=>'13'
+                        'pageSize'=>'10'
                     )
                 )
             );
@@ -50,7 +50,7 @@ class UserController extends Controller
                 $form->id = $id_item;
                 $view = $this->renderPartial('user/edituser', array('model'=>$form), true, true);
             }
-            $this->render('user/users', array('data'=>$dataProvider, 'view'=>$view));
+            $this->render('user/user', array('data'=>$dataProvider, 'view'=>$view));
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
@@ -60,15 +60,10 @@ class UserController extends Controller
     {
         if(Yii::app()->user->checkAccess('trCreateUser')) {
             $form = new UserForm;
+            $emailExists = array();
             if(isset($_POST['UserForm'])) {
-                $emailExists = User::model()->find(array(
-                    'select'    => 'email',
-                    'condition' => 'email=:email',
-                    'params'    => array(':email'=>$_POST['UserForm']['email']))
-                );
-                
-                if(empty($emailExists)){
-                    $emailExists = UserContact::model()->find(array(
+                if(!empty($_POST['UserForm']['email'])) {
+                    $emailExists = User::model()->find(array(
                         'select'    => 'email',
                         'condition' => 'email=:email',
                         'params'    => array(':email'=>$_POST['UserForm']['email']))
@@ -105,7 +100,8 @@ class UserController extends Controller
 
                         Yii::app()->user->setFlash('saved_id', $model->id);
                         Yii::app()->user->setFlash('message', 'Пользователь "'.$model->company.'" создан успешно.');
-                        $this->redirect('/admin/user/');
+                        $form->attributes = $model->attributes;
+                        $this->render('user/edituser', array('model'=>$form), false, true);
                     } else Yii::log($model->getErrors(), 'error');
                 } else {
                     if(!empty($emailExists) && !empty($innExists)) {
@@ -130,7 +126,7 @@ class UserController extends Controller
                     );
                     $form->attributes = $_POST['UserForm'];
                     //$view = $this->renderPartial('user/edituser', array('model'=>$form), true, true);
-                    //$this->render('user/users', array('data'=>$dataProvider, 'view'=>$view));
+                    //$this->render('user/user', array('data'=>$dataProvider, 'view'=>$view));
                     $this->render('user/edituser', array('model'=>$form), false, true);
                }
             } else $this->render('user/edituser', array('model'=>$form), false, true);
@@ -144,21 +140,7 @@ class UserController extends Controller
         $model = User::model()->findByPk($id);   
         $message = '';
         $form = new UserForm;
-        //$form->attributes = $model->attributes;
-        
-        $form->country = $model->country;
-        $form->company = $model->company;
-        $form->country = $model->country;
-        $form->password = $model->password;
-        $form->region = $model->region;
-        $form->district = $model->district;
-        $form->inn = $model->inn;
-        $form->name = $model->name;
-        $form->surname = $model->surname;
-        $form->phone = $model->phone;
-        $form->email = $model->email;
-        $form->status = $model->status;
-        
+        $form->attributes = $model->attributes;
         $form->id = $id;
         if (Yii::app()->user->checkAccess('trEditUser')) {
             if (isset($_POST['UserForm'])) {
@@ -250,7 +232,7 @@ class UserController extends Controller
 
                     $form->attributes = $_POST['UserForm'];
                     $view = $this->renderPartial('user/edituser', array('model'=>$form), true, true);
-                    $this->render('user/users', array('data'=>$dataProvider, 'view'=>$view));
+                    $this->render('user/user', array('data'=>$dataProvider, 'view'=>$view));
                 } else {
                     if(!empty($message)) {
                         Changes::saveChange($message);
@@ -263,12 +245,13 @@ class UserController extends Controller
                     if ($model->save()) {
                         Yii::app()->user->setFlash('saved_id', $model->id);
                         Yii::app()->user->setFlash('message', 'Пользователь "' . $model->company . '" сохранен успешно.');
-                        $this->redirect('/admin/user/');
+                        $form->attributes = $model->attributes;
                     } else Yii::log($model->getErrors(), 'error');
                 }
             } 
             //else $this->renderPartial('user/edituser', array('model' => $form), false, true);
-            else $this->render('user/edituser', array('model' => $form), false, true);
+            //else 
+            $this->render('user/edituser', array('model' => $form), false, true);
         } else {
             throw new CHttpException(403, Yii::t('yii', 'У Вас недостаточно прав доступа.'));
         }

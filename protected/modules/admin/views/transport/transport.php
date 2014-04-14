@@ -14,7 +14,7 @@
 <div class="right">
     <?php 
         if ($mess = Yii::app()->user->getFlash('message')){
-            echo '<div class="trDelMessage success">'.$mess.'</div>';
+            echo '<div class="uDelMessage success">'.$mess.'</div>';
         }
     ?>
     <div id="tabs">

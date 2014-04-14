@@ -18,7 +18,7 @@
     </div>
     <div class="width-15 u-inn">
         <div class="width-100">
-            111111111111
+            <?php echo $data->inn ?>
         </div>
     </div>
     <div class="width-15">
@@ -28,7 +28,7 @@
     </div>
     <div class="width-20">
         <div class="width-100">
-            Причина блокировки
+            <?php echo $data->email ?>
         </div>
     </div>
 </div>
