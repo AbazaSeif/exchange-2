@@ -202,23 +202,7 @@ class ContactController extends Controller
                 }
                 
                 if(!empty($emailExists)) {
-                    $criteria = new CDbCriteria();
-                    $sort = new CSort();
-                    $sort->sortVar = 'sort';
-                    $sort->defaultOrder = 'surname ASC';
-                    $dataProvider = new CActiveDataProvider('User', 
-                        array(
-                            'criteria'=>$criteria,
-                            'sort'=>$sort,
-                            'pagination'=>array(
-                                'pageSize'=>'13'
-                            )
-                        )
-                    );
-
                     $form->attributes = $_POST['UserContactForm'];
-                    $view = $this->renderPartial('editcontact', array('model'=>$form), true, true);
-                    $this->render('contact', array('data'=>$dataProvider, 'view'=>$view));
                 } else {
                     if(!empty($message)) {
                         Changes::saveChange($message);

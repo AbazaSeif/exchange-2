@@ -246,23 +246,7 @@ class UserController extends Controller
                 }
                 
                 if(!empty($innExists) || !empty($emailExists)) {
-                    $criteria = new CDbCriteria();
-                    $sort = new CSort();
-                    $sort->sortVar = 'sort';
-                    $sort->defaultOrder = 'surname ASC';
-                    $dataProvider = new CActiveDataProvider('User', 
-                        array(
-                            'criteria'=>$criteria,
-                            'sort'=>$sort,
-                            'pagination'=>array(
-                                'pageSize'=>'13'
-                            )
-                        )
-                    );
-
                     $form->attributes = $_POST['UserForm'];
-                    $view = $this->renderPartial('user/edituser', array('model'=>$form), true, true);
-                    $this->render('user/user', array('data'=>$dataProvider, 'view'=>$view));
                 } else {
                     if(!empty($message)) {
                         Changes::saveChange($message);
