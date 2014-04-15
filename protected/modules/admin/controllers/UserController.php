@@ -131,8 +131,6 @@ class UserController extends Controller
                         )
                     );
                     $form->attributes = $_POST['UserForm'];
-                    //$view = $this->renderPartial('user/edituser', array('model'=>$form), true, true);
-                    //$this->render('user/user', array('data'=>$dataProvider, 'view'=>$view));
                     $this->render('user/edituser', array('model'=>$form), false, true);
                }
             } else $this->render('user/edituser', array('model'=>$form), false, true);
@@ -143,44 +141,75 @@ class UserController extends Controller
 
     public function actionEditUser($id)
     {
-        $model = User::model()->findByPk($id);   
-        $message = '';
+        $model = User::model()->findByPk($id);
         $form = new UserForm;
         $form->attributes = $model->attributes;
         $form->id = $id;
+        $message = '';
         if (Yii::app()->user->checkAccess('trEditUser')) {
             if (isset($_POST['UserForm'])) {
                 $changes = $innExists = $emailExists = array();
+                
                 if($_POST['UserForm']['status'] == User::USER_NOT_CONFIRMED || $_POST['UserForm']['status'] == User::USER_ACTIVE){
                     $_POST['UserForm']['reason'] = null;
+                } else if(empty($_POST['UserForm']['reason'])){
+                    Yii::app()->user->setFlash('error', 'Поле "Причина" не может быть пустым.');
+                    $form->attributes = $_POST['UserForm'];
+                    $this->render('user/edituser', array('model'=>$form), false, true);
                 }
+                
                 foreach ($_POST['UserForm'] as $key => $value) {
-                    if($key != 'show'){
-                        if (trim($model[$key]) != trim($value) && $key != 'password' && $key != 'password_confirm') {
-                            $changes[$key]['before'] = $model[$key];
-                            $changes[$key]['after'] = $value;
-                            $model[$key] = trim($value);
-                            if($key == 'company'){
-                                $allContacts = Yii::app()->db->createCommand()
-                                    ->select('id')
-                                    ->from('user')
-                                    ->where('parent = '. $model->id)
-                                    ->queryAll()
-                                ;
-                                if(!empty($allContacts)){
-                                    foreach ($allContacts as $contact) {
-                                        $modelContact = User::model()->findByPk($contact['id']);
-                                        $contactName = $modelContact->name;
-                                        if(!empty($modelContact->surname)) $contactName .= ' '.$modelContact->surname;
-                                        $modelContact->company = 'Контактное лицо "' . $model->company . '" ('.$contactName.')';
-                                        $modelContact->save();
-                                    }
+                    if (trim($model[$key]) != trim($value) && $key != 'password' && $key != 'password_confirm') {
+                        $changes[$key]['before'] = $model[$key];
+                        $changes[$key]['after'] = $value;
+                        $model[$key] = trim($value);
+                        if($key == 'company'){
+                            $allContacts = Yii::app()->db->createCommand()
+                                ->select('id')
+                                ->from('user')
+                                ->where('parent = '. $model->id)
+                                ->queryAll()
+                            ;
+                            if(!empty($allContacts)){
+                                foreach ($allContacts as $contact) {
+                                    $modelContact = User::model()->findByPk($contact['id']);
+                                    $contactName = $modelContact->name;
+                                    if(!empty($modelContact->surname)) $contactName .= ' '.$modelContact->surname;
+                                    $modelContact->company = 'Контактное лицо "' . $model->company . '" ('.$contactName.')';
+                                    $modelContact->save();
                                 }
                             }
-                        } else if($key == 'password' && !empty($_POST['UserForm']['password_confirm'])) {
-                            $changes[$key] = 'Изменен пароль';
                         }
+                    } else if($key == 'password' && !empty($_POST['UserForm']['password_confirm']) && $model->password !== crypt(trim($_POST['UserForm']['password_confirm']), $model->password)) {
+                        $model->password = crypt($_POST['UserForm']['password_confirm'], User::model()->blowfishSalt());
+                        $changes[$key] = 'Изменен пароль';
                     }
+                }
+                // Send mail about changes in field "Status"
+                if(array_key_exists('status', $changes)) {
+                    $reason = $name = '';
+                    if(!empty($model->name)) $name = $model->name;
+                    if(!empty($model->secondname)){
+                        if(!empty($name)) $name .= ' ';
+                        $name .= $model->secondname;
+                    }
+                    if($model->status != User::USER_NOT_CONFIRMED && $model->status != User::USER_ACTIVE){
+                        $reason = '<p>Причина: '.$model->reason.'</p>';
+                    }
+                    
+                    $email = new TEmail;
+                    $email->from_email = Yii::app()->params['adminEmail'];
+                    $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+                    $email->to_email   = $model->email;
+                    $email->to_name    = '';
+                    $email->subject    = "Уведомление об изменении статуса";
+                    $email->type = 'text/html';
+                    $email->body = '<h1>'.$name.', </h1>' . 
+                        '<p>Статус вашей учетной записи был изменен на "'.User::$userStatus[$model->status].'" </p>' .
+                        $reason .
+                        '</hr><h5>Это сообщение является автоматическим, на него не следует отвечать</h5>'
+                    ;
+                    $email->sendMail();
                 }
                 
                 if (!empty($changes)) {
@@ -210,14 +239,6 @@ class UserController extends Controller
                                     'params'    => array(':email'=>$_POST['UserForm']['email']))
                                 );
                                 
-                                if(empty($emailExists)) {
-                                    $emailExists = UserContact::model()->find(array(
-                                        'select'    => 'email',
-                                        'condition' => 'email=:email',
-                                        'params'    => array(':email'=>$_POST['UserForm']['email']))
-                                    );
-                                }
-                                
                                 if(!empty($emailExists)) Yii::app()->user->setFlash('error', 'Указанный email уже используется. ');
                             }
                         }
@@ -245,21 +266,18 @@ class UserController extends Controller
                 } else {
                     if(!empty($message)) {
                         Changes::saveChange($message);
-                
-                        //$model->attributes = $_POST['UserForm'];
                         if (!empty($_POST['UserForm']['password_confirm'])) {
                             $model->password = crypt($_POST['UserForm']['password_confirm'], User::model()->blowfishSalt());
                         }
+                        
+                        if ($model->save()) {
+                            Yii::app()->user->setFlash('saved_id', $model->id);
+                            Yii::app()->user->setFlash('message', 'Пользователь "' . $model->company . '" сохранен успешно.');
+                            $form->attributes = $model->attributes;
+                        } else Yii::log($model->getErrors(), 'error');
                     }
-                    if ($model->save()) {
-                        Yii::app()->user->setFlash('saved_id', $model->id);
-                        Yii::app()->user->setFlash('message', 'Пользователь "' . $model->company . '" сохранен успешно.');
-                        $form->attributes = $model->attributes;
-                    } else Yii::log($model->getErrors(), 'error');
                 }
             } 
-            //else $this->renderPartial('user/edituser', array('model' => $form), false, true);
-            //else 
             $this->render('user/edituser', array('model' => $form), false, true);
         } else {
             throw new CHttpException(403, Yii::t('yii', 'У Вас недостаточно прав доступа.'));

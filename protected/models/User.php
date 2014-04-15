@@ -47,7 +47,7 @@ class User extends CActiveRecord
             User::USER_WARNING => 'Предупрежден',
             User::USER_TEMPORARY_BLOCKED => 'Временно заблокирован',
             User::USER_BLOCKED => 'Заблокирован',
-        );
+        );        
 
         /**
 	 * @return string the associated database table name

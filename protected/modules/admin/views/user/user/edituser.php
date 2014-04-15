@@ -6,9 +6,7 @@
     $action = '/admin/user/edituser/id/'.$model->id;
     $name = $model->id;
     if (!$model->id) {
-    //if ($model->isNewRecord) {
         $submit_text = 'Создать';
-        //$name = 'new';
         $header_form = '';
         $action = '/admin/user/createuser/';
         unset($delete_button);
