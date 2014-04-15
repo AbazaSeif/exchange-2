@@ -215,63 +215,72 @@ class SiteController extends Controller
     { 
         $model = new RestoreForm;
         if(isset($_POST['RestoreForm'])) {
-            $inn = $_POST['RestoreForm']['inn'];
-            $user = User::model()->find(array(
-                'condition'=>'inn=:inn',
-                'params'=>array(':inn'=>$inn))
-            );
-            
-            if($user) {
-                if($user->status != User::USER_NOT_CONFIRMED && $user->status != User::USER_TEMPORARY_BLOCKED && $user->status != User::USER_BLOCKED){
-                    if($user->email) {
-                        $password = User::randomPassword();
-                        $user->password = crypt($password, User::model()->blowfishSalt());
-                        if($user->save()) {
-                            // send mail to ferryman with new password
+            $user = array();
+            $input = $_POST['RestoreForm']['inn'];
+            if(!empty($_POST['RestoreForm']['inn'])) {
+                if(is_numeric($input)) {
+                    $user = User::model()->find(array(
+                        'condition'=>'inn=:inn',
+                        'params'=>array(':inn'=>$input))
+                    );
+                } else {
+                    $user = User::model()->find(array(
+                        'condition'=>'email=:email',
+                        'params'=>array(':email'=>$input))
+                    );
+                }
+                if(!empty($user)) {
+                    if($user->status != User::USER_NOT_CONFIRMED && $user->status != User::USER_TEMPORARY_BLOCKED && $user->status != User::USER_BLOCKED){
+                        if($user->email) {
+                            $password = User::randomPassword();
+                            $user->password = crypt($password, User::model()->blowfishSalt());
+                            if($user->save()) {
+                                // send mail to ferryman with new password
+                                $email = new TEmail;
+                                $email->from_email = Yii::app()->params['adminEmail'];
+                                $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+                                $email->to_email   = $user->email;
+                                $email->to_name    = '';
+                                $email->subject    = 'Смена пароля';
+                                $email->type = 'text/html';
+                                $email->body = '<div>'.
+                                        '<p>Ваш пароль для "Онлайн биржи перевозок ЛБР-АгроМаркет" был изменен:</p>'.
+                                        '<p>Новый пароль: <b>'.$password.'</b></p>'.
+                                        '<p>Для смены пароля зайдите в свой аккаунт и воспользуйтесь вкладкой "Настроки->Смена пароля"</p>'.
+                                    '</div>
+                                    <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+                                ';
+                                $email->sendMail();
+                                Dialog::message('flash-success', 'Отправлено!', 'Новый пароль был выслан на Ваш почтовый ящик.');
+                            } else Yii::log($user->getErrors(), 'error');
+                        } else {
+                            Dialog::message('flash-success', 'Внимание!', 'Ваша заявка на восстановление доступа отправлена, в ближайшее время с вами свяжутся представители нашей компании.');
+                            // send mail to logist
                             $email = new TEmail;
                             $email->from_email = Yii::app()->params['adminEmail'];
                             $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-                            $email->to_email   = $user->email;
+                            $email->to_email   = Yii::app()->params['supportEmail'];
                             $email->to_name    = '';
-                            $email->subject    = 'Смена пароля';
+                            $email->subject    = 'Восстановление доступа';
                             $email->type = 'text/html';
                             $email->body = '<div>'.
-                                    '<p>Ваш пароль для "Онлайн биржи перевозок ЛБР-АгроМаркет" был изменен:</p>'.
-                                    '<p>Новый пароль: <b>'.$password.'</b></p>'.
-                                    '<p>Для смены пароля зайдите в свой аккаунт и воспользуйтесь вкладкой "Настроки->Смена пароля"</p>'.
+                                    '<p>Перевозчик "'. $user->company. '" ИНН/УНП = '. $user->inn .' запросил восстановление доступов, однако в базе не указан email, просьба связаться с пользователем и узнать email, указать его в бирже перевозок и 1С. Далее попросить пользователя еще раз воспользоваться услугой восстановления доступа.</p>'.
+                                    '<p>Контактный телефон: '. $user->phone . '</p>'.
                                 '</div>
                                 <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
                             ';
                             $email->sendMail();
-                            Dialog::message('flash-success', 'Отправлено!', 'Инструкции к дальнейшим действиям были отправлены на ваш почтовый ящик.');
-                        } else Yii::log($user->getErrors(), 'error');
+                        }
                     } else {
-                        Dialog::message('flash-success', 'Внимание!', 'Ваша заявка на восстановление доступа отправлена, в ближайшее время с вами свяжутся представители нашей компании.');
-                        // send mail to logist
-                        $email = new TEmail;
-                        $email->from_email = Yii::app()->params['adminEmail'];
-                        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-                        $email->to_email   = Yii::app()->params['supportEmail'];
-                        $email->to_name    = '';
-                        $email->subject    = 'Восстановление доступа';
-                        $email->type = 'text/html';
-                        $email->body = '<div>'.
-                                '<p>Перевозчик "'. $user->company. '" ИНН/УНП = '. $user->inn .' запросил восстановление доступов, однако в базе не указан email, просьба связаться с пользователем и узнать email, указать его в бирже перевозок и 1С. Далее попросить пользователя еще раз воспользоваться услугой восстановления доступа.</p>'.
-                                '<p>Контактный телефон: '. $user->phone . '</p>'.
-                            '</div>
-                            <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
-                        ';
-                        $email->sendMail();
+                        if(User::USER_NOT_CONFIRMED == $user->status) $message = 'не подтверждена';
+                        else if(User::USER_TEMPORARY_BLOCKED == $user->status) $message = 'временно заблокирована';
+                        else if(User::USER_BLOCKED == $user->status) $message = 'заблокирована';
+                        Dialog::message('flash-error', 'Внимание!', ' Восстановление доступа невозможно. Ваша учетная запись ' . $message.'.');
                     }
                 } else {
-                    if(User::USER_NOT_CONFIRMED == $user->status) $message = 'не подтверждена';
-                    else if(User::USER_TEMPORARY_BLOCKED == $user->status) $message = 'временно заблокирована';
-                    else if(User::USER_BLOCKED == $user->status) $message = 'заблокирована';
-                    Dialog::message('flash-error', 'Внимание!', ' Восстановление доступа невозможно. Ваша учетная запись ' . $message.'.');
+                    Dialog::message('flash-error', 'Внимание!', 'Пользователя с таким ИНН/УНП и Email не найдено, свяжитесь с отделом логистики.');
                 }
-            } else {
-                Dialog::message('flash-error', 'Внимание!', 'Пользователя с таким "ИНН/УНП" не найдено, свяжитесь с отделом логистики.');
-            }
+            } else Dialog::message('flash-error', 'Внимание!', 'Заполнены не все обязательные поля');
             $this->redirect('/');
             
         } else {
