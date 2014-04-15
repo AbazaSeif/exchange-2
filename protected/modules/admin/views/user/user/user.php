@@ -2,14 +2,9 @@
 <div class="create-user">
     <?php
         echo CHtml::link('Создать компанию', '/admin/user/createuser/', array('class' => 'btn-admin btn-create'));
-        echo CHtml::dropDownList('type-status', $type, array(
-            0=>'Не подтвержден',
-            1=>'Активный',
-            2=>'Предупрежден',
-            3=>'Временно заблокирован',
-            4=>'Заблокирован',
-            5=>'Все',
-        ));     
+        $dropDownStatus = User::$userStatus;
+        $dropDownStatus[] = 'Все';
+        echo CHtml::dropDownList('type-status', $type, $dropDownStatus);     
         echo CHtml::label('Статус', 'type-status');
     ?>
 </div>

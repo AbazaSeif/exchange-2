@@ -2,15 +2,10 @@
 <div class="create-user">
     <?php
         echo CHtml::link('Создать контактное лицо', '/admin/contact/createcontact/', array('class' => 'btn-admin btn-create'));
-        echo CHtml::dropDownList('type-c-status', $type, array(
-            0=>'Не подтвержден',
-            1=>'Активный',
-            2=>'Предупрежден',
-            3=>'Временно заблокирован',
-            4=>'Заблокирован',
-            5=>'Все',
-        ));     
-        echo CHtml::label('Статус', 'type-status');
+        $dropDownStatus = User::$userStatus;
+        $dropDownStatus[] = 'Все';
+        echo CHtml::dropDownList('type-c-status', $type, $dropDownStatus);     
+        echo CHtml::label('Статус', 'type-c-status');
     ?>
 </div>
 <div style="clear: both"></div>
