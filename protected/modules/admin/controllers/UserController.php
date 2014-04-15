@@ -151,6 +151,9 @@ class UserController extends Controller
         if (Yii::app()->user->checkAccess('trEditUser')) {
             if (isset($_POST['UserForm'])) {
                 $changes = $innExists = $emailExists = array();
+                if($_POST['UserForm']['status'] == User::USER_NOT_CONFIRMED || $_POST['UserForm']['status'] == User::USER_ACTIVE){
+                    $_POST['UserForm']['reason'] = null;
+                }
                 foreach ($_POST['UserForm'] as $key => $value) {
                     if($key != 'show'){
                         if (trim($model[$key]) != trim($value) && $key != 'password' && $key != 'password_confirm') {

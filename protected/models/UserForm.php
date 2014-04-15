@@ -19,12 +19,13 @@ class UserForm extends CFormModel
     public $phone2;
     public $email;
     public $show;
+    public $reason;
 
     public function rules()
     {
         return array(
             array('inn, status, phone, phone2', 'numerical', 'integerOnly'=>true),
-            array('id, company, inn, name, surname, secondname, password, status, country, region, city, district, phone, phone2, email', 'safe'),
+            array('id, reason, company, inn, name, surname, secondname, password, status, country, region, city, district, phone, phone2, email', 'safe'),
             //array('company, country, password, region, district, inn, name, surname, phone, email', 'required'),
             array('company, inn', 'required'),
             //array('password, name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),
@@ -58,6 +59,7 @@ class UserForm extends CFormModel
             'phone2' => 'Телефон №2',
             'email' => 'Email',
             'show'  => 'Показывать перевозки',
+            'reason'  => 'Причина',
         );
     }
 }

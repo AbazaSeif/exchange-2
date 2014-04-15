@@ -126,6 +126,9 @@ class ContactController extends Controller
             if (isset($_POST['UserContactForm'])) {
                 $curUser = User::model()->findByPk($_POST['UserContactForm']['parent']);
                 $changes = $emailExists = array();
+                if($_POST['UserContactForm']['status'] == User::USER_NOT_CONFIRMED || $_POST['UserContactForm']['status'] == User::USER_ACTIVE){
+                    $_POST['UserContactForm']['reason'] = null;
+                }
                 foreach ($_POST['UserContactForm'] as $key => $value) {
                     if (trim($model[$key]) != trim($value) && $key != 'password' && $key != 'password_confirm') {
                         $changes[$key]['before'] = $model[$key];

@@ -65,7 +65,7 @@ class User extends CActiveRecord
             // NOTE: you should only define rules for those attributes that
             // will receive user inputs.
             return array(
-                array('company, inn, name, surname, secondname, password, status, country, region, city, district, phone, phone2, type_contact, parent, email', 'safe'),
+                array('company, reason, inn, name, surname, secondname, password, status, country, region, city, district, phone, phone2, type_contact, parent, email', 'safe'),
             );
 	}
 
@@ -106,11 +106,12 @@ class User extends CActiveRecord
                 'surname' => 'Фамилия',
                 // 'login' => 'Логин',
                 'password' => 'Пароль',
-                'phone' => 'Телефон',
+                'phone'  => 'Телефон',
                 'phone2' => 'Телефон №2',
                 'parent' => 'Родитель',
                 'type_contact' => 'Тип',
-                'email' => 'Email',
+                'email'  => 'Email',
+                'reason' => 'Причина',
             );
 	}
 

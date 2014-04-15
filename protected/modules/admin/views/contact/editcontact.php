@@ -122,6 +122,11 @@
                 echo $form->labelEx($model, 'status');
                 echo $form->dropDownList($model, 'status', User::$userStatus); ?>
             </div>
+            <div class="reason field">
+            <?php  echo $form->error($model, 'reason');
+                echo $form->labelEx($model, 'reason');
+                echo $form->textArea($model, 'reason'); ?>
+            </div>
             <?php if($model->id):?>
             <div style="display:none;">
             <?php  echo $form->hiddenField($model, 'password'); ?>
@@ -139,6 +144,18 @@ $(document).ready(function(){
     $('#close-contact').click(function(){
         if(isNaN(activeStatus)) document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/contact/";
         else document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/contact/index/status/" + activeStatus;
+    });
+    
+    <?php if($model->status == User::USER_NOT_CONFIRMED || $model->status == User::USER_ACTIVE): ?>
+    $('#UserContactForm_reason').parent().addClass('hide');
+    <?php endif; ?>
+    
+    $('#UserContactForm_status').change(function(){
+         if(this.value == <?php echo User::USER_NOT_CONFIRMED ?> || this.value == <?php echo User::USER_ACTIVE ?>){
+             $('#UserContactForm_reason').parent().addClass('hide');
+         } else {
+             $('#UserContactForm_reason').parent().removeClass('hide');
+         }
     });
 });
 </script>

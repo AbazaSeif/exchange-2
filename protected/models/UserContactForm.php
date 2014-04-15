@@ -13,14 +13,15 @@ class UserContactForm extends CFormModel
     public $phone;
     public $phone2;
     public $email;
-    public $company; // !!!
+    public $company;
+    public $reason;
 
     public function rules()
     {
         return array(
             //array('name, surname, phone, email, password', 'required'),
             array('name, email', 'required'),
-            array('id, parent, company, name, surname, secondname, password, status, phone, phone2, email', 'safe'),
+            array('id, reason, parent, company, name, surname, secondname, password, status, phone, phone2, email', 'safe'),
             array('status, phone, phone2', 'numerical', 'integerOnly'=>true),
             array('email', 'email', 'message'=>'Неправильный Email адрес'),
             //array('name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),
@@ -47,7 +48,8 @@ class UserContactForm extends CFormModel
             'phone'  => 'Телефон',
             'phone2' => 'Телефон №2',
             'parent' => 'Фирма',
-            'company' => 'Надпись', //!!!
+            'company' => 'Надпись',
+            'reason'  => 'Причина',
         );
     }
 }

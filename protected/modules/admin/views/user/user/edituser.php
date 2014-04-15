@@ -102,6 +102,11 @@
                 echo $form->labelEx($model, 'status');
                 echo $form->dropDownList($model, 'status', User::$userStatus); ?>
             </div>
+            <div class="reason field">
+            <?php  echo $form->error($model, 'reason');
+                echo $form->labelEx($model, 'reason');
+                echo $form->textArea($model, 'reason'); ?>
+            </div>
             <div class="country field">
             <?php  echo $form->error($model, 'country'); 
                 echo $form->labelEx($model, 'country');
@@ -152,6 +157,17 @@ $(document).ready(function(){
     $('#close-user').click(function(){
         if(isNaN(activeStatus)) document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/";
         else document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/index/status/" + activeStatus;
+    });
+    <?php if($model->status == User::USER_NOT_CONFIRMED || $model->status == User::USER_ACTIVE): ?>
+    $('#UserForm_reason').parent().addClass('hide');
+    <?php endif; ?>
+    
+    $('#UserForm_status').change(function(){
+         if(this.value == <?php echo User::USER_NOT_CONFIRMED ?> || this.value == <?php echo User::USER_ACTIVE ?>){
+             $('#UserForm_reason').parent().addClass('hide');
+         } else {
+             $('#UserForm_reason').parent().removeClass('hide');
+         }
     });
 });
 </script>
