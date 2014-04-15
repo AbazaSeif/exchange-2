@@ -186,7 +186,7 @@ class UserController extends Controller
                     }
                 }
                 // Send mail about changes in field "Status"
-                if(array_key_exists('status', $changes)) {
+                /*if(array_key_exists('status', $changes)) {
                     $reason = $name = '';
                     if(!empty($model->name)) $name = $model->name;
                     if(!empty($model->secondname)){
@@ -210,7 +210,7 @@ class UserController extends Controller
                         '</hr><h5>Это сообщение является автоматическим, на него не следует отвечать</h5>'
                     ;
                     $email->sendMail();
-                }
+                }*/
                 
                 if (!empty($changes)) {
                     $message = 'У пользователя с id = ' . $id . ' были изменены слудующие поля: ';

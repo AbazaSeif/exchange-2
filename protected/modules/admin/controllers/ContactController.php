@@ -145,7 +145,7 @@ class ContactController extends Controller
                     }
                 }
                 // Send mail about changes in field "Status"
-                if(array_key_exists('status', $changes)) {
+                /*if(array_key_exists('status', $changes)) {
                     $reason = $name = '';
                     if(!empty($model->name)) $name = $model->name;
                     if(!empty($model->secondname)){
@@ -169,7 +169,7 @@ class ContactController extends Controller
                         '</hr><h5>Это сообщение является автоматическим, на него не следует отвечать</h5>'
                     ;
                     $email->sendMail();
-                }
+                }*/
                 
                 $contactName = $model->name;
                 if(!empty($model->surname)) $contactName .= ' '.$model->surname;
