@@ -2,7 +2,7 @@
     $header_form = '"'.$model->company . '"';
     $submit_text = 'Сохранить';
     $close_text = 'Закрыть';
-    $delete_button = CHtml::link('Удалить', '/admin/contact/deletecontact/id/'.$model->id, array('id'=>'del_'.$model->name,'class'=>'btn-admin btn-del', 'onclick'=>'return confirm("Внимание! Пользователь будет безвозвратно удален. Продолжить?")'));
+    $delete_button = CHtml::link('Удалить', '/admin/contact/deletecontact/id/'.$model->id, array('id'=>'del-contact','class'=>'btn-admin btn-del', 'onclick'=>'return confirm("Внимание! Пользователь будет безвозвратно удален. Продолжить?")'));
     $action = '/admin/contact/editcontact/id/'.$model->id;
     $name = $model->id;
     $allCompanies = $this->getCompanies();
@@ -139,8 +139,13 @@
     </div>
 </div>
 <script>
-$(document).ready(function(){ 
+$(document).ready(function(){
     var activeStatus = parseInt(sessionStorage.getItem('contactStatus'));
+    if(!isNaN(activeStatus)) {
+        var href = $('#del-contact').attr('href');
+        $('#del-contact').attr('href', href + '/status/' + activeStatus);
+    }
+    
     $('#close-contact').click(function(){
         if(isNaN(activeStatus)) document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/contact/";
         else document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/contact/index/status/" + activeStatus;

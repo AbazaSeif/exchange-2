@@ -224,7 +224,7 @@ class ContactController extends Controller
         }
     }
 
-    public function actionDeleteContact($id)
+    public function actionDeleteContact($id, $status = 5)
     {
         $model = User::model()->findByPk($id);
         $name = $model['name'] . ' ' . $model['surname'];
@@ -234,7 +234,8 @@ class ContactController extends Controller
                 $message = 'Удален контакт ' . $name;
                 Changes::saveChange($message);
                 Yii::app()->user->setFlash('message', 'Контактное лицо удалено успешно.');
-                $this->redirect('/admin/contact/');
+                if($status == 5) $this->redirect('/admin/contact/');
+                else $this->redirect('/admin/contact/index/status/'.$status);
             }
         } else {
             throw new CHttpException(403, Yii::t('yii', 'У Вас недостаточно прав доступа.'));

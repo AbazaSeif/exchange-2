@@ -2,7 +2,7 @@
     $header_form = '"'.$model->company . '"';
     $submit_text = 'Сохранить';
     $close_text = 'Закрыть';
-    $delete_button = CHtml::link('Удалить', '/admin/user/deleteuser/id/'.$model->id, array('id'=>'del_'.$model->name,'class'=>'btn-admin btn-del', 'onclick'=>'return confirm("Внимание! Пользователь будет безвозвратно удален. Продолжить?")'));
+    $delete_button = CHtml::link('Удалить', '/admin/user/deleteuser/id/'.$model->id, array('id'=>'del-user','class'=>'btn-admin btn-del', 'onclick'=>'return confirm("Внимание! Пользователь будет безвозвратно удален. Продолжить?")'));
     $action = '/admin/user/edituser/id/'.$model->id;
     $name = $model->id;
     if (!$model->id) {
@@ -152,6 +152,10 @@
 <script>
 $(document).ready(function(){ 
     var activeStatus = parseInt(sessionStorage.getItem('userStatus'));
+    if(!isNaN(activeStatus)) {
+        var href = $('#del-user').attr('href');
+        $('#del-user').attr('href', href + '/status/' + activeStatus);
+    }
     $('#close-user').click(function(){
         if(isNaN(activeStatus)) document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/";
         else document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/index/status/" + activeStatus;

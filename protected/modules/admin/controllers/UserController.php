@@ -268,7 +268,7 @@ class UserController extends Controller
         }
     }
 
-    public function actionDeleteUser($id)
+    public function actionDeleteUser($id, $status = 5)
     {
         $model = User::model()->findByPk($id);
         if (Yii::app()->user->checkAccess('trDeleteUser')) {
@@ -278,7 +278,8 @@ class UserController extends Controller
                 Changes::saveChange($message);
                 User::model()->deleteAllByAttributes(array('parent'=>$id));
                 Yii::app()->user->setFlash('message', 'Пользователь удален успешно.');
-                $this->redirect('/admin/user/');
+                if($status == 5) $this->redirect('/admin/user/');
+                else $this->redirect('/admin/user/index/status/'.$status);
             }
         } else {
             throw new CHttpException(403, Yii::t('yii', 'У Вас недостаточно прав доступа.'));
