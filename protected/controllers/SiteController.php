@@ -236,12 +236,12 @@ class SiteController extends Controller
             global $config;
             while (@substr($server_response, 3, 1) != ' ') {
                 if (!($server_response = fgets($socket, 256))) {
-                    if ($config['smtp_debug']) echo "<p>Проблемы с отправкой почты!</p>$response<br>$line<br>";
+                    if ($config['smtp_debug']) echo '<p>Проблемы с отправкой почты!</p>'.$response.'<br>'.$line.'<br>';
                     return false;
                 }
             }
             if (!(substr($server_response, 0, 3) == $response)) {
-                if ($config['smtp_debug']) echo "<p>Проблемы с отправкой почты!</p>$response<br>$line<br>";
+                if ($config['smtp_debug']) echo '<p>Проблемы с отправкой почты!</p>'.$response.'<br>'.$line.'<br>';
                 return false;
             }
             return true;
