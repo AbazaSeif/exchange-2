@@ -166,12 +166,12 @@ class SiteController extends Controller
 
         $smtp = Mail::factory('smtp', array ('host' => $host, 'port' => 25));
         $mail = $smtp->send($to, $headers, $body);
-
+        echo '========';
         if (PEAR::isError($mail)) {
-            echo 111;
+            echo 111; exit;
                 return false;
         } else {
-            echo 222;
+            echo 222; exit;
                 return true; 
         }
     }
