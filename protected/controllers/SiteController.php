@@ -141,14 +141,14 @@ class SiteController extends Controller
     public function actionMailT()
     {
         $body = '<h1>Test Mail</h1><p style="color: red">This is a test</p>';
-        echo '555';exit;
+        
         $this->send_email('tttanyattt@mail.ru', 'Bob Smith <tttanyattt@mail.ru>', 'Test HTML message', $body);
     }
     
     public function send_email($to, $from, $subject, $body) {
         require_once("/usr/share/pear/Mail.php");
         require_once("/usr/share/pear/Mail/mime.php");    
-
+echo '66';exit;
         //echo dirname(__FILE__).'/../yii/framework/yii.php';
         //exit;
         $host = "mail.lbr.ru";
