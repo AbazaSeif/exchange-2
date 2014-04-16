@@ -147,9 +147,9 @@ class SiteController extends Controller
     
     public function sendEmail($to, $from, $subject, $body) 
     {
-       // require_once("/usr/share/pear/Mail.php");
-       // require_once("/usr/share/pear/Mail/mime.php");    
-echo '66';exit;
+        require_once("/usr/share/pear/Mail.php");
+        require_once("/usr/share/pear/Mail/mime.php");    
+echo '77';exit;
         //echo dirname(__FILE__).'/../yii/framework/yii.php';
         //exit;
         $host = "mail.lbr.ru";
