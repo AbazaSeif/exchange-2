@@ -138,11 +138,22 @@ class SiteController extends Controller
         $this->render('help');
     }
     
+    public function actionMailT()
+    {
+        $headers = '';
+        $headers.="Mime-Version: 1.0\r\n";
+        $headers.="Content-type: text/plain; charset=".$sc."\r\n";
+        $headers.="From: test \r\n";
+        
+        $mail = &Mail::factory('smtp', array('host' => 'mail.lbr.ru', 'port' => 25)); 
+        $mail->send('tttanyattt@mail.ru', $headers, 'jjjj'); 
+    }
+    
     public function actionRegistration()
     {
         $model = new RegistrationForm;
         /************************/
-        $email = new TEmail;
+        /*$email = new TEmail;
         $email->from_email = Yii::app()->params['adminEmail']; // 'cheshenkov@lbr.ru'; //
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
         $email->to_email   = 'tttanyattt@mail.ru';//'frenk0510@ya.ru';//'tttanyattt@mail.ru';    //'support.ex@lbr.ru';//$to;
@@ -152,7 +163,7 @@ class SiteController extends Controller
         $email->body = '<div>jjjjjjjjjjjjjjjjjjjj</div>
           <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
         ';
-        $email->sendMail();
+        $email->sendMail();*/
          /************************/
         if (isset($_POST['RegistrationForm'])) {
             $newUser = User::model()->find(array(
