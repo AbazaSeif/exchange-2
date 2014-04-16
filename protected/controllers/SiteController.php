@@ -141,6 +141,7 @@ class SiteController extends Controller
     public function actionMailT()
     {
         $body = '<h1>Test Mail</h1><p style="color: red">This is a test</p>';
+        echo '555';exit;
         $this->send_email('tttanyattt@mail.ru', 'Bob Smith <tttanyattt@mail.ru>', 'Test HTML message', $body);
     }
     
