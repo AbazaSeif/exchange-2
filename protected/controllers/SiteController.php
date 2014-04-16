@@ -168,8 +168,10 @@ class SiteController extends Controller
         $mail = $smtp->send($to, $headers, $body);
 
         if (PEAR::isError($mail)) {
+            echo 111;
                 return false;
         } else {
+            echo 222;
                 return true; 
         }
     }
