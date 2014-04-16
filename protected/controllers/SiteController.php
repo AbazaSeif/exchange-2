@@ -142,10 +142,11 @@ class SiteController extends Controller
     {
         $body = '<h1>Test Mail</h1><p style="color: red">This is a test</p>';
         
-        $this->send_email('tttanyattt@mail.ru', 'Bob Smith <tttanyattt@mail.ru>', 'Test HTML message', $body);
+        $this->sendEmail('tttanyattt@mail.ru', 'Bob Smith <tttanyattt@mail.ru>', 'Test HTML message', $body);
     }
     
-    public function send_email($to, $from, $subject, $body) {
+    public function sendEmail($to, $from, $subject, $body) 
+    {
        // require_once("/usr/share/pear/Mail.php");
        // require_once("/usr/share/pear/Mail/mime.php");    
 echo '66';exit;
