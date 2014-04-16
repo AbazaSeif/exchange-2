@@ -140,12 +140,11 @@ class SiteController extends Controller
     
     public function actionMailT()
     {
-        $headers = '';
-        $headers.="Mime-Version: 1.0\r\n";
-        $headers.="Content-type: text/plain; charset=".$sc."\r\n";
-        $headers.="From: test \r\n";
+        $headers["From"] = "tttanyattt@mail.ru";
+        $headers["To"] = "tttanyattt@mail.ru";
+        $headers["Subject"] = "User feedback";
         
-        $mail = &Mail::factory('smtp', array('host' => 'mail.lbr.ru', 'port' => 25)); 
+        $mail = & Mail::factory('smtp', array('host' => 'mail.lbr.ru', 'port' => 25)); 
         $mail->send('tttanyattt@mail.ru', $headers, 'jjjj'); 
     }
     
