@@ -142,7 +142,6 @@ class SiteController extends Controller
     {
         $model = new Test;
         if (isset($_POST['Test'])) {
-            var_dump($_POST['Test']['email']);exit;
             $email = new TEmail;
             $email->from_email = Yii::app()->params['adminEmail']; // 'cheshenkov@lbr.ru'; //
             $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
@@ -154,7 +153,6 @@ class SiteController extends Controller
               <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
             ';
             $email->sendMail();
-            
         }
         $this->render('test', array('model' => $model));
     }
