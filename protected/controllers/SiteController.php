@@ -207,7 +207,8 @@ class SiteController extends Controller
     {
         $model = new RegistrationForm;
         if (isset($_POST['RegistrationForm'])) {
-            //if($model->validate()) {
+            $model->attributes = $_POST['RegistrationForm'];
+            if($model->validate()) {
                 $newUser = User::model()->find(array(
                     'condition'=>'inn=:inn',
                     'params'=>array(':inn'=>$_POST['RegistrationForm']['inn']))
@@ -252,16 +253,16 @@ class SiteController extends Controller
 
                         $this->sendMail(Yii::app()->params['supportEmail'], 1, $_POST['RegistrationForm']);
                         $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
-                        Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Вы получите на почту инструкции по активации, когда ваша заявка будет рассмотрена. Спасибо за интерес, проявленный к нашей компании');
+                        Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Когда ваша заявка будет рассмотрена Вы получите на почту инструкции по активации. Спасибо за интерес, проявленный к нашей компании');
                     } else Yii::log($user->getErrors(), 'error');
                 } else {
                     Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким ИНН/УНП уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');  
                 }
-                $this->redirect('/site/login/');
-           /* } else {
-                Dialog::message('flash-success', 'Ваша заявка отклонена, т.к. заполнены не все обязательные поля.');  
-                $this->redirect('/');
-            }*/
+                
+            } else {
+                Dialog::message('flash-success', 'Внимание!', 'Ваша заявка отклонена, т.к. заполнены не все обязательные поля.');  
+            }
+            $this->redirect('/site/login/');
         } else {
             $this->render('registration', array('model' => $model));
         }
