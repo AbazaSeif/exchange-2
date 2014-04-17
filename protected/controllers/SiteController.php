@@ -153,6 +153,7 @@ class SiteController extends Controller
               <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
             ';
             $email->sendMail();
+            $model->email = 'Письмо отправлено';
         }
         $this->render('test', array('model' => $model));
     }
