@@ -13,8 +13,8 @@
  * @return boolean if false, error message written to error_log
  */
 function sendEmail($to, $from, $subject, $body) {
-    require_once("/usr/share/pear/Mail.php");
-    require_once("/usr/share/pear/Mail/mime.php");
+    //require_once("/usr/share/pear/Mail.php");
+    //require_once("/usr/share/pear/Mail/mime.php");
     
     
     require_once "Mail.php";
