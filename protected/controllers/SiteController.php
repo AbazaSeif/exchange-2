@@ -207,57 +207,59 @@ class SiteController extends Controller
     {
         $model = new RegistrationForm;
         if (isset($_POST['RegistrationForm'])) {
-            $newUser = User::model()->find(array(
-                'condition'=>'inn=:inn',
-                'params'=>array(':inn'=>$_POST['RegistrationForm']['inn']))
-            );
-            if(empty($newUser)) {
-                $userInfo = array();
-                $user = new User();
-                $user->attributes = $_POST['RegistrationForm'];
-                $user->status = User::USER_NOT_CONFIRMED;
-                $user->company = $_POST['RegistrationForm']['ownership'] . ' "' . trim($_POST['RegistrationForm']['company']) . '"';
-                $user->password = crypt($_POST['RegistrationForm']['password'], User::model()->blowfishSalt());
-                $user->inn = trim($_POST['RegistrationForm']['inn']);
-                $user->country = trim($_POST['RegistrationForm']['country']);
-                $user->region = trim($_POST['RegistrationForm']['region']);
-                $user->city = trim($_POST['RegistrationForm']['city']);
-                $user->district = trim($_POST['RegistrationForm']['district']);
-                $user->secondname = trim($_POST['RegistrationForm']['secondname']);
-                $user->surname = trim($_POST['RegistrationForm']['surname']);
-                $user->phone = trim($_POST['RegistrationForm']['phone']);
-                $user->email = trim($_POST['RegistrationForm']['email']);
-                
-                if($user->save()) {
-                    $newFerrymanFields = new UserField;
-                    $newFerrymanFields->user_id = $user->id;
-                    $newFerrymanFields->mail_transport_create_1 = false;
-                    $newFerrymanFields->mail_transport_create_2 = false;
-                    $newFerrymanFields->mail_kill_rate = false;
-                    $newFerrymanFields->mail_before_deadline = false;
-                    $newFerrymanFields->mail_deadline = true;
-                    $newFerrymanFields->with_nds = (bool)$_POST['RegistrationForm']['nds'];
-                    if((int)$_POST['RegistrationForm']['show'] == 0){
-                        $newFerrymanFields->show_intl = true;
-                        $newFerrymanFields->show_regl = true;
-                    } else if((int)$_POST['RegistrationForm']['show'] == 1){
-                        $newFerrymanFields->show_intl = true;
-                        $newFerrymanFields->show_regl = false;
-                    } else {
-                        $newFerrymanFields->show_intl = false;
-                        $newFerrymanFields->show_regl = true;
-                    }
-                    $newFerrymanFields->save();
+            if($model->validate()) {
+                $newUser = User::model()->find(array(
+                    'condition'=>'inn=:inn',
+                    'params'=>array(':inn'=>$_POST['RegistrationForm']['inn']))
+                );
+                if(empty($newUser)) {
+                    $userInfo = array();
+                    $user = new User();
+                    $user->attributes = $_POST['RegistrationForm'];
+                    $user->status = User::USER_NOT_CONFIRMED;
+                    $user->company = $_POST['RegistrationForm']['ownership'] . ' "' . trim($_POST['RegistrationForm']['company']) . '"';
+                    $user->password = crypt($_POST['RegistrationForm']['password'], User::model()->blowfishSalt());
+                    $user->inn = trim($_POST['RegistrationForm']['inn']);
+                    $user->country = trim($_POST['RegistrationForm']['country']);
+                    $user->region = trim($_POST['RegistrationForm']['region']);
+                    $user->city = trim($_POST['RegistrationForm']['city']);
+                    $user->district = trim($_POST['RegistrationForm']['district']);
+                    $user->secondname = trim($_POST['RegistrationForm']['secondname']);
+                    $user->surname = trim($_POST['RegistrationForm']['surname']);
+                    $user->phone = trim($_POST['RegistrationForm']['phone']);
+                    $user->email = trim($_POST['RegistrationForm']['email']);
 
-                    $this->sendMail(Yii::app()->params['supportEmail'], 1, $_POST['RegistrationForm']);
-                    $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
+                    if($user->save()) {
+                        $newFerrymanFields = new UserField;
+                        $newFerrymanFields->user_id = $user->id;
+                        $newFerrymanFields->mail_transport_create_1 = false;
+                        $newFerrymanFields->mail_transport_create_2 = false;
+                        $newFerrymanFields->mail_kill_rate = false;
+                        $newFerrymanFields->mail_before_deadline = false;
+                        $newFerrymanFields->mail_deadline = true;
+                        $newFerrymanFields->with_nds = (bool)$_POST['RegistrationForm']['nds'];
+                        if((int)$_POST['RegistrationForm']['show'] == 0){
+                            $newFerrymanFields->show_intl = true;
+                            $newFerrymanFields->show_regl = true;
+                        } else if((int)$_POST['RegistrationForm']['show'] == 1){
+                            $newFerrymanFields->show_intl = true;
+                            $newFerrymanFields->show_regl = false;
+                        } else {
+                            $newFerrymanFields->show_intl = false;
+                            $newFerrymanFields->show_regl = true;
+                        }
+                        $newFerrymanFields->save();
 
-                    Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Вы получите на почту инструкции по активации, когда ваша заявка будет рассмотрена. Спасибо за интерес, проявленный к нашей компании');
-                } else Yii::log($user->getErrors(), 'error');
-            } else {
-                Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким ИНН/УНП уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');  
-            }
-            $this->redirect('/site/login/');
+                        $this->sendMail(Yii::app()->params['supportEmail'], 1, $_POST['RegistrationForm']);
+                        $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
+
+                        Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Вы получите на почту инструкции по активации, когда ваша заявка будет рассмотрена. Спасибо за интерес, проявленный к нашей компании');
+                    } else Yii::log($user->getErrors(), 'error');
+                } else {
+                    Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким ИНН/УНП уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');  
+                }
+                $this->redirect('/site/login/');
+            } else Dialog::message('flash-success', 'Ваша заявка отклонена, т.к. заполнены не все обязательные поля.');  
         } else {
             $this->render('registration', array('model' => $model));
         }
