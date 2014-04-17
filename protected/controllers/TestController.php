@@ -8,7 +8,10 @@ class TestController extends Controller
     {
        echo Yii::app()->basePath; 
        echo '<br/>';
-       echo dirname(__FILE__).'/../../../../../../';
+       if(file_exists(dirname(__FILE__).'/../../../../../../../usr/share/pear/Mail.php'))
+           echo '1';
+       else echo 0;
+       //echo dirname(__FILE__).'/../../../../../../../';
        exit; 
     }
 }
