@@ -149,8 +149,8 @@ class SiteController extends Controller
     {
         //require_once("/usr/share/pear/Mail.php");
         //require_once("/usr/share/pear/Mail/mime.php");  
-        echo dirname(__FILE__).'/../yii/framework/yii.php';
-        //echo '77';
+        //echo dirname(__FILE__).'/../yii/framework/yii.php';
+        echo '77';
         exit;
         //echo dirname(__FILE__).'/../yii/framework/yii.php';
         //exit;
