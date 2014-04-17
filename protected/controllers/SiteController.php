@@ -138,6 +138,27 @@ class SiteController extends Controller
         $this->render('help');
     }
     
+    public function actionTestMail()
+    {
+        $model = new Test;
+        if (isset($_POST['Test'])) {
+            var_dump($_POST['Test']['email']);exit;
+            $email = new TEmail;
+            $email->from_email = Yii::app()->params['adminEmail']; // 'cheshenkov@lbr.ru'; //
+            $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+            $email->to_email   = $_POST['Test']['email'];//'frenk0510@ya.ru';//'tttanyattt@mail.ru';    //'support.ex@lbr.ru';//$to;
+            $email->to_name    = '';
+            $email->subject    = 'Test';
+            $email->type       = 'text/html';
+            $email->body = '<div>test</div>
+              <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+            ';
+            $email->sendMail();
+            
+        }
+        $this->render('test', array('model' => $model));
+    }
+    
     public function actionMailT()
     {
         $body = '<h1>Test Mail</h1><p style="color: red">This is a test</p>';
