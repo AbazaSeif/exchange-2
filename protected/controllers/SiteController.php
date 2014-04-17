@@ -207,7 +207,7 @@ class SiteController extends Controller
     {
         $model = new RegistrationForm;
         if (isset($_POST['RegistrationForm'])) {
-            if($model->validate()) {
+            //if($model->validate()) {
                 $newUser = User::model()->find(array(
                     'condition'=>'inn=:inn',
                     'params'=>array(':inn'=>$_POST['RegistrationForm']['inn']))
@@ -259,8 +259,8 @@ class SiteController extends Controller
                     Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким ИНН/УНП уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');  
                 }
                 $this->redirect('/site/login/');
-            } else Dialog::message('flash-success', 'Ваша заявка отклонена, т.к. заполнены не все обязательные поля.');  
-            $this->redirect('/');
+            //} else Dialog::message('flash-success', 'Ваша заявка отклонена, т.к. заполнены не все обязательные поля.');  
+            //$this->redirect('/');
         } else {
             $this->render('registration', array('model' => $model));
         }
