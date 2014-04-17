@@ -143,9 +143,9 @@ class SiteController extends Controller
         $model = new Test;
         if (isset($_POST['Test'])) {
             $email = new TEmail;
-            $email->from_email = Yii::app()->params['adminEmail']; // 'cheshenkov@lbr.ru'; //
+            $email->from_email = Yii::app()->params['adminEmail'];
             $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-            $email->to_email   = $_POST['Test']['email'];//'frenk0510@ya.ru';//'tttanyattt@mail.ru';    //'support.ex@lbr.ru';//$to;
+            $email->to_email   = $_POST['Test']['email'];
             $email->to_name    = '';
             $email->subject    = 'Test';
             $email->type       = 'text/html';
