@@ -260,6 +260,7 @@ class SiteController extends Controller
                 }
                 $this->redirect('/site/login/');
             } else Dialog::message('flash-success', 'Ваша заявка отклонена, т.к. заполнены не все обязательные поля.');  
+            $this->redirect('/');
         } else {
             $this->render('registration', array('model' => $model));
         }
