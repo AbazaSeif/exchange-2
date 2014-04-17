@@ -11,7 +11,7 @@ class TestController extends Controller
        echo dirname(__FILE__); 
        echo '<br/>';
        //if(file_exists(dirname(__FILE__).'/../../../../../../../../usr/share/pear/Mail.php'))
-       $path = dirname(__FILE__).'/../../index.php';
+       $path = dirname(__FILE__).'/../../yii/';
        if(file_exists($path))
       // if(file_exists('/usr/share/pear/Mail.php'))
            echo '1 - ' . $path;
