@@ -147,8 +147,8 @@ class SiteController extends Controller
     
     public function sendEmail($to, $from, $subject, $body) 
     {
-        require_once("/usr/share/pear/Mail.php");
-        require_once("/usr/share/pear/Mail/mime.php");  
+        //require_once("/usr/share/pear/Mail.php");
+        //require_once("/usr/share/pear/Mail/mime.php");  
         echo dirname(__FILE__);
         //echo '77';
         exit;
