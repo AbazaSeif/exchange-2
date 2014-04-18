@@ -8,6 +8,16 @@ class CronCommand extends CConsoleCommand
         $this->newTransport();
         $this->mailKillRate();
         $this->errorDate();
+        ///////////////////////
+        $email = new TEmail;
+        $email->from_email = 'test@mail.ru';
+        $email->from_name = 'Биржа перевозок ЛБР АгроМаркет';
+        $email->to_email = 'tttanyattt@mail.ru';
+        $email->to_name = '';
+        $email->subject = 'test';
+        $email->type = 'text/html';
+        $email->body = "<h1>Уважаемый(ая) яяя, </h1><hr><h5>Это сообщение является автоматическим, на него не нужно отвечать.</h5>";
+        $email->sendMail();
     }
     
     public function errorDate()
