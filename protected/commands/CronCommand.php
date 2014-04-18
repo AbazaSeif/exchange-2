@@ -3,14 +3,14 @@ class CronCommand extends CConsoleCommand
 {
     public function run($args)
     {   
-        //$this->deadlineTransport();
-        //$this->beforeDeadlineTransport();
-        //$this->newTransport();
-        //$this->mailKillRate();
-        //$this->errorDate();   
+        $this->deadlineTransport();
+        $this->beforeDeadlineTransport();
+        $this->newTransport();
+        $this->mailKillRate();
+        $this->errorDate();   
         
         ////////////////////////////////////////////////////////////
-        $timeNow = date("Y-m-d H:i");
+        /*$timeNow = date("Y-m-d H:i");
         $email = new TEmail;
         $email->from_email = 'support.ex@lbr.ru';
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
@@ -22,7 +22,7 @@ class CronCommand extends CConsoleCommand
           <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
         ';
         
-        $email->sendMail();
+        $email->sendMail();*/
     }
     
     public function errorDate()
