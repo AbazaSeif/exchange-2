@@ -14,7 +14,7 @@ class CronCommand extends CConsoleCommand
           <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
         ';
         if($email->sendMail()) Yii::log('cron call - send', 'warning');
-        else Yii::log('cron call - ' . 'sandmail_path = ' . ini_get('sandmail_path'), 'warning');
+        else Yii::log('cron call - ' . 'sendmail_path = ' . ini_get('sendmail_path'), 'warning');
         
         /*if(mail('tttanyattt@mail.ru', 'My Subject', 'test')) {
             mail('cheshenkov@lbr.ru', 'My Subject', 'test');
