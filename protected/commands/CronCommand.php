@@ -6,7 +6,7 @@ class CronCommand extends CConsoleCommand
         $email = new TEmail;
         $email->from_email = 'support.ex@lbr.ru';
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = 'tttanyattt@mail.ru';
+        $email->to_email   = 'krilova@lbr.ru';
         $email->to_name    = '';
         $email->subject    = 'Test';
         $email->type       = 'text/html';
