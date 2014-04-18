@@ -5,9 +5,9 @@ class CronCommand extends CConsoleCommand
     {   
         if(mail('tttanyattt@mail.ru', 'My Subject', 'test')){
             mail('cheshenkov@lbr.ru', 'My Subject', 'test');
-            Yii::log('cron call - письмо отравлено', 'warning');
+            Yii::log('cron call - send', 'warning');
         } else {
-            Yii::log('cron call - ошибка', 'warning');
+            Yii::log('cron call - error with send', 'warning');
         }
         
         
