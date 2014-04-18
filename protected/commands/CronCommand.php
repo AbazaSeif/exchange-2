@@ -41,7 +41,7 @@ class CronCommand extends CConsoleCommand
             <hr/><h5>Message from Cron.</h5>
         ';
         $email->sendMail();
-        Yii::log('cran call - function testMail() works', 'warning');
+        Yii::log('cron call - function testMail() works', 'warning');
     }
     
     public function errorDate()

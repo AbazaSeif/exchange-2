@@ -18,13 +18,15 @@ return array(
             ),
             
             // uncomment the following to use a MySQL database
-            /*'db'=>array(
+            /*
+            'db'=>array(
                     'connectionString' => 'mysql:host=localhost;dbname=chat',
                     'emulatePrepare' => true,
                     'username' => 'mysql',
                     'password' => 'mysql',
                     'charset' => 'utf8',
-            ),*/
+            ),
+            */
 
             'log'=>array(
                 'class'=>'CLogRouter',
