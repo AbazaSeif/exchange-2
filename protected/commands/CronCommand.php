@@ -3,7 +3,7 @@ class CronCommand extends CConsoleCommand
 {
     public function run($args)
     {   
-        /*$email = new TEmail;
+        $email = new TEmail;
         $email->from_email = 'support.ex@lbr.ru';
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
         $email->to_email   = 'tttanyattt@mail.ru';
@@ -14,6 +14,35 @@ class CronCommand extends CConsoleCommand
           <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
         ';
         
+        $email->sendMail();
+        
+        $email = new TEmail;
+        $email->from_email = 'support.ex@lbr.ru';
+        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+        $email->to_email   = 'cheshenkov@lbr.ru';
+        $email->to_name    = '';
+        $email->subject    = 'Test';
+        $email->type       = 'text/html';
+        $email->body = '<div>test</div>
+          <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+        ';
+        
+        $email->sendMail();
+        
+        $email = new TEmail;
+        $email->from_email = 'support.ex@lbr.ru';
+        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+        $email->to_email   = 'xchesh666@gmail.com';
+        $email->to_name    = '';
+        $email->subject    = 'Test';
+        $email->type       = 'text/html';
+        $email->body = '<div>test</div>
+          <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+        ';
+        
+        $email->sendMail();
+        
+        /*
         if($email->sendMail()) {
             Yii::log('cron call - send', 'warning');
         } else {
@@ -41,9 +70,9 @@ class CronCommand extends CConsoleCommand
         ';
         $email->sendMail();
         */
-        $this->testMail('krilova@lbr.ru');
-        $this->testMail('cheshenkov@lbr.ru');
-        $this->testMail('xchesh666@gmail.com');
+        //$this->testMail('krilova@lbr.ru');
+        //$this->testMail('cheshenkov@lbr.ru');
+        //$this->testMail('xchesh666@gmail.com');
         //$this->testMail('forvlasov@gmail.com');
         //$this->testMail('vlasov@lbr.ru');
         
