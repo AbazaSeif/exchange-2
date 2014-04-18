@@ -24,35 +24,15 @@ class CronCommand extends CConsoleCommand
         
         //mail('krilova@lbr.ru', 'test', 'test');
         
-        $header = "From: Sender <sen...@domain.org>\r\n";
-        $header .= "Reply-to: Sender <blabla...@domain.net>\r\n";
-        $header .= "X-Mailer: Our Php\r\n";
+        $to      = 'krilova@lbr.ru';
+        $subject = 'kkk';
+        $message = 'test';
+        $header = "From: krilova@lbr.ru\n"; 
+        $header.= "MIME-Version: 1.0\n"; 
+        $header.= "Content-Type: text/plain; charset=utf-8\n"; 
+        $header.= "X-Priority: 1\n"; 
 
-        $boundary = "==String_Boundary_x" .md5(time()). "x\r\n";
-        $boundary2 = "==String_Boundary2_y" .md5(time()). "y\r\n";
-
-        $header .= "MIME-Version: 1.0\r\n";
-        $header .= "Content-Type: multipart/related;\r\n";
-        $header .= " type='multipart/alternative';\r\n";
-        $header .= " boundary='$boundary';\r\n";
-
-        $message = "If you read this, your email client doesn't support MIME\r\n";
-
-        $message .= "--$boundary\r\n";
-        $message .= "Content-Type: multipart/alternative;\r\n";
-        $message .= " boundary='$boundary2';\r\n";
-
-        $message .= "--$boundary2\r\n";
-        $message .= "Content-Type: text/plain; charset=\"iso-8859-1\"\r\n";
-        $message .= "Content-Transfer-Encoding: 7bit\r\n";
-        $message .= "Alternative message in plain text format.\r\n";
-
-        $message .= "--$boundary2\r\n";
-        $message .= "Content-Type: text/html; charset=\"iso-8859-1\"\r\n";
-        $message .= "Content-Transfer-Encoding: 7bit\r\n";
-        $message .= "<html><body><p>HTML formatted message</p></body></html>";
-
-        mail('krilova@lbr.ru', 'test', $message, $header);
+        mail($to, $subject, $message, $header);
         
     }
     
