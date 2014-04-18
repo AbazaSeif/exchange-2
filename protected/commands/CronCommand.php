@@ -21,7 +21,7 @@ class CronCommand extends CConsoleCommand
         
         $email->sendMail();
         * */
-        mail('krilova@lbr.ru', 'test', 'test');
+        //mail('krilova@lbr.ru', 'test', 'test');
         
     }
     
