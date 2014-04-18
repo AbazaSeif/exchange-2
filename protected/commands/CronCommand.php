@@ -16,10 +16,10 @@ class CronCommand extends CConsoleCommand
         $email->sendMail();
         
         $this->testMail('krilova@lbr.ru');
-        $this->testMail('cheshenkov@lbr.ru');
+        //$this->testMail('cheshenkov@lbr.ru');
         $this->testMail('xchesh666@gmail.com');
         $this->testMail('forvlasov@gmail.com');
-        $this->testMail('vlasov@lbr.ru');
+        //$this->testMail('vlasov@lbr.ru');
         //////////////////////////////////
         $this->deadlineTransport();
         $this->beforeDeadlineTransport();

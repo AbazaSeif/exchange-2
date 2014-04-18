@@ -13,7 +13,7 @@ class TEmail{
         $dc = $this->data_charset;
         $sc = $this->send_charset;
         //Кодируем поля адресата, темы и отправителя
-        $enc_to = $this->mimeHeaderEncode($this->to_name,$dc,$sc).' <'.$this->to_email.'>';
+        $enc_to = '111'; //$this->mimeHeaderEncode($this->to_name,$dc,$sc).' <'.$this->to_email.'>';
         $enc_subject = $this->mimeHeaderEncode($this->subject,$dc,$sc);
         $enc_from = $this->mimeHeaderEncode($this->from_name,$dc,$sc).' <'.$this->from_email.'>';
         //Кодируем тело письма
