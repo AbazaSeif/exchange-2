@@ -3,44 +3,14 @@ class CronCommand extends CConsoleCommand
 {
     public function run($args)
     {   
-        /*
-        $email = new TEmail;
-        $email->from_email = 'support.ex@lbr.ru';
-        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = 'krilova@lbr.ru';
-        $email->to_name    = '';
-        $email->subject    = 'Test';
-        $email->type       = 'text/html';
-        $email->body = '<div>test</div>
-          <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
-        ';
-        
-        $email->sendMail();
-        */
-        
-        //////////////////////////////////
-        
         //$this->deadlineTransport();
         //$this->beforeDeadlineTransport();
         //$this->newTransport();
         //$this->mailKillRate();
-        $this->errorDate();   
-    }
-    
-    public function errorDate()
-    {
-        $timeNow = date("Y-m-d H:i");
+        //$this->errorDate();   
         
-        /*$transports = Yii::app()->db->createCommand()
-            ->select('id')
-            ->from('transport')
-            ->where('status = 1 and date_close between "1980-01-01" and "' . $timeNow. '"')
-            ->queryAll()
-        ;
-        foreach($transports as $transport){
-            Transport::model()->updateByPk($transport['id'], array('status' => 0));
-        }*/
         ////////////////////////////////////////////////////////////
+        $timeNow = date("Y-m-d H:i");
         $email = new TEmail;
         $email->from_email = 'support.ex@lbr.ru';
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
@@ -53,6 +23,21 @@ class CronCommand extends CConsoleCommand
         ';
         
         $email->sendMail();
+    }
+    
+    public function errorDate()
+    {
+        $timeNow = date("Y-m-d H:i");
+        
+        $transports = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('transport')
+            ->where('status = 1 and date_close between "1980-01-01" and "' . $timeNow. '"')
+            ->queryAll()
+        ;
+        foreach($transports as $transport){
+            Transport::model()->updateByPk($transport['id'], array('status' => 0));
+        }
     }
     
     // Search for transport with deadline
