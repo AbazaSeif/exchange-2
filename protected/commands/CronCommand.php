@@ -13,13 +13,13 @@ class CronCommand extends CConsoleCommand
     public function errorDate()
     {
         $timeNow = date("Y-m-d H:i");
-        
         $transports = Yii::app()->db->createCommand()
             ->select('id')
             ->from('transport')
             ->where('status = 1 and date_close between "1980-01-01" and "' . $timeNow. '"')
             ->queryAll()
         ;
+        
         foreach($transports as $transport){
             Transport::model()->updateByPk($transport['id'], array('status' => 0));
         }
