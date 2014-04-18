@@ -10,7 +10,7 @@ class CronCommand extends CConsoleCommand
         $this->errorDate();   
         
         ////////////////////////////////////////////////////////////
-        $email = new TEmail;
+       /* $email = new TEmail;
         $email->from_email = 'support.ex@lbr.ru';
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
         $email->to_email   = 'krilova@lbr.ru';
@@ -20,6 +20,8 @@ class CronCommand extends CConsoleCommand
         $email->body = '111';
         
         $email->sendMail();
+        * */
+        
         
     }
     
