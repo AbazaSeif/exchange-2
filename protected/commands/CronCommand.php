@@ -20,10 +20,11 @@ class CronCommand extends CConsoleCommand
         $email->body = '111';
         
         $email->sendMail();
-        * */
+        */
+        
         //mail('krilova@lbr.ru', 'test', 'test');
         
-        $to      = 'krilova@lbr.ru';
+        /*$to      = 'krilova@lbr.ru';
         $subject = 'kkk';
         $message = 'test';
         $header = "From: krilova@lbr.ru\r\n"; 
@@ -31,7 +32,7 @@ class CronCommand extends CConsoleCommand
         $header.= "Content-Type: text/plain; charset=utf-8\r\n"; 
         $header.= "X-Priority: 1\r\n"; 
 
-        mail($to, $subject, $message, $header);
+        mail($to, $subject, $message, $header);*/
         
     }
     
