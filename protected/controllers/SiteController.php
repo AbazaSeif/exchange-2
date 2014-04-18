@@ -164,7 +164,6 @@ class SiteController extends Controller
         $model = new RegistrationForm;
         if (isset($_POST['RegistrationForm'])) {
             $model->attributes = $_POST['RegistrationForm'];
-            //$model->inn = null;
             if($model->validate()) {
                 $emailExists = array();
                 $innExists = User::model()->find(array(
@@ -221,15 +220,12 @@ class SiteController extends Controller
                         Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Когда ваша заявка будет рассмотрена Вы получите на почту инструкции по активации. Спасибо за интерес, проявленный к нашей компании');
                     } else Yii::log($user->getErrors(), 'error');
                 } else if(!empty($emailExists)) {
-                    Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким Email уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');  
-                    //$this->render('registration', array('model' => $model));
+                    Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким Email уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');
                 } else {
                     Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким ИНН/УНП уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');
-                    //$this->render('registration', array('model' => $model));
                 }
             } else {
                 Dialog::message('flash-success', 'Внимание!', 'Ваша заявка отклонена, т.к. заполнены не все обязательные поля.');  
-                //$this->render('registration', array('model' => $model));
             }
             $this->redirect('/');
         } else {
