@@ -13,13 +13,33 @@ class CronCommand extends CConsoleCommand
         $email->body = '<div>cron test</div>
           <hr/><h5>Message from Cron.</h5>
         ';
-        $email->sendMail();
+        $email->sendMail('krilova@lbr.ru');
+        $this->testMail('cheshenkov@lbr.ru');
+        $this->testMail('xchesh666@gmail.com');
+        $this->testMail('forvlasov@gmail.com');
+        $this->testMail('vlasov@lbr.ru');
         //////////////////////////////////
         $this->deadlineTransport();
         $this->beforeDeadlineTransport();
         $this->newTransport();
         $this->mailKillRate();
         $this->errorDate();
+    }
+    
+    public function testMail($email)
+    {
+        $email = new TEmail;
+        $email->from_email = 'support.ex@lbr.ru';
+        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+        $email->to_email   = $email;
+        $email->to_name    = '';
+        $email->subject    = 'Test';
+        $email->type       = 'text/html';
+        $email->body       = '<div>cron test</div>
+            <hr/><h5>Message from Cron.</h5>
+        ';
+        $email->sendMail();
+        Yii::log('cran call - function testMail() works', 'warning');
     }
     
     public function errorDate()

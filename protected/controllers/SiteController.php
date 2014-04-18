@@ -208,13 +208,21 @@ class SiteController extends Controller
         $model = new RegistrationForm;
         if (isset($_POST['RegistrationForm'])) {
             $model->attributes = $_POST['RegistrationForm'];
-            //$model->inn = null;
+            $model->inn = null;
             if($model->validate()) {
-                $newUser = User::model()->find(array(
+                $emailExists = array();
+                $innExists = User::model()->find(array(
                     'condition'=>'inn=:inn',
                     'params'=>array(':inn'=>$_POST['RegistrationForm']['inn']))
                 );
-                if(empty($newUser)) {
+                if(empty($innExists)) {
+                    $emailExists = User::model()->find(array(
+                        'condition'=>'email=:email',
+                        'params'=>array(':email'=>$_POST['RegistrationForm']['email']))
+                    );
+                }
+
+                if(empty($innExists) && empty($emailExists)) {
                     $userInfo = array();
                     $user = new User();
                     $user->attributes = $_POST['RegistrationForm'];
@@ -256,10 +264,13 @@ class SiteController extends Controller
                         $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
                         Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Когда ваша заявка будет рассмотрена Вы получите на почту инструкции по активации. Спасибо за интерес, проявленный к нашей компании');
                     } else Yii::log($user->getErrors(), 'error');
+                } else if(!empty($emailExists)) {
+                    Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким Email уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');  
+                    //$this->render('registration', array('model' => $model));
                 } else {
-                    Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким ИНН/УНП уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');  
-                    //$this->redirect('/site/login/');
-                }  
+                    Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким ИНН/УНП уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');
+                    //$this->render('registration', array('model' => $model));
+                }
             } else {
                 Dialog::message('flash-success', 'Внимание!', 'Ваша заявка отклонена, т.к. заполнены не все обязательные поля.');  
                 //$this->render('registration', array('model' => $model));
@@ -268,8 +279,6 @@ class SiteController extends Controller
         } else {
             $this->render('registration', array('model' => $model));
         }
-        
-        
     }
     
     public function actionRestore()
