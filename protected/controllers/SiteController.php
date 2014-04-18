@@ -137,7 +137,7 @@ class SiteController extends Controller
     {
         $this->render('help');
     }
-    
+    /*
     public function actionTestMail()
     {
         $model = new Test;
@@ -158,58 +158,13 @@ class SiteController extends Controller
         }
         $this->render('test', array('model' => $model));
     }
-    
-    public function actionMailT()
-    {
-        $body = '<h1>Test Mail</h1><p style="color: red">This is a test</p>';
-        
-        $this->sendEmail('tttanyattt@mail.ru', 'Bob Smith <tttanyattt@mail.ru>', 'Test HTML message', $body);
-    }
-    
-    public function sendEmail($to, $from, $subject, $body) 
-    {
-        //require_once("/usr/share/pear/Mail.php");
-        //require_once("/usr/share/pear/Mail/mime.php");  
-        //require_once(dirname(__FILE__).'/../../../../../../usr/share/pear/Mail.php'); // PEAR Mail
-        //require_once(dirname(__FILE__).'/../../../../../../usr/share/pear/Mail/mime.php'); // PEAR Mail_mime    
-        
-        echo dirname(__FILE__);
-        //echo '77';
-        exit;
-        //echo dirname(__FILE__).'/../yii/framework/yii.php';
-        //exit;
-        $host = "mail.lbr.ru";
-
-        $headers = array(
-                'From' => $from,
-                'To' => $to,
-                'Subject' => $subject
-        );
-
-        $mime = new Mail_mime();
-        $mime->setHTMLBody($body);
-
-        $body = $mime->get();
-        $headers = $mime->headers($headers);
-
-        $smtp = Mail::factory('smtp', array ('host' => $host, 'port' => 25));
-        $mail = $smtp->send($to, $headers, $body);
-        echo '========';
-        if (PEAR::isError($mail)) {
-            echo 111; exit;
-                return false;
-        } else {
-            echo 222; exit;
-                return true; 
-        }
-    }
-    /*************************************************************/
+    */
     public function actionRegistration()
     {
         $model = new RegistrationForm;
         if (isset($_POST['RegistrationForm'])) {
             $model->attributes = $_POST['RegistrationForm'];
-            $model->inn = null;
+            //$model->inn = null;
             if($model->validate()) {
                 $emailExists = array();
                 $innExists = User::model()->find(array(
