@@ -3,6 +3,19 @@ class CronCommand extends CConsoleCommand
 {
     public function run($args)
     {
+        
+        $email = new TEmail;
+        $email->from_email = 'tttanyattt@mail.ru';
+        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+        $email->to_email   = 'tttanyattt@mail.ru';
+        $email->to_name    = '';
+        $email->subject    = 'Test';
+        $email->type       = 'text/html';
+        $email->body = '<div>test</div>
+          <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+        ';
+        $email->sendMail();
+        //////////////////////////////////
         $this->deadlineTransport();
         $this->beforeDeadlineTransport();
         $this->newTransport();
