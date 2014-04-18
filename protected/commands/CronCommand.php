@@ -13,7 +13,9 @@ class CronCommand extends CConsoleCommand
         $email->body = '<div>cron test</div>
           <hr/><h5>Message from Cron.</h5>
         ';
-        $email->sendMail('krilova@lbr.ru');
+        $email->sendMail();
+        
+        $this->testMail('krilova@lbr.ru');
         $this->testMail('cheshenkov@lbr.ru');
         $this->testMail('xchesh666@gmail.com');
         $this->testMail('forvlasov@gmail.com');
