@@ -6,24 +6,18 @@ class CronCommand extends CConsoleCommand
         $email = new TEmail;
         $email->from_email = 'support.ex@lbr.ru';
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = 'tttanyattt@mail.ru';
+        $email->to_email   = 'krilova@lbr.ru';
         $email->to_name    = '';
         $email->subject    = 'Test';
         $email->type       = 'text/html';
         $email->body = '<div>test</div>
           <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
         ';
-        // было - /usr/sbin/sendmail -t -i 
-        //        /usr/local/psa/admin/conf/php.ini
-        //Yii::log('cron call - ' . 'sendmail_path = ' . ini_get('sendmail_path'), 'warning');
-        //Yii::log('cron call - ' . 'php.ini = ' . php_ini_loaded_file(), 'warning');
+        
         if($email->sendMail()) {
             Yii::log('cron call - send', 'warning');
         } else {
             Yii::log('cron call - error', 'warning');
-        }
-        if(mail('tttanyattt@mail.ru', 'My Subject', 'test')) {
-            Yii::log('22222 - cron call - send', 'warning');
         }
         
         /*if(mail('tttanyattt@mail.ru', 'My Subject', 'test')) {
