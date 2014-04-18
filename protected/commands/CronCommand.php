@@ -3,12 +3,26 @@ class CronCommand extends CConsoleCommand
 {
     public function run($args)
     {   
-        if(mail('tttanyattt@mail.ru', 'My Subject', 'test')){
+        $email = new TEmail;
+        $email->from_email = 'support.ex@lbr.ru';
+        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+        $email->to_email   = 'tttanyattt@mail.ru';
+        $email->to_name    = '';
+        $email->subject    = 'Test';
+        $email->type       = 'text/html';
+        $email->body = '<div>test</div>
+          <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+        ';
+        if($email->sendMail()) Yii::log('cron call - send', 'warning');
+        else Yii::log('cron call - error with send', 'warning');
+        
+        /*if(mail('tttanyattt@mail.ru', 'My Subject', 'test')) {
             mail('cheshenkov@lbr.ru', 'My Subject', 'test');
+            mail('forvlasov@gmail.com', 'My Subject', 'test');
             Yii::log('cron call - send', 'warning');
         } else {
             Yii::log('cron call - error with send', 'warning');
-        }
+        }*/
         
         
         /*$email = new TEmail;
