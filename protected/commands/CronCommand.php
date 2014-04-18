@@ -10,7 +10,6 @@ class CronCommand extends CConsoleCommand
         $this->errorDate();   
         
         ////////////////////////////////////////////////////////////
-        /*$timeNow = date("Y-m-d H:i");
         $email = new TEmail;
         $email->from_email = 'support.ex@lbr.ru';
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
@@ -18,11 +17,10 @@ class CronCommand extends CConsoleCommand
         $email->to_name    = '';
         $email->subject    = 'Test';
         $email->type       = 'text/html';
-        $email->body = '<div>'.$timeNow.'</div>
-          <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
-        ';
+        $email->body = '111';
         
-        $email->sendMail();*/
+        $email->sendMail();
+        
     }
     
     public function errorDate()
