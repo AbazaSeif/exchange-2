@@ -154,7 +154,7 @@ class SiteController extends Controller
             ';
             $email->sendMail();
             $model->email = 'Письмо отправлено';
-            Yii::log('site call - ' . 'sendmail_path = ' . ini_get('sendmail_path'), 'warning');
+            //Yii::log('site call - ' . 'sendmail_path = ' . ini_get('sendmail_path'), 'warning');
         }
         $this->render('test', array('model' => $model));
     }
