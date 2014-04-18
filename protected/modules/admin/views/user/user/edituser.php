@@ -153,7 +153,6 @@
                     <li>
                        <span>Контактные лица</span>
                        <span>Email</span>
-                       <!--span class="del-col"></span-->
                     </li>
                 <?php foreach ($contacts as $contact){
                         echo '<li class="point">';
