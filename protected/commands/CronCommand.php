@@ -17,7 +17,7 @@ class CronCommand extends CConsoleCommand
         $email->to_name    = '';
         $email->subject    = 'Test';
         $email->type       = 'text/html';
-        $email->body = '111';
+        $email->body = '<div>test</div><hr/><h5>Это автоматическое уведомление</h5>';
         
         $email->sendMail();
         
