@@ -23,6 +23,16 @@ class CronCommand extends CConsoleCommand
         * */
         //mail('krilova@lbr.ru', 'test', 'test');
         
+        $to      = 'krilova@lbr.ru';
+        $subject = 'kkk';
+        $message = 'test';
+        $header = "From: krilova@lbr.ru\r\n"; 
+        $header.= "MIME-Version: 1.0\r\n"; 
+        $header.= "Content-Type: text/plain; charset=utf-8\r\n"; 
+        $header.= "X-Priority: 1\r\n"; 
+
+        mail($to, $subject, $message, $header);
+        
     }
     
     public function errorDate()
