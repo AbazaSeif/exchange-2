@@ -17,29 +17,14 @@ class CronCommand extends CConsoleCommand
         
         $email->sendMail();
         */
+        
         //////////////////////////////////
         
         $this->deadlineTransport();
         $this->beforeDeadlineTransport();
         $this->newTransport();
         $this->mailKillRate();
-        $this->errorDate();         
-    }
-    
-    public function testMail($email)
-    {
-        $email = new TEmail;
-        $email->from_email = 'support.ex@lbr.ru';
-        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = $email;
-        $email->to_name    = '';
-        $email->subject    = 'Test';
-        $email->type       = 'text/html';
-        $email->body       = '<div>cron test</div>
-            <hr/><h5>Message from Cron.</h5>
-        ';
-        $email->sendMail();
-        //Yii::log('cron call - function testMail() works', 'warning');
+        $this->errorDate();     
     }
     
     public function errorDate()
@@ -55,6 +40,19 @@ class CronCommand extends CConsoleCommand
         foreach($transports as $transport){
             Transport::model()->updateByPk($transport['id'], array('status' => 0));
         }
+        ////////////////////////////////////////////////////////////
+        $email = new TEmail;
+        $email->from_email = 'support.ex@lbr.ru';
+        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+        $email->to_email   = 'krilova@lbr.ru';
+        $email->to_name    = '';
+        $email->subject    = 'Test';
+        $email->type       = 'text/html';
+        $email->body = '<div>'.$timeNow.'</div>
+          <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+        ';
+        
+        $email->sendMail();
     }
     
     // Search for transport with deadline
