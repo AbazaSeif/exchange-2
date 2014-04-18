@@ -3,10 +3,10 @@ class CronCommand extends CConsoleCommand
 {
     public function run($args)
     {   
-        $email = new TEmail;
+        /*$email = new TEmail;
         $email->from_email = 'support.ex@lbr.ru';
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = 'krilova@lbr.ru';
+        $email->to_email   = 'tttanyattt@mail.ru';
         $email->to_name    = '';
         $email->subject    = 'Test';
         $email->type       = 'text/html';
@@ -19,7 +19,7 @@ class CronCommand extends CConsoleCommand
         } else {
             Yii::log('cron call - error', 'warning');
         }
-        
+        */
         /*if(mail('tttanyattt@mail.ru', 'My Subject', 'test')) {
             mail('cheshenkov@lbr.ru', 'My Subject', 'test');
             mail('forvlasov@gmail.com', 'My Subject', 'test');
@@ -40,18 +40,22 @@ class CronCommand extends CConsoleCommand
           <hr/><h5>Message from Cron.</h5>
         ';
         $email->sendMail();
-        
+        */
         $this->testMail('krilova@lbr.ru');
-        //$this->testMail('cheshenkov@lbr.ru');
+        $this->testMail('cheshenkov@lbr.ru');
         $this->testMail('xchesh666@gmail.com');
-        $this->testMail('forvlasov@gmail.com');
+        //$this->testMail('forvlasov@gmail.com');
         //$this->testMail('vlasov@lbr.ru');
+        
         //////////////////////////////////
-        $this->deadlineTransport();
+        
+        /*$this->deadlineTransport();
         $this->beforeDeadlineTransport();
         $this->newTransport();
         $this->mailKillRate();
-        $this->errorDate();*/
+        $this->errorDate();
+         * */
+         
     }
     
     public function testMail($email)
@@ -67,7 +71,7 @@ class CronCommand extends CConsoleCommand
             <hr/><h5>Message from Cron.</h5>
         ';
         $email->sendMail();
-        Yii::log('cron call - function testMail() works', 'warning');
+        //Yii::log('cron call - function testMail() works', 'warning');
     }
     
     public function errorDate()
