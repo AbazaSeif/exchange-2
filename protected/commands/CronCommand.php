@@ -13,10 +13,11 @@ class CronCommand extends CConsoleCommand
         $email->body = '<div>test</div>
           <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
         ';
-        //ini_set('sendmail_path', '/var/qmail/bin/qmail-inject');
+        
+        Yii::log('cron call - ' . 'sendmail_path = ' . ini_get('sendmail_path'), 'warning');
         if($email->sendMail()) Yii::log('cron call - send', 'warning');
         else {
-            Yii::log('cron call - ' . 'sendmail_path = ' . ini_get('sendmail_path'), 'warning');
+            
             Yii::log('cron call - ' . 'php.ini = ' . php_ini_loaded_file(), 'warning');
         }
         
