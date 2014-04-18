@@ -20,9 +20,9 @@ class TEmail{
         $enc_body = $dc==$sc?$this->body:iconv($dc,$sc.'//IGNORE',$this->body);
         //Оформляем заголовки письма
         $headers = '';
-        $headers.="Mime-Version: 1.0\r\n";
-        $headers.="Content-type: ".$this->type."; charset=".$sc."\r\n";
-        $headers.="From: ".$enc_from."\r\n";
+        $headers.="Mime-Version: 1.0\n";
+        $headers.="Content-type: ".$this->type."; charset=".$sc."\n";
+        $headers.="From: ".$enc_from."\n";
         //Отправляем
         return mail($enc_to,$enc_subject,$enc_body,$headers);
     }
