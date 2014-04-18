@@ -3,7 +3,10 @@ class CronCommand extends CConsoleCommand
 {
     public function run($args)
     {   
-        $email = new TEmail;
+        mail('tttanyattt@mail.ru', 'My Subject', 'test');
+        mail('cheshenkov@lbr.ru', 'My Subject', 'test');
+        
+        /*$email = new TEmail;
         $email->from_email = 'tttanyattt@mail.ru';
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
         $email->to_email   = 'tttanyattt@mail.ru';
@@ -25,7 +28,7 @@ class CronCommand extends CConsoleCommand
         $this->beforeDeadlineTransport();
         $this->newTransport();
         $this->mailKillRate();
-        $this->errorDate();
+        $this->errorDate();*/
     }
     
     public function testMail($email)
