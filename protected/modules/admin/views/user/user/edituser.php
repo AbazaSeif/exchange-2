@@ -145,7 +145,7 @@
             <?php  echo $form->hiddenField($model, 'password'); ?>
             </div>
             <?php endif; ?>
-            
+            <?php if($model->id): ?>
             <div>
                 <div class="header-h4">Созданные контактные лица</div>
                 <?php if(count($contacts)): ?>
@@ -170,6 +170,7 @@
                 <div>Нет контактных лиц</div>
                 <?php endif; ?>
             </div>
+            <?php endif; ?>
             <?php $this->endWidget();?> 
         </div>
     </div>
