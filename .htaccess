@@ -1,6 +1,5 @@
 AddType text/x-component .htc
 php_value magic_quotes_gpc off
-php_value sendmail_path /var/qmail/bin/qmail-inject
 AddCharset utf-8 *
 AddDefaultCharset UTF-8
 <IfModule mod_charset.c>
