@@ -145,6 +145,31 @@
             <?php  echo $form->hiddenField($model, 'password'); ?>
             </div>
             <?php endif; ?>
+            
+            <div>
+                <div class="header-h4">Созданные контактные лица</div>
+                <?php if(count($contacts)): ?>
+                <ul id="contacts-all">
+                    <li>
+                       <span>Контактные лица</span>
+                       <span>Email</span>
+                       <!--span class="del-col"></span-->
+                    </li>
+                <?php foreach ($contacts as $contact){
+                        echo '<li class="point">';
+                        echo '<span>';
+                            echo $contact['name'] . ' ' . $contact['secondname'] . ' ' . $contact['surname'];
+                        echo '</span>';
+                        echo '<span>';
+                            echo $contact['email'];
+                        echo '</span>';
+                        echo '</li>';
+                    }?>
+                </ul>
+                <?php else: ?>
+                <div>Нет контактных лиц</div>
+                <?php endif; ?>
+            </div>
             <?php $this->endWidget();?> 
         </div>
     </div>

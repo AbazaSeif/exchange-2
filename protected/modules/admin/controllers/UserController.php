@@ -147,6 +147,13 @@ class UserController extends Controller
         $form->id = $id;
         $message = '';
         if (Yii::app()->user->checkAccess('trEditUser')) {
+            $contacts = Yii::app()->db->createCommand()
+                ->select('name, secondname, surname, email')
+                ->from('user')
+                ->where('parent = '. $id)
+                ->queryAll()
+            ;
+            
             if (isset($_POST['UserForm'])) {
                 $changes = $innExists = $emailExists = array();
                 
@@ -262,7 +269,7 @@ class UserController extends Controller
                     }
                 }
             } 
-            $this->render('user/edituser', array('model' => $form), false, true);
+            $this->render('user/edituser', array('model' => $form, 'contacts' => $contacts), false, true);
         } else {
             throw new CHttpException(403, Yii::t('yii', 'У Вас недостаточно прав доступа.'));
         }

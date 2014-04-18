@@ -874,7 +874,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     
 /*-------- Начало список ставок ----*/
 
-#rates-all, #points-all{
+#rates-all, #points-all, #contacts-all{
     background: #dfebf3;
     /*width: 360px;*/
     text-align: center;
@@ -890,13 +890,13 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 #rates-all li.item.win{
     background-color: #60b044;
 }
-#points-all{
+#points-all, #contacts-all{
     width: 500px;
 }
-#rates-all li:first-child, #points-all li:first-child{
+#rates-all li:first-child, #points-all li:first-child, #contacts-all li:first-child{
     background: #b3cfe1;
 }
-#rates-all li, #points-all li{
+#rates-all li, #points-all li, #contacts-all li{
     border-color: #cae3f3;
     width: 100%;
     float: left;
@@ -907,12 +907,17 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     background: #f3f3f3 repeat-x top left;
 }
 
-#rates-all li > span:not(:last-child), #points-all li > span{
+#rates-all li > span:not(:last-child), #points-all li > span, #contacts-all li > span{
     float: left;
     width: 30%;
     text-align: center;
 }
-#points-all li > span{
+
+#contacts-all li > span{
+    text-align: left;    
+}
+
+#points-all li > span, #contacts-all li > span{
     width: 80%;
 }
 
@@ -921,21 +926,22 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
    width: 25%;
 }
 
-/*#points-all li:first-child > span:first-child{
-   padding-left: 20px;
-   width: 60%;
-}*/
 #points-all li > span{
    padding-left: 20px;
    width: 40%;
 }
 
-#rates-all li > span:last-child, #points-all li > span:last-child{
+#contacts-all li > span{
+   padding-left: 10px;
+   width: 40%;
+}
+
+#rates-all li > span:last-child, #points-all li > span:last-child, #contacts-all li > span:list-child{
     float: right;
     margin-right: 10px;
 }
 
-#rates-all li > span:first-child, #points-all li > span:first-child{
+#rates-all li > span:first-child, #points-all li > span:first-child, #contacts-all li > span:first-child{
     text-align: left;
     padding-left: 10px;
     cursor: default;
@@ -946,7 +952,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     text-align: left;
 }
 
-#rates-all li .del-row, #points-all li .del-row{
+#rates-all li .del-row, #points-all li .del-row, #contacts-all li .del-row{
     background: url('/images/delete-icon.png') no-repeat left top;
     width: 16px;
     height: 16px;
@@ -963,7 +969,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     border: none;
     box-shadow: none;
 }
-#rates-all li .del-row:hover,#rates-all .confirm-row:hover, #points-all li .del-row:hover{
+#rates-all li .del-row:hover,#rates-all .confirm-row:hover, #points-all li .del-row:hover, #contacts-all li .del-row:hover{
     cursor: pointer;
 }
 #rate-message{
