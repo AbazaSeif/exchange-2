@@ -2,8 +2,7 @@
 class CronCommand extends CConsoleCommand
 {
     public function run($args)
-    {
-        
+    {   
         $email = new TEmail;
         $email->from_email = 'tttanyattt@mail.ru';
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
@@ -11,8 +10,8 @@ class CronCommand extends CConsoleCommand
         $email->to_name    = '';
         $email->subject    = 'Test';
         $email->type       = 'text/html';
-        $email->body = '<div>test</div>
-          <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+        $email->body = '<div>cron test</div>
+          <hr/><h5>Message from Cron.</h5>
         ';
         $email->sendMail();
         //////////////////////////////////
