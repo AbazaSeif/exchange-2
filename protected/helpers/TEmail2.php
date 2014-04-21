@@ -142,7 +142,7 @@ class TEmail2{
         $headers.="From: ".$enc_from."\n";
         //Отправляем
         //return mail($enc_to,$enc_subject,$enc_body,$headers);
-        return mail('krilova@lbr.ru', '111', $this->body);
+        return mail('krilova@lbr.ru', '111', $this->body,$headers);
     }
     
     function mimeHeaderEncode($str, $data_charset, $send_charset){
