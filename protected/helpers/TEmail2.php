@@ -17,7 +17,7 @@ class TEmail2{
         $enc_subject = $this->mimeHeaderEncode($this->subject,$dc,$sc);
         $enc_from = $this->mimeHeaderEncode($this->from_name,$dc,$sc).' <'.$this->from_email.'>';
         /***************************************************************/
-        $this->body = '
+        /*$this->body = '
             <!DOCTYPE html>
             <html xmlns="http://www.w3.org/1999/xhtml">
             <head>
@@ -26,12 +26,10 @@ class TEmail2{
                     <meta content="telephone=no" name="format-detection" />
                     <title>Новые заявки на перевозку</title>
                     <style type="text/css" media="screen">
-                            /* Linked Styles */
+                          
                             body { padding:0 !important; margin:0 !important; display:block !important; background:#ededed; -webkit-text-size-adjust:none }
-
                             .footer a, .footer a:hover, .footer a:active { color: #ffffff; text-decoration: none; }
                             a, a:hover, a:active { color:#7b828b; text-decoration:underline }
-                            /* Campaign Monitor wraps the text in editor in paragraphs. In order to preserve design spacing we remove the padding/margin */
                             p { padding:0 !important; margin:0 !important } 
                     </style>
             </head>
@@ -132,7 +130,7 @@ class TEmail2{
             </table>
             </body>
             </html>'
-        ;
+        ;*/
         //var_dump($this->body); exit;
         /***************************************************************/
         //Кодируем тело письма
