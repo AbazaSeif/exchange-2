@@ -167,8 +167,7 @@ class SiteController extends Controller
         $email->to_name    = '';
         $email->subject    = 'Test';
         $email->type       = 'text/html';
-        $email->body = '<h5>jjjjj</h5><br><img src="http://exchange.lbr.ru/images/test/content_top789.jpg" alt="" border="0" width="620" height="12" style="float: left"/>';
-       /* $email->body = 
+        $email->body = 
                 '<!-- Content -->
                 <tr>
                     <td>
@@ -316,10 +315,7 @@ class SiteController extends Controller
                     </td>
                 </tr>
                 <!-- END Content -->'
-        ;*/
-        /*'<div>test</div>
-            <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
-        ';*/
+        ;
         $email->sendMail();
 
         echo '111';

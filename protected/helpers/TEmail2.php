@@ -17,7 +17,7 @@ class TEmail2{
         $enc_subject = $this->mimeHeaderEncode($this->subject,$dc,$sc);
         $enc_from = $this->mimeHeaderEncode($this->from_name,$dc,$sc).' <'.$this->from_email.'>';
         /***************************************************************/
-        /*$this->body = '
+        $this->body = '
             <!DOCTYPE html>
             <html xmlns="http://www.w3.org/1999/xhtml">
             <head>
@@ -130,19 +130,18 @@ class TEmail2{
             </table>
             </body>
             </html>'
-        ;*/
+        ;
         //var_dump($this->body); exit;
         /***************************************************************/
         //Кодируем тело письма
-        $enc_body = $this->body;//$dc==$sc?$this->body:iconv($dc,$sc.'//IGNORE',$this->body);
+        $enc_body = $dc==$sc?$this->body:iconv($dc,$sc.'//IGNORE',$this->body);
         //Оформляем заголовки письма
         $headers = '';
         $headers.="Mime-Version: 1.0\n";
         $headers.="Content-type: ".$this->type."; charset=".$sc."\n";
         $headers.="From: ".$enc_from."\n";
         //Отправляем
-        //return mail($enc_to,$enc_subject,$enc_body,$headers);
-        return mail('krilova@lbr.ru', '111', $this->body,$headers);
+        return mail($enc_to,$enc_subject,$enc_body,$headers);
     }
     
     function mimeHeaderEncode($str, $data_charset, $send_charset){
