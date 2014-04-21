@@ -206,17 +206,23 @@ class SiteController extends Controller
                         if((int)$_POST['RegistrationForm']['show'] == 0){
                             $newFerrymanFields->show_intl = true;
                             $newFerrymanFields->show_regl = true;
+                            $this->sendMail(Yii::app()->params['logistEmailRegional'], 1, $_POST['RegistrationForm']);
+                            $this->sendMail(Yii::app()->params['logistEmailInternational'], 1, $_POST['RegistrationForm']);
                         } else if((int)$_POST['RegistrationForm']['show'] == 1){
                             $newFerrymanFields->show_intl = true;
                             $newFerrymanFields->show_regl = false;
+                            $this->sendMail(Yii::app()->params['logistEmailInternational'], 1, $_POST['RegistrationForm']);
                         } else {
                             $newFerrymanFields->show_intl = false;
                             $newFerrymanFields->show_regl = true;
+                            $this->sendMail(Yii::app()->params['logistEmailRegional'], 1, $_POST['RegistrationForm']);
                         }
                         $newFerrymanFields->save();
 
-                        $this->sendMail(Yii::app()->params['supportEmail'], 1, $_POST['RegistrationForm']);
+                        
+                        //$this->sendMail(Yii::app()->params['supportEmail'], 1, $_POST['RegistrationForm']);
                         $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
+                        
                         Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Когда ваша заявка будет рассмотрена Вы получите на почту инструкции по активации. Спасибо за интерес, проявленный к нашей компании');
                     } else Yii::log($user->getErrors(), 'error');
                 } else if(!empty($emailExists)) {
