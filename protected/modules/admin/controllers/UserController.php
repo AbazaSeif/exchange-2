@@ -302,7 +302,7 @@ class UserController extends Controller
                    if($model->status == User::USER_TEMPORARY_BLOCKED) $message .= 'Ваша учетная запись была заблокирована до 20/10/2014 года.';
                    else $message .= 'Статус вашей учетной записи был изменен на "'.User::statusLabel($model->status).'"';
                    
-                   if($model->status == User::USER_WARNING || $model->status == User::USER_TEMPORARY_BLOCKED) 
+                   if($model->status == User::USER_WARNING || $model->status == User::USER_TEMPORARY_BLOCKED || $model->status == USER_BLOCKED) 
                        $message .= '<br /><br />
                             <span style="color: #000; ">Причина: '.$reason.'.</span>'
                        ;
