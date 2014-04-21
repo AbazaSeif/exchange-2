@@ -156,93 +156,93 @@ class UserController extends Controller
             
             if (isset($_POST['UserForm'])) {
                 $changes = $innExists = $emailExists = array();
-                
-                if($_POST['UserForm']['status'] == User::USER_NOT_CONFIRMED || $_POST['UserForm']['status'] == User::USER_ACTIVE){
-                    $_POST['UserForm']['reason'] = null;
-                } else if(empty($_POST['UserForm']['reason'])){
-                    Yii::app()->user->setFlash('error', 'Поле "Причина" не может быть пустым.');
-                    $form->attributes = $_POST['UserForm'];
-                    $this->render('user/edituser', array('model'=>$form), false, true);
-                }
-                
-                foreach ($_POST['UserForm'] as $key => $value) {
-                    if (trim($model[$key]) != trim($value) && $key != 'password' && $key != 'password_confirm') {
-                        $changes[$key]['before'] = $model[$key];
-                        $changes[$key]['after'] = $value;
-                        $model[$key] = trim($value);
-                        if($key == 'company'){
-                            $allContacts = Yii::app()->db->createCommand()
-                                ->select('id')
-                                ->from('user')
-                                ->where('parent = '. $model->id)
-                                ->queryAll()
-                            ;
-                            if(!empty($allContacts)){
-                                foreach ($allContacts as $contact) {
-                                    $modelContact = User::model()->findByPk($contact['id']);
-                                    $contactName = $modelContact->name;
-                                    if(!empty($modelContact->surname)) $contactName .= ' '.$modelContact->surname;
-                                    $modelContact->company = 'Контактное лицо "' . $model->company . '" ('.$contactName.')';
-                                    $modelContact->save();
+                if($_POST['UserForm']['status'] == User::USER_NOT_CONFIRMED || $_POST['UserForm']['status'] == User::USER_ACTIVE || !empty($_POST['UserForm']['reason'])) {
+                    if($_POST['UserForm']['status'] == User::USER_NOT_CONFIRMED || $_POST['UserForm']['status'] == User::USER_ACTIVE){
+                        $_POST['UserForm']['reason'] = null;
+                    }
+
+                    foreach ($_POST['UserForm'] as $key => $value) {
+                        if (trim($model[$key]) != trim($value) && $key != 'password' && $key != 'password_confirm') {
+                            $changes[$key]['before'] = $model[$key];
+                            $changes[$key]['after'] = $value;
+                            $model[$key] = trim($value);
+                            if($key == 'company'){
+                                $allContacts = Yii::app()->db->createCommand()
+                                    ->select('id')
+                                    ->from('user')
+                                    ->where('parent = '. $model->id)
+                                    ->queryAll()
+                                ;
+                                if(!empty($allContacts)){
+                                    foreach ($allContacts as $contact) {
+                                        $modelContact = User::model()->findByPk($contact['id']);
+                                        $contactName = $modelContact->name;
+                                        if(!empty($modelContact->surname)) $contactName .= ' '.$modelContact->surname;
+                                        $modelContact->company = 'Контактное лицо "' . $model->company . '" ('.$contactName.')';
+                                        $modelContact->save();
+                                    }
+                                }
+                            }
+                        } else if($key == 'password' && !empty($_POST['UserForm']['password_confirm']) && $model->password !== crypt(trim($_POST['UserForm']['password_confirm']), $model->password)) {
+                            $model->password = crypt($_POST['UserForm']['password_confirm'], User::model()->blowfishSalt());
+                            $changes[$key] = 'Изменен пароль';
+                        }
+                    }
+
+                    if (!empty($changes)) {
+                        $message = 'У пользователя с id = ' . $id . ' были изменены слудующие поля: ';
+                        $k = 0;
+                        foreach ($changes as $key => $value) {
+                            $k++;
+                            if($key == 'password'){
+                                $message .= $k . ') ' . $changes[$key];    
+                            } else {
+                                $message .= $k . ') Поле ' . $key . ' c "' . $changes[$key]['before'] . '" на "' . $changes[$key]['after'] . '"; ';
+                            }
+
+                            if($key == 'inn' || $key == 'email') {
+                                if($key == 'inn') {
+                                    $innExists = User::model()->find(array(
+                                        'select'    => 'inn',
+                                        'condition' => 'inn=:inn',
+                                        'params'    => array(':inn'=>$_POST['UserForm']['inn']))
+                                    );
+
+                                    if(!empty($innExists)) Yii::app()->user->setFlash('error', 'Указанный inn уже используется. ');
+                                } else {
+                                    $emailExists = User::model()->find(array(
+                                        'select'    => 'email',
+                                        'condition' => 'email=:email',
+                                        'params'    => array(':email'=>$_POST['UserForm']['email']))
+                                    );
+
+                                    if(!empty($emailExists)) Yii::app()->user->setFlash('error', 'Указанный email уже используется. ');
                                 }
                             }
                         }
-                    } else if($key == 'password' && !empty($_POST['UserForm']['password_confirm']) && $model->password !== crypt(trim($_POST['UserForm']['password_confirm']), $model->password)) {
-                        $model->password = crypt($_POST['UserForm']['password_confirm'], User::model()->blowfishSalt());
-                        $changes[$key] = 'Изменен пароль';
                     }
-                }
-                
-                if (!empty($changes)) {
-                    $message = 'У пользователя с id = ' . $id . ' были изменены слудующие поля: ';
-                    $k = 0;
-                    foreach ($changes as $key => $value) {
-                        $k++;
-                        if($key == 'password'){
-                            $message .= $k . ') ' . $changes[$key];    
-                        } else {
-                            $message .= $k . ') Поле ' . $key . ' c "' . $changes[$key]['before'] . '" на "' . $changes[$key]['after'] . '"; ';
-                        }
-                        
-                        if($key == 'inn' || $key == 'email') {
-                            if($key == 'inn') {
-                                $innExists = User::model()->find(array(
-                                    'select'    => 'inn',
-                                    'condition' => 'inn=:inn',
-                                    'params'    => array(':inn'=>$_POST['UserForm']['inn']))
-                                );
 
-                                if(!empty($innExists)) Yii::app()->user->setFlash('error', 'Указанный inn уже используется. ');
-                            } else {
-                                $emailExists = User::model()->find(array(
-                                    'select'    => 'email',
-                                    'condition' => 'email=:email',
-                                    'params'    => array(':email'=>$_POST['UserForm']['email']))
-                                );
-                                
-                                if(!empty($emailExists)) Yii::app()->user->setFlash('error', 'Указанный email уже используется. ');
+                    if(!empty($innExists) || !empty($emailExists)) {
+                        $form->attributes = $_POST['UserForm'];
+                    } else {
+                        if(!empty($message)) {
+                            Changes::saveChange($message);
+                            if (!empty($_POST['UserForm']['password_confirm'])) {
+                                $model->password = crypt($_POST['UserForm']['password_confirm'], User::model()->blowfishSalt());
                             }
+
+                            if ($model->save()) {
+                                Yii::app()->user->setFlash('saved_id', $model->id);
+                                Yii::app()->user->setFlash('message', 'Пользователь "' . $model->company . '" сохранен успешно.');
+                                $form->attributes = $model->attributes;
+                                $this->sendAboutChangeStatus($model, $changes);
+                            } else Yii::log($model->getErrors(), 'error');
                         }
                     }
-                }
-                
-                if(!empty($innExists) || !empty($emailExists)) {
-                    $form->attributes = $_POST['UserForm'];
                 } else {
-                    if(!empty($message)) {
-                        Changes::saveChange($message);
-                        if (!empty($_POST['UserForm']['password_confirm'])) {
-                            $model->password = crypt($_POST['UserForm']['password_confirm'], User::model()->blowfishSalt());
-                        }
-                        
-                        if ($model->save()) {
-                            Yii::app()->user->setFlash('saved_id', $model->id);
-                            Yii::app()->user->setFlash('message', 'Пользователь "' . $model->company . '" сохранен успешно.');
-                            $form->attributes = $model->attributes;
-                            
-                            $this->sendAboutChangeStatus($model, $changes);
-                        } else Yii::log($model->getErrors(), 'error');
-                    }
+                    Yii::app()->user->setFlash('error', 'Поле "Причина" не может быть пустым.');
+                    $form->attributes = $_POST['UserForm'];
+                    //$this->render('user/edituser', array('model'=>$form), false, true);
                 }
             } 
             $this->render('user/edituser', array('model' => $form, 'contacts' => $contacts), false, true);
