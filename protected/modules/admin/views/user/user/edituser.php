@@ -105,6 +105,13 @@
                 echo $form->labelEx($model, 'reason');
                 echo $form->textArea($model, 'reason'); ?>
             </div>
+            <div class="date_block field">
+            <?php  echo $form->error($model, 'block_date'); 
+                echo $form->labelEx($model, 'block_date');
+                //$model->date_block = date("d-m-Y", strtotime($model->date_block));
+                echo $form->textField($model, 'block_date'); 
+            ?>
+            </div>
             <div class="country field">
             <?php  echo $form->error($model, 'country'); 
                 echo $form->labelEx($model, 'country');
@@ -187,6 +194,7 @@ $(document).ready(function(){
     });
     <?php if($model->status == User::USER_NOT_CONFIRMED || $model->status == User::USER_ACTIVE): ?>
     $('#UserForm_reason').parent().addClass('hide');
+    $('#UserForm_block_date').parent().addClass('hide');
     <?php endif; ?>
     
     $('#UserForm_status').change(function(){
@@ -195,6 +203,29 @@ $(document).ready(function(){
          } else {
              $('#UserForm_reason').parent().removeClass('hide');
          }
+         if(this.value == <?php echo User::USER_TEMPORARY_BLOCKED ?>) $('#UserForm_block_date').parent().removeClass('hide');
+         else $('#UserForm_block_date').parent().addClass('hide');
     });
+    /************************************/
+    $.datepicker.regional['ru'] = {
+        closeText: 'Закрыть',
+        prevText: '&#x3c;Пред',
+        nextText: 'След&#x3e;',
+        currentText: 'Сегодня',
+        monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+        monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'],
+        dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+        dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+        dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+        dateFormat: 'dd.mm.yy',
+        firstDay: 1,
+        isRTL: false,
+    };
+    $.datepicker.setDefaults($.datepicker.regional['ru']);
+
+    $( "#UserForm_block_date" ).datepicker({
+        dateFormat: 'dd-mm-yy',
+    });
+    
 });
 </script>

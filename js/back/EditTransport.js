@@ -15,7 +15,7 @@ function ЕditTransport() {
             isRTL: false,
         };
         $.datepicker.setDefaults($.datepicker.regional['ru']);
-		
+	
         $( "#TransportForm_date_close" ).datetimepicker({
             dateFormat: 'dd-mm-yy',
             timeFormat: 'HH:mm',

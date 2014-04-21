@@ -65,7 +65,7 @@ class User extends CActiveRecord
             // NOTE: you should only define rules for those attributes that
             // will receive user inputs.
             return array(
-                array('company, reason, inn, name, surname, secondname, password, status, country, region, city, district, phone, phone2, type_contact, parent, email', 'safe'),
+                array('company, block_date, reason, inn, name, surname, secondname, password, status, country, region, city, district, phone, phone2, type_contact, parent, email', 'safe'),
             );
 	}
 
@@ -112,6 +112,7 @@ class User extends CActiveRecord
                 'type_contact' => 'Тип',
                 'email'  => 'Email',
                 'reason' => 'Причина',
+                'block_date' => 'Причина',
             );
 	}
 
@@ -152,6 +153,7 @@ class User extends CActiveRecord
             $criteria->compare('type_contact',$this->type_contact);
             $criteria->compare('email',$this->email,true);
             $criteria->compare('reason',$this->reason,true);
+            $criteria->compare('block_date',$this->reason,true);
 
             return new CActiveDataProvider($this, array(
                     'criteria'=>$criteria,

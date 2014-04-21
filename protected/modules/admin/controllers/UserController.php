@@ -141,11 +141,13 @@ class UserController extends Controller
 
     public function actionEditUser($id)
     {
+        $message = '';
         $model = User::model()->findByPk($id);
         $form = new UserForm;
         $form->attributes = $model->attributes;
         $form->id = $id;
-        $message = '';
+        
+        if(empty($model->block_date)) $form->block_date = date('d-m-Y', strtotime('+5 days'));
         if (Yii::app()->user->checkAccess('trEditUser')) {
             $contacts = Yii::app()->db->createCommand()
                 ->select('name, secondname, surname, email')
@@ -156,10 +158,26 @@ class UserController extends Controller
             
             if (isset($_POST['UserForm'])) {
                 $changes = $innExists = $emailExists = array();
-                if($_POST['UserForm']['status'] == User::USER_NOT_CONFIRMED || $_POST['UserForm']['status'] == User::USER_ACTIVE || !empty($_POST['UserForm']['reason'])) {
+                $flag = false;
+                $warringMessage = '';
+                
+                if($_POST['UserForm']['status'] == User::USER_NOT_CONFIRMED || $_POST['UserForm']['status'] == User::USER_ACTIVE)
+                    $flag = true;
+                else if(!empty($_POST['UserForm']['reason'])){
+                    if($_POST['UserForm']['status'] == User::USER_TEMPORARY_BLOCKED){
+                        if(!empty($_POST['UserForm']['block_date'])) {
+                            if(strtotime($_POST['UserForm']['block_date']) <= strtotime(date('d-m-Y'))) $warringMessage = 'В поле "Блокировать до" указана неправильная дата.';
+                            else $flag = true;
+                        } else $warringMessage = 'Поле "Блокировать до" не может быть пустым.';
+                    } else $flag = true;
+                } else $warringMessage = 'Поле "Причина" не может быть пустым.';
+                
+                if($flag) {
                     if($_POST['UserForm']['status'] == User::USER_NOT_CONFIRMED || $_POST['UserForm']['status'] == User::USER_ACTIVE){
                         $_POST['UserForm']['reason'] = null;
                     }
+                    if($_POST['UserForm']['status'] != User::USER_TEMPORARY_BLOCKED)
+                        $_POST['UserForm']['block_date'] = null;
 
                     foreach ($_POST['UserForm'] as $key => $value) {
                         if (trim($model[$key]) != trim($value) && $key != 'password' && $key != 'password_confirm') {
@@ -240,7 +258,7 @@ class UserController extends Controller
                         }
                     }
                 } else {
-                    Yii::app()->user->setFlash('error', 'Поле "Причина" не может быть пустым.');
+                    Yii::app()->user->setFlash('error', $warringMessage);
                     $form->attributes = $_POST['UserForm'];
                 }
             } 
@@ -278,7 +296,7 @@ class UserController extends Controller
             ;
             $email->sendMail();
         }
-        /*** ---- Test ---- *****************************************/
+        /*****************************************************/
         if(array_key_exists('status', $changes)) {
             $reason = $name = '';
             if(!empty($model->name)) $name = $model->name;
@@ -293,7 +311,7 @@ class UserController extends Controller
             $email = new TEmail2;
             $email->from_email = Yii::app()->params['adminEmail'];
             $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-            $email->to_email   = 'tttanyattt@mail.ru';//'krilova@lbr.ru';
+            $email->to_email   = 'krilova@mail.ru';//$model->email;
             $email->to_name    = '';
             $email->subject    = 'Уведомление о смене статуса';
             $email->type = 'text/html';
@@ -362,7 +380,7 @@ class UserController extends Controller
            if($model->status == User::USER_ACTIVE) $message .= 'Ваша учетная запись была активирована на бирже перевозок "ЛБР-Агромаркет".';
            else if($model->status == User::USER_WARNING) $message .= 'Вам было вынесено предупреждение.';
            else if($model->status == User::USER_BLOCKED) $message .= 'Ваша учетная запись была заблокирована.';
-           else if($model->status == User::USER_TEMPORARY_BLOCKED) $message .= 'Ваша учетная запись была заблокирована до 20/10/2014 года.';
+           else if($model->status == User::USER_TEMPORARY_BLOCKED) $message .= 'Ваша учетная запись была заблокирована до '.date('d/m/Y', $model->block_date).' года.';
            else $message .= 'Статус вашей учетной записи был изменен на "'.User::statusLabel($model->status).'".';
 
            if(!empty($reason)) 
