@@ -157,8 +157,24 @@ class SiteController extends Controller
             //Yii::log('site call - ' . 'sendmail_path = ' . ini_get('sendmail_path'), 'warning');
         }
         $this->render('test', array('model' => $model));
+    }*/
+    public function actionTestMail2()
+    {
+        $email = new TEmail2;
+        $email->from_email = Yii::app()->params['adminEmail'];
+        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+        $email->to_email   = 'krilova@lbr.ru';
+        $email->to_name    = '';
+        $email->subject    = 'Test';
+        $email->type       = 'text/html';
+        $email->body = '<div>test</div>
+            <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+        ';
+        $email->sendMail();
+
+        echo '111';
     }
-    */
+    
     public function actionRegistration()
     {
         $model = new RegistrationForm;
@@ -217,10 +233,8 @@ class SiteController extends Controller
                             $newFerrymanFields->show_regl = true;
                             $this->sendMail(Yii::app()->params['logistEmailRegional'], 1, $_POST['RegistrationForm']);
                         }
-                        $newFerrymanFields->save();
-
                         
-                        //$this->sendMail(Yii::app()->params['supportEmail'], 1, $_POST['RegistrationForm']);
+                        $newFerrymanFields->save();
                         $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
                         
                         Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Когда ваша заявка будет рассмотрена Вы получите на почту инструкции по активации. Спасибо за интерес, проявленный к нашей компании');
