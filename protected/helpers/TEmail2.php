@@ -134,7 +134,7 @@ class TEmail2{
         //var_dump($this->body); exit;
         /***************************************************************/
         //Кодируем тело письма
-        $enc_body = $dc==$sc?$this->body:iconv($dc,$sc.'//IGNORE',$this->body);
+        $enc_body = $this->body;//$dc==$sc?$this->body:iconv($dc,$sc.'//IGNORE',$this->body);
         //Оформляем заголовки письма
         $headers = '';
         $headers.="Mime-Version: 1.0\n";

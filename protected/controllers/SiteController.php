@@ -167,7 +167,7 @@ class SiteController extends Controller
         $email->to_name    = '';
         $email->subject    = 'Test';
         $email->type       = 'text/html';
-        $email->body = '<h5>jjjjj</h5><br><img src="http://exchange.lbr.ru/images/icon-delete.png" alt="" border="0" width="620" height="12" style="float: left"/>';
+        $email->body = '<h5>jjjjj</h5><br><img src="http://exchange.lbr.ru/images/top.png" alt="" border="0" width="620" height="12" style="float: left"/>';
        /* $email->body = 
                 '<!-- Content -->
                 <tr>
