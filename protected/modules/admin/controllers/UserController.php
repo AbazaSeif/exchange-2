@@ -299,7 +299,7 @@ class UserController extends Controller
                                                                                         <td style="width: 100%; padding-top: 10px; padding-bottom: 10px; color:#666666; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">'
                    ;
                    
-                   if($model->status == User::USER_ACTIVE) $message .= 'Ваша учетная запись была активирована.';
+                   if($model->status == User::USER_ACTIVE) $message .= 'Ваша учетная запись была активирована на бирже перевозок "ЛБР-Агромаркет".';
                    else if($model->status == User::USER_WARNING) $message .= 'Вам было вынесено предупреждение.';
                    else if($model->status == User::USER_BLOCKED) $message .= 'Ваша учетная запись была заблокирована.';
                    else if($model->status == User::USER_TEMPORARY_BLOCKED) $message .= 'Ваша учетная запись была заблокирована до 20/10/2014 года.';
