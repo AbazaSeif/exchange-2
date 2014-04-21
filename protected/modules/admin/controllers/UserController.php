@@ -227,7 +227,7 @@ class UserController extends Controller
                         $name .= $model->secondname;
                     }
                     if($model->status != User::USER_NOT_CONFIRMED && $model->status != User::USER_ACTIVE){
-                        $reason = '<p>Причина: '.$model->reason.'</p>';
+                        $reason = 'Причина: '.$model->reason;
                     }
                     
                     $email = new TEmail2;
@@ -302,9 +302,9 @@ class UserController extends Controller
                    if($model->status == User::USER_TEMPORARY_BLOCKED) $message .= 'Ваша учетная запись была заблокирована до 20/10/2014 года.';
                    else $message .= 'Статус вашей учетной записи был изменен на "'.User::statusLabel($model->status).'"';
                    
-                   if($model->status == User::USER_WARNING || $model->status == User::USER_TEMPORARY_BLOCKED || $model->status == USER_BLOCKED) 
+                   if(!empty($reason)) 
                        $message .= '<br /><br />
-                            <span style="color: #000; ">Причина: '.$reason.'.</span>'
+                            <span style="color: #000; ">'.$reason.'</span>'
                        ;
                    
                    $message .= '</td>
