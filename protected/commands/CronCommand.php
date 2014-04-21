@@ -394,7 +394,7 @@ class CronCommand extends CConsoleCommand
                                             '.$item['from'].' &mdash; '.$item['to'].'
                                             </td>
                                         </tr>
-                                        <tr style="color: #a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
+                                        <tr style="color: #666666; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
                                             <td>
                                             '.$item['description'].'
                                             </td>
@@ -566,8 +566,8 @@ class CronCommand extends CConsoleCommand
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td style="color:#a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
-                                                                                    Спешим уведомить Вас о том, что на бирже появились новые международные заявки на перевозку.
+                                                                                <td style="color:#666666; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
+                                                                                    Спешим уведомить Вас о том, что на бирже появились новые заявки на перевозку.
                                                                                     <br /><br />
                                                                                     <a href="http://exchange.lbr.ru/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank"><span class="link-u" style="color:#008672; text-decoration:underline">Перейти на биржу</span></a>
                                                                                 </td>
