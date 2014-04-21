@@ -205,4 +205,13 @@ class User extends CActiveRecord
             }
             return implode($pass); //turn the array into a string
         }
+        public static function statusLabel($statusId) 
+        {
+                $status = 'Активный';
+                if($statusId == User::USER_NOT_CONFIRMED) $status = 'Не подтвержден';
+                else if($statusId == User::USER_WARNING) $status = 'Предупрежден';
+                else if($statusId == User::USER_TEMPORARY_BLOCKED) $status = 'Временно заблокирован';
+                else if($statusId == User::USER_BLOCKED) $status = 'Заблокирован';
+                return $status;
+        }
 }

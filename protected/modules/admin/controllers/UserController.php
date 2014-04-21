@@ -298,12 +298,15 @@ class UserController extends Controller
                                                                                     <tr>
                                                                                         <td style="width: 100%; padding-top: 10px; padding-bottom: 10px; color:#666666; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">'
                    ;
-                   $message .= 'Статус вашей учетной записи был изменен на "'.'kkk'.'"';
-                   /*'
-                       Ваша учетная запись была заблокирована до 20/10/2014 года.
-                       <br /><br />
-                       <span style="color: #000; ">Причина: '.$reason.'.</span>'
-                   ;*/
+                   
+                   if($model->status == User::USER_TEMPORARY_BLOCKED) $message .= 'Ваша учетная запись была заблокирована до 20/10/2014 года.';
+                   else $message .= 'Статус вашей учетной записи был изменен на "'.User::statusLabel($model->status).'"';
+                   
+                   if($model->status == User::USER_WARNING || $model->status == User::USER_TEMPORARY_BLOCKED) 
+                       $message .= '<br /><br />
+                            <span style="color: #000; ">Причина: '.$reason.'.</span>'
+                       ;
+                   
                    $message .= '</td>
                                                                                     </tr>
                                                                                 </table>
