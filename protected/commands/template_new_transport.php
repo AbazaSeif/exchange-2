@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=400, initial-scale=0.5" />
 	<meta content="telephone=no" name="format-detection" />
-	<title>Новые заявки на перевозку</title>
+	<title>Email Template</title>
 	<style type="text/css" media="screen">
 		/* Linked Styles */
 		body { padding:0 !important; margin:0 !important; display:block !important; background:#ededed; -webkit-text-size-adjust:none }
@@ -24,8 +24,8 @@
                 <!-- Top -->
                 <tr>
                     <td class="top" style="color:#4a5461; font-family:Verdana; font-size:11px; line-height:15px; text-align:center">
-                        <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="20" style="height:20px; float: left" alt="" />
-                        <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="15" style="height:15px; float: left" alt="" />
+                        <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="20" style="height:20px; float: left" alt="" />
+                        <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="15" style="height:15px; float: left" alt="" />
                     </td>
                 </tr>
                 <!-- END Top -->
@@ -35,7 +35,7 @@
                         <table style="margin: 0; padding: 0" width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td>
-                                    <img src="http://exchange.lbr.ru/images/mail/header_top.jpg" alt="" border="0" width="624" height="29" style="float: left"/>
+                                    <img src="http://exchange.lbr.ru/images/test/header_top102.jpg" alt="" border="0" width="624" height="29" style="float: left"/>
                                 </td>
                             </tr>
                         </table>
@@ -46,7 +46,7 @@
                                 <td bgcolor="#00abab">
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; padding-left: 17px; padding-bottom: 10px"><img src="http://exchange.lbr.ru/images/mail/header_logo.jpg" style="border: 0; float: left" alt="" border="0" width="300" height="23" /></td>
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; padding-left: 17px; padding-bottom: 10px"><img src="http://exchange.lbr.ru/images/test/header_logo99.jpg" style="border: 0; float: left" alt="" border="0" width="300" height="23" /></td>
                                         </tr>
                                     </table>
                                 </td>
@@ -69,7 +69,7 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td>
-                                                <img src="http://exchange.lbr.ru/images/mail/content_top.jpg" alt="" border="0" width="620" height="12" style="float: left"/>
+                                                <img src="http://exchange.lbr.ru/images/test/content_top789.jpg" alt="" border="0" width="620" height="12" style="float: left"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -77,7 +77,7 @@
                                         <tr>
                                             <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="20"></td>
                                             <td>
-                                                <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="15" style="height:15px; float: left" alt="" />
+                                                <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="15" style="height:15px; float: left" alt="" />
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                     <tr>
                                                         <td>
@@ -87,7 +87,7 @@
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                             <tr>
                                                                                 <td>
-                                                                                    <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="25" style="height:25px; float: left" alt="" />
+                                                                                    <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="25" style="height:25px; float: left" alt="" />
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
@@ -97,12 +97,12 @@
                                                                                     </a>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="20" height="1" style="width:20px" alt="" style="float: left"/>
+                                                                                    <img src="http://exchange.lbr.ru/images/test/empty.gif" width="20" height="1" style="width:20px" alt="" style="float: left"/>
                                                                                 </td>
                                                                             </tr>
                                                                         </table>
                                                                     </td>
-                                                                    <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" valign="top" width="20"><img src="http://exchange.lbr.ru/images/mail/img_right_shadow.jpg" alt="" border="0" width="8" height="131" style="float: left"/></td>
+                                                                    <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" valign="top" width="20"><img src="http://exchange.lbr.ru/images/test/img_right_shadow.jpg" alt="" border="0" width="8" height="131" style="float: left"/></td>
                                                                     <td class="text" style="margin: 0; color:#a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left" valign="top">
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0" >
                                                                             <tr>
@@ -112,7 +112,7 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>
-                                                                                    <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="5" style="height:5px; float: left" alt="" />
+                                                                                    <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="5" style="height:5px; float: left" alt="" />
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
@@ -129,7 +129,7 @@
                                                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                 <tr>
                                                                     <td>
-                                                                        <img src="http://exchange.lbr.ru/images/mail/separator.jpg" alt="" border="0" width="581" height="1" style="border: 0; float: left"/>
+                                                                        <img src="http://exchange.lbr.ru/images/test/separator.jpg" alt="" border="0" width="581" height="1" style="border: 0; float: left"/>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -153,7 +153,7 @@
                                                                 </tr>
                                                                 <tr style="font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
                                                                     <td style="padding-top: 15px; padding-bottom: 10px">
-                                                                        <a href="http://exchange.lbr.ru/transport/description/id/29/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank"><span class="link-u" style="color:#008672; text-decoration:underline">Посмотреть подробнее</span></a>
+                                                                        <a href="http://exchange.lbr.test/transport/description/id/29/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank"><span class="link-u" style="color:#008672; text-decoration:underline">Посмотреть подробнее</span></a>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -163,7 +163,7 @@
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                     <tr>
                                                         <td>
-                                                            <img src="http://exchange.lbr.ru/images/mail/separator.jpg" alt="" border="0" width="581" height="1" style="border: 0; float: left"/>
+                                                            <img src="http://exchange.lbr.ru/images/test/separator.jpg" alt="" border="0" width="581" height="1" style="border: 0; float: left"/>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -194,7 +194,7 @@
                                             <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; float: left" width="20"></td>
                                         </tr>
                                     </table>
-                                    <img src="http://exchange.lbr.ru/images/mail/content_bottom.jpg" alt="" border="0" width="620" height="20" style="float: left"/>
+                                    <img src="http://exchange.lbr.ru/images/test/content_bottom.jpg" alt="" border="0" width="620" height="20" style="float: left"/>
                                     <!-- END Main Content -->
                                 </td>
                                 <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#c1c1c1"></td>
@@ -226,7 +226,7 @@
                                 <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
                             </tr>
                         </table>
-                        <img src="http://exchange.lbr.ru/images/mail/footer_bottom.jpg" alt="" border="0" width="624" height="29" style="padding-top: 0; float: left" />
+                        <img src="http://exchange.lbr.ru/images/test/footer_bottom102.jpg" alt="" border="0" width="624" height="29" style="padding-top: 0; float: left" />
                     </td>
                 </tr>
                 <!-- END Footer -->
@@ -236,7 +236,7 @@
                         <table width="624" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td style="text-align:center;">
-                                    <span style="color:#7b828b; font-family:Verdana; font-size:11px; line-height:20px; text-align:center">support.ex@lbr.ru</span>
+                                    <a style="color:#7b828b; font-family:Verdana; font-size:11px; line-height:20px; text-align:center" href="http://exchange.lbr.ru/" target="_blank">support.ex@lbr.ru</a>
                                 </td>
                             </tr>
                             <tr>
@@ -246,7 +246,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="50" style="height:50px; float: left" alt="" />
+                                    <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="50" style="height:50px; float: left" alt="" />
                                 </td>
                             </tr>
                         </table>
