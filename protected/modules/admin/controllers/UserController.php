@@ -345,6 +345,7 @@ class UserController extends Controller
                         </tr>
                         <!-- END Content -->'
                     ;
+                    $email->body = $message;
                     $email->sendMail();
                 }
                 
