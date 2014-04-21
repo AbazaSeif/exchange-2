@@ -9,14 +9,13 @@ class TEmail2{
     public $send_charset='windows-1251';
     public $body='';
     public $type='text/plain';
-    function sendMail(){
+    function sendMail() {
         $dc = $this->data_charset;
         $sc = $this->send_charset;
         //Кодируем поля адресата, темы и отправителя
         $enc_to = $this->mimeHeaderEncode($this->to_name,$dc,$sc).' <'.$this->to_email.'>';
         $enc_subject = $this->mimeHeaderEncode($this->subject,$dc,$sc);
         $enc_from = $this->mimeHeaderEncode($this->from_name,$dc,$sc).' <'.$this->from_email.'>';
-        /***************************************************************/
         $this->body = '
             <!DOCTYPE html>
             <html xmlns="http://www.w3.org/1999/xhtml">
@@ -131,8 +130,6 @@ class TEmail2{
             </body>
             </html>'
         ;
-        //var_dump($this->body); exit;
-        /***************************************************************/
         //Кодируем тело письма
         $enc_body = $dc==$sc?$this->body:iconv($dc,$sc.'//IGNORE',$this->body);
         //Оформляем заголовки письма

@@ -191,14 +191,17 @@ class CronCommand extends CConsoleCommand
 
             if(!empty($usersInternational)){
                 $this->sendMailAboutNew($usersInternational, $transportIdType, 0);
+                $this->sendMailAboutNew2($usersInternational, $transportIdType, 0);
             }
 
             if(!empty($usersLocal)){
                 $this->sendMailAboutNew($usersLocal, $transportIdType, 1);
+                $this->sendMailAboutNew2($usersLocal, $transportIdType, 1);
             }
 
             if(!empty($usersInternationalAndLocal)){
                 $this->sendMailAboutNew($usersInternationalAndLocal, $transportIdType);
+                $this->sendMailAboutNew2($usersInternationalAndLocal, $transportIdType);
             }
           
             if(!empty($usersInternationalSite)){
@@ -283,30 +286,146 @@ class CronCommand extends CConsoleCommand
     // Send mail with recently added transports
     public function sendMailAboutNew($users, $transportIds, $type = 2)
     {
-        $subject = 'Уведомление о появлении новых перевозок';
+        $subject = 'Уведомление о появлении новых заявок на перевозку';
 
-        switch($type){
-            case 0: $subject = 'Уведомление о появлении новых международных перевозок'; break;
-            case 1: $subject = 'Уведомление о появлении новых региональных перевозок'; break;
+        switch($type) {
+            case 0: $subject = 'Уведомление о появлении новых международных заявок на перевозку'; break;
+            case 1: $subject = 'Уведомление о появлении новых региональных заявок на перевозку'; break;
         }
 
-        $message = "<p>На бирже перевозок ЛБР АгроМаркет появились новые перевозки. </p>";
+        $message = "<p>На бирже перевозок ЛБР АгроМаркет появились новые заявки на перевозку. </p>";
 
         if($type == 0 || $type == 2){
            $message .= "<p><b>Международные</b> перевозки: </p>";
            foreach($transportIds[0] as $item){
-               $message .= '<p><a href="http://exchange.lbr.ru/transport/description/'.$item['id'].'">'.$item['from'].' &mdash; '.$item['to'].'</a></p>';
+               $message .= '<p><a href="http://exchange.lbr.ru/transport/description/id/'.$item['id'].'/">'.$item['from'].' &mdash; '.$item['to'].'</a></p>';
            }
         }
         if($type == 1 || $type == 2){
            $message .= "<p><b>Региональные</b> перевозки:</p>";
            foreach($transportIds[1] as $item){
-               $message .= '<p><a href="http://exchange.lbr.ru/transport/description/'.$item['id'].'">'.$item['from'].'-'.$item['to'].'</a></p>';
+               $message .= '<p><a href="http://exchange.lbr.ru/transport/description/id/'.$item['id'].'/">'.$item['from'].'-'.$item['to'].'</a></p>';
            }
         }	
         
         foreach($users as $userId){
             $this->sendMail($userId, $subject, $message);	
+        }
+    }
+    /******************** -  !!!! - убрать*/
+    public function sendMailAboutNew2($users, $transportIds, $type = 2)
+    {
+        $message = '';
+        $subject = 'Уведомление о появлении новых заявок на перевозку';
+        $transportCount = false;
+        switch($type) {
+            case 0: $subject = 'Уведомление о появлении новых международных заявок на перевозку'; break;
+            case 1: $subject = 'Уведомление о появлении новых региональных заявок на перевозку'; break;
+        }
+        
+        //$message = "<p>На бирже перевозок ЛБР АгроМаркет появились новые заявки на перевозку. </p>";
+
+        if($type == 0 || $type == 2) {
+           //$message .= "<p><b>Международные</b> перевозки: </p>";
+           if($transportCount) {
+               $message .= '
+                   <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td>
+                                <img src="http://exchange.lbr.ru/images/mail/separator.jpg" alt="" border="0" width="581" height="1" style="border: 0; float: left"/>
+                            </td>
+                        </tr>
+                   </table>'
+               ;
+           }
+           foreach($transportIds[0] as $item){
+               //$message .= '<p><a href="http://exchange.lbr.ru/transport/description/'.$item['id'].'">'.$item['from'].' &mdash; '.$item['to'].'</a></p>';
+           
+               $message .= 
+                       '<table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td class="text" style="color:#a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left" valign="top">
+                                    <table>
+                                        <tr style="color:#000000; font-family:Verdana; font-size:18px; line-height:20px; text-align:left; font-weight:normal">
+                                            <td style="padding-top: 15px">
+                                            '.$item['from'].' &mdash; '.$item['to'].'
+                                            </td>
+                                        </tr>
+                                        <tr style="color: #a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
+                                            <td>
+                                            '.$item['description'].'
+                                            </td>
+                                        </tr>
+                                        <tr style="font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
+                                            <td style="padding-top: 15px; padding-bottom: 10px">
+                                                <a href="http://exchange.lbr.ru/transport/description/id/'.$item['id'].'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank"><span class="link-u" style="color:#008672; text-decoration:underline">Посмотреть подробнее</span></a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>'
+               ;
+           }
+           $transportCount = true;
+        }
+        if($type == 1 || $type == 2) {
+           //$message .= "<p><b>Региональные</b> перевозки:</p>";
+           if($transportCount) {
+               $message .= '
+                   <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td>
+                                <img src="http://exchange.lbr.ru/images/mail/separator.jpg" alt="" border="0" width="581" height="1" style="border: 0; float: left"/>
+                            </td>
+                        </tr>
+                   </table>'
+               ;
+           }
+           foreach($transportIds[1] as $item){
+               //$message .= '<p><a href="http://exchange.lbr.ru/transport/description/'.$item['id'].'">'.$item['from'].'-'.$item['to'].'</a></p>';
+               $message .= 
+                       '<table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td class="text" style="color:#a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left" valign="top">
+                                    <table>
+                                        <tr style="color:#000000; font-family:Verdana; font-size:18px; line-height:20px; text-align:left; font-weight:normal">
+                                            <td style="padding-top: 15px">
+                                            '.$item['from'].' &mdash; '.$item['to'].'
+                                            </td>
+                                        </tr>
+                                        <tr style="color: #a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
+                                            <td>
+                                            '.$item['description'].'
+                                            </td>
+                                        </tr>
+                                        <tr style="font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
+                                            <td style="padding-top: 15px; padding-bottom: 10px">
+                                                <a href="http://exchange.lbr.ru/transport/description/id/'.$item['id'].'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank"><span class="link-u" style="color:#008672; text-decoration:underline">Посмотреть подробнее</span></a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>'
+               ;
+           }
+           $transportCount = true;
+        }
+        
+        $message .= '<!-- END Main Content -->
+                                </td>
+                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#c1c1c1"></td>
+                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <!-- END Content -->'
+        ;
+        
+        foreach($users as $userId){
+            $this->sendMail2($userId, $subject, $message);	
         }
     }
 
@@ -361,8 +480,112 @@ class CronCommand extends CConsoleCommand
         $email->to_name = '';
         $email->subject = $subject;
         $email->type = 'text/html';
+        
         $email->body = "<h1>Уважаемый(ая) " . $user['name'] . " " . $user['surname'] . ", </h1>" .
             $message . "<hr><h5>Это сообщение является автоматическим, на него не нужно отвечать.</h5>"
+        ;
+        
+        $email->sendMail();
+    }
+    
+    ///////////// --- убрать
+    public function sendMail2($userId, $subject, $message)
+    {
+        $user = Yii::app()->db->createCommand()
+            ->select()
+            ->from('user')
+            ->where('id = :id', array(':id' => $userId))
+            ->queryRow()
+        ;
+        $name = $user['name'];
+        if(!empty($user['secondname'])) $name .= ' ' . $user['secondname'];
+        
+        $email = new TEmail2;
+        $email->from_email = Yii::app()->params['adminEmail'];
+        $email->from_name = 'Биржа перевозок ЛБР АгроМаркет';
+        $email->to_email = 'krilova@lbr.ru'; //$user['email'];
+        $email->to_name = '';
+        $email->subject = $subject;
+        $email->type = 'text/html';
+        $message .= '<!-- Content -->
+                <tr>
+                    <td>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
+                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#c1c1c1"></td>
+                                <td bgcolor="#ffffff">
+                                    <!-- Main Content -->
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <img src="http://exchange.lbr.ru/images/mail/content_top.jpg" alt="" border="0" width="620" height="12" style="float: left"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="20"></td>
+                                            <td>
+                                                <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="15" style="height:15px; float: left" alt="" />
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td>
+                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                                                                <tr>
+                                                                    <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; " valign="top" width="185">
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="25" style="height:25px; float: left" alt="" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <a href="http://exchange.lbr.ru/" target="_blank">
+                                                                                        <img src="http://exchange.lbr.ru/images/logo.png" alt="" border="0" width="179" height="66" style="float: left"/>
+                                                                                    </a>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="20" height="1" style="width:20px" alt="" style="float: left"/>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                    <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" valign="top" width="20"><img src="http://exchange.lbr.ru/images/mail/img_right_shadow.jpg" alt="" border="0" width="8" height="131" style="float: left"/></td>
+                                                                    <td class="text" style="margin: 0; color:#a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left" valign="top">
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                                                                            <tr>
+                                                                                <td style="color:#000000; font-family:Verdana; font-size:20px; line-height:24px; text-align:left; font-weight:normal">
+                                                                                    '.$name.',
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="5" style="height:5px; float: left" alt="" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="color:#a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
+                                                                                    Спешим уведомить Вас о том, что на бирже появились новые международные заявки на перевозку.
+                                                                                    <br /><br />
+                                                                                    <a href="http://exchange.lbr.ru/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank"><span class="link-u" style="color:#008672; text-decoration:underline">Перейти на биржу</span></a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                <tr>
+                                                                    <td>
+                                                                        <img src="http://exchange.lbr.ru/images/mail/separator.jpg" alt="" border="0" width="581" height="1" style="border: 0; float: left"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>'
         ;
         $email->sendMail();
     }
