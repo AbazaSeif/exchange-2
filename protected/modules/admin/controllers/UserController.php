@@ -242,7 +242,6 @@ class UserController extends Controller
                 } else {
                     Yii::app()->user->setFlash('error', 'Поле "Причина" не может быть пустым.');
                     $form->attributes = $_POST['UserForm'];
-                    //$this->render('user/edituser', array('model'=>$form), false, true);
                 }
             } 
             $this->render('user/edituser', array('model' => $form, 'contacts' => $contacts), false, true);
@@ -294,7 +293,7 @@ class UserController extends Controller
             $email = new TEmail2;
             $email->from_email = Yii::app()->params['adminEmail'];
             $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-            $email->to_email   = 'krilova@lbr.ru';
+            $email->to_email   = 'tttanyattt@mail.ru';//'krilova@lbr.ru';
             $email->to_name    = '';
             $email->subject    = 'Уведомление о смене статуса';
             $email->type = 'text/html';
