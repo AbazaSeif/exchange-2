@@ -151,6 +151,7 @@ class User extends CActiveRecord
             $criteria->compare('parent',$this->parent);
             $criteria->compare('type_contact',$this->type_contact);
             $criteria->compare('email',$this->email,true);
+            $criteria->compare('reason',$this->reason,true);
 
             return new CActiveDataProvider($this, array(
                     'criteria'=>$criteria,
