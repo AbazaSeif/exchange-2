@@ -107,8 +107,13 @@ if (!Yii::app()->user->isGuest) {
             <?php if (!Yii::app()->user->isGuest && $minRateValue > 0 && Yii::app()->user->isTransport): ?>
             <div class="width-50 timer-wrapper">
                 <div class="width-100">
-                    <div id="t-container" class="width-40"></div>
+                    <div id="t-container" class="width-40">
+                        <?php if(!$transportInfo['status']): ?>
+                        <span class="t-closed">Перевозка закрыта</span>
+                        <?php endif; ?>
+                    </div>
                     <div id="t-error"></div>
+                    <?php if($transportInfo['status']): ?>
                     <div class="rate-wrapper width-60">
                         <div class="r-block">
                             <div class="rate-btns-wrapper <?php echo (($now > $end) || !$transportInfo['status'])? 'hide': '' ?>">
@@ -120,6 +125,7 @@ if (!Yii::app()->user->isGuest) {
                         </div>
                         <div class="r-submit <?php echo (($now > $end) || !$transportInfo['status'])? 'hide': '' ?>"><span>Сделать ставку</span></div>
                     </div>
+                    <?php endif; ?>
                 </div>
             
             <?php if (!Yii::app()->user->isGuest): ?>
@@ -167,8 +173,10 @@ function getTime(){
 }
 
 $(document).ready(function(){
+    <?php if($transportInfo['status']): ?>
     var timer = new Timer();
     timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>);
+    <?php endif; ?>
     rateList.data = {
         currency : ' <?php echo $currency ?>',
         priceStep : <?php echo $priceStep ?>,
