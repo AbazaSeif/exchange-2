@@ -255,6 +255,7 @@ class User extends CActiveRecord
                         if(!empty($name)) $name .= ' ';
                         $name .= $model->secondname;
                     }
+                    if(!empty($name))$name .= ',';
                     if($model->status != User::USER_NOT_CONFIRMED && $model->status != User::USER_ACTIVE){
                         $reason = 'Причина: '.$model->reason;
                     }
@@ -316,7 +317,7 @@ class User extends CActiveRecord
                                                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0" >
                                                                                     <tr>
                                                                                         <td style="color:#000000; font-family:Verdana; font-size:20px; line-height:24px; text-align:left; font-weight:normal">
-                                                                                            '.$name.',
+                                                                                            '.$name.'
                                                                                         </td>
                                                                                     </tr>
                                                                                     <tr>
