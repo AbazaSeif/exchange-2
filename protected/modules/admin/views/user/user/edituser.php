@@ -108,7 +108,7 @@
             <div class="block_date field">
             <?php  echo $form->error($model, 'block_date'); 
                 echo $form->labelEx($model, 'block_date');
-                $model->block_date = date("d-m-Y", strtotime($model->block_date));
+                if(!empty($model->block_date))$model->block_date = date("d-m-Y", strtotime($model->block_date));
                 echo $form->textField($model, 'block_date'); 
             ?>
             </div>
