@@ -1,4 +1,20 @@
 <?php
+$showDescription = false;
+if($transportInfo['status'] || !Yii::app()->user->isTransport) $showDescription = true;
+else {
+    $participants = Yii::app()->db->createCommand()
+        ->selectDistinct('user_id')
+        ->from('rate')
+        ->where('transport_id = :id', array(':id' => $transportInfo['id']))
+        ->queryAll()
+    ;
+    foreach($participants as $user){
+        $allUsers[] = $user['user_id'];
+    }
+    if(in_array(Yii::app()->user->_id, $allUsers)) $showDescription = true;
+}
+
+if($showDescription):
 $minRateValue = null;
 $currency = '€';
 $defaultRate = false;
@@ -107,7 +123,11 @@ if (!Yii::app()->user->isGuest) {
             <?php if (!Yii::app()->user->isGuest && $minRateValue > 0 && Yii::app()->user->isTransport): ?>
             <div class="width-50 timer-wrapper">
                 <div class="width-100">
-                    <div id="t-container" class="width-40"></div>
+                    <div id="t-container" class="width-40">
+                        <?php if(!$transportInfo['status']): ?>
+                            <span class="t-closed">Перевозка закрыта</span>
+                        <?php endif; ?>
+                    </div>
                     <div id="t-error"></div>
                     <div class="rate-wrapper width-60">
                         <div class="r-block">
@@ -123,12 +143,12 @@ if (!Yii::app()->user->isGuest) {
                 </div>
             
             <?php if (!Yii::app()->user->isGuest): ?>
-                    <label class="r-header">Текущие ставки</label>
-                    <div id="rates">
-                        <div id="r-preloader">
-                            <img src="/images/loading.gif"/>
-                        </div>
+                <label class="r-header">Текущие ставки</label>
+                <div id="rates">
+                    <div id="r-preloader">
+                        <img src="/images/loading.gif"/>
                     </div>
+                </div>
             <?php endif; ?>
             </div>
             <?php endif; ?>
@@ -166,6 +186,7 @@ if (!Yii::app()->user->isGuest) {
 $(document).ready(function(){
     var timer = new Timer();
     timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>);
+    
     rateList.data = {
         currency : ' <?php echo $currency ?>',
         priceStep : <?php echo $priceStep ?>,
@@ -285,3 +306,9 @@ $(document).ready(function(){
     ?>
 </div>
 <?php endif; ?>
+<?php else: ?>
+<script>
+    document.location.href = '<?php echo Yii::app()->getBaseUrl(true) ?>/';
+</script>
+<?php endif; ?>
+

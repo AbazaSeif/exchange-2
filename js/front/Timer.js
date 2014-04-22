@@ -1,6 +1,6 @@
 var Timer = function(){};
 Timer.prototype = {
-    init: function(serverDate, initDate, id, status) {
+  init: function(serverDate, initDate, id, status) {
     this.dateNow = new Date(serverDate);
     this.endDate = new Date(initDate); // дата и время от которых идет обратный отсчет
     this.status = status;
@@ -90,10 +90,9 @@ Timer.prototype = {
           }
 
           this.container.innerHTML = years + months + days + ' <span class="t-time">' + this.hours + ':' + this.minutes + ':' + this.seconds + '</span>';
-          var currDate = this.dateNow;
 
           if(typeof rateList.data !== "undefined" && typeof rateList.data.status !== "undefined") this.status = parseInt(rateList.data.status);
-          if ( this.endDate > currDate && this.status ) { //проверка не обнулился ли таймер
+          if ( this.endDate > this.dateNow && this.status ) { //проверка не обнулился ли таймер
               var self = this;
               setTimeout(function(){self.updateCounter();}, 1000);
           } else {
