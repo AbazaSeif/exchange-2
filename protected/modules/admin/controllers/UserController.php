@@ -66,6 +66,7 @@ class UserController extends Controller
     {
         if(Yii::app()->user->checkAccess('trCreateUser')) {
             $form = new UserForm;
+            $form->block_date = date('d-m-Y', strtotime('+5 days'));
             $emailExists = array();
             if(isset($_POST['UserForm'])) {
                 if(!empty($_POST['UserForm']['email'])) {
@@ -147,7 +148,6 @@ class UserController extends Controller
         $form->attributes = $model->attributes;
         $form->id = $id;
         
-        if(empty($model->block_date)) $form->block_date = date('d-m-Y', strtotime('+5 days'));
         if(Yii::app()->user->checkAccess('trEditUser')) {
             $contacts = Yii::app()->db->createCommand()
                 ->select('name, secondname, surname, email')

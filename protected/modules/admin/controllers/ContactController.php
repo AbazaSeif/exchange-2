@@ -54,6 +54,7 @@ class ContactController extends Controller
     {
         if(Yii::app()->user->checkAccess('trCreateUserContact')) {
             $form = new UserContactForm;
+            $form->block_date = date('d-m-Y', strtotime('+5 days'));
             if(isset($_POST['UserContactForm'])) {
                 $emailExists=User::model()->find(array(
                     'select'=>'email',
