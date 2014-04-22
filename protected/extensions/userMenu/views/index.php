@@ -5,14 +5,6 @@ if(!Yii::app()->user->isGuest) {
     } else {
         $user = AuthUser::model()->findByPk(Yii::app()->user->_id);
     }
-    
-    /*
-    
-    else if(Yii::app()->user->isContactUser) {
-        $user = UserContact::model()->findByPk(Yii::app()->user->_id);
-    }
-    
-    */
 ?>
     <div class='user-info'>
         <?php echo '<span class="user-name"> Добро пожаловать, '.$user->name.'!</span>'; ?>
@@ -69,12 +61,14 @@ if(!Yii::app()->user->isGuest) {
     <div class="row buttons">
             <?php echo CHtml::submitButton('Войти', array('class'=>'btn')); ?>
     </div>
+    <noscript><div style="display: none"></noscript>
     <div class="position">
     <?php echo CHtml::link('Восстановление доступа', array('/site/restore'), array('class' => 'color')); ?>
     </div>
     <div>
     <?php echo CHtml::link('Заявка на регистрацию', array('/site/registration'), array('class' => 'color')); ?>
     </div>
+    <noscript></div></noscript>
 <?php $this->endWidget();    
 }
 ?>

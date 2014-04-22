@@ -96,7 +96,7 @@ return array(
                     'class' => 'CWebLogRoute', 'levels' => 'info, error, warning',
                 ),*/
                 array(
-                    'class' => 'CFileLogRoute', 'levels' => 'info, error',
+                    'class' => 'CFileLogRoute', 'levels' => 'info, error, warning',
                 ),
             )
         ),

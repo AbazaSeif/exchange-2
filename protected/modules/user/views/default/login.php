@@ -8,8 +8,7 @@ $this->pageTitle='Биржа - Вход';
 <div class="form">
 <?php
 if(!Yii::app()->user->isGuest){
-    echo '<h1>Выход с сайта</h1>';
-    echo CHtml::link('Выйти','/user/logout/', array('class'=>'btn logout'));
+    $this->redirect('/');
 } else {
     $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',

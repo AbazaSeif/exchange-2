@@ -116,10 +116,10 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td style="padding-top: 10px; color:#a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
-                                                                                    Ваша учетная запись была временно заблокирована до 20.10.2014 года.
+                                                                                <td style="width: 100%; padding-top: 10px; padding-bottom: 10px; color:#666666; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
+                                                                                    Ваша учетная запись была заблокирована до 20/10/2014 года.
                                                                                     <br /><br />
-                                                                                    <span style="color: #000">Причина: невыполнение обязательств.<span>
+                                                                                    <span style="color: #000; ">Причина: <динамически подставляется из базы то, что напишет логист>.</span>
                                                                                 </td>
                                                                             </tr>
                                                                         </table>
@@ -138,8 +138,8 @@
                                                 </table>
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                     <tr>
-                                                        <td class="text" style="color:#a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; padding-top: 10px; padding-bottom: 5px" valign="top">
-                                                            Если Вы считаете, что возникло недоразумение, просим связаться с нашим отделом логистики либо направит email на почтовый ящик support.ex@lbr.ru.
+                                                        <td class="text" style="color:#666666; font-family:Verdana; font-size:10px; line-height:10px; text-align:left; padding-top: 10px; padding-bottom: 5px" valign="top">
+                                                            Если Вы считаете, что статус был изменен ошибочно, просим связаться с нашим отделом логистики либо направить email на почтовый ящик support.ex@lbr.ru.
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -189,7 +189,7 @@
                         <table width="624" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td style="text-align:center;">
-                                    <a style="color:#7b828b; font-family:Verdana; font-size:11px; line-height:20px; text-align:center" href="http://exchange.lbr.ru/" target="_blank">support.ex@lbr.ru</a>
+                                    <span style="color:#7b828b; font-family:Verdana; font-size:11px; line-height:20px; text-align:center">support.ex@lbr.ru</span>
                                 </td>
                             </tr>
                             <tr>

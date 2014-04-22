@@ -447,7 +447,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     width: 50%;
 }
 #userform label{
-    min-width: 10%;
+    min-width: 15%;
 }
 
 .right form .description textarea{
@@ -498,7 +498,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     border-radius: 2px;
 }
 
-.right .message, .right .trMessage, .right .trDelMessage {
+.right .message, .right .trMessage, .right .trDelMessage, .right .uMessage, .right .uDelMessage,.right .cDelMessage {
     padding: 1.2% 2%;
     margin-bottom: .53em;
     background: #E6EFC2;
@@ -521,14 +521,23 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     left: 2.9%;
     width: 30%;
 }
-
-.right .trDelMessage {
+.right .uMessage {
+    bottom: 93%;
     padding: 0.5%;
-    left: 10%;
-    width: 45%;
+    left: 2.9%;
+    width: 50%;
 }
 
-.right .message.error, .trMessage.error{
+.right .trDelMessage, .right .uDelMessage, .right .cDelMessage {
+    padding: 0.5%;
+    left: 15%;
+    width: 45%;
+}
+.right .cDelMessage {
+    left: 18%;
+}
+
+.right .message.error, .trMessage.error, .uMessage.error{
     background-color: #FFEEEE;
 }
 
@@ -605,7 +614,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 {
     float: left;
 }
-.width-5{width: 3%; margin-right: 2%}
+.width-5{width: 3%; margin-right: 1%; margin-left: 1%}
 .width-10{width: 10%;}
 .width-15{width: 13%; margin-right: 2%}
 .width-16{width: 16%;}
@@ -645,23 +654,32 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     box-shadow: 0 0 3px #C0C0C0;
     overflow: hidden;
 }
-#tabs .sorter ul li {
+#tabs .sorter ul li, #user-wrapper .sorter ul li, #contact-wrapper .sorter ul li{
     float: left;
 }
 #tabs .sorter ul li:nth-child(1){
     width: 10%;
 }
-#tabs .sorter ul li:nth-child(1) a{
+#tabs .sorter ul li:nth-child(1) a, #user-wrapper .sorter ul li:nth-child(1) a, #contact-wrapper .sorter ul li:nth-child(1) a{
     padding-left: 20px;
 }
 #tabs .sorter ul li:nth-child(2){
     width: 15%;
 }
 #tabs .sorter ul li:nth-child(4){
-    width: 24%;
+    width: 19%;
 }
 #tabs .sorter ul li:nth-child(5){
+    width: 5%;
+}
+#tabs .sorter ul li:nth-child(6){
+    width: 5%;
+}
+#tabs .sorter ul li:nth-child(7){
     width: 20%;
+}
+#tabs .sorter ul li:nth-child(8){
+    width: 14%;
 }
 #tabs .list-view .sorter li{
     margin: 0;  
@@ -671,11 +689,17 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     margin: 0 0 5px;
     text-align: left;
 }
-#type-transport{
+#type-transport, #type-status, #type-c-status, .create-user label{
     float: right;
     margin: 0;
     padding: 3px 4px 3px 5px;
     margin-bottom: 10px;
+}
+.create-user label{
+    color: #00917C;
+    font-weight: bold;
+    padding-top: 5px;
+    padding-right: 6px;
 }
 /*.sorter ul li:nth-child(1), .sorter ul li:nth-child(2)  {
     width: 10%;
@@ -694,7 +718,23 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     margin-right: 20px !important;
 }
 
-#tabs .sorter ul li {
+#user-wrapper ul li:nth-child(1){
+    width: 48%;
+}
+
+#user-wrapper ul li:nth-child(2){
+    width: 19%;
+}
+#user-wrapper ul li:nth-child(3){
+    width: 11%;
+}
+#contact-wrapper ul li:nth-child(1){
+    width: 50%;
+}
+#contact-wrapper ul li:nth-child(2){
+    width: 15%;
+}
+#tabs .sorter ul li, #user-wrapper .sorter ul li, #contact-wrapper .sorter ul li{
     color: #555555;
     display: block;
     font-weight: bold;
@@ -702,31 +742,44 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     padding: 0;
     text-align: left;
 }
-#tabs .list-view .sorter ul li a{
+#user-wrapper .sorter a, #contact-wrapper .sorter a{
+    font-size: 1em;
+    color: #222222;
+}
+#tabs .list-view .sorter ul li a, #user-wrapper .list-view .sorter ul li a, #contact-wrapper .list-view .sorter ul li a{
     text-decoration: none;
     position: relative;
    /* padding: 4px 12px;*/
     text-shadow: 0 1px 0 #FFFFFF;
 }
-#tabs .transport{
+#tabs .transport, .a-user, .c-user{
     margin-bottom: 5px;
     background-color: #eee;
 }
-.transport > div:first-child{
+.transport > div:first-child {
     text-align: center;
+}
+.a-user > div:first-child, .c-user > div:first-child  {
+    margin-left: 15px;
+}
+
+.u-status{
+    text-align: center;
+}
+.u-inn{
+    padding-left: 20px;
 }
 .create-transport a{
     margin: 0;
     margin-bottom: 10px;
 }
-
-.transport:after, .sorter ul:after{
+.transport:after, .sorter ul:after, .a-user:after, .c-user:after{
     clear: both;
     content: "";
     display: block;
 }
 
-.transport .t-header {
+.transport .t-header, .a-user .t-header, .c-user .t-header {
     color: #00917C;
     display: block;
     /*font-size: 18px;*/
@@ -738,7 +791,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     white-space: nowrap;
 }
 
-.transport > div
+.transport > div, .a-user > div, .c-user > div
 {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -784,12 +837,44 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     right: 0;
     margin: auto;
 }
-/*--------Конец-Перевозки----------*/
+/*-------- Конец-Перевозки----------*/
+/*-------- Начало-Перевозки----------*/
+#user-wrapper, #contact-wrapper
+{
+    background: url("/images/ui-bg_flat_75_ffffff_40x100.png") repeat-x scroll 50% 50% #FFFFFF;
+    border: 1px solid #AAAAAA;
+    color: #222222;
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 1.1em;
+    border-radius: 2px;
+    box-shadow: 0 0 3px #C0C0C0;
+    overflow: hidden;
+    padding: 0.2em;
+}
+#user-wrapper .u-header, #contact-wrapper .c-header
+{    
+    border: 1px solid #AAAAAA;
+    background: url("/images/bg_menu_admin.png") repeat-x scroll left top #F3F3F3;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    padding: 0.5em 1em;
+    color: #0857A6;
+}
+
+#user-wrapper #u-content, #contact-wrapper #c-content{
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-width: 0;
+    display: block;
+    padding: 1em 1.4em;
+}
+/*-------- Конец-Перевозки----------*/
 
     
-    /* Начало список ставок */
+/*-------- Начало список ставок ----*/
 
-#rates-all, #points-all{
+#rates-all, #points-all, #contacts-all{
     background: #dfebf3;
     /*width: 360px;*/
     text-align: center;
@@ -805,13 +890,13 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 #rates-all li.item.win{
     background-color: #60b044;
 }
-#points-all{
+#points-all, #contacts-all{
     width: 500px;
 }
-#rates-all li:first-child, #points-all li:first-child{
+#rates-all li:first-child, #points-all li:first-child, #contacts-all li:first-child{
     background: #b3cfe1;
 }
-#rates-all li, #points-all li{
+#rates-all li, #points-all li, #contacts-all li{
     border-color: #cae3f3;
     width: 100%;
     float: left;
@@ -822,12 +907,17 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     background: #f3f3f3 repeat-x top left;
 }
 
-#rates-all li > span:not(:last-child), #points-all li > span{
+#rates-all li > span:not(:last-child), #points-all li > span, #contacts-all li > span{
     float: left;
     width: 30%;
     text-align: center;
 }
-#points-all li > span{
+
+#contacts-all li > span{
+    text-align: left;    
+}
+
+#points-all li > span, #contacts-all li > span{
     width: 80%;
 }
 
@@ -836,21 +926,22 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
    width: 25%;
 }
 
-/*#points-all li:first-child > span:first-child{
-   padding-left: 20px;
-   width: 60%;
-}*/
 #points-all li > span{
    padding-left: 20px;
    width: 40%;
 }
 
-#rates-all li > span:last-child, #points-all li > span:last-child{
+#contacts-all li > span{
+   padding-left: 10px;
+   width: 40%;
+}
+
+#rates-all li > span:last-child, #points-all li > span:last-child, #contacts-all li > span:list-child{
     float: right;
     margin-right: 10px;
 }
 
-#rates-all li > span:first-child, #points-all li > span:first-child{
+#rates-all li > span:first-child, #points-all li > span:first-child, #contacts-all li > span:first-child{
     text-align: left;
     padding-left: 10px;
     cursor: default;
@@ -861,7 +952,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     text-align: left;
 }
 
-#rates-all li .del-row, #points-all li .del-row{
+#rates-all li .del-row, #points-all li .del-row, #contacts-all li .del-row{
     background: url('/images/delete-icon.png') no-repeat left top;
     width: 16px;
     height: 16px;
@@ -878,7 +969,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     border: none;
     box-shadow: none;
 }
-#rates-all li .del-row:hover,#rates-all .confirm-row:hover, #points-all li .del-row:hover{
+#rates-all li .del-row:hover,#rates-all .confirm-row:hover, #points-all li .del-row:hover, #contacts-all li .del-row:hover{
     cursor: pointer;
 }
 #rate-message{

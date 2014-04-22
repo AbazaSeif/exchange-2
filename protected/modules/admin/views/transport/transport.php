@@ -14,7 +14,7 @@
 <div class="right">
     <?php 
         if ($mess = Yii::app()->user->getFlash('message')){
-            echo '<div class="trDelMessage success">'.$mess.'</div>';
+            echo '<div class="uDelMessage success">'.$mess.'</div>';
         }
     ?>
     <div id="tabs">
@@ -32,7 +32,7 @@
                     'template'=>'{sorter} {items} {pager}',
                     'sorterHeader'=>'',
                     'itemsTagName'=>'ul',
-                    'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка'),
+                    'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'num_rates'=>'Кол-во ставок', 'num_users'=>'Кол-во фирм', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка'),
                     'pager'=>array(
                         'class'=>'CLinkPager',
                         'header'=>false,
@@ -54,7 +54,7 @@
             'template'=>'{sorter} {items} {pager}',
             'sorterHeader'=>'',
             'itemsTagName'=>'ul',
-            'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка'),
+            'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'num_rates'=>'Кол-во ставок', 'num_users'=>'Кол-во фирм', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка'),
             'pager'=>array(
                 'class'=>'CLinkPager',
                 'header'=>false,

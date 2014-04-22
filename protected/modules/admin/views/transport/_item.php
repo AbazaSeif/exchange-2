@@ -3,6 +3,17 @@
     $rate = Rate::model()->findByPk($data->rate_id);
     $ferryman = User::model()->findByPk($rate->user_id);
     $ferrymanField = UserField::model()->findByAttributes(array('user_id'=>$rate->user_id));
+    $rateCount = Rate::model()->countByAttributes(array(
+        'transport_id'=> $data->id
+    ));
+    $users = Yii::app()->db->createCommand(array(
+        'select'   => 'user_id',
+        'distinct' => 'true',
+        'from'     => 'rate',
+        'where'    => 'transport_id = ' . $data->id,
+    ))->queryAll();
+    $userCount = count($users);
+    
     $showRate = $withNds = '';
     $currency = ' €';
     
@@ -29,7 +40,7 @@
     <div class="width-15">
         <?php echo date('d.m.Y H:i', strtotime($data->date_close)) ?>
     </div>
-    <div class="width-35">
+    <div class="width-30">
         <div class="width-100">
             <a class="t-header" href="<?php echo $action; ?>" >
                 <?php echo '"' . $data->location_from . ' &mdash; ' . $data->location_to . '"'?>
@@ -39,7 +50,13 @@
             <div class="t-points"><span><?php echo $data->location_from . $allPoints . ' -> ' . $data->location_to ?></span></div>
         </div>
     </div>
-    <div class="width-20">
+    <div class="width-5">
+        <?php echo $rateCount ?>
+    </div>
+    <div class="width-5">
+        <?php echo $userCount ?>
+    </div>
+    <div class="width-20 t-company">
         <?php echo ($ferryman->company) ? $ferryman->company : 'Нет ставок'?>
     </div>
     <div class="width-15">

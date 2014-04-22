@@ -116,7 +116,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td style="color:#a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
+                                                                                <td style="color:#666666; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
                                                                                     Спешим уведомить Вас о том, что на бирже появились новые международные заявки на перевозку.
                                                                                     <br /><br />
                                                                                     <a href="http://exchange.lbr.ru/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank"><span class="link-u" style="color:#008672; text-decoration:underline">Перейти на биржу</span></a>
@@ -136,7 +136,7 @@
                                                         </td>
                                                     </tr>
                                                 </table>
-
+                                                <!-- transport list -->
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                     <tr>
                                                         <td class="text" style="color:#a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left" valign="top">
@@ -146,7 +146,7 @@
                                                                     Свердловская область, г. Березовский, Режевской тракт,15 км - Амурская обл., г. Благовещенск , с.Садовое
                                                                     </td>
                                                                 </tr>
-                                                                <tr style="color: #a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
+                                                                <tr style="color: #666666; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
                                                                     <td>
                                                                     Описание перевозки
                                                                     </td>
@@ -176,7 +176,7 @@
                                                                     Свердловская область, г. Березовский, Режевской тракт,15 км - Амурская обл., г. Благовещенск , с.Садовое
                                                                     </td>
                                                                 </tr>
-                                                                <tr style="color: #a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
+                                                                <tr style="color: #666666; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
                                                                     <td>
                                                                     Описание перевозки
                                                                     </td>
@@ -236,7 +236,7 @@
                         <table width="624" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td style="text-align:center;">
-                                    <a style="color:#7b828b; font-family:Verdana; font-size:11px; line-height:20px; text-align:center" href="http://exchange.lbr.ru/" target="_blank">support.ex@lbr.ru</a>
+                                    <span style="color:#7b828b; font-family:Verdana; font-size:11px; line-height:20px; text-align:center">support.ex@lbr.ru</span>
                                 </td>
                             </tr>
                             <tr>

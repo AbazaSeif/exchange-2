@@ -219,7 +219,7 @@
 </div>
 </div>
 <script>
-$(document).ready(function(){
+$(document).ready(function() {
     var activeType = parseInt(sessionStorage.getItem('transportType'));
     $('#close-transport').click(function(){
         if(isNaN(activeType)) document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/transport";

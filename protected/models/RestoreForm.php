@@ -9,7 +9,6 @@ class RestoreForm extends CFormModel
     {
         return array(
             array('inn, verifyCode', 'required'),
-            array('inn', 'numerical'),
             array('verifyCode', 'captcha'),
         );
     }
@@ -17,7 +16,7 @@ class RestoreForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'inn' => 'ИНН/УНП ',
+            'inn' => 'ИНН/УНП или Email',
             'verifyCode' => 'Код проверки',
         );
     }

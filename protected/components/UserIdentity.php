@@ -19,7 +19,7 @@ class UserIdentity extends CUserIdentity
             if(!$record) {
                 $record = AuthUser::model()->findByAttributes(array('login'=>$this->username));
                 $status = 0;
-            } else if($record->type_contact){
+            } else if($record->type_contact) {
                 $status = 2;
             }
         }
