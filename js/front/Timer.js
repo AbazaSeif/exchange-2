@@ -35,6 +35,7 @@ Timer.prototype = {
   calculate: function(){
     var futureDate = this.endDate;
     this.dateNow.setSeconds(this.dateNow.getSeconds() + 1);
+    console.log(this.dateNow);
     var currDate = this.dateNow;
     this.seconds = this.datePartDiff(currDate.getSeconds(), futureDate.getSeconds(), 60);
     this.minutes = this.datePartDiff(currDate.getMinutes(), futureDate.getMinutes(), 60);

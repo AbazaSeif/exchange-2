@@ -3,7 +3,7 @@ $minRateValue = null;
 $currency = '€';
 $defaultRate = false;
 $priceStep = Transport::INTER_PRICE_STEP;
-$now = date('m/d/Y H:i:s', strtotime('now'));
+$now = date('m/d/Y H:i:s');//, strtotime('now'));
 $end = date('m/d/Y H:i:s', strtotime($transportInfo['date_close']));
 $winRate = Rate::model()->findByPk($transportInfo['rate_id']);
 $winFerryman = User::model()->findByPk($winRate->user_id);
@@ -162,9 +162,9 @@ if (!Yii::app()->user->isGuest) {
 <?php endif; ?>
 </div>
 <script>
-function getTime(){
-    return "<?php echo date("Y-m-d H:i:s") ?>";
-}
+/*function getTime(){
+    return "<?php //echo date("Y-m-d H:i:s") ?>";
+}*/
 
 $(document).ready(function(){
     var timer = new Timer();
