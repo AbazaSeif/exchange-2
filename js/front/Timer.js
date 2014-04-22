@@ -34,10 +34,8 @@ Timer.prototype = {
   },
   calculate: function(){
     var futureDate = this.endDate;
+    this.dateNow.setSeconds(this.dateNow.getSeconds() + 1);
     var currDate = this.dateNow;
-    currDate.setSeconds(currDate.getSeconds() - 1);
-    this.dateNow = currDate;
-    
     this.seconds = this.datePartDiff(currDate.getSeconds(), futureDate.getSeconds(), 60);
     this.minutes = this.datePartDiff(currDate.getMinutes(), futureDate.getMinutes(), 60);
     this.hours = this.datePartDiff(currDate.getHours(), futureDate.getHours(), 24);
