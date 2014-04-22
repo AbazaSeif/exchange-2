@@ -184,8 +184,10 @@ if (!Yii::app()->user->isGuest) {
 <script>
 
 $(document).ready(function(){
+    <?php if(!$transportInfo['status']): ?>
     var timer = new Timer();
     timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>);
+    <?php endif; ?>
     
     rateList.data = {
         currency : ' <?php echo $currency ?>',
