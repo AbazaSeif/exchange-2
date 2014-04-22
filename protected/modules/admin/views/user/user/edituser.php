@@ -105,10 +105,10 @@
                 echo $form->labelEx($model, 'reason');
                 echo $form->textArea($model, 'reason'); ?>
             </div>
-            <div class="date_block field">
+            <div class="block_date field">
             <?php  echo $form->error($model, 'block_date'); 
                 echo $form->labelEx($model, 'block_date');
-                //$model->date_block = date("d-m-Y", strtotime($model->date_block));
+                $model->block_date = date("d-m-Y", strtotime($model->block_date));
                 echo $form->textField($model, 'block_date'); 
             ?>
             </div>
@@ -194,8 +194,12 @@ $(document).ready(function(){
     });
     <?php if($model->status == User::USER_NOT_CONFIRMED || $model->status == User::USER_ACTIVE): ?>
     $('#UserForm_reason').parent().addClass('hide');
+    <?php endif; ?>
+    
+    <?php if($model->status != User::USER_TEMPORARY_BLOCKED): ?>
     $('#UserForm_block_date').parent().addClass('hide');
     <?php endif; ?>
+    
     
     $('#UserForm_status').change(function(){
          if(this.value == <?php echo User::USER_NOT_CONFIRMED ?> || this.value == <?php echo User::USER_ACTIVE ?>){
@@ -226,6 +230,5 @@ $(document).ready(function(){
     $( "#UserForm_block_date" ).datepicker({
         dateFormat: 'dd-mm-yy',
     });
-    
 });
 </script>

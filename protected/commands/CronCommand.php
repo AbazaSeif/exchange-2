@@ -8,6 +8,7 @@ class CronCommand extends CConsoleCommand
         $this->newTransport();
         $this->mailKillRate();
         $this->errorDate();
+        $this->checkBlockDate();
     }
     
     public function errorDate()
@@ -22,6 +23,30 @@ class CronCommand extends CConsoleCommand
         
         foreach($transports as $transport){
             Transport::model()->updateByPk($transport['id'], array('status' => 0));
+        }
+    }
+    
+    public function checkBlockDate()
+    {
+        $timeNow = date("Y-m-d");
+        $users = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('user')
+            ->where('block_date like :time', array(':time' => $timeNow . '%'))
+            ->queryAll()
+        ;
+
+        $count = count($users);
+        if($count) {
+            foreach($users as $user) {
+                $changes = array('status'=>'1');
+                $model = User::model()->findByPk($user['id']);
+                $model->status = 1;
+                $model->block_date = null;
+                $model->reason = null;
+                $model->save();
+                User::sendAboutChangeStatus($model, $changes);
+            }
         }
     }
     
@@ -587,6 +612,7 @@ class CronCommand extends CConsoleCommand
                                                     </tr>
                                                 </table>'
         ;
+        $email->body = $message;
         $email->sendMail();
     }
     

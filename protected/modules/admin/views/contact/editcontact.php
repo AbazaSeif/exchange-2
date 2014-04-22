@@ -127,6 +127,13 @@
                 echo $form->labelEx($model, 'reason');
                 echo $form->textArea($model, 'reason'); ?>
             </div>
+            <div class="block_date field">
+            <?php  echo $form->error($model, 'block_date'); 
+                echo $form->labelEx($model, 'block_date');
+                $model->block_date = date("d-m-Y", strtotime($model->block_date));
+                echo $form->textField($model, 'block_date'); 
+            ?>
+            </div>
             <?php if($model->id):?>
             <div style="display:none;">
             <?php  echo $form->hiddenField($model, 'password'); ?>
@@ -154,13 +161,36 @@ $(document).ready(function(){
     <?php if($model->status == User::USER_NOT_CONFIRMED || $model->status == User::USER_ACTIVE): ?>
     $('#UserContactForm_reason').parent().addClass('hide');
     <?php endif; ?>
-    
+    <?php if($model->status != User::USER_TEMPORARY_BLOCKED): ?>
+    $('#UserContactForm_block_date').parent().addClass('hide');
+    <?php endif; ?>
     $('#UserContactForm_status').change(function(){
          if(this.value == <?php echo User::USER_NOT_CONFIRMED ?> || this.value == <?php echo User::USER_ACTIVE ?>){
              $('#UserContactForm_reason').parent().addClass('hide');
          } else {
              $('#UserContactForm_reason').parent().removeClass('hide');
          }
+         if(this.value == <?php echo User::USER_TEMPORARY_BLOCKED ?>) $('#UserContactForm_block_date').parent().removeClass('hide');
+         else $('#UserContactForm_block_date').parent().addClass('hide');
+    });
+    $.datepicker.regional['ru'] = {
+        closeText: 'Закрыть',
+        prevText: '&#x3c;Пред',
+        nextText: 'След&#x3e;',
+        currentText: 'Сегодня',
+        monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+        monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'],
+        dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+        dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+        dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+        dateFormat: 'dd.mm.yy',
+        firstDay: 1,
+        isRTL: false,
+    };
+    $.datepicker.setDefaults($.datepicker.regional['ru']);
+
+    $( "#UserContactForm_block_date" ).datepicker({
+        dateFormat: 'dd-mm-yy',
     });
 });
 </script>
