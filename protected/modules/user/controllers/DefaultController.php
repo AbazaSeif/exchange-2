@@ -218,6 +218,7 @@ class DefaultController extends Controller
                 $user->password = crypt($password, User::model()->blowfishSalt());
                 $user->company = 'Контактное лицо "' . $curUser->company . '" ('.$user->name.' '.$user->surname.')';
                 
+                //if($model->validate() && $user->save()) {
                 if($user->save()) {
                     $newFerrymanFields = new UserField;
                     $newFerrymanFields->user_id = $user->id;
