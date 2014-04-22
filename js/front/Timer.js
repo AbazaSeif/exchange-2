@@ -1,12 +1,11 @@
 var Timer = function(){};
 Timer.prototype = {
-    init: function(serverDate, initDate, id, status) {
-    //var dateNow = new Date(); // время на ПК  // !!!!!!!!!!!
-    //var dateNowServer = new Date(serverDate); // время на сервере
-    //this.timeDiff = (dateNowServer - dateNow)/1000; // сек, временная разница между сервером и клиентом 
-    this.dateNow = new Date(serverDate);
-    this.endDate = new Date(initDate); // дата и время от которых идет обратный отсчет
+  init: function(serverDate, initDate, id, status){
+    var dateNow = new Date(); // время на ПК  // !!!!!!!!!!!
+    var dateNowServer = new Date(serverDate); // время на сервере
+    this.timeDiff = (dateNowServer - dateNow)/1000; // сек, временная разница между сервером и клиентом 
     this.status = status;
+    this.endDate = new Date(initDate); // дата и время от которых идет обратный отсчет
     this.str = '#' + id;
     if ($(this.str).length > 0) {
         this.container = document.getElementById(id);
@@ -20,8 +19,8 @@ Timer.prototype = {
   },
   // устанавливает количество дней в феврале текущего года
   updateNumOfDays: function() {
-    var dateNow = this.dateNow; //new Date(); // on pk  // !!!!!!!!!!!
-    //dateNow.setSeconds(dateNow.getSeconds() + this.timeDiff);
+    var dateNow = new Date(); // on pk  // !!!!!!!!!!!
+    dateNow.setSeconds(dateNow.getSeconds() + this.timeDiff);
     var currYear = dateNow.getFullYear();
     if ( (currYear % 4 == 0 && currYear % 100 != 0 ) || currYear % 400 == 0 ) {
         this.numOfDays[1] = 29; //кол-во дней в феврале высокосного года
@@ -38,10 +37,8 @@ Timer.prototype = {
   },
   calculate: function(){
     var futureDate = this.endDate;
-    var currDate = this.dateNow;//new Date();
-    currDate.setSeconds(currDate.getSeconds() - 1);
-    this.dateNow = currDate;
-    
+    var currDate = new Date();
+    currDate.setSeconds(currDate.getSeconds() + this.timeDiff);
     this.seconds = this.datePartDiff(currDate.getSeconds(), futureDate.getSeconds(), 60);
     this.minutes = this.datePartDiff(currDate.getMinutes(), futureDate.getMinutes(), 60);
     this.hours = this.datePartDiff(currDate.getHours(), futureDate.getHours(), 24);
@@ -96,13 +93,10 @@ Timer.prototype = {
           }
 
           this.container.innerHTML = years + months + days + ' <span class="t-time">' + this.hours + ':' + this.minutes + ':' + this.seconds + '</span>';
-          var currDate = this.dateNow; //new Date(); // !!!!!!!!!!!
-          //currDate.setSeconds(currDate.getSeconds() + this.timeDiff);
+          var currDate = new Date(); // !!!!!!!!!!!
+          currDate.setSeconds(currDate.getSeconds() + this.timeDiff);
 
           if(typeof rateList.data !== "undefined" && typeof rateList.data.status !== "undefined") this.status = parseInt(rateList.data.status);
-          console.log('current = ' + currDate);
-          console.log('end = ' + this.endDate);
-          
           if ( this.endDate > currDate && this.status ) { //проверка не обнулился ли таймер
               var self = this;
               setTimeout(function(){self.updateCounter();}, 1000);
