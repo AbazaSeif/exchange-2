@@ -266,22 +266,6 @@ class DefaultController extends Controller
     
     public function sendMailToNewContact($user, $curUser, $password)
     {
-        $email = new TEmail;
-        $email->from_email = Yii::app()->params['adminEmail'];
-        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = $user->email;
-        $email->to_name    = '';
-        $email->subject    = "Приглашение";
-        $email->type = 'text/html';
-        $email->body = '<h1>Уважаемый(ая) ' . $user->name . ' ' . $user->secondname . ', </h1>' . 
-            '<p>Вы были зарегистрированы как контактное лицо "' . $curUser->company . '"</p>' .
-            '<p>Логин: ' . $user->email . '</p>' .
-            '<p>Пароль: ' . $password . '</p>' .
-            '<p>Изменить пароль Вы можете зайдя в кабинет пользователя с помощью указанных логина и пароля. </p>' . 
-            '<hr><h5>Это сообщение является автоматическим, на него не следует отвечать</h5>'
-        ;
-        $email->sendMail();
-        /**********************************************/
         $name = '';
         if(!empty($user->name)) $name = $user->name;
         if(!empty($user->secondname)){
@@ -293,7 +277,7 @@ class DefaultController extends Controller
         $email = new TEmail2;
         $email->from_email = Yii::app()->params['adminEmail'];
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = 'krilova@lbr.ru';//$user->email;
+        $email->to_email   = $user->email;
         $email->to_name    = '';
         $email->subject    = "Приглашение";
         $email->type = 'text/html';
