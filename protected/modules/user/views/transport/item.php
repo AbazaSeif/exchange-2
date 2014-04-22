@@ -205,8 +205,8 @@ $(document).ready(function(){
     <?php if (!Yii::app()->user->isGuest): ?>
         <?php if(Yii::app()->user->isTransport): ?>
 
-        var socket = io.connect('http://exchange.lbr.ru:3000/');
-        //var socket = io.connect('http://localhost:3000/');
+        //var socket = io.connect('http://exchange.lbr.ru:3000/');
+        var socket = io.connect('http://localhost:3000/');
         
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>);
         
