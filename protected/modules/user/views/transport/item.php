@@ -123,11 +123,7 @@ if (!Yii::app()->user->isGuest) {
             <?php if (!Yii::app()->user->isGuest && $minRateValue > 0 && Yii::app()->user->isTransport): ?>
             <div class="width-50 timer-wrapper">
                 <div class="width-100">
-                    <div id="t-container" class="width-40">
-                        <?php if(!$transportInfo['status']): ?>
-                            <span class="t-closed">Перевозка закрыта</span>
-                        <?php endif; ?>
-                    </div>
+                    <div id="t-container" class="width-40"></div>
                     <div id="t-error"></div>
                     <div class="rate-wrapper width-60">
                         <div class="r-block">
