@@ -25,6 +25,7 @@ class UserContactForm extends CFormModel
             array('id, block_date, reason, parent, company, name, surname, secondname, password, status, phone, phone2, email', 'safe'),
             array('status, phone, phone2', 'numerical', 'integerOnly'=>true),
             array('email', 'email', 'message'=>'Неправильный Email адрес'),
+            array('name','match', 'pattern'=>'/^([\sa-zA-Zа-яА-ЯёЁ\d]+)$/i', 'message'=>'Поле "{attribute}" должно содержать только следующие символы: 0-9,a-z,A-Z,а-я,А-Я и пробел'),
             //array('name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),
             //array('parent', 'match', 'pattern'=>'/^[0]$/', 'message'=>'Выберите фирму'),
             array('password, password_confirm', 'length', 'min'=>6, 'allowEmpty'=>true),
