@@ -178,10 +178,14 @@ if (!Yii::app()->user->isGuest) {
 <?php endif; ?>
 </div>
 <script>
-
+function getTime(){
+    return "<?php echo date("Y-m-d H:i:s") ?>";
+}
 $(document).ready(function(){
+    <?php if(!$transportInfo['status']): ?>
     var timer = new Timer();
     timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>);
+    <?php endif; ?>
     
     rateList.data = {
         currency : ' <?php echo $currency ?>',
