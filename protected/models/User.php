@@ -39,6 +39,7 @@ class User extends CActiveRecord
         const USER_WARNING = 2;
         const USER_TEMPORARY_BLOCKED = 3;
         const USER_BLOCKED = 4;
+        const PARENT_BLOCKED = 5;
         public $password_confirm;
         
         public static $userStatus = array(

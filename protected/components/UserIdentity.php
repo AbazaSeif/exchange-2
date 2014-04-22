@@ -25,6 +25,7 @@ class UserIdentity extends CUserIdentity
         }
         
         $this->errorCode = $this->getError($record);
+        
         if($this->errorCode==self::ERROR_NONE) {
             if($status=='0') {
                 $this->_id = $record->g_id;
@@ -33,6 +34,13 @@ class UserIdentity extends CUserIdentity
             $this->setState('_id', $record->id);
             $this->setState('transport', $status);
         }
+        // if it's contact user, chack parent's block-status
+        if($status == 2) {
+            $parent = User::model()->findByPk($record->parent);
+            if($parent->status == User::USER_BLOCKED || $parent->status == User::USER_TEMPORARY_BLOCKED) {
+                $this->errorCode = 1000 + User::PARENT_BLOCKED;
+            }
+        }
         return $this->errorCode;
     }
 
@@ -40,10 +48,10 @@ class UserIdentity extends CUserIdentity
     {
         if($user===null)
             return self::ERROR_USERNAME_INVALID;
-        elseif($user->password!==crypt($this->password,$user->password))
-            return self::ERROR_PASSWORD_INVALID;
         elseif(in_array($user->status, array(User::USER_TEMPORARY_BLOCKED, User::USER_BLOCKED, User::USER_NOT_CONFIRMED)))
             return 1000 + $user->status;
+        elseif($user->password!==crypt($this->password,$user->password))
+            return self::ERROR_PASSWORD_INVALID;
         else
             return self::ERROR_NONE;
     }

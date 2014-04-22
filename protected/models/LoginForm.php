@@ -48,21 +48,22 @@ class LoginForm extends CFormModel
 	 */
 	public function authenticate($attribute,$params)
 	{
-		if(!$this->hasErrors()) {
-            $this->_identity=new UserIdentity($this->username,$this->password);
-            $autentificate = $this->_identity->authenticate();
-            //var_dump($autentificate); exit;
-            if($autentificate == (1000 + User::USER_NOT_CONFIRMED)){
-                $this->addError('username','Регистрация не подтверждена');
-            } else if ($autentificate == (1000 + User::USER_TEMPORARY_BLOCKED)) {
-                $this->addError('username','Пользователь временно заблокирован');
-            } else if ($autentificate == (1000 + User::USER_BLOCKED)) {
-                $this->addError('username','Пользователь заблокирован');
-            } else if((bool)$autentificate){
-                $this->addError('password','Неверный логин или пароль');
-            }
-        }
-	}
+            if(!$this->hasErrors()) {
+                $this->_identity=new UserIdentity($this->username,$this->password);
+                $autentificate = $this->_identity->authenticate();
+                if($autentificate == (1000 + User::USER_NOT_CONFIRMED)){
+                    $this->addError('username','Регистрация не подтверждена');
+                } else if ($autentificate == (1000 + User::USER_TEMPORARY_BLOCKED)) {
+                    $this->addError('username','Пользователь временно заблокирован');
+                } else if ($autentificate == (1000 + User::USER_BLOCKED)) {
+                    $this->addError('username','Пользователь заблокирован');
+                } else if ($autentificate == (1000 + User::PARENT_BLOCKED)) {
+                    $this->addError('username','Основной пользователь заблокирован');
+                } else if((bool)$autentificate){
+                    $this->addError('password','Неверный логин или пароль');
+                }
+            } 
+	} 
 
 	/**
 	 * Logs in the user using the given username and password in the model.

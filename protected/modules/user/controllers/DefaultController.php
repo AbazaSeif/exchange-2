@@ -216,7 +216,9 @@ class DefaultController extends Controller
                 $user->status = 1;
                 $user->parent = Yii::app()->user->_id;
                 $user->password = crypt($password, User::model()->blowfishSalt());
-                $user->company = 'Контактное лицо "' . $curUser->company . '" ('.$user->name.' '.$user->surname.')';
+                $name = $user->name;
+                if(!empty($user->surname)) $name .= ' '.$user->surname;
+                $user->company = 'Контактное лицо "' . $curUser->company . '" ('.$name.')';
                 
                 //if($model->validate() && $user->save()) {
                 if($user->save()) {
