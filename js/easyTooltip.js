@@ -66,8 +66,8 @@
 		                        
 					$("#" + options.tooltipId)
 						.css("position","absolute")
-						.css("top",(e.pageY - options.yOffset - 40) + "px")
-						.css("left",(e.pageX + options.xOffset - 20) + "px")						
+						.css("top",(e.pageY - options.yOffset - 45) + "px")
+						.css("left",(e.pageX + options.xOffset - 35) + "px")						
 						.css("display","none")
 						.fadeIn("fast")
 				}
@@ -78,8 +78,8 @@
 			});	
 			$(this).mousemove(function(e){
 				$("#" + options.tooltipId)
-					.css("top",(e.pageY - options.yOffset - 40) + "px")
-					.css("left",(e.pageX + options.xOffset - 20) + "px")					
+					.css("top",(e.pageY - options.yOffset - 45) + "px")
+					.css("left",(e.pageX + options.xOffset - 35) + "px")					
 			});	
 			if(options.clickRemove){
 				$(this).mousedown(function(e){
