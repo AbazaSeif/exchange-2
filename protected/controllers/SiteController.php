@@ -519,26 +519,7 @@ class SiteController extends Controller
         $model->attributes = $_POST['QuickForm'];
         if($model->validate()) {
             $user = User::model()->findByPk($model->user);
-            /*$email = new TEmail;
-            $email->from_email = $user->email;
-            $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-            $email->to_email   = Yii::app()->params['supportEmail'];
-            $email->to_name    = 'Обращение к модератору';
-            $email->subject    = '';
-            $email->type = 'text/html';
-            
-            $email->body = "<div>
-                    <p>
-                      Пользоваетель ".$user->company." (ИНН: " . $user->inn . ") 
-                      находясь в перевозке с id = ".$model->transport." обратился к модератору Биржи перевозок ЛБР 'АгроМаркет'
-                      со следующим обращением:
-                    </p>
-                    <p>" . $model->message . "</p>
-                </div>
-            ";
-            $email->sendMail();
-            */
-            /***************************************************/
+
             $email = new TEmail2;
             $email->from_email = $user->email;
             $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
@@ -546,7 +527,6 @@ class SiteController extends Controller
             $email->to_name    = '';
             $email->subject    = 'Обращение к модератору';
             $email->type = 'text/html';
-            
             $email->body = '<!-- Content -->
                 <tr>
                     <td>
