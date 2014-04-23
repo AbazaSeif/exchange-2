@@ -529,11 +529,11 @@ class CronCommand extends CConsoleCommand
             $email = new TEmail2;
             $email->from_email = Yii::app()->params['adminEmail'];
             $email->from_name = 'Биржа перевозок ЛБР АгроМаркет';
-            $email->to_email = 'krilova@lbr.ru'; //$user['email'];
+            $email->to_email = 'tttanyattt@mail.ru';//'krilova@lbr.ru'; //$user['email'];
             $email->to_name = '';
             $email->subject = $subject;
             $email->type = 'text/html';
-            $message .= '<!-- Content -->
+            $email->body = $message . '<!-- Content -->
                     <tr>
                         <td>
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -613,7 +613,7 @@ class CronCommand extends CConsoleCommand
                                                         </tr>
                                                     </table>'
             ;
-            $email->body = $message;
+            
             $email->sendMail();
         }
     }
