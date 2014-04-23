@@ -519,7 +519,7 @@ class SiteController extends Controller
         $model->attributes = $_POST['QuickForm'];
         if($model->validate()) {
             $user = User::model()->findByPk($model->user);
-            $email = new TEmail;
+            /*$email = new TEmail;
             $email->from_email = $user->email;
             $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
             $email->to_email   = Yii::app()->params['supportEmail'];
@@ -537,14 +537,14 @@ class SiteController extends Controller
                 </div>
             ";
             $email->sendMail();
-            
+            */
             /***************************************************/
             $email = new TEmail2;
             $email->from_email = $user->email;
             $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
             $email->to_email   = Yii::app()->params['supportEmail'];
-            $email->to_name    = 'Обращение к модератору';
-            $email->subject    = '';
+            $email->to_name    = '';
+            $email->subject    = 'Обращение к модератору';
             $email->type = 'text/html';
             
             $email->body = '<!-- Content -->
