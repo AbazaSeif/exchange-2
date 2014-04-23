@@ -94,14 +94,17 @@ nav, menu, p, section,
     float: left;
     padding: 45px 0 0 57px;
 }
-.header .center span
+.header .center span, .ui-dialog-title
 {
     color: #00917C;
     font-family: FuturisXC;
     font-weight: bold;
     font-size: 21px;
 }
-.header .center:first-letter
+.ui-dialog-title{
+    font-size: 18px;
+}
+.header .center:first-letter, .ui-dialog-title:first-letter
 {
     color: #EF801B;
 }
@@ -138,7 +141,7 @@ nav, menu, p, section,
     float: left;
 }
 
-#login-form .row.buttons, #registration-form .row.buttons, #quick-form .button
+#login-form .row.buttons, #registration-form .row.buttons/*, #quick-form .button */
 {
     width: 40%;
 }
@@ -166,6 +169,15 @@ nav, menu, p, section,
     background: -ms-linear-gradient(top,#14AAAA,#008C8C);
     background: linear-gradient(top,#14AAAA,#008C8C);
     cursor: pointer;
+}
+#quick-form input.btn, #addRate input.btn
+{
+    padding: 4px 15px;
+    width: auto;
+}
+#addRate .rate-button:last-child input.btn
+{
+    float: left;
 }
 
 #registration-form .row.buttons input.btn
@@ -325,8 +337,9 @@ nav, menu, p, section,
 }
 
 div.ui-widget-header {
-    background: url("/images/ui-bg_gloss-wave_35_f6a828_1x100.jpg") repeat-x scroll 0% 10% #CCCCCC;
-    border: 1px solid #AAAAAA;
+    /*background: url("/images/ui-bg_gloss-wave_35_f6a828_1x100.jpg") repeat-x scroll 0% 10% #CCCCCC;*/
+    background: url("/images/ui-bg_gloss-grey-1x80.png") repeat-x scroll 0% 10% #CCCCCC;
+    border: 0 !important;/*1px solid #AAAAAA;*/
     color: #222222;
     font-weight: bold;
 }
@@ -1519,4 +1532,36 @@ div.easytooltip div.tip-arrow {
     overflow: hidden;
     position: absolute;
     visibility: hidden;
+}
+
+
+div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-draggable
+{
+    width: 500px !important;
+}
+
+.ui-widget textarea{
+    width: 99% !important;
+}
+.ui-corner-all
+{
+    border-radius: 0 !important;
+}
+.ui-dialog
+{
+    padding: 0 !important;
+    border-radius: 3px !important;
+    box-shadow: 0 0 5px #cccccc;
+}
+#modalDialog
+{
+    margin-bottom: 0.5em;
+}
+.ui-dialog .btn
+{
+    margin-top: 0.5em;
+}
+.ui-widget-content
+{
+    border: 0 !important;
 }

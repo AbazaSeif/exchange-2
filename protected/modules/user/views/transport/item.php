@@ -201,8 +201,8 @@ $(document).ready(function(){
     <?php if (!Yii::app()->user->isGuest): ?>
         <?php if(Yii::app()->user->isTransport): ?>
 
-        var socket = io.connect('http://exchange.lbr.ru:3000/');
-        //var socket = io.connect('http://localhost:3000/');
+        //var socket = io.connect('http://exchange.lbr.ru:3000/');
+        var socket = io.connect('http://localhost:3000/');
         
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>);
         
@@ -234,6 +234,7 @@ $(document).ready(function(){
         $('.point[title]').easyTooltip();
 });
 </script>
+<!-- Dialog windows -->
 <?php if (!Yii::app()->user->isGuest && Yii::app()->user->isTransport):?>
 <div>
     <?php
@@ -269,9 +270,7 @@ $(document).ready(function(){
     <?php echo $form->hiddenField($qForm, 'user', array('value'=>Yii::app()->user->_id));?>
     <?php echo $form->hiddenField($qForm, 'transport', array('value'=>$transportInfo['id']));?>
     </div>
-    <div class="button">
     <?php echo CHtml::submitButton('Отправить',array('class' => 'btn')); ?>
-    </div>
     <?php 
         $this->endWidget();
         $this->endWidget('zii.widgets.jui.CJuiDialog');
