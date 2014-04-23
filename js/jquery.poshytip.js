@@ -99,10 +99,10 @@
 			this.display();
 		},
 		hide: function() {
-			if (this.disabled || !this.$tip.data('active'))
+			/*if (this.disabled || !this.$tip.data('active'))
 				return;
 
-			this.display(true);
+			this.display(true);*/
 		},
 		reset: function() {
 			this.$tip.queue([]).detach().css('visibility', 'hidden').data('active', false);

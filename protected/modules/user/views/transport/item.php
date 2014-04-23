@@ -230,12 +230,8 @@ $(document).ready(function(){
 
         <?php endif; ?> 
             rateList.init();
-        <?php endif; ?> 
-        $('.point[title]').poshytip({
-            className: 'tip-darkgray',
-            bgImageFrameSize: 11,
-            offsetX: -25,
-        });
+        <?php endif; ?>
+        $('.point[title]').easyTooltip();
 });
 </script>
 <?php if (!Yii::app()->user->isGuest && Yii::app()->user->isTransport):?>

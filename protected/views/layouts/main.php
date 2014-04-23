@@ -12,14 +12,13 @@
         <title><?php echo Yii::app()->params['meta_title']; ?></title>
         
         <link rel="stylesheet" type="text/css" href="/css/front/frontend.css" />
-        <link rel="stylesheet" type="text/css" href="/css/front/tip-darkgray/tip-darkgray.css" />
         <link rel="stylesheet" type="text/css" href="/css/front/jquery.mCustomScrollbar.css" />
         <script src="http://exchange.lbr.ru:3000/socket.io/socket.io.js"></script>
         <!--script src="http://localhost:3000/socket.io/socket.io.js"></script-->
         <?php
             Yii::app()->clientScript->registerCoreScript('jquery');
             Yii::app()->clientScript->registerScriptFile('/js/jquery.dotdotdot.js');
-            Yii::app()->clientScript->registerScriptFile('/js/jquery.poshytip.js');
+            Yii::app()->clientScript->registerScriptFile('/js/easyTooltip.js');
             Yii::app()->clientScript->registerScriptFile('/js/jquery.mCustomScrollbar.concat.min.js');
             Yii::app()->clientScript->registerScriptFile('/js/front/Timer.js');
             Yii::app()->clientScript->registerScriptFile('/js/front/rateList.js');

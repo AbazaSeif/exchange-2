@@ -1422,3 +1422,109 @@ input.r-submit {
 #show-errors div{
     font-size: 14px;
 }
+
+/***************************************************************/
+.easytooltip {
+	opacity:0.95;
+	z-index:1000;
+	text-align:left;
+	text-shadow:#444 0 1px 1px;
+	border:1px solid #888;
+	padding:8px;
+	min-width:50px;
+	max-width:530px;
+	color: #fff;
+	/*background-color:#999;*/
+	background-image:url(/images/tip-darkgray.png); /* bgImageFrameSize >= 11 should work fine */
+	/**
+	 * - If you set a background-image, border/padding/background-color will be ingnored.
+	 *   You can set any padding to .tip-inner instead if you need.
+	 * - If you want a tiled background-image and border/padding for the tip,
+	 *   set the background-image to .tip-inner instead.
+	 */
+}
+.easytooltip .tip-inner {
+	font:bold 12px/18px arial,helvetica,sans-serif;
+	margin-top:-1px;
+	padding:0 4px 3px;
+	color: #fff;
+}
+
+/* Configure an arrow image - the script will automatically position it on the correct side of the tip */
+.easytooltip .tip-arrow-top {
+	margin-top:-7px;
+	margin-left:15px;
+	top:0;
+	left:0;
+	width:16px;
+	height:10px;
+	background:url(/images/tip-darkgray_arrows.png) no-repeat;
+}
+.easytooltip .tip-arrow-right {
+	margin-top:-9px; /* approx. half the height to center it */
+	margin-left:-7px;
+	top:50%;
+	left:100%;
+	width:11px;
+	height:21px;
+	background:url(/images/tip-darkgray_arrows.png) no-repeat -22px 0;
+}
+.easytooltip .tip-arrow-bottom {
+	margin-top:-7px;
+	margin-left:15px;
+	top:100%;
+	left:0;
+	width:22px;
+	height:13px;
+	background:url(/images/tip-darkgray_arrows-orig.png) no-repeat -44px 0;
+}
+.easytooltip .tip-arrow-left {
+	margin-top:-9px; /* approx. half the height to center it */
+	margin-left:-6px;
+	top:50%;
+	left:0;
+	width:11px;
+	height:21px;
+	background:url(/images/tip-darkgray_arrows.png) no-repeat -66px 0;
+}
+div.easytooltip {
+    left: 0;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+}
+div.easytooltip table, div.easytooltip td {
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-variant: inherit;
+    font-weight: inherit;
+    margin: 0;
+}
+
+div.easytooltip td.tip-bg-image span {
+    display: block;
+    font: 1px/1px sans-serif;
+    height: 11px;
+    overflow: hidden;
+    width: 11px;
+}
+
+div.easytooltip td.tip-right {
+    background-position: 100% 0;
+}
+div.easytooltip td.tip-bottom {
+    background-position: 100% 100%;
+}
+div.easytooltip td.tip-left {
+    background-position: 0 100%;
+}
+div.easytooltip div.tip-inner {
+    background-position: -11px -11px;
+}
+div.easytooltip div.tip-arrow {
+    font: 1px/1px sans-serif;
+    overflow: hidden;
+    position: absolute;
+    visibility: hidden;
+}
