@@ -514,7 +514,7 @@ class SiteController extends Controller
     }
      
     public function actionQuick() 
-    { 
+    {
         $model = new QuickForm;
         $model->attributes = $_POST['QuickForm'];
         if($model->validate()) {
