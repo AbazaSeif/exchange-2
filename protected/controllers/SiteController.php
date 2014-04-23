@@ -519,7 +519,7 @@ class SiteController extends Controller
         $model->attributes = $_POST['QuickForm'];
         if($model->validate()) {
             $user = User::model()->findByPk($model->user);
-            $email = new TEmail;
+            /*$email = new TEmail;
             $email->from_email = $user->email;
             $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
             $email->to_email   = Yii::app()->params['supportEmail'];
@@ -537,6 +537,7 @@ class SiteController extends Controller
                 </div>
             ";
             $email->sendMail();
+            */
             /***************************************************/
             $email = new TEmail2;
             $email->from_email = $user->email;
@@ -650,8 +651,8 @@ class SiteController extends Controller
             $email->sendMail();
             
             Dialog::message('flash-success', 'Отправлено!', 'Ваше письмо отправлено!');
-            $this->redirect($_SERVER['HTTP_REFERER']);
-        } else Dialog::message('flash-success', 'Отправлено!', 'Вы не верно заполнили форму отправки!');
+        } else Dialog::message('flash-success', 'Внимание!', 'Вы не верно заполнили форму отправки!');
+        $this->redirect($_SERVER['HTTP_REFERER']);
     }
     
     public function actionError()
