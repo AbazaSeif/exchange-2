@@ -9,8 +9,7 @@ class QuickForm extends CFormModel
     {
         return array(
             array('message', 'required'),
-            array('user', 'safe'),
-            array('transport', 'safe'),
+            array('user, message, transport', 'safe'),
         );
     }
   
