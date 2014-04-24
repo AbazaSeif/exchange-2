@@ -298,7 +298,7 @@ class SiteController extends Controller
                                     ';
                                     $email->sendMail();
                                     */
-                                     
+                                    /*
                                     $email = new TEmail2;
                                     $email->from_email = Yii::app()->params['adminEmail'];
                                     $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
@@ -315,7 +315,7 @@ class SiteController extends Controller
                                     ';
                                     $email->sendMail();
                                     
-                                     
+                                     */
                                     /************************************************/
                                     $email = new TEmail2;
                                     $email->from_email = Yii::app()->params['adminEmail'];
