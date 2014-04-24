@@ -160,10 +160,10 @@ class SiteController extends Controller
     }*/
     public function actionTestMail2()
     {
-        $email = new TEmail2;
+        $email = new TEmail;
         $email->from_email = Yii::app()->params['adminEmail'];
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = 'krilova@lbr.ru';
+        $email->to_email   = 'tttanyattt@mail.ru';//'krilova@lbr.ru';
         $email->to_name    = '';
         $email->subject    = 'Test';
         $email->type       = 'text/html';
