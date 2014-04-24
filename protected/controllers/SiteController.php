@@ -163,13 +163,13 @@ class SiteController extends Controller
         $email = new TEmail;
         $email->from_email = Yii::app()->params['adminEmail'];
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = $user->email;
+        $email->to_email   = 'tttanyattt@mail.ru';
         $email->to_name    = '';
         $email->subject    = 'Смена пароля';
         $email->type = 'text/html';
         $email->body = '<div>'.
                 '<p>Ваш пароль на "Онлайн бирже перевозок ЛБР-АгроМаркет" был изменен:</p>'.
-                '<p>Новый пароль: <b>'.$password.'</b></p>'.
+                '<p>Новый пароль: <b>1111</b></p>'.
                 '<p>Для смены пароля зайдите в свой аккаунт и воспользуйтесь вкладкой "Настроки->Смена пароля"</p>'.
             '</div>
             <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
