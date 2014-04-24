@@ -534,8 +534,8 @@ class SiteController extends Controller
                                                                         </table>
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                             <tr>
-                                                                                <td class="text" style="color:#000000; font-family:Verdana; font-size:14px; line-height:18px; text-align:left; padding-top: 10px; padding-bottom: 5px" valign="top">
-                                                                                    Для смены пароля зайдите в свой аккаунт и воспользуйтесь вкладкой "Настроки->Смена пароля".
+                                                                                <td class="text" style="color:#666666; font-family:Verdana; font-size:12px; line-height:14px; text-align:left; padding-top: 10px; padding-bottom: 5px" valign="top">
+                                                                                    Изменить текущий пароль Вы можете в кабинете пользователя в меню "Настройки".
                                                                                 </td>
                                                                             </tr>
                                                                         </table>
