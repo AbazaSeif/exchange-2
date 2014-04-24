@@ -156,6 +156,11 @@ div.form-label{
     float: left;
 }
 
+#feedback-form .btn, #registration-form .btn
+{
+    margin-top: 15px;
+}
+
 #login-form .btn, #registration-form .btn, #login-form .btn, #feedback-form .btn
 {
     padding: 3px 20px;
