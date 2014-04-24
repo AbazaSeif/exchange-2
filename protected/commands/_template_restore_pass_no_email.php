@@ -107,7 +107,7 @@
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0" >
                                                                             <tr>
                                                                                 <td style="color:#666666; font-family:Verdana; font-size:20px; line-height:24px; text-align:left; font-weight:normal">
-                                                                                    Обращение к модератору
+                                                                                    Запрос на смену пароля
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
@@ -121,10 +121,10 @@
                                                                                     <span style="color:#000000; font-weight: bold">
                                                                                         Контактное лицо "Общество с ограниченной ответственностью «АВРОРА»" ( Голова Екатерина Валерьевна) 
                                                                                         <br/>
-                                                                                        ИНН: 0001
+                                                                                        ИНН: 001
                                                                                     </span> 
                                                                                     <br/>
-                                                                                    обратился к модератору биржи перевозок со следующим сообщением:
+                                                                                    запросил смену пароля, но в бирже перевозок ЛБР-Агромаркет не указан его Email.
                                                                                 </td>
                                                                             </tr>
                                                                         </table>
@@ -144,7 +144,13 @@
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                     <tr>
                                                         <td class="text" style="color:#000000; font-family:Verdana; font-size:14px; line-height:18px; text-align:left; padding-top: 10px; padding-bottom: 5px" valign="top">
-                                                            Текст сообщения
+                                                            Нужно:
+                                                            <br/><br/>
+                                                            1) связаться с пользователем и узнать Email; 
+                                                            <br/>
+                                                            2) внести Email в карточку пользователя на бирже перевозок;
+                                                            <br/>
+                                                            3) попросить пользователя еще раз воспользоваться функцией "Восстановления доступа".    
                                                         </td>
                                                     </tr>
                                                 </table>

@@ -107,7 +107,7 @@
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0" >
                                                                             <tr>
                                                                                 <td style="color:#666666; font-family:Verdana; font-size:20px; line-height:24px; text-align:left; font-weight:normal">
-                                                                                    Обращение к модератору
+                                                                                    Восстановление доступа
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
@@ -117,14 +117,11 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <td style="width: 100%; padding-top: 10px; padding-bottom: 10px; color:#666666; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
-                                                                                    Пользователь 
+                                                                                    Ваш пароль на "Онлайн бирже перевозок ЛБР-АгроМаркет" был изменен:
+                                                                                    <br/><br/>
                                                                                     <span style="color:#000000; font-weight: bold">
-                                                                                        Контактное лицо "Общество с ограниченной ответственностью «АВРОРА»" ( Голова Екатерина Валерьевна) 
-                                                                                        <br/>
-                                                                                        ИНН: 0001
-                                                                                    </span> 
-                                                                                    <br/>
-                                                                                    обратился к модератору биржи перевозок со следующим сообщением:
+                                                                                        Новый пароль: 1111
+                                                                                    </span>
                                                                                 </td>
                                                                             </tr>
                                                                         </table>
@@ -144,7 +141,7 @@
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                     <tr>
                                                         <td class="text" style="color:#000000; font-family:Verdana; font-size:14px; line-height:18px; text-align:left; padding-top: 10px; padding-bottom: 5px" valign="top">
-                                                            Текст сообщения
+                                                            Для смены пароля зайдите в свой аккаунт и воспользуйтесь вкладкой "Настроки->Смена пароля".
                                                         </td>
                                                     </tr>
                                                 </table>

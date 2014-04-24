@@ -10,7 +10,7 @@
 </div>
 <div style="clear: both"></div>
 <div class="right">
-    <?php 
+    <?php
         if ($mess = Yii::app()->user->getFlash('message')){
             echo '<div class="trDelMessage success">'.$mess.'</div>';
         }

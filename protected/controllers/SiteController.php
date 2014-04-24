@@ -426,7 +426,7 @@ class SiteController extends Controller
                                 $user->password = crypt($password, User::model()->blowfishSalt());
                                 if($user->save()) {
                                     // send mail to ferryman with new password
-                                    $email = new TEmail;
+                                    /*$email = new TEmail;
                                     $email->from_email = Yii::app()->params['adminEmail'];
                                     $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
                                     $email->to_email   = $user->email;
@@ -434,19 +434,134 @@ class SiteController extends Controller
                                     $email->subject    = 'Смена пароля';
                                     $email->type = 'text/html';
                                     $email->body = '<div>'.
-                                            '<p>Ваш пароль для "Онлайн биржи перевозок ЛБР-АгроМаркет" был изменен:</p>'.
+                                            '<p>Ваш пароль на "Онлайн бирже перевозок ЛБР-АгроМаркет" был изменен:</p>'.
                                             '<p>Новый пароль: <b>'.$password.'</b></p>'.
                                             '<p>Для смены пароля зайдите в свой аккаунт и воспользуйтесь вкладкой "Настроки->Смена пароля"</p>'.
                                         '</div>
                                         <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
                                     ';
                                     $email->sendMail();
+                                    */
+                                     
+                                    /************************************************/
+                                    $email = new TEmail2;
+                                    $email->from_email = Yii::app()->params['adminEmail'];
+                                    $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+                                    $email->to_email   = $user->email;
+                                    $email->to_name    = '';
+                                    $email->subject    = 'Восстановление доступа';
+                                    $email->type = 'text/html';
+                                    $email->body = '<!-- Content -->
+                                        <tr>
+                                            <td>
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
+                                                        <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#c1c1c1"></td>
+                                                        <td bgcolor="#ffffff">
+                                                            <!-- Main Content -->
+                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                <tr>
+                                                                    <td>
+                                                                        <img src="http://exchange.lbr.ru/images/test/content_top789.jpg" alt="" border="0" width="620" height="12" style="float: left"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                <tr>
+                                                                    <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="20"></td>
+                                                                    <td>
+                                                                        <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="15" style="height:15px; float: left" alt="" />
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                                                                                        <tr>
+                                                                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; " valign="top" width="185">
+                                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="25" style="height:25px; float: left" alt="" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            <a href="http://exchange.lbr.ru/" target="_blank">
+                                                                                                                <img src="http://exchange.lbr.ru/images/logo.png" alt="" border="0" width="179" height="66" style="float: left"/>
+                                                                                                            </a>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <img src="http://exchange.lbr.ru/images/test/empty.gif" width="20" height="1" style="width:20px" alt="" style="float: left"/>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                            </td>
+                                                                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" valign="top" width="20"><img src="http://exchange.lbr.ru/images/test/img_right_shadow.jpg" alt="" border="0" width="8" height="131" style="float: left"/></td>
+                                                                                            <td class="text" style="margin: 0; color:#a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left" valign="top">
+                                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                                                                                                    <tr>
+                                                                                                        <td style="color:#666666; font-family:Verdana; font-size:20px; line-height:24px; text-align:left; font-weight:normal">
+                                                                                                            Восстановление доступа
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="10" style="height:10px; float: left" alt="" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td style="width: 100%; padding-top: 10px; padding-bottom: 10px; color:#666666; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
+                                                                                                            Ваш пароль на "Онлайн бирже перевозок ЛБР-АгроМаркет" был изменен:
+                                                                                                            <br/><br/>
+                                                                                                            <span style="color:#000000; font-weight: bold">
+                                                                                                                Новый пароль: '.$password.'
+                                                                                                            </span>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <img src="http://exchange.lbr.ru/images/test/separator.jpg" alt="" border="0" width="581" height="1" style="border: 0; float: left"/>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                            <tr>
+                                                                                <td class="text" style="color:#000000; font-family:Verdana; font-size:14px; line-height:18px; text-align:left; padding-top: 10px; padding-bottom: 5px" valign="top">
+                                                                                    Для смены пароля зайдите в свой аккаунт и воспользуйтесь вкладкой "Настроки->Смена пароля".
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                    <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; float: left" width="20"></td>
+                                                                </tr>
+                                                            </table>
+                                                            <img src="http://exchange.lbr.ru/images/test/content_bottom.jpg" alt="" border="0" width="620" height="20" style="float: left"/>
+                                                            <!-- END Main Content -->
+                                                        </td>
+                                                        <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#c1c1c1"></td>
+                                                        <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <!-- END Content -->
+                                    ';
+                                    $email->sendMail();
+                                    
                                     Dialog::message('flash-success', 'Отправлено!', 'Новый пароль был выслан на Ваш почтовый ящик.');
                                 } else Yii::log($user->getErrors(), 'error');
                             } else {
                                 Dialog::message('flash-success', 'Внимание!', 'Ваша заявка на восстановление доступа отправлена, в ближайшее время с вами свяжутся представители нашей компании.');
                                 // send mail to logist
-                                $email = new TEmail;
+                                /*$email = new TEmail;
                                 $email->from_email = Yii::app()->params['adminEmail'];
                                 $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
                                 $email->to_email   = Yii::app()->params['supportEmail'];
@@ -458,6 +573,129 @@ class SiteController extends Controller
                                         '<p>Контактный телефон: '. $user->phone . '</p>'.
                                     '</div>
                                     <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+                                ';
+                                $email->sendMail();
+                                */
+                                 
+                                /*************************************************/
+                                $email = new TEmail2;
+                                $email->from_email = Yii::app()->params['adminEmail'];
+                                $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+                                $email->to_email   = Yii::app()->params['supportEmail'];
+                                $email->to_name    = '';
+                                $email->subject    = 'Восстановление доступа';
+                                $email->type = 'text/html';
+                                $email->body = '<!-- Content -->
+                                        <tr>
+                                            <td>
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
+                                                        <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#c1c1c1"></td>
+                                                        <td bgcolor="#ffffff">
+                                                            <!-- Main Content -->
+                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                <tr>
+                                                                    <td>
+                                                                        <img src="http://exchange.lbr.ru/images/test/content_top789.jpg" alt="" border="0" width="620" height="12" style="float: left"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                <tr>
+                                                                    <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="20"></td>
+                                                                    <td>
+                                                                        <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="15" style="height:15px; float: left" alt="" />
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                                                                                        <tr>
+                                                                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; " valign="top" width="185">
+                                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="25" style="height:25px; float: left" alt="" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            <a href="http://exchange.lbr.ru/" target="_blank">
+                                                                                                                <img src="http://exchange.lbr.ru/images/logo.png" alt="" border="0" width="179" height="66" style="float: left"/>
+                                                                                                            </a>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <img src="http://exchange.lbr.ru/images/test/empty.gif" width="20" height="1" style="width:20px" alt="" style="float: left"/>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                            </td>
+                                                                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" valign="top" width="20"><img src="http://exchange.lbr.ru/images/test/img_right_shadow.jpg" alt="" border="0" width="8" height="131" style="float: left"/></td>
+                                                                                            <td class="text" style="margin: 0; color:#a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left" valign="top">
+                                                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                                                                                                    <tr>
+                                                                                                        <td style="color:#666666; font-family:Verdana; font-size:20px; line-height:24px; text-align:left; font-weight:normal">
+                                                                                                            Запрос на смену пароля
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="10" style="height:10px; float: left" alt="" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td style="width: 100%; padding-top: 10px; padding-bottom: 10px; color:#666666; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
+                                                                                                            Пользователь 
+                                                                                                            <span style="color:#000000; font-weight: bold">
+                                                                                                                '.$user->company.' 
+                                                                                                                <br/>
+                                                                                                                ИНН: '.$user->inn.'
+                                                                                                            </span> 
+                                                                                                            <br/>
+                                                                                                            запросил смену пароля, но в бирже перевозок ЛБР-Агромаркет не указан его Email.
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <img src="http://exchange.lbr.ru/images/test/separator.jpg" alt="" border="0" width="581" height="1" style="border: 0; float: left"/>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                            <tr>
+                                                                                <td class="text" style="color:#000000; font-family:Verdana; font-size:14px; line-height:18px; text-align:left; padding-top: 10px; padding-bottom: 5px" valign="top">
+                                                                                    Нужно:
+                                                                                    <br/><br/>
+                                                                                    1) связаться с пользователем и узнать Email; 
+                                                                                    <br/>
+                                                                                    2) внести Email в карточку пользователя на бирже перевозок;
+                                                                                    <br/>
+                                                                                    3) попросить пользователя еще раз воспользоваться функцией "Восстановления доступа".    
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                    <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; float: left" width="20"></td>
+                                                                </tr>
+                                                            </table>
+                                                            <img src="http://exchange.lbr.ru/images/test/content_bottom.jpg" alt="" border="0" width="620" height="20" style="float: left"/>
+                                                            <!-- END Main Content -->
+                                                        </td>
+                                                        <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#c1c1c1"></td>
+                                                        <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <!-- END Content -->
                                 ';
                                 $email->sendMail();
                             }
@@ -587,7 +825,10 @@ class SiteController extends Controller
                                                                             </tr>
                                                                             <tr>
                                                                                 <td style="width: 100%; padding-top: 10px; padding-bottom: 10px; color:#666666; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
-                                                                                    Пользователь <span style="color:#000000; font-weight: bold">'.$user->company.' (ИНН: ' . $user->inn . ')</span> 
+                                                                                    Пользователь 
+                                                                                    <span style="color:#000000; font-weight: bold">'.$user->company.
+                                                                                        '<br/>ИНН: ' . $user->inn . 
+                                                                                    '</span> 
                                                                                     <br/>
                                                                                     обратился к модератору биржи перевозок со следующим сообщением:
                                                                                 </td>
