@@ -226,9 +226,6 @@ class SiteController extends Controller
                 <!-- END Content -->
             ';
             $email->sendMail();
-            
-            
-            
             Dialog::message('flash-success', 'Отправлено!', 'Ваше сообщение отправлено');
             $this->redirect('/');
         } else $this->render('feedback', array('model' => $model));

@@ -534,7 +534,7 @@ class CronCommand extends CConsoleCommand
             $email->to_name = '';
             $email->subject = $subject;
             $email->type = 'text/html';
-            $email->body = '<!-- Content -->
+            $email->body = 'test work sendMail2 in cron';/*'<!-- Content -->
                     <tr>
                         <td>
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -614,7 +614,7 @@ class CronCommand extends CConsoleCommand
                                                         </tr>
                                                     </table>
             '.$message
-            ;
+            ;*/
             $email->sendMail();
         }
     }
