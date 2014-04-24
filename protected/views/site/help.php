@@ -1,5 +1,5 @@
-<div id="help">
-    <h1>Страница помощи</h1>
+<div id="help-form">
+    <div class="form-label">Страница помощи</div>
     <div class="title">
         <span>Вход в систему (аутентификация)</span>
     </div>

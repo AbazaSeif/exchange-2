@@ -22,7 +22,7 @@
             }'
         ),
     )); ?>
-    <h1>Восстановление доступа</h1>
+    <div class="form-label">Восстановление доступа</div>
     <div class="row">
         <?php echo $form->labelEx($model,'inn'); ?>
         <?php echo $form->textField($model, 'inn'); ?>

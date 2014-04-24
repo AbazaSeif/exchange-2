@@ -27,7 +27,7 @@
             }'
         ),
     )); ?>
-    <h1>Подать заявку на регистрацию</h1>
+    <div class="form-label">Подать заявку на регистрацию</div>
         <div class="row">
             <?php echo $form->error($model, 'ownership'); ?>
             <?php echo $form->labelEx($model, 'ownership'); ?>

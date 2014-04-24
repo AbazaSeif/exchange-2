@@ -1,4 +1,3 @@
-<h1>Форма обратной связи</h1>
 <?php
     $form=$this->beginWidget('CActiveForm', array(
         'id'=>'feedback-form',
@@ -18,6 +17,7 @@
         ),
     )); 
 ?>
+<div class="form-label">Форма обратной связи</div>
 <div class="row">
     <?php echo $form->labelEx($model,'surname'); ?>
     <?php echo $form->textField($model,'surname'); ?>

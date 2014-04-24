@@ -94,7 +94,7 @@ nav, menu, p, section,
     float: left;
     padding: 45px 0 0 57px;
 }
-.header .center span, .ui-dialog-title
+.header .center span, .ui-dialog-title, div.form-label
 {
     color: #00917C;
     font-family: FuturisXC;
@@ -104,9 +104,12 @@ nav, menu, p, section,
 .ui-dialog-title{
     font-size: 18px;
 }
-.header .center:first-letter, .ui-dialog-title:first-letter
+.header .center:first-letter, .ui-dialog-title:first-letter, div.form-label:first-letter
 {
     color: #EF801B;
+}
+div.form-label{
+    margin-bottom: 30px;
 }
 .w-right h1
 {
@@ -119,7 +122,7 @@ nav, menu, p, section,
 .w-right #login-form{
     width: 35%;
 }
-#login-form, #registration-form, .w-right .registration
+#login-form, #registration-form, .w-right .registration, #feedback-form, #help-form
 {
     padding: 20px 35px 0;
 }
@@ -328,9 +331,6 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
     display: block;
     float: left;
     min-width: 15%;
-}
-#feedback-form{
-    margin-top: 20px;
 }
 
 #registration-form .row label[for="RegistrationForm_iagree"] {
@@ -569,32 +569,27 @@ form#contactform label {
 }
 
 /*-------- страница "Помощь" ----------------*/
-#help{
-    margin-left: 20px;    
-}
-
-#help img{
+#help-form img{
     margin: 20px 0;
 }
 
-#help p{
+#help-form p{
     margin: 5px 0;
 }
 
-#help .title {
+#help-form .title {
     color: #EF801B;
     font-size: 20px;
-    margin-bottom: 10px;
-    margin-left: 30px;
+    margin-bottom: 20px;
 }
 
-#help ol{
+#help-form ol{
     list-style-type: none; /* Убираем исходные маркеры */
     counter-reset:  item; /* Обнуляем счетчик списка */
     padding-left: 0;
 }
 
-#help li:before {
+#help-form li:before {
   content: counter(item) ') '; /* Добавляем к числам скобку */
   counter-increment: item; /* Задаём имя счетчика */
 }
