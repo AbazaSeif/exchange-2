@@ -209,8 +209,8 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
     vertical-align: middle;
 }
 
-#registration-form .row input[type='text'], #registration-form .row input[type='password']{
-    width: 50%;
+#registration-form .row input[type='text'], #registration-form .row input[type='password'], #feedback-form .row input:not(.btn), #feedback-form .row textarea{
+    width: 30%;
     padding: 3px;
 }
 #login-form .row.error input, #registration-form .row.error input
@@ -265,10 +265,6 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
 #feedback-form .row.error .errorMessage {
     padding: 0.5% 1%;
     margin-top: 0.5%;
-}
-
-#feedback-form .row input:not(.btn), #feedback-form .row textarea{
-    width: 200px;
 }
 
 #feedback-form .btn {
