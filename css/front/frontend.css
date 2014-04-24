@@ -287,9 +287,15 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
     left: 70%;
     width: 60%;
 }
-#o-edit-contact .errorMessage, #feedback-form .row.error .errorMessage
+#o-edit-contact .errorMessage
 {
     left: 38%;
+    width: 50%;
+}
+
+#feedback-form .row.error .errorMessage
+{
+    left: 50%;
     width: 50%;
 }
 
