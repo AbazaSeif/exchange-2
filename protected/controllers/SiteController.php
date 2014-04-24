@@ -107,10 +107,11 @@ class SiteController extends Controller
     public function actionFeedback()
     {
         $model = new FeedbackForm();
+        $model->attributes = $_POST['FeedbackForm'];
         if(isset($_POST['FeedbackForm']) && $model->validate()) {
-            $model->attributes = $_POST['FeedbackForm'];
+            
             $phone = '';
-            if(!empty($_POST['FeedbackForm']['phone'])) $phone = 'Телефон: '.$model->phone;//$_POST['FeedbackForm']['phone'];
+            if(!empty($_POST['FeedbackForm']['phone'])) $phone = 'Телефон: '.$model->phone; //$_POST['FeedbackForm']['phone'];
             $email = new TEmail;
             $email->from_email = $_POST['FeedbackForm']['email'];
             $email->from_name  = $_POST['FeedbackForm']['surname'] . ' ' . $_POST['FeedbackForm']['name'];
