@@ -23,7 +23,7 @@ if(!Yii::app()->user->isGuest){
     }
 ?>
 
-    <h1>Вход на сайт</h1>
+    <div class="form-label">Вход на сайт</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'username'); ?>
 		<?php echo $form->textField($model,'username'); ?>
@@ -39,9 +39,11 @@ if(!Yii::app()->user->isGuest){
 		<?php echo $form->label($model,'rememberMe'); ?>
 		<?php echo $form->error($model,'rememberMe'); ?>
 	</div>
-	<div class="row buttons">
+	<!--div class="row buttons">
 		<?php echo CHtml::submitButton('Войти', array('class'=>'btn')); ?>
-	</div>
+	</div-->
+        <div style="clear: both"></div>
+        <?php echo CHtml::submitButton('Войти', array('class'=>'btn')); ?>
 <?php $this->endWidget();    
 }
 ?>
@@ -52,7 +54,7 @@ if(!Yii::app()->user->isGuest){
 <?php echo CHtml::link('Восстановление доступа', array('/site/restore'), array('class' => 'color')); ?>
 </div>
 <div class="registration">
-<?php echo CHtml::link('Подать заявку на регистрацию', array('/site/registration'), array('class' => 'color')); ?>
+<?php echo CHtml::link('Заявка на регистрацию', array('/site/registration'), array('class' => 'color')); ?>
 </div>
 
 <?php endif; ?>

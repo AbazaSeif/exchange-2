@@ -122,6 +122,14 @@ div.form-label{
 .w-right #login-form{
     width: 35%;
 }
+
+#login-form .position {
+    padding-top: 10px;
+}
+#login-form .rememberMe.row input[type="checkbox"]
+{
+    margin: 0;
+}
 #login-form, #registration-form, .w-right .registration, #feedback-form, #help-form
 {
     padding: 20px 35px 0;
@@ -143,9 +151,14 @@ div.form-label{
     float: left;
 }
 
-#registration-form .btn
+#registration-form .btn, #login-form .btn
 {
     float: left;
+}
+
+#login-form .btn
+{
+    padding: 3px 20px;
 }
 
 #quick-form .button
@@ -361,7 +374,6 @@ div.ui-widget-header {
 
 .color {
     color: #666;
-    padding-left: 5px;
 }
 
 .position{

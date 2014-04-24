@@ -58,9 +58,8 @@ if(!Yii::app()->user->isGuest) {
             <?php echo $form->label($model,'rememberMe'); ?>
             <?php echo $form->error($model,'rememberMe'); ?>
     </div>
-    <div class="row buttons">
-            <?php echo CHtml::submitButton('Войти', array('class'=>'btn')); ?>
-    </div>
+    <?php echo CHtml::submitButton('Войти', array('class'=>'btn')); ?> 
+    <div style="clear: both"></div>
     <noscript><div style="display: none"></noscript>
     <div class="position">
     <?php echo CHtml::link('Восстановление доступа', array('/site/restore'), array('class' => 'color')); ?>
