@@ -133,9 +133,8 @@
             <?php echo $form->textField($model,'verifyCode'); ?>
             <?php echo $form->error($model,'verifyCode'); ?>
         </div>
-	<div class="row buttons">
-            <?php echo CHtml::submitButton('Подтвердить', array('class'=>'btn')); ?>
-	</div>
+        <?php echo CHtml::submitButton('Подтвердить', array('class'=>'btn')); ?>
+	
 <?php $this->endWidget(); ?>
 </div><!-- form -->
 <noscript><!--/div--></noscript>
