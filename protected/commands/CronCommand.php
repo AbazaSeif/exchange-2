@@ -525,15 +525,16 @@ class CronCommand extends CConsoleCommand
             ;
             $name = $user['name'];
             if(!empty($user['secondname'])) $name .= ' ' . $user['secondname'];
+            if(!empty($name)) $name .= ',';
 
             $email = new TEmail2;
             $email->from_email = Yii::app()->params['adminEmail'];
             $email->from_name = 'Биржа перевозок ЛБР АгроМаркет';
-            $email->to_email = 'tttanyattt@mail.ru';//'krilova@lbr.ru'; //$user['email'];
+            $email->to_email = 'tttanyattt@mail.ru'; // 'krilova@lbr.ru'; //$user['email'];
             $email->to_name = '';
             $email->subject = $subject;
             $email->type = 'text/html';
-            $email->body = $message . '<!-- Content -->
+            $email->body = '<!-- Content -->
                     <tr>
                         <td>
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -583,7 +584,7 @@ class CronCommand extends CConsoleCommand
                                                                             <table width="100%" border="0" cellspacing="0" cellpadding="0" >
                                                                                 <tr>
                                                                                     <td style="color:#000000; font-family:Verdana; font-size:20px; line-height:24px; text-align:left; font-weight:normal">
-                                                                                        '.$name.',
+                                                                                        '.$name.'
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -611,9 +612,9 @@ class CronCommand extends CConsoleCommand
                                                                 </table>
                                                             </td>
                                                         </tr>
-                                                    </table>'
+                                                    </table>
+            '.$message
             ;
-            
             $email->sendMail();
         }
     }
