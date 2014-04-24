@@ -109,31 +109,13 @@ class SiteController extends Controller
         $model = new FeedbackForm();
         $model->attributes = $_POST['FeedbackForm'];
         if(isset($_POST['FeedbackForm']) && $model->validate()) {
-            
+            $name = $model->surname.' '.$model->name;
             $phone = '';
-            if(!empty($_POST['FeedbackForm']['phone'])) $phone = 'Телефон: '.$model->phone; //$_POST['FeedbackForm']['phone'];
-            $email = new TEmail;
-            $email->from_email = $_POST['FeedbackForm']['email'];
-            $email->from_name  = $_POST['FeedbackForm']['surname'] . ' ' . $_POST['FeedbackForm']['name'];
-            $email->to_email   = Yii::app()->params['supportEmail'];
-            $email->to_name    = '';
-            $email->subject    = 'Биржа перевозок "Обратная связь"';
-            $email->type = 'text/html';
-            $email->body = '<div>'.
-                    '<p>Пользователь воспользовался формой обратной связи на "Бирже перевозок ЛБР".</p>'.
-                    '<p>'.$_POST['FeedbackForm']['surname'].' '.$_POST['FeedbackForm']['name'].'</p>'.
-                    '<p>Email: '.$_POST['FeedbackForm']['email'].'</p>'.
-                    $phone.
-                    '<p>Текст сообщения: </p>'.
-                    '<p>'.$_POST['FeedbackForm']['message'].'</p>'.
-                '</div>
-                <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
-            ';
-            $email->sendMail();
-            /*****************************/
+            if(!empty($model->phone)) $phone = 'Телефон: '.$model->phone;
+            
             $email = new TEmail2;
-            $email->from_email = $_POST['FeedbackForm']['email'];
-            $email->from_name  = $_POST['FeedbackForm']['surname'] . ' ' . $_POST['FeedbackForm']['name'];
+            $email->from_email = $model->email;
+            $email->from_name  = $name;
             $email->to_email   = Yii::app()->params['supportEmail'];
             $email->to_name    = '';
             $email->subject    = 'Обратная связь';
@@ -199,7 +181,7 @@ class SiteController extends Controller
                                                                             <tr>
                                                                                 <td style="width: 100%; padding-top: 10px; padding-bottom: 10px; color:#666666; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
                                                                                     <span style="color:#000000; font-weight: bold">
-                                                                                        '.$model->surname.' '.$model->name.' 
+                                                                                        '.$name.' 
                                                                                         <br/>
                                                                                         Email: '.$model->email.'
                                                                                         <br/>
