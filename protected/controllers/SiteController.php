@@ -158,7 +158,7 @@ class SiteController extends Controller
         }
         $this->render('test', array('model' => $model));
     }*/
-    public function actionTest2()
+    /*public function actionTest2()
     {
         $email = new TEmail;
         $email->from_email = Yii::app()->params['adminEmail'];
@@ -175,7 +175,7 @@ class SiteController extends Controller
             <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
         ';
         $email->sendMail();
-    }
+    }*/
     
     public function actionRegistration()
     {
@@ -298,6 +298,23 @@ class SiteController extends Controller
                                     ';
                                     $email->sendMail();
                                     */
+                                     
+                                    $email = new TEmail2;
+                                    $email->from_email = Yii::app()->params['adminEmail'];
+                                    $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+                                    $email->to_email   = $user->email;
+                                    $email->to_name    = '';
+                                    $email->subject    = 'Смена пароля';
+                                    $email->type = 'text/html';
+                                    $email->body = '<div>'.
+                                            '<p>Ваш пароль на "Онлайн бирже перевозок ЛБР-АгроМаркет" был изменен:</p>'.
+                                            '<p>Новый пароль: <b>'.$password.'</b></p>'.
+                                            '<p>Для смены пароля зайдите в свой аккаунт и воспользуйтесь вкладкой "Настроки->Смена пароля"</p>'.
+                                        '</div>
+                                        <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+                                    ';
+                                    $email->sendMail();
+                                    
                                      
                                     /************************************************/
                                     $email = new TEmail2;
