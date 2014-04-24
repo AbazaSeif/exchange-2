@@ -16,6 +16,7 @@ class FeedbackForm extends CFormModel
             array('phone', 'numerical', 'integerOnly' => true),
             array('email', 'email', 'message'=>'Неправильный Email адрес'), 
             array('verifyCode', 'captcha'),
+            array('name, surname, email, message, phone', 'safe'),
         );
     }
 

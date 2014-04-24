@@ -107,9 +107,10 @@ class SiteController extends Controller
     public function actionFeedback()
     {
         $model = new FeedbackForm();
-        if(isset($_POST['FeedbackForm'])) {
+        if(isset($_POST['FeedbackForm']) && $model->validate()) {
+            $model->attributes = $_POST['FeedbackForm'];
             $phone = '';
-            if(!empty($_POST['FeedbackForm']['phone'])) $phone = '<p>Телефон: '.$_POST['FeedbackForm']['phone'].'</p>';
+            if(!empty($_POST['FeedbackForm']['phone'])) $phone = 'Телефон: '.$model->phone;//$_POST['FeedbackForm']['phone'];
             $email = new TEmail;
             $email->from_email = $_POST['FeedbackForm']['email'];
             $email->from_name  = $_POST['FeedbackForm']['surname'] . ' ' . $_POST['FeedbackForm']['name'];
@@ -128,6 +129,123 @@ class SiteController extends Controller
                 <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
             ';
             $email->sendMail();
+            /*****************************/
+            $email = new TEmail2;
+            $email->from_email = $_POST['FeedbackForm']['email'];
+            $email->from_name  = $_POST['FeedbackForm']['surname'] . ' ' . $_POST['FeedbackForm']['name'];
+            $email->to_email   = Yii::app()->params['supportEmail'];
+            $email->to_name    = '';
+            $email->subject    = 'Обратная связь';
+            $email->type = 'text/html';
+            $email->body = '<!-- Content -->
+                <tr>
+                    <td>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
+                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#c1c1c1"></td>
+                                <td bgcolor="#ffffff">
+                                    <!-- Main Content -->
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <img src="http://exchange.lbr.ru/images/test/content_top789.jpg" alt="" border="0" width="620" height="12" style="float: left"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="20"></td>
+                                            <td>
+                                                <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="15" style="height:15px; float: left" alt="" />
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td>
+                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                                                                <tr>
+                                                                    <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; " valign="top" width="185">
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="25" style="height:25px; float: left" alt="" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <a href="http://exchange.lbr.ru/" target="_blank">
+                                                                                        <img src="http://exchange.lbr.ru/images/logo.png" alt="" border="0" width="179" height="66" style="float: left"/>
+                                                                                    </a>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <img src="http://exchange.lbr.ru/images/test/empty.gif" width="20" height="1" style="width:20px" alt="" style="float: left"/>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                    <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" valign="top" width="20"><img src="http://exchange.lbr.ru/images/test/img_right_shadow.jpg" alt="" border="0" width="8" height="131" style="float: left"/></td>
+                                                                    <td class="text" style="margin: 0; color:#a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left" valign="top">
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                                                                            <tr>
+                                                                                <td style="color:#666666; font-family:Verdana; font-size:20px; line-height:24px; text-align:left; font-weight:normal">
+                                                                                    Обратная связь
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="10" style="height:10px; float: left" alt="" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="width: 100%; padding-top: 10px; padding-bottom: 10px; color:#666666; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
+                                                                                    <span style="color:#000000; font-weight: bold">
+                                                                                        '.$model->surname.' '.$model->name.' 
+                                                                                        <br/>
+                                                                                        Email: '.$model->email.'
+                                                                                        <br/>
+                                                                                        '.$phone.'
+                                                                                    </span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                <tr>
+                                                                    <td>
+                                                                        <img src="http://exchange.lbr.ru/images/test/separator.jpg" alt="" border="0" width="581" height="1" style="border: 0; float: left"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td class="text" style="color:#000000; font-family:Verdana; font-size:14px; line-height:18px; text-align:left; padding-top: 10px; padding-bottom: 5px" valign="top">
+                                                            Текст сообщения
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; float: left" width="20"></td>
+                                        </tr>
+                                    </table>
+                                    <img src="http://exchange.lbr.ru/images/test/content_bottom.jpg" alt="" border="0" width="620" height="20" style="float: left"/>
+                                    <!-- END Main Content -->
+                                </td>
+                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#c1c1c1"></td>
+                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <!-- END Content -->
+            ';
+            $email->sendMail();
+            
+            
+            
             Dialog::message('flash-success', 'Отправлено!', 'Ваше сообщение отправлено');
             $this->redirect('/');
         } else $this->render('feedback', array('model' => $model));
