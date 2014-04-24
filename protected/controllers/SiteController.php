@@ -206,7 +206,7 @@ class SiteController extends Controller
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                     <tr>
                                                         <td class="text" style="color:#000000; font-family:Verdana; font-size:14px; line-height:18px; text-align:left; padding-top: 10px; padding-bottom: 5px" valign="top">
-                                                            Текст сообщения
+                                                            '.$model->message.'
                                                         </td>
                                                     </tr>
                                                 </table>
