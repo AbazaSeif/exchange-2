@@ -194,7 +194,9 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
 #login-form .row input[type='text'],
 #login-form .row input[type='password'], 
 #registration-form .row input[type='text'],
-#registration-form .row input[type='password']
+#registration-form .row input[type='password'],
+#feedback-form .row input:not(.btn),
+#feedback-form .row textarea
 {
     padding:2% 3%;
     width: 92%;
