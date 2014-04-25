@@ -349,7 +349,7 @@ class SiteController extends Controller
                         // send mail to user
                         // $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
                         
-                        Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Вы получите на почту инструкции по активации когда ваша заявка будет рассмотрена. Спасибо за интерес, проявленный к нашей компании.');
+                        Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. <br/>Вы получите на почту инструкции по активации когда ваша заявка будет рассмотрена. <br/><br/> Спасибо за проявленный к нашей компании интерес .');
                     } else Yii::log($user->getErrors(), 'error');
                 } else if(!empty($emailExists)) {
                     Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким Email уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');
@@ -703,7 +703,7 @@ class SiteController extends Controller
      
     public function sendMail($to, $typeMessage, $post)
     {
-        $email = new TEmail;
+        /*$email = new TEmail;
         $email->from_email = Yii::app()->params['adminEmail'];
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
         $email->to_email   = $to;
@@ -711,7 +711,7 @@ class SiteController extends Controller
         $email->subject    = 'Заявка на регистрацию';
         $email->type       = 'text/html';
         
-        if(!empty($typeMessage)) {
+       // if(!empty($typeMessage)) {
             $description = (!empty($post['description'])) ? '<p>Примечание:<b>'.$post['description'].'</b></p>' : '' ;
             $email->body = '
               <div>
@@ -722,15 +722,144 @@ class SiteController extends Controller
                    $description .
               '</div>
               <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
-            ';
-        } else {
-            $email->body = '
-                <div> 
-                    <p>Спасибо за регистрацию, когда Ваша регистрация будет рассмотрена, Вам будет выслано подтверждение на почтовый ящик. </p>
-                </div>
-                <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
-            ';
-        }
+            ';    
+        //} else {
+        //    $email->body = '
+        //        <div> 
+        //            <p>Спасибо за регистрацию, когда Ваша регистрация будет рассмотрена, Вам будет выслано подтверждение на почтовый ящик. </p>
+        //        </div>
+        //        <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
+        //    ';
+        //}
+        $email->sendMail();*/
+        /*********************************/
+        $description = (!empty($post['description'])) ? 'Примечание: '.$post['description'] : '' ;
+        
+        $email = new TEmail2;
+        $email->from_email = Yii::app()->params['adminEmail'];
+        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
+        $email->to_email   = 'krilova@lbr.ru'; // $to;
+        $email->to_name    = '';
+        $email->subject    = 'Заявка на регистрацию';
+        $email->type       = 'text/html';
+        $email->body = '<!-- Content -->
+                <tr>
+                    <td>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
+                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#c1c1c1"></td>
+                                <td bgcolor="#ffffff">
+                                    <!-- Main Content -->
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <img src="http://exchange.lbr.ru/images/test/content_top789.jpg" alt="" border="0" width="620" height="12" style="float: left"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="20"></td>
+                                            <td>
+                                                <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="15" style="height:15px; float: left" alt="" />
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td>
+                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                                                                <tr>
+                                                                    <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; " valign="top" width="185">
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="25" style="height:25px; float: left" alt="" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <a href="http://exchange.lbr.ru/" target="_blank">
+                                                                                        <img src="http://exchange.lbr.ru/images/logo.png" alt="" border="0" width="179" height="66" style="float: left"/>
+                                                                                    </a>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <img src="http://exchange.lbr.ru/images/test/empty.gif" width="20" height="1" style="width:20px" alt="" style="float: left"/>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                    <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" valign="top" width="20"><img src="http://exchange.lbr.ru/images/test/img_right_shadow.jpg" alt="" border="0" width="8" height="131" style="float: left"/></td>
+                                                                    <td class="text" style="margin: 0; color:#a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left" valign="top">
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                                                                            <tr>
+                                                                                <td style="color:#666666; font-family:Verdana; font-size:20px; line-height:24px; text-align:left; font-weight:normal">
+                                                                                    Заявка на регистрацию
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <img src="http://exchange.lbr.ru/images/test/empty.gif" width="1" height="10" style="height:10px; float: left" alt="" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="width: 100%; padding-top: 10px; padding-bottom: 10px; color:#666666; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
+                                                                                    <span style="color:#000000; font-weight: bold">
+                                                                                        Компания: '.$post['ownership'].' "'.$post['company'].'"
+                                                                                        <br/>
+                                                                                        ИНН/УНП: '.$post['inn'].'
+                                                                                    </span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                <tr>
+                                                                    <td>
+                                                                        <img src="http://exchange.lbr.ru/images/test/separator.jpg" alt="" border="0" width="581" height="1" style="border: 0; float: left"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td class="text" style="color:#000000; font-family:Verdana; font-size:14px; line-height:24px; text-align:left; padding-top: 10px; padding-bottom: 5px" valign="top">
+                                                            Контактное лицо: '.$post['surname'].' '.$post['name'].' '.$post['secondname'].'
+                                                            <br/>
+                                                            Email: '.$post['email'].'
+                                                            <br/>
+                                                            Телефон: '.$post['phone'].'
+                                                            <br/>
+                                                            Страна: '.$post['country'].'
+                                                            <br/>
+                                                            Область: '.$post['region'].'
+                                                            <br/>
+                                                            Город: '.$post['city'].'
+                                                            <br/>
+                                                            Район: '.$post['district'].'
+                                                            <br/>
+                                                            '.$description.'
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; float: left" width="20"></td>
+                                        </tr>
+                                    </table>
+                                    <img src="http://exchange.lbr.ru/images/test/content_bottom.jpg" alt="" border="0" width="620" height="20" style="float: left"/>
+                                    <!-- END Main Content -->
+                                </td>
+                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#c1c1c1"></td>
+                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <!-- END Content -->'
+        ;
+        
         $email->sendMail();
     }
      

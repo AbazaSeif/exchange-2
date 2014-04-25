@@ -107,7 +107,7 @@
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0" >
                                                                             <tr>
                                                                                 <td style="color:#666666; font-family:Verdana; font-size:20px; line-height:24px; text-align:left; font-weight:normal">
-                                                                                    Обратная связь
+                                                                                    Заявка на регистрацию
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
@@ -120,11 +120,7 @@
                                                                                     <span style="color:#000000; font-weight: bold">
                                                                                         Компания: ООО "Тест"
                                                                                         <br/>
-                                                                                        Контактное лицо: Попов Василий
-                                                                                        <br/>
-                                                                                        Email: test@mail.ru
-                                                                                        <br/>
-                                                                                        Телефон: 111
+                                                                                        ИНН/УНП: 11111
                                                                                     </span>
                                                                                 </td>
                                                                             </tr>
@@ -144,8 +140,22 @@
                                                 </table>
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                     <tr>
-                                                        <td class="text" style="color:#000000; font-family:Verdana; font-size:14px; line-height:18px; text-align:left; padding-top: 10px; padding-bottom: 5px" valign="top">
-                                                            Дополнительное сообщение
+                                                        <td class="text" style="color:#000000; font-family:Verdana; font-size:14px; line-height:24px; text-align:left; padding-top: 10px; padding-bottom: 5px" valign="top">
+                                                            Контактное лицо: Попов Василий Иванович
+                                                            <br/>
+                                                            Email: test@mail.ru
+                                                            <br/>
+                                                            Телефон: 111
+                                                            <br/>
+                                                            Страна: 111
+                                                            <br/>
+                                                            Область: 111
+                                                            <br/>
+                                                            Город: 111
+                                                            <br/>
+                                                            Район: 111
+                                                            <br/>
+                                                            Примечание: текст
                                                         </td>
                                                     </tr>
                                                 </table>
