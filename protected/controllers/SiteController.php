@@ -107,7 +107,15 @@ class SiteController extends Controller
     public function actionFeedback()
     {
         $model = new FeedbackForm();
-        $model->attributes = $_POST['FeedbackForm'];
+        if(!Yii::app()->user->isGuest) { 
+            if (Yii::app()->user->isTransport) $user = User::model()->findByPk(Yii::app()->user->_id);
+            else {
+                $user = AuthUser::model()->findByPk(Yii::app()->user->_id);
+                $model->phone = $user->phone_mb;
+            }
+            $model->attributes = $user->attributes;
+        }
+        if(isset($_POST['FeedbackForm'])) $model->attributes = $_POST['FeedbackForm'];
         if(isset($_POST['FeedbackForm']) && $model->validate()) {
             $name = $model->surname.' '.$model->name;
             $phone = '';

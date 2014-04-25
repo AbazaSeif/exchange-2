@@ -18,6 +18,7 @@
     )); 
 ?>
 <div class="form-label">Форма обратной связи</div>
+<?php if(Yii::app()->user->isGuest): ?>
 <div class="row">
     <?php echo $form->labelEx($model,'surname'); ?>
     <?php echo $form->textField($model,'surname'); ?>
@@ -38,6 +39,7 @@
     <?php echo $form->textField($model,'phone'); ?>
     <?php echo $form->error($model,'phone'); ?>
 </div>
+<?php endif; ?>
 <div class="row">
     <?php echo $form->labelEx($model,'message'); ?>
     <?php echo $form->textArea($model,'message'); ?>
