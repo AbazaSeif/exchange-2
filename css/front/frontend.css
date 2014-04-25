@@ -101,13 +101,18 @@ nav, menu, p, section,
     font-weight: bold;
     font-size: 21px;
 }
+div.form-label
+{
+    font-weight: normal;
+}
 .ui-dialog-title{
     font-size: 18px;
 }
-.header .center:first-letter, .ui-dialog-title:first-letter, div.form-label:first-letter
+.header .center:first-letter, .ui-dialog-title:first-letter, div.form-label:first-letter, h1:first-letter
 {
     color: #EF801B;
 }
+
 div.form-label{
     margin-bottom: 30px;
 }
@@ -115,7 +120,7 @@ div.form-label{
 {
     margin-top: 0;
     margin-bottom: 10px;
-    color: #444444;
+    color: #00917C;
     font-weight: normal;
 }
 /*----------Начало ФОРМА ВХОДА-------*/
