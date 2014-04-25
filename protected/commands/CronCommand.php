@@ -337,7 +337,7 @@ class CronCommand extends CConsoleCommand
             $this->sendMail($userId, $subject, $message);	
         }
     }
-    /******************** -  !!!! - убрать*/
+
     public function sendMailAboutNew2($users, $transportIds, $type = 2)
     {
         $message = '';
@@ -513,16 +513,15 @@ class CronCommand extends CConsoleCommand
         $email->sendMail();
     }
     
-    ///////////// --- убрать
     public function sendMail2($userId, $subject, $message)
     {
+        $user = Yii::app()->db->createCommand()
+            ->select()
+            ->from('user')
+            ->where('id = :id', array(':id' => $userId))
+            ->queryRow()
+        ;
         if(!empty($user['email'])) {
-            $user = Yii::app()->db->createCommand()
-                ->select()
-                ->from('user')
-                ->where('id = :id', array(':id' => $userId))
-                ->queryRow()
-            ;
             $name = $user['name'];
             if(!empty($user['secondname'])) $name .= ' ' . $user['secondname'];
             if(!empty($name)) $name .= ',';
@@ -534,7 +533,7 @@ class CronCommand extends CConsoleCommand
             $email->to_name = '';
             $email->subject = $subject;
             $email->type = 'text/html';
-            $email->body = 'test work sendMail2 in cron';/*'<!-- Content -->
+            $email->body = '<!-- Content -->
                     <tr>
                         <td>
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -613,8 +612,7 @@ class CronCommand extends CConsoleCommand
                                                             </td>
                                                         </tr>
                                                     </table>
-            '.$message
-            ;*/
+            '.$message;
             $email->sendMail();
         }
     }
