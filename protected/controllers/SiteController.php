@@ -318,7 +318,7 @@ class SiteController extends Controller
                     $user->phone = trim($_POST['RegistrationForm']['phone']);
                     $user->email = trim($_POST['RegistrationForm']['email']);
 
-                    //if($user->save()) {
+                    if($user->save()) {
                         $newFerrymanFields = new UserField;
                         $newFerrymanFields->user_id = $user->id;
                         $newFerrymanFields->mail_transport_create_1 = false;
@@ -329,7 +329,7 @@ class SiteController extends Controller
                         $newFerrymanFields->with_nds = (bool)$_POST['RegistrationForm']['nds'];
                         $newFerrymanFields->save();
                         // send mail to logist
-                        /*
+                        
                         if((int)$_POST['RegistrationForm']['show'] == 0){
                             $newFerrymanFields->show_intl = true;
                             $newFerrymanFields->show_regl = true;
@@ -344,13 +344,13 @@ class SiteController extends Controller
                             $newFerrymanFields->show_regl = true;
                             $this->sendMail(Yii::app()->params['logistEmailRegional'], 1, $_POST['RegistrationForm']);
                         }
-                        */
-                        $this->sendMail('krilova@lbr.ru', 1, $_POST['RegistrationForm']);
+                        
+                        //$this->sendMail('krilova@lbr.ru', 1, $_POST['RegistrationForm']);
                         // send mail to user
                         // $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
                         
                         Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Вы получите на почту инструкции по активации когда ваша заявка будет рассмотрена. Спасибо за интерес, проявленный к нашей компании.');
-                   // } else Yii::log($user->getErrors(), 'error');
+                    } else Yii::log($user->getErrors(), 'error');
                 } else if(!empty($emailExists)) {
                     Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким Email уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');
                 } else {
