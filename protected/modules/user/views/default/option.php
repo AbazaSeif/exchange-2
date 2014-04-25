@@ -131,7 +131,7 @@
                 <?php
                     echo $form->error($mail, 'new_email'); 
                     echo $form->labelEx($mail, 'new_email');
-                    echo $form->textField($mail, 'new_email', array('value' => ''));
+                    echo $form->textField($mail, 'new_email');
                 ?>    
                 </div>
                 <div class="row password">
