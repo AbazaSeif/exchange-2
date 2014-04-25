@@ -791,7 +791,7 @@ class SiteController extends Controller
                                                 </table>
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                     <tr>
-                                                        <td class="text" style="color:#000000; font-family:Verdana; font-size:14px; line-height:24px; text-align:left; padding-top: 10px; padding-bottom: 5px" valign="top">
+                                                        <td class="text" style="color:#000000; font-family:Verdana; font-size:12px; line-height:20px; text-align:left; padding-top: 10px; padding-bottom: 5px" valign="top">
                                                             Контактное лицо: '.$post['surname'].' '.$post['name'].' '.$post['secondname'].'
                                                             <br/>
                                                             Email: '.$post['email'].'
