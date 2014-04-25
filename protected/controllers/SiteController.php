@@ -388,41 +388,6 @@ class SiteController extends Controller
                                 $user->password = crypt($password, User::model()->blowfishSalt());
                                 if($user->save()) {
                                     // send mail to ferryman with new password
-                                    /*$email = new TEmail;
-                                    $email->from_email = Yii::app()->params['adminEmail'];
-                                    $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-                                    $email->to_email   = $user->email;
-                                    $email->to_name    = '';
-                                    $email->subject    = 'Смена пароля';
-                                    $email->type = 'text/html';
-                                    $email->body = '<div>'.
-                                            '<p>Ваш пароль на "Онлайн бирже перевозок ЛБР-АгроМаркет" был изменен:</p>'.
-                                            '<p>Новый пароль: <b>'.$password.'</b></p>'.
-                                            '<p>Для смены пароля зайдите в свой аккаунт и воспользуйтесь вкладкой "Настроки->Смена пароля"</p>'.
-                                        '</div>
-                                        <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
-                                    ';
-                                    $email->sendMail();
-                                    */
-                                    /*
-                                    $email = new TEmail2;
-                                    $email->from_email = Yii::app()->params['adminEmail'];
-                                    $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-                                    $email->to_email   = 'tttanyattt@mail.ru';
-                                    $email->to_name    = '';
-                                    $email->subject    = 'Смена пароля';
-                                    $email->type = 'text/html';
-                                    $email->body = '<div>'.
-                                            '<p>Ваш пароль на "Онлайн бирже перевозок ЛБР-АгроМаркет" был изменен:</p>'.
-                                            '<p>Новый пароль: <b>'.$password.'</b></p>'.
-                                            '<p>Для смены пароля зайдите в свой аккаунт и воспользуйтесь вкладкой "Настроки->Смена пароля"</p>'.
-                                        '</div>
-                                        <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
-                                    ';
-                                    $email->sendMail();
-                                    
-                                     */
-                                    /************************************************/
                                     $email = new TEmail2;
                                     $email->from_email = Yii::app()->params['adminEmail'];
                                     $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
@@ -540,23 +505,6 @@ class SiteController extends Controller
                             } else {
                                 Dialog::message('flash-success', 'Внимание!', 'Ваша заявка на восстановление доступа отправлена, в ближайшее время с вами свяжутся представители нашей компании.');
                                 // send mail to logist
-                                /*$email = new TEmail;
-                                $email->from_email = Yii::app()->params['adminEmail'];
-                                $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-                                $email->to_email   = Yii::app()->params['supportEmail'];
-                                $email->to_name    = '';
-                                $email->subject    = 'Восстановление доступа';
-                                $email->type = 'text/html';
-                                $email->body = '<div>'.
-                                        '<p>Перевозчик "'. $user->company. '" ИНН/УНП = '. $user->inn .' запросил восстановление доступов, однако в базе не указан email, просьба связаться с пользователем и узнать email, указать его в бирже перевозок и 1С. Далее попросить пользователя еще раз воспользоваться услугой восстановления доступа.</p>'.
-                                        '<p>Контактный телефон: '. $user->phone . '</p>'.
-                                    '</div>
-                                    <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
-                                ';
-                                $email->sendMail();
-                                */
-                                 
-                                /*************************************************/
                                 $email = new TEmail2;
                                 $email->from_email = Yii::app()->params['adminEmail'];
                                 $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
