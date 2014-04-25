@@ -5,12 +5,6 @@
                 enable:true
             }
         });
-        
-        $("#content_1").mCustomScrollbar({
-            scrollButtons:{
-                enable:true
-            }
-        });
     });
 })(jQuery);
 
