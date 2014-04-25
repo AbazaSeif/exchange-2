@@ -704,7 +704,7 @@ class SiteController extends Controller
         $email = new TEmail2;
         $email->from_email = Yii::app()->params['adminEmail'];
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = 'krilova@lbr.ru';//$to;
+        $email->to_email   = $to;
         $email->to_name    = '';
         $email->subject    = 'Заявка на регистрацию';
         $email->type       = 'text/html';
