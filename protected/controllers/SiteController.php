@@ -328,8 +328,8 @@ class SiteController extends Controller
                         $newFerrymanFields->mail_deadline = true;
                         $newFerrymanFields->with_nds = (bool)$_POST['RegistrationForm']['nds'];
                         $newFerrymanFields->save();
-                        // send mail to logist
                         
+                        // send mail to logist
                         if((int)$_POST['RegistrationForm']['show'] == 0){
                             $newFerrymanFields->show_intl = true;
                             $newFerrymanFields->show_regl = true;
@@ -345,7 +345,7 @@ class SiteController extends Controller
                             $this->sendMail(Yii::app()->params['logistEmailRegional'], 1, $_POST['RegistrationForm']);
                         }
                         
-                        //$this->sendMail('krilova@lbr.ru', 1, $_POST['RegistrationForm']);
+                        // $this->sendMail('krilova@lbr.ru', 1, $_POST['RegistrationForm']);
                         // send mail to user
                         // $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
                         
