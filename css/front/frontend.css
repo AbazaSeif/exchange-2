@@ -735,6 +735,11 @@ form#contactform label {
     min-height: 60px;
 }
 
+.transports .items .transport:last-child
+{
+    border-bottom: none;
+}
+
 .transports .items .transport > div, .rate > div
 {
     position: relative;
