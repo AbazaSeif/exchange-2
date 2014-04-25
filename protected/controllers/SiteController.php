@@ -345,10 +345,6 @@ class SiteController extends Controller
                             $this->sendMail(Yii::app()->params['logistEmailRegional'], 1, $_POST['RegistrationForm']);
                         }
                         
-                        // $this->sendMail('krilova@lbr.ru', 1, $_POST['RegistrationForm']);
-                        // send mail to user
-                        // $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
-                        
                         Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. <br/><br/>Вы получите на почту инструкции по активации когда ваша заявка будет рассмотрена. <br/><br/> Спасибо за проявленный к нашей компании интерес .');
                     } else Yii::log($user->getErrors(), 'error');
                 } else if(!empty($emailExists)) {
@@ -703,42 +699,12 @@ class SiteController extends Controller
      
     public function sendMail($to, $typeMessage, $post)
     {
-        /*$email = new TEmail;
-        $email->from_email = Yii::app()->params['adminEmail'];
-        $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = $to;
-        $email->to_name    = '';
-        $email->subject    = 'Заявка на регистрацию';
-        $email->type       = 'text/html';
-        
-       // if(!empty($typeMessage)) {
-            $description = (!empty($post['description'])) ? '<p>Примечание:<b>'.$post['description'].'</b></p>' : '' ;
-            $email->body = '
-              <div>
-                  <p>Компания: "'. $post['ownership'] . ' '.$post['company'].'" подала заявку на регистрацию в бирже перевозок ЛБР АгроМаркет.</p>
-                  <p>Контактное лицо: <b>'.$post['name']. ' ' .$post['surname'].'</b></p>
-                  <p>Телефон: <b>'.$post['phone'].'</b></p>
-                  <p>Email: <b>'.$post['email'].'</b></p>'.
-                   $description .
-              '</div>
-              <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
-            ';    
-        //} else {
-        //    $email->body = '
-        //        <div> 
-        //            <p>Спасибо за регистрацию, когда Ваша регистрация будет рассмотрена, Вам будет выслано подтверждение на почтовый ящик. </p>
-        //        </div>
-        //        <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
-        //    ';
-        //}
-        $email->sendMail();*/
-        /*********************************/
-        $description = (!empty($post['description'])) ? 'Примечание: '.$post['description'] : '' ;
-        
+        $city = (!empty($post['city'])) ? '<br/>Город: '.$post['city'] : '' ;
+        $description = (!empty($post['description'])) ? '<br/>Примечание: '.$post['description'] : '' ;
         $email = new TEmail2;
         $email->from_email = Yii::app()->params['adminEmail'];
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = $to;
+        $email->to_email   = 'krilova@lbr.ru';//$to;
         $email->to_name    = '';
         $email->subject    = 'Заявка на регистрацию';
         $email->type       = 'text/html';
@@ -834,13 +800,11 @@ class SiteController extends Controller
                                                             <br/>
                                                             Страна: '.$post['country'].'
                                                             <br/>
-                                                            Область: '.$post['region'].'
+                                                            Область: '.$post['region'].
+                                                            $city.'
                                                             <br/>
-                                                            Город: '.$post['city'].'
-                                                            <br/>
-                                                            Район: '.$post['district'].'
-                                                            <br/>
-                                                            '.$description.'
+                                                            Район: '.$post['district'].
+                                                            $description.'
                                                         </td>
                                                     </tr>
                                                 </table>
