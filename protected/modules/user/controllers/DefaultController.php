@@ -41,8 +41,11 @@ class DefaultController extends Controller
     public function actionOption()
     {
         $userId = Yii::app()->user->_id;
+        $user = User::model()->findByPk($userId);
+        $curEmail = $user->email;
         $pass = new PasswordForm();
         $mail = new MailForm();
+        
         $dataContacts = array();
         $model = UserField::model()->find('user_id = :id', array('id' => $userId));
         
@@ -128,7 +131,7 @@ class DefaultController extends Controller
         );
         
          
-        $this->render('option', array('model' => $model, 'pass' => $pass, 'mail' => $mail, 'dataContacts' => $dataContacts), false, true);
+        $this->render('option', array('model' => $model, 'pass' => $pass, 'curEmail' => $curEmail,'mail' => $mail, 'dataContacts' => $dataContacts), false, true);
     }
     
     /* Show all events */
