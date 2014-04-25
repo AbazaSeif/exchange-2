@@ -349,7 +349,7 @@ class SiteController extends Controller
                         // send mail to user
                         // $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
                         
-                        Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. <br/>Вы получите на почту инструкции по активации когда ваша заявка будет рассмотрена. <br/><br/> Спасибо за проявленный к нашей компании интерес .');
+                        Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. <br/><br/>Вы получите на почту инструкции по активации когда ваша заявка будет рассмотрена. <br/><br/> Спасибо за проявленный к нашей компании интерес .');
                     } else Yii::log($user->getErrors(), 'error');
                 } else if(!empty($emailExists)) {
                     Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким Email уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');
@@ -738,7 +738,7 @@ class SiteController extends Controller
         $email = new TEmail2;
         $email->from_email = Yii::app()->params['adminEmail'];
         $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
-        $email->to_email   = 'krilova@lbr.ru'; // $to;
+        $email->to_email   = $to;
         $email->to_name    = '';
         $email->subject    = 'Заявка на регистрацию';
         $email->type       = 'text/html';
