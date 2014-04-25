@@ -721,6 +721,11 @@ form#contactform label {
 .transports .items
 {
     overflow: auto;
+    height: 390px;
+}
+
+.mCSB_scrollTools .mCSB_buttonDown {
+    top: 350px !important;
 }
 .transports .items .transport
 {

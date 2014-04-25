@@ -78,7 +78,7 @@ $(document).ready(function(){
     var userId = <?php echo $user->id ?>;
     
     var socket = io.connect('http://exchange.lbr.ru:3000/');
-    //var socket = io.connect('http://localhost:3000/');
+    //ar socket = io.connect('http://localhost:3000/');
     
     <?php if(Yii::app()->user->isContactUser): ?>
         socket.emit('init', userId, <?php echo Yii::app()->params['minNotify'] ?>, 1);
