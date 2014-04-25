@@ -58,6 +58,7 @@ if(!Yii::app()->user->isGuest) {
             <?php echo $form->label($model,'rememberMe'); ?>
             <?php echo $form->error($model,'rememberMe'); ?>
     </div>
+    <div style="clear: both"></div>
     <?php echo CHtml::submitButton('Войти', array('class'=>'btn')); ?> 
     <div style="clear: both"></div>
     <noscript><div style="display: none"></noscript>
@@ -77,8 +78,8 @@ $(document).ready(function(){
     <?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
     var userId = <?php echo $user->id ?>;
     
-    var socket = io.connect('http://exchange.lbr.ru:3000/');
-    //ar socket = io.connect('http://localhost:3000/');
+    //var socket = io.connect('http://exchange.lbr.ru:3000/');
+    var socket = io.connect('http://localhost:3000/');
     
     <?php if(Yii::app()->user->isContactUser): ?>
         socket.emit('init', userId, <?php echo Yii::app()->params['minNotify'] ?>, 1);

@@ -26,6 +26,7 @@ class RegistrationForm extends CFormModel
     {//Yii::log("------------------------------------",'info', 'application');
         return array(
             array('company, iagree, password, confirm_password, country, region, district, inn, name, secondname, surname, phone, email, verifyCode', 'required'),
+            array('description, ownership, nds, show, company, password, confirm_password, country, region, city, district, inn, name, secondname, surname, phone, email, iagree, verifyCode', 'safe'),
             array('iagree', 'compare', 'compareValue' => true, 'message' => 'Для отправки формы на обработку требуется Ваше согласие' ),
             array('email', 'email'),
             array('company','match', 'pattern'=>'/^([\sa-zA-Zа-яА-ЯёЁ\d]+)$/i', 'message'=>'Поле "{attribute}" должно содержать только следующие символы: 0-9,a-z,A-Z,а-я,А-Я и пробел'),

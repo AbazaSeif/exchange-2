@@ -318,7 +318,7 @@ class SiteController extends Controller
                     $user->phone = trim($_POST['RegistrationForm']['phone']);
                     $user->email = trim($_POST['RegistrationForm']['email']);
 
-                    if($user->save()) {
+                    //if($user->save()) {
                         $newFerrymanFields = new UserField;
                         $newFerrymanFields->user_id = $user->id;
                         $newFerrymanFields->mail_transport_create_1 = false;
@@ -327,6 +327,9 @@ class SiteController extends Controller
                         $newFerrymanFields->mail_before_deadline = false;
                         $newFerrymanFields->mail_deadline = true;
                         $newFerrymanFields->with_nds = (bool)$_POST['RegistrationForm']['nds'];
+                        $newFerrymanFields->save();
+                        // send mail to logist
+                        /*
                         if((int)$_POST['RegistrationForm']['show'] == 0){
                             $newFerrymanFields->show_intl = true;
                             $newFerrymanFields->show_regl = true;
@@ -341,12 +344,13 @@ class SiteController extends Controller
                             $newFerrymanFields->show_regl = true;
                             $this->sendMail(Yii::app()->params['logistEmailRegional'], 1, $_POST['RegistrationForm']);
                         }
+                        */
+                        $this->sendMail('krilova@lbr.ru', 1, $_POST['RegistrationForm']);
+                        // send mail to user
+                        // $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
                         
-                        $newFerrymanFields->save();
-                        $this->sendMail($_POST['email'], 0, $_POST['RegistrationForm']);
-                        
-                        Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Когда ваша заявка будет рассмотрена Вы получите на почту инструкции по активации. Спасибо за интерес, проявленный к нашей компании');
-                    } else Yii::log($user->getErrors(), 'error');
+                        Dialog::message('flash-success', 'Отправлено!', 'Ваша заявка отправлена. Вы получите на почту инструкции по активации когда ваша заявка будет рассмотрена. Спасибо за интерес, проявленный к нашей компании.');
+                   // } else Yii::log($user->getErrors(), 'error');
                 } else if(!empty($emailExists)) {
                     Dialog::message('flash-success', 'Внимание!', 'Пользователь с таким Email уже зарегистрирован в базе, если у Вас возникли проблемы с авторизацией свяжитесь с нашим отделом логистики. ');
                 } else {
@@ -711,7 +715,7 @@ class SiteController extends Controller
             $description = (!empty($post['description'])) ? '<p>Примечание:<b>'.$post['description'].'</b></p>' : '' ;
             $email->body = '
               <div>
-                  <p>Компания "'. $post['ownership'] . ' '.$post['company'].'" подала заявку на регистрацию в бирже перевозок ЛБР АгроМаркет.</p>
+                  <p>Компания: "'. $post['ownership'] . ' '.$post['company'].'" подала заявку на регистрацию в бирже перевозок ЛБР АгроМаркет.</p>
                   <p>Контактное лицо: <b>'.$post['name']. ' ' .$post['surname'].'</b></p>
                   <p>Телефон: <b>'.$post['phone'].'</b></p>
                   <p>Email: <b>'.$post['email'].'</b></p>'.
@@ -722,7 +726,7 @@ class SiteController extends Controller
         } else {
             $email->body = '
                 <div> 
-                    <p>Ваша регистрация будет рассмотрена и Вам будет выслано подтверждение на почтовый ящик. </p>
+                    <p>Спасибо за регистрацию, когда Ваша регистрация будет рассмотрена, Вам будет выслано подтверждение на почтовый ящик. </p>
                 </div>
                 <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
             ';
