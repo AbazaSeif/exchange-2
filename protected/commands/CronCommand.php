@@ -79,9 +79,9 @@ class CronCommand extends CConsoleCommand
             }
 
             foreach($transports as $transport){
-                $this->sendMailToLogist($transport['id']);
+                //$this->sendMailToLogist($transport['id']);
                 // send mail to logist
-                $this->sendMailToLogist2($transport['id']);
+                $this->sendMailToUsers($transport['id']);
                 $this->getUsers($transport['id'], 'mail_deadline', $usersMail, $usersSite, 1);
 
                 if(!empty($transportIds)) $transportIds .= ', ';
@@ -143,7 +143,7 @@ class CronCommand extends CConsoleCommand
             // search for users who wanted to get mail and made a rate
             $usersM = array_intersect($usersAll, $usersMail);
             if(!empty($usersM)){
-                $this->sendMailAboutDeadline($usersM, $transportId, $mailType);
+                //$this->sendMailAboutDeadline($usersM, $transportId, $mailType);
                 // send mail to users
                 $this->sendMailAboutDeadline2($usersM, $transportId, $mailType);
             }
@@ -640,8 +640,8 @@ class CronCommand extends CConsoleCommand
         
         $email->sendMail();
     }
-    
-    public function sendMailToLogist2($transportId, $email = null, $subject = null, $message = null)
+    //sendMailToLogist2
+    public function sendMailToUsers($transportId, $email = null, $subject = null, $message = null)
     {
         $transport = Transport::model()->findByPk($transportId);
         
@@ -768,12 +768,9 @@ class CronCommand extends CConsoleCommand
             </a>';
         } else if($mailType == 'mail_before_deadline'){
             $subject = 'Уведомление';
-            
-            //$message .= '<p>Заявка на перевозку "<a href="http://exchange.lbr.ru/transport/description/id/' . $transportId . '">' . $transport['location_from'] . ' &mdash; ' . $transport['location_to'] . '</a>" будет закрыта через ' . Yii::app()->params['minNotify'] . ' минут.</p>';
-            
             $message .= 'Заявка на перевозку будет закрыта через 30 минут:
                       <br/><br/>' .
-                    . '<a href="http://exchange.lbr.ru/transport/description/id/'.$transportId.'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank">
+                    '<a href="http://exchange.lbr.ru/transport/description/id/'.$transportId.'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank">
                 <span class="link-u" style="color:#008672; font-weight: bold; text-decoration:underline">
                 ' . $transport->location_from . ' &mdash; ' . $transport->location_to . '
                 </span>
@@ -781,8 +778,6 @@ class CronCommand extends CConsoleCommand
             <br/><br/>
             будет закрыта через '  . Yii::app()->params['minNotify'] . ' минут.';
         } else {
-            //$message .= '<p>Ваше предложение для перевозки "<a href="http://exchange.lbr.ru/transport/description/id/' . $transportId . '">' . $transport['location_from'] . ' &mdash; ' . $transport['location_to'] . '</a>" было перебито.</p>';
-        
             $message .= 'Ваша ставка была перебита:' . 
                 '<br/><br/>' .
                 '<a href="http://exchange.lbr.ru/transport/description/id/'.$transportId.'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank">
@@ -794,7 +789,7 @@ class CronCommand extends CConsoleCommand
 
         foreach($users as $userId){
            $user = User::model()->findByPk($userId);
-           $this->sendMailToLogist2($transportId, $user->email, $subject, $message);
+           $this->sendMailToUsers($transportId, $user->email, $subject, $message);
         }
     }
 }
