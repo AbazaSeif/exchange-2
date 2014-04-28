@@ -159,8 +159,6 @@ class UserController extends Controller
                 ->queryAll()
             ;
             
-            $form->attributes = $_POST['UserForm'];
-            // && $form->validate()
             if (isset($_POST['UserForm'])) {
                 $changes = $innExists = $emailExists = array();
                 $flag = false;
