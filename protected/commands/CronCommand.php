@@ -80,6 +80,8 @@ class CronCommand extends CConsoleCommand
 
             foreach($transports as $transport){
                 $this->sendMailToLogist($transport['id']);
+                // send mail to logist
+                $this->sendMailToLogist2($transport['id']);
                 $this->getUsers($transport['id'], 'mail_deadline', $usersMail, $usersSite, 1);
 
                 if(!empty($transportIds)) $transportIds .= ', ';
@@ -142,6 +144,8 @@ class CronCommand extends CConsoleCommand
             $usersM = array_intersect($usersAll, $usersMail);
             if(!empty($usersM)){
                 $this->sendMailAboutDeadline($usersM, $transportId, $mailType);
+                // send mail to users
+                $this->sendMailAboutDeadline2($usersM, $transportId, $mailType);
             }
 
             //$usersS = array_intersect($usersAll, $usersSite);
@@ -635,5 +639,162 @@ class CronCommand extends CConsoleCommand
         ;
         
         $email->sendMail();
+    }
+    
+    public function sendMailToLogist2($transportId, $email = null, $subject = null, $message = null)
+    {
+        $transport = Transport::model()->findByPk($transportId);
+        
+        if(empty($subject)) $subject = 'Закрыта заявка на перевозку';
+        if(empty($message)) {
+            $message = '<a href="http://exchange.lbr.ru/transport/description/id/'.$transportId.'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank">
+                <span class="link-u" style="color:#008672; font-weight: bold; text-decoration:underline">
+                ' . $transport->location_from . ' &mdash; ' . $transport->location_to . '
+                </span>
+            </a>';
+        }
+        
+        $email = new TEmail2;
+        $email->from_email = Yii::app()->params['adminEmail'];
+        $email->from_name = 'Биржа перевозок ЛБР АгроМаркет';        
+        $email->to_name = '';
+        $email->subject = 'Закрыта заявка на перевозку';
+        $email->type = 'text/html';
+        $email->body = '<!-- Content -->
+                <tr>
+                    <td>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
+                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#c1c1c1"></td>
+                                <td bgcolor="#ffffff">
+                                    <!-- Main Content -->
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <img src="http://exchange.lbr.ru/images/mail/content_top.jpg" alt="" border="0" width="620" height="12" style="float: left"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="20"></td>
+                                            <td>
+                                                <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="15" style="height:15px; float: left" alt="" />
+                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td>
+                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                                                                <tr>
+                                                                    <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; " valign="top" width="185">
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="25" style="height:25px; float: left" alt="" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <a href="http://exchange.lbr.ru/" target="_blank">
+                                                                                        <img src="http://exchange.lbr.ru/images/logo.png" alt="" border="0" width="179" height="66" style="float: left"/>
+                                                                                    </a>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="20" height="1" style="width:20px" alt="" style="float: left"/>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                    <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" valign="top" width="20"><img src="http://exchange.lbr.ru/images/mail/img_right_shadow.jpg" alt="" border="0" width="8" height="131" style="float: left"/></td>
+                                                                    <td class="text" style="margin: 0; color:#a1a1a1; font-family:Verdana; font-size:12px; line-height:18px; text-align:left" valign="top">
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                                                                            <tr>
+                                                                                <td style="color:#666666; font-family:Verdana; font-size:20px; line-height:24px; text-align:left; font-weight:normal">
+                                                                                    '.$subject.'
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="10" style="height:10px; float: left" alt="" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="width: 100%; padding-top: 10px; padding-bottom: 10px; color:#666666; font-family:Verdana; font-size:14px; line-height:20px; text-align:left; font-weight:normal">
+                                                                                    '.$message.'
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; float: left" width="20"></td>
+                                        </tr>
+                                    </table>
+                                    <img src="http://exchange.lbr.ru/images/mail/content_bottom.jpg" alt="" border="0" width="620" height="20" style="float: left"/>
+                                    <!-- END Main Content -->
+                                </td>
+                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#c1c1c1"></td>
+                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <!-- END Content -->'
+        ;
+        if(empty($email)) {
+            //send Mail to logist
+            if($transport->type == 0) $email->to_email = Yii::app()->params['logistEmailInternational'];
+            else $email->to_email = Yii::app()->params['logistEmailRegional']; 
+        }
+        
+        $email->sendMail();
+    }
+
+    public function sendMailAboutDeadline2($users, $transportId, $mailType)
+    {
+        $subject = 'Перебита ставка';
+        $message = '';
+        $transport = Transport::model()->findByPk($transportId);
+        if($mailType == 'mail_deadline'){
+            $subject = 'Закрыта заявка на перевозку';
+            $message .= '<a href="http://exchange.lbr.ru/transport/description/id/'.$transportId.'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank">
+                <span class="link-u" style="color:#008672; font-weight: bold; text-decoration:underline">
+                ' . $transport->location_from . ' &mdash; ' . $transport->location_to . '
+                </span>
+            </a>';
+        } else if($mailType == 'mail_before_deadline'){
+            $subject = 'Уведомление';
+            
+            //$message .= '<p>Заявка на перевозку "<a href="http://exchange.lbr.ru/transport/description/id/' . $transportId . '">' . $transport['location_from'] . ' &mdash; ' . $transport['location_to'] . '</a>" будет закрыта через ' . Yii::app()->params['minNotify'] . ' минут.</p>';
+            
+            $message .= 'Заявка на перевозку будет закрыта через 30 минут:
+                      <br/><br/>' .
+                    . '<a href="http://exchange.lbr.ru/transport/description/id/'.$transportId.'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank">
+                <span class="link-u" style="color:#008672; font-weight: bold; text-decoration:underline">
+                ' . $transport->location_from . ' &mdash; ' . $transport->location_to . '
+                </span>
+            </a>
+            <br/><br/>
+            будет закрыта через '  . Yii::app()->params['minNotify'] . ' минут.';
+        } else {
+            //$message .= '<p>Ваше предложение для перевозки "<a href="http://exchange.lbr.ru/transport/description/id/' . $transportId . '">' . $transport['location_from'] . ' &mdash; ' . $transport['location_to'] . '</a>" было перебито.</p>';
+        
+            $message .= 'Ваша ставка была перебита:' . 
+                '<br/><br/>' .
+                '<a href="http://exchange.lbr.ru/transport/description/id/'.$transportId.'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank">
+                <span class="link-u" style="color:#008672; font-weight: bold; text-decoration:underline">
+                ' . $transport->location_from . ' &mdash; ' . $transport->location_to . '
+                </span>
+            </a>';
+        }
+
+        foreach($users as $userId){
+           $user = User::model()->findByPk($userId);
+           $this->sendMailToLogist2($transportId, $user->email, $subject, $message);
+        }
     }
 }
