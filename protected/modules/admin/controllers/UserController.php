@@ -145,10 +145,7 @@ class UserController extends Controller
         $message = '';
         $model = User::model()->findByPk($id);
         $form = new UserForm;
-        $form->password_confirm = '';
         $form->attributes = $model->attributes;
-        if(empty($model->secondname)) $form->secondname = '';
-        //else $form->secondname = '';
         $form->id = $id;
         
         if(Yii::app()->user->checkAccess('trEditUser')) {
