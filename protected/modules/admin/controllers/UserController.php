@@ -145,7 +145,10 @@ class UserController extends Controller
         $message = '';
         $model = User::model()->findByPk($id);
         $form = new UserForm;
+        $form->password_confirm = '';
         $form->attributes = $model->attributes;
+        if(empty($model->secondname)) $form->secondname = '';
+        //else $form->secondname = '';
         $form->id = $id;
         
         if(Yii::app()->user->checkAccess('trEditUser')) {
@@ -156,7 +159,8 @@ class UserController extends Controller
                 ->queryAll()
             ;
             
-            if (isset($_POST['UserForm'])) {
+            $form->attributes = $_POST['UserForm'];
+            if (isset($_POST['UserForm']) && $form->validate()) {
                 $changes = $innExists = $emailExists = array();
                 $flag = false;
                 $warringMessage = '';

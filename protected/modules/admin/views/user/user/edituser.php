@@ -148,9 +148,9 @@
                 echo $form->labelEx($model, 'email');
                 echo $form->emailField($model, 'email'); ?>
             </div>
-            <?php if ($model->id): ?>
+            <?php if($model->id): ?>
             <div style="display:none;">
-            <?php  echo $form->hiddenField($model, 'password'); ?>
+            <?php echo $form->hiddenField($model, 'password'); ?>
             </div>
             <?php endif; ?>
             <?php if($model->id): ?>
