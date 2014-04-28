@@ -95,7 +95,7 @@ if (!Yii::app()->user->isGuest) {
             <?php echo $allPoints; ?>
         <?php endif; ?>
             <span class="finish-point point" title="<?php echo date('d.m.Y H:i', strtotime($transportInfo['date_to']))?>">
-                <?php echo $transportInfo['location_to']; ?>
+                <span class="inner-point"><?php echo $transportInfo['location_to']; ?></span>
             </span>
         </span>
         <div class="width-100 one-item-content">
