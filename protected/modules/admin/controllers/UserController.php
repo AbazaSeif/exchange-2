@@ -160,7 +160,8 @@ class UserController extends Controller
             ;
             
             $form->attributes = $_POST['UserForm'];
-            if (isset($_POST['UserForm']) && $form->validate()) {
+            // && $form->validate()
+            if (isset($_POST['UserForm'])) {
                 $changes = $innExists = $emailExists = array();
                 $flag = false;
                 $warringMessage = '';
