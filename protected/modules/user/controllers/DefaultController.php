@@ -83,7 +83,7 @@ class DefaultController extends Controller
         
         if(isset($_POST['MailForm'])) {
             $user = User::model()->findByPk($userId);
-            
+            $mail->attributes = $_POST['MailForm'];
             if ($user->password === crypt(trim($_POST['MailForm']['password']), $user->password)) {
                 $exists = User::model()->find(array(
                     'select'=>'email',
@@ -94,9 +94,12 @@ class DefaultController extends Controller
                 if(empty($exists)) { 
                     $user->email = trim($_POST['MailForm']['new_email']);
                     if($user->save() && $model->validate()) {
+                        $curEmail = $user->email;
+                        $mail->new_email = null;
                         Dialog::message('flash-success', 'Внимание!', 'Ваш email изменен');
                     }
                 } else {
+                    $mail->new_email = null;
                     Dialog::message('flash-success', 'Внимание!', 'Такой email уже используется');
                 }
             } else {

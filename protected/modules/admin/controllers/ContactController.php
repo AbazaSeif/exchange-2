@@ -118,7 +118,9 @@ class ContactController extends Controller
         $model = User::model()->findByPk($id);
         $message = '';
         $form = new UserContactForm;
+        //$form->password_confirm = '';
         $form->attributes = $model->attributes;
+        //if(empty($model->secondname)) $form->secondname = '';
         $form->company = $model->company;
         $form->id = $id;
         $form->parent = $model->parent;
