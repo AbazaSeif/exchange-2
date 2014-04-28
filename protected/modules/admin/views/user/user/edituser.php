@@ -109,6 +109,7 @@
             <?php  echo $form->error($model, 'block_date'); 
                 echo $form->labelEx($model, 'block_date');
                 if(!empty($model->block_date))$model->block_date = date("d-m-Y", strtotime($model->block_date));
+                //else $model->block_date = date('d-m-Y', strtotime('+5 days'));
                 echo $form->textField($model, 'block_date'); 
             ?>
             </div>
@@ -207,7 +208,10 @@ $(document).ready(function(){
          } else {
              $('#UserForm_reason').parent().removeClass('hide');
          }
-         if(this.value == <?php echo User::USER_TEMPORARY_BLOCKED ?>) $('#UserForm_block_date').parent().removeClass('hide');
+         if(this.value == <?php echo User::USER_TEMPORARY_BLOCKED ?>) {
+             $('#UserForm_block_date').parent().removeClass('hide');
+             $('#UserForm_block_date').val('<?php echo date('d-m-Y', strtotime('+5 days')) ?>');
+         }
          else $('#UserForm_block_date').parent().addClass('hide');
     });
     /************************************/
