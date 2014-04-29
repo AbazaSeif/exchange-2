@@ -53,5 +53,16 @@
             sessionStorage.setItem('contactStatus', this.value);
             document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/contact/index/status/" + this.value;
         });
+        
+        editStatus.data = {
+            userNotConfirmed : '<?php echo User::USER_NOT_CONFIRMED?>',
+            userActive : '<?php echo User::USER_ACTIVE?>',
+            userWarning : '<?php echo User::USER_WARNING?>',
+            userTemporaryBlocked : '<?php echo User::USER_TEMPORARY_BLOCKED?>',
+            userBlocked : '<?php echo User::USER_BLOCKED?>',
+            nextDate : '<?php echo date('d-m-Y', strtotime('+5 days')) ?>'
+        };
+        editStatus.init();
+        editStatus.loadInfo();
     });
 </script>

@@ -32,4 +32,13 @@
             <?php echo $data->email ?>
         </div>
     </div>
+    <div class="block-images">
+        <div class="width-100">
+            <?php if($data->status == User::USER_NOT_CONFIRMED || $data->status == User::USER_ACTIVE || $data->status == User::USER_WARNING): ?>
+            <img status="<?php echo $data->status?>" userId="<?php echo $data->id ?>" src="/images/ico-no-blocked.png">
+            <?php else: ?>
+            <img status="<?php echo $data->status?>" userId="<?php echo $data->id ?>" src="/images/ico-blocked.png">
+            <?php endif; ?>
+        </div>
+    </div>
 </div>
