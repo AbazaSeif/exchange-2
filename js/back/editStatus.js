@@ -165,7 +165,8 @@ var editStatus = {
                 $('#u-block-to').parent().parent().addClass('hide');
                 $('#u-block-reason').parent().parent().addClass('hide');
                 
-                $('img[userid=' + $('#u-block-id').val() + ']').attr('src', '/images/ico-no-blocked.png');
+                if(status == editStatus.data.userNotConfirmed) $('img[userid=' + $('#u-block-id').val() + ']').attr('src', '/images/ico-blocked.png');
+                else $('img[userid=' + $('#u-block-id').val() + ']').attr('src', '/images/ico-no-blocked.png');
             }
         });
     }
