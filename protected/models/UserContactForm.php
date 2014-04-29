@@ -16,13 +16,17 @@ class UserContactForm extends CFormModel
     public $company;
     public $reason;
     public $block_date;
+    public $parent;
+    public $type;
+    public $type_contact;
+    public $created;
 
     public function rules()
     {
         return array(
             //array('name, surname, phone, email, password', 'required'),
             array('name, email', 'required'),
-            array('id, block_date, reason, parent, company, name, surname, secondname, password, status, phone, phone2, email', 'safe'),
+            array('id, created, block_date, parent, type, type_contact, block_date, reason, parent, company, name, surname, secondname, password, status, phone, phone2, email', 'safe'),
             array('status, phone, phone2', 'numerical', 'integerOnly'=>true),
             array('email', 'email', 'message'=>'Неправильный Email адрес'),
             array('name','match', 'pattern'=>'/^([\sa-zA-Zа-яА-ЯёЁ\d]+)$/i', 'message'=>'Поле "{attribute}" должно содержать только следующие символы: 0-9,a-z,A-Z,а-я,А-Я и пробел'),

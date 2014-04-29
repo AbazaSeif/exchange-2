@@ -66,7 +66,7 @@ class User extends CActiveRecord
             // NOTE: you should only define rules for those attributes that
             // will receive user inputs.
             return array(
-                array('company, block_date, reason, inn, name, surname, secondname, password, status, country, region, city, district, phone, phone2, type_contact, parent, email', 'safe'),
+                array('company, created, block_date, reason, inn, name, surname, secondname, password, status, country, region, city, district, phone, phone2, type_contact, parent, email', 'safe'),
             );
 	}
 
@@ -114,6 +114,7 @@ class User extends CActiveRecord
                 'email'  => 'Email',
                 'reason' => 'Причина',
                 'block_date' => 'Причина',
+                'created' => 'Дата создания',
             );
 	}
 

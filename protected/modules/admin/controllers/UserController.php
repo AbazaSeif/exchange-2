@@ -85,6 +85,7 @@ class UserController extends Controller
                 
                 if(empty($emailExists) && empty($innExists)) {
                     $model = new User;
+                    $model->created = date('Y-m-d H:i:s');
                     $model->attributes = $_POST['UserForm'];
                     $model->password = crypt($_POST['UserForm']['password'], User::model()->blowfishSalt());
                     $model->type_contact = 0;

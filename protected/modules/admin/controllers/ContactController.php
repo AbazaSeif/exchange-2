@@ -64,6 +64,7 @@ class ContactController extends Controller
                 if(empty($emailExists)) {
                     $curUser = User::model()->findByPk($_POST['UserContactForm']['parent']);
                     $model = new User;
+                    $model->created = date('Y-m-d H:i:s');
                     $model->attributes = $_POST['UserContactForm'];
                     $model->password = crypt($_POST['UserContactForm']['password'], User::model()->blowfishSalt());
                     $model->type_contact = 1;
