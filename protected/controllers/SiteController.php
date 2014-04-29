@@ -305,7 +305,7 @@ class SiteController extends Controller
                     $userInfo = array();
                     $user = new User();
                     $user->attributes = $_POST['RegistrationForm'];
-                    $model->created = date('Y-m-d H:i:s');
+                    $user->created = date('Y-m-d H:i:s');
                     $user->status = User::USER_NOT_CONFIRMED;
                     $user->company = $_POST['RegistrationForm']['ownership'] . ' "' . trim($_POST['RegistrationForm']['company']) . '"';
                     $user->password = crypt($_POST['RegistrationForm']['password'], User::model()->blowfishSalt());
