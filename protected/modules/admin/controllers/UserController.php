@@ -288,4 +288,44 @@ class UserController extends Controller
             throw new CHttpException(403, Yii::t('yii', 'У Вас недостаточно прав доступа.'));
         }
     }
+    
+    /* Ajax update user's status */
+    public function actionUpdateStatus()
+    {
+        $id = $_POST['id'];
+        $status = $_POST['status'];
+        $reason = $_POST['reason'];
+        $date = $_POST['date'];
+        $message = '';
+
+        if(isset($status)) { // update data
+            if($status == User::USER_TEMPORARY_BLOCKED && !empty($date) && strtotime($date) <= strtotime(date('d-m-Y'))) {
+                $message = 'date'; //error in date
+            } else {
+                $changes = array('status'=>'1');
+                $user = User::model()->findByPk($id);
+                $user->status = $status;
+                User::sendAboutChangeStatus($user, $changes);
+                
+                if($user->status == User::USER_NOT_CONFIRMED || $user->status == User::USER_ACTIVE){
+                    $user->reason = null;
+                    $user->block_date = null;
+                    $message = User::statusLabel($status);
+                } else {
+                    $user->reason = $reason;
+                    $message = User::statusLabel($status);
+                    if($user->status == User::USER_TEMPORARY_BLOCKED) $user->block_date = date("Y-m-d", strtotime($date));
+                    else $user->block_date = null;
+                }
+                $user->save();
+            }
+        } else { // view data
+            $user = User::model()->findByPk($id);
+            $message = $user->reason;
+            $date = date("d-m-Y", strtotime($user->block_date));
+        }
+        
+        $array = array('message'=>$message, 'date' => $date);
+        echo json_encode($array);
+    }
 }
