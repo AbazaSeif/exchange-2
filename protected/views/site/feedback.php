@@ -1,3 +1,7 @@
+<noscript>
+    <div class="no-script-label">К сожалению данный функционал не доступен для Вас, т.к. у Вас отключен JavaScript.</div>
+    <div class="hide">
+</noscript>
 <?php
     $form=$this->beginWidget('CActiveForm', array(
         'id'=>'feedback-form',
@@ -63,3 +67,4 @@
     <?php echo CHtml::submitButton('Отправить', array('class'=>'btn')); ?>
 </div>
 <?php $this->endWidget(); ?>
+<noscript></div></noscript>
