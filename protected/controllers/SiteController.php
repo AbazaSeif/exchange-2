@@ -243,6 +243,7 @@ class SiteController extends Controller
     {
         $this->render('help');
     }
+    
     /*
     public function actionTestMail()
     {
@@ -263,8 +264,9 @@ class SiteController extends Controller
             //Yii::log('site call - ' . 'sendmail_path = ' . ini_get('sendmail_path'), 'warning');
         }
         $this->render('test', array('model' => $model));
-    }*/
-    /*public function actionTest2()
+    }
+    
+    public function actionTest2()
     {
         $email = new TEmail;
         $email->from_email = Yii::app()->params['adminEmail'];
@@ -281,7 +283,8 @@ class SiteController extends Controller
             <hr/><h5>Это уведомление является автоматическим, на него не следует отвечать.</h5>
         ';
         $email->sendMail();
-    }*/
+    }
+    */
     
     public function actionRegistration()
     {
