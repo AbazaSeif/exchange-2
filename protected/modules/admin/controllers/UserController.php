@@ -56,6 +56,7 @@ class UserController extends Controller
                 $form->id = $id_item;
                 $view = $this->renderPartial('user/edituser', array('model'=>$form), true, true);
             }
+            //echo '<pre>';var_dump($dataProvider);exit;
             $this->render('user/user', array('data'=>$dataProvider, 'view'=>$view));
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
@@ -328,5 +329,32 @@ class UserController extends Controller
         
         $array = array('message'=>$message, 'date' => $date);
         echo json_encode($array);
+    }
+    
+    public function actionSearch($input)
+    {
+        $criteria = new CDbCriteria();
+        //$criteria->condition = 'type_contact = 0 AND company like :input COLLATE cp1251_general_ci';
+        //$criteria->condition = 'company like :input';
+        //$criteria->params = array(':input' => '%' . trim($input) . '%');
+        $str = "Крылова";
+        $str = mb_strtoupper($str, 'UTF-8');
+        $criteria->condition = "UPPER(company) like '%".$str."%'";
+        //echo '<pre>';
+        //var_dump($criteria);exit;
+        $sort = new CSort();
+        $sort->sortVar = 'sort';
+        $sort->defaultOrder = 'company ASC';
+        $dependecy = new CDbCacheDependency('SELECT MAX(created) FROM user');
+        $dataProvider = new CActiveDataProvider(User::model()->cache(1000, $dependecy, 2), array ( 
+            'criteria'=>$criteria,
+            'sort'=>$sort,
+            'pagination' => array ( 
+                'pageSize' => 10, 
+            ) 
+        ));
+        //echo '<pre>';
+        //var_dump($dataProvider);exit;
+        $this->render('user/user', array('data'=>$dataProvider));
     }
 }

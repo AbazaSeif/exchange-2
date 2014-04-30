@@ -17,7 +17,10 @@
     ?>
     <div id="user-wrapper">
         <div class="u-header">
-            Список компаний
+            <input type="text" id="u-search" placeholder="Поиск по названию компании" />
+            <?php //echo CHtml::link('Искать', '/admin/user/search/', array('class' => 'btn-admin btn-search'))?>
+            <?php echo CHtml::submitButton('Искать',array('class'=>'btn-admin btn-search')); ?>
+            <div style="display: block; clear: both;"></div>
         </div>
         <div id="u-content">
             <?php $this->widget('zii.widgets.CListView', array(
@@ -52,6 +55,11 @@
         $('#type-status').change(function() {
             sessionStorage.setItem('userStatus', this.value);
             document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/index/status/" + this.value;
+        });
+        
+        $('.btn-admin.btn-search').click(function(){
+            var input = $('#u-search').val();
+            if($.trim(input))document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/search/input/" + input;
         });
         
         editStatus.data = {
