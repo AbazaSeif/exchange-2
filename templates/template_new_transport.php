@@ -35,7 +35,7 @@
                         <table style="margin: 0; padding: 0" width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td>
-                                    <img src="http://exchange.lbr.ru/images/mail/header_top102.jpg" alt="" border="0" width="624" height="29" style="float: left"/>
+                                    <img src="http://exchange.lbr.ru/images/mail/header_top.jpg" alt="" border="0" width="624" height="29" style="float: left"/>
                                 </td>
                             </tr>
                         </table>
@@ -46,7 +46,7 @@
                                 <td bgcolor="#00abab">
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; padding-left: 17px; padding-bottom: 10px"><img src="http://exchange.lbr.ru/images/mail/header_logo99.jpg" style="border: 0; float: left" alt="" border="0" width="300" height="23" /></td>
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; padding-left: 17px; padding-bottom: 10px"><img src="http://exchange.lbr.ru/images/mail/header_logo.jpg" style="border: 0; float: left" alt="" border="0" width="300" height="23" /></td>
                                         </tr>
                                     </table>
                                 </td>
@@ -69,7 +69,7 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td>
-                                                <img src="http://exchange.lbr.ru/images/mail/content_top789.jpg" alt="" border="0" width="620" height="12" style="float: left"/>
+                                                <img src="http://exchange.lbr.ru/images/mail/content_top.jpg" alt="" border="0" width="620" height="12" style="float: left"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -226,7 +226,7 @@
                                 <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
                             </tr>
                         </table>
-                        <img src="http://exchange.lbr.ru/images/mail/footer_bottom102.jpg" alt="" border="0" width="624" height="29" style="padding-top: 0; float: left" />
+                        <img src="http://exchange.lbr.ru/images/mail/footer_bottom.jpg" alt="" border="0" width="624" height="29" style="padding-top: 0; float: left" />
                     </td>
                 </tr>
                 <!-- END Footer -->
