@@ -176,7 +176,7 @@ div.form-label{
     margin-top: 10px;
 }
 
-#login-form input.btn, #registration-form .row.buttons input.btn, #quick-form input.btn, #setRateBtn, #abordRateBtn, button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
+#login-form input.btn, #feedback-form input.btn , #registration-form input.btn, #registration-form .row.buttons input.btn, #quick-form input.btn, #setRateBtn, #abordRateBtn, button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
 {
     width: 96%;
     padding: 4px 0;
@@ -195,7 +195,7 @@ div.form-label{
     background: linear-gradient(top,#14AAAA,#008C8C);
     cursor: pointer;
 }
-#quick-form input.btn, #addRate input.btn, #login-form input.btn
+#quick-form input.btn, #addRate input.btn, #login-form input.btn, #registration-form input.btn, #feedback-form input.btn
 {
     padding: 4px 15px;
     width: auto;

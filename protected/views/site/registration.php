@@ -1,6 +1,6 @@
 <noscript>
     <div class="no-script-label">К сожалению данный функционал не доступен для Вас, т.к. у Вас отключен JavaScript.</div>
-    <!--div class="hide"-->
+    <div class="hide">
 </noscript>
 <div class="form">
 <?php
@@ -137,4 +137,4 @@
 	
 <?php $this->endWidget(); ?>
 </div><!-- form -->
-<noscript><!--/div--></noscript>
+<noscript></div></noscript>
