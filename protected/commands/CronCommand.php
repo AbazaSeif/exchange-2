@@ -530,17 +530,6 @@ class CronCommand extends CConsoleCommand
            $transportCount = true;
         }
         
-        $message .= '<!-- END Main Content -->
-                                </td>
-                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#c1c1c1"></td>
-                                <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <!-- END Content -->'
-        ;
-        
         foreach($users as $userId){
             $this->sendMail2($userId, $subject, $message);	
         }
