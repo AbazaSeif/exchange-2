@@ -63,10 +63,7 @@ return array(
             'connectionString' => 'sqlite:' . dirname(__FILE__) . '/../../../data/exchange.db',
             'initSQLs' => array(
                 'PRAGMA foreign_keys = ON',
-                //'initSQLs' => 'SET NAMES utf8',
             ),
-            //'charset' => 'utf8',
-            
             'enableProfiling' => true,
             'enableParamLogging' => true,
         ),
