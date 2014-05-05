@@ -17,7 +17,12 @@
     ?>
     <div id="user-wrapper">
         <div class="u-header">
-            Список компаний
+            <div class="query-field">
+                <input type="text" id="u-search" placeholder='Поиск по "Названию компании" / ИНН / Email ...' />
+                <ul class="quick-result"></ul>
+            </div>
+            <?php echo CHtml::submitButton('Искать',array('class'=>'btn-admin btn-search')); ?>
+            <div style="display: block; clear: both;"></div>
         </div>
         <div id="u-content">
             <?php $this->widget('zii.widgets.CListView', array(
@@ -49,9 +54,26 @@
         if(!isNaN(activeStatus)) $('#type-status').val(activeStatus);
         else $('#type-status').val(5);
         
+        <?php if (!empty($input)):?>
+            $('#u-search').val('<?php echo $input?>'); 
+        <?php endif; ?>
+            
         $('#type-status').change(function() {
             sessionStorage.setItem('userStatus', this.value);
-            document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/index/status/" + this.value;
+            var path = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/index/status/" + this.value;
+            var input = $('#u-search').val();
+            if($.trim(input))path += "/input/" + input;
+            document.location.href = path;
+        });
+        
+        $('.btn-admin.btn-search').click(function(){
+            var path = '';
+            var status = parseInt(sessionStorage.getItem('userStatus'));
+            var input = $('#u-search').val();
+            
+            if(!isNaN(status)) path = "/status/" + status;
+            if($.trim(input))path += "/input/" + input;
+            document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/user/index" + path;
         });
         
         editStatus.data = {
@@ -64,5 +86,13 @@
         };
         editStatus.init();
         editStatus.loadInfo();
+        /**** Quick results ******************************************/
+        $('#u-search').focus(function(){
+            $('#u-search').blur(function(){
+                $('.quick-result').fadeOut(200);
+            })
+            $('.quick-result').fadeIn(200);
+            var ajax = new AjaxQuickSearch(0);
+        });
     });
 </script>

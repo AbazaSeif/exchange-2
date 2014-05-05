@@ -437,10 +437,12 @@ class CronCommand extends CConsoleCommand
         $message = '';
         $subject = 'Уведомление о появлении новых заявок на перевозку';
         $transportCount = false;
-        /*switch($type) {
+        /*
+        switch($type) {
             case 0: $subject = 'Уведомление о появлении новых международных заявок на перевозку'; break;
             case 1: $subject = 'Уведомление о появлении новых региональных заявок на перевозку'; break;
-        }*/
+        }
+        */
 
         if($type == 0 || $type == 2) {
            //$message .= "<p><b>Международные</b> перевозки: </p>";

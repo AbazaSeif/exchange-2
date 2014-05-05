@@ -10,53 +10,38 @@ class UserController extends Controller
         return true;
     }
 
-    public function actionIndex($status = 5) 
+    public function actionIndex($status = 5, $input = null) 
     {
         if(Yii::app()->user->checkAccess('trReadUser'))
         {
             $criteria = new CDbCriteria();
             $criteria->condition = 'type_contact = 0';
-            
             if($status != 5) {
-                $criteria->condition = 't.status = :status';
+                $criteria->condition .= ' and t.status = :status';
                 $criteria->params = array(':status' => $status);
+            }
+            
+            if(User::prepareSqlite()) {
+                if(!empty($input)) {
+                    if(is_numeric($input)) $criteria->condition .= ' and (inn like :input or lower(email) like lower(:input))';
+                    else $criteria->condition .= ' and (lower(company) like lower(:input) or lower(email) like lower(:input))';
+                    $criteria->params = array_merge($criteria->params, array(':input' => '%' . $input . '%'));
+                }
             }
             
             $sort = new CSort();
             $sort->sortVar = 'sort';
-            // сортировка по умолчанию 
             $sort->defaultOrder = 'company ASC';
-            $dataProvider = new CActiveDataProvider('User', 
-                array(
-                    'criteria'=>$criteria,
-                    'sort'=>$sort,
-                    'pagination'=>array(
-                        'pageSize'=>'10'
-                    )
-                )
-            );
-            if ($id_item = Yii::app()->user->getFlash('saved_id')){
-                $model = User::model()->findByPk($id_item);
-                $form  = new UserForm;
-                $form->attributes = $model->attributes;
-                
-                $form->country = $model->country;
-                $form->company = $model->company;
-                $form->country = $model->country;
-                $form->password = $model->password;
-                $form->region = $model->region;
-                $form->district = $model->district;
-                $form->inn = $model->inn;
-                $form->name = $model->name;
-                $form->surname = $model->surname;
-                $form->phone = $model->phone;
-                $form->email = $model->email;
-                $form->status = $model->status;
-                
-                $form->id = $id_item;
-                $view = $this->renderPartial('user/edituser', array('model'=>$form), true, true);
-            }
-            $this->render('user/user', array('data'=>$dataProvider, 'view'=>$view));
+            $dependecy = new CDbCacheDependency('SELECT MAX(created) FROM user');
+            $dataProvider = new CActiveDataProvider(User::model()->cache(1000, $dependecy, 2), array ( 
+                'criteria'=>$criteria,
+                'sort'=>$sort,
+                'pagination' => array ( 
+                    'pageSize' => 10, 
+                ) 
+            ));
+            
+            $this->render('user/user', array('data'=>$dataProvider, 'input'=>$input));
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
@@ -328,5 +313,23 @@ class UserController extends Controller
         
         $array = array('message'=>$message, 'date' => $date);
         echo json_encode($array);
+    }
+    
+    public function actionSearch()
+    {
+        $query = trim($_GET['q']);
+        $result = array();
+        if(User::prepareSqlite()) {
+            if (!empty($query)){
+                $dependency = new CDbCacheDependency('SELECT MAX(created) FROM user');
+                $result = Yii::app()->db->cache(1000, $dependency)->createCommand()
+                    ->select('id, company, inn, email')
+                    ->from('user')
+                    ->where('type_contact = 0 and (lower(company) like lower("%'.$query.'%") or lower(email) like lower("%'.$query.'%") or inn like "%'.$query.'%")')
+                    ->limit(7)
+                    ->queryAll();
+            }
+        }
+        $this->renderPartial('application.modules.admin.views.default.quickAjaxResult', array('data' =>$result));
     }
 }

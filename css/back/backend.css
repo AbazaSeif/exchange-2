@@ -95,9 +95,54 @@ input, textarea{
     line-height: 22px;
     margin: 0 3px !important;
 }
+#u-search, .btn-admin.btn-search{
+    padding: 1.5px 25px;
+}
+#u-search{
+    padding: 0 10px;
+    margin-right: 5px;
+    color: #878787;
+    width: 100%;
+}
 input.btn-admin{
     padding: 0 20px;
 }
+
+.query-field { 
+    float: left;
+    width: 40%;
+}
+/*-- Start Quick form --*/
+.quick-result {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    display: none;
+    list-style: none outside none;
+    /*margin: -1px 0 0;
+    padding: 0;*/
+    position: absolute;
+    width: 38%;
+    z-index: 1;
+}
+#user-wrapper ul.quick-result li, #contact-wrapper ul.quick-result li{
+    width: auto !important;
+}
+.quick-result > * {
+    border-bottom: 1px solid #E6E6E6;
+    cursor: default;
+    display: block;
+    padding: 0.3em 1em;
+}
+.quick-result > *:hover {
+    background: none repeat scroll 0 0 #F5F5F5;
+}
+.quick-result a {
+    color: #008672;
+    text-decoration: none;
+}
+
+/*-- End Quick form --*/
+
 .btn-admin.btn-create{
     margin-bottom: 10px !important;
     margin-left: 0 !important;
@@ -914,7 +959,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     border-bottom-right-radius: 4px;
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
-    padding: 0.5em 1em;
+    padding: 0.5em 1.4em;
     color: #0857A6;
 }
 
