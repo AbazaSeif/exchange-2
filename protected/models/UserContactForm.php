@@ -16,7 +16,6 @@ class UserContactForm extends CFormModel
     public $company;
     public $reason;
     public $block_date;
-    public $parent;
     public $type;
     public $type_contact;
     public $created;
