@@ -9,42 +9,38 @@ class ContactController extends Controller
         }
         return true;
     }
-
-    public function actionIndex($status = 5)
+    
+    public function actionIndex($status = 5, $input = null) 
     {
-        if(Yii::app()->user->checkAccess('trReadUserContact')) {
+        if(Yii::app()->user->checkAccess('trReadUserContact'))
+        {
             $criteria = new CDbCriteria();
             $criteria->condition = 'type_contact = 1';
-            
             if($status != 5) {
-                $criteria->condition = 't.status = :status';
+                $criteria->condition .= ' and t.status = :status';
                 $criteria->params = array(':status' => $status);
+            }
+            
+            if(User::prepareSqlite()) {
+                if(!empty($input)) {
+                    $criteria->condition .= ' and (lower(company) like lower(:input) or lower(email) like lower(:input))';
+                    $criteria->params = array_merge($criteria->params, array(':input' => '%' . $input . '%'));
+                }
             }
             
             $sort = new CSort();
             $sort->sortVar = 'sort';
             $sort->defaultOrder = 'company ASC';
-            $dataProvider = new CActiveDataProvider('User', 
-                array(
-                    'criteria'=>$criteria,
-                    'sort'=>$sort,
-                    'pagination'=>array(
-                        'pageSize'=>'10'
-                    )
-                )
-            );
-
-            if ($id_item = Yii::app()->user->getFlash('saved_id')) {
-                $model = User::model()->findByPk($id_item);
-                $form = new UserContactForm;
-                $form->attributes = $model->attributes;
-                $form->company = $model->company;
-                $form->id = $id_item;
-                $form->parent = $model->parent;
-                
-                $view = $this->renderPartial('editcontact', array('model'=>$form), true, true);
-            }
-            $this->render('contact', array('data'=>$dataProvider, 'view'=>$view));
+            $dependecy = new CDbCacheDependency('SELECT MAX(created) FROM user');
+            $dataProvider = new CActiveDataProvider(User::model()->cache(1000, $dependecy, 2), array ( 
+                'criteria'=>$criteria,
+                'sort'=>$sort,
+                'pagination' => array ( 
+                    'pageSize' => 10, 
+                ) 
+            ));
+            
+            $this->render('contact', array('data'=>$dataProvider, 'input'=>$input));
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
@@ -243,5 +239,23 @@ class ContactController extends Controller
             ->order('company')
             ->queryAll()
         ;
+    }
+    
+    public function actionSearch()
+    {
+        $query = trim($_GET['q']);
+        $result = array();
+        if(User::prepareSqlite()) {
+            if (!empty($query)){
+                $dependency = new CDbCacheDependency('SELECT MAX(created) FROM user');
+                $result = Yii::app()->db->cache(1000, $dependency)->createCommand()
+                    ->select('id, company, inn, email')
+                    ->from('user')
+                    ->where('type_contact = 1 and (lower(company) like lower("%'.$query.'%") or lower(email) like lower("%'.$query.'%"))')
+                    ->limit(7)
+                    ->queryAll();
+            }
+        }
+        $this->renderPartial('application.modules.admin.views.default.quickAjaxResult', array('data' =>$result));
     }
 }
