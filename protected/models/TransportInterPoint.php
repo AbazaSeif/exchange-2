@@ -121,7 +121,7 @@ class TransportInterPoint extends CActiveRecord
                     $now = date('Y-m-d');
                     if(!empty($point['date']) && strtotime($now) < strtotime($point['date']))
                         $points .= '<span class="point" title="'.date('d.m.Y H:i', strtotime($point['date'])).'"><span class="inner-point">'.$point['point'].'</span></span>';
-                    else $points .= '<span class="point"><span class="inner-point">'.$point['point'].'</span></span>';
+                    else $points .= '<span class="point" title=""><span class="inner-point">'.$point['point'].'</span></span>';
                 }
             }
             
