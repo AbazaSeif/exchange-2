@@ -221,17 +221,17 @@ class CronCommand extends CConsoleCommand
             }
 
             if(!empty($usersInternational)){
-                $this->sendMailAboutNew($usersInternational, $transportIdType, 0);
+                //$this->sendMailAboutNew($usersInternational, $transportIdType, 0);
                 $this->sendMailAboutNew2($usersInternational, $transportIdType, 0);
             }
 
             if(!empty($usersLocal)){
-                $this->sendMailAboutNew($usersLocal, $transportIdType, 1);
+                //$this->sendMailAboutNew($usersLocal, $transportIdType, 1);
                 $this->sendMailAboutNew2($usersLocal, $transportIdType, 1);
             }
 
             if(!empty($usersInternationalAndLocal)){
-                $this->sendMailAboutNew($usersInternationalAndLocal, $transportIdType);
+                //$this->sendMailAboutNew($usersInternationalAndLocal, $transportIdType);
                 $this->sendMailAboutNew2($usersInternationalAndLocal, $transportIdType);
             }
           
@@ -614,7 +614,7 @@ class CronCommand extends CConsoleCommand
             $email = new TEmail2;
             $email->from_email = Yii::app()->params['adminEmail'];
             $email->from_name = 'Биржа перевозок ЛБР АгроМаркет';
-            $email->to_email = 'tttanyattt@mail.ru'; // 'krilova@lbr.ru'; //$user['email'];
+            $email->to_email = $user['email'];
             $email->to_name = '';
             $email->subject = $subject;
             $email->type = 'text/html';
