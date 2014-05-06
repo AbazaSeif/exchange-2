@@ -5,7 +5,7 @@
    //echo 2222;
 ?>
 <div class="o-event <?php echo ((int)$data->status) ? 'event-new' : ''?>">
-    <div class="width-70">
+    <div class="width-90">
         <?php echo CHtml::link('Перевозка "' . $data->transport->location_from . ' &mdash; ' . $data->transport->location_to . '"', array('/transport/description/', 'id'=>$data->transport_id), array('class'=>'t-header')); ?>
         
         <div class="t-date">
