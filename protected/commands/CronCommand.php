@@ -192,10 +192,12 @@ class CronCommand extends CConsoleCommand
                     $transportIdType[1][$id]['id'] = $id;
                     $transportIdType[1][$id]['from'] = $transport['location_from'];
                     $transportIdType[1][$id]['to'] = $transport['location_to'];
+                    $transportIdType[1][$id]['description'] = $transport['description'];
                 } else {
                     $transportIdType[0][$id]['id'] = $id;
                     $transportIdType[0][$id]['from'] = $transport['location_from'];
                     $transportIdType[0][$id]['to'] = $transport['location_to'];
+                    $transportIdType[0][$id]['description'] = $transport['description'];
                 }
             }
 
