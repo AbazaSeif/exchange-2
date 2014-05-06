@@ -89,6 +89,8 @@ var rateList = {
                 
                 rateList.data.socket.emit('setRate',{
                     transportId: rateList.data.transportId,
+                    dateClose : rateList.data.dateClose,
+                    dateCloseNew : rateList.data.dateCloseNew,
                     userId: rateList.data.userId,
                     company: rateList.data.company,
                     price : price,

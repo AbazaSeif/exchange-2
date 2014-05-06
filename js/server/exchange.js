@@ -8,18 +8,18 @@ function deleteFromArray(element) {
 
 io.sockets.on('connection', function (socket) {
     var fs = require("fs");
-    //var file = "d:/server/domains/data/exchange.db";
-    var file = "/var/www/vhosts/lbr.ru/httpdocs/data/exchange.db";
+    var file = "d:/server/domains/data/exchange.db";
+    //var file = "/var/www/vhosts/lbr.ru/httpdocs/data/exchange.db";
     var sqlite3 = require("sqlite3").verbose();
     var db = new sqlite3.Database(file);
     var arr = [];
     var name = [];
     var i = 0;
 
-    socket.on('init', function (id, minNotify)
+    socket.on('init', function (id, minNotyfy)
     {
         allSockets[id] = socket.id;
-        seachNewEvents(id, minNotify);
+        seachNewEvents(id, minNotyfy);
         updateEventsCount(id);	
     });
 	
@@ -29,14 +29,14 @@ io.sockets.on('connection', function (socket) {
 	
     /* ----- Update count of messages in frontend and search for online messages ----- */
 
-    function seachNewEvents(id, minNotify)
+    function seachNewEvents(id, minNotyfy)
     {
         setTimeout(function() {
             db.each('SELECT id, transport_id, type FROM user_event WHERE status = 1 and status_online = 1 and user_id = ' + id, function(err, event) {
                 db.each('SELECT location_from, location_to FROM transport WHERE id = ' + event.transport_id, function(err, transport) {	              
                     if (id in allSockets) { // user online
                         var message = 'Перевозка "<a href="http://exchange.lbr.ru/transport/description/id/' + event.transport_id + '">' + transport.location_from + ' &mdash; ' + transport.location_to + '</a>" была закрыта';
-                        if(event.type == 2) message = 'Перевозка "<a href="http://exchange.lbr.ru/transport/description/id/' + event.transport_id + '">' + transport.location_from + ' &mdash; ' + transport.location_to + '</a>" будет закрыта через ' + minNotify + ' минут';
+                        if(event.type == 2) message = 'Перевозка "<a href="http://exchange.lbr.ru/transport/description/id/' + event.transport_id + '">' + transport.location_from + ' &mdash; ' + transport.location_to + '</a>" будет закрыта через ' + minNotyfy + ' минут';
                         if(event.type == 3) message = 'Создана новая международная перевозка "<a href="http://exchange.lbr.ru/transport/description/id/' + event.transport_id + '">' + transport.location_from + ' &mdash; ' + transport.location_to + '</a>"';
                         if(event.type == 4) message = 'Создана новая региональная перевозка "<a href="http://exchange.lbr.ru/transport/description/id/' + event.transport_id + '">' + transport.location_from + ' &mdash; ' + transport.location_to + '</a>"';
                         
@@ -47,7 +47,7 @@ io.sockets.on('connection', function (socket) {
 					
                     var stmt = "UPDATE user_event set status_online = 0 WHERE id = " + event.id;
                     db.run(stmt);
-                    seachNewEvents(id, minNotify);
+                    seachNewEvents(id, minNotyfy);
                 });
             });
         }, 2000);
@@ -68,10 +68,12 @@ io.sockets.on('connection', function (socket) {
     
     /* ----- Rates ----- */
 	
-    function getDateTime() 
+    function getDateTime(date) 
     {
-        var date = new Date();
-        var hour = date.getHours();
+	    var date = new Date();
+	    if (typeof p2 != 'undefined') date = new Date(date);
+        
+        var hour = date.getHours() + 1; // !!!! убрать +1
         hour = (hour < 10 ? "0" : "") + hour;
         var min  = date.getMinutes();
         min = (min < 10 ? "0" : "") + min;
@@ -82,7 +84,7 @@ io.sockets.on('connection', function (socket) {
         month = (month < 10 ? "0" : "") + month;
         var day  = date.getDate();
         day = (day < 10 ? "0" : "") + day;
-
+		
         return year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
     }
     
@@ -104,6 +106,32 @@ io.sockets.on('connection', function (socket) {
     socket.on('setRate', function (data) {
         db.each("SELECT rate_id, location_from, location_to FROM transport WHERE id = " + data.transportId, function(err, row) { 
             var time = getDateTime();
+			
+			/*****************************/
+			var interval = 10; 
+			var maxInterval = 30;
+			
+			var rateTime = new Date();
+			rateTime.setMinutes(rateTime.getMinutes() + interval);
+			rateTime.setHours(rateTime.getHours() + 1);// !!!! убрать 
+			
+			var transportDateClose = new Date(data.dateClose);
+			var transportDateCloseNew = new Date(data.dateCloseNew);
+			var transportDateCloseMax = new Date(data.dateClose);
+			transportDateCloseMax.setMinutes(transportDateCloseMax.getMinutes() + interval);
+			
+			if(rateTime.valueOf() >= transportDateClose.valueOf() && rateTime.valueOf() < transportDateCloseMax.valueOf() ) {
+			    /*transportDateClose.setMinutes(transportDateClose.getMinutes() + interval);
+				var newClose = getDateTime(transportDateClose);
+			    var stmt = "UPDATE transport SET date_close_new = '" + newClose + "' WHERE id = " + data.transportId;
+                db.run(stmt);*/
+				if(!isNaN(transportDateCloseNew))
+			    console.log(' =================== ' + transportDateCloseNew);
+				else console.log(' =================== null');
+		    }
+			//else console.log(' =================== ' + rateTime + ' less '+transportDateClose+' - ' + rateTime.valueOf() + ' < ' + transportDateClose.valueOf());
+			/*******************************/
+			
             if(row.rate_id) { // not null		
                 // check if it's min rate
                 db.each("SELECT min(price) as price, user_id FROM rate WHERE transport_id = " + data.transportId + " group by transport_id order by date desc", function(err, min) {
@@ -155,7 +183,7 @@ io.sockets.on('connection', function (socket) {
             });
             // to all other
             socket.broadcast.emit('setRate', {
-		company : data.company,
+			    company : data.company,
                 price : data.price,
                 date: time,
                 transportId : data.transportId

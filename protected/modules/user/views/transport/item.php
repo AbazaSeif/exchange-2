@@ -186,7 +186,6 @@ $(document).ready(function(){
     var timer = new Timer();
     timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>);
     <?php endif; ?>
-    
     rateList.data = {
         currency : ' <?php echo $currency ?>',
         priceStep : <?php echo $priceStep ?>,
@@ -201,8 +200,8 @@ $(document).ready(function(){
     <?php if (!Yii::app()->user->isGuest): ?>
         <?php if(Yii::app()->user->isTransport): ?>
 
-        var socket = io.connect('http://exchange.lbr.ru:3000/');
-        //var socket = io.connect('http://localhost:3000/');
+        //var socket = io.connect('http://exchange.lbr.ru:3000/');
+        var socket = io.connect('http://localhost:3000/');
         
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>);
         
@@ -212,6 +211,8 @@ $(document).ready(function(){
         rateList.data.company   = '<?php echo $userInfo[company] ?>';
         rateList.data.name   = '<?php echo $userInfo[name] ?>';
         rateList.data.surname = '<?php echo $userInfo[surname] ?>';
+        rateList.data.dateClose = '<?php echo $transportInfo[date_close] ?>';
+        rateList.data.dateCloseNew = '<?php echo $transportInfo[date_close_new] ?>';
         
         $('#dialog-connect').live('click', function() {
             $("#modalDialog").dialog("open");
