@@ -173,7 +173,7 @@ class CronCommand extends CConsoleCommand
         $transportIds = '';
         $usersInternational = $usersInternationalSite = $usersLocal = $usersLocalSite = $usersInternationalAndLocal = array();
         $transportNew = Yii::app()->db->createCommand()
-            ->select('id, type, location_from, location_to')
+            ->select('id, type, location_from, location_to, description')
             ->from('transport')
             ->where('new_transport = :status', array(':status' => 1))
             ->queryAll()
