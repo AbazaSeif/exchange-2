@@ -72,15 +72,35 @@ if(!Yii::app()->user->isGuest) {
 <?php $this->endWidget();    
 }
 ?>
-
 <script>
+<?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
+    var troubleWithSocket = false;
+    try {
+        //var socket = io.connect('http://exchange.lbr.ru:3000/');
+        
+        var socket = io.connect('http://localhost:3000/');
+        socket.on('error', function () {
+            $('#text').text('Произошла ошибка, требуется перезагрузка страницы');
+            $("#errorSocket").parent().removeClass('hide');
+            $("#errorSocket").dialog("open");
+        });
+        
+        $( "#errorSocket .btn" ).live('click', function() {
+            location.reload();
+        });
+    } catch(err) {
+        troubleWithSocket = true;       
+    }
+<?php endif; ?>
+    
 $(document).ready(function(){
+    if(troubleWithSocket) {
+        var element = $( ".transport-one" );
+        element.wrapInner( "<div class='hide' />" );
+        element.append( '<div id="error">Обратитесь пожалуйста к администратору сайта - требуется перезагрузить сервер node.js<div/>' );
+    }
     <?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
     var userId = <?php echo $user->id ?>;
-    
-    //var socket = io.connect('http://exchange.lbr.ru:3000/');
-    var socket = io.connect('http://localhost:3000/');
-    
     <?php if(Yii::app()->user->isContactUser): ?>
         socket.emit('init', userId, <?php echo Yii::app()->params['minNotify'] ?>, 1);
     <?php else: ?>
@@ -108,3 +128,22 @@ $(document).ready(function(){
     <?php endif;?>
 });
 </script>
+<div class="hide">
+    <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+        'id' => 'errorSocket',
+        'options' => array(
+            'title' => 'Ошибка',
+            'autoOpen' => false,
+            'modal' => true,
+            'resizable'=> false,
+        ),
+    ));
+    ?>
+    <div class="row">
+        <span><span id="text"></span></span> 
+    </div>
+    <?php echo CHtml::submitButton('ОК',array('class' => 'btn')); ?>
+    <?php 
+        $this->endWidget('zii.widgets.jui.CJuiDialog');
+    ?>
+</div>

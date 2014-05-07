@@ -16,6 +16,7 @@ else {
 }
 
 if($showDescription):
+$maxRateValue = $transportInfo['start_rate'];
 $minRateValue = null;
 $currency = '€';
 $defaultRate = false;
@@ -133,7 +134,6 @@ if (!Yii::app()->user->isGuest) {
                         <span class="t-closed">Перевозка закрыта</span>
                         <?php endif; ?>
                     </div>
-                    <div id="t-error"></div>
                     <div class="rate-wrapper width-60 <?php echo (!$transportInfo['status'])? 'hide': '' ?>">
                         <div class="r-block">
                             <?php if(($now < $end) && $transportInfo['status']):?>
@@ -143,7 +143,7 @@ if (!Yii::app()->user->isGuest) {
                             </div>
                             <?php endif; ?>
                             <span class="text"><?php echo $currency ?></span>
-                            <input id="rate-price" value="<?php echo ceil($minRateValue) ?>" init="<?php echo $minRateValue?>" type="text" size="<?php echo $inputSize ?>" <?php echo (($now > $end) || !$transportInfo['status'])? 'disabled="hide"': '' ?>/>
+                            <input id="rate-price" value="<?php echo ceil($minRateValue) ?>" init="<?php echo $maxRateValue?>" type="text" size="<?php echo $inputSize ?>" <?php echo (($now > $end) || !$transportInfo['status'])? 'disabled="hide"': '' ?>/>
                         </div>
                         <?php if(($now < $end) && $transportInfo['status']):?>
                         <div class="r-submit"><span>Сделать ставку</span></div>
@@ -189,7 +189,7 @@ if (!Yii::app()->user->isGuest) {
             ));
         ?>
 <?php endif; ?>
-</div>
+
 <script>
 function getTime(){
     return "<?php echo date("Y-m-d H:i:s") ?>";
@@ -213,10 +213,8 @@ $(document).ready(function(){
     
     <?php if (!Yii::app()->user->isGuest): ?>
         <?php if(Yii::app()->user->isTransport): ?>
-
         //var socket = io.connect('http://exchange.lbr.ru:3000/');
-        var socket = io.connect('http://localhost:3000/');
-        
+        //var socket = io.connect('http://localhost:3000/');
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>);
         
         rateList.data.socket = socket;
@@ -239,10 +237,10 @@ $(document).ready(function(){
         $( "#abordRateBtn" ).live('click', function() {
             $(".ui-dialog-content").dialog( "close" );
         });
-    
-        <?php else: ?> 
-            //admin or logist
-
+        
+        $( "#errorRate .btn" ).live('click', function() {
+            $(".ui-dialog-content").dialog( "close" );
+        });
         <?php endif; ?> 
             rateList.init();
    <?php endif; ?>
@@ -316,10 +314,30 @@ $(document).ready(function(){
         $this->endWidget('zii.widgets.jui.CJuiDialog');
     ?>
 </div>
+<div>
+    <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+        'id' => 'errorRate',
+        'options' => array(
+            'title' => 'Ошибка',
+            'autoOpen' => false,
+            'modal' => true,
+            'resizable'=> false,
+        ),
+    ));
+    ?>
+    <div class="row">
+        <span>Ставка не может быть больше <span id="maxRateVal"></span><?php echo $currency ?></span> 
+    </div>
+    <?php echo CHtml::submitButton('ОК',array('class' => 'btn')); ?>
+    <?php 
+        $this->endWidget('zii.widgets.jui.CJuiDialog');
+    ?>
+</div>
 <?php endif; ?>
 <?php else: ?>
 <script>
     document.location.href = '<?php echo Yii::app()->getBaseUrl(true) ?>/';
 </script>
 <?php endif; ?>
+</div>
 

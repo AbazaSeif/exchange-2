@@ -29,13 +29,26 @@ var rateList = {
                     rateList.add(obj);
                 }
             });
+            
+            rateList.data.socket.on('errorRate', function (data) {
+                $('#maxRateVal').text(parseInt(data.price));
+                $("#errorRate").dialog("open");
+            });
+            
+           /* rateList.data.socket.on('error', function (data) {
+                $('#text').text('Произошла ошибка, пожалуйста перезагрузите страницу');
+                $("#errorSocket").dialog("open");
+            });*/
 
             /****** Сообщение *********/
             
             $( "#rate-up" ).on('click', function() {
-                if($('#rate-down').hasClass('disabled'))$('#rate-down').removeClass('disabled');
-                var newRate = parseInt(element.val()) + rateList.data.priceStep;// + rateList.data.priceStep * rateList.data.nds;
-                element.val(newRate);
+                var newRate = parseInt(element.val()) + rateList.data.priceStep;
+                if(newRate <= element.attr('init')) {
+                    element.val(newRate);
+                    if($('#rate-down').hasClass('disabled'))$('#rate-down').removeClass('disabled');
+                }
+                if(newRate + rateList.data.priceStep > element.attr('init')) $(this).addClass('disabled');
             });
 
             $( "#rate-up" ).mousedown(function(e) {
@@ -47,10 +60,13 @@ var rateList = {
                 clearInterval(this.downTimer);
             });
 
-            $( "#rate-down" ).on('click', function() {              
+            $( "#rate-down" ).on('click', function() {
                 var step = rateList.data.priceStep;
                 var newRate = element.val() - step;
-                if(newRate > 0) element.val(newRate);
+                if(newRate > 0) {
+                    element.val(newRate);
+                    if($('#rate-up').hasClass('disabled'))$('#rate-up').removeClass('disabled');
+                }
                 if( (newRate - step) <= 0 ) {
                     $(this).addClass('disabled');
                 }
@@ -73,33 +89,39 @@ var rateList = {
             });
 
             $('#setRateBtn').live('click', function() {
-                $('#addRate').dialog('close');
+                if(!troubleWithSocket) {
+                    $('#addRate').dialog('close');
 
-                if(rateList.data.defaultRate) $('#rates').html('');
-                $('#t-error').html('');
-           
-                var price = parseInt($('#rate-price').val());
-                if(rateList.data.nds) {
-                    price = price * 100/(100 + rateList.data.nds*100);
+                    if(rateList.data.defaultRate) $('#rates').html('');
+                    //$('#t-error').html('');
+
+                    var price = parseInt($('#rate-price').val());
+                    if(rateList.data.nds) {
+                        price = price * 100/(100 + rateList.data.nds*100);
+                    }
+
+                    $(this).attr('init', price);
+
+                    var time = getTime();
+
+                    rateList.data.socket.emit('setRate',{
+                        transportId: rateList.data.transportId,
+                        dateClose : rateList.data.dateClose,
+                        dateCloseNew : rateList.data.dateCloseNew,
+                        userId: rateList.data.userId,
+                        company: rateList.data.company,
+                        price : price,
+                    }); 
                 }
-
-                $(this).attr('init', price);
-
-                var time = getTime();
-                
-                rateList.data.socket.emit('setRate',{
-                    transportId: rateList.data.transportId,
-                    dateClose : rateList.data.dateClose,
-                    dateCloseNew : rateList.data.dateCloseNew,
-                    userId: rateList.data.userId,
-                    company: rateList.data.company,
-                    price : price,
-                });   
             });
 
             $('#rate-price').blur(function() {
                 var inputVal = parseInt($(this).val());
+                var maxVal = $(this).attr('init');
                 var kratnoe = rateList.data.priceStep;
+                if(inputVal > maxVal) $(this).val(maxVal);
+                if(inputVal <= 0) $(this).val(kratnoe);
+                
                 var residue = inputVal % kratnoe;
                 if(residue != 0) {
                     if((inputVal - residue) > 0) $(this).val(inputVal - residue);
@@ -108,6 +130,10 @@ var rateList = {
                 }
 
                 if((parseInt($(this).val()) - kratnoe) <= 0) $('#rate-down').addClass('disabled');
+                else $('#rate-down').removeClass('disabled');
+                if((parseInt($(this).val()) + kratnoe) > $(this).attr('init')) {
+                    $('#rate-up').addClass('disabled');
+                } else $('#rate-up').removeClass('disabled');
             });
 
             $(document).keypress(function(e) {
