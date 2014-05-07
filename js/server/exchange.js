@@ -68,12 +68,12 @@ io.sockets.on('connection', function (socket) {
     
     /* ----- Rates ----- */
 	
-    function getDateTime(date) 
+    function getDateTime(inputDate) 
     {
 	    var date = new Date();
-	    if (typeof p2 != 'undefined') date = new Date(date);
+	    if (typeof inputDate != 'undefined') date = new Date(inputDate);
         
-        var hour = date.getHours() + 1; // !!!! убрать +1
+        var hour = date.getHours();
         hour = (hour < 10 ? "0" : "") + hour;
         var min  = date.getMinutes();
         min = (min < 10 ? "0" : "") + min;
@@ -86,6 +86,37 @@ io.sockets.on('connection', function (socket) {
         day = (day < 10 ? "0" : "") + day;
 		
         return year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
+    }
+	
+	function checkForAdditionalTimer(data) 
+    {
+		var interval = 3; 
+		var maxInterval = 6;
+		
+		var rateTime = new Date();
+		rateTime.setMinutes(rateTime.getMinutes() + interval);
+		rateTime.setHours(rateTime.getHours() + 1); // !!!! убрать 
+		
+		var transportDateCloseMax = new Date(data.dateClose);
+		transportDateCloseMax.setMinutes(transportDateCloseMax.getMinutes() + maxInterval);
+		
+		var transportDateClose = new Date(data.dateClose);
+		if(data.dateCloseNew) {
+		    transportDateClose = new Date(data.dateCloseNew);
+		}
+		
+		console.log('======= ' + rateTime + ' | ' + transportDateClose);
+		//console.log(rateTime.valueOf() + ' | ' + transportDateClose.valueOf());
+		console.log('======= ' + rateTime + ' | ' + transportDateCloseMax);
+		//console.log(rateTime.valueOf() + ' | ' + transportDateCloseMax.valueOf());
+		
+		if(rateTime.valueOf() >= transportDateClose.valueOf() && rateTime.valueOf() <= transportDateCloseMax.valueOf() ) {
+			transportDateClose.setMinutes(transportDateClose.getMinutes() + interval);
+			var newClose = getDateTime(transportDateClose);
+			var stmt = "UPDATE transport SET date_close_new = '" + newClose + "' WHERE id = " + data.transportId;
+			db.run(stmt);
+			//console.log('------------------- less');
+		}
     }
     
     /* Load all rates when open transport page in the first time  */
@@ -105,33 +136,9 @@ io.sockets.on('connection', function (socket) {
 	
     socket.on('setRate', function (data) {
         db.each("SELECT rate_id, location_from, location_to FROM transport WHERE id = " + data.transportId, function(err, row) { 
-            var time = getDateTime();
+            checkForAdditionalTimer(data);
 			
-			/*****************************/
-			var interval = 10; 
-			var maxInterval = 30;
-			
-			var rateTime = new Date();
-			rateTime.setMinutes(rateTime.getMinutes() + interval);
-			rateTime.setHours(rateTime.getHours() + 1);// !!!! убрать 
-			
-			var transportDateClose = new Date(data.dateClose);
-			var transportDateCloseNew = new Date(data.dateCloseNew);
-			var transportDateCloseMax = new Date(data.dateClose);
-			transportDateCloseMax.setMinutes(transportDateCloseMax.getMinutes() + interval);
-			
-			if(rateTime.valueOf() >= transportDateClose.valueOf() && rateTime.valueOf() < transportDateCloseMax.valueOf() ) {
-			    /*transportDateClose.setMinutes(transportDateClose.getMinutes() + interval);
-				var newClose = getDateTime(transportDateClose);
-			    var stmt = "UPDATE transport SET date_close_new = '" + newClose + "' WHERE id = " + data.transportId;
-                db.run(stmt);*/
-				if(!isNaN(transportDateCloseNew))
-			    console.log(' =================== ' + transportDateCloseNew);
-				else console.log(' =================== null');
-		    }
-			//else console.log(' =================== ' + rateTime + ' less '+transportDateClose+' - ' + rateTime.valueOf() + ' < ' + transportDateClose.valueOf());
-			/*******************************/
-			
+			var time = getDateTime();
             if(row.rate_id) { // not null		
                 // check if it's min rate
                 db.each("SELECT min(price) as price, user_id FROM rate WHERE transport_id = " + data.transportId + " group by transport_id order by date desc", function(err, min) {
@@ -183,7 +190,7 @@ io.sockets.on('connection', function (socket) {
             });
             // to all other
             socket.broadcast.emit('setRate', {
-			    company : data.company,
+                company : data.company,
                 price : data.price,
                 date: time,
                 transportId : data.transportId

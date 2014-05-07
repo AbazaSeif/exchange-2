@@ -229,4 +229,21 @@ class TransportController extends Controller
         }
         return $points;
     }
+    
+    public function actionCheckForAdditionalTimer()
+    {
+        $id = $_POST['id'];
+        $now = date('m/d/Y H:i:s');
+        $date = Yii::app()->db->createCommand()
+            ->select('date_close_new')
+            ->from('transport')
+            ->where('id=:id', array(':id'=>$id))
+            ->queryScalar()
+        ;
+        if(!empty($date) && date('m/d/Y H:i:s', strtotime($date)) > $now) $date = date('m/d/Y H:i:s', strtotime($date));
+        else $date = '';
+        
+        $array = array('end'=>$date, 'now'=>$now);
+        echo json_encode($array);
+    }
 }

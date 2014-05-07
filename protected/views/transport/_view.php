@@ -1,11 +1,17 @@
 <?php
+    $showAdditionalTimer = false;
+    $status = $data->status;
     $lastRate = $this->getPrice($data->rate_id);
     $minPriceVal = $this->getMinPrice($data->id);
     $now = date('m/d/Y H:i:s', strtotime('now'));
     //$end = date('m/d/Y H:i:s', strtotime($data->date_from  . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
     $end = date('m/d/Y H:i:s', strtotime($data->date_close));
+    if($end < $now && $status) {
+        $end = date('m/d/Y H:i:s', strtotime($data->date_close_new));
+        $showAdditionalTimer = true;
+    }
     $action = '/transport/description/id/'. $data->id . '/';
-    $status = $data->status;
+    
     $rate = '****';
     
     $currency = ' €';
@@ -95,7 +101,7 @@
             </div>
         </div>
         <div class="width-30 v-center"> 
-            <div class="t-timer" id="counter-<?php echo $data->id; ?>" now="<?php echo $now ?>" end="<?php echo $end ?>" status="<?php echo $status ?>"></div>
+            <div class="t-timer <?php echo ($showAdditionalTimer)? 'add-t' : '' ?>" id="counter-<?php echo $data->id; ?>" t-id="<?php echo $data->id; ?>" now="<?php echo $now ?>" end="<?php echo $end ?>" status="<?php echo $status ?>"></div>
         </div>
     </div>
 </div>

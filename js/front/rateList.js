@@ -30,7 +30,7 @@ var rateList = {
                 }
             });
 
-            /****** Сообещение *********/
+            /****** Сообщение *********/
             
             $( "#rate-up" ).on('click', function() {
                 if($('#rate-down').hasClass('disabled'))$('#rate-down').removeClass('disabled');

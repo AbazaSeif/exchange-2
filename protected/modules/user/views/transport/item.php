@@ -1,4 +1,5 @@
 <?php
+$showAdditionalTimer = false;
 $showDescription = false;
 if($transportInfo['status'] || !Yii::app()->user->isTransport) $showDescription = true;
 else {
@@ -21,6 +22,10 @@ $defaultRate = false;
 $priceStep = Transport::INTER_PRICE_STEP;
 $now = date('m/d/Y H:i:s');
 $end = date('m/d/Y H:i:s', strtotime($transportInfo['date_close']));
+if($end < $now && $transportInfo['status']) {
+    $end = date('m/d/Y H:i:s', strtotime($transportInfo['date_close_new']));
+    $showAdditionalTimer = true;
+}
 $winRate = Rate::model()->findByPk($transportInfo['rate_id']);
 $winFerryman = User::model()->findByPk($winRate->user_id);
 $winFerrymanShowNds = UserField::model()->findByAttributes(array('user_id'=>$winRate->user_id));
@@ -123,18 +128,26 @@ if (!Yii::app()->user->isGuest) {
             <?php if (!Yii::app()->user->isGuest && $minRateValue > 0 && Yii::app()->user->isTransport): ?>
             <div class="width-50 timer-wrapper">
                 <div class="width-100">
-                    <div id="t-container" class="width-40"></div>
+                    <div id="t-container" class="width-40 <?php echo ($showAdditionalTimer)? 'add-t' : '' ?>">
+                        <?php if(!$transportInfo['status']): ?>
+                        <span class="t-closed">Перевозка закрыта</span>
+                        <?php endif; ?>
+                    </div>
                     <div id="t-error"></div>
-                    <div class="rate-wrapper width-60">
+                    <div class="rate-wrapper width-60 <?php echo (!$transportInfo['status'])? 'hide': '' ?>">
                         <div class="r-block">
-                            <div class="rate-btns-wrapper <?php echo (($now > $end) || !$transportInfo['status'])? 'hide': '' ?>">
+                            <?php if(($now < $end) && $transportInfo['status']):?>
+                            <div class="rate-btns-wrapper">
                                 <div id="rate-up"></div>
                                 <div id="rate-down" class="<?php echo ($minRate)?'disabled':''?>"></div>
                             </div>
+                            <?php endif; ?>
                             <span class="text"><?php echo $currency ?></span>
                             <input id="rate-price" value="<?php echo ceil($minRateValue) ?>" init="<?php echo $minRateValue?>" type="text" size="<?php echo $inputSize ?>" <?php echo (($now > $end) || !$transportInfo['status'])? 'disabled="hide"': '' ?>/>
                         </div>
-                        <div class="r-submit <?php echo (($now > $end) || !$transportInfo['status'])? 'hide': '' ?>"><span>Сделать ставку</span></div>
+                        <?php if(($now < $end) && $transportInfo['status']):?>
+                        <div class="r-submit"><span>Сделать ставку</span></div>
+                        <?php endif; ?>
                     </div>
                 </div>
             
@@ -150,12 +163,12 @@ if (!Yii::app()->user->isGuest) {
             <?php endif; ?>
             <?php if (Yii::app()->user->isGuest): ?>
                  <div class="width-50 timer-wrapper">
-                     <div id="t-container"></div>
+                     <div id="t-container" class="<?php echo ($showAdditionalTimer)? 'add-t' : '' ?>"></div>
                      <div id="last-rate"><span><?php echo '**** ' . $currency?></span></div>
                  </div>
             <?php elseif(!Yii::app()->user->isTransport): ?>
                 <div class="width-50 timer-wrapper">
-                     <div id="t-container"></div>
+                    <div id="t-container" class="<?php echo ($showAdditionalTimer)? 'add-t' : '' ?>"></div>
                      <div id="last-rate">
                          <span><?php echo $minRateValue . ' ' . $currency?></span>
                          <?php if($showWithNds): ?>
@@ -181,10 +194,11 @@ if (!Yii::app()->user->isGuest) {
 function getTime(){
     return "<?php echo date("Y-m-d H:i:s") ?>";
 }
+
 $(document).ready(function(){
     <?php if($transportInfo['status']): ?>
     var timer = new Timer();
-    timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>);
+    timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>, <?php echo $transportInfo['id'] ?>);
     <?php endif; ?>
     rateList.data = {
         currency : ' <?php echo $currency ?>',
@@ -206,10 +220,10 @@ $(document).ready(function(){
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>);
         
         rateList.data.socket = socket;
-        rateList.data.userId   = '<?php echo $userInfo[id] ?>';
-        rateList.data.transportId  = '<?php echo $transportInfo[id] ?>';
-        rateList.data.company   = '<?php echo $userInfo[company] ?>';
-        rateList.data.name   = '<?php echo $userInfo[name] ?>';
+        rateList.data.userId = '<?php echo $userInfo[id] ?>';
+        rateList.data.transportId = '<?php echo $transportInfo[id] ?>';
+        rateList.data.company = '<?php echo $userInfo[company] ?>';
+        rateList.data.name = '<?php echo $userInfo[name] ?>';
         rateList.data.surname = '<?php echo $userInfo[surname] ?>';
         rateList.data.dateClose = '<?php echo $transportInfo[date_close] ?>';
         rateList.data.dateCloseNew = '<?php echo $transportInfo[date_close_new] ?>';
@@ -231,9 +245,10 @@ $(document).ready(function(){
 
         <?php endif; ?> 
             rateList.init();
-        <?php endif; ?>
-        $('.point[title]').easyTooltip();
+   <?php endif; ?>
+   $('.point[title]').easyTooltip();
 });
+
 </script>
 <!-- Dialog windows -->
 <?php if (!Yii::app()->user->isGuest && Yii::app()->user->isTransport):?>

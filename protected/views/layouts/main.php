@@ -17,7 +17,6 @@
         <script src="http://localhost:3000/socket.io/socket.io.js"></script>
         <?php
             Yii::app()->clientScript->registerCoreScript('jquery');
-            Yii::app()->clientScript->registerScriptFile('/js/jquery.dotdotdot.js');
             Yii::app()->clientScript->registerScriptFile('/js/easyTooltip.js');
             Yii::app()->clientScript->registerScriptFile('/js/jquery.mCustomScrollbar.concat.min.js');
             Yii::app()->clientScript->registerScriptFile('/js/front/Timer.js');

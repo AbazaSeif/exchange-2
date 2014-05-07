@@ -1102,13 +1102,32 @@ form#contactform label {
     text-align: center;
     position: relative;
 }
-#t-container:before
+#t-container:before, #t-container.add-t:before
 {
     content: 'До закрытия заявки осталось: ';
     display: block;
     font-size: 12px;
     
 }
+
+#t-container.add-t:before
+{
+    content: 'Дополнительное время: ';
+    color: red;
+}
+
+.t-timer:before{
+    content: '';
+}
+.t-timer.add-t:before{
+    content: 'Доп-ое время: ';
+    color: red;
+    display: block;
+    font-size: 12px;
+}
+
+
+
 .shadow{
     box-shadow: 0 0 8px rgba(0,0,0,0.6);
 }
