@@ -7,13 +7,14 @@ class CronCommand extends CConsoleCommand
         $this->beforeDeadlineTransport();
         $this->newTransport();
         $this->mailKillRate();
-        $this->errorDate();
+        //$this->errorDate();
         $this->checkBlockDate();
     }
     
     public function errorDate()
     {
-        $timeNow = date("Y-m-d H:i");
+        //$timeNow = date("Y-m-d H:i");
+        $timeNow = date("Y-m-d H:i", strtotime("-1 minutes"));
         $transports = Yii::app()->db->createCommand()
             ->select('id')
             ->from('transport')
@@ -53,13 +54,14 @@ class CronCommand extends CConsoleCommand
     // Search for transport with deadline
     public function deadlineTransport()
     {
-        $timeNow = date("Y-m-d H:i");
+        //$timeNow = date("Y-m-d H:i");
+        $timeNow = date("Y-m-d H:i", strtotime("-1 minutes"));
         $transportIds = '';
 
         $transports = Yii::app()->db->createCommand()
             ->select('id')
             ->from('transport')
-            ->where('date_close like :time', array(':time' => $timeNow . '%'))
+            ->where('(date_close like :time and date_close_new IS NULL) or date_close_new like :time', array(':time' => $timeNow . '%'))
             ->queryAll()
         ;
 
@@ -79,13 +81,15 @@ class CronCommand extends CConsoleCommand
             }
 
             foreach($transports as $transport){
-                //$this->sendMailToLogist($transport['id']);
-                // send mail to logist
-                $this->sendMailToUsers($transport['id']);
-                $this->getUsers($transport['id'], 'mail_deadline', $usersMail, $usersSite, 1);
+                $model = Transport::model()->findByPk($transport['id']);
+                //if(empty($model->date_close_new)){
+                    // send mail to logist
+                    $this->sendMailToUsers($transport['id']);
+                    $this->getUsers($transport['id'], 'mail_deadline', $usersMail, $usersSite, 1);
 
-                if(!empty($transportIds)) $transportIds .= ', ';
-                $transportIds .= $transport['id'];
+                    if(!empty($transportIds)) $transportIds .= ', ';
+                    $transportIds .= $transport['id'];
+                //}
             }
 
             Transport::model()->updateAll(array('status' => 0), 'id in (' . $transportIds . ')');	

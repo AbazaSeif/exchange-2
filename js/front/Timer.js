@@ -1,8 +1,9 @@
 var Timer = function(){};
 Timer.prototype = {
-  init: function(serverDate, initDate, id, status) {
+  init: function(serverDate, initDate, id, status, transportId) {
     this.dateNow = new Date(serverDate);
     this.endDate = new Date(initDate); // дата и время от которых идет обратный отсчет
+    this.transportId = transportId;
     this.status = status;
     this.str = '#' + id;
     if ($(this.str).length > 0) {
@@ -96,12 +97,41 @@ Timer.prototype = {
               var self = this;
               setTimeout(function(){self.updateCounter();}, 1000);
           } else {
-              this.container.innerHTML = '<span class="t-closed">Перевозка закрыта</span>';
+              /*this.container.innerHTML = '<span class="t-closed">Перевозка закрыта</span>';
               if($('.r-submit').length) {
                   $('.r-submit').addClass('disabled');
                   $('.rate-wrapper').slideUp("slow");
-              }
+              }*/
+              /********************/
+              // открыть 2
+              checkForAdditionalTimer(this.transportId, this.status, this.container);
           }
        }
     }
 };
+
+function checkForAdditionalTimer(transportId, status, container)
+{
+    var id = container.getAttribute('id');
+    $.ajax({
+         type: 'POST',
+         url: '/transport/checkForAdditionalTimer',
+         dataType: 'json',
+         data:{
+             id: transportId,
+         },
+         success: function(response) {
+            if(response.end) {
+                var timer = new Timer();
+                timer.init(response.now, response.end, id, status, transportId);
+                $('#'+id).addClass('add-t');
+            } else {
+                $('#'+id).removeClass('add-t');
+                container.innerHTML = '<span class="t-closed">Перевозка закрыта</span>';
+                if($('.r-submit').length) {
+                    $('.r-submit').addClass('disabled');
+                    $('.rate-wrapper').slideUp("slow");
+                }
+            }
+    }});
+}

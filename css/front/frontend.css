@@ -997,11 +997,11 @@ form#contactform label {
     white-space: nowrap;
 }
 
-#t-error{
-    display: none;
+#error{
     color: red;
-    text-align: center;
-    padding-bottom: 5px;
+}
+#errorRate, #errorSocket{
+    min-height: 60px !important;
 }
 #event-counter{
     float: right;
@@ -1034,6 +1034,7 @@ form#contactform label {
 #addRate.ui-dialog-content.ui-widget-content{
     min-height: 10px !important;
 }
+
 /*--------Конец-Одна-перевозка-----*/
 /*--------Одно-событие-----------*/
 .o-event
@@ -1102,13 +1103,32 @@ form#contactform label {
     text-align: center;
     position: relative;
 }
-#t-container:before
+#t-container:before, #t-container.add-t:before
 {
     content: 'До закрытия заявки осталось: ';
     display: block;
     font-size: 12px;
     
 }
+
+#t-container.add-t:before
+{
+    content: 'Дополнительное время: ';
+    color: red;
+}
+
+.t-timer:before{
+    content: '';
+}
+.t-timer.add-t:before{
+    content: 'Доп-ое время: ';
+    color: red;
+    display: block;
+    font-size: 12px;
+}
+
+
+
 .shadow{
     box-shadow: 0 0 8px rgba(0,0,0,0.6);
 }
@@ -1583,7 +1603,7 @@ div.easytooltip div.tip-arrow {
 /*------- start Pop-up window ------------------------------*/
 div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-draggable
 {
-    width: 500px !important;
+    width: 400px !important;
 }
 
 .ui-widget textarea {

@@ -63,10 +63,11 @@
                                             '</div>'
                                         ;
                                         $("body").append(element);		
-		                        
-					$("#" + options.tooltipId)
+		                        var element = $("#" + options.tooltipId);
+                                        var height = $("#" + options.tooltipId).height();
+					element
 						.css("position","absolute")
-						.css("top",(e.pageY - options.yOffset - 45) + "px")
+						.css("top",(e.pageY - options.yOffset - height) + "px")
 						.css("left",(e.pageX + options.xOffset - 35) + "px")						
 						.css("display","none")
 						.fadeIn("fast")
@@ -77,8 +78,10 @@
 				$(this).attr("title",title);
 			});	
 			$(this).mousemove(function(e){
-				$("#" + options.tooltipId)
-					.css("top",(e.pageY - options.yOffset - 45) + "px")
+                                var element = $("#" + options.tooltipId);
+                                var height = element.height();
+				element
+					.css("top",(e.pageY - options.yOffset - height) + "px")
 					.css("left",(e.pageX + options.xOffset - 35) + "px")					
 			});	
 			if(options.clickRemove){
