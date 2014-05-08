@@ -8,7 +8,7 @@ function deleteFromArray(element) {
 
 io.sockets.on('connection', function (socket) {
     var fs = require("fs");
-    //var file = "d:/server/domains/data/exchange.db";
+    //var file = "d:/server/domains/data/exchange.db"; 
     var file = "/var/www/vhosts/lbr.ru/httpdocs/data/exchange.db";
     var sqlite3 = require("sqlite3").verbose();
     var db = new sqlite3.Database(file);
@@ -70,8 +70,8 @@ io.sockets.on('connection', function (socket) {
 	
     function getDateTime(inputDate) 
     {
-	    var date = new Date();
-	    if (typeof inputDate != 'undefined') date = new Date(inputDate);
+        var date = new Date();
+        if (typeof inputDate != 'undefined') date = new Date(inputDate);
         
         var hour = date.getHours();
         hour = (hour < 10 ? "0" : "") + hour;
@@ -88,31 +88,31 @@ io.sockets.on('connection', function (socket) {
         return year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
     }
 	
-	function checkForAdditionalTimer(data) 
+    function checkForAdditionalTimer(data) 
     {
-		var interval = 3; 
-		var maxInterval = 30;
-		var newClose = '';
-		
-		var transportDateClose = new Date(data.dateClose);
-		if(data.dateCloseNew) {
-		    transportDateClose = new Date(data.dateCloseNew);
-		} 
-		
-		var rateTime = new Date();
-		rateTime.setMinutes(rateTime.getMinutes() + interval);
-		//rateTime.setHours(rateTime.getHours() + 1); // !!!! убрать 
-		
-		var transportDateCloseMax = new Date(data.dateClose);
-		transportDateCloseMax.setMinutes(transportDateCloseMax.getMinutes() + maxInterval);
-		
-		if(rateTime.valueOf() >= transportDateClose.valueOf() && rateTime.valueOf() <= transportDateCloseMax.valueOf() ) {
-			transportDateClose.setMinutes(transportDateClose.getMinutes() + interval);
-			newClose = getDateTime(transportDateClose);
-			var stmt = "UPDATE transport SET date_close_new = '" + newClose + "' WHERE id = " + data.transportId;
-			db.run(stmt);
-		}
-		return newClose;
+        var interval = 3; 
+        var maxInterval = 30;
+        var newClose = '';
+
+        var transportDateClose = new Date(data.dateClose);
+        if(data.dateCloseNew) {
+            transportDateClose = new Date(data.dateCloseNew);
+        } 
+
+        var rateTime = new Date();
+        rateTime.setMinutes(rateTime.getMinutes() + interval);
+        //rateTime.setHours(rateTime.getHours() + 1); // !!!! убрать 
+
+        var transportDateCloseMax = new Date(data.dateClose);
+        transportDateCloseMax.setMinutes(transportDateCloseMax.getMinutes() + maxInterval);
+
+        if(rateTime.valueOf() >= transportDateClose.valueOf() && rateTime.valueOf() <= transportDateCloseMax.valueOf() ) {
+                transportDateClose.setMinutes(transportDateClose.getMinutes() + interval);
+                newClose = getDateTime(transportDateClose);
+                var stmt = "UPDATE transport SET date_close_new = '" + newClose + "' WHERE id = " + data.transportId;
+                db.run(stmt);
+        }
+        return newClose;
     }
     
     /* Load all rates when open transport page in the first time  */

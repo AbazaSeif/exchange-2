@@ -76,8 +76,8 @@ if(!Yii::app()->user->isGuest) {
 var troubleWithSocket = false;
 <?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>    
     try {
-        //var socket = io.connect('http://exchange.lbr.ru:3000/');
-        var socket = io.connect('http://localhost:3000/');
+        var socket = io.connect('http://exchange.lbr.ru:3000/');
+        //var socket = io.connect('http://localhost:3000/');
         
         /*socket.on('error', function () {
             $('#text').text('Произошла ошибка, требуется перезагрузка страницы');
