@@ -73,13 +73,13 @@ if(!Yii::app()->user->isGuest) {
 }
 ?>
 <script>
-<?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
-    var troubleWithSocket = false;
+var troubleWithSocket = false;
+<?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>    
     try {
         //var socket = io.connect('http://exchange.lbr.ru:3000/');
-        
         var socket = io.connect('http://localhost:3000/');
-        socket.on('error', function () {
+        
+        /*socket.on('error', function () {
             $('#text').text('Произошла ошибка, требуется перезагрузка страницы');
             $("#errorSocket").parent().removeClass('hide');
             $("#errorSocket").dialog("open");
@@ -87,7 +87,7 @@ if(!Yii::app()->user->isGuest) {
         
         $( "#errorSocket .btn" ).live('click', function() {
             location.reload();
-        });
+        });*/
     } catch(err) {
         troubleWithSocket = true;       
     }

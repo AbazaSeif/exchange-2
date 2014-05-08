@@ -134,21 +134,19 @@ if (!Yii::app()->user->isGuest) {
                         <span class="t-closed">Перевозка закрыта</span>
                         <?php endif; ?>
                     </div>
+                    <?php if(($now < $end) && $transportInfo['status']):?>
                     <div class="rate-wrapper width-60 <?php echo (!$transportInfo['status'])? 'hide': '' ?>">
                         <div class="r-block">
-                            <?php if(($now < $end) && $transportInfo['status']):?>
                             <div class="rate-btns-wrapper">
                                 <div id="rate-up"></div>
                                 <div id="rate-down" class="<?php echo ($minRate)?'disabled':''?>"></div>
                             </div>
-                            <?php endif; ?>
                             <span class="text"><?php echo $currency ?></span>
                             <input id="rate-price" value="<?php echo ceil($minRateValue) ?>" init="<?php echo $maxRateValue?>" type="text" size="<?php echo $inputSize ?>" <?php echo (($now > $end) || !$transportInfo['status'])? 'disabled="hide"': '' ?>/>
                         </div>
-                        <?php if(($now < $end) && $transportInfo['status']):?>
                         <div class="r-submit"><span>Сделать ставку</span></div>
-                        <?php endif; ?>
                     </div>
+                    <?php endif; ?>
                 </div>
             
             <?php if (!Yii::app()->user->isGuest): ?>

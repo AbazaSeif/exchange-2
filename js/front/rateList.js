@@ -4,6 +4,8 @@ var rateList = {
         var element = $( "#rate-price" );
         if(typeof(rateList.data.socket) !== 'undefined') {
             rateList.data.socket.on('setRate', function (data) {
+                if(data.dateCloseNew)rateList.data.dateCloseNew = data.dateCloseNew;
+                
                 var initPrice = parseInt($('#rate-price').attr('init'));
                 if (data.transportId == rateList.data.transportId) {
                     var price = data.price;

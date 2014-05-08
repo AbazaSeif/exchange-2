@@ -91,7 +91,6 @@
             $('#u-search').blur(function(){
                 $('.quick-result').fadeOut(200);
             })
-            $('.quick-result').fadeIn(200);
             var ajax = new AjaxQuickSearch(0);
         });
     });

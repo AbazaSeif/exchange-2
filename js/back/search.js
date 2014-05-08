@@ -15,6 +15,7 @@ function AjaxQuickSearch(userType){
                 $('.quick-result').removeClass('hide');
                 //$('.quick-result').fadeIn(200);
             }*/
+            $('.quick-result').fadeIn(200);
             _self.AjaxRequest($(this).val());
         } else {
             $('.quick-result').fadeOut(200);
