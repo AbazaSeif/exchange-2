@@ -7,7 +7,7 @@ class CronCommand extends CConsoleCommand
         $this->beforeDeadlineTransport();
         $this->newTransport();
         $this->mailKillRate();
-        //$this->errorDate();
+        $this->errorDate();
         $this->checkBlockDate();
     }
     

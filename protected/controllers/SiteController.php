@@ -913,4 +913,25 @@ class SiteController extends Controller
                 $this->render('error', $error);
         }
     }
+    
+    public function actionTestTimer()
+    {
+            $model = new Transport;
+            $model->status = 1;
+            $model->type = 0;
+            $model->start_rate = 2000;
+            $model->currency = 0;
+            $model->location_from = 'test';
+            $model->location_to = 'test';
+            $model->description = 'Не является реальной перевозкой!!!!';
+            $model->date_close = date('Y-m-d H:i:s', strtotime("+5 minutes"));
+            $model->date_from = date('Y-m-d', strtotime("+" . 3*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
+            $model->date_to = date('Y-m-d', strtotime("+" . 4*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
+          
+            $model->new_transport = 0;
+            $model->user_id = Yii::app()->user->_id;
+            $model->date_published = date('Y-m-d H:i:s');
+            if($model->save()) echo 'ok';
+            else echo 'error';
+    }
 }
