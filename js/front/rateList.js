@@ -91,7 +91,7 @@ var rateList = {
             });
 
             $('#setRateBtn').live('click', function() {
-                if(!troubleWithSocket) {
+                //if(!troubleWithSocket) {
                     $('#addRate').dialog('close');
 
                     if(rateList.data.defaultRate) $('#rates').html('');
@@ -114,7 +114,7 @@ var rateList = {
                         company: rateList.data.company,
                         price : price,
                     }); 
-                }
+                //}
             });
 
             $('#rate-price').blur(function() {

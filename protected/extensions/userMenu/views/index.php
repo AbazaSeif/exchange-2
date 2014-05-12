@@ -73,10 +73,13 @@ if(!Yii::app()->user->isGuest) {
 }
 ?>
 <script>
-var troubleWithSocket = false;
-<?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>    
-    try {
-        var socket = io.connect('http://exchange.lbr.ru:3000/');
+//var troubleWithSocket = false;
+//var socket = io.connect('http://exchange.lbr.ru:3000/');
+//var socket = io.connect('http://localhost:3000/');
+
+<?php //if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>    
+//    try {
+  //      var socket = io.connect('http://exchange.lbr.ru:3000/');
         //var socket = io.connect('http://localhost:3000/');
         
         /*socket.on('error', function () {
@@ -88,19 +91,22 @@ var troubleWithSocket = false;
         $( "#errorSocket .btn" ).live('click', function() {
             location.reload();
         });*/
-    } catch(err) {
-        troubleWithSocket = true;       
-    }
-<?php endif; ?>
+    //} catch(err) {
+      //  troubleWithSocket = true;       
+    //}
+<?php //endif; ?>
     
 $(document).ready(function(){
-    if(troubleWithSocket) {
+    /*if(troubleWithSocket) {
         var element = $( ".transport-one" );
         element.wrapInner( "<div class='hide' />" );
         element.append( '<div id="error">Обратитесь пожалуйста к администратору сайта - требуется перезагрузить сервер node.js<div/>' );
-    }
+    }*/
     <?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
     var userId = <?php echo $user->id ?>;
+    var socket = io.connect('http://exchange.lbr.ru:3000/');
+    //var socket = io.connect('http://localhost:3000/');
+    
     <?php if(Yii::app()->user->isContactUser): ?>
         socket.emit('init', userId, <?php echo Yii::app()->params['minNotify'] ?>, 1);
     <?php else: ?>
