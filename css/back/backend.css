@@ -746,18 +746,6 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     padding-top: 5px;
     padding-right: 6px;
 }
-/*.sorter ul li:nth-child(1), .sorter ul li:nth-child(2)  {
-    width: 10%;
-    text-align: left;
-}
-.sorter ul li:nth-child(2){
-    width: 15%;
-}
-
-.sorter ul li:nth-child(1) a {
-    padding-left: 20px;
-}
-*/
 
 #tabs .sorter ul li:nth-child(3){
     margin-right: 20px !important;
@@ -767,6 +755,13 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     width: 48%;
 }
 
+#user-wrapper.changes ul li:nth-child(1){
+    width: 16%;
+}
+
+#user-wrapper.changes ul li:nth-child(2){
+    width: 15%;
+}
 #user-wrapper ul li:nth-child(2){
     width: 19%;
 }
@@ -779,7 +774,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 #contact-wrapper ul li:nth-child(2){
     width: 15%;
 }
-#tabs .sorter ul li, #user-wrapper .sorter ul li, #contact-wrapper .sorter ul li{
+#tabs .sorter ul li, #user-wrapper .sorter ul li, #contact-wrapper .sorter ul li {
     color: #555555;
     display: block;
     font-weight: bold;
@@ -1377,3 +1372,9 @@ div.form span.required {
     line-height: 33px;
     border-bottom: 1px solid rgb(65, 131, 196);
 }
+
+/*----- Pagination ------------------------*/
+ul.yiiPager .first, ul.yiiPager .last {
+    display: inline !important;
+}
+/*----- end Pagination ------------------------*/

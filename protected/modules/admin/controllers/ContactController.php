@@ -36,7 +36,7 @@ class ContactController extends Controller
                 'criteria'=>$criteria,
                 'sort'=>$sort,
                 'pagination' => array ( 
-                    'pageSize' => 10, 
+                    'pageSize' => 8, 
                 ) 
             ));
             
