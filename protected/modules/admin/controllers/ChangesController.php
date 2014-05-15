@@ -10,11 +10,11 @@ class ChangesController extends Controller
             
             if(User::prepareSqlite()) {
                 if(!empty($input)) {
-                    $criteria->condition = 'lower(name) like lower(:input) or lower(surname) like lower(:input) or lower(secondname) like lower(:input) or lower(email) like lower("%'.$query.'%")';
+                    $criteria->condition = 'lower(name) like lower(:input) or lower(surname) like lower(:input) or lower(secondname) like lower(:input) or lower(email) like lower(:input)';
                     $criteria->params = array(':input' => '%' . $input . '%');
                 }
-            }
-            
+            }           
+
             $sort = new CSort();
             $sort->sortVar = 'sort';
             $sort->defaultOrder = 'surname ASC';
@@ -38,12 +38,48 @@ class ChangesController extends Controller
                     'default' => 'asc',
                 )
             );
+            
             $dataProvider = new CActiveDataProvider('AuthUser', 
                 array(
                     'criteria'=>$criteria,
                     'sort'=>$sort,
                     'pagination'=>array(
-                        'pageSize'=>'10'
+                        'pageSize'=>'8'
+                    )
+                )
+            );
+            $this->render('changes', array('data'=>$dataProvider, 'input'=>$input));
+        } else {
+            throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
+        }
+    }
+    
+    public function actionDateOrder()
+    {
+        if(Yii::app()->user->checkAccess('readChanges'))
+        {
+            $criteria = new CDbCriteria();
+            $criteria->distinct = true;
+            $criteria->group='user_id';
+            $criteria->select = '*, max(date) as last_edit';
+           
+            $sort = new CSort();
+            $sort->sortVar = 'sort';
+            $sort->defaultOrder = 'last_edit DESC';
+            $sort->attributes = array(
+                'last_edit' => array(
+                    'asc' => 'last_edit ASC',
+                    'desc' => 'last_edit DESC',
+                    'default' => 'asc',
+                )
+            );
+            
+            $dataProvider = new CActiveDataProvider('Changes', 
+                array(
+                    'criteria'=>$criteria,
+                    'sort'=>$sort,
+                    'pagination'=>array(
+                        'pageSize'=>'8'
                     )
                 )
             );
@@ -70,7 +106,7 @@ class ChangesController extends Controller
                     )
                 )
             );
-            $this->render('editchanges', array('data'=>$dataProvider), false, true);
+            $this->render('editchanges', array('data'=>$dataProvider, 'id'=>$id), false, true);
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
@@ -82,13 +118,13 @@ class ChangesController extends Controller
         $result = array();
         if(User::prepareSqlite()) {
             if (!empty($query)){
-                $dependency = new CDbCacheDependency('SELECT MAX(created) FROM user');
-                $result = Yii::app()->db_auth->cache(1000, $dependency)->createCommand()
+                $result = Yii::app()->db_auth->createCommand()
                     ->select('id, name, secondname, surname, email')
                     ->from('user')
                     ->where('lower(name) like lower("%'.$query.'%") or lower(surname) like lower("%'.$query.'%") or lower(secondname) like lower("%'.$query.'%") or lower(email) like lower("%'.$query.'%")')
                     ->limit(7)
-                    ->queryAll();
+                    ->queryAll()
+                ;
             }
         }
         $this->renderPartial('application.modules.admin.views.default.quickAjaxResult', array('data' =>$result, 'changesFlag' => true));

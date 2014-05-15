@@ -34,12 +34,13 @@
                     'itemsTagName'=>'ul',
                     'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'num_rates'=>'Кол-во ставок', 'num_users'=>'Кол-во фирм', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка'),
                     'pager'=>array(
-                        'class'=>'CLinkPager',
+                        'class'=>'LinkPager',
                         'header'=>false,
                         'prevPageLabel'=>'<',
                         'nextPageLabel'=>'>',
-                        'lastPageLabel'=>'>>',
-                        'firstPageLabel'=>'<<'
+                        'lastPageLabel'=>'В конец >>',
+                        'firstPageLabel'=>'<< В начало',
+                        'maxButtonCount' => '5'
                     ),
                 ));
             ?>
@@ -56,12 +57,13 @@
             'itemsTagName'=>'ul',
             'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'num_rates'=>'Кол-во ставок', 'num_users'=>'Кол-во фирм', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка'),
             'pager'=>array(
-                'class'=>'CLinkPager',
+                'class'=>'LinkPager',
                 'header'=>false,
                 'prevPageLabel'=>'<',
                 'nextPageLabel'=>'>',
-                'lastPageLabel'=>'>>',
-                'firstPageLabel'=>'<<'
+                'lastPageLabel'=>'В конец >>',
+                'firstPageLabel'=>'<< В начало',
+                'maxButtonCount' => '5'
             ),
         ));
         ?>

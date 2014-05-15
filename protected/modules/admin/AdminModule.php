@@ -28,6 +28,7 @@ class AdminModule extends CWebModule
             Yii::app()->clientScript->registerScriptFile('/js/back/EditTransport.js');
             Yii::app()->clientScript->registerScriptFile('/js/back/editStatus.js');
             Yii::app()->clientScript->registerScriptFile('/js/back/search.js');
+            Yii::app()->clientScript->registerScriptFile('/js/back/backend.js');
 
             if(Yii::app()->user->isGuest){
                 Yii::app()->user->returnUrl = Yii::app()->request->requestUri;

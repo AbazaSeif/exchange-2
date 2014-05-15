@@ -2,20 +2,15 @@
 <div class="create-user">
     <?php
         $dropDownStatus = array(
-            0 => 'Показать все',
+            0 => 'По имени, фамилии, отчеству',
             1 => 'По дате редактирования',
         );        
         echo CHtml::dropDownList('type-status', $type, $dropDownStatus);     
-        //echo CHtml::label('Сортировать по', 'type-status');
+        echo CHtml::label('Сортировать', 'type-status');
     ?>
 </div>
 <div style="clear: both"></div>
 <div class="right">
-    <?php
-       /* if ($mess = Yii::app()->user->getFlash('message')){
-            echo '<div class="trDelMessage success">'.$mess.'</div>';
-        }*/
-    ?>
     <div id="user-wrapper" class="changes">
         <div class="u-header">
             <div class="query-field">
@@ -39,6 +34,7 @@
                     'surname'=>'Фамилия',
                     'name'=>'Имя',
                     'secondname'=>'Отчество',
+                    'last_edit'=>'Последнее редактирование'
                 ),
                 'pager'=>array(
                     'class'=>'LinkPager',
@@ -55,7 +51,16 @@
 </div>
 <script>
     $(function() {
+        var showChanges = parseInt(sessionStorage.getItem('showChanges'));
+        if(!isNaN(showChanges)) $('#type-status').val(showChanges);
+        
+        <?php if (!empty($input)):?>
+            $('#u-search').val('<?php echo $input?>'); 
+        <?php endif; ?>
+                
         $('.btn-admin.btn-search').click(function(){
+            $("#type-status").val(0);
+            sessionStorage.setItem('showChanges', 0);
             var path = '';
             var input = $('#u-search').val();
 
@@ -63,6 +68,12 @@
             document.location.href = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/changes/index" + path;
         });
     
+        $('#type-status').on('change', function() {
+            sessionStorage.setItem('showChanges', this.value);
+            var path = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/changes/index/";
+            if(this.value == 1) path = "<?php echo Yii::app()->getBaseUrl(true) ?>/admin/changes/dateOrder/";
+            document.location.href = path;
+        });
         /**** Quick results ******************************************/
         $('#u-search').focus(function(){
             $('#u-search').blur(function(){

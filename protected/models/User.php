@@ -113,7 +113,7 @@ class User extends CActiveRecord
                 'type_contact' => 'Тип',
                 'email'  => 'Email',
                 'reason' => 'Причина',
-                'block_date' => 'Причина',
+                'block_date' => 'Блокировать до',
                 'created' => 'Дата создания',
             );
 	}

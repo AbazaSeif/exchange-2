@@ -12,7 +12,7 @@ p{
     margin: 1em 0;
 }
 h1, h2, h3, h4, h5, h6{
-    margin: .5em 0 .8em;
+    margin: .5em 0 .4em;
     color: #00917C;
 }
 input, textarea{
@@ -185,7 +185,7 @@ input.btn-admin{
 }
 /* начало кнопки */
 
-form .buttons > *{
+form .buttons > *, #close-changes{
     margin: 0;
     border-radius: 0;
     float: right;
@@ -762,6 +762,12 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 #user-wrapper.changes ul li:nth-child(2){
     width: 15%;
 }
+#user-wrapper.changes ul li:nth-child(3){
+    width: 15%;
+}
+#user-wrapper.changes ul li:nth-child(4){
+    width: 15%;
+}
 #user-wrapper ul li:nth-child(2){
     width: 19%;
 }
@@ -874,7 +880,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     display: block;
 }
 
-.transport .t-header, .a-user .t-header, .c-user .t-header {
+.transport .t-header, .a-user .t-header, .c-user .t-header, .a-user .t-header-name, .a-user .t-header-surname, .a-user .t-header-secondname {
     color: #00917C;
     display: block;
     /*font-size: 18px;*/
@@ -1251,6 +1257,7 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
     border: 1px solid #CCCCCC;
     width: 100%;
 }
+
 .items tr td:first-child {
     width: 20%;
 }
