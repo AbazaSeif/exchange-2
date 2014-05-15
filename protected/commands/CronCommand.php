@@ -42,11 +42,13 @@ class CronCommand extends CConsoleCommand
             foreach($users as $user) {
                 $changes = array('status'=>'1');
                 $model = User::model()->findByPk($user['id']);
+                $message = 'Cron активировал статус для "'.$model->company.'" (блокировка была до '.$model->block_date.')';
                 $model->status = 1;
                 $model->block_date = null;
                 $model->reason = null;
                 $model->save();
                 User::sendAboutChangeStatus($model, $changes);
+                Yii::log($message, 'info');
             }
         }
     }

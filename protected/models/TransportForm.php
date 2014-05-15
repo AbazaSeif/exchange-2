@@ -18,6 +18,7 @@ class TransportForm extends CFormModel
     public $auto_info;
     public $description;
     public $date_close;
+    public $date_close_new;
     public $date_from;
     public $date_to;
     public $date_to_customs_clearance_RF;
@@ -30,6 +31,7 @@ class TransportForm extends CFormModel
             array('start_rate', 'numerical', 'integerOnly'=>true, 'min'=>0, 'message'=>'Поле "{attribute}" должно содержать число', 'tooSmall'=>'Значение поля "{attribute}" не может быть меньше нуля !'),
             array('new_transport, rate_id, start_rate, status, type, currency', 'numerical', 'integerOnly'=>true),
             array('t_id, user_id', 'length', 'max'=>64),
+            array('id, date_close_new, t_id, location_from, new_transport, rate_id, start_rate, status, type, user_id, currency, customs_clearance_RF, customs_clearance_EU, location_to, auto_info, description, date_to_customs_clearance_RF, date_close, date_from, date_to, date_published', 'safe')
             //array('location_from, location_to, auto_info, description, date_close, date_from, date_to, date_published', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -54,6 +56,7 @@ class TransportForm extends CFormModel
             'auto_info' => 'Транспорт',
             'description' => 'Описание',
             'date_close' => 'Время закрытия заявки',
+            'date_close_new' => 'Время закрытия заявки',
             'date_from' => 'Дата загрузки',
             'date_to' => 'Дата разгрузки',
             'date_to_customs_clearance_RF' => 'Дата доставки в пункт таможенной очистки в РФ',
