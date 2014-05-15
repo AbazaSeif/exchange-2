@@ -785,7 +785,7 @@ class SiteController extends Controller
         $model->attributes = $_POST['QuickForm'];
         if($model->validate()) {
             $user = User::model()->findByPk($model->user);
-            $transport = User::model()->findByPk($model->transport);
+            $transport = Transport::model()->findByPk($model->transport);
             $transportName = '"'.$transport->location_from.'-'.$transport->location_to.'"';
             $email = new TEmail2;
             $email->from_email = $user->email;
