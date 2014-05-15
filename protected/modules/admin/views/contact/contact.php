@@ -30,17 +30,19 @@
                 'itemView'=>'_item', // представление для одной записи
                 'ajaxUpdate'=>false, // отключаем ajax поведение
                 'emptyText'=>'Нет пользователей',
-                'template'=>'{sorter} {items} {pager}',
+                'template'=>'{summary} {sorter} {items} {pager}',
+                'summaryText'=>'Показано {start}-{end} из {count}',
                 'sorterHeader'=>'',
                 'itemsTagName'=>'ul',
                 'sortableAttributes'=>array('company', 'status', 'email'),
                 'pager'=>array(
-                    'class'=>'CLinkPager',
+                    'class'=>'LinkPager',
                     'header'=>false,
                     'prevPageLabel'=>'<',
                     'nextPageLabel'=>'>',
-                    'lastPageLabel'=>'>>',
-                    'firstPageLabel'=>'<<'
+                    'lastPageLabel'=>'В конец >>',
+                    'firstPageLabel'=>'<< В начало',
+                    'maxButtonCount' => '5'
                 ),
             ));
             ?>

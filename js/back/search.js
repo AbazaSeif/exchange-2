@@ -8,7 +8,8 @@ function AjaxQuickSearch(userType){
     }
     
     if(userType == 0) this.Option.url = '/admin/user/search/';
-    else this.Option.url = '/admin/contact/search/';
+    else if(userType == 1) this.Option.url = '/admin/contact/search/';
+    else this.Option.url = '/admin/changes/search/';
     $(_self.Option.input).keyup(function(){
         if($.trim($(this).val())) {
             /*if($('.quick-result').hasClass('hide')) {

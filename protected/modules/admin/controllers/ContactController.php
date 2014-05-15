@@ -36,7 +36,7 @@ class ContactController extends Controller
                 'criteria'=>$criteria,
                 'sort'=>$sort,
                 'pagination' => array ( 
-                    'pageSize' => 10, 
+                    'pageSize' => 8, 
                 ) 
             ));
             
@@ -78,7 +78,7 @@ class ContactController extends Controller
                         $newFerrymanFields->show_regl = true;
                         $newFerrymanFields->save();
 
-                        $message = 'Создан контакт ' . $model->name . ' ' . $model->surname;
+                        $message = 'Создан контакт: '.$model->company.' (id ='.$model->id.')';
                         Changes::saveChange($message);
 
                         Yii::app()->user->setFlash('saved_id', $model->id);
@@ -139,9 +139,15 @@ class ContactController extends Controller
                 } else $warringMessage = 'Поле "Причина" не может быть пустым.';
                 
                 if($flag) {
+                    if($_POST['UserContactForm']['status'] == User::USER_NOT_CONFIRMED || $_POST['UserContactForm']['status'] == User::USER_ACTIVE){
+                        $_POST['UserContactForm']['reason'] = null;
+                    }
+                    if($_POST['UserContactForm']['status'] != User::USER_TEMPORARY_BLOCKED)
+                        $_POST['UserContactForm']['block_date'] = null;
+                    
                     foreach ($_POST['UserContactForm'] as $key => $value) {
                         if ($key == 'block_date') {
-                            $value = date('Y-m-d', strtotime($value));
+                            if(!empty($value)) $value = date('Y-m-d', strtotime($value));
                         }
                         
                         if (trim($model[$key]) != trim($value) && $key != 'password' && $key != 'password_confirm') {
@@ -162,14 +168,16 @@ class ContactController extends Controller
                         $model->password = crypt($_POST['UserContactForm']['password_confirm'], User::model()->blowfishSalt());
                     }
                     if (!empty($changes)) {
-                        $message = 'У контактного лица с id = ' . $id . ' были изменены слудующие поля: ';
+                        $message = 'У контактного лица '.$model->company.' (id=' . $id . ') были изменены слудующие поля: ';
                         $k = 0;
                         foreach ($changes as $key => $value) {
                             $k++;
                             if($key == 'password'){
-                                $message .= $k . ') ' . $changes[$key];    
-                            }else {
-                                $message .= $k . ') Поле ' . $key . ' c ' . $changes[$key]['before'] . ' на ' . $changes[$key]['after'] . '; ';
+                                $message .= $k . ') ' . $model->getAttributeLabel($key);    
+                            } else if($key == 'status'){
+                                $message .= $k . ') Поле "' . $model->getAttributeLabel($key) . '" c "' . User::statusLabel($changes[$key]['before']) . '" на "' . User::statusLabel($changes[$key]['after']) . '"; ';
+                            } else {
+                                $message .= $k . ') Поле "' . $model->getAttributeLabel($key) . '" c "' . $changes[$key]['before'] . '" на "' . $changes[$key]['after'] . '"; ';
                             }
 
                             if($key == 'email') {

@@ -785,7 +785,8 @@ class SiteController extends Controller
         $model->attributes = $_POST['QuickForm'];
         if($model->validate()) {
             $user = User::model()->findByPk($model->user);
-
+            $transport = User::model()->findByPk($model->transport);
+            $transportName = '"'.$transport->location_from.'-'.$transport->location_to.'"';
             $email = new TEmail2;
             $email->from_email = $user->email;
             $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
@@ -858,7 +859,7 @@ class SiteController extends Controller
                                                                                         '<br/>ИНН: ' . $user->inn . 
                                                                                     '</span> 
                                                                                     <br/>
-                                                                                    обратился к модератору биржи перевозок со следующим сообщением:
+                                                                                    обратился к модератору биржи перевозок (из перевозки '.$transportName.') со следующим сообщением:
                                                                                 </td>
                                                                             </tr>
                                                                         </table>

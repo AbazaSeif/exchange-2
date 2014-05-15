@@ -37,7 +37,7 @@ class UserController extends Controller
                 'criteria'=>$criteria,
                 'sort'=>$sort,
                 'pagination' => array ( 
-                    'pageSize' => 10, 
+                    'pageSize' => 8, 
                 ) 
             ));
             
@@ -76,7 +76,7 @@ class UserController extends Controller
                     $model->type_contact = 0;
                     
                     if($model->save()) {
-                        $message = 'Создан пользователь ' . $model->name . ' ' . $model->surname;
+                        $message = 'Создан пользователь '.$model->company.' (id='.$model->id.')';
                         Changes::saveChange($message);
 
                         $newFerrymanFields = new UserField;
@@ -167,7 +167,7 @@ class UserController extends Controller
 
                     foreach ($_POST['UserForm'] as $key => $value) {
                         if ($key == 'block_date') {
-                            $value = date('Y-m-d', strtotime($value));
+                            if(!empty($value))$value = date('Y-m-d', strtotime($value));
                         }
                         if (trim($model[$key]) != trim($value) && $key != 'password' && $key != 'password_confirm') {
                             $changes[$key]['before'] = $model[$key];
@@ -197,14 +197,16 @@ class UserController extends Controller
                     }
 
                     if (!empty($changes)) {
-                        $message = 'У пользователя с id = ' . $id . ' были изменены слудующие поля: ';
+                        $message = 'У пользователя '.$model->company.' (id='.$id.') были изменены слудующие поля: ';
                         $k = 0;
                         foreach ($changes as $key => $value) {
                             $k++;
                             if($key == 'password'){
-                                $message .= $k . ') ' . $changes[$key];    
+                                $message .= $k . ') ' . $model->getAttributeLabel($key);    
+                            } else if($key == 'status'){
+                                $message .= $k . ') Поле "' . $model->getAttributeLabel($key) . '" c "' . User::statusLabel($changes[$key]['before']) . '" на "' . User::statusLabel($changes[$key]['after']) . '"; ';
                             } else {
-                                $message .= $k . ') Поле ' . $key . ' c "' . $changes[$key]['before'] . '" на "' . $changes[$key]['after'] . '"; ';
+                                $message .= $k . ') Поле "' . $model->getAttributeLabel($key) . '" c "' . $changes[$key]['before'] . '" на "' . $changes[$key]['after'] . '"; ';
                             }
 
                             if($key == 'inn' || $key == 'email') {
@@ -282,28 +284,65 @@ class UserController extends Controller
         $status = $_POST['status'];
         $reason = $_POST['reason'];
         $date = $_POST['date'];
-        $message = '';
+        $message = $messageAboutChanges = '';
+        $changes = array();
 
         if(isset($status)) { // update data
             if($status == User::USER_TEMPORARY_BLOCKED && !empty($date) && strtotime($date) <= strtotime(date('d-m-Y'))) {
                 $message = 'date'; //error in date
             } else {
-                $changes = array('status'=>'1');
                 $user = User::model()->findByPk($id);
-                $user->status = $status;
-                User::sendAboutChangeStatus($user, $changes);
+                if($user->status != $status){
+                    $changes['status']['before'] = User::statusLabel($user->status);
+                    $changes['status']['after'] = User::statusLabel($status);
+                    $user->status = $status;
+                }
                 
                 if($user->status == User::USER_NOT_CONFIRMED || $user->status == User::USER_ACTIVE){
-                    $user->reason = null;
-                    $user->block_date = null;
+                    if(!empty($user->reason)){
+                        $changes['reason']['before'] = $user->reason;
+                        $changes['reason']['after'] = '';
+                        $user->reason = null;
+                    }
+                    if(!empty($user->block_date)){
+                        $changes['block_date']['before'] = $user->block_date;
+                        $changes['block_date']['after'] = '';
+                        $user->block_date = null;
+                    }
                     $message = User::statusLabel($status);
                 } else {
-                    $user->reason = $reason;
+                    if($user->reason != $reason) {
+                        $changes['reason']['before'] = $user->reason;
+                        $changes['reason']['after'] = $reason;
+                        $user->reason = $reason;
+                    }
+                    if($user->status == User::USER_TEMPORARY_BLOCKED) {
+                        if(date("Y-m-d", strtotime($date)) != date("Y-m-d", strtotime($user->block_date))){
+                            $changes['block_date']['before'] = $user->block_date;
+                            $user->block_date = date("Y-m-d", strtotime($date));
+                            $changes['block_date']['after'] = $user->block_date;
+                        }
+                    } else {
+                        if(!empty($user->block_date)){
+                            $changes['block_date']['before'] = $user->block_date;
+                            $changes['block_date']['after'] = '';
+                        }
+                        $user->block_date = null;
+                    }
                     $message = User::statusLabel($status);
-                    if($user->status == User::USER_TEMPORARY_BLOCKED) $user->block_date = date("Y-m-d", strtotime($date));
-                    else $user->block_date = null;
                 }
                 $user->save();
+                User::sendAboutChangeStatus($user, $changes);
+                /* Save in history */
+                if(!empty($changes)){
+                    $messageAboutChanges = 'У пользователя '.$user->company.' (id='.$id.') были изменены следующеие поля: ';
+                    $k = 0;
+                    foreach ($changes as $key => $value) {
+                        $k++;
+                        $messageAboutChanges .= $k . ') Поле "' . $user->getAttributeLabel($key) . '" c "' . $changes[$key]['before'] . '" на "' . $changes[$key]['after'] . '"; ';
+                    }
+                    Changes::saveChange($messageAboutChanges);
+                }
             }
         } else { // view data
             $user = User::model()->findByPk($id);

@@ -113,7 +113,7 @@ class User extends CActiveRecord
                 'type_contact' => 'Тип',
                 'email'  => 'Email',
                 'reason' => 'Причина',
-                'block_date' => 'Причина',
+                'block_date' => 'Блокировать до',
                 'created' => 'Дата создания',
             );
 	}
@@ -393,6 +393,7 @@ class User extends CActiveRecord
                 return mb_strtolower(strip_tags($return), "UTF-8");
             }
             Yii::app()->db->getPdoInstance()->sqliteCreateFunction('lower', 'lower', 1);
+            Yii::app()->db_auth->getPdoInstance()->sqliteCreateFunction('lower', 'lower', 1);
             return true;
         }
 }
