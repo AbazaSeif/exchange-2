@@ -204,9 +204,10 @@ class TransportController extends Controller
                 }
                 
                 foreach($_POST['TransportForm'] as $key=>$value) {
-                    if($key == 'description') {
+                    /*if($key == 'description') {
                         $value = $this->formatDescription($value);
-                    } else if($key == 'date_from' || $key == 'date_to' || $key == 'date_close') {
+                    } else*/ 
+                    if($key == 'date_from' || $key == 'date_to' || $key == 'date_close') {
                         $value = date('Y-m-d H:i:s', strtotime($value));
                     } else if($form->type == 0){
                         if($key == 'customs_clearance_EU' && trim($customs_clearance_EU->point) != trim($_POST['TransportForm']['customs_clearance_EU'])) {
@@ -238,7 +239,7 @@ class TransportController extends Controller
                 $model->date_close = date('Y-m-d H:i:s', strtotime($model->date_close));
                 
                 if(!empty($changes)) {
-                    $message = 'В перевозке "'.$model->location_from.' - '.$model->location_to.'" (id = '.$id.') были изменены слудующие поля: ';
+                    $message = 'В перевозке "'.$model->location_from.' - '.$model->location_to.'" (id='.$id.') были изменены слудующие поля: ';
                     $k = 0;
                     foreach($changes as $key => $value){
                         $k++;
@@ -247,7 +248,7 @@ class TransportController extends Controller
                             $changes[$key]['after']  = Transport::$currencyGroup[$changes[$key]['after']];
                         }
                         
-                        $message .= $k . ') Поле '. $key . ' c "' . $changes[$key]['before'] . '" на "' . $changes[$key]['after'] . '"; ';
+                        $message .= $k . ') Поле "'. $model->getAttributeLabel($key) . '" c "' . $changes[$key]['before'] . '" на "' . $changes[$key]['after'] . '"; ';
                     }
                     
                     Changes::saveChange($message);

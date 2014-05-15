@@ -76,7 +76,7 @@ class UserController extends Controller
                     $model->type_contact = 0;
                     
                     if($model->save()) {
-                        $message = 'Создан пользователь ' . $model->name . ' ' . $model->surname;
+                        $message = 'Создан пользователь '.$model->company.' (id='.$model->id.')';
                         Changes::saveChange($message);
 
                         $newFerrymanFields = new UserField;
@@ -202,7 +202,7 @@ class UserController extends Controller
                         foreach ($changes as $key => $value) {
                             $k++;
                             if($key == 'password'){
-                                $message .= $k . ') ' . $changes[$key];    
+                                $message .= $k . ') ' . $model->getAttributeLabel($key);    
                             } else if($key == 'status'){
                                 $message .= $k . ') Поле "' . $model->getAttributeLabel($key) . '" c "' . User::statusLabel($changes[$key]['before']) . '" на "' . User::statusLabel($changes[$key]['after']) . '"; ';
                             } else {
