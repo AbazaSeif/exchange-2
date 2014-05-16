@@ -368,7 +368,7 @@ class TransportController extends Controller
         $newModel->date_from = date('d-m-Y', strtotime("+" . 3*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
         $newModel->date_to = date('d-m-Y', strtotime("+" . 4*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
         
-        $newModel->date_close_new = null;
+        //$newModel->date_close_new = null;
         $newModel->id = null;
         $newModel->rate_id = null;
         

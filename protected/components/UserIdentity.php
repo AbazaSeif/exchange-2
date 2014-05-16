@@ -34,7 +34,7 @@ class UserIdentity extends CUserIdentity
             $this->setState('_id', $record->id);
             $this->setState('transport', $status);
         }
-        // if it's contact user, chack parent's block-status
+        // if it's contact user, check parent's block-status
         if($status == 2) {
             $parent = User::model()->findByPk($record->parent);
             if($parent->status == User::USER_BLOCKED || $parent->status == User::USER_TEMPORARY_BLOCKED) {
