@@ -338,10 +338,7 @@ $(document).ready(function(){
     ?>
 </div>
 <?php endif; ?>
-<?php else: ?>
-<script>
-    document.location.href = '<?php echo Yii::app()->getBaseUrl(true) ?>/';
-</script>
+<?php else: $this->redirect('/'); ?>
 <?php endif; ?>
 </div>
 
