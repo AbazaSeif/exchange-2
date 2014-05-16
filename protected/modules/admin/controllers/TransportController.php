@@ -372,15 +372,17 @@ class TransportController extends Controller
         $newModel->id = null;
         $newModel->rate_id = null;
         
-        if($model->type == 1)  $newModel->date_to = $model->date_to;
-        else{
+        //if($model->type == 1)  $newModel->date_to = $model->date_to;
+        if($model->type == 0){
             $customs_clearance_EU = TransportInterPoint::model()->find(array('order'=>'sort', 'condition'=>'t_id = ' . $id, 'limit'=>1));
             $newModel->customs_clearance_EU = $customs_clearance_EU->point;
 
             $customs_clearance_RF = TransportInterPoint::model()->find(array('order'=>'sort desc', 'condition'=>'t_id = ' . $id, 'limit'=>1)); 
             $newModel->customs_clearance_RF = $customs_clearance_RF->point;
-            $newModel->date_to_customs_clearance_RF = date('d-m-Y H:i', strtotime($customs_clearance_RF->date));
-            $newModel->date_to = date('d-m-Y H:i', strtotime($customs_clearance_RF->date));
+            $newModel->date_to_customs_clearance_RF = $newModel->date_to; 
+            
+            //date('d-m-Y H:i', strtotime($customs_clearance_RF->date));
+            //$newModel->date_to = date('d-m-Y H:i', strtotime($customs_clearance_RF->date));
         }
         
         $this->render('edittransport', array('model'=>$newModel), false, true);
