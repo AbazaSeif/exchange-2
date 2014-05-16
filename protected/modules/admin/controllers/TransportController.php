@@ -364,6 +364,9 @@ class TransportController extends Controller
         $newModel->location_from = 'Копия ' . $newModel->location_from;
         $newModel->status = 1;
         $newModel->new_transport = 1;
+        $newModel->date_close = date('d-m-Y', strtotime("+" . 2*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
+        $newModel->date_from = date('d-m-Y', strtotime("+" . 3*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
+        $newModel->date_to = date('d-m-Y', strtotime("+" . 4*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
         
         $newModel->date_close_new = null;
         $newModel->id = null;
