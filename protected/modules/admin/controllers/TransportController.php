@@ -363,6 +363,7 @@ class TransportController extends Controller
         $newModel->attributes = $model->attributes;
         $newModel->location_from = 'Копия ' . $newModel->location_from;
         $newModel->status = 1;
+        $newModel->new_transport = 1;
         
         $newModel->date_close_new = null;
         $newModel->id = null;
