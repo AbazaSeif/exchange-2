@@ -104,6 +104,7 @@ Timer.prototype = {
               }*/
               /********************/
               // открыть 2
+              // alert(this.container);
               checkForAdditionalTimer(this.transportId, this.status, this.container);
           }
        }
@@ -132,6 +133,9 @@ function checkForAdditionalTimer(transportId, status, container)
                     $('.r-submit').addClass('disabled');
                     $('.rate-wrapper').slideUp("slow");
                 }
+                /* Hide transport from the list */
+                var parent = $('#'+id).parent().parent().parent();
+                if(parent.hasClass('transport')) parent.addClass('hide');
             }
     }});
 }
