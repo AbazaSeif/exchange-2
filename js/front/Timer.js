@@ -128,14 +128,16 @@ function checkForAdditionalTimer(transportId, status, container)
                 $('#'+id).addClass('add-t');
             } else {
                 $('#'+id).removeClass('add-t');
+                /* Hide transport from the list */
+                var parent = $('#'+id).parent().parent().parent();
+                if(parent.hasClass('transport')) parent.addClass('hide');
+                
                 container.innerHTML = '<span class="t-closed">Перевозка закрыта</span>';
                 if($('.r-submit').length) {
                     $('.r-submit').addClass('disabled');
                     $('.rate-wrapper').slideUp("slow");
                 }
-                /* Hide transport from the list */
-                var parent = $('#'+id).parent().parent().parent();
-                if(parent.hasClass('transport')) parent.addClass('hide');
+                
             }
     }});
 }

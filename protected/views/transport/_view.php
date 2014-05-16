@@ -7,8 +7,10 @@
     //$end = date('m/d/Y H:i:s', strtotime($data->date_from  . ' -' . Yii::app()->params['hoursBefore'] . ' hours'));
     $end = date('m/d/Y H:i:s', strtotime($data->date_close));
     if($end < $now && $status) {
-        $end = date('m/d/Y H:i:s', strtotime($data->date_close_new));
-        $showAdditionalTimer = true;
+        if(!empty($data->date_close_new)){
+            $end = date('m/d/Y H:i:s', strtotime($data->date_close_new));
+            if($end > $now) $showAdditionalTimer = true;
+        }
     }
     $action = '/transport/description/id/'. $data->id . '/';
     
@@ -47,7 +49,7 @@
        $currency = ' $';
     }
 ?>
-<div class="transport">
+<div class="transport <?php echo ($now>$end)?'hide':''?>">
     <div class="width-50">
         <div class="width-100">
             <div class="width-49">

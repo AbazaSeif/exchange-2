@@ -3,6 +3,7 @@ $showAdditionalTimer = false;
 $showDescription = false;
 if($transportInfo['status'] || !Yii::app()->user->isTransport) $showDescription = true;
 else {
+    $allUsers = array();
     $participants = Yii::app()->db->createCommand()
         ->selectDistinct('user_id')
         ->from('rate')
@@ -23,10 +24,14 @@ $defaultRate = false;
 $priceStep = Transport::INTER_PRICE_STEP;
 $now = date('m/d/Y H:i:s');
 $end = date('m/d/Y H:i:s', strtotime($transportInfo['date_close']));
-if($end < $now && $transportInfo['status']) {
-    $end = date('m/d/Y H:i:s', strtotime($transportInfo['date_close_new']));
-    $showAdditionalTimer = true;
+
+if($end < $now && $transportInfo['status'] && $transportInfo['type'] == 0) {
+    if(!empty($transportInfo['date_close_new'])) {
+        $end = date('m/d/Y H:i:s', strtotime($transportInfo['date_close_new']));
+        if($end > $now) $showAdditionalTimer = true;
+    }    
 }
+
 $winRate = Rate::model()->findByPk($transportInfo['rate_id']);
 $winFerryman = User::model()->findByPk($winRate->user_id);
 $winFerrymanShowNds = UserField::model()->findByAttributes(array('user_id'=>$winRate->user_id));
@@ -130,11 +135,11 @@ if (!Yii::app()->user->isGuest) {
             <div class="width-50 timer-wrapper">
                 <div class="width-100">
                     <div id="t-container" class="width-40 <?php echo ($showAdditionalTimer)? 'add-t' : '' ?>">
-                        <?php if(!$transportInfo['status']): ?>
+                        <?php if(!$transportInfo['status'] || $end < $now): ?>
                         <span class="t-closed">Перевозка закрыта</span>
                         <?php endif; ?>
                     </div>
-                    <?php if(($now < $end) && $transportInfo['status']):?>
+                    <?php if($now < $end && $transportInfo['status']):?>
                     <div class="rate-wrapper width-60 <?php echo (!$transportInfo['status'])? 'hide': '' ?>">
                         <div class="r-block">
                             <div class="rate-btns-wrapper">
@@ -194,7 +199,7 @@ function getTime(){
 }
 
 $(document).ready(function(){
-    <?php if($transportInfo['status']): ?>
+    <?php if($transportInfo['status'] && $now < $end): ?>
     var timer = new Timer();
     timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>, <?php echo $transportInfo['id'] ?>);
     <?php endif; ?>
