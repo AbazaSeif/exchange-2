@@ -364,6 +364,10 @@ class TransportController extends Controller
         $newModel->location_from = 'Копия ' . $newModel->location_from;
         $newModel->status = 1;
         
+        $newModel->date_close_new = null;
+        $newModel->id = null;
+        $newModel->rate_id = null;
+        
         if($model->type == 1)  $newModel->date_to = $model->date_to;
         else{
             $customs_clearance_EU = TransportInterPoint::model()->find(array('order'=>'sort', 'condition'=>'t_id = ' . $id, 'limit'=>1));
