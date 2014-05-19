@@ -129,6 +129,7 @@ var rateList = {
                         userId: rateList.data.userId,
                         company: rateList.data.company,
                         price : price,
+                        type : rateList.data.transportType,
                     }); 
                 //}
             });
