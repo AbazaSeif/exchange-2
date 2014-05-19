@@ -914,4 +914,11 @@ class SiteController extends Controller
                 $this->render('error', $error);
         }
     }
+    
+    public function actionUpdate()
+    {
+        $model = Transport::model()->findByPk(82);
+        $model->date_close_new = null;
+        $model->save();
+    }
 }
