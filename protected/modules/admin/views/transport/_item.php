@@ -38,7 +38,7 @@
         <?php echo $data->t_id ?>
     </div>
     <div class="width-15">
-        <?php echo date('d.m.Y H:i', strtotime($data->date_close)) ?>
+        <?php echo (!empty($data->date_close_new)) ? 'Доп.время:</br>' . date('d.m.Y H:i', strtotime($data->date_close_new)) : date('d.m.Y H:i', strtotime($data->date_close)) ?>
     </div>
     <div class="width-30">
         <div class="width-100">
