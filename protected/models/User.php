@@ -217,6 +217,7 @@ class User extends CActiveRecord
                 else if($statusId == User::USER_WARNING) $status = 'Предупрежден';
                 else if($statusId == User::USER_TEMPORARY_BLOCKED) $status = 'Временно заблокирован';
                 else if($statusId == User::USER_BLOCKED) $status = 'Заблокирован';
+                else if($statusId == User::PARENT_BLOCKED) $status = 'Основной пользователь заблокирован';
                 return $status;
         }
         

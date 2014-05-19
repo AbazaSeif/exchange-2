@@ -368,4 +368,27 @@ class TransportController extends Controller
         }
         return $points;
     }
+    
+    public function actionCheckStatus()
+    {
+        //$id = $_POST['id'];
+        $allow = false;
+        $status = '';
+        $user = User::model()->findByPk(Yii::app()->user->_id);
+        if($user->type_contact) { // if it's contact user
+            $userParent = User::model()->findByPk($user->parent);
+            
+            if($userParent->status == User::USER_WARNING || $userParent->status == User::USER_ACTIVE){
+                $allow = true;
+            } else $status = 'Ваш основной пользователь заблокирован.';
+            if($allow){
+                if(($user->status == User::USER_WARNING || $user->status == User::USER_ACTIVE))
+                    $allow = true;
+            }
+        } else if($user->status == User::USER_WARNING || $user->status == User::USER_ACTIVE) {
+            $allow = true;
+        } else $status = 'Ваш статус "'.User::statusLabel($user->status).'".';
+        $array = array('status'=>$status, 'allow' => $allow);
+        echo json_encode($array);
+    }
 }

@@ -245,6 +245,10 @@ $(document).ready(function(){
         $( "#errorRate .btn" ).live('click', function() {
             $(".ui-dialog-content").dialog( "close" );
         });
+        
+        $( "#errorStatus .btn" ).live('click', function() {
+            $(".ui-dialog-content").dialog( "close" );
+        });
         <?php endif; ?> 
             rateList.init();
    <?php endif; ?>
@@ -314,6 +318,25 @@ $(document).ready(function(){
     <div class="rate-button">
     <?php echo CHtml::button('Отказаться',array('id' => 'abordRateBtn','class' => 'btn')); ?>
     </div>
+    <?php 
+        $this->endWidget('zii.widgets.jui.CJuiDialog');
+    ?>
+</div>
+<div>
+    <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+        'id' => 'errorStatus',
+        'options' => array(
+            'title' => 'Подтверждение',
+            'autoOpen' => false,
+            'modal' => true,
+            'resizable'=> false,
+        ),
+    ));
+    ?>
+    <div class="row">
+        <span>К сожалению Вы не можете сделать ставку, т.к. <span id='curStatus'></span></span> 
+    </div>
+    <?php echo CHtml::submitButton('ОК',array('class' => 'btn')); ?>
     <?php 
         $this->endWidget('zii.widgets.jui.CJuiDialog');
     ?>

@@ -85,8 +85,24 @@ var rateList = {
 
             $( ".r-submit" ).click(function() {
                 if(!$(this).hasClass('disabled')) {
-                    $('#setPriceVal').text(parseInt($( "#rate-price" ).val()));
-                    $("#addRate").dialog("open");
+                    $.ajax({
+                        type: 'POST',
+                        url: '/user/transport/checkStatus',
+                        dataType: 'json',
+                        data:{
+                            //id: this.data.transportId,
+                        },
+                        success: function(response) {
+                            if(response.allow) { 
+                                $('#setPriceVal').text(parseInt($( "#rate-price" ).val()));
+                                $("#addRate").dialog("open");
+                            } else {
+                                $('#curStatus').text(response.status);
+                                $("#errorStatus").dialog("open");
+                            }
+                    }});
+                   // $('#setPriceVal').text(parseInt($( "#rate-price" ).val()));
+                   // $("#addRate").dialog("open");
                 }
             });
 

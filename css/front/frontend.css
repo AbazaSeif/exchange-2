@@ -1000,7 +1000,7 @@ form#contactform label {
 #error{
     color: red;
 }
-#errorRate, #errorSocket{
+#errorRate, #errorSocket, #errorStatus{
     min-height: 60px !important;
 }
 #event-counter{
