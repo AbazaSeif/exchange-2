@@ -224,6 +224,7 @@ $(document).ready(function(){
         rateList.data.socket = socket;
         rateList.data.userId = '<?php echo $userInfo[id] ?>';
         rateList.data.transportId = '<?php echo $transportInfo[id] ?>';
+        rateList.data.transportType = '<?php echo $transportInfo[type] ?>';
         rateList.data.company = '<?php echo $userInfo[company] ?>';
         rateList.data.name = '<?php echo $userInfo[name] ?>';
         rateList.data.surname = '<?php echo $userInfo[surname] ?>';
