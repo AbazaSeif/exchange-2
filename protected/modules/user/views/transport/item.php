@@ -334,7 +334,7 @@ $(document).ready(function(){
     ));
     ?>
     <div class="row">
-        <span>К сожалению Вы не можете сделать ставку, т.к. <span id='curStatus'></span></span> 
+        <span>К сожалению, Вы не можете сделать ставку, т.к. <span id='curStatus'></span></span> 
     </div>
     <?php echo CHtml::submitButton('ОК',array('class' => 'btn')); ?>
     <?php 
