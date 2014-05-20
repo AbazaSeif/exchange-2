@@ -378,12 +378,16 @@ class TransportController extends Controller
         if($user->type_contact) { // if it's contact user
             $userParent = User::model()->findByPk($user->parent);
             
-            if($userParent->status == User::USER_WARNING || $userParent->status == User::USER_ACTIVE){
+            if($userParent->status == User::USER_WARNING || $userParent->status == User::USER_ACTIVE) {
                 $allow = true;
             } else $status = 'Ваш основной пользователь заблокирован.';
-            if($allow){
+            if($allow) {
                 if(($user->status == User::USER_WARNING || $user->status == User::USER_ACTIVE))
                     $allow = true;
+                else {
+                    $allow = false;
+                    $status = 'Ваш статус "'.User::statusLabel($user->status).'".';
+                }
             }
         } else if($user->status == User::USER_WARNING || $user->status == User::USER_ACTIVE) {
             $allow = true;
