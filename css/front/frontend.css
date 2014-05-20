@@ -609,6 +609,10 @@ form#contactform label {
 }
 
 /*-------- страница "Помощь" ----------------*/
+#help-form div.form-label {
+    margin-bottom: 10px;
+}
+
 #help-form img{
     margin: 20px 0;
 }
@@ -616,14 +620,6 @@ form#contactform label {
 #help-form p{
     margin: 5px 0;
 }
-
-/*
-#help-form .title, #help-form h3 {
-    color: #EF801B;
-    font-size: 20px;
-    margin-bottom: 20px;
-}
-*/
 
 #help-form h3 {
     padding-top: 2px;
