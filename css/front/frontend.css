@@ -612,7 +612,14 @@ form#contactform label {
 #help-form div.form-label {
     margin-bottom: 10px;
 }
-
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    background: #F5F5F5; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#000000'); /* для IE6-9 */
+    background: -webkit-linear-gradient(top,#F5F5F5, #DCDCDC); /* для webkit-браузеров */
+    background: -moz-linear-gradient(top,  #F5F5F5, #DCDCDC); /* для firefox 3.6+ */
+    background: -o-linear-gradient(top,  #F5F5F5, #DCDCDC); /* для Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #F5F5F5, #DCDCDC); /* для IE10+ */ 
+}
 #help-form img{
     margin: 20px 0;
 }
@@ -641,7 +648,12 @@ form#contactform label {
 }
 
 .ui-accordion-header-active{
-    background: -moz-linear-gradient(center top, #F5F5F5, #AAAAAA) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: #F5F5F5; /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#000000'); /* для IE6-9 */
+    background: -webkit-linear-gradient(top,#F5F5F5, #AAAAAA); /* для webkit-браузеров */
+    background: -moz-linear-gradient(top,  #F5F5F5, #AAAAAA); /* для firefox 3.6+ */
+    background: -o-linear-gradient(top,  #F5F5F5, #AAAAAA); /* для Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #F5F5F5, #AAAAAA); /* для IE10+ */ 
 }
 
 #help-form ol, #help-form ul{
