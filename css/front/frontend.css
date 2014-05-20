@@ -617,20 +617,52 @@ form#contactform label {
     margin: 5px 0;
 }
 
-#help-form .title {
+/*
+#help-form .title, #help-form h3 {
     color: #EF801B;
     font-size: 20px;
     margin-bottom: 20px;
 }
+*/
 
-#help-form ol{
+#help-form h3 {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#help-form span,  #help-form .title{
+    color: #EF801B;
+    font-size: 16px;
+    font-weight: bold;
+}
+#help-form .title{
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.admin_additional_features_content {
+    background: none repeat scroll 0 0 #FFFFFF;
+    box-shadow: 0 0 7px #AAAAAA inset;
+    position: relative;
+}
+
+.ui-accordion-header-active{
+    background: -moz-linear-gradient(center top, #F5F5F5, #AAAAAA) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+
+#help-form ol, #help-form ul{
     list-style-type: none; /* Убираем исходные маркеры */
     counter-reset:  item; /* Обнуляем счетчик списка */
     padding-left: 0;
 }
 
-#help-form li:before {
+#help-form ol li:before, #help-form ul ol li:before {
   content: counter(item) ') '; /* Добавляем к числам скобку */
+  counter-increment: item; /* Задаём имя счетчика */
+}
+#help-form ul ol li, #help-form ul ul li{
+    margin-left: 20px;
+}
+#help-form ul li:before {
+  content: '- '; /* Добавляем к числам скобку */
   counter-increment: item; /* Задаём имя счетчика */
 }
 
