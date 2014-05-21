@@ -171,8 +171,13 @@ if (!Yii::app()->user->isGuest) {
                  </div>
             <?php elseif(!Yii::app()->user->isTransport): ?>
                 <div class="width-50 timer-wrapper">
-                    <div id="t-container" class="<?php echo ($showAdditionalTimer)? 'add-t' : '' ?>"></div>
-                     <div id="last-rate">
+                    <!--div id="t-container" class="<?php echo ($showAdditionalTimer)? 'add-t' : '' ?>"></div-->
+                    <div id="t-container" class="<?php echo ($showAdditionalTimer)? 'add-t' : '' ?>">
+                        <?php if(!$transportInfo['status'] || $end < $now): ?>
+                        <span class="t-closed">Перевозка закрыта</span>
+                        <?php endif; ?>
+                    </div> 
+                    <div id="last-rate">
                          <span><?php echo $minRateValue . ' ' . $currency?></span>
                          <?php if($showWithNds): ?>
                              <div><?php echo $showWithNds ?></div> 
