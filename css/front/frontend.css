@@ -615,10 +615,12 @@ form#contactform label {
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
     background: #F5F5F5; /* for non-css3 browsers */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#000000'); /* для IE6-9 */
-    background: -webkit-linear-gradient(top,#F5F5F5, #DCDCDC); /* для webkit-браузеров */
-    background: -moz-linear-gradient(top,  #F5F5F5, #DCDCDC); /* для firefox 3.6+ */
-    background: -o-linear-gradient(top,  #F5F5F5, #DCDCDC); /* для Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #F5F5F5, #DCDCDC); /* для IE10+ */ 
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+    background-image: -webkit-linear-gradient(to bottom, #F5F5F5, #DCDCDC);
+    background-image:    -moz-linear-gradient(to bottom, #F5F5F5, #DCDCDC);
+    background-image:     -ms-linear-gradient(to bottom, #F5F5F5, #DCDCDC);
+    background-image:      -o-linear-gradient(to bottom, #F5F5F5, #DCDCDC);
+    background-image:         linear-gradient(to bottom, #F5F5F5, #DCDCDC);
 }
 #help-form img{
     margin: 20px 0;
