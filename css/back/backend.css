@@ -474,6 +474,10 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
    /* margin-top: 0;*/
     margin-bottom: 5px;
 }
+.link-to-frontend a{
+    color: #00917C;
+    font-weight: bold;
+}
 .right .header-h4{
     font-size: 1.1em;
     font-weight: bold;

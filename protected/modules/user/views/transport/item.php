@@ -37,7 +37,7 @@ $winFerryman = User::model()->findByPk($winRate->user_id);
 $winFerrymanShowNds = UserField::model()->findByAttributes(array('user_id'=>$winRate->user_id));
 $showWithNds = '';
 
-$allPoints = TransportInterPoint::getPoints($transportInfo['id']);
+$allPoints = TransportInterPoint::getPoints($transportInfo['id'], $transportInfo['location_to']);
 
 if(!$transportInfo['currency']){
     $priceStep = Transport::RUS_PRICE_STEP; 
@@ -129,7 +129,7 @@ if (!Yii::app()->user->isGuest) {
                     </strong>
                     <?php endif; ?>
                 </div>
-                <?php if (!empty($transportInfo['auto_info'])):?><div><span>Транспорт: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
+                <?php if (!empty($transportInfo['auto_info'])):?><div class="r-params"><span>Транспорт: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
             </div>
             <?php if (!Yii::app()->user->isGuest && $minRateValue > 0 && Yii::app()->user->isTransport): ?>
             <div class="width-50 timer-wrapper">

@@ -105,7 +105,7 @@ class TransportInterPoint extends CActiveRecord
             return parent::model($className);
 	}
         
-        public static function getPoints($id)
+        public static function getPoints($id, $locationTo)
         {
             $points = '';        
             $innerPoints = Yii::app()->db->createCommand()
@@ -115,7 +115,7 @@ class TransportInterPoint extends CActiveRecord
                 ->order('date')
                 ->queryAll()
             ;
-
+            if(mb_strtolower(end($innerPoints)['point'], 'UTF-8') == mb_strtolower($locationTo, 'UTF-8')) array_pop($innerPoints);
             foreach($innerPoints as $point) {
                 if(isset($points)) {
                     $now = date('Y-m-d');
@@ -128,7 +128,7 @@ class TransportInterPoint extends CActiveRecord
             return $points;
         }
         
-        public static function getPointsMin($id)
+        public static function getPointsMin($id, $locationTo)
         {
             $points = '';        
             $innerPoints = Yii::app()->db->createCommand()
@@ -138,10 +138,10 @@ class TransportInterPoint extends CActiveRecord
                 ->order('date')
                 ->queryAll()
             ;
-
+            if(mb_strtolower(end($innerPoints)['point'], 'UTF-8') == mb_strtolower($locationTo, 'UTF-8')) array_pop($innerPoints);
             foreach($innerPoints as $point){
                 if(isset($points))
-                    $points .= ' -> '.$point['point'];
+                    $points .= '<img class="arrow" src="/images/arrow.png" />'.$point['point'];
             }
             return $points;
         }

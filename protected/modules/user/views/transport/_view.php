@@ -11,7 +11,7 @@
     $currency = ' €';
     $type = 'международная';
     
-    $allPoints = TransportInterPoint::getPointsMin($data->id);
+    $allPoints = TransportInterPoint::getPointsMin($data->id, $data->location_to);
 
     if(!Yii::app()->user->isGuest) {
         if(Yii::app()->user->isTransport) {
@@ -45,17 +45,20 @@
 <div class="transport">
     <div class="width-50">
         <div class="width-100">
-            <div class="width-49">
-                <a class="t-header" href="<?php echo $action; ?>" >
-                    <?php echo $data->location_from ?>
-                </a>
-            </div>
-            <div class="width-49">
-                <a class="t-header" href="<?php echo $action; ?>" >
-                    <?php echo $data->location_to ?>
-                </a>
-            </div>
+            <div class="t-points"><span><a href="<?php echo $action; ?>"><?php echo $data->location_from . $allPoints . '<img class="arrow" src="/images/arrow.png" />' . $data->location_to ?></a></span></div>
         </div>
+        <!--div class="width-100">
+            <div class="width-49">
+                <a class="t-header" href="<?php// echo $action; ?>" >
+                    <?php //echo $data->location_from ?>
+                </a>
+            </div>
+            <div class="width-49">
+                <a class="t-header" href="<?php //echo $action; ?>" >
+                    <?php //echo $data->location_to ?>
+                </a>
+            </div>
+        </div-->
         <div class="width-100">
             <div class="width-49">
                 <span class="t-d-form-to">Дата загрузки: <?php echo date('d.m.y', strtotime($data->date_from)) ?></span>
@@ -69,9 +72,6 @@
                 <span class="t-d-form-to">Дата разгрузки: <?php echo date('d.m.y', strtotime($data->date_to)); ?></span>
             </div>
             <?php endif; ?>
-        </div>
-        <div class="width-100">
-            <div class="t-points"><span><?php echo $data->location_from . $allPoints . ' -> ' . $data->location_to ?></span></div>
         </div>
     </div>
     <div class="width-50">

@@ -65,6 +65,9 @@
     echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn-admin')); 
 ?>
 </div>
+<?php if ($model->id): ?>
+<div class="link-to-frontend"><a href="http://exchange.lbr.test/transport/description/id/<?php echo $model->id ?>/">Перейти к перевозке</a></div>
+<?php endif; ?>
 <div class="field">
 <?php echo $form->error($model, 'type');
     echo $form->labelEx($model, 'type');
