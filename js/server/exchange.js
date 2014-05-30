@@ -132,10 +132,12 @@ io.sockets.on('connection', function (socket) {
 	
     socket.on('setRate', function (data) {
         db.each("SELECT start_rate, type, rate_id, location_from, location_to FROM transport WHERE id = " + data.transportId, function(err, row) { 
-            var dateCloseNew = '';
-			if(!parseInt(data.type)) dateCloseNew = checkForAdditionalTimer(data); // only for international transport
-			
+            //var dateCloseNew = '';
 			if(parseInt(data.price) <= parseInt(row.start_rate)){
+                                // only for international transport
+                                //if(!parseInt(data.type)) 
+                                var dateCloseNew = checkForAdditionalTimer(data); 
+                                
 				var time = getDateTime();
 				if(row.rate_id) { // not null		
 					// check if it's min rate
