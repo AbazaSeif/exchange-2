@@ -890,6 +890,9 @@ form#contactform label {
 .transport img{
     margin-top: 20px;
 }
+.transport img.arrow{
+    margin: 0 5px;
+}
 .transport .description{
     overflow: hidden;
 }
@@ -900,10 +903,16 @@ form#contactform label {
 .transport .t-wrapper .width-50{
     margin-bottom: 5px;
 }
-.t-points{
-    color: #666;
-    font-size: 11px;
+.t-points a, .t-points{
+    /*color: #666;
+    font-size: 11px;*/
+    color: #00917C;
+    font-size: 17px;
     padding-top: 3px;
+    margin-bottom: 5px;
+}
+.t-points a{
+    text-decoration: none;
 }
 .transport .v-center
 {
@@ -939,12 +948,13 @@ form#contactform label {
     margin: 0;
     padding: 0;
     padding-top: 30px;
+    padding-left: 20px;
 }
 
 .transport-one .t-o-published
 {
     color: #CCC;
-    padding-left: 7px;
+    padding-left: 20px;
     display: block;
     margin-bottom: 15px;
 }
@@ -960,6 +970,7 @@ form#contactform label {
 .transport-one .t-o-info .r-params
 {
     margin: 5px 0;
+    padding: 0px 0 0px 20px;
 }
 .transport-one .t-o-info label {
     font-size: 16px;
@@ -968,7 +979,7 @@ form#contactform label {
 
 .transport-one .t-o-info span{
     display: block;
-    padding: 0px 0 0px 20px;
+    
 }
 
 .transport-one .t-o-info .r-header,
@@ -977,13 +988,14 @@ form#contactform label {
     color: #00917C;
     font-size: 18px;
     margin: 1px 0 6px;
-    padding-left: 7px;
+    padding-left: 20px;
 }
 .transport-one .route
 {
     position: relative;
     border-bottom: 2px solid #00917C;
     padding: 5px 0;
+    margin-left: 20px;
 }
 .transport-one .route .point
 {
@@ -1030,7 +1042,7 @@ form#contactform label {
 
 .r-description{
     font-size: 13px;
-    padding: 5px 0 5px 6px;
+    padding: 5px 0 5px 20px;
 }
 
 .transport-one .point .inner-point{
