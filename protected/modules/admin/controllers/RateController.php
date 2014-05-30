@@ -69,9 +69,14 @@ class RateController extends Controller
         $transportId = $_POST['transportId'];
         if(Yii::app()->user->checkAccess('deleteRate') && $id != Yii::app()->user->getState('_id')) {
             $transportModel = Transport::model()->findByPk($transportId);
-            Rate::model()->deleteByPk($id);
-            $message = 'Удалена ставка с id = '.$id.' в перевозке "' . $transportModel->location_from . ' — ' . $transportModel->location_to . '"';
+            $rate = Rate::model()->findByPk($id);
+            $currency = '€';
+            if(!$transportModel->currency) $currency = 'руб.';
+            else if($transportModel->currency == 1) $currency = '$';
+            $userName = User::model()->findByPk($rate->user_id);
+            $message = 'Удалена ставка (id = '.$id.') пользователя '.$userName->company.' (id = '.$rate->user_id.') от '.date("d.m.Y H:i:s", strtotime($rate->date)).' на сумму '.$rate->price.' '.$currency.' в перевозке "' . $transportModel->location_from . ' — ' . $transportModel->location_to . '"';
             Changes::saveChange($message);
+            Rate::model()->deleteByPk($id);
             if((int)$transportModel->rate_id == (int)$id) {
                 $minPrice = Yii::app()->db->createCommand()
                     ->select('min(price) as price, id')
