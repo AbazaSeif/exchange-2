@@ -66,7 +66,7 @@
 ?>
 </div>
 <?php if ($model->id): ?>
-<div class="link-to-frontend"><a href="http://exchange.lbr.test/transport/description/id/<?php echo $model->id ?>/">Перейти к перевозке</a></div>
+    <div class="link-to-frontend"><a target="_blank" href="http://exchange.lbr.test/transport/description/id/<?php echo $model->id ?>/">Перейти к перевозке</a></div>
 <?php endif; ?>
 <div class="field">
 <?php echo $form->error($model, 'type');
@@ -203,7 +203,7 @@
         //var_dump($item);
             if($minRateId == $item['id']) echo '<li class="item win" r-id="'.$item['id'].'">';
             else echo '<li class="item" r-id="'.$item['id'].'">';
-            echo '<span>'.date("d-m-Y H:i", strtotime($item['date'])).'</span>';
+            echo '<span>'.date("d-m-Y H:i:s", strtotime($item['date'])).'</span>';
             echo '<span>' . $item['company'] . '</span>';
             echo '<span>';
             echo '<span class="price">'.$item['price'].'</span>';
