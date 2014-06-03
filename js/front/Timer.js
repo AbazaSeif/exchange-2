@@ -3,6 +3,9 @@ Timer.prototype = {
   init: function(serverDate, initDate, id, status, transportId) {
     this.dateNow = new Date(serverDate);
     this.endDate = new Date(initDate); // дата и время от которых идет обратный отсчет
+    //console.log(this.dateNow);
+    //console.log(this.endDate);
+
     this.transportId = transportId;
     this.status = status;
     this.str = '#' + id;
@@ -54,7 +57,7 @@ Timer.prototype = {
     this.hours = this.addLeadingZero(this.hours);
   },
   
-  updateCounter: function(){
+  updateCounter: function() {
       if ($(this.str).length > 0) {
           this.calculate();
           this.formatTime();
@@ -104,8 +107,13 @@ Timer.prototype = {
               }*/
               /********************/
               // открыть 2
-              // alert(this.container);
-              checkForAdditionalTimer(this.transportId, this.status, this.container);
+              var id = this.container.getAttribute('id');
+              //alert($('#'+id).hasClass('processing'));
+              //var id = this.container.getAttribute('id');
+              //console.log($('#'+id).hasClass('processing'));
+              
+              if($('#'+id).hasClass('processing') == 'true') checkForAdditionalTimer(this.transportId, this.status, this.container);
+              else timerForProcessing(this.transportId, this.status, this.container);
           }
        }
     }
@@ -122,22 +130,58 @@ function checkForAdditionalTimer(transportId, status, container)
              id: transportId,
          },
          success: function(response) {
+            $('#'+id).removeClass('processing');
             if(response.end) {
                 var timer = new Timer();
                 timer.init(response.now, response.end, id, status, transportId);
                 $('#'+id).addClass('add-t');
             } else {
                 $('#'+id).removeClass('add-t');
-                /* Hide transport from the list */
+                // Hide transport from the list
                 var parent = $('#'+id).parent().parent().parent();
                 if(parent.hasClass('transport')) parent.addClass('hide');
-                
+
                 container.innerHTML = '<span class="t-closed">Перевозка закрыта</span>';
                 if($('.r-submit').length) {
                     $('.r-submit').addClass('disabled');
                     $('.rate-wrapper').slideUp("slow");
                 }
-                
             }
     }});
+}
+
+function timerForProcessing(transportId, status, container)
+{
+    var limit = 60;
+    var id = container.getAttribute('id');
+    $('#'+id).addClass('processing');
+    
+    for (var i = limit; i > 0; i--) {
+        if(limit > 0){
+            var text = limit+' секунд';
+            var modulo = limit%10;
+            if(modulo == 1) text = limit+' секундa';
+            else if(modulo == 2 || modulo == 3 || modulo == 4) text = limit+' секунды';
+            else text = limit+' секунд';
+            container.innerHTML = '<span class="t-time">'+text+'</span>';
+            setTimeout(function(){timerForProcessing(transportId, status, container);}, 1000);
+        } else {
+            checkForAdditionalTimer(transportId, status, container);
+        }
+    }
+    
+    /*setTimeout(function(){
+        limit -= 1;
+        if(limit > 0){
+            var text = limit+' секунд';
+            var modulo = limit%10;
+            if(modulo == 1) text = limit+' секундa';
+            else if(modulo == 2 || modulo == 3 || modulo == 4) text = limit+' секунды';
+            else text = limit+' секунд';
+            container.innerHTML = '<span class="t-time">'+text+'</span>';
+        } else {
+            
+            checkForAdditionalTimer(transportId, status, container);
+        }
+    }, 1000);*/
 }

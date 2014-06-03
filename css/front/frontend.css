@@ -1170,6 +1170,11 @@ form#contactform label {
     content: 'Дополнительное время: ';
     color: red;
 }
+#t-container.processing:before
+{
+    content: 'Идет обработка ставок: ';
+    color: #00917C;
+}
 
 .t-timer:before{
     content: '';
