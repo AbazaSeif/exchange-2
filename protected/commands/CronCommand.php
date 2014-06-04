@@ -57,7 +57,7 @@ class CronCommand extends CConsoleCommand
     public function deadlineTransport()
     {
         //$timeNow = date("Y-m-d H:i");
-        $timeNow = date("Y-m-d H:i", strtotime("-1 minutes"));
+        $timeNow = date("Y-m-d H:i", strtotime("-2 minutes"));
         $transportIds = '';
 
         $transports = Yii::app()->db->createCommand()
