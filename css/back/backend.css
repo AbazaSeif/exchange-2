@@ -713,22 +713,30 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     padding-left: 20px;
 }
 #tabs .sorter ul li:nth-child(2){
-    width: 15%;
+    margin-right: 1%;
+    width: 14%;
+}
+#tabs .sorter ul li:nth-child(3){
+    margin-right: 55px !important;
+    width: 5%;
 }
 #tabs .sorter ul li:nth-child(4){
-    width: 19%;
+    width: 10%;
 }
 #tabs .sorter ul li:nth-child(5){
     width: 5%;
 }
 #tabs .sorter ul li:nth-child(6){
-    width: 5%;
+    width: 6%;
 }
 #tabs .sorter ul li:nth-child(7){
     width: 20%;
 }
 #tabs .sorter ul li:nth-child(8){
     width: 14%;
+}
+#tabs .sorter ul li:nth-child(9){
+    width: 10%;
 }
 #tabs .list-view .sorter li{
     margin: 0;  
@@ -749,10 +757,6 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     font-weight: bold;
     padding-top: 5px;
     padding-right: 6px;
-}
-
-#tabs .sorter ul li:nth-child(3){
-    margin-right: 20px !important;
 }
 
 #user-wrapper ul li:nth-child(1){

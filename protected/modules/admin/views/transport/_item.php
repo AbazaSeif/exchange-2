@@ -40,7 +40,7 @@
     <div class="width-15">
         <?php echo (!empty($data->date_close_new)) ? 'Доп.время:</br>' . date('d.m.Y H:i', strtotime($data->date_close_new)) : date('d.m.Y H:i', strtotime($data->date_close)) ?>
     </div>
-    <div class="width-30">
+    <div class="width-20">
         <div class="width-100">
             <a class="t-header" href="<?php echo $action; ?>" >
                 <?php echo '"' . $data->location_from . ' &mdash; ' . $data->location_to . '"'?>
@@ -68,5 +68,8 @@
            <?php echo $withNds ?>
         </div>
         <?php endif; ?>
+    </div>
+    <div class="width-10">
+        <?php echo $data->start_rate . $currency; ?>
     </div>
 </div>

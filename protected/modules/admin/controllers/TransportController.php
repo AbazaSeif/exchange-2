@@ -52,6 +52,11 @@ class TransportController extends Controller
                     'desc' => 'date_close DESC',
                     'default' => 'asc',
                 ),
+                'start_rate' => array(
+                    'asc' => 'start_rate ASC',
+                    'desc' => 'start_rate DESC',
+                    'default' => 'asc',
+                ),
             );
 
             $dataActive = new CActiveDataProvider('Transport', 
