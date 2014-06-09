@@ -25,7 +25,7 @@ $priceStep = Transport::INTER_PRICE_STEP;
 $now = date('m/d/Y H:i:s');
 $end = date('m/d/Y H:i:s', strtotime($transportInfo['date_close']));
 
-if($end < $now && $transportInfo['status'] && $transportInfo['type'] == 0) {
+if($end < $now && $transportInfo['status']) {
     if(!empty($transportInfo['date_close_new'])) {
         $end = date('m/d/Y H:i:s', strtotime($transportInfo['date_close_new']));
         if($end > $now) $showAdditionalTimer = true;

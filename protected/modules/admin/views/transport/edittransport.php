@@ -66,7 +66,7 @@
 ?>
 </div>
 <?php if ($model->id): ?>
-    <div class="link-to-frontend"><a target="_blank" href="http://exchange.lbr.ru/transport/description/id/<?php echo $model->id ?>/">Перейти к перевозке</a></div>
+    <div class="link-to-frontend"><a target="_blank" href="<?php echo Yii::app()->getBaseUrl(true) ?>/transport/description/id/<?php echo $model->id ?>/">Перейти к перевозке</a></div>
 <?php endif; ?>
 <div class="field">
 <?php echo $form->error($model, 'type');
