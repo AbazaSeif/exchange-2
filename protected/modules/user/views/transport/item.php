@@ -17,6 +17,10 @@ else {
 }
 
 if($showDescription):
+/*if((bool)$model->with_nds) {
+    $minRateValue = floor($minRateValue + $minRateValue * Yii::app()->params['nds']);
+} else $maxRateValue = $transportInfo['start_rate'];
+*/
 $maxRateValue = $transportInfo['start_rate'];
 $minRateValue = null;
 $currency = '€';
@@ -71,6 +75,7 @@ if (!Yii::app()->user->isGuest) {
 
     if((bool)$model->with_nds && Yii::app()->user->isTransport) {
         $minRateValue = floor($minRateValue + $minRateValue * Yii::app()->params['nds']);
+        $maxRateValue = floor($transportInfo['start_rate'] + $transportInfo['start_rate'] * Yii::app()->params['nds']);
     } else $minRateValue = floor($minRateValue);
     
     $userInfo = User::model()->findByPk($userId);
@@ -143,7 +148,7 @@ if (!Yii::app()->user->isGuest) {
                     <div class="rate-wrapper width-60 <?php echo (!$transportInfo['status'])? 'hide': '' ?>">
                         <div class="r-block">
                             <div class="rate-btns-wrapper">
-                                <div id="rate-up"></div>
+                                <div id="rate-up" class="<?php echo ($minRateValue == $maxRateValue)?'disabled':''?>"></div>
                                 <div id="rate-down" class="<?php echo ($minRate)?'disabled':''?>"></div>
                             </div>
                             <span class="text"><?php echo $currency ?></span>
