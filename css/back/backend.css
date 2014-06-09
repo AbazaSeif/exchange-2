@@ -721,7 +721,8 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     width: 5%;
 }
 #tabs .sorter ul li:nth-child(4){
-    width: 10%;
+    margin-right: 55px !important;
+    width: 5%;
 }
 #tabs .sorter ul li:nth-child(5){
     width: 5%;
