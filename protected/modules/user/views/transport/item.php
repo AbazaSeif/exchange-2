@@ -110,7 +110,7 @@ if (!Yii::app()->user->isGuest) {
         <?php if($allPoints):?>
             <?php echo $allPoints; ?>
         <?php endif; ?>
-            <span class="finish-point point" title="<?php echo date('d.m.Y H:i', strtotime($transportInfo['date_to']))?>">
+            <span class="finish-point point" title="<?php echo ($transportInfo['type'] == 0) ? date('d.m.Y H:i', strtotime($date_to_customs_clearance_RF)) : date('d.m.Y H:i', strtotime($transportInfo['date_to']))?>">
                 <span class="inner-point"><?php echo $transportInfo['location_to']; ?></span>
             </span>
         </span>
