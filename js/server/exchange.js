@@ -15,7 +15,7 @@ io.sockets.on('connection', function (socket) {
     var arr = [];
     var name = [];
     var i = 0;
-    var labelForHiddenCompanyNames = 'Информация будет доступна после закрытия заявки';
+    var labelForHiddenCompanyNames = '****';
 
     socket.on('init', function (id, minNotyfy)
     {
