@@ -15,6 +15,7 @@ io.sockets.on('connection', function (socket) {
     var arr = [];
     var name = [];
     var i = 0;
+    var labelForHiddenCompanyNames = 'Информация будет доступна после закрытия заявки';
 
     socket.on('init', function (id, minNotyfy)
     {
@@ -120,7 +121,7 @@ io.sockets.on('connection', function (socket) {
         db.serialize(function() {
             if(show){
 	            db.each("SELECT rate.user_id, rate.price, rate.date, user.company as company FROM rate JOIN user WHERE user.id = rate.user_id and rate.transport_id = " + t_id + " order by date", function(err, row) {
-					arr[i] = new Array (row.user_id, row.price, row.date, row.company);
+			arr[i] = new Array (row.user_id, row.price, row.date, row.company);
 	                i++;
 	            }, function(err, rows) {
 	                io.sockets.socket(socket.id).emit('loadRates', {
@@ -130,7 +131,7 @@ io.sockets.on('connection', function (socket) {
 	            });
             } else {
                 db.each("SELECT rate.user_id, rate.price, rate.date, user.company as company FROM rate JOIN user WHERE user.id = rate.user_id and rate.transport_id = " + t_id + " order by date", function(err, row) {
-					var name = 'Информация будет доступна после закрытия заявки';
+					var name = labelForHiddenCompanyNames;
 					if(row.user_id == id) name = row.company;
 					arr[i] = new Array (row.user_id, row.price, row.date, name);
 					i++;
@@ -205,7 +206,7 @@ io.sockets.on('connection', function (socket) {
 				});
 				// to all other
 				socket.broadcast.emit('setRate', {
-					company : 'Информация будет доступна после закрытия заявки',
+					company : labelForHiddenCompanyNames,
 					price : data.price,
 					date: time,
 					dateCloseNew: dateCloseNew,
