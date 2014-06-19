@@ -116,28 +116,42 @@ io.sockets.on('connection', function (socket) {
     }
     
     /* Load all rates when open transport page in the first time  */
-    socket.on('loadRates', function (id, t_id) {
+    socket.on('loadRates', function (id, t_id, show) {
         db.serialize(function() {
-            db.each("SELECT rate.user_id, rate.price, rate.date, user.company as company FROM rate JOIN user WHERE user.id = rate.user_id and rate.transport_id = " + t_id + " order by date", function(err, row) {
-                arr[i] = new Array (row.user_id, row.price, row.date, row.company);
-                i++;
-            }, function(err, rows) {
-                io.sockets.socket(socket.id).emit('loadRates', {
-                    arr  : arr,
-                    rows : arr.length,
-                });
-            });
+            if(show){
+	            db.each("SELECT rate.user_id, rate.price, rate.date, user.company as company FROM rate JOIN user WHERE user.id = rate.user_id and rate.transport_id = " + t_id + " order by date", function(err, row) {
+					arr[i] = new Array (row.user_id, row.price, row.date, row.company);
+	                i++;
+	            }, function(err, rows) {
+	                io.sockets.socket(socket.id).emit('loadRates', {
+	                    arr  : arr,
+	                    rows : arr.length,
+	                });
+	            });
+            } else {
+                db.each("SELECT rate.user_id, rate.price, rate.date, user.company as company FROM rate JOIN user WHERE user.id = rate.user_id and rate.transport_id = " + t_id + " order by date", function(err, row) {
+					var name = 'Информация будет доступна после закрытия заявки';
+					if(row.user_id == id) name = row.company;
+					arr[i] = new Array (row.user_id, row.price, row.date, name);
+					i++;
+				}, function(err, rows) {
+					io.sockets.socket(socket.id).emit('loadRates', {
+					   arr  : arr,
+					   rows : arr.length,
+					});
+				});
+            }
         });
     });
 	
     socket.on('setRate', function (data) {
         db.each("SELECT start_rate, type, rate_id, location_from, location_to FROM transport WHERE id = " + data.transportId, function(err, row) { 
             //var dateCloseNew = '';
-			if(parseInt(data.price) <= parseInt(row.start_rate)){
-                                // only for international transport
-                                //if(!parseInt(data.type)) 
-                                var dateCloseNew = checkForAdditionalTimer(data); 
-                                
+			//if(!parseInt(data.type)) 
+			//var dateCloseNew = checkForAdditionalTimer(data); // only for international transport
+			
+			if(parseInt(data.price) <= parseInt(row.start_rate)) {
+			    var dateCloseNew = checkForAdditionalTimer(data);
 				var time = getDateTime();
 				if(row.rate_id) { // not null		
 					// check if it's min rate
@@ -191,7 +205,7 @@ io.sockets.on('connection', function (socket) {
 				});
 				// to all other
 				socket.broadcast.emit('setRate', {
-					company : data.company,
+					company : 'Информация будет доступна после закрытия заявки',
 					price : data.price,
 					date: time,
 					dateCloseNew: dateCloseNew,
@@ -203,5 +217,5 @@ io.sockets.on('connection', function (socket) {
 				});
 			}
         });
-    }); 
+    });  
 });
