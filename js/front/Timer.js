@@ -127,6 +127,7 @@ function checkForAdditionalTimer(transportId, status, container)
                 timer.init(response.now, response.end, id, status, transportId);
                 $('#'+id).addClass('add-t');
             } else {
+                $('#addRate').dialog('close');
                 $('#'+id).removeClass('add-t');
                 /* Hide transport from the list */
                 var parent = $('#'+id).parent().parent().parent();
