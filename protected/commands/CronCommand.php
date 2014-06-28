@@ -61,6 +61,18 @@ class CronCommand extends CConsoleCommand
                 if($transport->rate_id != $row['id']) {
                     $message = 'Cron ckecked min_rate for transport with id = '.$transport['id'].' and changed rate_id from '.$transport->rate_id.' to '.$row['id'];
                     Yii::log($message, 'info');
+                    $prevRate = Rate::model()->findByPk($transport->rate_id);
+                    
+                    $userEvent = new UserEvent;
+                    $userEvent->user_id = $prevRate->user_id;
+                    $userEvent->transport_id = $transport['id'];
+                    $userEvent->status_online = 1;
+                    $userEvent->status = 1;
+                    $userEvent->type = 1;
+                    $userEvent->event_type = 5;
+                    $userEvent->prev_id = $prevRate->user_id;
+                    $userEvent->save();
+                    
                     $transport->rate_id = $row['id'];
                     $transport->save();
                 }
