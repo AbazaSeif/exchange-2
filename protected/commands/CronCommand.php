@@ -66,7 +66,7 @@ class CronCommand extends CConsoleCommand
                     $userEvent = new UserEvent;
                     $userEvent->user_id = $prevRate->user_id;
                     $userEvent->transport_id = $transport['id'];
-                    $userEvent->status_online = 1;
+                    $userEvent->status_online = 0;
                     $userEvent->status = 1;
                     $userEvent->type = 1;
                     $userEvent->event_type = 5;
