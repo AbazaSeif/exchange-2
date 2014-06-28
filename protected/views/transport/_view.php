@@ -49,7 +49,7 @@
        $currency = ' $';
     }
 ?>
-<div class="transport <?php echo ($now>$end)?'hide':''?>">
+<div class="transport">
     <div class="width-50">
         <div class="width-100">
             <?php if(!Yii::app()->user->isGuest): ?>

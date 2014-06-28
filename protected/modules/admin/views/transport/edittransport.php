@@ -236,9 +236,9 @@ $(document).ready(function() {
     });
     
     <?php if(Yii::app()->user->checkAccess('editRate')): ?>
-        editor.initRateEditor();
+        //editor.initRateEditor(); // редактирование ставок
         // сортировка перетаскиванием промежуточных пунктов
-       /* $( "#points-all" ).sortable({
+        /* $( "#points-all" ).sortable({
             revert: true
         });*/
     <?php endif; ?>

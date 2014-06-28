@@ -152,7 +152,7 @@ io.sockets.on('connection', function (socket) {
 			//var dateCloseNew = checkForAdditionalTimer(data); // only for international transport
 			
 			if(parseInt(data.price) <= parseInt(row.start_rate)) {
-			    var dateCloseNew = checkForAdditionalTimer(data);
+			        var dateCloseNew = ''; //checkForAdditionalTimer(data);
 				var time = getDateTime();
 				if(row.rate_id) { // not null		
 					// check if it's min rate
@@ -214,8 +214,8 @@ io.sockets.on('connection', function (socket) {
 				});
 			} else {
 			    io.sockets.socket(socket.id).emit('errorRate', {
-					price : row.start_rate,
-				});
+                                    price : row.start_rate,
+                            });
 			}
         });
     });  

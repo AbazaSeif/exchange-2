@@ -47,7 +47,7 @@ class RateController extends Controller
                 $minRateId = $minRatePrice['id'];
                 $transportModel = Transport::model()->findByPk($transportId);
                 
-                $message = 'Изменена ставка с id = '. $id . ' в перевозке "' . $transportModel->location_from . ' — ' . $transportModel->location_to . '" '.
+                $message = 'Изменена ставка с id = '. $id . ' в перевозке "' . $transportModel->location_from . ' — ' . $transportModel->location_to . '" (id = '.$transportModel->id.')'.
                     ' - цена "' . $oldPrice . '" на "' . $newPrice . '"'
                 ;
                 
@@ -74,7 +74,7 @@ class RateController extends Controller
             if(!$transportModel->currency) $currency = 'руб.';
             else if($transportModel->currency == 1) $currency = '$';
             $userName = User::model()->findByPk($rate->user_id);
-            $message = 'Удалена ставка (id = '.$id.') пользователя '.$userName->company.' (id = '.$rate->user_id.') от '.date("d.m.Y H:i:s", strtotime($rate->date)).' на сумму '.$rate->price.' '.$currency.' в перевозке "' . $transportModel->location_from . ' — ' . $transportModel->location_to . '"';
+            $message = 'Удалена ставка (id = '.$id.') пользователя '.$userName->company.' (id = '.$rate->user_id.') от '.date("d.m.Y H:i:s", strtotime($rate->date)).' на сумму '.$rate->price.' '.$currency.' в перевозке "' . $transportModel->location_from . ' — ' . $transportModel->location_to . '" (id = '.$transportModel->id.')';
             Changes::saveChange($message);
             Rate::model()->deleteByPk($id);
             if((int)$transportModel->rate_id == (int)$id) {

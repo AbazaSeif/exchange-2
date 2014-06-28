@@ -507,9 +507,9 @@ class SiteController extends Controller
                                     Dialog::message('flash-success', 'Отправлено!', 'Новый пароль был выслан на Ваш почтовый ящик.');
                                 } else Yii::log($user->getErrors(), 'error');
                             } else {
-                                Dialog::message('flash-success', 'Внимание!', 'Ваша заявка на восстановление доступа отправлена, в ближайшее время с вами свяжутся представители нашей компании.');
+                                Dialog::message('flash-success', 'Внимание!', 'В вашей учетной записи отсутствует email, поэтому Вы не можете восстановить пароль. Вам требуется связаться с логистами и попросить их внести в вашу учетную запись email.');
                                 // send mail to logist
-                                $email = new TEmail2;
+                                /*$email = new TEmail2;
                                 $email->from_email = Yii::app()->params['adminEmail'];
                                 $email->from_name  = 'Биржа перевозок ЛБР АгроМаркет';
                                 $email->to_email   = Yii::app()->params['supportEmail'];
@@ -629,6 +629,7 @@ class SiteController extends Controller
                                         <!-- END Content -->
                                 ';
                                 $email->sendMail();
+                                */
                             }
                         } else {
                             if(User::USER_NOT_CONFIRMED == $user->status) $message = 'не подтверждена';

@@ -100,6 +100,7 @@ if (!Yii::app()->user->isGuest) {
 ?>
 
 <div class="transport-one">
+    <div><span class="attention">Внимание! Перевозка закрывается в срок, т.е. без дополнительного времени.</span><div>
     <div class="width-100">
         <h1><?php echo $transportInfo['location_from'] . ' &mdash; ' . $transportInfo['location_to']; ?></h1>
         <span class="t-o-published">Опубликована <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_published'])) ?></span>
@@ -139,9 +140,11 @@ if (!Yii::app()->user->isGuest) {
             <?php if (!Yii::app()->user->isGuest && $minRateValue > 0 && Yii::app()->user->isTransport): ?>
             <div class="width-50 timer-wrapper">
                 <div class="width-100">
-                    <div id="t-container" class="width-40 <?php echo ($showAdditionalTimer)? 'add-t' : '' ?>">
-                        <?php if(!$transportInfo['status'] || $end < $now): ?>
-                        <span class="t-closed">Перевозка закрыта</span>
+                    <div id="t-container" class="width-40 <?php echo ($showAdditionalTimer)? 'add-t' : '' ?> <?php echo ($transportInfo['status'] && $now < $end)? 'open' : '' ?>">
+                        <?php if(!$transportInfo['status']): ?>
+                        <span class="t-closed closed">Перевозка закрыта</span>
+                        <?php elseif($now > $end): ?>
+                        <span class="t-closed closed">Обработка</span>
                         <?php endif; ?>
                     </div>
                     <?php if($now < $end && $transportInfo['status']):?>
@@ -178,7 +181,8 @@ if (!Yii::app()->user->isGuest) {
                 <div class="width-50 timer-wrapper">
                     <!--div id="t-container" class="<?php echo ($showAdditionalTimer)? 'add-t' : '' ?>"></div-->
                     <div id="t-container" class="<?php echo ($showAdditionalTimer)? 'add-t' : '' ?>">
-                        <?php if(!$transportInfo['status'] || $end < $now): ?>
+                        <?php //if(!$transportInfo['status'] || $end < $now): ?>
+                        <?php if(!$transportInfo['status']): ?>
                         <span class="t-closed">Перевозка закрыта</span>
                         <?php endif; ?>
                     </div> 
@@ -209,7 +213,8 @@ function getTime(){
 }
 
 $(document).ready(function(){
-    <?php if($transportInfo['status'] && $now < $end): ?>
+    <?php //if($transportInfo['status'] && $now < $end): ?>
+    <?php if($transportInfo['status']): ?>
     var timer = new Timer();
     timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>, <?php echo $transportInfo['id'] ?>);
     <?php endif; ?>
@@ -226,10 +231,10 @@ $(document).ready(function(){
     
     <?php if (!Yii::app()->user->isGuest): ?>
         <?php if(Yii::app()->user->isTransport): ?>
-        //var socket = io.connect('http://exchange.lbr.ru:3000/');
-        var socket = io.connect('http://localhost:3000/');
+        var socket = io.connect('http://exchange.lbr.ru:3000/');
+        //var socket = io.connect('http://localhost:3000/');
         
-        socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>, <?php echo ($now < $end || $showAdditionalTimer)? 0 : 1 ?>);
+        socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>, <?php echo ($transportInfo['status'] && ($now < $end || $showAdditionalTimer))? 0 : 1 ?>);
         
         rateList.data.socket = socket;
         rateList.data.userId = '<?php echo $userInfo[id] ?>';

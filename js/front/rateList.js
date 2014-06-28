@@ -280,7 +280,7 @@ var rateList = {
         
         return newElement;
     },
-    getContainerHeight : function(){
+    getContainerHeight : function() {
         var h=0;
         this.container.find('.rate-one').each(function(k){
             h += $(this).outerHeight();

@@ -21,7 +21,7 @@ class TransportController extends Controller
                 ),
                 'sort'=>array(
                     'defaultOrder'=>array(
-                        'date_published' => CSort::SORT_DESC,
+                        'date_close' => CSort::SORT_ASC,
                     ),                        
                 ),
             )
@@ -245,5 +245,17 @@ class TransportController extends Controller
         
         $array = array('end'=>$date, 'now'=>$now);
         echo json_encode($array);
+    }
+    
+    public function actionCheckForTransportStatus()
+    {
+        $id = $_POST['id'];
+        $status = Yii::app()->db->createCommand()
+            ->select('status')
+            ->from('transport')
+            ->where('id=:id', array(':id'=>$id))
+            ->queryScalar()
+        ;
+        echo $status;
     }
 }

@@ -4,6 +4,7 @@ class CronCommand extends CConsoleCommand
     public function run($args)
     {   
         $this->deadlineTransport();
+        $this->checkTransportRates();
         $this->beforeDeadlineTransport();
         $this->newTransport();
         $this->mailKillRate();
@@ -24,6 +25,46 @@ class CronCommand extends CConsoleCommand
         
         foreach($transports as $transport){
             Transport::model()->updateByPk($transport['id'], array('status' => 0));
+        }
+    }
+    
+    public function checkTransportRates()
+    {
+        $timeNow = date("Y-m-d H:i", strtotime("-2 minutes"));
+        $transportIds = '';
+
+        $transports = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('transport')
+            ->where('(date_close like :time and date_close_new IS NULL) or date_close_new like :time', array(':time' => $timeNow . '%'))
+            ->queryAll()
+        ;
+
+        $count = count($transports);
+
+        if($count) {
+            foreach($transports as $transport){
+                $model = new Rate;
+                $criteria = new CDbCriteria;
+                $criteria->select = 'min(price) AS price, id, user_id';
+                $criteria->condition = 'transport_id = :id';
+                $criteria->params = array(':id'=>$transport['id']);
+                $minPrice = $model->model()->find($criteria);
+                
+                $criteria->select = 'id, user_id';
+                $criteria->order = 'date';
+                $criteria->condition = 'transport_id = :id and price = :price';
+                $criteria->params = array(':id'=>$transport['id'], ':price'=>$minPrice['price']);
+                $row = $model->model()->find($criteria);
+                
+                $transport = Transport::model()->findByPk($transport['id']);
+                if($transport->rate_id != $row['id']) {
+                    $message = 'Cron ckecked min_rate for transport with id = '.$transport['id'].' and changed rate_id from '.$transport->rate_id.' to '.$row['id'];
+                    Yii::log($message, 'info');
+                    $transport->rate_id = $row['id'];
+                    $transport->save();
+                }
+            }
         }
     }
     
@@ -57,7 +98,7 @@ class CronCommand extends CConsoleCommand
     public function deadlineTransport()
     {
         //$timeNow = date("Y-m-d H:i");
-        $timeNow = date("Y-m-d H:i", strtotime("-2 minutes"));
+        $timeNow = date("Y-m-d H:i", strtotime("-3 minutes"));
         $transportIds = '';
 
         $transports = Yii::app()->db->createCommand()
@@ -862,7 +903,7 @@ class CronCommand extends CConsoleCommand
         $subject = 'Закрыта заявка на перевозку';
         $message = '';
         $transport = Transport::model()->findByPk($transportId);
-        if($mailType == 'mail_deadline'){
+        if($mailType == 'mail_deadline') {
             //$subject = 'Закрыта заявка на перевозку';
             $message .= '<a href="http://exchange.lbr.ru/transport/description/id/'.$transportId.'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank">
                 <span class="link-u" style="color:#008672; font-weight: bold; text-decoration:underline">

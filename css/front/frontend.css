@@ -634,7 +634,7 @@ form#contactform label {
     padding-top: 2px;
     padding-bottom: 2px;
 }
-#help-form span,  #help-form .title{
+#help-form span:not(.attention),  #help-form .title{
     color: #EF801B;
     font-size: 16px;
     font-weight: bold;
@@ -886,8 +886,9 @@ form#contactform label {
 }
 .items .transport div.t-description{
     text-align: center;
+    padding-top: 5px;
 }
-.transport img{
+.transport img:not(.small-loading){
     margin-top: 20px;
 }
 .transport img.arrow{
@@ -943,14 +944,16 @@ form#contactform label {
 {
     margin-top: 10px;
 }
-.transport-one h1
+.transport-one h1, .attention
 {
     margin: 0;
     padding: 0;
     padding-top: 30px;
     padding-left: 20px;
 }
-
+.attention{
+    font-size: 16px;
+}
 .transport-one .t-o-published
 {
     color: #CCC;
@@ -1051,7 +1054,7 @@ form#contactform label {
     white-space: nowrap;
 }
 
-#error{
+#error, .attention{
     color: red;
 }
 #errorRate, #errorSocket, #errorStatus{
@@ -1157,7 +1160,7 @@ form#contactform label {
     text-align: center;
     position: relative;
 }
-#t-container:before, #t-container.add-t:before
+#t-container.open:before, #t-container.open.add-t:before
 {
     content: 'До закрытия заявки осталось: ';
     display: block;
@@ -1688,5 +1691,10 @@ div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-draggable
 .ui-widget-content
 {
     border: 0 !important;
+}
+.small-loading{
+    width: 15px;
+    height: 15px;
+    padding-right: 5px;
 }
 /*------- Pop-up window ------------------------------*/

@@ -97,17 +97,61 @@ Timer.prototype = {
               var self = this;
               setTimeout(function(){self.updateCounter();}, 1000);
           } else {
-              /*this.container.innerHTML = '<span class="t-closed">Перевозка закрыта</span>';
+              $(".ui-dialog-content").dialog( "close" );
               if($('.r-submit').length) {
                   $('.r-submit').addClass('disabled');
                   $('.rate-wrapper').slideUp("slow");
-              }*/
+              }    
+              this.container.innerHTML = '<span class="t-closed"><img class="small-loading" src="/images/loading-small.gif"/>Обработка результатов</span>';
+              
+              $('#t-container').removeClass('open');
+              var _this = this;
+              if(this.endDate < this.dateNow) {
+                  refreshIntervalId = setInterval(function(){_this.addCloseLabel(_this.container, _this.transportId, refreshIntervalId);}, 5000);   
+              } else { // this.endDate == this.dateNow
+                  
+                  setTimeout(function(){_this.addCloseLabelWithDelay(_this.container, _this.transportId, _this.refreshIntervalId);}, 120000);
+              }
               /********************/
-              // открыть 2
-              // alert(this.container);
-              checkForAdditionalTimer(this.transportId, this.status, this.container);
+              // Доп время
+              // checkForAdditionalTimer(this.transportId, this.status, this.container);
           }
        }
+    },  
+    addCloseLabelWithDelay: function(container, transportId, refreshIntervalId) {
+        var _this = this;
+        refreshIntervalId = setInterval(function(){_this.addCloseLabel(container, transportId, refreshIntervalId);}, 5000);
+    },
+    addCloseLabel: function(container, transportId, refreshIntervalId) {
+        var containerId = container.getAttribute('id');
+        var index = containerId.indexOf('counter-');
+        if(index > -1) id = containerId.substring(8);
+        else id = transportId;
+        $.ajax({
+            type: 'POST',
+            url: '/transport/checkForTransportStatus',
+            dataType: 'json',
+            data:{
+                id: id,
+            },
+            success: function(response) {
+               if(response == 0) {
+                   if(containerId == 't-container') $('#'+containerId).removeClass('open');
+                   container.innerHTML = '<span class="t-closed">Перевозка закрыта</span>';
+                   if(typeof refreshIntervalId != 'undefined') clearInterval(refreshIntervalId);
+                   /* hide transport from the list */
+                   var parent = $('#'+containerId).parent().parent().parent();
+                   if(parent.hasClass('transport')) parent.addClass('hide');
+                   /* end hide transport */
+               }
+        }});
+        
+        //container.innerHTML = '<span class="t-closed">Перевозка закрыта</span>';
+        /* hide transport from the list */
+        //var id = container.getAttribute('id');
+        //var parent = $('#'+id).parent().parent().parent();
+        //if(parent.hasClass('transport')) parent.addClass('hide');
+        /* end hide transport */
     }
 };
 
@@ -127,18 +171,18 @@ function checkForAdditionalTimer(transportId, status, container)
                 timer.init(response.now, response.end, id, status, transportId);
                 $('#'+id).addClass('add-t');
             } else {
-                $('#addRate').dialog('close');
-                $('#'+id).removeClass('add-t');
-                /* Hide transport from the list */
-                var parent = $('#'+id).parent().parent().parent();
+                var label = $('#'+id);
+                label.removeClass('add-t');
+                if(id == 't-container') label.removeClass('open');
+                /* hide transport from the list */
+                var parent = label.parent().parent().parent();
                 if(parent.hasClass('transport')) parent.addClass('hide');
-                
+                /* end hide transport */
                 container.innerHTML = '<span class="t-closed">Перевозка закрыта</span>';
                 if($('.r-submit').length) {
                     $('.r-submit').addClass('disabled');
                     $('.rate-wrapper').slideUp("slow");
                 }
-                
             }
     }});
 }
