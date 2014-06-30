@@ -84,14 +84,14 @@ class TransportController extends Controller
                             'desc'=>'location_to DESC',
                             'default'=>'asc',
                         ),
-                        'date_published'=>array(
-                            'asc'=>'date_published ASC',
-                            'desc'=>'date_published DESC',
+                        'date_from'=>array(
+                            'asc'=>'date_from ASC',
+                            'desc'=>'date_from DESC',
                             'default'=>'desc',
                         )
                     ),
                     'defaultOrder'=>array(
-                        'date_published' => CSort::SORT_DESC,
+                        'date_from' => CSort::SORT_DESC,
                         'date_close' => CSort::SORT_DESC,
                         'location_from' => CSort::SORT_ASC,
                         'location_to' => CSort::SORT_ASC,
