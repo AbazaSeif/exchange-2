@@ -271,6 +271,9 @@ class TransportController extends Controller
                         if($key == 'currency') {
                             $changes[$key]['before'] = Transport::$currencyGroup[$changes[$key]['before']];
                             $changes[$key]['after']  = Transport::$currencyGroup[$changes[$key]['after']];
+                        } else if($key == 'status'){
+                            $changes[$key]['before'] = Transport::$status[$changes[$key]['before']];
+                            $changes[$key]['after']  = Transport::$status[$changes[$key]['after']];
                         }
                         
                         $message .= $k . ') Поле "'. $model->getAttributeLabel($key) . '" c "' . $changes[$key]['before'] . '" на "' . $changes[$key]['after'] . '"; ';
