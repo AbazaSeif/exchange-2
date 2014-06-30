@@ -22,6 +22,8 @@ class TransportController extends Controller
                 'sort'=>array(
                     'defaultOrder'=>array(
                         'date_close' => CSort::SORT_ASC,
+                        'location_from' => CSort::SORT_ASC,
+                        'location_to' => CSort::SORT_ASC,
                     ),                        
                 ),
             )

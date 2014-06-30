@@ -4,10 +4,11 @@ class TransportController extends Controller
 {
     public function actionIndex($transportType = 2)
     {
+        $showAllTransports = 2;
         if(Yii::app()->user->checkAccess('readTransport'))
         {
             $criteriaActive = new CDbCriteria();            
-            if($transportType != 2) {
+            if($transportType != $showAllTransports) {
                 $criteriaActive->condition = 't.status = :status and t.type = :type';
                 $criteriaActive->params = array(':status' => 1, ':type' => $transportType);
             } else {
@@ -16,12 +17,21 @@ class TransportController extends Controller
             }
             
             $criteriaArchive = new CDbCriteria();
-            if($transportType != 2) {
+            if($transportType != $showAllTransports) {
                 $criteriaArchive->condition = 't.status = :status and t.type = :type';
                 $criteriaArchive->params = array(':status' => 0, ':type' => $transportType);
             } else {
                 $criteriaArchive->condition = 't.status = :status';
                 $criteriaArchive->params = array(':status' => 0);
+            }
+            
+            $criteriaDraft = new CDbCriteria();
+            if($transportType != $showAllTransports) {
+                $criteriaDraft->condition = 't.status = :status and t.type = :type';
+                $criteriaDraft->params = array(':status' => 2, ':type' => $transportType);
+            } else {
+                $criteriaDraft->condition = 't.status = :status';
+                $criteriaDraft->params = array(':status' => 2);
             }
             
             $sort = new CSort();
@@ -78,6 +88,16 @@ class TransportController extends Controller
                     )
                 )
             );
+            
+            $dataDraft = new CActiveDataProvider('Transport', 
+                array(
+                    'criteria' => $criteriaDraft,
+                    'sort' => $sort,
+                    'pagination' => array(
+                        'pageSize'=>'10'
+                    )
+                )
+            );
 
             if ($id = Yii::app()->user->getFlash('saved_id')) {
                 $model = Transport::model()->findByPk($id);
@@ -86,7 +106,7 @@ class TransportController extends Controller
                 $view = $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'points'=>$points), true, true);
             }
             
-            $this->render('transport', array('dataActive'=>$dataActive, 'dataArchive'=>$dataArchive, 'view'=>$view, 'type' => $transportType));
+            $this->render('transport', array('dataActive'=>$dataActive, 'dataArchive'=>$dataArchive, 'dataDraft' =>$dataDraft, 'view'=>$view, 'type' => $transportType));
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }

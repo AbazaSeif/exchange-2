@@ -57,6 +57,7 @@ class Transport extends CActiveRecord
     public static $status = array(
         0=>'Архивная',
         1=>'Активная',
+        2=>'Черновик',
     );
     /**
 	 * @return string the associated database table name

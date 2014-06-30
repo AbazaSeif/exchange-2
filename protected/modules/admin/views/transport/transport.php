@@ -21,6 +21,7 @@
         <ul>
             <li><a href="#tabs-1">Активные</a></li>
             <li><a href="#tabs-2">Архивные</a></li>
+            <li><a href="#tabs-3">Черновики</a></li>
         </ul>
         <div id="tabs-1">
             <?php
@@ -49,6 +50,29 @@
         <?php
         $this->widget('zii.widgets.CListView', array(
             'dataProvider'=>$dataArchive,
+            'itemView'=>'_item', // представление для одной записи
+            'ajaxUpdate'=>false, // отключаем ajax поведение
+            'emptyText'=>'Нет перевозок',
+            'template'=>'{sorter} {items} {pager}',
+            'sorterHeader'=>'',
+            'itemsTagName'=>'ul',
+            'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'num_rates'=>'Кол-во ставок', 'num_users'=>'Кол-во фирм', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка', 'start_rate'=>'Начальная ставка'),
+            'pager'=>array(
+                'class'=>'LinkPager',
+                'header'=>false,
+                'prevPageLabel'=>'<',
+                'nextPageLabel'=>'>',
+                'lastPageLabel'=>'В конец >>',
+                'firstPageLabel'=>'<< В начало',
+                'maxButtonCount' => '5'
+            ),
+        ));
+        ?>
+        </div>
+        <div id="tabs-3">
+        <?php
+        $this->widget('zii.widgets.CListView', array(
+            'dataProvider'=>$dataDraft,
             'itemView'=>'_item', // представление для одной записи
             'ajaxUpdate'=>false, // отключаем ajax поведение
             'emptyText'=>'Нет перевозок',
