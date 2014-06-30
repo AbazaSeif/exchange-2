@@ -20,19 +20,21 @@ class TransportController extends Controller
                             'desc'=>'date_close DESC',
                             'default'=>'desc',
                         ),
-                        'date_to'=>array(
-                            'asc'=>'date_to ASC',
-                            'desc'=>'date_to DESC',
-                            'default'=>'desc',
+                        'location_from'=>array(
+                            'asc'=>'location_from ASC',
+                            'desc'=>'location_from DESC',
+                            'default'=>'asc',
                         ),
-                        'date_published'=>array(
-                            'asc'=>'date_published ASC',
-                            'desc'=>'date_published DESC',
-                            'default'=>'desc',
+                        'location_to'=>array(
+                            'asc'=>'location_to ASC',
+                            'desc'=>'location_to DESC',
+                            'default'=>'asc',
                         )
                     ),
                     'defaultOrder'=>array(
-                        'date_published' => CSort::SORT_DESC,
+                        'date_close' => CSort::SORT_ASC,
+                        'location_from' => CSort::SORT_ASC,
+                        'location_to' => CSort::SORT_ASC,
                     ),
                 ),
             )
@@ -72,10 +74,15 @@ class TransportController extends Controller
                             'desc'=>'date_close DESC',
                             'default'=>'desc',
                         ),
-                        'date_to'=>array(
-                            'asc'=>'date_to ASC',
-                            'desc'=>'date_to DESC',
-                            'default'=>'desc',
+                        'location_from'=>array(
+                            'asc'=>'location_from ASC',
+                            'desc'=>'location_from DESC',
+                            'default'=>'asc',
+                        ),
+                        'location_to'=>array(
+                            'asc'=>'location_to ASC',
+                            'desc'=>'location_to DESC',
+                            'default'=>'asc',
                         ),
                         'date_published'=>array(
                             'asc'=>'date_published ASC',
@@ -85,6 +92,9 @@ class TransportController extends Controller
                     ),
                     'defaultOrder'=>array(
                         'date_published' => CSort::SORT_DESC,
+                        'date_close' => CSort::SORT_DESC,
+                        'location_from' => CSort::SORT_ASC,
+                        'location_to' => CSort::SORT_ASC,
                     ),
                 ),
             )
@@ -124,21 +134,23 @@ class TransportController extends Controller
                         'date_close'=>array(
                             'asc'=>'date_close ASC',
                             'desc'=>'date_close DESC',
-                            'default'=>'desc',
+                            'default'=>'asc',
                         ),
-                        'date_to'=>array(
-                            'asc'=>'date_to ASC',
-                            'desc'=>'date_to DESC',
-                            'default'=>'desc',
+                        'location_from'=>array(
+                            'asc'=>'location_from ASC',
+                            'desc'=>'location_from DESC',
+                            'default'=>'asc',
                         ),
-                        'date_published'=>array(
-                            'asc'=>'date_published ASC',
-                            'desc'=>'date_published DESC',
-                            'default'=>'desc',
+                        'location_to'=>array(
+                            'asc'=>'location_to ASC',
+                            'desc'=>'location_to DESC',
+                            'default'=>'asc',
                         )
                     ),
                     'defaultOrder'=>array(
-                            'date_published' => CSort::SORT_DESC,
+                        'date_close' => CSort::SORT_ASC,
+                        'location_from' => CSort::SORT_ASC,
+                        'location_to' => CSort::SORT_ASC,
                     ),
                 ),
             )
@@ -224,19 +236,21 @@ class TransportController extends Controller
                             'desc'=>'date_close DESC',
                             'default'=>'desc',
                         ),
-                        'date_to'=>array(
-                            'asc'=>'date_to ASC',
-                            'desc'=>'date_to DESC',
-                            'default'=>'desc',
+                        'location_from'=>array(
+                            'asc'=>'location_from ASC',
+                            'desc'=>'location_from DESC',
+                            'default'=>'asc',
                         ),
-                        'date_published'=>array(
-                            'asc'=>'date_published ASC',
-                            'desc'=>'date_published DESC',
-                            'default'=>'desc',
+                        'location_to'=>array(
+                            'asc'=>'location_to ASC',
+                            'desc'=>'location_to DESC',
+                            'default'=>'asc',
                         )
                     ),
                     'defaultOrder'=>array(
-                            'date_published' => CSort::SORT_DESC,
+                        'date_close' => CSort::SORT_DESC,
+                        'location_from' => CSort::SORT_ASC,
+                        'location_to' => CSort::SORT_ASC,
                     ),
                 ),
             )
