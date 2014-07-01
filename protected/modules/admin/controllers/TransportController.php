@@ -387,7 +387,7 @@ class TransportController extends Controller
                     }
                 }
                 Changes::saveChange($message);
-                Yii::app()->user->setFlash('message', 'Удалена перевозка "' . $transportName . '"');
+                Yii::app()->user->setFlash('message', 'Перевозка "' . $transportName . '" удалена успешно.');
                 $this->redirect('/admin/transport/');
             }
         } else {
