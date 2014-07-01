@@ -89,7 +89,7 @@ input, textarea{
     cursor: pointer;
     display: block;
     float: left;
-    padding: 0 20px;
+    padding: 1px 20px;
     text-decoration: none;
     width: auto !important;
     line-height: 22px;
