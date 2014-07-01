@@ -53,7 +53,7 @@ class CronCommand extends CConsoleCommand
                 
                 $criteria->select = 'id, user_id';
                 $criteria->order = 'date';
-                $criteria->condition = 'transport_id = :id and price = :price';
+                $criteria->condition = 'transport_id = :id and price like :price';
                 $criteria->params = array(':id'=>$transport['id'], ':price'=>$minPrice['price']);
                 $row = $model->model()->find($criteria);
                 

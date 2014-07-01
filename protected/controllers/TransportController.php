@@ -260,45 +260,4 @@ class TransportController extends Controller
         ;
         echo $status;
     }
-    
-    public function actionCheck()
-    {
-        // 199 и 197
-        $id = 199;
-        $model = new Rate;
-        $criteria = new CDbCriteria;
-        $criteria->select = 'min(price) AS price, id, user_id';
-        $criteria->condition = 'transport_id = :id';
-        $criteria->params = array(':id'=>$id);
-        $minPrice = $model->model()->find($criteria);
-        //var_dump($minPrice['price']);exit;
-        $model = new Rate;
-        $criteria->select = 'id, user_id';
-        $criteria->order = 'date';
-        $criteria->condition = 'transport_id = :id and price like :price';
-        $criteria->params = array(':id'=>$id, ':price'=>$minPrice['price'].'%');
-        $row = $model->model()->find($criteria);
-        //var_dump($row['id']);exit;
-        $transport = Transport::model()->findByPk($id);
-        $transport->rate_id = $row['id'];
-        $transport->save();
-        $id = 197;
-        $model = new Rate;
-        $criteria = new CDbCriteria;
-        $criteria->select = 'min(price) AS price, id, user_id';
-        $criteria->condition = 'transport_id = :id';
-        $criteria->params = array(':id'=>$id);
-        $minPrice = $model->model()->find($criteria);
-        //var_dump($minPrice['price']);exit;
-        $model = new Rate;
-        $criteria->select = 'id, user_id';
-        $criteria->order = 'date';
-        $criteria->condition = 'transport_id = :id and price like :price';
-        $criteria->params = array(':id'=>$id, ':price'=>$minPrice['price'].'%');
-        $row = $model->model()->find($criteria);
-        //var_dump($row['id']);exit;
-        $transport = Transport::model()->findByPk($id);
-        $transport->rate_id = $row['id'];
-        $transport->save();
-    }
 }
