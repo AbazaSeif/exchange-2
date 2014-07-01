@@ -373,10 +373,21 @@ class TransportController extends Controller
         if(Yii::app()->user->checkAccess('deleteTransport')){
             $model = Transport::model()->findByPk($id);
             $transportName = $model->location_from . ' — ' . $model->location_to;
+            $type = mb_strtolower(Transport::$group[$model->type], 'UTF-8');
+            $rates = Rate::model()->findAll('transport_id = :id',array('id'=>$id));
             if(Transport::model()->deleteByPk($id)){
-                $message = 'Удалена перевозка "' . $transportName . '"';
+                $message = 'Удалена '.$type.' перевозка "' . $transportName . '" (id='.$id.'). ';
+                if(!empty($rates)){
+                    $message .= 'Также были удалены ставки сделанные в этой перевозке: ';
+                    $count = 1;
+                    foreach($rates as $rate) {
+                        $user = User::model()->findByPk($rate['user_id']);
+                        $message .= $count.') '.$rate['price'].' ('.$rate['date'].') - '.$user->company.' (id='.$user->id.'); ';
+                        $count++;
+                    }
+                }
                 Changes::saveChange($message);
-                Yii::app()->user->setFlash('message', 'Перевозка "' . $transportName . '" удалена успешно.');
+                Yii::app()->user->setFlash('message', 'Удалена перевозка "' . $transportName . '"');
                 $this->redirect('/admin/transport/');
             }
         } else {
