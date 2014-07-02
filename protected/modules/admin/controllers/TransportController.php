@@ -36,7 +36,7 @@ class TransportController extends Controller
             
             $sort = new CSort();
             $sort->sortVar = 'sort';
-            $sort->defaultOrder = 'date_close desc';
+            $sort->defaultOrder = 'date_close desc, t_id';
             
             $sort->attributes = array(
                 'location_from' => array(
