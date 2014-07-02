@@ -68,11 +68,46 @@ class TransportController extends Controller
                     'default' => 'asc',
                 ),
             );
+            
+            $sortActive = new CSort();
+            $sortActive->sortVar = 'sort';
+            $sortActive->defaultOrder = 'date_close asc, t_id';
+            
+            $sortActive->attributes = array(
+                'location_from' => array(
+                    'location_from' => 'Место разгрузки',
+                    'asc' => 'location_from ASC',
+                    'desc' => 'location_from DESC',
+                    'default' => 'asc',
+                ),
+                'location_to' => array(
+                    'location_to' => 'Место загрузки',
+                    'asc' => 'location_to ASC',
+                    'desc' => 'location_to DESC',
+                    'default' => 'asc',
+                ),
+                't_id' => array(
+                    't_id' => 'Id перевозки',
+                    'asc' => 't_id ASC',
+                    'desc' => 't_id DESC',
+                    'default' => 'asc',
+                ),
+                'date_close' => array(
+                    'asc' => 'date_close ASC',
+                    'desc' => 'date_close DESC',
+                    'default' => 'asc',
+                ),
+                'start_rate' => array(
+                    'asc' => 'start_rate ASC',
+                    'desc' => 'start_rate DESC',
+                    'default' => 'asc',
+                ),
+            );
 
             $dataActive = new CActiveDataProvider('Transport', 
                 array(
                     'criteria' => $criteriaActive,
-                    'sort' => $sort,
+                    'sort' => $sortActive,
                     'pagination' => array(
                         'pageSize' => '10'
                     )
