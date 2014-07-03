@@ -261,7 +261,7 @@ class TransportController extends Controller
         echo $status;
     }
     
-    public function actionCheck()
+    /*public function actionCheck()
     {
         $id = 166;
         $model = new Rate;
@@ -279,5 +279,5 @@ class TransportController extends Controller
         $transport = Transport::model()->findByPk($id);
         $transport->rate_id = $row['id'];
         $transport->save();
-    }
+    }*/
 }
