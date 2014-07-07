@@ -36,7 +36,7 @@ if($end < $now && $transportInfo['status']) {
     }    
 }
 
-$winRate = Rate::model()->findByPk($transportInfo['rate_id']);
+$winRate = Rate::model()->findByPk($transportInfo['rate_id']);                
 $winFerryman = User::model()->findByPk($winRate->user_id);
 $winFerrymanShowNds = UserField::model()->findByAttributes(array('user_id'=>$winRate->user_id));
 $showWithNds = '';

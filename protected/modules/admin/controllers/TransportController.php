@@ -379,6 +379,7 @@ class TransportController extends Controller
                     );
                 } else Yii::log($model->getErrors(), 'error');
             } else {
+                $minRateId = '';
                 $rates = Yii::app()->db->createCommand()
                     ->select('r.id, r.date, r.price, u.company')
                     ->from('rate r')
@@ -388,12 +389,29 @@ class TransportController extends Controller
                     ->queryAll()
                 ;
 
-                $minRateId = Yii::app()->db->createCommand()
+                /*$minRateId = Yii::app()->db->createCommand()
                     ->select('rate_id')
                     ->from('transport')
                     ->where('id = :id', array(':id' => $id))
                     ->queryScalar()
-                ;
+                ;*/
+                
+                $model = new Rate;
+                $criteria = new CDbCriteria;
+                $criteria->select = 'min(price) AS price, id, user_id';
+                $criteria->condition = 'transport_id = :id';
+                $criteria->params = array(':id'=>$id);
+                $minPrice = $model->model()->find($criteria);
+                if(!empty($minPrice['price'])){
+                    $criteria->select = 'id, user_id';
+                    $criteria->order = 'date';
+                    $criteria->condition = 'transport_id = :id and price like :price';
+                    $criteria->params = array(':id'=>$id, ':price'=>$minPrice['price']);
+                    $row = $model->model()->find($criteria);
+                    if(!empty($row['id'])){
+                        $minRateId = $row['id'];
+                    }
+                }
 
                 $points = TransportInterPoint::model()->findAll(array('order'=>'sort', 'condition'=>'t_id = ' . $id));
             }

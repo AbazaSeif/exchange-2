@@ -94,8 +94,6 @@
         </div>
     </div>
 </div>
-
-    
 <script>
     $(function() {
         var activeTab = parseInt(sessionStorage.getItem('transportActive'));

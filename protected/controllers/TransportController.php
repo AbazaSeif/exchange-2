@@ -39,6 +39,31 @@ class TransportController extends Controller
             if (!$id_exists){
                  throw new CHttpException(404,Yii::t('yii','Страница не найдена'));
             }
+            
+            $model = new Rate;
+            $criteria = new CDbCriteria;
+            $criteria->select = 'min(price) AS price, id, user_id';
+            $criteria->condition = 'transport_id = :id';
+            $criteria->params = array(':id'=>$id);
+            $minPrice = $model->model()->find($criteria);
+
+            if(!empty($minPrice['price'])){
+                $crtr = new CDbCriteria;
+                $crtr->select = 'id, user_id';
+                $crtr->order = 'date';
+                $crtr->condition = 'transport_id = :id and price like :price';
+                $crtr->params = array(':id'=>$id, ':price'=>$minPrice['price']);
+                $row = $model->model()->find($crtr);
+            
+                if(!empty($row['id'])) {
+                    $transport = Transport::model()->findByPk($id);
+                    if($transport->rate_id != $row['id']) {
+                        $transport->rate_id = $row['id'];
+                        $transport->save();
+                    }
+                }
+            }
+        
             $transportInfo=Yii::app()->db->createCommand("SELECT * from transport where id='".$id."'")->queryRow();
             $allRatesForTransport = Yii::app()->db->createCommand()
                 ->select('r.date, r.price, u.name')

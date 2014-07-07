@@ -29,7 +29,7 @@
     <body>
         <?php if(!Yii::app()->user->isGuest &&  Yii::app()->user->isTransport): ?>
         <div id="online-event"></div>
-         <?php endif; ?>
+        <?php endif; ?>
         <div class="header">
             <div class="logo">
                 <a href="/">
