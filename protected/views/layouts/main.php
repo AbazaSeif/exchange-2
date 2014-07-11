@@ -55,7 +55,7 @@
                 <?php if (!Yii::app()->user->isGuest): ?>
                 <noscript><div class="hide"></noscript>
                 <?php endif; ?>
-                <?php $this->renderPartial( 'user.views.site.dialog' ); ?>
+                <?php //$this->renderPartial( 'user.views.site.dialog' ); ?>
                 <?php echo $content; ?>
                 <?php if (!Yii::app()->user->isGuest): ?>
                 <noscript></div></noscript>

@@ -37,6 +37,11 @@ var rateList = {
                 $("#errorRate").dialog("open");
             });
             
+            rateList.data.socket.on('closeRate', function (data) {
+                $('#closeTr').text(data.response);
+                $("#closeRate").dialog("open");
+            });
+            
            /* rateList.data.socket.on('error', function (data) {
                 $('#text').text('Произошла ошибка, пожалуйста перезагрузите страницу');
                 $("#errorSocket").dialog("open");

@@ -94,7 +94,7 @@ if (!Yii::app()->user->isGuest) {
     
     if($transportInfo['type'] == 0) {
         $pointsCustom = TransportInterPoint::model()->findAll(array('order'=>'sort desc', 'condition'=>'t_id = ' . $transportInfo['id'], 'limit'=>1));
-        $date_to_customs_clearance_RF = date('d.m.Y', strtotime($pointsCustom[0]['date']));
+        $date_to_customs_clearance_RF = date('d.m.Y H:i', strtotime($pointsCustom[0]['date']));
     }
 }
 ?>
@@ -370,6 +370,25 @@ $(document).ready(function(){
     ?>
     <div class="row">
         <span>Ставка не может быть больше <span id="maxRateVal"></span><?php echo $currency ?></span> 
+    </div>
+    <?php echo CHtml::submitButton('ОК',array('class' => 'btn')); ?>
+    <?php 
+        $this->endWidget('zii.widgets.jui.CJuiDialog');
+    ?>
+</div>
+<div>
+    <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+        'id' => 'closeRate',
+        'options' => array(
+            'title' => 'Ошибка',
+            'autoOpen' => false,
+            'modal' => true,
+            'resizable'=> false,
+        ),
+    ));
+    ?>
+    <div class="row">
+        <span id="closeTr"></span>
     </div>
     <?php echo CHtml::submitButton('ОК',array('class' => 'btn')); ?>
     <?php 
