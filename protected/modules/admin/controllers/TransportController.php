@@ -152,7 +152,7 @@ class TransportController extends Controller
         if(Yii::app()->user->checkAccess('createTransport')) {
             $form = new TransportForm;
             $form->status = 1;
-            $form->date_close = date('d-m-Y', strtotime("+" . 2*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
+            $form->date_close = date('d-m-Y', strtotime("+" . 2*Yii::app()->params['hoursBefore'] . " hours")) . ' 14:00';
             $form->date_from = date('d-m-Y', strtotime("+" . 3*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
             $form->date_to = date('d-m-Y', strtotime("+" . 4*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
             $form->date_to_customs_clearance_RF = date('d-m-Y', strtotime("+" . 4*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
