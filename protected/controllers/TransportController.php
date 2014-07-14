@@ -2,7 +2,7 @@
 class TransportController extends Controller
 {
     public function actionI()
-    {
+    {//
         $lastRates = array();
         $criteria = new CDbCriteria();
         $criteria->compare('status', 1);
