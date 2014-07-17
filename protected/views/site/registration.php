@@ -12,7 +12,7 @@
     $form=$this->beginWidget('CActiveForm', array(
         'id'=>'registration-form',
         'enableClientValidation' => true,        
-        // 'enableAjaxValidation' => true,        
+        'enableAjaxValidation' => true,        
         'clientOptions'=>array(
             'validateOnSubmit'=>true,
             'validateOnChange' => true,

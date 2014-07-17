@@ -664,7 +664,7 @@ form#contactform label {
     padding-left: 0;
 }
 
-#help-form ol li:before, #help-form ul ol li:before {
+#help-form ol li:before, #help-form ul ol li:before{
   content: counter(item) ') '; /* Добавляем к числам скобку */
   counter-increment: item; /* Задаём имя счетчика */
 }

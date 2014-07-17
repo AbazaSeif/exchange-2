@@ -30,6 +30,7 @@ class RegistrationForm extends CFormModel
             array('description, created, ownership, nds, show, company, password, confirm_password, country, region, city, district, inn, name, secondname, surname, phone, email, iagree, verifyCode', 'safe'),
             array('iagree', 'compare', 'compareValue' => true, 'message' => 'Для отправки формы на обработку требуется Ваше согласие' ),
             array('email', 'email'),
+            array('email', 'customValidationRule'),
             array('company','match', 'pattern'=>'/^([\sa-zA-Zа-яА-ЯёЁ\d]+)$/i', 'message'=>'Поле "{attribute}" должно содержать только следующие символы: 0-9,a-z,A-Z,а-я,А-Я и пробел'),
             array('phone, inn', 'numerical'),
             array('password', 'length', 'min'=>6, 'allowEmpty'=>false),
@@ -59,6 +60,16 @@ class RegistrationForm extends CFormModel
        // }
     }
     */
+    
+    public function customValidationRule(){
+        //after all validation rules
+        if(!$this->hasErrors()){
+            $check=User::model()->findByAttributes(array('email'=>$this->email)); //or $this->new_email_confirm
+            if(!is_null($check) || !empty($check)){
+                $this->addError('email','The new email has been already taken by other!');
+            }
+        }
+    } 
     public function attributeLabels()
     {
         return array(
