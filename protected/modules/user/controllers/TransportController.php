@@ -437,11 +437,9 @@ class TransportController extends Controller
             $now = date('Y-m-d H:i:s');
             
             if($end < $now || $transport->status == 0) {
-                //var_dump('end = '.$end.' < now = '.$now.'; status = '.$transport->status); exit;
                 $allow = false;
                 $status = 'вышло время отведенное для ставок.';
-                //$status = 'ведется тестирование, пожалуйста зайдите через 1 час.';
-            } //else var_dump('end = '.$end.' > now = '.$now.'; status = '.$transport->status); exit;
+            }
         }
         $array = array('status'=>$status, 'allow' => $allow);
         echo json_encode($array);
