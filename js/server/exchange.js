@@ -223,6 +223,12 @@ io.sockets.on('connection', function (socket) {
                     response : 'Перевозка была закрыта, ставки больше не принимаются.',
                 });
             }
+        }, function(err, rows) {
+            if (rows == 0) {
+                io.sockets.socket(socket.id).emit('closeRate', {
+                    response : 'Перевозка была удалена. Пожалуйста перезагрузите страницу.',
+                });
+            }
         });
     });  
 });

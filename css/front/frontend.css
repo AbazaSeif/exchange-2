@@ -1057,7 +1057,7 @@ form#contactform label {
 #error, .attention{
     color: red;
 }
-#errorRate, #errorSocket, #errorStatus{
+#errorRate, #errorSocket, #errorStatus, #closeRate{
     min-height: 60px !important;
 }
 #event-counter{

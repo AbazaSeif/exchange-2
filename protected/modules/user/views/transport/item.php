@@ -265,6 +265,9 @@ $(document).ready(function(){
         $( "#errorStatus .btn" ).live('click', function() {
             $(".ui-dialog-content").dialog( "close" );
         });
+        $( "#closeRate .btn" ).live('click', function() {
+            $(".ui-dialog-content").dialog( "close" );
+        });
         <?php endif; ?> 
             rateList.init();
    <?php endif; ?>
