@@ -410,7 +410,7 @@ class TransportController extends Controller
     
     public function actionCheckStatus()
     {
-        //$id = $_POST['id'];
+        $id = $_POST['id'];
         $allow = false;
         $status = '';
         $user = User::model()->findByPk(Yii::app()->user->_id);
@@ -431,6 +431,15 @@ class TransportController extends Controller
         } else if($user->status == User::USER_WARNING || $user->status == User::USER_ACTIVE) {
             $allow = true;
         } else $status = 'Ваш статус "'.User::statusLabel($user->status).'".';
+        if($allow) {
+            $transport = Transport::model()->findByPk($id);
+            $end = $transport->date_close;
+            $now = date('Y-m-d H:i:s');
+            if($end < $now || !$transport->status) {
+                $allow = false;
+                $status = 'вышло время отведенное для ставок.';
+            }
+        }
         $array = array('status'=>$status, 'allow' => $allow);
         echo json_encode($array);
     }

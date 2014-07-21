@@ -95,7 +95,7 @@ var rateList = {
                         url: '/user/transport/checkStatus',
                         dataType: 'json',
                         data:{
-                            //id: this.data.transportId,
+                            id: rateList.data.transportId,
                         },
                         success: function(response) {
                             if(response.allow) { 
