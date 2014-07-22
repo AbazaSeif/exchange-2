@@ -104,8 +104,15 @@ input, textarea{
     color: #878787;
     width: 100%;
 }
-input.btn-admin{
-    padding: 0 20px;
+
+@-moz-document url-prefix() {
+   input.btn-admin{
+      padding: 0 20px;
+   }
+}
+
+@-moz-document url-prefix() {
+    select {padding-top:10px;}
 }
 
 .query-field { 
