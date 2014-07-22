@@ -433,8 +433,8 @@ class TransportController extends Controller
         } else $status = 'Ваш статус "'.User::statusLabel($user->status).'".';
         /*if($allow) {
             $transport = Transport::model()->findByPk($id);
-            $end = $transport->date_close;
-            $now = date('Y-m-d H:i:s');
+            $end = strtotime($transport->date_close);
+            $now = strtotime(date('Y-m-d H:i:s'));
             
             if($end < $now || $transport->status == 0) {
                 $allow = false;
