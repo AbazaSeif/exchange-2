@@ -101,6 +101,7 @@ var rateList = {
                             if(response.allow) { 
                                 $('#setPriceVal').text(parseInt($( "#rate-price" ).val()));
                                 $("#addRate").dialog("open");
+                                rateList.data.time = response.time;
                             } else {
                                 $('#curStatus').text(response.status);
                                 $("#errorStatus").dialog("open");
@@ -135,6 +136,7 @@ var rateList = {
                         company: rateList.data.company,
                         price : price,
                         type : rateList.data.transportType,
+                        time : rateList.data.time,
                     }); 
                 //}
             });

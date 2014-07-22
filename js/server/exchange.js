@@ -154,7 +154,7 @@ io.sockets.on('connection', function (socket) {
             if(parseInt(row.status)) {	
                 if(parseInt(data.price) <= parseInt(row.start_rate)) {
                         var dateCloseNew = ''; //checkForAdditionalTimer(data);
-                        var time = getDateTime();
+                        var time = data.time;//getDateTime();
                         if(row.rate_id) { // not null		
                                 // check if it's min rate
                                 db.each("SELECT min(price) as price, user_id FROM rate WHERE transport_id = " + data.transportId + " group by transport_id order by date desc", function(err, min) {
