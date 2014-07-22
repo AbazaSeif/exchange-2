@@ -431,7 +431,7 @@ class TransportController extends Controller
         } else if($user->status == User::USER_WARNING || $user->status == User::USER_ACTIVE) {
             $allow = true;
         } else $status = 'Ваш статус "'.User::statusLabel($user->status).'".';
-        /*if($allow) {
+        if($allow) {
             $transport = Transport::model()->findByPk($id);
             $end = strtotime($transport->date_close);
             $now = strtotime(date('Y-m-d H:i:s'));
@@ -440,7 +440,7 @@ class TransportController extends Controller
                 $allow = false;
                 $status = 'вышло время отведенное для ставок.';
             }
-        }*/
+        }
         $array = array('status'=>$status, 'allow' => $allow);
         echo json_encode($array);
     }
