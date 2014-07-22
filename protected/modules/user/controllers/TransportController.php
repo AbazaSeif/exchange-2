@@ -441,7 +441,7 @@ class TransportController extends Controller
                 $status = 'вышло время отведенное для ставок.';
             }
         }
-        $array = array('status'=>$status, 'allow' => $allow);
+        $array = array('status' => $status, 'allow' => $allow, 'time' => date('Y-m-d H:i:s'));
         echo json_encode($array);
     }
 }
