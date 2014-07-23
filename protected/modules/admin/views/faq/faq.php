@@ -19,8 +19,8 @@
                         <li>Временно заблокирован <span class="blocked">(ограничение доступа на указанный срок)</span> - блокировка доступа будет наложена до указанной даты, основание для смены статуса должно быть описано в поле "Причина". В данном случае <strong>блокировка снимается автоматически</strong> при наступлении указанной даты. При снятии блокировки пользователь получает письмо по почте.
                             <div class="paragraph">
                                 До какой даты будет временная блокировка можно указать двумя способами:
-                                <div>а) Расширенный режим (cтраница редактирования пользователя)</div><img src="<?php echo Yii::app()->getBaseUrl(true) ?>/images/faq-status-temp-block-1.jpg" height="150">
-                                <div>б) Сокращенный режим (страница со списком пользователей) </div><img src="<?php echo Yii::app()->getBaseUrl(true) ?>/images/faq-status-temp-block-2.jpg"  height="150">
+                                <div>а) Расширенный режим (cтраница редактирования пользователя)</div><img src="<?php echo Yii::app()->getBaseUrl(true) ?>/images/faq/faq-status-temp-block-1.jpg" height="150">
+                                <div>б) Сокращенный режим (страница со списком пользователей) </div><img src="<?php echo Yii::app()->getBaseUrl(true) ?>/images/faq/faq-status-temp-block-2.jpg"  height="150">
                             </div>
                         </li>
                     </ol>
@@ -47,7 +47,7 @@
                 <div><strong>Способ №1</strong></div>
                 <div class="paragraph">
                     <div>Предлагаем пользователю воспользоваться функцией "Восстановление доступа" (http://exchange.lbr.ru/site/restore), которая вышлет ему на почту новый пароль.</div>
-                    <img src="/images/faq-restore.jpg" height="200">
+                    <img src="/images/faq/faq-restore.jpg" height="200">
                 </div>
                 <div><strong>Способ №2</strong></div>
                 <div class="paragraph">
