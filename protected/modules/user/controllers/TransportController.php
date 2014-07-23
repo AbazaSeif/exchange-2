@@ -411,6 +411,7 @@ class TransportController extends Controller
     public function actionCheckStatus()
     {
         $id = $_POST['id'];
+        $curTime = date('Y-m-d H:i:s');
         $allow = false;
         $status = '';
         $user = User::model()->findByPk(Yii::app()->user->_id);
@@ -434,14 +435,14 @@ class TransportController extends Controller
         if($allow) {
             $transport = Transport::model()->findByPk($id);
             $end = strtotime($transport->date_close);
-            $now = strtotime(date('Y-m-d H:i:s'));
+            $now = strtotime($curTime);
             
             if($end < $now || $transport->status == 0) {
                 $allow = false;
                 $status = 'вышло время отведенное для ставок.';
             }
         }
-        $array = array('status' => $status, 'allow' => $allow, 'time' => date('Y-m-d H:i:s'));
+        $array = array('status' => $status, 'allow' => $allow, 'time' => $curTime);
         echo json_encode($array);
     }
 }
