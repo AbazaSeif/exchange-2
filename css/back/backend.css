@@ -1173,6 +1173,11 @@ input[name^="Rates"], input[name^="Points"]{
     color: #00917C;
     text-decoration: underline;
 }
+#faq-wrapper .faq-section{
+    color: #000000;
+    font-weight: bold;
+    font-size: 20px;
+}
 /*-----Конец-faq---------*/
 footer{
     
