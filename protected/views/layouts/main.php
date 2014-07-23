@@ -43,7 +43,7 @@
             <noscript><div class="hide"></noscript>
             <ul class="menu">
                 <li><a href="/feedback/" title="Обратная связь">Обратная связь</a></li>
-                <li><a href="/help/" title="Помощь">Помощь</a></li>
+                <li><a href="/help/" title="Инструкции">Инструкции</a></li>
             </ul>
             <noscript></div></noscript>
         </div>

@@ -1,5 +1,5 @@
 <div id="help-form">
-    <div class="form-label">Страница помощи</div>
+    <div class="form-label">Инструкции</div>
     <div class="admin_additional_features hide">
         <div class="regular-mes">Внимание: на данный момент дополнительное время не используется.</div>
         <h3>Как поменять пароль (старый пароль помню, но хочу сменить)</h3>
