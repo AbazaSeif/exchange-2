@@ -118,6 +118,7 @@ return array(
             'Перевозчики'=>array(
                 'Компании'=>'/admin/user/',
                 'Контактные лица'=>'/admin/contact/',
+                //'Повторяющиеся email'=>'/admin/email/',
             ),
             'Перевозки' => '/admin/transport/',
             'История редактирования' => '/admin/changes/',
