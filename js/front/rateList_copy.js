@@ -136,7 +136,7 @@ var rateList = {
                         company: rateList.data.company,
                         price : price,
                         type : rateList.data.transportType,
-                        time : rateList.data.time,
+                        timedate : rateList.data.time,
                     }); 
                 //}
             });
