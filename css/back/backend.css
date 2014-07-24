@@ -957,7 +957,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 }
 /*-------- Конец-Перевозки----------*/
 /*-------- Начало-Перевозки----------*/
-#user-wrapper, #contact-wrapper, #faq-wrapper
+#user-wrapper, #contact-wrapper, #faq-wrapper, #check-dublicate-wrapper
 {
     background: url("/images/ui-bg_flat_75_ffffff_40x100.png") repeat-x scroll 50% 50% #FFFFFF;
     border: 1px solid #AAAAAA;
@@ -1145,7 +1145,7 @@ input[name^="Rates"], input[name^="Points"]{
     font-weight: bold;
     color: #00917C;
 }
-#faq-wrapper
+#faq-wrapper, #check-dublicate-wrapper
 {
     border: 1px solid #AAAAAA;
     border-bottom-left-radius: 4px;
@@ -1153,6 +1153,18 @@ input[name^="Rates"], input[name^="Points"]{
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
     padding: 0.5em 1.4em;
+}
+#check-dublicate-wrapper span.attention{
+    color: #00917c;
+    font-weight: bold;
+}
+div.menu ul.nav li.item.parent ul.nav:nth-child(2):after{
+    height: 2px;
+    width: 10px;
+    content: '-------------';
+}
+#check-dublicate-wrapper .dublicate{
+    margin-left: 50px;
 }
 #faq-wrapper ol:not(.faq-main){
     margin-left: 1.4em;
