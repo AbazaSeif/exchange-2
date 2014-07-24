@@ -100,7 +100,8 @@ if (!Yii::app()->user->isGuest) {
 ?>
 
 <div class="transport-one">
-    <div><span class="attention">Внимание! Перевозка закрывается в срок, т.е. без дополнительного времени.</span><div>
+    <div><span class="attention">Внимание! В случае, если не получается сделать ставку нажать Ctrl+F5 (зажать кнопку Ctrl и нажать F5)</span><div>
+    <div class="note">Перевозка закрывается в срок, т.е. без дополнительного времени.</div>
     <div class="width-100">
         <h1><?php echo $transportInfo['location_from'] . ' &mdash; ' . $transportInfo['location_to']; ?></h1>
         <span class="t-o-published">Опубликована <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_published'])) ?></span>

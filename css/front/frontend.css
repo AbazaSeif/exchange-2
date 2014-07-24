@@ -963,8 +963,15 @@ strong.regular{
     padding-top: 30px;
     padding-left: 20px;
 }
-.attention{
+.attention, .note{
     font-size: 16px;
+}
+.note
+{
+    margin: 0;
+    padding: 0;
+    padding-top: 5px;
+    padding-left: 20px;
 }
 .transport-one .t-o-published
 {
