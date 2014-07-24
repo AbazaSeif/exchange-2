@@ -151,7 +151,7 @@ io.sockets.on('connection', function (socket) {
             if(parseInt(row.status) == 1) {
                 if(parseInt(data.price) <= parseInt(row.start_rate)) {
                     var dateCloseNew = ''; //checkForAdditionalTimer(data);
-                    var time = data.timedate;; //getDateTime();
+                    var time = data.timedate; //getDateTime();
                     if(!time) {
                         time = getDateTime();
                         if(new Date(time) > new Date(row.date_close)){
