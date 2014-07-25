@@ -5,6 +5,7 @@
     $delete_button = CHtml::link('Удалить перевозку', '/admin/transport/deletetransport/id/'.$model->id, array('id'=>$model->id,'class'=>'btn-admin btn-del', 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
     $duplicate_button = CHtml::link('Копировать', '/admin/transport/duplicatetransport/id/'.$model->id, array('id'=>'dup_'.$model->id,'class'=>'btn-admin'));//, 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
     $action = '/admin/transport/edittransport/id/'.$model->id;
+    $creator = '';
     if (!$model->id) {
         $submit_text = 'Создать';
         $close_text = 'Закрыть';
@@ -13,6 +14,13 @@
         $action = '/admin/transport/createtransport/';
         unset($delete_button);
         unset($duplicate_button);
+    } else if(!empty($model->user_id)){
+        if(is_numeric($model->user_id)){
+            $userModel = AuthUser::model()->findByPk($model->user_id);
+        } else {
+            $userModel = AuthUser::model()->find('login like :search', array(':search' => $model->user_id));
+        }
+        $creator = $userModel->surname.' '.$userModel->name.' '.$userModel->secondname;
     }
 ?>
 
@@ -67,6 +75,15 @@
 </div>
 <?php if ($model->id): ?>
     <div class="link-to-frontend"><a target="_blank" href="<?php echo Yii::app()->getBaseUrl(true) ?>/transport/description/id/<?php echo $model->id ?>/">Перейти к перевозке</a></div>
+    <div class="additional-info"> 
+        <?php 
+        if(!empty($creator)){
+            echo 'Создатель: '.$creator.' ('.date("d.m.Y H:i", strtotime($model->date_published)).')';
+        } else {
+            echo 'Опубликовано: '.date("d.m.Y H:i", strtotime($model->date_published));
+        }
+        ?>
+    </div>
 <?php endif; ?>
 <div class="field">
 <?php echo $form->error($model, 'type');

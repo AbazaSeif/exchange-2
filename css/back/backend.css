@@ -486,6 +486,11 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     color: #00917C;
     font-weight: bold;
 }
+.additional-info{
+    color: #cccccc;
+    margin-top: 10px;
+}
+
 .right .header-h4{
     font-size: 1.1em;
     font-weight: bold;
