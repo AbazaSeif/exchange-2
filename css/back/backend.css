@@ -1158,10 +1158,12 @@ input[name^="Rates"], input[name^="Points"]{
     color: #00917c;
     font-weight: bold;
 }
-div.menu ul.nav li.item.parent ul.nav:nth-child(2):after{
+div.menu ul.nav li.item.parent ul.nav li:nth-of-type(2):after{
     height: 2px;
-    width: 10px;
-    content: '-------------';
+    width: 50px;
+    content: url('/images/separator.jpg');
+    position: absolute;
+    top:55px;
 }
 #check-dublicate-wrapper .dublicate{
     margin-left: 50px;

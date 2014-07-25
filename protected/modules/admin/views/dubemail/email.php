@@ -1,4 +1,4 @@
-<h1>Повторяющиеся email</h1>
+<h1>Проверка на повтор Email</h1>
 <div id="check-dublicate-wrapper">
     <?php $this->widget('zii.widgets.CListView', array(
         'dataProvider'=>$data,

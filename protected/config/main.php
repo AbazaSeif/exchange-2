@@ -118,12 +118,11 @@ return array(
             'Перевозчики'=>array(
                 'Компании'=>'/admin/user/',
                 'Контактные лица'=>'/admin/contact/',
-                'Повторяющиеся email'=>'/admin/dubemail/',
-                'Повторяющиеся inn'=>'/admin/dubinn/',
+                'повтор ИНН'=>'/admin/dubinn/',
+                'повтор Email'=>'/admin/dubemail/',
             ),
             'Перевозки' => '/admin/transport/',
             'История редактирования' => '/admin/changes/',
-            'Часто задаваемые вопросы' => '/admin/faq/',
         ),
 
         'supportEmail' => 'support.ex@lbr.ru',

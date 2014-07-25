@@ -1,16 +1,17 @@
 <?php
-$users = '';
 $duplicateUsers = Yii::app()->db->createCommand()
-    ->select('company')
+    ->select('company, status')
     ->from('user')
     ->where('email like "'.$data['email'].'"')
     ->queryAll()
 ;
-foreach($duplicateUsers as $user){
-    if(!empty($users)) $users .= ', ';
-    $users .= $user['company'];
-}
-
 ?>
-<div><?php echo $data['count'].' повторения - '.$data['email'].' ('.$users.')'?></div>
+<div><?php echo 'Email: <span class="attention">'.$data['email'].'</span> ('.$data['count'].' повторения)'?></div>
+<div class="dublicate">
+    <ol>
+    <?php foreach($duplicateUsers as $user): ?>
+    <li><?php echo $user['company'].' (Статус: "'.User::$userStatus[$user['status']].'")'; ?></li>
+    <?php endforeach; ?>
+    </ol>
+</div>
 
