@@ -127,7 +127,7 @@ class ContactController extends Controller
                 $curUser = User::model()->findByPk($_POST['UserContactForm']['parent']);
                 $changes = $emailExists = array();
                 
-                if($_POST['UserContactForm']['status'] == User::USER_NOT_CONFIRMED || $_POST['UserForm']['status'] == User::USER_ACTIVE)
+                if($_POST['UserContactForm']['status'] == User::USER_NOT_CONFIRMED || $_POST['UserContactForm']['status'] == User::USER_ACTIVE)
                     $flag = true;
                 else if(!empty($_POST['UserContactForm']['reason'])) {
                     if($_POST['UserContactForm']['status'] == User::USER_TEMPORARY_BLOCKED) {

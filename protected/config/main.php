@@ -119,7 +119,7 @@ return array(
                 'Компании'=>'/admin/user/',
                 'Контактные лица'=>'/admin/contact/',
                 'повтор ИНН'=>'/admin/dubinn/',
-                //'повтор Email'=>'/admin/dubemail/',
+                'повтор Email'=>'/admin/dubemail/',
             ),
             'Перевозки' => '/admin/transport/',
             'История редактирования' => '/admin/changes/',
