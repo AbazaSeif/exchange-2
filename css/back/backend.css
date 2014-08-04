@@ -39,7 +39,7 @@ input, textarea{
     width: 49%;
 }
 
-#timer_deadline, #timer_label, #UserContactForm_company{
+#timer_deadline, #timer_label, #UserContactForm_company, #transport-form input[disabled=disabled]{
     border: none;
     cursor: default;
     box-shadow: none;
@@ -346,6 +346,11 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     margin-right: 5px;
     padding: 5px 4px 5px 5px;
   } 
+  
+  #transport-form select[disabled=disabled]{
+      background-color:#ffffff;
+      color: #000000;
+  }
   select option{
       padding-left: 6px;
   }

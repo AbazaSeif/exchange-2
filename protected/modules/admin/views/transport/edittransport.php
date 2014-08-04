@@ -14,7 +14,7 @@
         $action = '/admin/transport/createtransport/';
         unset($delete_button);
         unset($duplicate_button);
-    } else if(!empty($model->user_id)){
+    } else if(!empty($model->user_id)) {
         if(is_numeric($model->user_id)){
             $userModel = AuthUser::model()->findByPk($model->user_id);
         } else {
@@ -88,7 +88,10 @@
 <div class="field">
 <?php echo $form->error($model, 'type');
     echo $form->labelEx($model, 'type');
-    echo $form->dropDownList($model, 'type', Transport::$group); ?>
+    //echo $form->dropDownList($model, 'type', Transport::$group); 
+    if (!$model->id) echo $form->dropDownList($model, 'type', Transport::$group);
+    else echo $form->dropDownList($model, 'type', Transport::$group, array('disabled'=>true));
+?>
 </div>
 <div class="field">
 <?php echo $form->error($model, 't_id'); 
@@ -99,44 +102,59 @@
 <div class="field">
 <?php  echo $form->error($model, 'location_from'); 
     echo $form->labelEx($model, 'location_from');
-    echo $form->textField($model, 'location_from');
+    if (!$model->id) echo $form->textField($model, 'location_from');
+    else echo $form->textField($model, 'location_from', array('disabled'=>true));
 ?>    
 </div>
 <div class="field">
 <?php  echo $form->error($model, 'location_to'); 
     echo $form->labelEx($model, 'location_to');
-    echo $form->textField($model, 'location_to');?>    
+    if (!$model->id) echo $form->textField($model, 'location_to');
+    else echo $form->textField($model, 'location_to', array('disabled'=>true));
+?>    
 </div>
 <div class="field custom">
 <?php  echo $form->error($model, 'customs_clearance_EU'); 
     echo $form->labelEx($model, 'customs_clearance_EU');
-    echo $form->textField($model, 'customs_clearance_EU');?>    
+    if (!$model->id) echo $form->textField($model, 'customs_clearance_EU');
+    else echo $form->textField($model, 'customs_clearance_EU', array('disabled'=>true));
+?>    
 </div>
 <div class="field custom">
 <?php  echo $form->error($model, 'customs_clearance_RF'); 
     echo $form->labelEx($model, 'customs_clearance_RF');
-    echo $form->textField($model, 'customs_clearance_RF');?>    
+    if (!$model->id) echo $form->textField($model, 'customs_clearance_RF');
+    else echo $form->textField($model, 'customs_clearance_RF', array('disabled'=>true));
+?>    
 </div>
 <div class="field">
 <?php echo $form->error($model, 'start_rate'); 
     echo $form->labelEx($model, 'start_rate');
-    echo $form->textField($model, 'start_rate');
+    if (!$model->id) echo $form->textField($model, 'start_rate');
+    else echo $form->textField($model, 'start_rate', array('disabled'=>true));
 ?>    
 </div>
 <div class="field">
 <?php echo $form->error($model, 'currency');
     echo $form->labelEx($model, 'currency');
-    echo $form->dropDownList($model, 'currency', Transport::$currencyGroup); ?>
+    if (!$model->id) echo $form->dropDownList($model, 'currency', Transport::$currencyGroup);
+    else echo CHtml::textField('currency', Transport::$currencyGroup[$model->currency], array('disabled'=>true));
+    //echo $form->dropDownList($model, 'currency', Transport::$currencyGroup, array('disabled'=>true));
+?>
 </div>
 <div class="field">
 <?php  echo $form->error($model, 'description'); 
     echo $form->labelEx($model, 'description');
-    echo $form->textArea($model, 'description');?>    
+    if (!$model->id) echo $form->textArea($model, 'description');
+    else echo $form->textArea($model, 'description', array('disabled'=>true));
+?>    
 </div>
 <div class="field">
 <?php  echo $form->error($model, 'auto_info'); 
     echo $form->labelEx($model, 'auto_info');
-    echo $form->textArea($model, 'auto_info');?>    
+    if (!$model->id) echo $form->textArea($model, 'auto_info');
+    else echo $form->textArea($model, 'auto_info', array('disabled'=>true));
+?>    
 </div>
 <div class="field">
 <?php echo $form->error($model, 'status');
@@ -154,26 +172,33 @@
         echo $form->error($model, 'date_close'); 
         echo $form->labelEx($model, 'date_close');
         $model->date_close = date("d-m-Y H:i", strtotime($model->date_close));
-        echo $form->textField($model, 'date_close'); 
+        if (!$model->id) echo $form->textField($model, 'date_close'); 
+        else echo $form->textField($model, 'date_close', array('disabled'=>true)); 
     ?>
 </div>
 <div class="field">
 <?php  echo $form->error($model, 'date_from'); 
     echo $form->labelEx($model, 'date_from');
     $model->date_from = date("d-m-Y H:i", strtotime($model->date_from));
-    echo $form->textField($model, 'date_from'); ?>    
+    if (!$model->id) echo $form->textField($model, 'date_from');
+    else echo $form->textField($model, 'date_from', array('disabled'=>true));
+?>    
 </div>
 <div class="field">
 <?php echo $form->error($model, 'date_to'); 
     echo $form->labelEx($model, 'date_to');
     $model->date_to = date("d-m-Y H:i", strtotime($model->date_to));
-    echo $form->textField($model, 'date_to'); ?>    
+    if (!$model->id) echo $form->textField($model, 'date_to'); 
+    else echo $form->textField($model, 'date_to', array('disabled'=>true));
+?>    
 </div>
 <div class="field custom">
 <?php echo $form->error($model, 'date_to_customs_clearance_RF'); 
     echo $form->labelEx($model, 'date_to_customs_clearance_RF');
     //$model->date_to_customs_clearance_RF = date("d-m-Y H:i", strtotime($model->date_to_customs_clearance_RF));
-    echo $form->textField($model, 'date_to_customs_clearance_RF'); ?>    
+    if (!$model->id) echo $form->textField($model, 'date_to_customs_clearance_RF'); 
+    else echo $form->textField($model, 'date_to_customs_clearance_RF', array('disabled'=>true)); 
+?>    
 </div>
 
 <div class="field">
