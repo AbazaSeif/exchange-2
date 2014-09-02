@@ -72,22 +72,19 @@ Timer.prototype = {
                 var futureDate = _this.endDate;
                 _this.dateNow.setSeconds(_this.dateNow.getSeconds() + 1);
                 var currDate = _this.dateNow;
-                console.log(_this.minutes + ' min ' + _this.seconds+' sec');
                 _this.seconds = _this.datePartDiff(currDate.getSeconds(), futureDate.getSeconds(), 60);
                 _this.minutes = _this.datePartDiff(currDate.getMinutes(), futureDate.getMinutes(), 60);
                 _this.hours = _this.datePartDiff(currDate.getHours(), futureDate.getHours(), 24);
                 _this.days = _this.datePartDiff(currDate.getDate(), futureDate.getDate(), _this.numOfDays[futureDate.getMonth()]);
                 _this.months = _this.datePartDiff(currDate.getMonth(), futureDate.getMonth(), 12);
                 _this.years = _this.datePartDiff(currDate.getFullYear(), futureDate.getFullYear(),0);
-                console.log(_this.minutes + ' min ' + _this.seconds+' sec');
-                console.log(response.minUpdate);
+
                 if(parseInt(response.minUpdate) != this.minUpdate) {
                     var self = _this;
                     _this.minUpdate = parseInt(response.minUpdate);
                     clearInterval(_this.updateInterval);
                     _this.updateInterval = setInterval(function(){self.reloadCounter();}, _this.minUpdate);  
                 }
-                console.log(response.end + ' -  ' + response.date);
             }
         });
     
