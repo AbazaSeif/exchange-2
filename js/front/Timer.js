@@ -14,6 +14,8 @@ Timer.prototype = {
         this.hours = 0, this.minutes = 0, this.seconds = 0;
         this.updateNumOfDays(); // устанавливает количество дней в феврале текущего года
         this.updateCounter();
+        var _this = this;
+        this.updateInterval = setInterval(function(){_this.reloadCounter();}, 60000);
     }
   },
   // устанавливает количество дней в феврале текущего года
@@ -53,9 +55,44 @@ Timer.prototype = {
     this.minutes = this.addLeadingZero(this.minutes);
     this.hours = this.addLeadingZero(this.hours);
   },
-  
+  reloadCounter: function(){
+      //console.log(_this.updateCounter());
+        var _this = this;
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/transport/getCurTime',
+            cache: false,
+            data:{
+                endDate: this.endDate,
+            },
+            success: function(response) {
+                console.log('!!!');
+                _this.dateNow = new Date(response.date);
+                var futureDate = _this.endDate;
+                _this.dateNow.setSeconds(_this.dateNow.getSeconds() + 1);
+                var currDate = _this.dateNow;
+                _this.seconds = _this.datePartDiff(currDate.getSeconds(), futureDate.getSeconds(), 60);
+                _this.minutes = _this.datePartDiff(currDate.getMinutes(), futureDate.getMinutes(), 60);
+                _this.hours = _this.datePartDiff(currDate.getHours(), futureDate.getHours(), 24);
+                _this.days = _this.datePartDiff(currDate.getDate(), futureDate.getDate(), _this.numOfDays[futureDate.getMonth()]);
+                _this.months = _this.datePartDiff(currDate.getMonth(), futureDate.getMonth(), 12);
+                _this.years = _this.datePartDiff(currDate.getFullYear(), futureDate.getFullYear(),0);
+                
+                /*if(response.lastMin) {
+                    clearInterval(_this.updateInterval);
+                    _this.updateInterval = setInterval(function(){_this.reloadCounter();}, 30000);  
+                }*/
+                console.log(response.lastMin);
+                console.log(response.end + ' -  ' + response.date);
+                //console.log(response.end);
+            }
+        });
+    
+  },
   updateCounter: function(){
-      if ($(this.str).length > 0) {
+      //console.log('!!!!!!');
+       if ($(this.str).length > 0) {
           this.calculate();
           this.formatTime();
           var years = months = days = hours = minutes = seconds = '';
@@ -106,10 +143,11 @@ Timer.prototype = {
               
               $('#t-container').removeClass('open');
               var _this = this;
+              clearInterval(this.updateInterval);
+              console.log('stop');
               if(this.endDate < this.dateNow) {
-                  refreshIntervalId = setInterval(function(){_this.addCloseLabel(_this.container, _this.transportId, refreshIntervalId);}, 5000);   
+                  refreshIntervalId = setInterval(function(){_this.addCloseLabel(_this.container, _this.transportId, refreshIntervalId);}, 5000);  
               } else { // this.endDate == this.dateNow
-                  
                   setTimeout(function(){_this.addCloseLabelWithDelay(_this.container, _this.transportId, _this.refreshIntervalId);}, 120000);
               }
               /********************/
