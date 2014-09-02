@@ -19,6 +19,7 @@
             Yii::app()->clientScript->registerCoreScript('jquery');
             Yii::app()->clientScript->registerScriptFile('/js/easyTooltip.js');
             Yii::app()->clientScript->registerScriptFile('/js/jquery.mCustomScrollbar.concat.min.js');
+            //Yii::app()->clientScript->registerScriptFile('/js/front/Timer.min.js?'.time());
             Yii::app()->clientScript->registerScriptFile('/js/front/Timer.js?'.time());
             Yii::app()->clientScript->registerScriptFile('/js/front/rateList.min.js?'.time());
             Yii::app()->clientScript->registerScriptFile('/js/front/menu.js');

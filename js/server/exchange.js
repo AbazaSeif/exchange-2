@@ -145,7 +145,7 @@ io.sockets.on('connection', function (socket) {
         });
     });
 	
-    socket.on('setRate', function (data) {
+    socket.on('setRateToServer', function (data) {
         db.each("SELECT start_rate, date_close, status, type, rate_id, location_from, location_to FROM transport WHERE id = " + data.transportId, function(err, row) { 
             var allow = true;
             if(parseInt(row.status) == 1) {

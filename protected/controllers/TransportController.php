@@ -288,13 +288,17 @@ class TransportController extends Controller
     
     public function actionGetCurTime()
     {
-        $lastMin = false;
-        //$endDate = date('m/d/Y H:i:s', strtotime($_POST['endDate']));
-        $endDate = $_POST['endDate'];
-        //!!! убрать +1 час
+        $updateTimeInMilliseconds = 20*60*1000;
         $curDate = date('m/d/Y H:i:s');
-        $l = strtotime($endDate) - strtotime($curDate);
-        $array = array('date' => $curDate, 'lastMin' => $l, 'end'=>$endDate);
+        $endDate = date('m/d/Y H:i:s', strtotime($_POST['endDate'].' -1 hours'));
+
+        $minLeft = floor((strtotime($endDate) - strtotime($curDate))/60);
+        if($minLeft < 1) $updateTimeInMilliseconds = 5*1000;
+        else if($minLeft < 6) $updateTimeInMilliseconds = 30*1000;
+        //else if($minLeft < 10) $updateTimeInMilliseconds = 2*60*1000;
+        else if($minLeft < 30) $updateTimeInMilliseconds = 5*60*1000;
+
+        $array = array('date' => $curDate, 'minUpdate' => $updateTimeInMilliseconds, 'end'=>$endDate);
         echo json_encode($array);
     }
 }

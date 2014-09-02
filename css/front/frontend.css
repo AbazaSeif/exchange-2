@@ -970,9 +970,10 @@ strong.regular{
 {
     margin: 0;
     padding: 0;
-    padding-top: 5px;
-    padding-left: 20px;
+    padding: 5px 0 10px 20px;
+    width: 50%;
 }
+
 .transport-one .t-o-published
 {
     color: #CCC;
@@ -1073,8 +1074,17 @@ strong.regular{
     white-space: nowrap;
 }
 
-#error, .attention{
+#error{
     color: red;
+}
+.attention{
+    color: #243DA3;
+    font-weight: bold;
+}
+.transport-one .note a.tr-a{
+    color: #00917c;
+    text-decoration: none;
+    font-weight: bold;
 }
 #errorRate, #errorSocket, #errorStatus, #closeRate{
     min-height: 60px !important;
@@ -1094,7 +1104,7 @@ strong.regular{
     padding-left: 6px;
     position: absolute;
     right: 10px;
-    top: 10px;
+    top: 0px;
 }
 
 

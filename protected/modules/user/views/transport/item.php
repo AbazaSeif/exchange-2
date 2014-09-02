@@ -100,8 +100,13 @@ if (!Yii::app()->user->isGuest) {
 ?>
 
 <div class="transport-one">
-    <div><span class="attention">Внимание! В случае, если не получается сделать ставку следует нажать Ctrl+F5 (зажать кнопку Ctrl и нажать F5)</span><div>
-    <div class="note">Перевозка закрывается в срок, т.е. без дополнительного времени.</div>
+    <div>
+        <span class="attention">Обновите кеш 1 раз, для этого следует нажать Ctrl+F5 (зажать кнопку Ctrl и нажать F5)</span>
+    </div>
+    <div class="note">
+        <span>Просьба ознакомиться со страницей «<a title="Инструкции" href="<?php echo Yii::app()->getBaseUrl(true).'/help/'?>" class="tr-a">Инструкции</a>»</span>
+    </div>
+    
     <div class="width-100">
         <h1><?php echo $transportInfo['location_from'] . ' &mdash; ' . $transportInfo['location_to']; ?></h1>
         <span class="t-o-published">Опубликовано <?php echo date('d.m.Y H:i', strtotime($transportInfo['date_published'])) ?></span>
@@ -201,11 +206,13 @@ if (!Yii::app()->user->isGuest) {
         </div>
     </div>
 <?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
+        <div>
         <?php echo CHtml::link('Связаться с модератором', '#', array(
                 'id' => 'dialog-connect',
                 'title'=>'Связаться с модератором',
             ));
         ?>
+            </div>
 <?php endif; ?>
 
 <script>

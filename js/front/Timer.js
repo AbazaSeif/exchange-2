@@ -6,6 +6,7 @@ Timer.prototype = {
     this.transportId = transportId;
     this.status = status;
     this.str = '#' + id;
+    this.minUpdate = 10000;
     if ($(this.str).length > 0) {
         this.container = document.getElementById(id);
         this.numOfDays = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ]; // установили количество дней для месяцев
@@ -15,7 +16,8 @@ Timer.prototype = {
         this.updateNumOfDays(); // устанавливает количество дней в феврале текущего года
         this.updateCounter();
         var _this = this;
-        this.updateInterval = setInterval(function(){_this.reloadCounter();}, 60000);
+        // каждые 60 сек
+        this.updateInterval = setInterval(function(){_this.reloadCounter();}, this.minUpdate);
     }
   },
   // устанавливает количество дней в феврале текущего года
@@ -56,7 +58,6 @@ Timer.prototype = {
     this.hours = this.addLeadingZero(this.hours);
   },
   reloadCounter: function(){
-      //console.log(_this.updateCounter());
         var _this = this;
         $.ajax({
             type: 'POST',
@@ -67,31 +68,30 @@ Timer.prototype = {
                 endDate: this.endDate,
             },
             success: function(response) {
-                console.log('!!!');
                 _this.dateNow = new Date(response.date);
                 var futureDate = _this.endDate;
                 _this.dateNow.setSeconds(_this.dateNow.getSeconds() + 1);
                 var currDate = _this.dateNow;
+                console.log(_this.minutes + ' min ' + _this.seconds+' sec');
                 _this.seconds = _this.datePartDiff(currDate.getSeconds(), futureDate.getSeconds(), 60);
                 _this.minutes = _this.datePartDiff(currDate.getMinutes(), futureDate.getMinutes(), 60);
                 _this.hours = _this.datePartDiff(currDate.getHours(), futureDate.getHours(), 24);
                 _this.days = _this.datePartDiff(currDate.getDate(), futureDate.getDate(), _this.numOfDays[futureDate.getMonth()]);
                 _this.months = _this.datePartDiff(currDate.getMonth(), futureDate.getMonth(), 12);
                 _this.years = _this.datePartDiff(currDate.getFullYear(), futureDate.getFullYear(),0);
-                
-                /*if(response.lastMin) {
+                console.log(_this.minutes + ' min ' + _this.seconds+' sec');
+                if(parseInt(response.minUpdate) != this.minUpdate) {
+                    var self = _this;
+                    _this.minUpdate = parseInt(response.minUpdate);
                     clearInterval(_this.updateInterval);
-                    _this.updateInterval = setInterval(function(){_this.reloadCounter();}, 30000);  
-                }*/
-                console.log(response.lastMin);
+                    _this.updateInterval = setInterval(function(){self.reloadCounter();}, _this.minUpdate);  
+                }
                 console.log(response.end + ' -  ' + response.date);
-                //console.log(response.end);
             }
         });
     
   },
   updateCounter: function(){
-      //console.log('!!!!!!');
        if ($(this.str).length > 0) {
           this.calculate();
           this.formatTime();
@@ -183,13 +183,6 @@ Timer.prototype = {
                    /* end hide transport */
                }
         }});
-        
-        //container.innerHTML = '<span class="t-closed">Перевозка закрыта</span>';
-        /* hide transport from the list */
-        //var id = container.getAttribute('id');
-        //var parent = $('#'+id).parent().parent().parent();
-        //if(parent.hasClass('transport')) parent.addClass('hide');
-        /* end hide transport */
     }
 };
 

@@ -26,7 +26,7 @@ var rateList = {
                         price: data.arr[j][1],
                         time: data.arr[j][2],
                         company: data.arr[j][3],
-                        with_nds: 0,
+                        with_nds: 0
                     };
                     rateList.add(obj);
                 }
@@ -95,7 +95,7 @@ var rateList = {
                         url: '/user/transport/checkStatus',
                         dataType: 'json',
                         data:{
-                            id: rateList.data.transportId,
+                            id: rateList.data.transportId
                         },
                         success: function(response) {
                             if(response.allow) { 
@@ -128,7 +128,7 @@ var rateList = {
 
                     var time = getTime();
 
-                    rateList.data.socket.emit('setRate',{
+                    rateList.data.socket.emit('setRateToServer',{
                         transportId: rateList.data.transportId,
                         dateClose : rateList.data.dateClose,
                         dateCloseNew : rateList.data.dateCloseNew,
@@ -136,7 +136,7 @@ var rateList = {
                         company: rateList.data.company,
                         price : price,
                         type : rateList.data.transportType,
-                        timedate : rateList.data.time,
+                        timedate : rateList.data.time
                     }); 
                 //}
             });
@@ -181,7 +181,7 @@ var rateList = {
                 data:{
                     id: this.data.transportId,
                     newRate: price,
-                    step: this.data.step,
+                    step: this.data.step
                 },
                 success: function(rates) {
                     if(rates.all.length) {
@@ -204,7 +204,7 @@ var rateList = {
                 data: {
                     id: this.data.transportId,
                     newRate: '',
-                    step: this.data.step,
+                    step: this.data.step
                 },
                 success: function(rates) {
                     if(rates.all.length) {
