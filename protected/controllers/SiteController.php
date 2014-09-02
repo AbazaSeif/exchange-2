@@ -1038,7 +1038,7 @@ class SiteController extends Controller
                         </tr>
                         <!-- END Content -->'
                 ;
-                $email->sendMail();
+                //$email->sendMail();
             }
         }
     }
