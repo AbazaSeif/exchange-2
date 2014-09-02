@@ -288,7 +288,7 @@ class TransportController extends Controller
     
     public function actionGetCurTime()
     {
-        $updateTimeInMilliseconds = 20*60*1000;
+        $updateTimeInMilliseconds = 10*60*1000;
         $curDate = date('m/d/Y H:i:s');
         $endDate = date('m/d/Y H:i:s', strtotime($_POST['endDate'].' -1 hours'));
 
