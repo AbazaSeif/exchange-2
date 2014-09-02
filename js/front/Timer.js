@@ -80,6 +80,7 @@ Timer.prototype = {
                 _this.months = _this.datePartDiff(currDate.getMonth(), futureDate.getMonth(), 12);
                 _this.years = _this.datePartDiff(currDate.getFullYear(), futureDate.getFullYear(),0);
                 console.log(_this.minutes + ' min ' + _this.seconds+' sec');
+                console.log(response.minUpdate);
                 if(parseInt(response.minUpdate) != this.minUpdate) {
                     var self = _this;
                     _this.minUpdate = parseInt(response.minUpdate);

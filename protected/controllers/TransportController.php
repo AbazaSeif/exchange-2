@@ -292,12 +292,14 @@ class TransportController extends Controller
         $curDate = date('m/d/Y H:i:s');
         $endDate = date('m/d/Y H:i:s', strtotime($_POST['endDate'].' -1 hours'));
 
-        $minLeft = floor((strtotime($endDate) - strtotime($curDate))/60);
-        if($minLeft < 1) $updateTimeInMilliseconds = 5*1000;
-        else if($minLeft < 6) $updateTimeInMilliseconds = 30*1000;
-        //else if($minLeft < 10) $updateTimeInMilliseconds = 2*60*1000;
-        else if($minLeft < 30) $updateTimeInMilliseconds = 5*60*1000;
-
+        $hoursLeft = floor((strtotime($endDate) - strtotime($curDate))/60*60);
+        if(!$hoursLeft){
+            $minLeft = floor((strtotime($endDate) - strtotime($curDate))/60);
+            if($minLeft < 1) $updateTimeInMilliseconds = 5*1000;
+            else if($minLeft < 6) $updateTimeInMilliseconds = 30*1000;
+            //else if($minLeft < 10) $updateTimeInMilliseconds = 2*60*1000;
+            else if($minLeft < 30) $updateTimeInMilliseconds = 5*60*1000;
+        }
         $array = array('date' => $curDate, 'minUpdate' => $updateTimeInMilliseconds, 'end'=>$endDate);
         echo json_encode($array);
     }
