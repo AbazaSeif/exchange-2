@@ -101,7 +101,7 @@ if (!Yii::app()->user->isGuest) {
 
 <div class="transport-one">
     <div>
-        <span class="attention">Обновите кеш 1 раз, для этого следует нажать Ctrl+F5 (зажать кнопку Ctrl и нажать F5)</span>
+        <span class="attention">Обновите кэш 1 раз, для этого следует нажать Ctrl+F5 (зажать кнопку Ctrl и нажать F5)</span>
     </div>
     <div class="note">
         <span>Просьба ознакомиться со страницей «<a title="Инструкции" href="<?php echo Yii::app()->getBaseUrl(true).'/help/'?>" class="tr-a">Инструкции</a>»</span>
