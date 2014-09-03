@@ -399,4 +399,12 @@ class DefaultController extends Controller
         ;
         $email->sendMail();
     }
+    
+    public function actionDeleteOldEvents()
+    {
+        $closedTransports = Transport::model()->findAll('status=:closed OR status=:test', array(':closed'=>0, ':test'=>2));
+        foreach ($closedTransports as $transport) {
+            UserEvent::model()->deleteAll('transport_id = '.$transport->id);
+        }
+    }
 }
