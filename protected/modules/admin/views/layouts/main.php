@@ -15,7 +15,7 @@
             if(!Yii::app()->user->isGuest){
             ?>
                 <a href="/user/logout/" class="admin-logout">Выход</a>
-                <a href="/admin/faq/" class="admin-logout">ЧЗВО</a>
+                <a href="/admin/faq/" class="admin-logout">FAQ</a>
             <?php
             }
             ?>

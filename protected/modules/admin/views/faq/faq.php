@@ -1,4 +1,4 @@
-<h1>Часто Задаваемые Вопросы и Ответы</h1>
+<h1>FAQ (Frequently Asked Questions) — Часто Задаваемые Вопросы</h1>
 <div id="faq-wrapper">
     <ol class="faq-main">
         <li><span class="label">Как определяется ставка-победитель</span>
