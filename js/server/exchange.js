@@ -116,6 +116,22 @@ io.sockets.on('connection', function (socket) {
         return newClose;
     }
     
+    function showOnlineMessages(data) 
+    {
+	var allow = true;
+	var interval = 10;
+	var now = new Date();
+        now.setMinutes(now.getMinutes() + interval);
+	//now.setHours(now.getHours() + 1); // !!!! убрать 
+		
+	var transportDateClose = new Date(data.dateClose);
+        if(now.valueOf() >= transportDateClose.valueOf()) {
+	    allow = false;
+        }
+        
+        return allow;
+    }
+    
     /* Load all rates when open transport page in the first time  */
     socket.on('loadRates', function (id, t_id, show) {
         db.serialize(function() {
@@ -165,7 +181,8 @@ io.sockets.on('connection', function (socket) {
                         if(row.rate_id) { // not null		
                             // check if it's min rate
                             db.each("SELECT min(price) as price, user_id FROM rate WHERE transport_id = " + data.transportId + " group by transport_id order by date desc", function(err, min) {
-                                if(min.price > data.price) {
+                                var showOnlineMessage = showOnlineMessages(data);
+                                if(min.price > data.price && showOnlineMessage) {
                                     var stmt = db.prepare("INSERT INTO rate(transport_id, date, price, user_id) VALUES (?, ?, ?, ?)");
                                     stmt.run(data.transportId, time, data.price, data.userId);
                                     stmt.finalize();

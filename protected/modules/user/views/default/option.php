@@ -26,10 +26,10 @@
                     <?php echo $form->checkBox($model, 'mail_transport_create_2'); ?>
                     <?php echo $form->labelEx($model, 'mail_transport_create_2'); ?>
                     </div>
-                    <div class="row">
-                    <?php echo $form->checkBox($model, 'mail_kill_rate'); ?>
-                    <?php echo $form->labelEx($model, 'mail_kill_rate'); ?>             
-                    </div>
+                    <!--div class="row">
+                    <?php //echo $form->checkBox($model, 'mail_kill_rate'); ?>
+                    <?php //echo $form->labelEx($model, 'mail_kill_rate'); ?>             
+                    </div-->
                     <div class="row">
                     <?php echo $form->checkBox($model, 'mail_deadline'); ?>
                     <?php echo $form->labelEx($model, 'mail_deadline'); ?>              

@@ -956,11 +956,10 @@ strong.regular{
 {
     margin-top: 10px;
 }
-.transport-one h1, .attention
+.transport-one h1
 {
     margin: 0;
     padding: 0;
-    padding-top: 30px;
     padding-left: 20px;
 }
 .attention, .note{
@@ -970,8 +969,15 @@ strong.regular{
 {
     margin: 0;
     padding: 0;
-    padding: 5px 0 10px 20px;
+    padding: 5px 0 30px 20px;
     width: 50%;
+}
+.notice
+{
+    margin: 0;
+    padding: 0;
+    padding: 5px 0 10px 20px;
+    width: 80%;
 }
 
 .transport-one .t-o-published

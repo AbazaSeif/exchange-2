@@ -100,8 +100,8 @@ if (!Yii::app()->user->isGuest) {
 ?>
 
 <div class="transport-one">
-    <div>
-        <span class="attention">Обновите кэш 1 раз, для этого следует нажать Ctrl+F5 (зажать кнопку Ctrl и нажать F5)</span>
+    <div class="notice">
+        <span class="attention">Обращаем ваше внимание на то, что при отображении ставок возможна задержка до 3 минут. Однако все ставки принимаются и корректно обрабатываются.</span>
     </div>
     <div class="note">
         <span>Просьба ознакомиться со страницей «<a title="Инструкции" href="<?php echo Yii::app()->getBaseUrl(true).'/help/'?>" class="tr-a">Инструкции</a>»</span>
