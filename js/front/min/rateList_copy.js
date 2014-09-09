@@ -2,7 +2,7 @@ var rateList = {
     init : function(){
         this.container = $("#rates");
         var element = $( "#rate-price" );
-        if(typeof(rateList.data.socket) !== 'undefined') {
+        if(typeof(rateList.data.socket) !== 'undefined' && parseInt(rateList.data.status)) {
             rateList.data.socket.on('setRate', function (data) {
                 if(data.dateCloseNew)rateList.data.dateCloseNew = data.dateCloseNew;
                 
@@ -42,12 +42,12 @@ var rateList = {
                 $("#closeRate").dialog("open");
             });
             
-           /* rateList.data.socket.on('error', function (data) {
-                $('#text').text('Произошла ошибка, пожалуйста перезагрузите страницу');
-                $("#errorSocket").dialog("open");
-            });*/
+            // rateList.data.socket.on('error', function (data) {
+            //     $('#text').text('Произошла ошибка, пожалуйста перезагрузите страницу');
+            //     $("#errorSocket").dialog("open");
+            // });
 
-            /****** Сообщение *********/
+            //****** Сообщение *********
             
             $( "#rate-up" ).on('click', function() {
                 var newRate = parseInt(element.val()) + rateList.data.priceStep;

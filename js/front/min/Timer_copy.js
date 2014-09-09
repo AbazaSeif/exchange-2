@@ -142,7 +142,7 @@ Timer.prototype = {
               $('#t-container').removeClass('open');
               var _this = this;
               clearInterval(this.updateInterval);
-              console.log('stop');
+
               if(this.endDate < this.dateNow) {
                   refreshIntervalId = setInterval(function(){_this.addCloseLabel(_this.container, _this.transportId, refreshIntervalId);}, 5000);  
               } else { // this.endDate == this.dateNow
