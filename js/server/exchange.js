@@ -162,100 +162,106 @@ io.sockets.on('connection', function (socket) {
     });
 	
     socket.on('setRateToServer', function (data) {
-        db.each("SELECT start_rate, date_close, status, type, rate_id, location_from, location_to FROM transport WHERE id = " + data.transportId, function(err, row) { 
-            var allow = true;
-            if(parseInt(row.status) == 1) {
-                if(parseInt(data.price) <= parseInt(row.start_rate)) {
-                    var dateCloseNew = ''; //checkForAdditionalTimer(data);
-                    var time = data.timedate; //getDateTime();
-                    if(!time) {
-                        time = getDateTime();
-                        if(new Date(time) > new Date(row.date_close)){
-                            allow = false;
-                            io.sockets.socket(socket.id).emit('closeRate', {
-                                response : 'Ставка имеет недопустимый параметр времени - нажмите сочетание клавиш Ctrl+F5 и сделайте ставку еще раз.',
-                            });
-                        }
-                    } 
-                    if (allow) {
-                        if(row.rate_id) { // not null		
-                            // check if it's min rate
-                            db.each("SELECT min(price) as price, user_id FROM rate WHERE transport_id = " + data.transportId + " group by transport_id order by date desc", function(err, min) {
-                                if(min.price > data.price) {
-                                    var showOnlineMessage = showOnlineMessages(data);
-                                    var stmt = db.prepare("INSERT INTO rate(transport_id, date, price, user_id) VALUES (?, ?, ?, ?)");
-                                    stmt.run(data.transportId, time, data.price, data.userId);
-                                    stmt.finalize();
+        if(parseInt(data.x) == 675) {
+            db.each("SELECT start_rate, date_close, status, type, rate_id, location_from, location_to FROM transport WHERE id = " + data.transportId, function(err, row) { 
+                var allow = true;
+                if(parseInt(row.status) == 1) {
+                    if(parseInt(data.price) <= parseInt(row.start_rate)) {
+                        var dateCloseNew = ''; //checkForAdditionalTimer(data);
+                        var time = data.timedate; //getDateTime();
+                        if(!time) {
+                            time = getDateTime();
+                            if(new Date(time) > new Date(row.date_close)){
+                                allow = false;
+                                io.sockets.socket(socket.id).emit('closeRate', {
+                                    response : 'Ставка имеет недопустимый параметр времени - нажмите сочетание клавиш Ctrl+F5 и сделайте ставку еще раз.',
+                                });
+                            }
+                        } 
+                        if (allow) {
+                            if(row.rate_id) { // not null		
+                                // check if it's min rate
+                                db.each("SELECT min(price) as price, user_id FROM rate WHERE transport_id = " + data.transportId + " group by transport_id order by date desc", function(err, min) {
+                                    if(min.price > data.price) {
+                                        var showOnlineMessage = showOnlineMessages(data);
+                                        var stmt = db.prepare("INSERT INTO rate(transport_id, date, price, user_id) VALUES (?, ?, ?, ?)");
+                                        stmt.run(data.transportId, time, data.price, data.userId);
+                                        stmt.finalize();
 
-                                    db.each("SELECT id FROM rate WHERE transport_id = " + data.transportId + " and price = " + data.price + " and user_id = " + data.userId, function(err, row) {
-                                        var stmt = "UPDATE transport SET rate_id = " + row.id + " WHERE id = " + data.transportId;
-                                        db.run(stmt);
-                                    });
-
-                                    // online message only if this rate is the minimal of all
-                                    if(showOnlineMessage) {
-                                        db.each("SELECT user_id FROM rate WHERE id = " + row.rate_id, function(err, user) {
-                                            if (user.user_id in allSockets) { // user online
-                                                    io.sockets.socket(allSockets[user.user_id]).emit('onlineEvent', {
-                                                            msg : 'Вашу ставку для перевозки ' + '"<a href="http://exchange.lbr.ru/transport/description/id/' + data.transportId + '">' + row.location_from + ' &mdash; ' + row.location_to + '</a>" перебили'
-                                                    });
-                                            }
-
-                                            var stmt = db.prepare("INSERT INTO user_event(user_id, transport_id, status, status_online, type, event_type, prev_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                                            stmt.run(user.user_id, data.transportId, 1, 0, 1, 5, min.user_id);
-                                            stmt.finalize();
+                                        db.each("SELECT id FROM rate WHERE transport_id = " + data.transportId + " and price = " + data.price + " and user_id = " + data.userId, function(err, row) {
+                                            var stmt = "UPDATE transport SET rate_id = " + row.id + " WHERE id = " + data.transportId;
+                                            db.run(stmt);
                                         });
-                                    }
-                                } else {
-                                    var stmt = db.prepare("INSERT INTO rate(transport_id, date, price, user_id) VALUES (?, ?, ?, ?)");
-                                    stmt.run(data.transportId, time, data.price, data.userId);
-                                    stmt.finalize();
-                                }
-                            });
-                        } else { //first rate
-                            var stmt = db.prepare("INSERT INTO rate(transport_id, date, price, user_id) VALUES (?, ?, ?, ?)");
-                            stmt.run(data.transportId, time, data.price, data.userId);
-                            stmt.finalize();
 
-                            db.each("SELECT id FROM rate WHERE transport_id = " + data.transportId + " and price = " + data.price + " and user_id = " + data.userId, function(err, row) {
-                                var stmt = "UPDATE transport SET rate_id = " + row.id + " WHERE id = " + data.transportId;
-                                db.run(stmt);
+                                        // online message only if this rate is the minimal of all
+                                        if(showOnlineMessage) {
+                                            db.each("SELECT user_id FROM rate WHERE id = " + row.rate_id, function(err, user) {
+                                                if (user.user_id in allSockets) { // user online
+                                                        io.sockets.socket(allSockets[user.user_id]).emit('onlineEvent', {
+                                                                msg : 'Вашу ставку для перевозки ' + '"<a href="http://exchange.lbr.ru/transport/description/id/' + data.transportId + '">' + row.location_from + ' &mdash; ' + row.location_to + '</a>" перебили'
+                                                        });
+                                                }
+
+                                                var stmt = db.prepare("INSERT INTO user_event(user_id, transport_id, status, status_online, type, event_type, prev_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                                                stmt.run(user.user_id, data.transportId, 1, 0, 1, 5, min.user_id);
+                                                stmt.finalize();
+                                            });
+                                        }
+                                    } else {
+                                        var stmt = db.prepare("INSERT INTO rate(transport_id, date, price, user_id) VALUES (?, ?, ?, ?)");
+                                        stmt.run(data.transportId, time, data.price, data.userId);
+                                        stmt.finalize();
+                                    }
+                                });
+                            } else { //first rate
+                                var stmt = db.prepare("INSERT INTO rate(transport_id, date, price, user_id) VALUES (?, ?, ?, ?)");
+                                stmt.run(data.transportId, time, data.price, data.userId);
+                                stmt.finalize();
+
+                                db.each("SELECT id FROM rate WHERE transport_id = " + data.transportId + " and price = " + data.price + " and user_id = " + data.userId, function(err, row) {
+                                    var stmt = "UPDATE transport SET rate_id = " + row.id + " WHERE id = " + data.transportId;
+                                    db.run(stmt);
+                                });
+                            }
+
+                            // to sender
+                            io.sockets.socket(socket.id).emit('setRate', {
+                                    company : data.company,
+                                    price : data.price,
+                                    date: time,
+                                    dateCloseNew: dateCloseNew,
+                                    transportId : data.transportId
+                            });
+                            // to all other
+                            socket.broadcast.emit('setRate', {
+                                    company : labelForHiddenCompanyNames,
+                                    price : data.price,
+                                    date: time,
+                                    dateCloseNew: dateCloseNew,
+                                    transportId : data.transportId
                             });
                         }
-
-                        // to sender
-                        io.sockets.socket(socket.id).emit('setRate', {
-                                company : data.company,
-                                price : data.price,
-                                date: time,
-                                dateCloseNew: dateCloseNew,
-                                transportId : data.transportId
-                        });
-                        // to all other
-                        socket.broadcast.emit('setRate', {
-                                company : labelForHiddenCompanyNames,
-                                price : data.price,
-                                date: time,
-                                dateCloseNew: dateCloseNew,
-                                transportId : data.transportId
+                    } else {
+                        io.sockets.socket(socket.id).emit('errorRate', {
+                            price : row.start_rate,
                         });
                     }
                 } else {
-                    io.sockets.socket(socket.id).emit('errorRate', {
-                        price : row.start_rate,
+                    io.sockets.socket(socket.id).emit('closeRate', {
+                        response : 'Перевозка была закрыта, ставки больше не принимаются.',
                     });
                 }
-            } else {
-                io.sockets.socket(socket.id).emit('closeRate', {
-                    response : 'Перевозка была закрыта, ставки больше не принимаются.',
-                });
-            }
-        }, function(err, rows) {
-            if (rows == 0) {
-                io.sockets.socket(socket.id).emit('closeRate', {
-                    response : 'Перевозка была удалена. Пожалуйста перезагрузите страницу.',
-                });
-            }
-        });
+            }, function(err, rows) {
+                if (rows == 0) {
+                    io.sockets.socket(socket.id).emit('closeRate', {
+                        response : 'Перевозка была удалена. Пожалуйста перезагрузите страницу.',
+                    });
+                }
+            });
+        } else {
+            io.sockets.socket(socket.id).emit('closeRate', {
+                response : 'Почистите кеш, т.е. нажмите Ctrl+F5.',
+            });
+        }
     });
 });
