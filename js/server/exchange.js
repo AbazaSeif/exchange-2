@@ -20,8 +20,8 @@ io.sockets.on('connection', function (socket) {
     socket.on('init', function (id, minNotyfy)
     {
         allSockets[id] = socket.id;
-        seachNewEvents(id, minNotyfy);
-        updateEventsCount(id);	
+        //seachNewEvents(id, minNotyfy);
+        //updateEventsCount(id);	
     });
 	
     socket.on('disconnect', function() {
@@ -181,8 +181,8 @@ io.sockets.on('connection', function (socket) {
                         if(row.rate_id) { // not null		
                             // check if it's min rate
                             db.each("SELECT min(price) as price, user_id FROM rate WHERE transport_id = " + data.transportId + " group by transport_id order by date desc", function(err, min) {
-                                var showOnlineMessage = showOnlineMessages(data);
-                                if(min.price > data.price && showOnlineMessage) {
+                                if(min.price > data.price) {
+                                    var showOnlineMessage = showOnlineMessages(data);
                                     var stmt = db.prepare("INSERT INTO rate(transport_id, date, price, user_id) VALUES (?, ?, ?, ?)");
                                     stmt.run(data.transportId, time, data.price, data.userId);
                                     stmt.finalize();
@@ -193,17 +193,19 @@ io.sockets.on('connection', function (socket) {
                                     });
 
                                     // online message only if this rate is the minimal of all
-                                    db.each("SELECT user_id FROM rate WHERE id = " + row.rate_id, function(err, user) {
-                                        if (user.user_id in allSockets) { // user online
-                                                io.sockets.socket(allSockets[user.user_id]).emit('onlineEvent', {
-                                                        msg : 'Вашу ставку для перевозки ' + '"<a href="http://exchange.lbr.ru/transport/description/id/' + data.transportId + '">' + row.location_from + ' &mdash; ' + row.location_to + '</a>" перебили'
-                                                });
-                                        }
+                                    if(showOnlineMessage) {
+                                        db.each("SELECT user_id FROM rate WHERE id = " + row.rate_id, function(err, user) {
+                                            if (user.user_id in allSockets) { // user online
+                                                    io.sockets.socket(allSockets[user.user_id]).emit('onlineEvent', {
+                                                            msg : 'Вашу ставку для перевозки ' + '"<a href="http://exchange.lbr.ru/transport/description/id/' + data.transportId + '">' + row.location_from + ' &mdash; ' + row.location_to + '</a>" перебили'
+                                                    });
+                                            }
 
-                                        var stmt = db.prepare("INSERT INTO user_event(user_id, transport_id, status, status_online, type, event_type, prev_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                                        stmt.run(user.user_id, data.transportId, 1, 0, 1, 5, min.user_id);
-                                        stmt.finalize();
-                                    });
+                                            var stmt = db.prepare("INSERT INTO user_event(user_id, transport_id, status, status_online, type, event_type, prev_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                                            stmt.run(user.user_id, data.transportId, 1, 0, 1, 5, min.user_id);
+                                            stmt.finalize();
+                                        });
+                                    }
                                 } else {
                                     var stmt = db.prepare("INSERT INTO rate(transport_id, date, price, user_id) VALUES (?, ?, ?, ?)");
                                     stmt.run(data.transportId, time, data.price, data.userId);
