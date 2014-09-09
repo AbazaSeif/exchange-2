@@ -295,3 +295,20 @@ var rateList = {
         return h;
     }
 };
+function updateEventCount(userId){
+    setInterval(function(){
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/transport/getevents/',
+            cache: false,
+            data:{
+                userId: userId,
+            },
+            success: function(response) {
+                if(parseInt(response)) $('#event-counter').html(response); 
+                else $('#event-counter').html(''); 
+            }
+        });
+    }, 120000);
+}

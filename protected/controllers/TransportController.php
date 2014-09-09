@@ -303,4 +303,15 @@ class TransportController extends Controller
         $array = array('date' => $curDate, 'minUpdate' => $updateTimeInMilliseconds, 'end'=>$endDate);
         echo json_encode($array);
     }
+    
+    public function actionGetEvents()
+    {
+        $count = Yii::app()->db->createCommand()
+            ->select('count(*)')
+            ->from('user_event')
+            ->where('user_id=:id and status=1', array(':id'=>$_POST['userId']))
+            ->queryScalar()
+        ;
+        echo $count;
+    }
 }

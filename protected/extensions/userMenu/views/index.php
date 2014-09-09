@@ -128,6 +128,8 @@ $(document).ready(function(){
         } else $('#event-counter').html('');
     });
     
+    updateEventCount(userId);
+    
     socket.on('onlineEvent', function (data) {
         $.onlineEvent({ msg : data.msg, className : 'classic', sticked:true, position:{right:0,bottom:0}, time:10000});
     });
