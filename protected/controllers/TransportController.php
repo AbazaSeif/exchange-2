@@ -296,7 +296,7 @@ class TransportController extends Controller
         if(!$hoursLeft){
             $minLeft = floor((strtotime($endDate) - strtotime($curDate))/60);
             if($minLeft < 1) $updateTimeInMilliseconds = 5*1000;
-            else if($minLeft < 3) $updateTimeInMilliseconds = 30*1000;
+            else if($minLeft < 3) $updateTimeInMilliseconds = 20*1000;
             else if($minLeft < 10) $updateTimeInMilliseconds = 2*60*1000;
             else if($minLeft < 30) $updateTimeInMilliseconds = 5*60*1000;
         }
