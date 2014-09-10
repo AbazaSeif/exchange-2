@@ -243,7 +243,7 @@ $(document).ready(function(){
         var socket = io.connect('http://exchange.lbr.ru:3000/');
         //var socket = io.connect('http://localhost:3000/');
         
-        socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>, <?php echo ($transportInfo['status'] && ($now < $end || $showAdditionalTimer))? 0 : 1 ?>);
+        if(<?php echo $transportInfo['status']; ?>) socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>, <?php echo ($transportInfo['status'] && ($now < $end || $showAdditionalTimer))? 0 : 1 ?>);
         
         rateList.data.socket = socket;
         rateList.data.userId = '<?php echo $userInfo[id] ?>';
