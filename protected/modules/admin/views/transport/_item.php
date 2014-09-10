@@ -1,6 +1,7 @@
 <?php
     $action = '/admin/transport/edittransport/id/'.$data->id.'/';
     $rate = Rate::model()->findByPk($data->rate_id);
+    $transport = Transport::model()->findByPk($data->id);
     $ferryman = User::model()->findByPk($rate->user_id);
     $ferrymanField = UserField::model()->findByAttributes(array('user_id'=>$rate->user_id));
     $rateCount = Rate::model()->countByAttributes(array(
@@ -25,7 +26,7 @@
     
     if ($rate->price) {
         $showRate = floor($rate->price) . $currency;
-        if($ferrymanField->with_nds) {
+        if($ferrymanField->with_nds && $transport->type == Transport::RUS_TRANSPORT) {
             $price = ceil($rate->price + $rate->price * Yii::app()->params['nds']);
             if($price%10 != 0) $price -= $price%10;
             $withNds .= ' (c НДС: '. $price . ' '. $currency . ')';

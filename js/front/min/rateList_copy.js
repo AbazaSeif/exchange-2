@@ -11,6 +11,7 @@ var rateList = {
                     var price = data.price;
                     if(rateList.data.nds) {
                         price = Math.ceil(price * (100 + rateList.data.nds*100) / 100);
+                        if(price%100!=0)price -= price%100;
                     }
                     
                     var element = rateList.createElement(initPrice, data.date, price, '', data.company);
@@ -246,7 +247,7 @@ var rateList = {
         var id = 0;
         var price = parseInt(rate.price);
         price = Math.ceil(price + price * this.data.nds);
-
+        
         if (rate.id) id = rate.id;
         var element = this.createElement(initPrice, rate.time, price, id, rate.company, parseInt(rate.with_nds), parseInt(rate.price));
         
@@ -259,6 +260,7 @@ var rateList = {
         if(initPrice < price) {
             $('#rate-price').attr('init', price);
         }
+        
         var newElement = "<div class='rate-one'>";
         
         if(id) {
@@ -273,16 +275,16 @@ var rateList = {
             "</div>"
         ;
         
-        if(nds){
+        if(nds && rateList.data.trType){
             var withNds = Math.ceil(ratePrice + ratePrice * rateList.data.ndsValue);
             newElement += "<div class='price-container'>" + 
-                "<div class='r-o-price'>" + price + rateList.data.currency + 
+                "<div class='r-o-price'>" + parseInt(price) + rateList.data.currency + 
                 "</div>" +
                 "<div class='r-o-nds'>" + '(c НДС: ' + withNds + rateList.data.currency + ') '+ 
                 "</div>" +
             "</div>";
         } else {
-            newElement += "<div class='r-o-price'>" + price + rateList.data.currency + "</div>";
+            newElement += "<div class='r-o-price'>" + parseInt(price) + rateList.data.currency + "</div>";
         }
         newElement += "</div>";
         

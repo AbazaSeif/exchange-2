@@ -60,7 +60,7 @@ if (!empty($transportInfo['rate_id'])) {
     $defaultRate = true;
 }
 
-if($winFerrymanShowNds->with_nds) {
+if($winFerrymanShowNds->with_nds && $transportInfo['type'] == Transport::RUS_TRANSPORT) {
     $price = ceil($winRate->price + $winRate->price * Yii::app()->params['nds']);
     if($price%10 != 0) $price -= $price%10;
     $showWithNds = ' (с НДС: ' . $price . ' ' . $currency . ') ' . $winFerryman->company;    
@@ -72,8 +72,8 @@ if($winFerrymanShowNds->with_nds) {
 if (!Yii::app()->user->isGuest) {
     $userId = Yii::app()->user->_id;
     $model = UserField::model()->find('user_id = :id', array('id' => $userId));
-
-    if((bool)$model->with_nds && Yii::app()->user->isTransport) {
+    
+    if((bool)$model->with_nds && Yii::app()->user->isTransport && $transportInfo['type'] == Transport::RUS_TRANSPORT) {
         $minRateValue = floor($minRateValue + $minRateValue * Yii::app()->params['nds']);
         $maxRateValue = floor($transportInfo['start_rate'] + $transportInfo['start_rate'] * Yii::app()->params['nds']);
     } else $minRateValue = floor($minRateValue);
@@ -87,7 +87,7 @@ if (!Yii::app()->user->isGuest) {
             } else $minRateValue = $priceStep;
         }
     }
-
+    
     $minRate = (($minRateValue - $priceStep)<=0)? 1 : 0;
     $inputSize = strlen((string)$minRateValue)-1;
     if($inputSize < 5 ) $inputSize = 5;
@@ -232,9 +232,10 @@ $(document).ready(function(){
         transportId : <?php echo $transportInfo['id'] ?>,
         status: <?php echo $transportInfo['status'] ?>,
         step: <?php echo $priceStep ?>,
-        nds: <?php echo ((bool)$model->with_nds && Yii::app()->user->isTransport) ? Yii::app()->params['nds'] : 0 ?>,
+        nds: <?php echo ((bool)$model->with_nds && Yii::app()->user->isTransport && $transportInfo['type'] == Transport::RUS_TRANSPORT) ? Yii::app()->params['nds'] : 0 ?>,
         ndsValue: <?php echo Yii::app()->params['nds'] ?>,
         defaultRate: <?php echo ($defaultRate)? 1 : 0 ?>,
+        trType: <?php echo ($transportInfo['type'] == Transport::RUS_TRANSPORT)? 1 : 0; ?>
     };
     
     <?php if (!Yii::app()->user->isGuest): ?>

@@ -23,7 +23,7 @@
     if(!Yii::app()->user->isGuest){
         if(Yii::app()->user->isTransport){
             $model = UserField::model()->find('user_id = :id', array('id' => Yii::app()->user->_id));
-            if((bool)$model->with_nds){
+            if((bool)$model->with_nds && $data->type == Transport::RUS_TRANSPORT){
                 if(!empty($minPriceVal)) $rate = $minPriceVal + $minPriceVal * Yii::app()->params['nds'];
                 else $rate = $data->start_rate + $data->start_rate * Yii::app()->params['nds'];
             } else {
@@ -32,9 +32,9 @@
         } else {
             $rate = (!empty($minPriceVal))? $minPriceVal : $data->start_rate;
         }
-        $rate = ceil($rate);
+        $rate = (int)$rate;
         /// !!!
-        if($rate%10 != 0) $rate -= $rate%10;
+        //if($rate%10 != 0) $rate -= $rate%10;
     }
     if($data->type==Transport::RUS_TRANSPORT){
         $type = "российская";
