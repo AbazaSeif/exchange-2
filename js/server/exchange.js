@@ -74,6 +74,8 @@ io.sockets.on('connection', function (socket) {
         var date = new Date();
         if (typeof inputDate != 'undefined') date = new Date(inputDate);
         
+        date.setTime(date.getTime() - (10 * 1000));
+        
         var hour = date.getHours();
         hour = (hour < 10 ? "0" : "") + hour;
         var min  = date.getMinutes();
@@ -168,7 +170,7 @@ io.sockets.on('connection', function (socket) {
                 if(parseInt(row.status) == 1) {
                     if(parseInt(data.price) <= parseInt(row.start_rate)) {
                         var dateCloseNew = ''; //checkForAdditionalTimer(data);
-                        var time = data.timedate; //getDateTime();
+                        /*var time = data.timedate; //getDateTime();
                         if(!time) {
                             time = getDateTime();
                             if(new Date(time) > new Date(row.date_close)){
@@ -177,7 +179,8 @@ io.sockets.on('connection', function (socket) {
                                     response : 'Ставка имеет недопустимый параметр времени - нажмите сочетание клавиш Ctrl+F5 и сделайте ставку еще раз.',
                                 });
                             }
-                        } 
+                        } */
+                        var time = getDateTime();
                         if (allow) {
                             if(row.rate_id) { // not null		
                                 // check if it's min rate
