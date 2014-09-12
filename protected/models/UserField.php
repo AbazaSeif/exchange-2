@@ -68,7 +68,7 @@ class UserField extends CActiveRecord
 			'mail_kill_rate' => 'Если перебита ставка',
 			'mail_deadline' => 'При закрытии перевозки',
 			'mail_before_deadline' => 'Mail Before Deadline',
-			'with_nds' => 'Показывать цену с НДС',
+			'with_nds' => 'Показывать цену с НДС (только для региональных перевозок)',
 			'show_regl' => 'Региональные перевозки',
 			'show_intl' => 'Международные перевозки',
 		);
