@@ -25,8 +25,8 @@
         } else {
             $rate = (!empty($minPriceVal))? $minPriceVal : $data->start_rate;
         }
-        $rate = (int)$rate;
-        //if($rate%10 != 0) $rate -= $rate%10;
+        $rate = ceil($rate);
+        if($rate%10 != 0) $rate -= $rate%10;
     }
     
     if($data->type==Transport::RUS_TRANSPORT) {
