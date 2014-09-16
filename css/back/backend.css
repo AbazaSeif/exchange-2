@@ -230,7 +230,7 @@ header .menu > ul.nav{
     list-style: none;
     position: relative;
 }
-header .menu > ul.nav:after{
+header .menu > ul.nav:after, .statistics a{
     content: '';
     clear: both;
     display: block;
@@ -1204,6 +1204,20 @@ div.menu ul.nav li.item.parent ul.nav li:nth-of-type(2):after{
     font-size: 20px;
 }
 /*-----Конец-faq---------*/
+/*-----Statistics---------*/
+.statistics a.btn-admin{
+    margin: 10px 0 !important;
+}
+
+/*.statistics .info li span:first-child{
+    
+}*/
+
+.statistics .info li span:first-child{
+    width: 180px;
+    display: block;
+}
+/*-----Конец-Statistics---------*/
 footer{
     
 }
@@ -1432,6 +1446,9 @@ div.form span.required {
     border-radius: 2px;
     background: rgb(238, 238, 238);
     float: left;
+}
+
+.info .info-list:not(:first-child){
     margin: 0 20px;
 }
 .info .info-list li
