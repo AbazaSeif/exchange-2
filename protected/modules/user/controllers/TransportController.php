@@ -411,7 +411,7 @@ class TransportController extends Controller
     public function actionCheckStatus()
     {
         $id = $_POST['id'];
-        $curTime = date('Y-m-d H:i:s');
+        $curTime = date("Y-m-d H:i:s", strtotime("-30 seconds"));
         $allow = false;
         $status = '';
         $user = User::model()->findByPk(Yii::app()->user->_id);
