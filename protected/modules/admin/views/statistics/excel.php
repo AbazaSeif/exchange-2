@@ -1,16 +1,16 @@
 <?php if($model!=null):?>
 <table border="1">
     <tr>
-        <th>Id 1C</th>
-        <th>Время закрытия заявки</th>
-        <th>Место загрузки</th>
-        <th>Место разгрузки</th>
-        <th>Кол-во ставок</th>
-        <th>Кол-во фирм</th>
-        <th>Фирма победитель</th>
-        <th>Лучшая ставка</th>
-        <th>Начальная ставка</th>
-        <th>Валюта</th>
+        <th style="background-color: #cccccc;">Id 1C</th>
+        <th style="background-color: #cccccc;">Время закрытия заявки</th>
+        <th style="background-color: #cccccc;">Место загрузки</th>
+        <th style="background-color: #cccccc;">Место разгрузки</th>
+        <th style="background-color: #cccccc;">Кол-во ставок</th>
+        <th style="background-color: #cccccc;">Кол-во фирм</th>
+        <th style="background-color: #cccccc;">Фирма победитель</th>
+        <th style="background-color: #cccccc;">Лучшая ставка</th>
+        <th style="background-color: #cccccc;">Начальная ставка</th>
+        <th style="background-color: #cccccc;">Валюта</th>
     </tr>
     <?php foreach($model as $transport):
         $currency = ' €';
@@ -43,7 +43,6 @@
             }
         }
         if($withNds) $showRate = $showRate.' '.$withNds;
-        
     ?>
     <tr>
         <td><?php echo $transport->t_id; ?></td>
@@ -60,6 +59,7 @@
     <?php endforeach; ?>
 </table>
 <?php endif; ?>
+<?php //$this->redirect('/admin/statistics/'); ?>
 
 
 

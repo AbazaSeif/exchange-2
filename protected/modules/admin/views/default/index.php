@@ -56,7 +56,7 @@ $user = AuthUser::model()->findByPk(Yii::app()->user->_id);
             Перевозки
         </li>
         <li>
-            <span>Всего перевозок: <?php echo Transport::model()->count();?></span>
+            <span>Всего перевозок: <?php echo Transport::model()->count('status=1 or status=0');?></span>
         </li>
         <li>
             <span>Активных: <?php echo Transport::model()->count('status=1');?></span>

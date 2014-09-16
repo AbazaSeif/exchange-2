@@ -525,15 +525,4 @@ class TransportController extends Controller
         $value = mb_ereg_replace('^[\ ]+', '', $value);
         return mb_strtoupper(mb_substr($value, 0, 1, $encoding), $encoding) . mb_strtolower(mb_substr($value, 1, mb_strlen($value), $encoding), $encoding);
     }
-    
-    public function actionGetExcel()
-    {
-        $model = Transport::model()->findAll(array('order'=>'date_close desc', 'condition'=>'status=0'));
-        
-        Yii::app()->request->sendFile('excel.xls', 
-            $this->renderPartial('excel', array(
-                'model'=>$model,
-            ), true)      
-        );
-    }
 }

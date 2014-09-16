@@ -122,6 +122,7 @@ return array(
                 'повтор Email'=>'/admin/dubemail/',
             ),
             'Перевозки' => '/admin/transport/',
+            'Статистика' => '/admin/statistics/',
             'История редактирования' => '/admin/changes/',
         ),
 
