@@ -1209,13 +1209,25 @@ div.menu ul.nav li.item.parent ul.nav li:nth-of-type(2):after{
     margin: 10px 0 !important;
 }
 
-/*.statistics .info li span:first-child{
-    
-}*/
+.statistics .info li span{
+    display: block;
+    float: left;
+}
 
 .statistics .info li span:first-child{
-    width: 180px;
-    display: block;
+    width: 100px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.statistics .info li{
+    overflow: hidden;
+    line-height: 30px;
+}
+.statistics .info input{
+    width: 30%;
+}
+.statistics .info-list{
+    width: 500px !important;
 }
 /*-----Конец-Statistics---------*/
 footer{

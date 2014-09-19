@@ -1,5 +1,6 @@
 <?php if($model!=null):?>
 <table border="1">
+    <tr><?php echo $dateFrom.' - '.$dateTo?></tr>
     <tr>
         <th style="background-color: #cccccc;">Id 1C</th>
         <th style="background-color: #cccccc;">Время закрытия заявки</th>
