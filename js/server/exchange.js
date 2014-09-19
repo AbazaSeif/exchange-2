@@ -74,7 +74,7 @@ io.sockets.on('connection', function (socket) {
         var date = new Date();
         if (typeof inputDate != 'undefined') date = new Date(inputDate);
         
-        date.setTime(date.getTime() - (10 * 1000));
+        date.setTime(date.getTime() - (40 * 1000));
         
         var hour = date.getHours();
         hour = (hour < 10 ? "0" : "") + hour;
