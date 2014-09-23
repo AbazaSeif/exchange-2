@@ -1215,7 +1215,7 @@ div.menu ul.nav li.item.parent ul.nav li:nth-of-type(2):after{
 }
 
 .statistics .info li span:first-child{
-    width: 100px;
+    width: 80px;
     display: inline-block;
     vertical-align: middle;
 }
@@ -1224,10 +1224,16 @@ div.menu ul.nav li.item.parent ul.nav li:nth-of-type(2):after{
     line-height: 30px;
 }
 .statistics .info input{
-    width: 30%;
+    width: 99px;
 }
 .statistics .info-list{
-    width: 500px !important;
+    width: 360px !important;
+}
+.statistics input.btn-admin{
+    margin: 0 !important;
+}
+.statistics select{
+    min-width: 210px;
 }
 /*-----Конец-Statistics---------*/
 footer{

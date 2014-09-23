@@ -24,7 +24,7 @@
 <div class="statistics">
     <div class="info">
         <ul class="info-list">
-            <li>Выберите поля</li>
+            <li>При необходимости измените параметры выбора</li>
             <li>
                 <span><?php echo $form->labelEx($model, 'type');?></span>
                 <span><?php echo $form->dropDownList($model, 'type', array(0 => 'Все', 1 => 'Международные', 2 => 'Региональные'));?></span>
