@@ -67,6 +67,9 @@
         });
         
         $( ".statistics .btn-admin" ).click(function() {
-            window.location.replace('/admin/statistics/getExcel/from/17-09-2014/to/19-09-2014/type/0');
+            var from = $('#StatisticsForm_date_from').val();
+            var to = $('#StatisticsForm_date_to').val();
+            var type = $('#StatisticsForm_type').val();
+            window.location.replace('/admin/statistics/getExcel/from/'+from+'/to/'+to+'/type/'+type);
         });
 </script>

@@ -1,6 +1,8 @@
 <?php if($model!=null):?>
-<table border="1">
-    <tr><?php echo $dateFrom.' - '.$dateTo?></tr>
+<table border="1" style="font-size: 14px; font-family: 'Times New Roman'">
+    <tr><th style="background-color: #cccccc;"><?php echo $label.' за период '; ?></th></tr>
+    <tr><th style="background-color: #cccccc;"><?php echo date('d.m.Y', strtotime($dateFrom)).' - '.date('d.m.Y', strtotime($dateTo)); ?></th></tr>
+    <tr></tr>
     <tr>
         <th style="background-color: #cccccc;">Id 1C</th>
         <th style="background-color: #cccccc;">Время закрытия заявки</th>
@@ -60,7 +62,6 @@
     <?php endforeach; ?>
 </table>
 <?php endif; ?>
-<?php //$this->redirect('/admin/statistics/'); ?>
 
 
 
