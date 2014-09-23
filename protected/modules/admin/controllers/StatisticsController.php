@@ -25,6 +25,12 @@ class StatisticsController extends Controller
         if(empty($from)) $from = '2014-01-01';
         if(empty($to)) $to = date('Y-m-d');
 
+        if(strtotime($to)< strtotime($from)){
+            $temp = $to;
+            $to = $from;
+            $from = $temp;
+        }
+            
         $model = Transport::model()->findAll(array('order'=>'date_close desc', 'condition'=>'status=0'.$sql.' and date_close between "'.date('Y-m-d', strtotime($from)).'" and "'.date('Y-m-d', strtotime($to.' +1 days')).'"'));
         
         Yii::app()->request->sendFile('Статистика биржи перевозок на '.date('Y-m-d H-i-s').'.xls',

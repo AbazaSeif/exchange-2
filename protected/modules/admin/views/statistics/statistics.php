@@ -1,26 +1,23 @@
 <h1>Статистика архивных перевозок</h1>
 
-<!--div>Сейчас на бирже всего перевозок: <?php echo Transport::model()->count();?> (Активных: <?php echo Transport::model()->count('status=1');?>, Архивных: <?php echo Transport::model()->count('status=0');?>, Черновиков: <?php echo Transport::model()->count('status=2');?>)</div-->
-
-<?php $form = $this->beginWidget('CActiveForm', array(
-        //'id'=>'statistics-form',
-        //'action'=>'/admin/statistics/getexcel/',
-        'enableClientValidation' => true,        
-        'clientOptions'=>array(
-            'validateOnSubmit'=>true,
-            'validateOnChange' => true,
-            'afterValidate'=>'js:function( form, data, hasError ) 
-            {     
-                if( hasError ){
-                    return false;
-                }
-                else{
-                    return true;
-                }
-            }'
-        ),
-    ));
-?>
+<?php $form=$this->beginWidget('CActiveForm', array(
+    'id'=>'statistics-form',
+    'enableClientValidation' => true,        
+    // 'enableAjaxValidation' => true,        
+    'clientOptions'=>array(
+        'validateOnSubmit'=>true,
+        'validateOnChange' => true,
+        'afterValidate'=>'js:function( form, data, hasError ) 
+        {     
+            if( hasError ){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }'
+    ),
+)); ?>
 <div class="statistics">
     <div class="info">
         <ul class="info-list">
