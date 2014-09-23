@@ -1,4 +1,4 @@
-<?php if($model!=null):?>
+<?php if($model != null): ?>
 <table border="1" style="font-size: 14px; font-family: 'Times New Roman'">
     <tr><th style="background-color: #cccccc;"><?php echo $label.' за период '; ?></th></tr>
     <tr><th style="background-color: #cccccc;"><?php echo date('d.m.Y', strtotime($dateFrom)).' - '.date('d.m.Y', strtotime($dateTo)); ?></th></tr>
@@ -60,6 +60,13 @@
         <td><?php echo $currency; ?></td>
     </tr>
     <?php endforeach; ?>
+</table>
+<?php else: ?>
+<table>
+    <tr><th style="background-color: #cccccc;"><?php echo iconv('UTF-8', 'windows-1251', $label.' за период '); ?></th></tr>
+    <tr><th style="background-color: #cccccc;"><?php echo date('d.m.Y', strtotime($dateFrom)).' - '.date('d.m.Y', strtotime($dateTo)); ?></th></tr>
+    <tr></tr>
+    <tr><th><?php echo iconv('UTF-8', 'windows-1251', 'Перевозок, удолвлетворяющих условиям отбора, не найдено.'); ?></th></tr>
 </table>
 <?php endif; ?>
 
