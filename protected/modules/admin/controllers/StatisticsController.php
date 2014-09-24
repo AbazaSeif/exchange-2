@@ -24,7 +24,8 @@ class StatisticsController extends Controller
         ;
         
         $objPHPExcel->setActiveSheetIndex(0);
-        $objPHPExcel->getActiveSheet()->setTitle('Статистика');
+        $sheet = $objPHPExcel->getActiveSheet();
+        $sheet->setTitle('Статистика');
         
         if($type) {
             if($type == 1){
@@ -53,12 +54,11 @@ class StatisticsController extends Controller
             ->queryAll()
         ;
         
-        $objPHPExcel->getActiveSheet()
-            ->setCellValue('A1', $label)
+        $sheet->setCellValue('A1', $label)
             ->setCellValue('A2', date('d.m.Y', strtotime($from)).' - '.date('d.m.Y', strtotime($to)))
         ;
-        $objPHPExcel->getActiveSheet()->getStyle('A1:A2')->getFont()->setBold(true);
-        $objPHPExcel->getActiveSheet()->getStyle('A1:A2')->applyFromArray(
+        $sheet->getStyle('A1:A2')->getFont()->setBold(true);
+        $sheet->getStyle('A1:A2')->applyFromArray(
             array(
                 'fill' => array(
                     'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -68,8 +68,7 @@ class StatisticsController extends Controller
         );
 
         if(!empty($transports)) {
-            $objPHPExcel->getActiveSheet()
-                ->setCellValue('A4', 'Id 1C')
+            $sheet->setCellValue('A4', 'Id 1C')
                 ->setCellValue('B4', 'Время закрытия заявки')
                 ->setCellValue('C4', 'Место загрузки')
                 ->setCellValue('D4', 'Место разгрузки')
@@ -80,9 +79,9 @@ class StatisticsController extends Controller
                 ->setCellValue('I4', 'Начальная ставка')
                 ->setCellValue('J4', 'Валюта')
             ;
-            for($col = 'A'; $col != 'F'; $col++) $objPHPExcel->getActiveSheet()->getColumnDimension($col)->setWidth(30);/*setAutoSize(true);*/
-            $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
-            $objPHPExcel->getActiveSheet()->getStyle('A4:J4')->applyFromArray(
+            for($col = 'A'; $col != 'F'; $col++) $sheet->getColumnDimension($col)->setWidth(30);/*setAutoSize(true);*/
+            $sheet->getColumnDimension('H')->setAutoSize(true);
+            $sheet->getStyle('A4:J4')->applyFromArray(
                 array(
                     'fill' => array(
                         'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -90,7 +89,11 @@ class StatisticsController extends Controller
                     )
                 )
             );
-            $objPHPExcel->getActiveSheet()->getStyle('A4:J4')->getFont()->setBold(true);
+            $sheet->getStyle('H')
+                ->getAlignment()
+                ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT)
+            ;
+            $sheet->getStyle('A4:J4')->getFont()->setBold(true);
             $index = 5;
             foreach($transports as $transport){
                 $currency = ' €';
@@ -142,7 +145,7 @@ class StatisticsController extends Controller
                 $index++;
             }
         } else {
-            $objPHPExcel->getActiveSheet()->setCellValue('A4', 'Перевозок, удолвлетворяющих условиям отбора, не найдено.');
+            $sheet->setCellValue('A4', 'Перевозок, удолвлетворяющих условиям отбора, не найдено.');
         }
 
         // Redirect output to a clientâ€™s web browser (Excel5)
