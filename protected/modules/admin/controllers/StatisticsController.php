@@ -49,7 +49,7 @@ class StatisticsController extends Controller
             ->select('*')
             ->from('transport')
             ->where('status=0'.$sql.' and date_close between "'.date('Y-m-d', strtotime($from)).'" and "'.date('Y-m-d', strtotime($to.' +1 days')).'"')
-            ->order('date_close desc')
+            ->order('date_close desc, date_published')
             ->queryAll()
         ;
         
