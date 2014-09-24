@@ -7,6 +7,47 @@ class StatisticsController extends Controller
         $this->render('statistics', array('model'=>$model));
     }
     
+    public function actionCheck()
+    {
+        $transports = Yii::app()->db->createCommand()
+            ->select('*')
+            ->from('transport')
+            ->where('status=0')
+            ->order('date_close desc, date_published')
+            ->queryAll()
+        ;
+        
+        foreach($transports as $transport) {
+            $row = '';
+            $model = new Rate;
+            $criteria = new CDbCriteria;
+            $criteria->select = 'min(price) AS price, id, user_id';
+            $criteria->condition = 'transport_id = :id';
+            $criteria->params = array(':id'=>$transport['id']);
+            $minPrice = $model->model()->find($criteria);
+            if(!empty($minPrice)){
+                $criteria->select = 'id, user_id';
+                $criteria->order = 'date';
+                $criteria->condition = 'transport_id = :id and price like :price';
+                $criteria->params = array(':id'=>$transport['id'], ':price'=>$minPrice->price);
+                $row = $model->model()->find($criteria);
+            }
+            $tr = Transport::model()->findByPk($transport['id']);
+            if(!empty($row)){
+                if($transport['rate_id'] != $row->id) {
+                    echo '('.$transport['t_id'].') '.$tr->rate_id.' => '.$row->id.'<br>';
+                    $tr->rate_id = $row->id;
+                    $tr->save();
+                }
+            } else if(!empty($transport['rate_id'])){
+                echo '('.$transport['t_id'].') '.$tr->rate_id.' => null<br>';
+                $tr->rate_id = null;
+                $tr->save();
+            }
+            
+        }
+    }
+    
     public function actionGetExcel($from, $to, $type)
     {        
         $sql = '';
@@ -129,7 +170,7 @@ class StatisticsController extends Controller
                     }
                 }
                 if($withNds) $showRate = $showRate.' '.$withNds;
-                $ferrymanCompany = ($ferryman->company) ? $ferryman->company : 'Нет ставок';
+                $ferrymanCompany = (!empty($ferryman->company)) ? $ferryman->company : 'Нет ставок';
                 $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('A'.$index, $transport['t_id'])
                     ->setCellValue('B'.$index, date('Y-m-d H:i', strtotime($transport['date_close'])))
