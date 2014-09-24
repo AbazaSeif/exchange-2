@@ -3,7 +3,6 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
     'id'=>'statistics-form',
     'enableClientValidation' => true,        
-    // 'enableAjaxValidation' => true,        
     'clientOptions'=>array(
         'validateOnSubmit'=>true,
         'validateOnChange' => true,
@@ -33,9 +32,7 @@
             <li><?php echo CHtml::button('Скачать Excel', array('class'=>'btn-admin')); ?>
             </li>
         </ul>
-    </div>
-    <?php //echo CHtml::link('Скачать Excel', '/admin/statistics/', array('class'=>'btn-admin')); ?>
-    
+    </div>    
 </div>
 <?php $this->endWidget(); ?> 
 <script>
