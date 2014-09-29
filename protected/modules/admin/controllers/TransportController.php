@@ -464,7 +464,8 @@ class TransportController extends Controller
     {
         if(Yii::app()->user->checkAccess('deleteTransport')){
             $model = Transport::model()->findByPk($id);
-            $transportName = $model->location_from . ' — ' . $model->location_to;
+            $tId = (!empty($model->t_id))? ' ('.$model->t_id.')':'';
+            $transportName = $model->location_from . ' — ' . $model->location_to.$tId;
             $type = mb_strtolower(Transport::$group[$model->type], 'UTF-8');
             $rates = Rate::model()->findAll('transport_id = :id',array('id'=>$id));
             if(Transport::model()->deleteByPk($id)){
