@@ -181,7 +181,8 @@
     echo $form->labelEx($model, 'date_from');
     $model->date_from = date("d-m-Y H:i", strtotime($model->date_from));
     if (!$model->id) echo $form->textField($model, 'date_from');
-    else echo $form->textField($model, 'date_from', array('disabled'=>true));
+    //else echo $form->textField($model, 'date_from', array('disabled'=>true));
+    else echo $form->textField($model, 'date_from');
 ?>    
 </div>
 <div class="field">
