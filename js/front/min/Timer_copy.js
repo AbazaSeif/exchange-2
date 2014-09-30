@@ -116,9 +116,7 @@ Timer.prototype = {
           if(this.days > 0) {
               var title = 'дней';
               var modulo = this.days%10;
-              console.log(this.days);
               var intPart = Math.floor(this.days/10);
-              //console.log(' = ' + modulo);
               if(modulo == 1 && intPart != 1) {
                   title = 'день';
               } else if((modulo == 2 || modulo == 3 || modulo == 4) && intPart != 1) {
