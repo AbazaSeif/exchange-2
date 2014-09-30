@@ -44,7 +44,7 @@ Timer.prototype = {
     this.seconds = this.datePartDiff(currDate.getSeconds(), futureDate.getSeconds(), 60);
     this.minutes = this.datePartDiff(currDate.getMinutes(), futureDate.getMinutes(), 60);
     this.hours = this.datePartDiff(currDate.getHours(), futureDate.getHours(), 24);
-    this.days = this.datePartDiff(currDate.getDate(), futureDate.getDate(), this.numOfDays[futureDate.getMonth()]);
+    this.days = this.datePartDiff(currDate.getDate(), futureDate.getDate(), this.numOfDays[currDate.getMonth()]);
     this.months = this.datePartDiff(currDate.getMonth(), futureDate.getMonth(), 12);
     this.years = this.datePartDiff(currDate.getFullYear(), futureDate.getFullYear(),0);
   },
@@ -116,7 +116,9 @@ Timer.prototype = {
           if(this.days > 0) {
               var title = 'дней';
               var modulo = this.days%10;
+              console.log(this.days);
               var intPart = Math.floor(this.days/10);
+              //console.log(' = ' + modulo);
               if(modulo == 1 && intPart != 1) {
                   title = 'день';
               } else if((modulo == 2 || modulo == 3 || modulo == 4) && intPart != 1) {
