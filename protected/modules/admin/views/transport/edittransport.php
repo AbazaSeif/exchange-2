@@ -157,6 +157,13 @@
 ?>    
 </div>
 <div class="field">
+<?php  echo $form->error($model, 'pto'); 
+    echo $form->labelEx($model, 'pto');
+    if (!$model->id) echo $form->textArea($model, 'pto');
+    else echo $form->textArea($model, 'pto', array('disabled'=>true));
+?>    
+</div>
+<div class="field">
 <?php echo $form->error($model, 'status');
     echo $form->labelEx($model, 'status');
     echo $form->dropDownList($model, 'status', Transport::$status); ?>

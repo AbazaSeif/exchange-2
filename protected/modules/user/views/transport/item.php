@@ -142,6 +142,7 @@ if (!Yii::app()->user->isGuest) {
                     <?php endif; ?>
                 </div>
                 <?php if (!empty($transportInfo['auto_info'])):?><div class="r-params"><span>Транспорт: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
+                <?php if (!empty($transportInfo['pto'])):?><div class="r-params"><span>Экспорт ПТО: </span><strong><?php echo $transportInfo['pto'] ?></strong></div><?php endif; ?>
             </div>
             <?php if (!Yii::app()->user->isGuest && $minRateValue > 0 && Yii::app()->user->isTransport): ?>
             <div class="width-50 timer-wrapper">

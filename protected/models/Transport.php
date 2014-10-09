@@ -73,7 +73,7 @@ class Transport extends CActiveRecord
 	public function rules()
 	{
             return array(
-		array('t_id, location_from, new_transport, rate_id, start_rate, status, type, user_id, currency, customs_clearance_RF, customs_clearance_EU, location_to, auto_info, description, date_to_customs_clearance_RF, date_close, date_from, date_to, date_published', 'safe')
+		array('t_id, pto, location_from, new_transport, rate_id, start_rate, status, type, user_id, currency, customs_clearance_RF, customs_clearance_EU, location_to, auto_info, description, date_to_customs_clearance_RF, date_close, date_from, date_to, date_published', 'safe')
             );
 	}
 
@@ -117,6 +117,7 @@ class Transport extends CActiveRecord
                     'date_to_customs_clearance_RF' => 'Дата доставки в пункт таможенной очистки в РФ',
                     'customs_clearance_RF' => 'Место таможенной очистки в РФ',
                     'customs_clearance_EU' => 'Место таможенного оформления в ЕС',
+                    'pto' => 'Экспорт ПТО',
                 );
 	}
 
@@ -155,6 +156,7 @@ class Transport extends CActiveRecord
 		$criteria->compare('date_from',$this->date_from,true);
 		$criteria->compare('date_to',$this->date_to,true);
 		$criteria->compare('date_published',$this->date_published,true);
+		$criteria->compare('pto',$this->pto,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

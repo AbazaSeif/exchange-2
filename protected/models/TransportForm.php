@@ -4,6 +4,7 @@ class TransportForm extends CFormModel
 {
     public $id;
     public $t_id;
+    public $pto;
     public $new_transport;
     public $rate_id;
     public $start_rate;
@@ -32,7 +33,7 @@ class TransportForm extends CFormModel
             array('new_transport, rate_id, start_rate, status, type, currency', 'numerical', 'integerOnly'=>true),
             array('t_id, user_id', 'length', 'max'=>64),
             //array('id, t_id, location_from, new_transport, rate_id, start_rate, status, type, user_id, currency, customs_clearance_RF, customs_clearance_EU, location_to, auto_info, description, date_to_customs_clearance_RF, date_close, date_from, date_to, date_published', 'safe')
-            array('id, date_close_new, t_id, location_from, new_transport, rate_id, start_rate, status, type, user_id, currency, customs_clearance_RF, customs_clearance_EU, location_to, auto_info, description, date_to_customs_clearance_RF, date_close, date_from, date_to, date_published', 'safe')
+            array('id, pto, date_close_new, t_id, location_from, new_transport, rate_id, start_rate, status, type, user_id, currency, customs_clearance_RF, customs_clearance_EU, location_to, auto_info, description, date_to_customs_clearance_RF, date_close, date_from, date_to, date_published', 'safe')
             //array('location_from, location_to, auto_info, description, date_close, date_from, date_to, date_published', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -63,6 +64,7 @@ class TransportForm extends CFormModel
             'date_to_customs_clearance_RF' => 'Дата доставки в пункт таможенной очистки в РФ',
             'date_published' => 'Дата публикации',
             'currency' => 'Валюта',
+            'pto' => 'Экспорт ПТО',
         );
     }
 }
