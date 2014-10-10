@@ -54,17 +54,22 @@ class Transport extends CActiveRecord
         2=>'Евро (€)',
     );
     
+    CONST ACTIVE_TRANSPORT = 1;
+    CONST DRAFT_TRANSPORT = 2;
+    CONST DEL_TRANSPORT = 3;
+    
     public static $status = array(
         0=>'Архивная',
-        1=>'Активная',
-        2=>'Черновик',
+        self::ACTIVE_TRANSPORT=>'Активная',
+        self::DRAFT_TRANSPORT=>'Черновик',
     );
+    
     /**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'transport';
+	    return 'transport';
 	}
 
 	/**
@@ -73,7 +78,7 @@ class Transport extends CActiveRecord
 	public function rules()
 	{
             return array(
-		array('t_id, pto, location_from, new_transport, rate_id, start_rate, status, type, user_id, currency, customs_clearance_RF, customs_clearance_EU, location_to, auto_info, description, date_to_customs_clearance_RF, date_close, date_from, date_to, date_published', 'safe')
+		array('t_id, pto, del_date, del_reason, location_from, new_transport, rate_id, start_rate, status, type, user_id, currency, customs_clearance_RF, customs_clearance_EU, location_to, auto_info, description, date_to_customs_clearance_RF, date_close, date_from, date_to, date_published', 'safe')
             );
 	}
 
@@ -118,6 +123,8 @@ class Transport extends CActiveRecord
                     'customs_clearance_RF' => 'Место таможенной очистки в РФ',
                     'customs_clearance_EU' => 'Место таможенного оформления в ЕС',
                     'pto' => 'Экспорт ПТО',
+                    'del_reason' => 'Причина удаления',
+                    'del_date' => 'Дата удаления',
                 );
 	}
 
@@ -157,6 +164,7 @@ class Transport extends CActiveRecord
 		$criteria->compare('date_to',$this->date_to,true);
 		$criteria->compare('date_published',$this->date_published,true);
 		$criteria->compare('pto',$this->pto,true);
+		$criteria->compare('close_reason',$this->pto,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

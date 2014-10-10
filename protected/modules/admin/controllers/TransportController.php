@@ -34,6 +34,15 @@ class TransportController extends Controller
                 $criteriaDraft->params = array(':status' => 2);
             }
             
+            $criteriaDel = new CDbCriteria();
+            if($transportType != $showAllTransports) {
+                $criteriaDel->condition = 't.status = :status and t.type = :type';
+                $criteriaDel->params = array(':status' => 3, ':type' => $transportType);
+            } else {
+                $criteriaDel->condition = 't.status = :status';
+                $criteriaDel->params = array(':status' => 3);
+            }
+            
             $sort = new CSort();
             $sort->sortVar = 'sort';
             $sort->defaultOrder = 'date_close desc, t_id';
@@ -133,6 +142,16 @@ class TransportController extends Controller
                     )
                 )
             );
+            
+            $dataDel = new CActiveDataProvider('Transport', 
+                array(
+                    'criteria' => $criteriaDel,
+                    'sort' => $sort,
+                    'pagination' => array(
+                        'pageSize'=>'10'
+                    )
+                )
+            );
 
             if ($id = Yii::app()->user->getFlash('saved_id')) {
                 $model = Transport::model()->findByPk($id);
@@ -141,7 +160,7 @@ class TransportController extends Controller
                 $view = $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'points'=>$points), true, true);
             }
             
-            $this->render('transport', array('dataActive'=>$dataActive, 'dataArchive'=>$dataArchive, 'dataDraft' =>$dataDraft, 'view'=>$view, 'type' => $transportType));
+            $this->render('transport', array('dataActive'=>$dataActive, 'dataArchive'=>$dataArchive, 'dataDraft' =>$dataDraft, 'dataDel' =>$dataDel, 'view'=>$view, 'type' => $transportType));
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
@@ -460,16 +479,16 @@ class TransportController extends Controller
         }
     }
 
-    public function actionDeleteTransport($id)
+    /*public function actionDeleteTransport($id)
     {
         if(Yii::app()->user->checkAccess('deleteTransport')){
             $model = Transport::model()->findByPk($id);
-            $tId = (!empty($model->t_id))? ' ('.$model->t_id.')':'';
-            $transportName = $model->location_from . ' — ' . $model->location_to.$tId;
+            $tId = (!empty($model->t_id))? '('.$model->t_id.') ':'';
+            $transportName = $model->location_from . ' — ' . $model->location_to;
             $type = mb_strtolower(Transport::$group[$model->type], 'UTF-8');
             $rates = Rate::model()->findAll('transport_id = :id',array('id'=>$id));
             if(Transport::model()->deleteByPk($id)){
-                $message = 'Удалена '.$type.' перевозка "' . $transportName . '" (id='.$id.'). ';
+                $message = 'Удалена '.$type.' перевозка "' . $transportName . '" ' . $tId . '(id='.$id.'). ';
                 if(!empty($rates)){
                     $message .= 'Также были удалены ставки сделанные в этой перевозке: ';
                     $count = 1;
@@ -486,6 +505,25 @@ class TransportController extends Controller
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
+    }*/
+    
+    public function actionDeleteTransport()
+    {
+        $id = $_POST['id'];
+        $model = Transport::model()->findByPk($id);
+        $userModel = AuthUser::model()->findByPk(Yii::app()->user->_id);
+        $transportName = $model->location_from . ' — ' . $model->location_to;
+        
+        $reason = $_POST['reason'];
+        $reason = '('.$userModel->surname.' '.$userModel->name.') : '.$reason;
+        
+        $model->status = Transport::DEL_TRANSPORT;
+        $model->del_reason = $reason;
+        $model->del_date = date('Y-m-d H:i:s');
+        $model->save();
+        
+        Yii::app()->user->setFlash('message', 'Перевозка "' . $transportName . '" удалена успешно.');
+        $this->redirect('/admin/transport/');
     }
     
     public function actionDuplicateTransport($id)

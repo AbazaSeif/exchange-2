@@ -223,7 +223,7 @@ function getTime(){
 
 $(document).ready(function(){
     <?php //if($transportInfo['status'] && $now < $end): ?>
-    <?php if($transportInfo['status']): ?>
+    <?php if($transportInfo['status'] == Transport::ACTIVE_TRANSPORT): ?>
     var timer = new Timer();
     timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>, <?php echo $transportInfo['id'] ?>);
     <?php endif; ?>
@@ -241,8 +241,8 @@ $(document).ready(function(){
     
     <?php if (!Yii::app()->user->isGuest): ?>
         <?php if(Yii::app()->user->isTransport): ?>
-        var socket = io.connect('http://exchange.lbr.ru:3000/');
-        //var socket = io.connect('http://localhost:3000/');
+        //var socket = io.connect('http://exchange.lbr.ru:3000/');
+        var socket = io.connect('http://localhost:3000/');
         
         if(<?php echo $transportInfo['status']; ?>) socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>, <?php echo ($transportInfo['status'] && ($now < $end || $showAdditionalTimer))? 0 : 1 ?>);
         

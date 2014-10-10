@@ -2,10 +2,21 @@
     $header_form = '"'.$model->location_from.' &mdash; '.$model->location_to . '"';
     $submit_text = 'Сохранить';
     $close_text = 'Закрыть';
-    $delete_button = CHtml::link('Удалить перевозку', '/admin/transport/deletetransport/id/'.$model->id, array('id'=>$model->id,'class'=>'btn-admin btn-del', 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
-    $duplicate_button = CHtml::link('Копировать', '/admin/transport/duplicatetransport/id/'.$model->id, array('id'=>'dup_'.$model->id,'class'=>'btn-admin'));//, 'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'));
+    //$delete_button = CHtml::button('Удалить перевозку', array('id'=>'delete-transport', 'name'=>$model->id, 'class'=>'btn-admin'));
+    $delete_button = CHtml::tag('button', array(
+            'id'=>'delete-transport',
+            'type'=>'button',
+            'class'=>'btn-admin btn-del'
+        ), 'Удалить перевозку'
+    );
+
+    //$delete_button = CHtml::link('Удалить перевозку', '/admin/transport/deletetransport/id/'.$model->id, array('id'=>'delete-transport', 'name'=>$model->id, 'class'=>'btn-admin btn-del'));//'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'
+    $duplicate_button = CHtml::link('Копировать', '/admin/transport/duplicatetransport/id/'.$model->id, array('id'=>'dup_'.$model->id,'class'=>'btn-admin'));
     $action = '/admin/transport/edittransport/id/'.$model->id;
     $creator = '';
+    $delTransport = (string)Transport::DEL_TRANSPORT;
+    $draftTransport = (string)Transport::DRAFT_TRANSPORT;
+
     if (!$model->id) {
         $submit_text = 'Создать';
         $close_text = 'Закрыть';
@@ -68,13 +79,15 @@
 <div class="buttons">
 <?php
     echo CHtml::button($close_text,array('id'=>'close-transport', 'class'=>'btn-admin'));
-    echo $delete_button;
+    if($model->status != $delTransport) echo $delete_button;
     echo $duplicate_button;
-    echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn-admin')); 
+    if($model->status != $delTransport) echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn-admin')); 
 ?>
 </div>
 <?php if ($model->id): ?>
-    <div class="link-to-frontend"><a target="_blank" href="<?php echo Yii::app()->getBaseUrl(true) ?>/transport/description/id/<?php echo $model->id ?>/">Перейти к перевозке</a></div>
+    <?php if($model->status != $delTransport || $model->status != $draftTransport): ?>
+        <div class="link-to-frontend"><a target="_blank" href="<?php echo Yii::app()->getBaseUrl(true) ?>/transport/description/id/<?php echo $model->id ?>/">Перейти к перевозке</a></div>
+    <?php endif; ?>
     <div class="additional-info"> 
         <?php 
         if(!empty($creator)){
@@ -88,7 +101,6 @@
 <div class="field">
 <?php echo $form->error($model, 'type');
     echo $form->labelEx($model, 'type');
-    //echo $form->dropDownList($model, 'type', Transport::$group); 
     if (!$model->id) echo $form->dropDownList($model, 'type', Transport::$group);
     else echo $form->dropDownList($model, 'type', Transport::$group, array('disabled'=>true));
 ?>
@@ -96,7 +108,8 @@
 <div class="field">
 <?php echo $form->error($model, 't_id'); 
     echo $form->labelEx($model, 't_id');
-    echo $form->textField($model, 't_id');
+    if($model->status == $delTransport) echo $form->textField($model, 't_id', array('disabled'=>true));
+    else echo $form->textField($model, 't_id');
 ?>    
 </div>
 <div class="field">
@@ -139,7 +152,6 @@
     echo $form->labelEx($model, 'currency');
     if (!$model->id) echo $form->dropDownList($model, 'currency', Transport::$currencyGroup);
     else echo CHtml::textField('currency', Transport::$currencyGroup[$model->currency], array('disabled'=>true));
-    //echo $form->dropDownList($model, 'currency', Transport::$currencyGroup, array('disabled'=>true));
 ?>
 </div>
 <div class="field">
@@ -166,8 +178,17 @@
 <div class="field">
 <?php echo $form->error($model, 'status');
     echo $form->labelEx($model, 'status');
-    echo $form->dropDownList($model, 'status', Transport::$status); ?>
+    if($model->status == $delTransport) echo CHtml::textField('TransportForm[status]', 'Удалена ('.date('d.m.Y H:i', strtotime($model->del_date)).')', array('disabled'=>true));//$form->textField($model, 'status', array('disabled'=>true));
+    else echo $form->dropDownList($model, 'status', Transport::$status); ?>
 </div>
+<?php if($model->status == $delTransport): ?>
+    <div class="field">
+    <?php 
+    echo $form->labelEx($model, 'del_reason');
+    echo $form->textArea($model, 'del_reason', array('disabled'=>true));
+    ?>
+    </div>
+<?php endif; ?>
 <div class="field">
     <?php
         echo CHtml::label('Часовой Пояс', 'timer_label');
@@ -202,7 +223,6 @@
 <div class="field custom">
 <?php echo $form->error($model, 'date_to_customs_clearance_RF'); 
     echo $form->labelEx($model, 'date_to_customs_clearance_RF');
-    //$model->date_to_customs_clearance_RF = date("d-m-Y H:i", strtotime($model->date_to_customs_clearance_RF));
     if (!$model->id) echo $form->textField($model, 'date_to_customs_clearance_RF'); 
     else echo $form->textField($model, 'date_to_customs_clearance_RF', array('disabled'=>true)); 
 ?>    
@@ -211,7 +231,6 @@
 <div class="field">
 <?php echo $form->hiddenField($model, 'id'); ?>
 </div>
-<?php //if (!$model->isNewRecord): ?>
 <?php if ($model->id): ?>
 <div>
     <?php if(count($points)): ?>
@@ -241,16 +260,15 @@
     <div class="header-h4">Список ставок</div>
     <div id="rate-message" class="hide"><div></div></div>
     <?php if(count($rates)): ?>
-    <ul id="rates-all">
-        <li>
-           <span>Дата</span>
-           <span>Компания</span>
-           <span>Размер ставки</span>
-           <span class="del-col"></span>
-        </li>
-    <?php foreach ($rates as $item){
-        //var_dump($item);
-            if($minRateId == $item['id']) echo '<li class="item win" r-id="'.$item['id'].'">';
+    <table class="rates-all" cellspacing='0'>
+        <tr>
+            <th>Дата</th>
+            <th>Компания</th>
+            <th>Размер ставки</th>
+            <th>del</th>
+        </tr>
+        <?php foreach ($rates as $item){
+            /*if($minRateId == $item['id']) echo '<li class="item win" r-id="'.$item['id'].'">';
             else echo '<li class="item" r-id="'.$item['id'].'">';
             echo '<span>'.date("d-m-Y H:i:s", strtotime($item['date'])).'</span>';
             echo '<span>' . $item['company'] . '</span>';
@@ -260,8 +278,17 @@
             echo '</span>';
             echo '<span>' . '<span class="hide">' . CHtml::button('',array('class'=>'del-col confirm-row')) . '</span>' . '<span>' . CHtml::button('',array('class'=>'del-col del-row')) . '</span>';
             echo '</li>';
-        }?>
-    </ul>
+            */
+            if($minRateId == $item['id']) echo '<tr class="win" r-id="'.$item['id'].'">';
+            else echo '<tr r-id="'.$item['id'].'">';
+            echo '<td>'.date("d.m.Y H:i:s", strtotime($item['date'])).'</td>';
+            echo '<td>'.$item['company'].'</td>';
+            echo '<td>'.$item['price'].'</td>';
+            echo '<td>kk</td>';
+            echo '</tr>';
+        }
+        ?>
+    </table>
     <?php else: echo '<div class="no-rates">Нет ставок</div>';
     endif; ?>
 </div>
@@ -269,6 +296,31 @@
 <?php $this->endWidget(); ?> 
 </div>
 </div>
+</div>
+<div>
+    <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+        'id' => 'delTr',
+        'options' => array(
+            'title' => 'Подтверждение удаления',
+            'autoOpen' => false,
+            'modal' => true,
+            'resizable'=> false,
+        ),
+    ));
+    ?>
+    <div class="row">
+        <span>Укажите причину удаления:</span> 
+        <?php echo CHtml::textArea('delete-reason', '', array('trId'=>$model->id)); ?>
+    </div>
+    <div class="rate-button">
+    <?php echo CHtml::button('Удалить',array('id' => 'setDelTr', 'class' => 'btn')); ?>
+    </div>
+    <div class="rate-button">
+    <?php echo CHtml::button('Отмена',array('id' => 'abordDelTr', 'class' => 'btn')); ?>
+    </div>
+    <?php
+        $this->endWidget('zii.widgets.jui.CJuiDialog');
+    ?>
 </div>
 <script>
 $(document).ready(function() {
