@@ -68,11 +68,12 @@ input, textarea{
     border: 0;
     color: #333;
     text-shadow: 0 1px 0 rgba(255,255,255,0.9);
-    background-color: #eaeaea;
-    background-image: -moz-linear-gradient(#fafafa, #eaeaea);
+    background-color: #00917c;
+    /*background-image: -moz-linear-gradient(#fafafa, #eaeaea);
     background-image: -webkit-linear-gradient(#fafafa, #eaeaea);
     background-image: linear-gradient(#fafafa, #eaeaea);
     background-repeat: repeat-x;
+	*/
     border: 1px solid #ddd;
     border-bottom-color: #c5c5c5;
     width: auto;
@@ -1143,6 +1144,10 @@ input[name^="Rates"], input[name^="Points"]{
 }
 */
 
+.no-rates{
+   margin-top: 10px;
+}
+
 .rates-all, .points-all {
     font-family:Arial, Helvetica, sans-serif;
     color:#666;
@@ -1162,8 +1167,22 @@ input[name^="Rates"], input[name^="Points"]{
     box-shadow: 0 1px 2px #d1d1d1;
 }
  
-.rates-all input.del-col{
+.rates-all input.del-row{
     display: inline;
+}
+
+.rates-all .del-row{
+    background: url('/images/delete-icon.png') no-repeat left center;
+    width: 16px;
+    height: 16px;
+    display: block;
+    border: none;
+    box-shadow: none;
+    margin-left: 5px;
+}
+
+.rates-all .del-row:hover{
+    cursor: pointer;
 }
 
 .rates-all th, .points-all th {

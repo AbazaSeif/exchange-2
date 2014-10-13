@@ -2,15 +2,16 @@
     $header_form = '"'.$model->location_from.' &mdash; '.$model->location_to . '"';
     $submit_text = 'Сохранить';
     $close_text = 'Закрыть';
-    //$delete_button = CHtml::button('Удалить перевозку', array('id'=>'delete-transport', 'name'=>$model->id, 'class'=>'btn-admin'));
     $delete_button = CHtml::tag('button', array(
             'id'=>'delete-transport',
             'type'=>'button',
-            'class'=>'btn-admin btn-del'
+            'class'=>'btn-admin btn-del',
+            'name'=>$model->id,
         ), 'Удалить перевозку'
     );
+    $alertMsg = Yii::app()->user->getFlash('message');
+    $errorMsg = Yii::app()->user->getFlash('message');
 
-    //$delete_button = CHtml::link('Удалить перевозку', '/admin/transport/deletetransport/id/'.$model->id, array('id'=>'delete-transport', 'name'=>$model->id, 'class'=>'btn-admin btn-del'));//'onclick'=>'return confirm("Внимание! Перевозка будет безвозвратно удалена. Продолжить?")'
     $duplicate_button = CHtml::link('Копировать', '/admin/transport/duplicatetransport/id/'.$model->id, array('id'=>'dup_'.$model->id,'class'=>'btn-admin'));
     $action = '/admin/transport/edittransport/id/'.$model->id;
     $creator = '';
@@ -34,7 +35,16 @@
         $creator = $userModel->surname.' '.$userModel->name.' '.$userModel->secondname;
     }
 ?>
-
+<script>
+$(function(){
+    alertify.set({ delay: 40000 });
+    <?php if ($alertMsg) :?>
+        alertify.success("<?php echo $alertMsg; ?>");
+    <?php elseif ($errorMsg): ?>
+        alertify.error("<?php echo $errorMsg; ?>");
+    <?php endif; ?>
+});
+</script>
 <div class="total">
     <div class="left">
         <?php if (!$model->id): ?>
@@ -50,13 +60,6 @@
     </div>
 <div class="right">
 <div class="form">
-<?php
-    if ($mess = Yii::app()->user->getFlash('message')){
-        echo '<div class="trMessage success">'.$mess.'</div>';
-    } else if ($mess = Yii::app()->user->getFlash('error')) {
-        echo '<div class="trMessage error">'.$mess.'</div>';
-    }
-?>
 <?php $form = $this->beginWidget('CActiveForm', array(
         'id'=>'transport-form',
         'action'=>$action,
@@ -81,7 +84,7 @@
     echo CHtml::button($close_text,array('id'=>'close-transport', 'class'=>'btn-admin'));
     if($model->status != $delTransport) echo $delete_button;
     echo $duplicate_button;
-    if($model->status != $delTransport) echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn-admin')); 
+    if($model->status != $delTransport) echo CHtml::submitButton($submit_text,array('id'=>'but_'.$model->id,'class'=>'btn-admin')); 
 ?>
 </div>
 <?php if ($model->id): ?>
@@ -265,7 +268,6 @@
 </div>
 <div>
     <div class="header-h4">Список ставок</div>
-    <div id="rate-message" class="hide"><div></div></div>
     <?php if(count($rates)): ?>
     <table class="rates-all" cellspacing='0'>
         <tr>
@@ -280,7 +282,7 @@
             echo '<td>'.date("d.m.Y H:i:s", strtotime($item['date'])).'</td>';
             echo '<td>'.$item['price'].'</td>';
             echo '<td>'.$item['company'].'</td>';
-            echo '<td>'.CHtml::button('',array('class'=>'del-col confirm-row')).'</td>';
+            echo '<td>'.CHtml::button('',array('class'=>'del-col del-row')).'</td>';
             echo '</tr>';
         }
         ?>
@@ -356,12 +358,14 @@ $(document).ready(function() {
          editor.showFieldsForInternational();
     });
     
-    <?php if(Yii::app()->user->checkAccess('editRate')): ?>
+    <?php //if(Yii::app()->user->checkAccess('editRate')): ?>
         //editor.initRateEditor(); // редактирование ставок
         // сортировка перетаскиванием промежуточных пунктов
         /* $( "#points-all" ).sortable({
             revert: true
         });*/
-    <?php endif; ?>
+    <?php //endif; ?>
 });
 </script>
+
+

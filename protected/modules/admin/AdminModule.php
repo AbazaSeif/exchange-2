@@ -21,6 +21,8 @@ class AdminModule extends CWebModule
             $controller->layout = 'main';
             Yii::app()->clientScript->registerCssFile('/css/back/backend.css?'.time());
             Yii::app()->clientScript->registerCssFile('/css/ui/jquery-ui-1.10.3.css');
+            Yii::app()->clientScript->registerCssFile('/css/back/alertify/core.css');
+            Yii::app()->clientScript->registerCssFile('/css/back/alertify/default.css');
             Yii::app()->clientScript->registerCoreScript('jquery');
             Yii::app()->clientScript->registerScriptFile('/js/ui/jquery-ui-1.10.3.js');
             Yii::app()->clientScript->registerScriptFile('/js/jquery.redirect.js');
@@ -30,6 +32,7 @@ class AdminModule extends CWebModule
             Yii::app()->clientScript->registerScriptFile('/js/back/editStatus.js');
             Yii::app()->clientScript->registerScriptFile('/js/back/search.js');
             Yii::app()->clientScript->registerScriptFile('/js/back/backend.js');
+            Yii::app()->clientScript->registerScriptFile('/js/back/alertify.js');
 
             if(Yii::app()->user->isGuest){
                 Yii::app()->user->returnUrl = Yii::app()->request->requestUri;

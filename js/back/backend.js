@@ -1,4 +1,5 @@
 $(function() {
+    // Delete transport
     $("#delete-transport").click(function() {
         $("#delTr").dialog("open");
     });
@@ -21,5 +22,5 @@ $(function() {
         } else {
             $.redirect('/admin/transport/deletetransport/', {'id': reasonField.attr('trId'), 'reason': reasonField.val()});
         }
-    });
+    });    
 });
