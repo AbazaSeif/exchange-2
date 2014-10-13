@@ -515,6 +515,9 @@ class TransportController extends Controller
     {
         $id = $_POST['id'];
         $model = Transport::model()->findByPk($id);
+        $tId = (!empty($model->t_id))? '('.$model->t_id.') ':'';
+        $transportName = $model->location_from . ' — ' . $model->location_to;
+        $type = mb_strtolower(Transport::$group[$model->type], 'UTF-8');
         $userModel = AuthUser::model()->findByPk(Yii::app()->user->_id);
         $transportName = $model->location_from . ' — ' . $model->location_to;
         
@@ -526,6 +529,8 @@ class TransportController extends Controller
         $model->del_date = date('Y-m-d H:i:s');
         $model->save();
         
+        $message = 'Удалена '.$type.' перевозка "' . $transportName . '" ' . $tId . '(id='.$id.'). ';
+        Changes::saveChange($message);
         Yii::app()->user->setFlash('message', 'Перевозка "' . $transportName . '" удалена успешно.');
         $this->redirect('/admin/transport/');
     }
