@@ -1,3 +1,11 @@
+<?php $alertMessage = Yii::app()->user->getFlash('message');?>
+<script>
+    $(function() {
+        <?php if ($alertMessage) :?>
+             alertify.success('<?php echo $alertMessage; ?>');
+        <?php endif; ?>
+    });
+</script>
 <h1>Перевозки</h1>
 <div class="create-transport">
     <?php
@@ -103,7 +111,7 @@
             'template'=>'{sorter} {items} {pager}',
             'sorterHeader'=>'',
             'itemsTagName'=>'ul',
-            'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'del_date'=>'Дата удаления', 'del_reason'=>'Причина удаления'),
+            'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'del_date'=>'Дата удаления', 'del_reason'=>'Причина удаления и автор'),
             'pager'=>array(
                 'class'=>'LinkPager',
                 'header'=>false,

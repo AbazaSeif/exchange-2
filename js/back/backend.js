@@ -7,6 +7,7 @@ $(function() {
     $('.ui-widget-overlay').live('click', function() {
         $('#delete-reason').val('');
         $('#delTr').dialog('close');
+        $('#delRate').dialog('close');
     });
     
     $('#abordDelTr').live('click', function() {

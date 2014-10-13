@@ -1244,6 +1244,9 @@ input[name^="Rates"], input[name^="Points"]{
     background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
 }
 
+.rates-all tr td:nth-child(1), .rates-all tr td:nth-child(2) {
+    width: 15%;
+}
 .rates-all tr td:nth-child(3) {
     width: 60%;
 }
@@ -1710,7 +1713,7 @@ div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-draggable
     height: 15px;
     padding-right: 5px;
 }
-#delTr{
+#delTr, #delRate{
     height: auto !important;
 }
 
@@ -1719,7 +1722,7 @@ div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-draggable
     color: #EF801B;
 }
 
-#abordDelTr, #setDelTr
+#abordDelTr, #setDelTr, #abordDelRate, #setDelRate
 {
     width: 47%;
     padding: 4px 0;

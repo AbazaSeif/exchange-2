@@ -1,4 +1,5 @@
 function ЕditTransport() {
+    //this.rateId = null,
     this.initCalendar = function() {
         $.datepicker.regional['ru'] = {
             closeText: 'Закрыть',
@@ -36,12 +37,21 @@ function ЕditTransport() {
         });
         
         $( ".del-row" ).on('click', function() {
+            ЕditTransport.rateId = $(this).parent().parent().attr('r-id');
+            $("#delRate").dialog("open");
+        });
+        
+        $('#abordDelRate').live('click', function() {
+            $('#delRate').dialog('close');
+        });
+
+        $('#setDelRate').live('click', function() {
             $.ajax({
                 type: 'POST',
                 url: '/admin/rate/deleteRate',
                 dataType: 'json',
                 data:{
-                    id: $(this).parent().parent().attr('r-id'),
+                    id: ЕditTransport.rateId,
                     transportId: $('.btn-del').attr('name'),
                 },
                 success: function(response) {
@@ -54,8 +64,8 @@ function ЕditTransport() {
                         $('tr.win').removeClass('win');
                         $("tr[r-id='" + response.minRateId + "']").addClass('win');
                     }
-                    
                     alertify.success(response.message);
+                     $('#delRate').dialog('close');
             }});           
         });
         

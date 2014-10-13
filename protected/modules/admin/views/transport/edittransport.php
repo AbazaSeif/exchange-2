@@ -324,7 +324,7 @@ $(function(){
     <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
         'id' => 'delRate',
         'options' => array(
-            'title' => 'Подтверждение удаления',
+            'title' => 'Подтверждение удаления ставки',
             'autoOpen' => false,
             'modal' => true,
             'resizable'=> false,
@@ -332,7 +332,7 @@ $(function(){
     ));
     ?>
     <div class="row">
-        <span>Вы уверены в том, что хотите удалить ставку?</span>
+        <span>Вы уверены, что хотите удалить ставку?</span>
     </div>
     <div class="rate-button">
     <?php echo CHtml::button('Удалить',array('id' => 'setDelRate', 'class' => 'btn')); ?>

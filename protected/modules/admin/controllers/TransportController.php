@@ -143,10 +143,14 @@ class TransportController extends Controller
                 )
             );
             
+            $sortDel = new CSort();
+            $sortDel->sortVar = 'sort';
+            $sortDel->defaultOrder = 'del_date desc, date_close';
+            
             $dataDel = new CActiveDataProvider('Transport', 
                 array(
                     'criteria' => $criteriaDel,
-                    'sort' => $sort,
+                    'sort' => $sortDel,
                     'pagination' => array(
                         'pageSize'=>'10'
                     )
@@ -356,11 +360,11 @@ class TransportController extends Controller
                     }
                     
                     Changes::saveChange($message);
+                    Yii::app()->user->setFlash('message', 'Перевозка сохранена успешно.');
                 }
 
                 if($model->save()) {
                     Yii::app()->user->setFlash('saved_id', $model->id);
-                    Yii::app()->user->setFlash('message', 'Перевозка сохранена успешно.');
                     
                     if($form->type == 0) {
                         $rowsInInterPoint = TransportInterPoint::model()->count('t_id = :id', array(':id'=>$id));

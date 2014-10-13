@@ -78,7 +78,6 @@ class RateController extends Controller
             $message = 'Удалена ставка (id = '.$id.') пользователя '.$userName->company.' (id = '.$rate->user_id.') от '.date("d.m.Y H:i:s", strtotime($rate->date)).' на сумму '.$rate->price.' '.$currency.' в перевозке "' . $transportModel->location_from . ' — ' . $transportModel->location_to . '" (id = '.$transportModel->id.')';
             Changes::saveChange($message);
             Rate::model()->deleteByPk($id);
-            
             if($transportModel->rate_id == $id) {
                 $minPrice = Yii::app()->db->createCommand()
                     ->select('min(price) as price')
