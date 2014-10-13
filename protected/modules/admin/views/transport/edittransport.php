@@ -235,13 +235,18 @@
 <div>
     <?php if(count($points)): ?>
     <div class="header-h4">Промежуточные пункты маршрута</div>
-    <ul id="points-all">
-        <li>
-           <span>Название пункта</span>
-           <span>Дата</span>
-           <span class="del-col"></span>
-        </li>
-    <?php foreach ($points as $point){
+    <table class="points-all" cellspacing='0'>
+        <tr>
+            <th>Название пункта</th>
+            <th>Дата</th>
+        </tr>
+        <?php foreach ($points as $point){
+            echo '<tr>';
+            echo '<td>'.$point->point.'</td>';
+            echo '<td>'.((!empty($point->date))? date("d.m.Y H:i", strtotime($point->date)) : '').'</td>';
+            echo '</tr>';
+        }
+        /*foreach ($points as $point){
             echo '<li class="point">';
             echo '<span>';
                 echo '<span class="p-point">'.$point->point.'</span>';
@@ -252,8 +257,10 @@
             //echo '<span class="del-col del-row"></span>';
             echo '<span></span>';
             echo '</li>';
-        }?>
-    </ul>
+        }
+        */
+        ?> 
+    </table>
     <?php endif; ?>
 </div>
 <div>
@@ -263,27 +270,16 @@
     <table class="rates-all" cellspacing='0'>
         <tr>
             <th>Дата</th>
-            <th>Компания</th>
             <th>Размер ставки</th>
+            <th>Компания</th>
             <th>del</th>
         </tr>
         <?php foreach ($rates as $item){
-            /*if($minRateId == $item['id']) echo '<li class="item win" r-id="'.$item['id'].'">';
-            else echo '<li class="item" r-id="'.$item['id'].'">';
-            echo '<span>'.date("d-m-Y H:i:s", strtotime($item['date'])).'</span>';
-            echo '<span>' . $item['company'] . '</span>';
-            echo '<span>';
-            echo '<span class="price">'.$item['price'].'</span>';
-            echo CHtml::textField('Rates['.$item['id'].']', $item['price'], array('class'=>'form-price'));
-            echo '</span>';
-            echo '<span>' . '<span class="hide">' . CHtml::button('',array('class'=>'del-col confirm-row')) . '</span>' . '<span>' . CHtml::button('',array('class'=>'del-col del-row')) . '</span>';
-            echo '</li>';
-            */
             if($minRateId == $item['id']) echo '<tr class="win" r-id="'.$item['id'].'">';
             else echo '<tr r-id="'.$item['id'].'">';
             echo '<td>'.date("d.m.Y H:i:s", strtotime($item['date'])).'</td>';
-            echo '<td>'.$item['company'].'</td>';
             echo '<td>'.$item['price'].'</td>';
+            echo '<td>'.$item['company'].'</td>';
             echo '<td>kk</td>';
             echo '</tr>';
         }
@@ -317,6 +313,30 @@
     </div>
     <div class="rate-button">
     <?php echo CHtml::button('Отмена',array('id' => 'abordDelTr', 'class' => 'btn')); ?>
+    </div>
+    <?php
+        $this->endWidget('zii.widgets.jui.CJuiDialog');
+    ?>
+</div>
+<div>
+    <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+        'id' => 'delRate',
+        'options' => array(
+            'title' => 'Подтверждение удаления',
+            'autoOpen' => false,
+            'modal' => true,
+            'resizable'=> false,
+        ),
+    ));
+    ?>
+    <div class="row">
+        <span>Вы уверены в том, что хотите удалить ставку?</span>
+    </div>
+    <div class="rate-button">
+    <?php echo CHtml::button('Удалить',array('id' => 'setDelRate', 'class' => 'btn')); ?>
+    </div>
+    <div class="rate-button">
+    <?php echo CHtml::button('Отмена',array('id' => 'abordDelRate', 'class' => 'btn')); ?>
     </div>
     <?php
         $this->endWidget('zii.widgets.jui.CJuiDialog');

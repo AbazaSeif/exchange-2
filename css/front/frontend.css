@@ -885,14 +885,11 @@ strong.regular{
     text-align: center;
     font-size: 23px;
     color: rgb(239, 128, 27);
-    padding: 9px 0;
+    padding: 8px 0;
     width: 100%;
     height: 100%;
 }
-.transports.pager
-{
-    
-}
+
 .transport span, div.t-header{
     cursor: default;
 }
@@ -905,7 +902,7 @@ strong.regular{
 }
 .items .transport div.t-description{
     text-align: center;
-    padding-top: 5px;
+    padding-top: 9px;
 }
 .transport img:not(.small-loading){
     margin-top: 20px;
@@ -945,13 +942,14 @@ strong.regular{
 .transports .items .transport .v-center .t-timer
 {
     position: absolute;
-    height: 24px;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     margin: auto;
+    height: 24px;
 }
+
 /*--------Конец-Перевозки----------*/
 
 /*--------Одна-перевозка-----------*/
@@ -1216,9 +1214,6 @@ strong.regular{
     color: red;
 }
 
-.t-timer:before{
-    content: '';
-}
 .t-timer.add-t:before{
     content: 'Доп-ое время: ';
     color: red;

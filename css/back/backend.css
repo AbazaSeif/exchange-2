@@ -3,7 +3,7 @@
     padding: 0;
 }
 body {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     font-size: 13px;
     color: rgb(51, 51, 51);
     background: rgb(255,255,255);
@@ -1143,13 +1143,13 @@ input[name^="Rates"], input[name^="Points"]{
 }
 */
 
-.rates-all {
+.rates-all, .points-all {
     font-family:Arial, Helvetica, sans-serif;
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
     background:#eaebec;
-    margin:20px;
+    margin-top:20px;
     border:#ccc 1px solid;
     border-collapse:separate;
  
@@ -1162,7 +1162,7 @@ input[name^="Rates"], input[name^="Points"]{
     box-shadow: 0 1px 2px #d1d1d1;
 }
  
-.rates-all th {
+.rates-all th, .points-all th {
     font-weight:bold;
     padding:10px 25px;
     border-top:1px solid #fafafa;
@@ -1172,31 +1172,39 @@ input[name^="Rates"], input[name^="Points"]{
     background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
     background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
 }
-.rates-all th:first-child{
+.rates-all th:first-child, .points-all th:first-child{
     text-align: left;
     padding-left: 45px;
 }
-.rates-all tr:first-child th:first-child{
+.points-all th:first-child{
+    text-align: center;                           
+}
+.rates-all tr:first-child th:first-child, .points-all tr:first-child th:first-child{
     -moz-border-radius-topleft:3px;
     -webkit-border-top-left-radius:3px;
     border-top-left-radius:3px;
 }
-.rates-all tr:first-child th:last-child{
+.rates-all tr:first-child th:last-child, .points-all tr:first-child th:last-child {
     -moz-border-radius-topright:3px;
     -webkit-border-top-right-radius:3px;
     border-top-right-radius:3px;
 }
-.rates-all tr{
+.rates-all tr, .points-all tr{
     text-align: center;
     padding-left:20px;
 }
 .rates-all tr td:first-child{
     text-align: left;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 0 5px;
     border-left: 0;
 }
-.rates-all tr td {
+.points-all tr td:first-child{
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-left: 0;
+}
+.rates-all tr td, .points-all tr td  {
     padding: 3px;
     border-top: 1px solid #ffffff;
     border-bottom:1px solid #e0e0e0;
@@ -1207,14 +1215,14 @@ input[name^="Rates"], input[name^="Points"]{
     background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
 }
 
-.rates-all tr:nth-child(even) td{
+.rates-all tr:nth-child(even) td, .points-all tr:nth-child(even) td{
     background: #f6f6f6;
     background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
     background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
 }
 
-.rates-all tr td {
-    
+.rates-all tr td:nth-child(3) {
+    width: 60%;
 }
 
 .rates-all tr.win td {
@@ -1223,15 +1231,15 @@ input[name^="Rates"], input[name^="Points"]{
     font-weight: bold;
 }
 
-.rates-all tr:last-child td{
+.rates-all tr:last-child td, .points-all tr:last-child td{
     border-bottom:0;
 }
-.rates-all tr:last-child td:first-child{
+.rates-all tr:last-child td:first-child, .points-all tr:last-child td:first-child{
     -moz-border-radius-bottomleft:3px;
     -webkit-border-bottom-left-radius:3px;
     border-bottom-left-radius:3px;
 }
-.rates-all tr:last-child td:last-child{
+.rates-all tr:last-child td:last-child, .points-all tr:last-child td:last-child{
     -moz-border-radius-bottomright:3px;
     -webkit-border-bottom-right-radius:3px;
     border-bottom-right-radius:3px;
@@ -1247,7 +1255,9 @@ input[name^="Rates"], input[name^="Points"]{
     text-shadow: none;
     font-weight: bold;
 }
- 
+.rates-all tr td:hover, .points-all tr td:hover{
+    cursor: default;
+}
 .rates-all a:link {
     color: #666;
     font-weight: bold;
@@ -1369,10 +1379,6 @@ div.menu ul.nav li.item.parent ul.nav li:nth-of-type(2):after{
     min-width: 210px;
 }
 /*-----Конец-Statistics---------*/
-footer{
-    
-}
-
 .button_in_accordion_wrapper{
     position: absolute;
     top: 3px;
