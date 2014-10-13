@@ -1148,7 +1148,7 @@ input[name^="Rates"], input[name^="Points"]{
    margin-top: 10px;
 }
 
-.rates-all, .points-all {
+.rates-all, .points-all, .contacts-all {
     font-family:Arial, Helvetica, sans-serif;
     color:#666;
     font-size:12px;
@@ -1185,7 +1185,7 @@ input[name^="Rates"], input[name^="Points"]{
     cursor: pointer;
 }
 
-.rates-all th, .points-all th {
+.rates-all th, .points-all th, .contacts-all th {
     font-weight:bold;
     padding:10px 25px;
     border-top:1px solid #fafafa;
@@ -1195,24 +1195,24 @@ input[name^="Rates"], input[name^="Points"]{
     background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
     background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
 }
-.rates-all th:first-child, .points-all th:first-child{
+.rates-all th:first-child, .points-all th:first-child, .contacts-all th:first-child{
     text-align: left;
     padding-left: 45px;
 }
-.points-all th:first-child{
+.points-all th:first-child, .contacts-all th:first-child{
     text-align: center;                           
 }
-.rates-all tr:first-child th:first-child, .points-all tr:first-child th:first-child{
+.rates-all tr:first-child th:first-child, .points-all tr:first-child th:first-child, .contacts-all tr:first-child th:first-child{
     -moz-border-radius-topleft:3px;
     -webkit-border-top-left-radius:3px;
     border-top-left-radius:3px;
 }
-.rates-all tr:first-child th:last-child, .points-all tr:first-child th:last-child {
+.rates-all tr:first-child th:last-child, .points-all tr:first-child th:last-child, .contacts-all tr:first-child th:last-child {
     -moz-border-radius-topright:3px;
     -webkit-border-top-right-radius:3px;
     border-top-right-radius:3px;
 }
-.rates-all tr, .points-all tr{
+.rates-all tr, .points-all tr, .points-all tr {
     text-align: center;
     padding-left:20px;
 }
@@ -1221,13 +1221,14 @@ input[name^="Rates"], input[name^="Points"]{
     padding: 0 5px;
     border-left: 0;
 }
-.points-all tr td:first-child{
+
+.points-all tr td:first-child, .points-all tr td:first-child, .contacts-all tr td:first-child{
     text-align: left;
     padding-left: 10px;
     padding-right: 10px;
     border-left: 0;
 }
-.rates-all tr td, .points-all tr td  {
+.rates-all tr td, .points-all tr td, .contacts-all tr td {
     padding: 3px;
     border-top: 1px solid #ffffff;
     border-bottom:1px solid #e0e0e0;
@@ -1238,7 +1239,7 @@ input[name^="Rates"], input[name^="Points"]{
     background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
 }
 
-.rates-all tr:nth-child(even) td, .points-all tr:nth-child(even) td{
+.rates-all tr:nth-child(even) td, .points-all tr:nth-child(even) td, .contacts-all tr:nth-child(even) td{
     background: #f6f6f6;
     background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
     background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
@@ -1257,15 +1258,15 @@ input[name^="Rates"], input[name^="Points"]{
     font-weight: bold;
 }
 
-.rates-all tr:last-child td, .points-all tr:last-child td{
+.rates-all tr:last-child td, .points-all tr:last-child td, .points-all tr:last-child{
     border-bottom:0;
 }
-.rates-all tr:last-child td:first-child, .points-all tr:last-child td:first-child{
+.rates-all tr:last-child td:first-child, .points-all tr:last-child td:first-child, .points-all tr:last-child td:first-child{
     -moz-border-radius-bottomleft:3px;
     -webkit-border-bottom-left-radius:3px;
     border-bottom-left-radius:3px;
 }
-.rates-all tr:last-child td:last-child, .points-all tr:last-child td:last-child{
+.rates-all tr:last-child td:last-child, .points-all tr:last-child td:last-child, .points-all tr:last-child td:last-child{
     -moz-border-radius-bottomright:3px;
     -webkit-border-bottom-right-radius:3px;
     border-bottom-right-radius:3px;
@@ -1281,7 +1282,7 @@ input[name^="Rates"], input[name^="Points"]{
     text-shadow: none;
     font-weight: bold;
 }
-.rates-all tr td:hover, .points-all tr td:hover{
+.rates-all tr td:hover, .points-all tr td:hover, .points-all tr td:hover{
     cursor: default;
 }
 .rates-all a:link {

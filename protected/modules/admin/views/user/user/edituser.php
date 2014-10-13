@@ -157,22 +157,19 @@
             <div>
                 <div class="header-h4">Созданные контактные лица</div>
                 <?php if(count($contacts)): ?>
-                <ul id="contacts-all">
-                    <li>
-                       <span>Контактные лица</span>
-                       <span>Email</span>
-                    </li>
-                <?php foreach ($contacts as $contact){
-                        echo '<li class="point">';
-                        echo '<span>';
-                            echo $contact['name'] . ' ' . $contact['secondname'] . ' ' . $contact['surname'];
-                        echo '</span>';
-                        echo '<span>';
-                            echo $contact['email'];
-                        echo '</span>';
-                        echo '</li>';
-                    }?>
-                </ul>
+                <table class="contacts-all" cellspacing='0'>
+                    <tr>
+                        <th>Контактные лица</th>
+                        <th>Email</th>
+                    </tr>
+                    <?php foreach ($contacts as $contact){
+                        echo '<tr>';
+                        echo '<td>'.$contact['name'].' '.$contact['secondname'].' '.$contact['surname'].'</td>';
+                        echo '<td>'.$contact['email'].'</td>';
+                        echo '</tr>';
+                    }
+                    ?>
+                </table>
                 <?php else: ?>
                 <div>Нет контактных лиц</div>
                 <?php endif; ?>
