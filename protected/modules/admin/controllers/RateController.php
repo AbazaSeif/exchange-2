@@ -64,9 +64,10 @@ class RateController extends Controller
 
     public function actionDeleteRate()
     {
-        $id = $_POST['id'];
-        $minRateId = null;
         $transportId = $_POST['transportId'];
+        $id = (int)$_POST['id'];
+        $minRateId = null;
+        
         if(Yii::app()->user->checkAccess('deleteRate') && $id != Yii::app()->user->getState('_id')) {
             $transportModel = Transport::model()->findByPk($transportId);
             $rate = Rate::model()->findByPk($id);
@@ -77,25 +78,35 @@ class RateController extends Controller
             $message = 'Удалена ставка (id = '.$id.') пользователя '.$userName->company.' (id = '.$rate->user_id.') от '.date("d.m.Y H:i:s", strtotime($rate->date)).' на сумму '.$rate->price.' '.$currency.' в перевозке "' . $transportModel->location_from . ' — ' . $transportModel->location_to . '" (id = '.$transportModel->id.')';
             Changes::saveChange($message);
             Rate::model()->deleteByPk($id);
-            if((int)$transportModel->rate_id == (int)$id) {
+            if($transportModel->rate_id == $id) {
                 $minPrice = Yii::app()->db->createCommand()
-                    ->select('min(price) as price, id')
+                    ->select('min(price) as price')
                     ->from('rate')
                     ->where('transport_id = :id', array(':id' => $transportId))
                     ->group('transport_id')
                     ->order('date')
-                    ->queryRow()
+                    ->queryScalar()
                 ;
+
                 if(!empty($minPrice)) {
-                    $transportModel->rate_id = $minPrice['id'];
-                    $minRateId = $minPrice['id'];
+                    $minRateId = Yii::app()->db->createCommand()
+                        ->select('id')
+                        ->from('rate')
+                        ->where('transport_id = :transport_id', array(':transport_id' => $transportId))
+                        ->andWhere(array('like', 'price', $minPrice))
+                        ->order('date')
+                        ->queryScalar()
+                    ;
+                    $transportModel->rate_id = $minRateId;
+                    $minRateId = $minRateId;
                 } else {
                     $transportModel->rate_id = null;
-                    $minRateId = 'close';
+                    $minRateId = 'empty';
                 }
                 $transportModel->save();
             }
-            $array = array('message'=>'Ставка успешно удалена', 'id'=>$id, 'minRateId'=>$minRateId);
+            
+            $array = array('message'=>'Ставка успешно удалена', 'id'=>$id, 'minRateId'=>$minRateId, 'minPrice'=>$minPrice);
             echo json_encode($array);
         } else {
             throw new CHttpException(403,Yii::t('yii', 'У Вас недостаточно прав доступа.'));

@@ -3,7 +3,7 @@
     padding: 0;
 }
 body {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     font-size: 13px;
     color: rgb(51, 51, 51);
     background: rgb(255,255,255);
@@ -14,7 +14,10 @@ p{
 h1, h2, h3, h4, h5, h6{
     margin: .5em 0 .4em;
     color: #00917C;
+    color: #00917C;
+    font-family: FuturisXC;
 }
+
 input, textarea{
     min-height: 24px;
     padding: 5px 8px;
@@ -65,11 +68,12 @@ input, textarea{
     border: 0;
     color: #333;
     text-shadow: 0 1px 0 rgba(255,255,255,0.9);
-    background-color: #eaeaea;
-    background-image: -moz-linear-gradient(#fafafa, #eaeaea);
+    background-color: #00917c;
+    /*background-image: -moz-linear-gradient(#fafafa, #eaeaea);
     background-image: -webkit-linear-gradient(#fafafa, #eaeaea);
     background-image: linear-gradient(#fafafa, #eaeaea);
     background-repeat: repeat-x;
+	*/
     border: 1px solid #ddd;
     border-bottom-color: #c5c5c5;
     width: auto;
@@ -107,7 +111,7 @@ input, textarea{
 }
 
 @-moz-document url-prefix() {
-   input.btn-admin{
+   input.btn-admin, button.btn-admin{
       padding: 0 20px;
    }
 }
@@ -710,7 +714,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     clear: both;
 }
 #tabs.ui-tabs .ui-tabs-nav li a{
-    color: #0857A6;
+    color: #333333;/*#0857A6;*/
 }
 #tabs .ui-widget-header {
     /*border-color: #4183C4;*/
@@ -742,11 +746,21 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     margin-right: 55px !important;
     width: 5%;
 }
+#tabs #tabs-del .sorter ul li:nth-child(4){
+    margin-right: 70px !important;
+    width: 5%;
+}
+#tabs #tabs-del .sorter ul li:nth-child(5){
+    width: 15%;
+}
 #tabs .sorter ul li:nth-child(5){
     width: 5%;
 }
 #tabs .sorter ul li:nth-child(6){
     width: 6%;
+}
+#tabs #tabs-del .sorter ul li:nth-child(6){
+    width: 30%;
 }
 #tabs .sorter ul li:nth-child(7){
     width: 20%;
@@ -1001,10 +1015,9 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 
     
 /*-------- Начало список ставок ----*/
-
+/*
 #rates-all, #points-all, #contacts-all{
     background: #dfebf3;
-    /*width: 360px;*/
     text-align: center;
     box-shadow: 0 0 3px #C0C0C0;
     overflow:hidden;
@@ -1129,8 +1142,164 @@ input[name^="Rates"], input[name^="Points"]{
 .point input{
     width: 170px;
 }
+*/
 
-    /* Конец список ставок */
+.no-rates{
+   margin-top: 10px;
+}
+
+.rates-all, .points-all {
+    font-family:Arial, Helvetica, sans-serif;
+    color:#666;
+    font-size:12px;
+    text-shadow: 1px 1px 0px #fff;
+    background:#eaebec;
+    margin-top:20px;
+    border:#ccc 1px solid;
+    border-collapse:separate;
+ 
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+ 
+    -moz-box-shadow: 0 1px 2px #d1d1d1;
+    -webkit-box-shadow: 0 1px 2px #d1d1d1;
+    box-shadow: 0 1px 2px #d1d1d1;
+}
+ 
+.rates-all input.del-row{
+    display: inline;
+}
+
+.rates-all .del-row{
+    background: url('/images/delete-icon.png') no-repeat left center;
+    width: 16px;
+    height: 16px;
+    display: block;
+    border: none;
+    box-shadow: none;
+    margin-left: 5px;
+}
+
+.rates-all .del-row:hover{
+    cursor: pointer;
+}
+
+.rates-all th, .points-all th {
+    font-weight:bold;
+    padding:10px 25px;
+    border-top:1px solid #fafafa;
+    border-bottom:1px solid #e0e0e0;
+ 
+    background: #ededed;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
+    background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
+}
+.rates-all th:first-child, .points-all th:first-child{
+    text-align: left;
+    padding-left: 45px;
+}
+.points-all th:first-child{
+    text-align: center;                           
+}
+.rates-all tr:first-child th:first-child, .points-all tr:first-child th:first-child{
+    -moz-border-radius-topleft:3px;
+    -webkit-border-top-left-radius:3px;
+    border-top-left-radius:3px;
+}
+.rates-all tr:first-child th:last-child, .points-all tr:first-child th:last-child {
+    -moz-border-radius-topright:3px;
+    -webkit-border-top-right-radius:3px;
+    border-top-right-radius:3px;
+}
+.rates-all tr, .points-all tr{
+    text-align: center;
+    padding-left:20px;
+}
+.rates-all tr td:first-child{
+    text-align: left;
+    padding: 0 5px;
+    border-left: 0;
+}
+.points-all tr td:first-child{
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-left: 0;
+}
+.rates-all tr td, .points-all tr td  {
+    padding: 3px;
+    border-top: 1px solid #ffffff;
+    border-bottom:1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+    
+    background: #fafafa;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
+    background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
+}
+
+.rates-all tr:nth-child(even) td, .points-all tr:nth-child(even) td{
+    background: #f6f6f6;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
+    background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
+}
+
+.rates-all tr td:nth-child(1), .rates-all tr td:nth-child(2) {
+    width: 15%;
+}
+.rates-all tr td:nth-child(3) {
+    width: 60%;
+}
+
+.rates-all tr.win td {
+    text-shadow: none;
+    color: #000000;
+    font-weight: bold;
+}
+
+.rates-all tr:last-child td, .points-all tr:last-child td{
+    border-bottom:0;
+}
+.rates-all tr:last-child td:first-child, .points-all tr:last-child td:first-child{
+    -moz-border-radius-bottomleft:3px;
+    -webkit-border-bottom-left-radius:3px;
+    border-bottom-left-radius:3px;
+}
+.rates-all tr:last-child td:last-child, .points-all tr:last-child td:last-child{
+    -moz-border-radius-bottomright:3px;
+    -webkit-border-bottom-right-radius:3px;
+    border-bottom-right-radius:3px;
+}
+.rates-all tr:hover td{
+    background: #f2f2f2;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
+    background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);    
+}
+.rates-all tr:hover td{
+    color: #ffffff;  
+    background: #00917c;
+    text-shadow: none;
+    font-weight: bold;
+}
+.rates-all tr td:hover, .points-all tr td:hover{
+    cursor: default;
+}
+.rates-all a:link {
+    color: #666;
+    font-weight: bold;
+    text-decoration:none;
+}
+.rates-all a:visited {
+    color: #999999;
+    font-weight:bold;
+    text-decoration:none;
+}
+.rates-all a:active,
+.rates-all a:hover {
+    color: #bd5a35;
+    text-decoration:underline;
+}
+/* Конец список ставок */
 /* конец правая(рабочая) область */
 
 /*-----Конец-users-----------*/
@@ -1236,10 +1405,6 @@ div.menu ul.nav li.item.parent ul.nav li:nth-of-type(2):after{
     min-width: 210px;
 }
 /*-----Конец-Statistics---------*/
-footer{
-    
-}
-
 .button_in_accordion_wrapper{
     position: absolute;
     top: 3px;
@@ -1496,3 +1661,86 @@ ul.yiiPager .first, ul.yiiPager .last {
     display: inline !important;
 }
 /*----- end Pagination ------------------------*/
+/*----- start Pop-up window ------------------------*/
+div.ui-widget-header {
+    background: url("/images/ui-bg_gloss-grey-1x80.png") repeat-x scroll 0% 10% #CCCCCC;
+    border: 0 !important;
+    color: #222222;
+    font-weight: bold;
+}
+.header .center span, .ui-dialog-title, div.form-label
+{
+    color: #00917C;
+    font-family: FuturisXC;
+    font-size: 18px;
+}
+div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-draggable
+{
+    width: 450px !important;
+}
+
+.ui-widget textarea {
+    width: 99% !important;
+}
+.ui-corner-all
+{
+    border-radius: 0 !important;
+}
+.ui-dialog
+{
+    padding: 0 !important;
+    border-radius: 3px !important;
+    box-shadow: 0 0 5px #cccccc;
+}
+.ui-dialog div.ui-resizable-handle.ui-resizable-se
+{
+    display: none !important;
+}
+#modalDialog
+{
+    margin-bottom: 0.5em;
+}
+.ui-dialog .btn
+{
+    margin-top: 0.5em;
+}
+.ui-widget-content
+{
+    border: 0 !important;
+}
+.small-loading{
+    width: 15px;
+    height: 15px;
+    padding-right: 5px;
+}
+#delTr, #delRate{
+    height: auto !important;
+}
+
+.ui-dialog-title:first-letter, h1:first-letter
+{
+    color: #EF801B;
+}
+
+#abordDelTr, #setDelTr, #abordDelRate, #setDelRate
+{
+    width: 47%;
+    padding: 4px 0;
+    box-shadow: none;
+    text-decoration: none;
+    border-radius: 3px;
+    border: 0;
+    color: #FFF;
+    text-shadow: 0 1px 0 rgba(0,140,140,0.9);
+    background: #14AAAA;
+    background: -moz-linear-gradient(top,#14AAAA,#008C8C);
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#14AAAA),color-stop(100%,#008C8C));
+    background: -webkit-linear-gradient(top,#14AAAA,#008C8C);
+    background: -o-linear-gradient(top,#14AAAA,#008C8C);
+    background: -ms-linear-gradient(top,#14AAAA,#008C8C);
+    background: linear-gradient(top,#14AAAA,#008C8C);
+    cursor: pointer;
+    font-size: 13px;
+}
+/*----- end Pop-up window ------------------------*/
+

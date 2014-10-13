@@ -1,4 +1,5 @@
 function ЕditTransport() {
+    //this.rateId = null,
     this.initCalendar = function() {
         $.datepicker.regional['ru'] = {
             closeText: 'Закрыть',
@@ -36,28 +37,39 @@ function ЕditTransport() {
         });
         
         $( ".del-row" ).on('click', function() {
+            ЕditTransport.rateId = $(this).parent().parent().attr('r-id');
+            $("#delRate").dialog("open");
+        });
+        
+        $('#abordDelRate').live('click', function() {
+            $('#delRate').dialog('close');
+        });
+
+        $('#setDelRate').live('click', function() {
             $.ajax({
                 type: 'POST',
                 url: '/admin/rate/deleteRate',
                 dataType: 'json',
                 data:{
-                    id: $(this).parent().parent().parent().attr('r-id'),
-                    transportId: $('.btn-del').attr('id'),
+                    id: ЕditTransport.rateId,
+                    transportId: $('.btn-del').attr('name'),
                 },
                 success: function(response) {
-                    $("li.item[r-id='" + response.id + "']").css('display', 'none');
-                    if(response.minRateId === 'close') {
-                        var rates = $('#rates-all');
+                    $("tr[r-id='" + response.id + "']").css('display', 'none');
+                    if(response.minRateId === 'empty') {
+                        var rates = $('.rates-all');
                         rates.css('display', 'none');
                         rates.parent().append('<div class="no-rates">Нет ставок</div>');
-                    } else if(response.minRateId !== null) $("li.item[r-id='" + response.minRateId + "']").addClass('win');
-                    
-                    $('#rate-message div').html(response.message);
-                    $('#rate-message').removeClass('hide');
-            }}); 
-                     
+                    } else if(response.minRateId !== null) {
+                        $('tr.win').removeClass('win');
+                        $("tr[r-id='" + response.minRateId + "']").addClass('win');
+                    }
+                    alertify.success(response.message);
+                     $('#delRate').dialog('close');
+            }});           
         });
-        $( ".confirm-row" ).on('click', function() {
+        
+        /*$( ".confirm-row" ).on('click', function() {
             $.ajax({
                 type: 'POST',
                 url: '/admin/rate/editRate',
@@ -76,7 +88,7 @@ function ЕditTransport() {
                     $('#rate-message div').html(response.message);
                     $('#rate-message').removeClass('hide');
             }});     
-        });
+        });*/
     };
     
     this.showFieldsForInternational = function(){  
@@ -156,9 +168,7 @@ function ЕditTransport() {
             }
         });
         
-         /* tooltip for points */
-        
-        
+        /* tooltip for points */
     };
 }
     
