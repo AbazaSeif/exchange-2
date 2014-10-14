@@ -94,7 +94,7 @@ class RateController extends Controller
                         ->from('rate')
                         ->where('transport_id = :transport_id', array(':transport_id' => $transportId))
                         ->andWhere(array('like', 'price', $minPrice))
-                        ->order('date')
+                        ->order('date, user_id')
                         ->queryScalar()
                     ;
                     $transportModel->rate_id = $minRateId;

@@ -1040,6 +1040,12 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 #grid-changes table.items{
     font-size:13px;
 }
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    #grid-changes table.items{
+        font-size:14px;
+    }
+}
  
 .rates-all input.del-row{
     display: inline;
