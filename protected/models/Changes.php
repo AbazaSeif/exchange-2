@@ -32,7 +32,7 @@ class Changes extends CActiveRecord
         return array(
            'id' => 'ID',
            'user_id' => 'user_id',
-           'description' => 'Описание',
+           'description' => 'Описание изменений',
            'action_name' => 'Тип изменения',
            'date' => 'Время изменения',
         );

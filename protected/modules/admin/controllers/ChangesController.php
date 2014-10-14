@@ -106,7 +106,7 @@ class ChangesController extends Controller
                     )
                 )
             );
-            $this->render('editchanges', array('data'=>$dataProvider, 'id'=>$id), false, true);
+            $this->render('showchanges', array('data'=>$dataProvider, 'id'=>$id), false, true);
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }

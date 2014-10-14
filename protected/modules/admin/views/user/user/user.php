@@ -31,7 +31,7 @@
                 'ajaxUpdate'=>false, // отключаем ajax поведение
                 'emptyText'=>'Нет пользователей',
                 'template'=>'{summary} {sorter} {items} {pager}',
-                'summaryText'=>'Показано {start}-{end} из {count}',
+                'summaryText'=>'Показано {start} — {end} из {count}',
                 'sorterHeader'=>'',
                 'itemsTagName'=>'ul',
                 'sortableAttributes'=>array('company', 'inn', 'status', 'email'),

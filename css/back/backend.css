@@ -1086,7 +1086,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     -webkit-border-top-right-radius:3px;
     border-top-right-radius:3px;
 }
-.rates-all tr, .points-all tr, .points-all tr, #grid-changes table.items tr {
+.rates-all tr, .points-all tr, .points-all tr{
     text-align: center;
     padding-left:20px;
 }
@@ -1119,8 +1119,11 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
 }
 
-.rates-all tr td:nth-child(1), .rates-all tr td:nth-child(2), #grid-changes table.items tr td:nth-child(1) {
+.rates-all tr td:nth-child(1), .rates-all tr td:nth-child(2) {
     width: 15%;
+}
+#grid-changes table.items tr td:nth-child(1) {
+    width: 10%;
 }
 .rates-all tr td:nth-child(3) {
     width: 60%;
@@ -1204,6 +1207,9 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     border-top-left-radius: 4px;
     padding: 0.5em 1.4em;
 }
+#check-dublicate-wrapper{
+    margin-top: 30px;
+}
 #check-dublicate-wrapper span.attention{
     color: #00917c;
     font-weight: bold;
@@ -1245,6 +1251,10 @@ div.menu ul.nav li.item.parent ul.nav li:nth-of-type(2):after{
 }
 /*-----Конец-faq---------*/
 /*-----Statistics---------*/
+.statistics{
+    padding-top: 20px;
+}
+
 .statistics a.btn-admin{
     margin: 10px 0 !important;
 }
@@ -1349,6 +1359,12 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
 .grid-view table.items th a:hover {
     color: #FFFFFF;
 }
+
+.show-changes h1{
+    float: left;
+    margin-top: -5px;
+}
+
 /*
 .grid-view table.items th a.asc {
     background: url("up.gif") no-repeat scroll right center rgba(0, 0, 0, 0);
@@ -1391,7 +1407,7 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
     text-align: right;
 }
 #grid-changes.grid-view .pager {
-    margin: 15px 0 0;
+    margin: 15px auto 0;
     text-align: right;
 }
 .grid-view .empty {
