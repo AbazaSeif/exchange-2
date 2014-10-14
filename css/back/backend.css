@@ -1390,8 +1390,8 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
     margin: 0 0 5px;
     text-align: right;
 }
-.grid-view .pager {
-    margin: 5px 0 0;
+#grid-changes.grid-view .pager {
+    margin: 15px 0 0;
     text-align: right;
 }
 .grid-view .empty {
