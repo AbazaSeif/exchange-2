@@ -17,8 +17,20 @@
     foreach($allCompanies as $one) {
         $companies[$one['id']] = $one['company'];
     }
-
+    
+    $alertMsg = Yii::app()->user->getFlash('message');
+    $errorMsg = Yii::app()->user->getFlash('error');
 ?>
+<script>
+$(function(){
+    alertify.set({ delay: 40000 });
+    <?php if ($alertMsg) :?>
+        alertify.success('<?php echo $alertMsg; ?>');
+    <?php elseif ($errorMsg): ?>
+        alertify.error('<?php echo $errorMsg; ?>');
+    <?php endif; ?>
+});
+</script>
 <div class="total">
     <div class="left">
         <?php if (!$model->id): ?>
@@ -34,13 +46,6 @@
     </div>
     <div class="right">
         <div class="form">
-            <?php
-                if ($mess = Yii::app()->user->getFlash('message')){
-                    echo '<div class="uMessage success">'.$mess.'</div>';
-                } else if ($mess = Yii::app()->user->getFlash('error')) {
-                    echo '<div class="uMessage error">'.$mess.'</div>';
-                }
-            ?>
             <?php $form = $this->beginWidget('CActiveForm', array('id'=>'contactform',
                 'action'=>$action,
                 'enableClientValidation'=>true,

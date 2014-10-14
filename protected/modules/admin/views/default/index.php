@@ -68,6 +68,9 @@ $user = AuthUser::model()->findByPk(Yii::app()->user->_id);
             <span>Черновиков: <?php echo Transport::model()->count('status=2');?></span>
         </li>
         <li>
+            <span>Удаленных: <?php echo Transport::model()->count('status=3');?></span>
+        </li>
+        <li>
             <span>Всего международных: <?php echo Transport::model()->count('type = 0');?>, из них активных: <?php echo Transport::model()->count('type = 0 and status=1');?></span>
         </li>
         <li>

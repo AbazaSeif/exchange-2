@@ -1015,144 +1015,14 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 
     
 /*-------- Начало список ставок ----*/
-/*
-#rates-all, #points-all, #contacts-all{
-    background: #dfebf3;
-    text-align: center;
-    box-shadow: 0 0 3px #C0C0C0;
-    overflow:hidden;
-    list-style: none;
-    padding: .5em;
-    min-height: 25px;
-    background: rgb(238, 238, 238);
-    margin: .5em 0;
-    border-radius: 2px;
-}
-#rates-all li.item.win{
-    background-color: #60b044;
-}
-#points-all, #contacts-all{
-    width: 500px;
-}
-#rates-all li:first-child, #points-all li:first-child, #contacts-all li:first-child{
-    background: #b3cfe1;
-}
-#rates-all li, #points-all li, #contacts-all li{
-    border-color: #cae3f3;
-    width: 100%;
-    float: left;
-    padding: 3px 0;
-    border: 1px solid rgb(222, 222, 222);
-    border-top-width: 0;
-    border-radius: 2px;
-    background: #f3f3f3 repeat-x top left;
-}
-
-#rates-all li > span:not(:last-child), #points-all li > span, #contacts-all li > span{
-    float: left;
-    width: 30%;
-    text-align: center;
-}
-
-#contacts-all li > span{
-    text-align: left;    
-}
-
-#points-all li > span, #contacts-all li > span{
-    width: 80%;
-}
-
-#rates-all li:first-child span:first-child, #points-all li:first-child span:first-child{ 
-   margin-left: 40px;
-   width: 25%;
-}
-
-#points-all li > span{
-   padding-left: 20px;
-   width: 40%;
-}
-
-#contacts-all li > span{
-   padding-left: 10px;
-   width: 40%;
-}
-
-#rates-all li > span:last-child, #points-all li > span:last-child, #contacts-all li > span:list-child{
-    float: right;
-    margin-right: 10px;
-}
-
-#rates-all li > span:first-child, #points-all li > span:first-child, #contacts-all li > span:first-child{
-    text-align: left;
-    padding-left: 10px;
-    cursor: default;
-}
-
-#rates-all li > span:nth-child(2){
-    cursor: default;
-    text-align: left;
-}
-
-#rates-all li .del-row, #points-all li .del-row, #contacts-all li .del-row{
-    background: url('/images/delete-icon.png') no-repeat left top;
-    width: 16px;
-    height: 16px;
-    display: block;
-    border: none;
-    box-shadow: none;
-    margin-left: 5px;
-}
-#rates-all li .confirm-row{
-    background: url('/images/confirm-icon.png') no-repeat left top;
-    width: 16px;
-    height: 16px;
-    display: block;
-    border: none;
-    box-shadow: none;
-}
-#rates-all li .del-row:hover,#rates-all .confirm-row:hover, #points-all li .del-row:hover, #contacts-all li .del-row:hover{
-    cursor: pointer;
-}
-#rate-message{
-    position: relative;
-}
-#rates-all input.del-col{
-    display: inline;
-}
-#rate-message div { 
-    position: absolute;
-    background: none repeat scroll 0 0 #E6EFC2;
-    border-color: #C6D880;
-    border-radius: 2px;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.075);
-    color: #008000;
-    padding: 0.5%;
-    bottom: 10%;
-    left: 20%;
-}
-
 .no-rates{
    margin-top: 10px;
 }
 
-input[name^="Rates"], input[name^="Points"]{
-    display: none;
-}
-
-.point input{
-    width: 170px;
-}
-*/
-
-.no-rates{
-   margin-top: 10px;
-}
-
-.rates-all, .points-all, .contacts-all {
+.rates-all, .points-all, .contacts-all, #grid-changes table.items{
     font-family:Arial, Helvetica, sans-serif;
     color:#666;
     font-size:12px;
-    text-shadow: 1px 1px 0px #fff;
     background:#eaebec;
     margin-top:20px;
     border:#ccc 1px solid;
@@ -1165,6 +1035,10 @@ input[name^="Rates"], input[name^="Points"]{
     -moz-box-shadow: 0 1px 2px #d1d1d1;
     -webkit-box-shadow: 0 1px 2px #d1d1d1;
     box-shadow: 0 1px 2px #d1d1d1;
+}
+
+#grid-changes table.items{
+    font-size:13px;
 }
  
 .rates-all input.del-row{
@@ -1185,12 +1059,12 @@ input[name^="Rates"], input[name^="Points"]{
     cursor: pointer;
 }
 
-.rates-all th, .points-all th, .contacts-all th {
+.rates-all th, .points-all th, .contacts-all th, #grid-changes table.items th {
     font-weight:bold;
     padding:10px 25px;
     border-top:1px solid #fafafa;
     border-bottom:1px solid #e0e0e0;
- 
+    color: #666666;
     background: #ededed;
     background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
     background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
@@ -1199,36 +1073,36 @@ input[name^="Rates"], input[name^="Points"]{
     text-align: left;
     padding-left: 45px;
 }
-.points-all th:first-child, .contacts-all th:first-child{
+.points-all th:first-child, .contacts-all th:first-child, #grid-changes table.items th:first-child{
     text-align: center;                           
 }
-.rates-all tr:first-child th:first-child, .points-all tr:first-child th:first-child, .contacts-all tr:first-child th:first-child{
+.rates-all tr:first-child th:first-child, #grid-changes table.items tr:first-child th:first-child, .points-all tr:first-child th:first-child, .contacts-all tr:first-child th:first-child{
     -moz-border-radius-topleft:3px;
     -webkit-border-top-left-radius:3px;
     border-top-left-radius:3px;
 }
-.rates-all tr:first-child th:last-child, .points-all tr:first-child th:last-child, .contacts-all tr:first-child th:last-child {
+.rates-all tr:first-child th:last-child, #grid-changes table.items tr:first-child tr:last-child, .points-all tr:first-child th:last-child, .contacts-all tr:first-child th:last-child {
     -moz-border-radius-topright:3px;
     -webkit-border-top-right-radius:3px;
     border-top-right-radius:3px;
 }
-.rates-all tr, .points-all tr, .points-all tr {
+.rates-all tr, .points-all tr, .points-all tr, #grid-changes table.items tr {
     text-align: center;
     padding-left:20px;
 }
-.rates-all tr td:first-child{
+.rates-all tr td:first-child, #grid-changes table.items tr td:first-child{
     text-align: left;
     padding: 0 5px;
     border-left: 0;
 }
 
-.points-all tr td:first-child, .points-all tr td:first-child, .contacts-all tr td:first-child{
+.points-all tr td:first-child, .points-all tr td:first-child, .contacts-all tr td:first-child, #grid-changes table.items tr td:first-child{
     text-align: left;
     padding-left: 10px;
     padding-right: 10px;
     border-left: 0;
 }
-.rates-all tr td, .points-all tr td, .contacts-all tr td {
+.rates-all tr td, .points-all tr td, .contacts-all tr td, #grid-changes table.items tr td {
     padding: 3px;
     border-top: 1px solid #ffffff;
     border-bottom:1px solid #e0e0e0;
@@ -1239,13 +1113,13 @@ input[name^="Rates"], input[name^="Points"]{
     background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
 }
 
-.rates-all tr:nth-child(even) td, .points-all tr:nth-child(even) td, .contacts-all tr:nth-child(even) td{
+.rates-all tr:nth-child(even) td, .points-all tr:nth-child(even) td, .contacts-all tr:nth-child(even) td, #grid-changes table.items tr:nth-child(event) td{
     background: #f6f6f6;
     background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
     background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
 }
 
-.rates-all tr td:nth-child(1), .rates-all tr td:nth-child(2) {
+.rates-all tr td:nth-child(1), .rates-all tr td:nth-child(2), #grid-changes table.items tr td:nth-child(1) {
     width: 15%;
 }
 .rates-all tr td:nth-child(3) {
@@ -1258,15 +1132,15 @@ input[name^="Rates"], input[name^="Points"]{
     font-weight: bold;
 }
 
-.rates-all tr:last-child td, .points-all tr:last-child td, .points-all tr:last-child{
+.rates-all tr:last-child td, .points-all tr:last-child td, .points-all tr:last-child, #grid-changes table.items tr:last-child{
     border-bottom:0;
 }
-.rates-all tr:last-child td:first-child, .points-all tr:last-child td:first-child, .points-all tr:last-child td:first-child{
+.rates-all tr:last-child td:first-child, .points-all tr:last-child td:first-child, .points-all tr:last-child td:first-child, #grid-changes table.items tr:last-child td:first-child{
     -moz-border-radius-bottomleft:3px;
     -webkit-border-bottom-left-radius:3px;
     border-bottom-left-radius:3px;
 }
-.rates-all tr:last-child td:last-child, .points-all tr:last-child td:last-child, .points-all tr:last-child td:last-child{
+.rates-all tr:last-child td:last-child, #grid-changes table.items tr:last-child td:last-child, .points-all tr:last-child td:last-child, .points-all tr:last-child td:last-child{
     -moz-border-radius-bottomright:3px;
     -webkit-border-bottom-right-radius:3px;
     border-bottom-right-radius:3px;
@@ -1285,21 +1159,17 @@ input[name^="Rates"], input[name^="Points"]{
 .rates-all tr td:hover, .points-all tr td:hover, .points-all tr td:hover{
     cursor: default;
 }
-.rates-all a:link {
+#grid-changes table.items a:link {
     color: #666;
     font-weight: bold;
     text-decoration:none;
 }
-.rates-all a:visited {
+#grid-changes table.items a:visited {
     color: #999999;
     font-weight:bold;
     text-decoration:none;
 }
-.rates-all a:active,
-.rates-all a:hover {
-    color: #bd5a35;
-    text-decoration:underline;
-}
+
 /* Конец список ставок */
 /* конец правая(рабочая) область */
 
@@ -1632,8 +1502,8 @@ div.form span.required {
     float: left;
 }
 
-.info .info-list:not(:first-child){
-    margin: 0 20px;
+.info .info-list{
+    margin-right: 20px;
 }
 .info .info-list li
 {

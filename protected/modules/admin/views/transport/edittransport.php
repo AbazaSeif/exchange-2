@@ -10,7 +10,7 @@
         ), 'Удалить перевозку'
     );
     $alertMsg = Yii::app()->user->getFlash('message');
-    $errorMsg = Yii::app()->user->getFlash('message');
+    $errorMsg = Yii::app()->user->getFlash('error');
 
     $duplicate_button = CHtml::link('Копировать', '/admin/transport/duplicatetransport/id/'.$model->id, array('id'=>'dup_'.$model->id,'class'=>'btn-admin'));
     $action = '/admin/transport/edittransport/id/'.$model->id;
@@ -39,9 +39,9 @@
 $(function(){
     alertify.set({ delay: 40000 });
     <?php if ($alertMsg) :?>
-        alertify.success("<?php echo $alertMsg; ?>");
+        alertify.success('<?php echo $alertMsg; ?>');
     <?php elseif ($errorMsg): ?>
-        alertify.error("<?php echo $errorMsg; ?>");
+        alertify.error('<?php echo $errorMsg; ?>');
     <?php endif; ?>
 });
 </script>

@@ -11,7 +11,19 @@
         $action = '/admin/user/createuser/';
         unset($delete_button);
     }
+    $alertMsg = Yii::app()->user->getFlash('message');
+    $errorMsg = Yii::app()->user->getFlash('error');
 ?>
+<script>
+$(function(){
+    alertify.set({ delay: 40000 });
+    <?php if ($alertMsg) :?>
+        alertify.success('<?php echo $alertMsg; ?>');
+    <?php elseif ($errorMsg): ?>
+        alertify.error('<?php echo $errorMsg; ?>');
+    <?php endif; ?>
+});
+</script>
 <div class="total">
     <div class="left">
         <?php if (!$model->id): ?>
@@ -27,13 +39,6 @@
     </div>
     <div class="right">
         <div class="form">
-            <?php
-                if ($mess = Yii::app()->user->getFlash('message')){
-                    echo '<div class="uMessage success">'.$mess.'</div>';
-                } else if ($mess = Yii::app()->user->getFlash('error')) {
-                    echo '<div class="uMessage error">'.$mess.'</div>';
-                }
-            ?>
             <?php $form = $this->beginWidget('CActiveForm', array('id'=>'userform',
                 'action'=>$action,
                 'enableClientValidation'=>true,
