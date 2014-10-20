@@ -1,11 +1,4 @@
-/* jQuery POST/GET redirect method
-   v.0.1
-	modified by Miguel Galante,https://github.com/mgalante
-   v.0.1
-   made by Nemanja Avramovic, www.avramovic.info 
-   */
-
-;(function( $ ){
+(function( $ ){
 
 	$.redirect = function( target, values, method ) {  
 
