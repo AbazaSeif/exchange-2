@@ -412,6 +412,7 @@ class TransportController extends Controller
     {
         $id = $_POST['id'];
         $curTime = date("Y-m-d H:i:s", strtotime("-30 seconds"));
+        Yii::log('CheckStatus -------'.$curTime, 'info');
         $allow = false;
         $status = '';
         $user = User::model()->findByPk(Yii::app()->user->_id);
