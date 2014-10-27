@@ -12,7 +12,7 @@ return array(
     'language' => 'ru',
     // preloading 'log' component
     'preload' => array('log'),
-
+    //'timeZone' => 'Asia/Calcutta',
     // autoloading model and component classes
     'import' => array(
         'application.models.*',

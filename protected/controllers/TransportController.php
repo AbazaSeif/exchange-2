@@ -288,18 +288,20 @@ class TransportController extends Controller
     
     public function actionGetCurTime()
     {
-        $updateTimeInMilliseconds = 10*60*1000;
+        date_default_timezone_set('Europe/Minsk');
+        $updateTimeInMilliseconds = 10*60*1000; // 10 min
         $curDate = date('m/d/Y H:i:s');
-        $endDate = date('m/d/Y H:i:s', strtotime($_POST['endDate'].' -1 hours'));
+        $endDate = date('m/d/Y H:i:s', strtotime($_POST['endDate']));
 
-        $hoursLeft = floor((strtotime($endDate) - strtotime($curDate))/60*60);
+        $hoursLeft = floor((strtotime($endDate) - strtotime($curDate))/(60*60));
         if(!$hoursLeft){
             $minLeft = floor((strtotime($endDate) - strtotime($curDate))/60);
-            if($minLeft < 1) $updateTimeInMilliseconds = 5*1000;
-            else if($minLeft < 3) $updateTimeInMilliseconds = 20*1000;
-            else if($minLeft < 10) $updateTimeInMilliseconds = 2*60*1000;
-            else if($minLeft < 30) $updateTimeInMilliseconds = 5*60*1000;
+            if($minLeft < 1) $updateTimeInMilliseconds = 5*1000; // 5 sec
+            else if($minLeft < 3) $updateTimeInMilliseconds = 20*1000; // 20 sec
+            else if($minLeft < 10) $updateTimeInMilliseconds = 2*60*1000; // 2 min
+            else if($minLeft < 30) $updateTimeInMilliseconds = 5*60*1000; // 5 min
         }
+
         $array = array('date' => $curDate, 'minUpdate' => $updateTimeInMilliseconds, 'end'=>$endDate);
         echo json_encode($array);
     }
