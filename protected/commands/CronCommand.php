@@ -11,8 +11,6 @@ class CronCommand extends CConsoleCommand
         //$this->mailKillRate();
         $this->errorDate();
         $this->checkBlockDate();
-        
-        Yii::log('Cron time - '.date("Y-m-d H:i"), 'info');
     }
     
     public function errorDate()
