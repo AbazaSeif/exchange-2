@@ -26,7 +26,7 @@ if(!Yii::app()->user->isGuest) {
                 <!--li><a href="/user/contact/">Контактные лица</a></li-->
                 <li><a href="/user/logout/" class="exit">Выход</a></li>
             </ul>
-    <?php }  else {?>
+    <?php } else {?>
                 <ul class="user-menu">
                     <li><a href="/">Главная</a>
                         <?php if(Yii::app()->user->checkAccess('readTransport')){ ?>

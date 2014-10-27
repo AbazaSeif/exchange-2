@@ -573,4 +573,11 @@ class TransportController extends Controller
         $value = mb_ereg_replace('^[\ ]+', '', $value);
         return mb_strtoupper(mb_substr($value, 0, 1, $encoding), $encoding) . mb_strtolower(mb_substr($value, 1, mb_strlen($value), $encoding), $encoding);
     }
+    
+    public function actionTestUpdate()
+    {
+        $model = Transport::model()->findByPk(546);
+        $model->date_close = '2014-10-28 09:10:00';
+        $model->save();
+    }
 }
