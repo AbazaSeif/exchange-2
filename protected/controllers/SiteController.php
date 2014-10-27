@@ -1053,8 +1053,8 @@ class SiteController extends Controller
         }
     }
     
-    public function actionTest()
+    /*public function actionTest()
     {
         Yii::log('Test time - '.date("Y-m-d H:i"), 'info');
-    }
+    }*/
 }
