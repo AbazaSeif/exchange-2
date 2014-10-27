@@ -1,5 +1,4 @@
 <?php
-//date_default_timezone_set('Europe/Minsk');
 $showAdditionalTimer = false;
 $showDescription = false;
 if($transportInfo['status'] || !Yii::app()->user->isTransport) $showDescription = true;

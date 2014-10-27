@@ -2,8 +2,7 @@
 class CronCommand extends CConsoleCommand
 {
     public function run($args)
-    {   
-        //date_default_timezone_set('Europe/Minsk');
+    {
         $this->deadlineTransport();
         $this->checkTransportRates();
         $this->beforeDeadlineTransport();
@@ -11,8 +10,6 @@ class CronCommand extends CConsoleCommand
         //$this->mailKillRate();
         $this->errorDate();
         $this->checkBlockDate();
-        
-        Yii::log(date('Y-m-d H:i'), 'info');
     }
     
     public function errorDate()
