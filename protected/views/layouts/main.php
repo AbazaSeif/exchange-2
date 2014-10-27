@@ -26,7 +26,6 @@
             Yii::app()->clientScript->registerScriptFile('/js/front/menu.js');
             Yii::app()->clientScript->registerScriptFile('/js/front/frontend.js');
             Yii::app()->clientScript->registerScriptFile('/js/front/OnlineEvent.js');
-            Yii::log('Server time - '.date("Y-m-d H:i"), 'info');
         ?>
     </head>
     <body>
