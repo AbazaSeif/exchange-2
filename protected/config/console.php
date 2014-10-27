@@ -5,6 +5,7 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Console Application',
+        'timeZone' => 'Europe/Minsk',
 	// preloading 'log' component
 	'preload'=>array('log'),
         'import' => array(

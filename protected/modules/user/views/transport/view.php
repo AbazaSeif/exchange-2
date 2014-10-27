@@ -1,4 +1,4 @@
-<?php date_default_timezone_set('Europe/Minsk'); ?>
+<?php //date_default_timezone_set('Europe/Minsk'); ?>
 <h1>
     <?php echo $title ?>
 </h1>

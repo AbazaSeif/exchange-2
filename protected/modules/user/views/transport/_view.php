@@ -1,5 +1,4 @@
 <?php
-    date_default_timezone_set('Europe/Minsk');
     //$lastRate = $this->getPrice($data->rate_id);
     $minPriceVal = $this->getMinPrice($data->id);
     $now = date('m/d/Y H:i:s', strtotime('now'));

@@ -288,7 +288,7 @@ class TransportController extends Controller
     
     public function actionGetCurTime()
     {
-        date_default_timezone_set('Europe/Minsk');
+        //date_default_timezone_set('Europe/Minsk');
         $updateTimeInMilliseconds = 10*60*1000; // 10 min
         $curDate = date('m/d/Y H:i:s');
         $endDate = date('m/d/Y H:i:s', strtotime($_POST['endDate']));

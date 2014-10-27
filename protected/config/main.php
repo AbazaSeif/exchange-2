@@ -8,11 +8,11 @@
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Lbr exchange',
+    'timeZone' => 'Europe/Minsk',
     'sourceLanguage' => 'ru',
     'language' => 'ru',
     // preloading 'log' component
     'preload' => array('log'),
-    //'timeZone' => 'Asia/Calcutta',
     // autoloading model and component classes
     'import' => array(
         'application.models.*',
