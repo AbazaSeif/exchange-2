@@ -69,4 +69,3 @@
         </div>
     </body>
 </html>
-<?php Yii::log('Test time - '.date("Y-m-d H:i"), 'info'); ?>

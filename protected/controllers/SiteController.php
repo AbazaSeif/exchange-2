@@ -1052,9 +1052,4 @@ class SiteController extends Controller
                 $this->render('error', $error);
         }
     }
-    
-    /*public function actionTest()
-    {
-        Yii::log('Test time - '.date("Y-m-d H:i"), 'info');
-    }*/
 }
