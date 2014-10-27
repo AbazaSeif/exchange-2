@@ -3,6 +3,7 @@ class CronCommand extends CConsoleCommand
 {
     public function run($args)
     {   
+        date_default_timezone_set('Europe/Minsk');
         $this->deadlineTransport();
         $this->checkTransportRates();
         $this->beforeDeadlineTransport();
