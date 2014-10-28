@@ -15,12 +15,21 @@ var rateList = {
                     }
                     
                     var element = rateList.createElement(initPrice, data.date, price, '', data.company);
-                    $('#rates').prepend(element);
+                    
+                    var containerElements = $.trim(rateList.containerElements);
+                    if(containerElements !== '') {
+                        $('#rates').html(containerElements);
+                        $('#rates').prepend(element);
+                        rateList.containerElements = $('#rates').html();
+                    } else {              
+                        $('#rates').prepend(element);
+                        rateList.containerElements = $('#rates').html();
+                    }
                 }
             });
             
             rateList.data.socket.on('loadRates', function (data) {
-                $("#r-preloader").css('display', 'none');
+                $("#r-preloader").remove();//css('display', 'none');
                 for(var j = 0; j < data.rows; j++) {
                     //
                     var obj = {

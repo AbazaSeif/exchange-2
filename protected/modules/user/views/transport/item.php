@@ -247,6 +247,7 @@ $(document).ready(function(){
         if(<?php echo $transportInfo['status']; ?>) socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>, <?php echo ($transportInfo['status'] && ($now < $end || $showAdditionalTimer))? 0 : 1 ?>);
         
         rateList.data.socket = socket;
+        rateList.data.containerElements = '';
         rateList.data.userId = '<?php echo $userInfo[id] ?>';
         rateList.data.transportId = '<?php echo $transportInfo[id] ?>';
         rateList.data.transportType = '<?php echo $transportInfo[type] ?>';
