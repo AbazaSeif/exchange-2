@@ -35,7 +35,7 @@
         <?php endif; ?>
         <div class="header">
             <div class="logo">
-                <a href="/">
+                <a href="http://www.lbr.ru/">
                     <img src="/images/logo.png" title="ЛБР-Агромаркет" alt="Логотип ЛБР-Агромаркет"/>
                 </a>
             </div>
