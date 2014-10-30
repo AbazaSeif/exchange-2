@@ -10,7 +10,7 @@
         <meta http-equiv="pragma" content="no-cache">
         <meta name="description" content="<?php echo Yii::app()->params['meta_description']; ?>">
         <title><?php echo Yii::app()->params['meta_title']; ?></title>
-        
+        <link rel="shortcut icon" type="image/jpg" href="<?php echo Yii::app()->request->baseUrl.'/images/favicon.jpg';?>"/>
         <link rel="stylesheet" type="text/css" href="/css/front/frontend.css?<?php echo time(); ?>" />
         <link rel="stylesheet" type="text/css" href="/css/front/jquery.mCustomScrollbar.css" />
         <script src="http://exchange.lbr.ru:3000/socket.io/socket.io.js"></script>

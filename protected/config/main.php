@@ -110,19 +110,22 @@ return array(
     // using Yii::app()->params['paramName']
     'params' => array(
         // this is used in contact page
-        //'host'=>'lbr.test',
-        'host'=>'lbr.ru',
+        'host'=>'lbr.test',
+        //'host'=>'lbr.ru',
         'meta_title' => 'Биржа перевозок',
         'meta_description' => 'перевозки, биржа перевозок, биржа ЛБР',
         'menu_admin' => array(
             'Перевозчики'=>array(
                 'Компании'=>'/admin/user/',
                 'Контактные лица'=>'/admin/contact/',
-                'повтор ИНН'=>'/admin/dubinn/',
-                'повтор Email'=>'/admin/dubemail/',
+                'Удаленные ставки'=>'/admin/userdelrate/'
             ),
             'Перевозки' => '/admin/transport/',
             'Статистика' => '/admin/statistics/',
+            'Уведомления'=>array(
+                'Повтор ИНН'=>'/admin/dubinn/',
+                'Повтор Email'=>'/admin/dubemail/',
+            ),
             'История редактирования' => '/admin/changes/',
         ),
 

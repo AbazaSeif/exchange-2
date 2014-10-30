@@ -86,7 +86,8 @@ nav, menu, p, section,
 }
 .header .menu li a
 {
-    color: #555555;
+    color: #727272;
+    font-weight: bold;
     padding: 5px 10px;
 }
 .header .center
@@ -110,7 +111,7 @@ div.form-label
 }
 .header .center:first-letter, .ui-dialog-title:first-letter, div.form-label:first-letter, h1:first-letter
 {
-    color: #EF801B;
+    color: #F39314;/*#EF801B;*/
 }
 
 div.form-label{
@@ -397,7 +398,8 @@ div.ui-widget-header {
 }
 
 .color {
-    color: #666;
+    color: #727272;
+    font-weight: bold;
 }
 
 .position{
