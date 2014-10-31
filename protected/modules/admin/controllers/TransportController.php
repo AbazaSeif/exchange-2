@@ -578,7 +578,6 @@ class TransportController extends Controller
     {
         $model = Transport::model()->findByPk(559);
         $model->date_close = '2014-10-31 09:10:00';
-        $model->status = 0;
         $model->save();
     }
 }
