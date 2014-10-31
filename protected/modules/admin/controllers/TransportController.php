@@ -576,8 +576,8 @@ class TransportController extends Controller
     
     public function actionTestUpdate()
     {
-        $model = Transport::model()->findByPk(546);
-        $model->date_close = '2014-10-28 09:10:00';
+        $model = Transport::model()->findByPk(559);
+        $model->date_close = '2014-10-31 09:10:00';
         $model->save();
     }
 }

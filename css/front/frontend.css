@@ -36,6 +36,7 @@ nav, menu, p, section,
     padding: 10px 0;
     clear: both;
 }  
+
 .header:before
 {
     background: white;
