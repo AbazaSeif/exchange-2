@@ -581,7 +581,7 @@ class TransportController extends Controller
     
     public function actionTestUpdate()
     {
-        $model = Transport::model()->findByPk(580);
+        $model = Transport::model()->findByPk(576);
         $model->rate_id = null;
         $model->save();
     }
