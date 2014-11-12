@@ -529,6 +529,7 @@ class TransportController extends Controller
         $model->status = Transport::DEL_TRANSPORT;
         $model->del_reason = $reason;
         $model->del_date = date('Y-m-d H:i:s');
+        $model->rate_id = null;
         $model->save();
         
         $message = 'Удалена '.$type.' перевозка "' . $transportName . '" ' . $tId . '(id='.$id.'). ';
@@ -580,8 +581,8 @@ class TransportController extends Controller
     
     public function actionTestUpdate()
     {
-        $model = Transport::model()->findByPk(559);
-        $model->date_close = '2014-10-31 09:10:00';
+        $model = Transport::model()->findByPk(580);
+        $model->rate_id = null;
         $model->save();
     }
 }
