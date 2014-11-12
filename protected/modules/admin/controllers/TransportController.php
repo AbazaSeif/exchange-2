@@ -515,6 +515,8 @@ class TransportController extends Controller
     {
         $id = $_POST['id'];
         $model = Transport::model()->findByPk($id);
+        $rates = Rate::model()->findAll('transport_id = :id',array('id'=>$id));
+        
         $tId = (!empty($model->t_id))? '('.$model->t_id.') ':'';
         $transportName = $model->location_from . ' — ' . $model->location_to;
         $type = mb_strtolower(Transport::$group[$model->type], 'UTF-8');
@@ -530,6 +532,8 @@ class TransportController extends Controller
         $model->save();
         
         $message = 'Удалена '.$type.' перевозка "' . $transportName . '" ' . $tId . '(id='.$id.'). ';
+        if(!empty($rates)) $message .= 'А также '.count($rates).', сделанных в этой перевозке.';
+        Rate::model()->deleteAll('transport_id = :id', array('id'=>$id));
         Changes::saveChange($message);
         Yii::app()->user->setFlash('message', 'Перевозка "' . $transportName . '" удалена успешно.');
         $this->redirect('/admin/transport/');
