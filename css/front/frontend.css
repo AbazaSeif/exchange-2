@@ -257,7 +257,7 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
 }
 #login-form .row.error .errorMessage, #mail .row.error .errorMessage
 {
-    position: absolute;
+    /*position: absolute;
     width: 70%;
     font-size: 11px;
     background: #FF4040;
@@ -266,6 +266,18 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
     top: 9px;
     left: 105%;
     padding: 2% 5%;
+    z-index: 10;*/
+    background: none repeat scroll 0 0 #f2f3f7;
+    border-radius: 3px;
+    box-shadow: 0 0 4px 1px rgba(50, 50, 50, 0.5);
+    color: #fb0f00;
+    font-family: Tahoma,Arial;
+    font-size: 11px;
+    padding: 2% 5%;
+    position: absolute;
+    left: 105%;
+    top: 9px;
+    width: 70%;
     z-index: 10;
 }
 
@@ -398,7 +410,9 @@ div.ui-widget-header {
 }
 
 .color {
-    color: #666;
+    color: #969595 !important;
+    /*color: #5f5e5e;*/
+    font-weight: bold;
 }
 
 .position{

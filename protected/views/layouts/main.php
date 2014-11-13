@@ -45,8 +45,8 @@
             </div>
             <noscript><div class="hide"></noscript>
             <ul class="menu">
-                <li><a href="/feedback/" title="Обратная связь">Обратная связь</a></li>
-                <li><a href="/help/" title="Инструкции">Инструкции</a></li>
+                <li><a class="color" href="/feedback/" title="Обратная связь">Обратная связь</a></li>
+                <li><a class="color" href="/help/" title="Инструкции">Инструкции</a></li>
             </ul>
             <noscript></div></noscript>
         </div>
