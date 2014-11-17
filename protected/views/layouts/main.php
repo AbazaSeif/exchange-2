@@ -13,6 +13,7 @@
         <link rel="shortcut icon" type="image/jpg" href="<?php echo Yii::app()->request->baseUrl.'/images/favicon.jpg';?>"/>
         <link rel="stylesheet" type="text/css" href="/css/front/frontend.css?<?php echo time(); ?>" />
         <link rel="stylesheet" type="text/css" href="/css/front/jquery.mCustomScrollbar.css" />
+        <link rel="shortcut icon" type="image/jpg" href="<?php echo Yii::app()->request->baseUrl.'/images/favicon.jpg';?>"/>
         <script src="http://exchange.lbr.ru:3000/socket.io/socket.io.js"></script>
         <!--script src="http://localhost:3000/socket.io/socket.io.js"></script-->
         <?php
@@ -34,7 +35,7 @@
         <?php endif; ?>
         <div class="header">
             <div class="logo">
-                <a href="/">
+                <a href="http://www.lbr.ru/">
                     <img src="/images/logo.png" title="ЛБР-Агромаркет" alt="Логотип ЛБР-Агромаркет"/>
                 </a>
             </div>
@@ -44,8 +45,8 @@
             </div>
             <noscript><div class="hide"></noscript>
             <ul class="menu">
-                <li><a href="/feedback/" title="Обратная связь">Обратная связь</a></li>
-                <li><a href="/help/" title="Инструкции">Инструкции</a></li>
+                <li><a class="color" href="/feedback/" title="Обратная связь">Обратная связь</a></li>
+                <li><a class="color" href="/help/" title="Инструкции">Инструкции</a></li>
             </ul>
             <noscript></div></noscript>
         </div>

@@ -23,12 +23,12 @@ return array(
 
     'modules' => array(
         // uncomment the following to enable the Gii tool
-        'gii' => array(
+        /*'gii' => array(
             'class' => 'system.gii.GiiModule',
             'password' => 'admin',
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
             'ipFilters' => array('127.0.0.1', '::1'),
-        ),
+        ),*/
         'user',
         'admin',
     ),
@@ -131,8 +131,8 @@ return array(
 
         'supportEmail' => 'support.ex@lbr.ru',
         'adminEmail'   => 'help.ex@lbr.ru',
-        'logistEmailRegional'       => 'nazarova@lbr.ru',
-        'logistEmailInternational'  => 'kazarez@lbr.ru',
+        'logistEmailRegional'       => 'kosarevich@lbr.ru',
+        'logistEmailInternational'  => 'budaeva@lbr.ru',
         
         'minNotify' => 30,
         'hoursBefore' => 24,

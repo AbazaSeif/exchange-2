@@ -19,7 +19,7 @@ class CronCommand extends CConsoleCommand
         $transports = Yii::app()->db->createCommand()
             ->select('id')
             ->from('transport')
-            ->where('status = 1 and date_close between "1980-01-01" and "' . $timeNow. '"')
+            ->where('status = 1 and date_close between "1000-01-01" and "' . $timeNow. '"')
             ->queryAll()
         ;
         
