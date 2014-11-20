@@ -535,6 +535,7 @@ class TransportController extends Controller
         $message = 'Удалена '.$type.' перевозка "' . $transportName . '" ' . $tId . '(id='.$id.'). ';
         if(!empty($rates)) $message .= 'А также ставки ('.count($rates).' шт.), сделанных в этой перевозке.';
         Rate::model()->deleteAll('transport_id = :id', array('id'=>$id));
+        TransportInterPoint::model()->deleteAll('t_id = :id', array('id'=>$id));
         Changes::saveChange($message);
         Yii::app()->user->setFlash('message', 'Перевозка "' . $transportName . '" удалена успешно.');
         $this->redirect('/admin/transport/');
