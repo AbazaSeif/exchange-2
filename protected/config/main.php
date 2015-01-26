@@ -128,7 +128,7 @@ return array(
 
         'supportEmail' => 'support.ex@lbr.ru',
         'adminEmail'   => 'help.ex@lbr.ru',
-        'logistEmailRegional'       => 'kosarevich@lbr.ru',
+        'logistEmailRegional'       => 'golovachenko@lbr.ru',
         'logistEmailInternational'  => 'budaeva@lbr.ru',
         
         'minNotify' => 30,
