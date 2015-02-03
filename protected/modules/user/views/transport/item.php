@@ -100,11 +100,14 @@ if (!Yii::app()->user->isGuest) {
 ?>
 
 <div class="transport-one">
-    <div class="notice">
+    <!--div class="notice">
         <span class="attention">Обращаем ваше внимание на то, что при отображении ставок возможна задержка до 3 минут. Однако все ставки принимаются и корректно обрабатываются.</span>
     </div>
     <div class="note">
         <span>Просьба ознакомиться со страницей «<a title="Инструкции" href="<?php echo Yii::app()->getBaseUrl(true).'/help/'?>" class="tr-a">Инструкции</a>»</span>
+    </div-->
+    <div style="color: red">
+        <span>Биржа временно не работает. Ставки не принимаются.</span>
     </div>
     
     <div class="width-100">
