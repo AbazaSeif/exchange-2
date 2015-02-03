@@ -115,7 +115,8 @@ class TransportInterPoint extends CActiveRecord
                 ->order('date')
                 ->queryAll()
             ;
-            if(mb_strtolower(end($innerPoints)['point'], 'UTF-8') == mb_strtolower($locationTo, 'UTF-8')) array_pop($innerPoints);
+            $elem = end($innerPoints);
+            if(mb_strtolower($elem['point'], 'UTF-8') == mb_strtolower($locationTo, 'UTF-8')) array_pop($innerPoints);
             foreach($innerPoints as $point) {
                 if(isset($points)) {
                     $now = date('Y-m-d');
@@ -138,7 +139,8 @@ class TransportInterPoint extends CActiveRecord
                 ->order('date')
                 ->queryAll()
             ;
-            if(mb_strtolower(end($innerPoints)['point'], 'UTF-8') == mb_strtolower($locationTo, 'UTF-8')) array_pop($innerPoints);
+            $elem = end($innerPoints);
+            if(mb_strtolower($elem['point'], 'UTF-8') == mb_strtolower($locationTo, 'UTF-8')) array_pop($innerPoints);
             foreach($innerPoints as $point){
                 if(isset($points))
                     $points .= '<img class="arrow" src="/images/arrow.png" />'.$point['point'];
