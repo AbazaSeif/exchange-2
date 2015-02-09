@@ -104,7 +104,7 @@ $(document).ready(function(){
     }*/
     <?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
     var userId = <?php echo $user->id ?>;
-    var socket = io.connect('http://exchangetest.lbr.ru:3000/');
+    var socket = io.connect('http://exchange.lbr.ru:3001/');
     //var socket = io.connect('http://localhost:3000/');
     
     <?php if(Yii::app()->user->isContactUser): ?>
