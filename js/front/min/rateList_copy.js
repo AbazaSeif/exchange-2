@@ -2,7 +2,8 @@ var rateList = {
     init : function(){
         this.container = $("#rates");
         var element = $( "#rate-price" );
-        if(typeof(rateList.data.socket) !== 'undefined' && parseInt(rateList.data.status)) {
+        //if(typeof(rateList.data.socket) !== 'undefined' && parseInt(rateList.data.status)) {
+        if(typeof(rateList.data.socket) !== 'undefined' && parseInt(rateList.data.userId)) {
             rateList.data.socket.on('setRate', function (data) {
                 if(data.dateCloseNew)rateList.data.dateCloseNew = data.dateCloseNew;
                 
