@@ -38,7 +38,7 @@
         <div class="header">
             <div class="logo">
                 <a href="http://www.lbr.ru/">
-                    <img src="/images/logo.png" title="ЛБР-Агромаркет" alt="Логотип ЛБР-Агромаркет"/>
+                    <img src="/images/logo.png" title="ЛБР-АгроМаркет" alt="Логотип ЛБР-АгроМаркет"/>
                 </a>
             </div>
             <div class="center">
@@ -68,7 +68,7 @@
             </div>
         </div>
         <div class="footer">
-            <p><?php echo date("Y"); ?> &copy; ООО "ЛБР-Агромаркет"</p>
+            <p><?php echo date("Y"); ?> &copy; ООО "ЛБР-АгроМаркет"</p>
         </div>
     </body>
 </html>
