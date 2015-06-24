@@ -68,7 +68,7 @@
             </div>
         </div>
         <div class="footer">
-            <p>2014 &copy; ООО "ЛБР-Агромаркет"</p>
+            <p><?php echo date("Y"); ?> &copy; ООО "ЛБР-Агромаркет"</p>
         </div>
     </body>
 </html>
