@@ -28,7 +28,7 @@
             Yii::app()->clientScript->registerScriptFile('/js/front/frontend.js');
             Yii::app()->clientScript->registerScriptFile('/js/front/OnlineEvent.js');
             //google analitics
-            Yii::app()->clientScript->registerScriptFile('/js/lbr.google.analytics.js');
+            //Yii::app()->clientScript->registerScriptFile('/js/lbr.google.analytics.js');
         ?>
     </head>
     <body>
