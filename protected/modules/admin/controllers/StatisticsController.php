@@ -215,7 +215,7 @@ class StatisticsController extends Controller {
     public function actionUserActivity() {
         set_time_limit(0);
 
-        $from = '2015-09-01';
+        $from = '2015-01-01';
         $to = '2015-09-24';
         
         $resultOneTime = array();
