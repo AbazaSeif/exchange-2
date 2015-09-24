@@ -1255,11 +1255,8 @@ div.menu ul.nav li.item.parent ul.nav li:nth-of-type(2):after{
     font-weight: bold;
     font-size: 20px;
 }
-/*-----Конец-faq---------*/
+/*-----Конец-faq----------*/
 /*-----Statistics---------*/
-.statistics{
-    padding-top: 20px;
-}
 
 .statistics a.btn-admin{
     margin: 10px 0 !important;

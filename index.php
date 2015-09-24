@@ -1,4 +1,8 @@
 <?php
+
+error_reporting(-1);
+ini_set('display_errors', true);
+
 $start = microtime(true);
 // change the following paths if necessary
 $yii=dirname(__FILE__).'/../yii/framework/yii.php';
