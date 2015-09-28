@@ -215,40 +215,10 @@ class StatisticsController extends Controller
     public function actionUserActivity($from, $to) {
         set_time_limit(0);
 
-        $weeks = [];
         $resultOneTime = array();
         $resultMultipleTimes = array();
-        echo 222; exit;
-        $from = strtotime($from);
-        $to = strtotime($to);
         
-        //$weeks = $this->separatePeriodIntoWeeks($from, $to);
-        /*if ($from == $to) {
-            echo 1; exit;
-            $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $to)];
-        } else {
-            echo 2; exit;
-            while ($from < $to) {
-                $fromDay = date("N", $from); // a weekday number
-                if ($fromDay < 7) {
-                    $daysToSun = 7 - $fromDay;
-                    $end = strtotime("+ $daysToSun day", $from); // end of a week 
-                    if ($end > $to)
-                        $end = $to;
-
-                    if (date("n", $from) != date("n", $end)) { // if it's a new month
-                        $end = strtotime("last day of this month", $from);
-                    }
-
-                    $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $end)];
-                    $from = $end;
-                } else {
-                    $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $from)];
-                }
-
-                $from = strtotime("+1 day", $from);
-            }
-        }*/
+        $weeks = array();//$this->separatePeriodIntoWeeks($from, $to);
         if (!empty($weeks)) {
             foreach ($weeks as $key => $week) {
                 $rates = Yii::app()->db->createCommand()
@@ -271,8 +241,8 @@ class StatisticsController extends Controller
                 }
             }
         }
-echo 5; exit;
-        //$this->actionGetActivity($from, $weeks, $to, $resultOneTime, $resultMultipleTimes);
+
+        $this->actionGetActivity($from, $weeks, $to, $resultOneTime, $resultMultipleTimes);
     }
 
     /*public function separatePeriodIntoWeeks($from, $to) 
