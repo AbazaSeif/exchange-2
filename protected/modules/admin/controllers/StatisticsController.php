@@ -217,7 +217,7 @@ class StatisticsController extends Controller
 
         $resultOneTime = array();
         $resultMultipleTimes = array();
-
+echo 1000; exit;
         $weeks = $this->separatePeriodIntoWeeks($from, $to);
         if (!empty($weeks)) {
             foreach ($weeks as $key => $week) {
