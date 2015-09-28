@@ -252,8 +252,8 @@ class StatisticsController extends Controller
         $to = strtotime($to);
         
         if ($from == $to) {
-            $weeks[] = date('d.m.Y', $from);
-            $weeks[] = date('d.m.Y', $to);
+            $weeks[0][] = date('d.m.Y', $from);
+            $weeks[0][] = date('d.m.Y', $to);
         }
 //        } else {
 //            while ($from < $to) {
