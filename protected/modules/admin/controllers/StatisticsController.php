@@ -247,7 +247,8 @@ class StatisticsController extends Controller
 
     private function separateIntoWeeks($from, $to) 
     {
-        return array();
+        $weeks = array();
+        return $weeks;
         
         echo 11; exit;
         set_time_limit(0);
