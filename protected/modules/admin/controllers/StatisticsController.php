@@ -250,31 +250,31 @@ class StatisticsController extends Controller
         $weeks = array();
         $from = strtotime($from);
         $to = strtotime($to);
-        
-        if ($from == $to) {
-            $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $to)];
-        } else {
-            while ($from < $to) {
-                $fromDay = date("N", $from); // a weekday number
-                if ($fromDay < 7) {
-                    $daysToSun = 7 - $fromDay;
-                    $end = strtotime("+ $daysToSun day", $from); // end of a week 
-                    if ($end > $to)
-                        $end = $to;
-
-                    if (date("n", $from) != date("n", $end)) { // if it's a new month
-                        $end = strtotime("last day of this month", $from);
-                    }
-
-                    $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $end)];
-                    $from = $end;
-                } else {
-                    $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $from)];
-                }
-
-                $from = strtotime("+1 day", $from);
-            }
-        }
+        return $weeks;
+//        if ($from == $to) {
+//            $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $to)];
+//        } else {
+//            while ($from < $to) {
+//                $fromDay = date("N", $from); // a weekday number
+//                if ($fromDay < 7) {
+//                    $daysToSun = 7 - $fromDay;
+//                    $end = strtotime("+ $daysToSun day", $from); // end of a week 
+//                    if ($end > $to)
+//                        $end = $to;
+//
+//                    if (date("n", $from) != date("n", $end)) { // if it's a new month
+//                        $end = strtotime("last day of this month", $from);
+//                    }
+//
+//                    $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $end)];
+//                    $from = $end;
+//                } else {
+//                    $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $from)];
+//                }
+//
+//                $from = strtotime("+1 day", $from);
+//            }
+//        }
 
         return $weeks;
     }
