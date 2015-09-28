@@ -212,14 +212,13 @@ class StatisticsController extends Controller
         Yii::app()->end();
     }
 
-    public function actionUserActivity($from, $to) {
+    public function actionUserActivity($from, $to) 
+    {
         set_time_limit(0);
-
-        $resultOneTime = array();
-        $resultMultipleTimes = array();
-        $weeks = array();
-        //$weeks = $this->separateIntoWeeks($from, $to);
-        $weeks = $this->separateIntoWeeks();
+        $resultOneTime = $resultMultipleTimes = $weeks = array();
+        
+        $weeks = $this->separateIntoWeeks($from, $to);
+        //$weeks = $this->separateIntoWeeks();
         if (!empty($weeks)) {
             foreach ($weeks as $key => $week) {
                 $rates = Yii::app()->db->createCommand()
@@ -246,22 +245,13 @@ class StatisticsController extends Controller
         $this->actionGetActivity($from, $weeks, $to, $resultOneTime, $resultMultipleTimes);
     }
 
-    //private function separateIntoWeeks($from, $to) 
-    private function separateIntoWeeks() 
+    private function separateIntoWeeks($from, $to)
     {
+        set_time_limit(0);
         $weeks = array();
         return $weeks;
-        
-//        echo 11; exit;
-//        set_time_limit(0);
-//        echo '1<br>';
-//        $weeks = [];
-//        echo '2<br>';
 //        $from = strtotime($from);
-//        echo $from.'<br>';
 //        $to = strtotime($to);
-//        echo $to.'<br>'; 
-//        exit;
 //        if ($from == $to) {
 //            $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $to)];
 //        } else {
@@ -286,8 +276,7 @@ class StatisticsController extends Controller
 //                $from = strtotime("+1 day", $from);
 //            }
 //        }
-//        echo '<pre>';
-//        var_dump($weeks); exit;
+//
 //        return $weeks;
     }
 
