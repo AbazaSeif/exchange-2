@@ -286,138 +286,138 @@ class StatisticsController extends Controller
         return $weeks;
     }*/
 
-//    public function actionGetActivity($from, $weeks, $to, $resultOneTime, $resultMultipleTimes) 
-//    {
-//        Yii::import('ext.phpexcel.XPHPExcel');
-//        $objPHPExcel = XPHPExcel::createPHPExcel();
-//        $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
-//            ->setLastModifiedBy("Maarten Balliauw")
-//            ->setTitle("Office 2007 XLSX Test Document")
-//            ->setSubject("Office 2007 XLSX Test Document")
-//            ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
-//            ->setKeywords("office 2007 openxml php")
-//            ->setCategory("Test result file")
-//        ;
-//
-//        // --- Start - "1 time a week"
-//        $objPHPExcel->setActiveSheetIndex(0);
-//        $sheet = $objPHPExcel->getActiveSheet();
-//        $sheet->setTitle('Активность-1 раз в неделю');
-//
-//        $sheet->setCellValue('A1', 'Период')
-//            ->setCellValue('A2', date('d.m.Y', strtotime($from)) . ' - ' . date('d.m.Y', strtotime($to)))
-//        ;
-//        
-//        $sheet->getStyle('A1:A2')->getFont()->setBold(true);
-//        $sheet->getStyle('A1:A2')->applyFromArray(
-//            array(
-//                'fill' => array(
-//                    'type' => PHPExcel_Style_Fill::FILL_SOLID,
-//                    'color' => array('rgb' => 'cccccc')
-//                )
-//            )
-//        );
-//        
-//        for ($col = 'A'; $col != 'F'; $col++)
-//            $sheet->getColumnDimension($col)->setWidth(30); /* setAutoSize(true); */
-//        
-//        $index = 4;
-//        if(!empty($resultOneTime)) {
-//            foreach($resultOneTime as $key => $item) {
-//                $periodName = $weeks[$key][0].' - '.$weeks[$key][1];
-//                $sheet->getStyle('A'.$index.':B'.$index)->getFont()->setBold(true);
-//                $sheet->getStyle('A'.$index.':B'.$index)->applyFromArray(
-//                    array(
-//                        'fill' => array(
-//                            'type' => PHPExcel_Style_Fill::FILL_SOLID,
-//                            'color' => array('rgb' => 'cccccc')
-//                        )
-//                    )
-//                );
-//                $sheet->setCellValue('A'.$index, $periodName)
-//                    ->setCellValue('B'.$index, count($item))
-//                ;
-//                $index++;
-//                foreach($item as $element) {
-//                    $user = User::model()->findByPk($element)->company;
-//                    $sheet->setCellValue('A'.$index, $user);
-//                    //$sheet->setCellValue('A'.$index, $element);
-//                    
-//                    $index++;
-//                }
-//            }
-//        }
-//        
-//        // --- End - "1 time a week"
-//        // --- Start - "2 and more times a week"
-//        $sheet = $objPHPExcel->createSheet(1);
-//        $sheet->setTitle('Активность-более 2 раз в неделю');
-//
-//        $sheet->setCellValue('A1', 'Период')
-//            ->setCellValue('A2', date('d.m.Y', strtotime($from)) . ' - ' . date('d.m.Y', strtotime($to)))
-//        ;
-//        
-//        $sheet->getStyle('A1:A2')->getFont()->setBold(true);
-//        $sheet->getStyle('A1:A2')->applyFromArray(
-//            array(
-//                'fill' => array(
-//                    'type' => PHPExcel_Style_Fill::FILL_SOLID,
-//                    'color' => array('rgb' => 'cccccc')
-//                )
-//            )
-//        );
-//        
-//        for ($col = 'A'; $col != 'F'; $col++)
-//            $sheet->getColumnDimension($col)->setWidth(30); // setAutoSize(true);
-//        
-//        /*
-//        $index = 5;
-//        foreach ($resultMultipleTimes as $user) {
-//        
-//        }
-//        */      
-//        $index = 4;
-//        if(!empty($resultOneTime)) {
-//            foreach($resultMultipleTimes as $key => $item) {
-//                $periodName = $weeks[$key][0].' - '.$weeks[$key][1];
-//                $sheet->getStyle('A'.$index.':B'.$index)->getFont()->setBold(true);
-//                $sheet->getStyle('A'.$index.':B'.$index)->applyFromArray(
-//                    array(
-//                        'fill' => array(
-//                            'type' => PHPExcel_Style_Fill::FILL_SOLID,
-//                            'color' => array('rgb' => 'cccccc')
-//                        )
-//                    )
-//                );
-//                $sheet->setCellValue('A'.$index, $periodName)
-//                    ->setCellValue('B'.$index, count($item))
-//                ;
-//                $index++;
-//                foreach($item as $element) {
-//                    $user = User::model()->findByPk($element)->company;
-//                    $sheet->setCellValue('A'.$index, $user);
-//                    //$sheet->setCellValue('A'.$index, $element);
-//                    
-//                    $index++;
-//                }
-//            }
-//        }
-//        // --- End - "2 and more times a week"
-//  
-//        // Redirect output to a client's web browser (Excel5)
-//        header('Content-Type: application/vnd.ms-excel');
-//        header('Content-Disposition: attachment;filename="Активность пользователей в разных перевозках за неделю на ' . date('Y-m-d H-i') . '.xls"');
-//        header('Cache-Control: max-age=0');
-//        // If you're serving to IE 9, then the following may be needed
-//        header('Cache-Control: max-age=1');
-//        // If you're serving to IE over SSL, then the following may be needed
-//        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-//        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
-//        header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
-//        header('Pragma: public'); // HTTP/1.0
-//
-//        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-//        $objWriter->save('php://output');
-//        Yii::app()->end();
-//    }
+    public function actionGetActivity($from, $weeks, $to, $resultOneTime, $resultMultipleTimes) 
+    {
+        Yii::import('ext.phpexcel.XPHPExcel');
+        $objPHPExcel = XPHPExcel::createPHPExcel();
+        $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
+            ->setLastModifiedBy("Maarten Balliauw")
+            ->setTitle("Office 2007 XLSX Test Document")
+            ->setSubject("Office 2007 XLSX Test Document")
+            ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+            ->setKeywords("office 2007 openxml php")
+            ->setCategory("Test result file")
+        ;
+
+        // --- Start - "1 time a week"
+        $objPHPExcel->setActiveSheetIndex(0);
+        $sheet = $objPHPExcel->getActiveSheet();
+        $sheet->setTitle('Активность-1 раз в неделю');
+
+        $sheet->setCellValue('A1', 'Период')
+            ->setCellValue('A2', date('d.m.Y', strtotime($from)) . ' - ' . date('d.m.Y', strtotime($to)))
+        ;
+        
+        $sheet->getStyle('A1:A2')->getFont()->setBold(true);
+        $sheet->getStyle('A1:A2')->applyFromArray(
+            array(
+                'fill' => array(
+                    'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                    'color' => array('rgb' => 'cccccc')
+                )
+            )
+        );
+        
+        for ($col = 'A'; $col != 'F'; $col++)
+            $sheet->getColumnDimension($col)->setWidth(30); /* setAutoSize(true); */
+        
+        $index = 4;
+        if(!empty($resultOneTime)) {
+            foreach($resultOneTime as $key => $item) {
+                $periodName = $weeks[$key][0].' - '.$weeks[$key][1];
+                $sheet->getStyle('A'.$index.':B'.$index)->getFont()->setBold(true);
+                $sheet->getStyle('A'.$index.':B'.$index)->applyFromArray(
+                    array(
+                        'fill' => array(
+                            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                            'color' => array('rgb' => 'cccccc')
+                        )
+                    )
+                );
+                $sheet->setCellValue('A'.$index, $periodName)
+                    ->setCellValue('B'.$index, count($item))
+                ;
+                $index++;
+                foreach($item as $element) {
+                    $user = User::model()->findByPk($element)->company;
+                    $sheet->setCellValue('A'.$index, $user);
+                    //$sheet->setCellValue('A'.$index, $element);
+                    
+                    $index++;
+                }
+            }
+        }
+        
+        // --- End - "1 time a week"
+        // --- Start - "2 and more times a week"
+        $sheet = $objPHPExcel->createSheet(1);
+        $sheet->setTitle('Активность-более 2 раз в неделю');
+
+        $sheet->setCellValue('A1', 'Период')
+            ->setCellValue('A2', date('d.m.Y', strtotime($from)) . ' - ' . date('d.m.Y', strtotime($to)))
+        ;
+        
+        $sheet->getStyle('A1:A2')->getFont()->setBold(true);
+        $sheet->getStyle('A1:A2')->applyFromArray(
+            array(
+                'fill' => array(
+                    'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                    'color' => array('rgb' => 'cccccc')
+                )
+            )
+        );
+        
+        for ($col = 'A'; $col != 'F'; $col++)
+            $sheet->getColumnDimension($col)->setWidth(30); // setAutoSize(true);
+        
+        /*
+        $index = 5;
+        foreach ($resultMultipleTimes as $user) {
+        
+        }
+        */      
+        $index = 4;
+        if(!empty($resultOneTime)) {
+            foreach($resultMultipleTimes as $key => $item) {
+                $periodName = $weeks[$key][0].' - '.$weeks[$key][1];
+                $sheet->getStyle('A'.$index.':B'.$index)->getFont()->setBold(true);
+                $sheet->getStyle('A'.$index.':B'.$index)->applyFromArray(
+                    array(
+                        'fill' => array(
+                            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                            'color' => array('rgb' => 'cccccc')
+                        )
+                    )
+                );
+                $sheet->setCellValue('A'.$index, $periodName)
+                    ->setCellValue('B'.$index, count($item))
+                ;
+                $index++;
+                foreach($item as $element) {
+                    $user = User::model()->findByPk($element)->company;
+                    $sheet->setCellValue('A'.$index, $user);
+                    //$sheet->setCellValue('A'.$index, $element);
+                    
+                    $index++;
+                }
+            }
+        }
+        // --- End - "2 and more times a week"
+  
+        // Redirect output to a client's web browser (Excel5)
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Активность пользователей в разных перевозках за неделю на ' . date('Y-m-d H-i') . '.xls"');
+        header('Cache-Control: max-age=0');
+        // If you're serving to IE 9, then the following may be needed
+        header('Cache-Control: max-age=1');
+        // If you're serving to IE over SSL, then the following may be needed
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+        header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        header('Pragma: public'); // HTTP/1.0
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('php://output');
+        Yii::app()->end();
+    }
 }
