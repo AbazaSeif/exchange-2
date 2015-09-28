@@ -248,12 +248,13 @@ class StatisticsController extends Controller
     public function separatePeriodIntoWeeks($from, $to) 
     {
         set_time_limit(0);
-        
+        echo '1<br>';
         $weeks = [];
+        echo '2<br>';
         $from = strtotime($from);
-        $to = strtotime($to);
         echo $from.'<br>';
-        echo $to.'<br>';
+        $to = strtotime($to);
+        echo $to.'<br>'; exit;
         if ($from == $to) {
             $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $to)];
         } else {
