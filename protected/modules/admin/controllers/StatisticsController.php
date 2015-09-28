@@ -346,6 +346,8 @@ class StatisticsController extends Controller
                     $index++;
                 }
             }
+        } else {
+            $sheet->setCellValue('A'.$index, 'Нет данных за выбранный период.');
         }
         
         // --- End - "1 time a week"
@@ -369,13 +371,7 @@ class StatisticsController extends Controller
         
         for ($col = 'A'; $col != 'F'; $col++)
             $sheet->getColumnDimension($col)->setWidth(30); // setAutoSize(true);
-        
-        /*
-        $index = 5;
-        foreach ($resultMultipleTimes as $user) {
-        
-        }
-        */      
+         
         $index = 4;
         if(!empty($resultOneTime)) {
             foreach($resultMultipleTimes as $key => $item) {
@@ -401,6 +397,8 @@ class StatisticsController extends Controller
                     $index++;
                 }
             }
+        } else {
+            $sheet->setCellValue('A'.$index, 'Нет данных за выбранный период.');
         }
         // --- End - "2 and more times a week"
   
