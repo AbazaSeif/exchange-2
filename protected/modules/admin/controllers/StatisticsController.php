@@ -215,10 +215,37 @@ class StatisticsController extends Controller
     public function actionUserActivity($from, $to) {
         set_time_limit(0);
 
+        $weeks = [];
         $resultOneTime = array();
         $resultMultipleTimes = array();
+        $from = strtotime($from);
+        $to = strtotime($to);
         
-        $weeks = $this->separatePeriodIntoWeeks($from, $to);
+        //$weeks = $this->separatePeriodIntoWeeks($from, $to);
+        if ($from == $to) {
+            $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $to)];
+        } else {
+            while ($from < $to) {
+                $fromDay = date("N", $from); // a weekday number
+                if ($fromDay < 7) {
+                    $daysToSun = 7 - $fromDay;
+                    $end = strtotime("+ $daysToSun day", $from); // end of a week 
+                    if ($end > $to)
+                        $end = $to;
+
+                    if (date("n", $from) != date("n", $end)) { // if it's a new month
+                        $end = strtotime("last day of this month", $from);
+                    }
+
+                    $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $end)];
+                    $from = $end;
+                } else {
+                    $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $from)];
+                }
+
+                $from = strtotime("+1 day", $from);
+            }
+        }
         if (!empty($weeks)) {
             foreach ($weeks as $key => $week) {
                 $rates = Yii::app()->db->createCommand()
