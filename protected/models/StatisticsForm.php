@@ -21,6 +21,8 @@ class StatisticsForm extends CFormModel
             'type' => 'Перевозки',
             'date_from' => 'Период с',
             'date_to' => 'Период по',
+            'user_activity_date_from' => 'Период с',
+            'user_activity_date_to' => 'Период по',
         );
     }
 }
