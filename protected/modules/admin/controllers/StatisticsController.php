@@ -213,36 +213,36 @@ class StatisticsController extends Controller
     }
 
     public function actionUserActivity($from, $to) {
-//        set_time_limit(0);
-//
-//        $resultOneTime = array();
-//        $resultMultipleTimes = array();
-//
-//        $weeks = $this->separatePeriodIntoWeeks($from, $to);
-//        if (!empty($weeks)) {
-//            foreach ($weeks as $key => $week) {
-//                $rates = Yii::app()->db->createCommand()
-//                    ->select('*')
-//                    ->from('rate')
-//                    ->where('date between "' . date('Y-m-d', strtotime($week[0])) . '" and "' . date('Y-m-d', strtotime($week[1] . ' +1 days')) . '"')
-//                    ->group('user_id, transport_id')
-//                    ->queryAll()
-//                ;
-//                $temp = $tempMultiple = array();
-//                foreach ($rates as $rate) {
-//                    if (!in_array($rate['user_id'], $temp)) {
-//                        $resultOneTime[$key][] = $temp[] = $rate['user_id'];
-//                    } else if (!in_array($rate['user_id'], $tempMultiple)) {
-//                        if (($id = array_search($rate['user_id'], $resultOneTime[$key])) !== false) {
-//                            unset($resultOneTime[$key][$id]);
-//                        }
-//                        $resultMultipleTimes[$key][] = $tempMultiple[] = $rate['user_id'];
-//                    }
-//                }
-//            }
-//        }
+        set_time_limit(0);
 
-        //$this->actionGetActivity($from, $weeks, $to, $resultOneTime, $resultMultipleTimes);
+        $resultOneTime = array();
+        $resultMultipleTimes = array();
+
+        $weeks = $this->separatePeriodIntoWeeks($from, $to);
+        if (!empty($weeks)) {
+            foreach ($weeks as $key => $week) {
+                $rates = Yii::app()->db->createCommand()
+                    ->select('*')
+                    ->from('rate')
+                    ->where('date between "' . date('Y-m-d', strtotime($week[0])) . '" and "' . date('Y-m-d', strtotime($week[1] . ' +1 days')) . '"')
+                    ->group('user_id, transport_id')
+                    ->queryAll()
+                ;
+                $temp = $tempMultiple = array();
+                foreach ($rates as $rate) {
+                    if (!in_array($rate['user_id'], $temp)) {
+                        $resultOneTime[$key][] = $temp[] = $rate['user_id'];
+                    } else if (!in_array($rate['user_id'], $tempMultiple)) {
+                        if (($id = array_search($rate['user_id'], $resultOneTime[$key])) !== false) {
+                            unset($resultOneTime[$key][$id]);
+                        }
+                        $resultMultipleTimes[$key][] = $tempMultiple[] = $rate['user_id'];
+                    }
+                }
+            }
+        }
+
+        $this->actionGetActivity($from, $weeks, $to, $resultOneTime, $resultMultipleTimes);
     }
 
 //    public function separatePeriodIntoWeeks($from, $to) {
