@@ -223,8 +223,10 @@ class StatisticsController extends Controller
         
         //$weeks = $this->separatePeriodIntoWeeks($from, $to);
         if ($from == $to) {
+            echo 1; exit;
             $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $to)];
         } else {
+            echo 2; exit;
             while ($from < $to) {
                 $fromDay = date("N", $from); // a weekday number
                 if ($fromDay < 7) {
