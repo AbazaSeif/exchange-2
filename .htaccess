@@ -17,7 +17,7 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-#RewriteCond %{HTTP_HOST} ^exchange.lbr.ru/
-#RewriteRule ^(.*)$ http://exchange.lbr.ru/$1 [R=permanent,L]
+RewriteCond %{HTTP_HOST} ^exchange.lbr.ru/
+RewriteRule ^(.*)$ http://exchange.lbr.ru/$1 [R=permanent,L]
 # otherwise forward it to index.php
 RewriteRule . index.php
