@@ -218,7 +218,8 @@ class StatisticsController extends Controller
         $resultOneTime = array();
         $resultMultipleTimes = array();
         
-        $weeks = $this->separateIntoWeeks($from, $to);
+        //$weeks = $this->separateIntoWeeks($from, $to);
+        $weeks = $this->separateIntoWeeks();
         if (!empty($weeks)) {
             foreach ($weeks as $key => $week) {
                 $rates = Yii::app()->db->createCommand()
@@ -245,48 +246,49 @@ class StatisticsController extends Controller
         $this->actionGetActivity($from, $weeks, $to, $resultOneTime, $resultMultipleTimes);
     }
 
-    private function separateIntoWeeks($from, $to) 
+    //private function separateIntoWeeks($from, $to) 
+    private function separateIntoWeeks() 
     {
         $weeks = array();
         return $weeks;
         
-        echo 11; exit;
-        set_time_limit(0);
-        echo '1<br>';
-        $weeks = [];
-        echo '2<br>';
-        $from = strtotime($from);
-        echo $from.'<br>';
-        $to = strtotime($to);
-        echo $to.'<br>'; 
-        exit;
-        if ($from == $to) {
-            $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $to)];
-        } else {
-            while ($from < $to) {
-                $fromDay = date("N", $from); // a weekday number
-                if ($fromDay < 7) {
-                    $daysToSun = 7 - $fromDay;
-                    $end = strtotime("+ $daysToSun day", $from); // end of a week 
-                    if ($end > $to)
-                        $end = $to;
-
-                    if (date("n", $from) != date("n", $end)) { // if it's a new month
-                        $end = strtotime("last day of this month", $from);
-                    }
-
-                    $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $end)];
-                    $from = $end;
-                } else {
-                    $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $from)];
-                }
-
-                $from = strtotime("+1 day", $from);
-            }
-        }
-        echo '<pre>';
-        var_dump($weeks); exit;
-        return $weeks;
+//        echo 11; exit;
+//        set_time_limit(0);
+//        echo '1<br>';
+//        $weeks = [];
+//        echo '2<br>';
+//        $from = strtotime($from);
+//        echo $from.'<br>';
+//        $to = strtotime($to);
+//        echo $to.'<br>'; 
+//        exit;
+//        if ($from == $to) {
+//            $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $to)];
+//        } else {
+//            while ($from < $to) {
+//                $fromDay = date("N", $from); // a weekday number
+//                if ($fromDay < 7) {
+//                    $daysToSun = 7 - $fromDay;
+//                    $end = strtotime("+ $daysToSun day", $from); // end of a week 
+//                    if ($end > $to)
+//                        $end = $to;
+//
+//                    if (date("n", $from) != date("n", $end)) { // if it's a new month
+//                        $end = strtotime("last day of this month", $from);
+//                    }
+//
+//                    $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $end)];
+//                    $from = $end;
+//                } else {
+//                    $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $from)];
+//                }
+//
+//                $from = strtotime("+1 day", $from);
+//            }
+//        }
+//        echo '<pre>';
+//        var_dump($weeks); exit;
+//        return $weeks;
     }
 
     public function actionGetActivity($from, $weeks, $to, $resultOneTime, $resultMultipleTimes) 
