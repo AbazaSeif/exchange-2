@@ -218,11 +218,12 @@ class StatisticsController extends Controller
         $weeks = [];
         $resultOneTime = array();
         $resultMultipleTimes = array();
+        echo 222; exit;
         $from = strtotime($from);
         $to = strtotime($to);
         
         //$weeks = $this->separatePeriodIntoWeeks($from, $to);
-        if ($from == $to) {
+        /*if ($from == $to) {
             echo 1; exit;
             $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $to)];
         } else {
@@ -247,7 +248,7 @@ class StatisticsController extends Controller
 
                 $from = strtotime("+1 day", $from);
             }
-        }
+        }*/
         if (!empty($weeks)) {
             foreach ($weeks as $key => $week) {
                 $rates = Yii::app()->db->createCommand()
