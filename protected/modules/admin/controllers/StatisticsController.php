@@ -2,7 +2,9 @@
 
 class StatisticsController extends Controller {
 
-    public function actionIndex($transportType = 2) {
+    public function actionIndex($transportType = 2) 
+    {
+        echo 0; exit;
         $model = new StatisticsForm;
         $model->date_from = $model->user_activity_date_from = date('01-m-Y');
         $model->date_to = $model->user_activity_date_to = date('d-m-Y');
