@@ -268,8 +268,8 @@ class StatisticsController extends Controller
                 }
             }
         }
-
-        $this->actionGetActivity($from, $weeks, $to, $resultOneTime, $resultMultipleTimes);
+echo 5; exit;
+        //$this->actionGetActivity($from, $weeks, $to, $resultOneTime, $resultMultipleTimes);
     }
 
     /*public function separatePeriodIntoWeeks($from, $to) 
