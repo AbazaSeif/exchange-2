@@ -335,9 +335,16 @@ class StatisticsController extends Controller
                 $sheet->setCellValue('A'.$index, $periodName)
                     ->setCellValue('B'.$index, count($item))
                 ;
-                $index++;
+                $temp = array();
                 foreach($item as $element) {
                     $user = User::model()->findByPk($element)->company;
+                    $temp[] = $user;
+                }
+                sort($temp);
+                
+                $index++;
+                foreach($temp as $user) {
+                    //$user = User::model()->findByPk($element)->company;
                     $sheet->setCellValue('A'.$index, $user);
                     //$sheet->setCellValue('A'.$index, $element);
                     
@@ -386,9 +393,16 @@ class StatisticsController extends Controller
                 $sheet->setCellValue('A'.$index, $periodName)
                     ->setCellValue('B'.$index, count($item))
                 ;
-                $index++;
+                $temp = array();
                 foreach($item as $element) {
                     $user = User::model()->findByPk($element)->company;
+                    $temp[] = $user;
+                }
+                sort($temp);
+                
+                $index++;
+                foreach($temp as $user) {
+                    //$user = User::model()->findByPk($element)->company;
                     $sheet->setCellValue('A'.$index, $user);
                     //$sheet->setCellValue('A'.$index, $element);
                     
