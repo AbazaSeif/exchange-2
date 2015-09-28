@@ -250,9 +250,10 @@ class StatisticsController extends Controller
         $weeks = array();
         $from = strtotime($from);
         $to = strtotime($to);
-        return $weeks;
-//        if ($from == $to) {
-//            $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $to)];
+        
+        if ($from == $to) {
+            $weeks[] = [date('d.m.Y', $from), date('d.m.Y', $to)];
+        }
 //        } else {
 //            while ($from < $to) {
 //                $fromDay = date("N", $from); // a weekday number
