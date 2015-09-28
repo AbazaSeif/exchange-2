@@ -6,7 +6,7 @@ class StatisticsController extends Controller {
         $model = new StatisticsForm;
         $model->date_from = $model->user_activity_date_from = date('01-m-Y');
         $model->date_to = $model->user_activity_date_to = date('d-m-Y');
-
+echo 1; exit;
         $this->render('statistics', array('model' => $model));
     }
 
