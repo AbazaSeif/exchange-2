@@ -4,7 +4,14 @@ class StatisticsController extends Controller
 {
     public function actionIndex()
     {
-        echo 'test'; exit;
+        echo 'test <br>'; 
+        $model = new StatisticsForm;
+        $model->date_from = $model->user_activity_date_from = date('01-m-Y');
+        echo 'test 1 <br>'; 
+        $model->date_to = $model->user_activity_date_to = date('d-m-Y');
+        echo 'test 2 <br>'; 
+        exit;
+        $this->render('statistics', array('model' => $model));
     }
 }
 
