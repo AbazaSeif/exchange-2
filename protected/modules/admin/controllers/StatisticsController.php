@@ -245,9 +245,9 @@ class StatisticsController extends Controller
         $this->actionGetActivity($from, $weeks, $to, $resultOneTime, $resultMultipleTimes);
     }
 
-    public function separatePeriodIntoWeeks($from, $to) {
-        echo 1; exit;
-        /*$weeks = [];
+    public function separatePeriodIntoWeeks($from, $to) 
+    {
+        $weeks = [];
         $from = strtotime($from);
         $to = strtotime($to);
 
@@ -275,8 +275,9 @@ class StatisticsController extends Controller
                 $from = strtotime("+1 day", $from);
             }
         }
-
-        return $weeks;*/
+        echo '<pre>';
+        var_dump($weeks); exit;
+        return $weeks;
     }
 
 //    public function actionGetActivity($from, $weeks, $to, $resultOneTime, $resultMultipleTimes) 
