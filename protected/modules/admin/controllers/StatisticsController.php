@@ -218,7 +218,7 @@ class StatisticsController extends Controller
         $resultOneTime = array();
         $resultMultipleTimes = array();
         
-        $weeks = $this->separatePeriodIntoWeeks($from, $to);
+        $weeks = $this->separateIntoWeeks($from, $to);
         if (!empty($weeks)) {
             foreach ($weeks as $key => $week) {
                 $rates = Yii::app()->db->createCommand()
@@ -245,7 +245,7 @@ class StatisticsController extends Controller
         $this->actionGetActivity($from, $weeks, $to, $resultOneTime, $resultMultipleTimes);
     }
 
-    private function separatePeriodIntoWeeks($from, $to) 
+    private function separateIntoWeeks($from, $to) 
     {
         return array();
         
