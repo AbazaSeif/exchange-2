@@ -1282,6 +1282,9 @@ div.menu ul.nav li.item.parent ul.nav li:nth-of-type(2):after{
 .statistics .info-list{
     width: 360px !important;
 }
+.statistics.statistics-user-activity .info-list{
+    width: auto !important;
+}
 .statistics input.btn-admin{
     margin: 0 !important;
 }

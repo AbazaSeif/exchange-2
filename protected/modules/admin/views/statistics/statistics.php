@@ -31,7 +31,7 @@ $form = $this->beginWidget('CActiveForm', array(
                 <span>Период</span>
                 <span><?php echo $form->textField($model, 'date_from'); ?> - <?php echo $form->textField($model, 'date_to'); ?></span>
             </li>
-            <li><?php echo CHtml::button('Скачать Excel', array('class' => 'btn-admin')); ?>
+            <li><?php echo CHtml::button('Скачать Excel', array('class' => 'btn-statistics btn-admin')); ?>
             </li>
         </ul>
     </div>    
@@ -55,19 +55,15 @@ $form = $this->beginWidget('CActiveForm', array(
         }'
 )));
 ?>
-<div class="statistics">
+<div class="statistics statistics-user-activity">
     <div class="info">
         <ul class="info-list">
-            <li>Cтатистика активности пользователей</li>
-            <li>
-                <span>Тип</span>
-                <span><?php echo $form->dropDownList($model, 'type', array(0 => 'Все перевозки', 1 => 'Международные', 2 => 'Региональные')); ?></span>
-            </li>
+            <li>Aктивность пользователей в разных перевозках за неделю</li>
             <li>
                 <span>Период</span>
-                <span><?php echo $form->textField($model, 'date_from'); ?> - <?php echo $form->textField($model, 'date_to'); ?></span>
+                <span><?php echo $form->textField($model, 'user_activity_date_from'); ?> - <?php echo $form->textField($model, 'user_activity_date_to'); ?></span>
             </li>
-            <li><?php echo CHtml::button('Скачать Excel', array('class' => 'btn-admin')); ?>
+            <li><?php echo CHtml::button('Скачать Excel', array('class' => 'btn-admin btn-activity')); ?>
             </li>
         </ul>
     </div>    
@@ -97,11 +93,25 @@ $form = $this->beginWidget('CActiveForm', array(
     $("#StatisticsForm_date_to").datepicker({
         dateFormat: 'dd-mm-yy',
     });
+    
+    $("#StatisticsForm_user_activity_date_from").datepicker({
+        dateFormat: 'dd-mm-yy',
+    });
+    
+    $("#StatisticsForm_user_activity_date_to").datepicker({
+        dateFormat: 'dd-mm-yy',
+    });
 
-    $(".statistics .btn-admin").click(function () {
+    $(".statistics .btn-statistics").click(function () {
         var from = $('#StatisticsForm_date_from').val();
         var to = $('#StatisticsForm_date_to').val();
         var type = $('#StatisticsForm_type').val();
         window.location.replace('/admin/statistics/getExcel/from/' + from + '/to/' + to + '/type/' + type);
+    });
+    
+    $(".statistics .btn-activity").click(function () {
+        var from = $('#StatisticsForm_user_activity_date_from').val();
+        var to = $('#StatisticsForm_user_activity_date_to').val();
+        window.location.replace('/admin/statistics/userActivity/from/' + from + '/to/' + to);
     });
 </script>

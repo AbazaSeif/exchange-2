@@ -5,6 +5,8 @@ class StatisticsForm extends CFormModel
     public $type;
     public $date_from;
     public $date_to;
+    public $user_activity_date_from;
+    public $user_activity_date_to;
 
     public function rules()
     {

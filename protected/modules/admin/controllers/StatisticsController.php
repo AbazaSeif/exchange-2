@@ -4,8 +4,8 @@ class StatisticsController extends Controller {
 
     public function actionIndex($transportType = 2) {
         $model = new StatisticsForm;
-        $model->date_from = '2015-01-01';
-        $model->date_to = date('Y-m-d');
+        $model->date_from = $model->user_activity_date_from = date('01-m-Y');
+        $model->date_to = $model->user_activity_date_to = date('d-m-Y');
 
         $this->render('statistics', array('model' => $model));
     }
@@ -196,7 +196,7 @@ class StatisticsController extends Controller {
 
         // Redirect output to a clientâ€™s web browser (Excel5)
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="Статистика биржи перевозок на ' . date('Y-m-d H-i-s') . '.xls"');
+        header('Content-Disposition: attachment;filename="Статистика биржи перевозок на ' . date('Y-m-d H-i') . '.xls"');
         header('Cache-Control: max-age=0');
         // If you're serving to IE 9, then the following may be needed
         header('Cache-Control: max-age=1');
@@ -212,11 +212,11 @@ class StatisticsController extends Controller {
         Yii::app()->end();
     }
 
-    public function actionUserActivity() {
+    public function actionUserActivity($from, $to) {
         set_time_limit(0);
 
-        $from = '2015-01-01';
-        $to = '2015-09-24';
+        //$from = '2015-01-01';
+        //$to = '2015-09-24';
         
         $resultOneTime = array();
         $resultMultipleTimes = array();
@@ -406,7 +406,7 @@ class StatisticsController extends Controller {
   
         // Redirect output to a client's web browser (Excel5)
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="Статистика биржи перевозок на ' . date('Y-m-d H-i-s') . '.xls"');
+        header('Content-Disposition: attachment;filename="Активность пользователей в разных перевозках за неделю на ' . date('Y-m-d H-i') . '.xls"');
         header('Cache-Control: max-age=0');
         // If you're serving to IE 9, then the following may be needed
         header('Cache-Control: max-age=1');
