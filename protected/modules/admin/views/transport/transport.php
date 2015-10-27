@@ -25,7 +25,7 @@
             echo '<div class="uDelMessage success">'.$mess.'</div>';
         }
     ?>
-    <div id="tabs">
+    <div id="tabs" class="grid-wrapper">
         <ul>
             <li><a href="#tabs-active">Активные</a></li>
             <li><a href="#tabs-archive">Архивные</a></li>
@@ -103,7 +103,7 @@
         </div>
         <div id="tabs-del">
         <?php
-        $this->widget('zii.widgets.CListView', array(
+        /*$this->widget('zii.widgets.CListView', array(
             'dataProvider'=>$dataDel,
             'itemView'=>'_itemdeleted', // представление для одной записи
             'ajaxUpdate'=>false, // отключаем ajax поведение
@@ -120,6 +120,42 @@
 //                'lastPageLabel'=>'В конец >>',
 //                'firstPageLabel'=>'<< В начало',
 //                'maxButtonCount' => '5'
+            ),
+        ));*/
+        $this->widget('zii.widgets.grid.CGridView', array(
+            'id'=>'productListGrid',
+            //'filter'=>$model,
+            'dataProvider'=>$dataDel,
+            'template'=>'{items}{pager}{summary}',
+            'summaryText'=>'Элементы {start}—{end} из {count}.',
+            'pager' => array(
+                'class' => 'LinkPager',
+                //'header' => false,
+            ),
+            'columns' => array(
+                't_id',
+                array (
+                    'name'=>'location_from',
+                    'type'=>'raw',
+                    'value'=>'CHtml::link($data->location_from, array("edittransport","id"=>$data->id))',
+                ),                  
+                array (
+                    'name'=>'location_to',
+                    'type'=>'raw',
+                    'value'=>'CHtml::link($data->location_to, array("edittransport","id"=>$data->id))',
+                ), 
+                'date_close',
+                'del_date',
+                'del_reason'
+                /*array(
+                    'class'=>'CButtonColumn',
+                    'template'=>'{update}', // '{update}{delete}',
+                    'buttons'=>array (
+                        'update' => array (
+                            'url'=>'Yii::app()->createUrl("admin/product/edit", array("id"=>$data->id))',
+                        ),
+                    ),
+                ),*/
             ),
         ));
         ?>

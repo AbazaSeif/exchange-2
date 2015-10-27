@@ -1426,7 +1426,14 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
 }
 
 .items tr td:first-child {
-    width: 20%;
+    width: 10%;
+}
+.items tr td:nth-child(4), .items tr td:nth-child(5) {
+    width: 15%;
+}
+
+.items tr td:last-child {
+    width: 30%;
 }
 /*---- Конец Greed view ----*/
 
@@ -1637,4 +1644,110 @@ div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-draggable
     font-size: 13px;
 }
 /*----- end Pop-up window ------------------------*/
+/*----- Grid-view --------------------------------*/
+.wrapper .grid-view select, .wrapper .grid-view input {
+    height: 20px;
+    margin: 0;
+    min-height: 16px;
+    min-width: 35px;
+    padding: 0 8px;
+}
+
+
+.grid-wrapper, .user-wrapper, .wide-wrapper {
+    background: none repeat scroll 0 0 #eee;
+    border: 1px solid silver;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.grid-wrapper .grid-view {
+    padding: 0;
+}
+.grid-wrapper .grid-view table.items {
+    border: 0;
+    border-collapse: collapse;
+    width: 100%;
+    background: none;
+    /*margin-bottom: 10px;*/
+}
+.grid-wrapper .grid-view table.items th:first-child {
+    border-top-left-radius: 5px;
+}
+.grid-wrapper .grid-view table.items th {
+    color: #444;
+    font-weight: bold;
+    height: 27px;
+    padding: 0 0 0 3px;
+    background: none;
+    text-align: left;
+}
+.grid-wrapper .grid-view table.items th, .grid-view table.items td {
+    font-size: 0.9em;
+    padding: 0.3em;
+}
+caption, th {
+    text-align: left;
+}
+.grid-wrapper .grid-view table.items th a {
+    color: #444;
+    font-weight: bold;
+    text-decoration: none;
+}
+a {
+    cursor: pointer;
+    outline: medium none;
+    text-decoration: none;
+}
+.grid-wrapper .grid-view table.items tr.odd, .grid-wrapper .grid-view table.items tr.odd.selected:hover, table.detail-view.imagesList tr.odd {
+    /*background: none repeat scroll 0 0 #fae9d2;*/
+    background-color: #fae9d2;
+}
+
+table.detail-view.imagesList th{
+    font-weight: normal;
+}
+
+.grid-wrapper .grid-view table.items tr.even, .grid-wrapper .grid-view table.items tr.even.selected:hover {
+    background: none repeat scroll 0 0 #f8f8f8;
+}
+.grid-wrapper .grid-view table.items th, .grid-wrapper .grid-view table.items td {
+    border: none;
+}
+.grid-wrapper .grid-view table.items td:first-child{
+    padding-left: 5px;
+    /*width: 20px;*/
+}
+.grid-empty{
+    font-style: italic;
+    margin-top: 15px;
+}
+
+.grid-wrapper .grid-view table.items th a:hover{
+    color: #969595;
+}
+a:link, a:visited, a.light, a:hover, .user-order {
+    /*color: #f39314;*/
+    color: #cc790c;
+    font-weight: bold;
+}
+.grid-view .filters input, .grid-view .filters select {
+    border: 1px solid #ccc;
+    width: 100%;
+}
+.grid-view select, .grid-view input {
+    height: 20px;
+    min-height: 16px;
+    min-width: 35px;
+    padding: 2px 8px;
+    margin: 0;
+}
+.grid-view table.items th, .grid-view table.items td {
+    font-size: 0.9em;
+    padding: 0.3em;
+}
+.grid-wrapper .grid-view-loading {
+    background-position: top right;
+    background-repeat: no-repeat;
+}
+/*----- end Grid-view ----------------------------*/
 
