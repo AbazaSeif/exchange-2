@@ -12,8 +12,6 @@ class ChangesController extends Controller
 
             if (!empty($_GET['Changes']))
                 $model->attributes = $_GET['Changes'];
-                    
-            $dataProvider = $model->search();
             
             $users = Changes::model()->findAll(array(
                 'select'=>'user_id',
@@ -62,7 +60,6 @@ class ChangesController extends Controller
             
             $this->render('changes', array(
                 'model'=>$model,
-                'data'=>$dataProvider,
                 'filter'=>$filter,
             ));
         /*} else {

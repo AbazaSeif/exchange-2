@@ -16,7 +16,7 @@ class Changes extends CActiveRecord
     public function rules()
     {
        return array(
-           array('date', 'safe'),
+           array('id, date, description, user', 'safe'),
            //array('id, date, user_id', 'safe', 'on'=>'search'),
            array('id, date, description, user', 'safe', 'on'=>'search'),
        );
@@ -123,25 +123,24 @@ class Changes extends CActiveRecord
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-
-        if(!empty($this->user_id)) {
-            /*$user = Yii::app()->db_auth->createCommand()
+        $criteria->compare('id',$this->id);
+        if(!empty($this->user)) {
+            $user = Yii::app()->db_auth->createCommand()
                 ->select('login')
                 ->from('user')
-                ->where('id = '.trim($this->user_id))
+                ->where('id = '.trim($this->user))
                 ->queryRow()
-            ;*/
-            //$criteria->compare('user', $this->userid);
-            //$criteria->addCondition('user like "'.$user['login'].'%"', 'OR');
+            ;
+            $criteria->compare('user', $this->user);
+            $criteria->addCondition('user like "'.$user['login'].'%"', 'OR');
         } else $criteria->compare('user_id', $this->user);
-
-        $criteria->compare('id',$this->id);
-        $criteria->compare('date',$this->date,true);
         
         if(Yii::app()->search->prepareSqlite()) {
             if(!empty($this->description))$criteria->addCondition('lower(description) like lower("%' . $this->description . '%")');
+            if(!empty($this->date))$criteria->addCondition('lower(date) like lower("%' . $this->date . '%")');
         } else {
             $criteria->compare('description',$this->description,true);
+            $criteria->compare('date',$this->date,true);
         }
 
         return new CActiveDataProvider($this, array(

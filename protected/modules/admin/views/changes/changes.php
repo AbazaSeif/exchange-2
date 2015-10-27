@@ -1,11 +1,11 @@
-<h1>История редактирования</h1>
+<h1>Журнал редактирования</h1>
 <div class="grid-wrapper">
     <?php
     $this->widget('zii.widgets.grid.CGridView', array(
-        'id'=>'changesListGrid',
+        //'id'=>'changesListGrid',
         'emptyText'=>'Нет информации',
         'filter'=>$model,
-        'dataProvider'=>$data,
+        'dataProvider'=>$model->search(),
         'template'=>'{items}{pager}{summary}',
         'summaryText'=>'Элементы {start}—{end} из {count}.',
         'pager' => array(
@@ -20,7 +20,7 @@
             array(
                 'name'=>'id',
                 'type'=>'raw',
-                'filter'=>false,
+                //'filter'=>false,
                 'value'=>'CHtml::link($data->id, array("showchanges","id"=>$data->id))'
             ),
             array(

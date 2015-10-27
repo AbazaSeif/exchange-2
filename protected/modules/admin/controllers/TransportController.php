@@ -17,7 +17,6 @@ class TransportController extends Controller
                 $dataActive->type = $transportType;
             
             $dataActive->status = 1;
-            $activeProvider = $dataActive->search();
             
             // Archive transport
             
@@ -30,7 +29,6 @@ class TransportController extends Controller
                 $dataArchive->type = $transportType;
             
             $dataArchive->status = 0;
-            $archiveProvider = $dataArchive->search();
             
             // Draft transport
             $dataDraft = new Transport;

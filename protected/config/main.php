@@ -126,7 +126,7 @@ return array(
             ),
             'Перевозки' => '/admin/transport/',
             'Статистика' => '/admin/statistics/',
-            'История редактирования' => '/admin/changes/',
+            'Журнал редактирования' => '/admin/changes/',
         ),
 
         'supportEmail' => 'support.ex@lbr.ru',
