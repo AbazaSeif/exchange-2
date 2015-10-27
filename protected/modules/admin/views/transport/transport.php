@@ -34,71 +34,140 @@
         </ul>
         <div id="tabs-active">
             <?php
-                $this->widget('zii.widgets.CListView', array(
-                    'dataProvider'=>$dataActive,
-                    'itemView'=>'_item', // представление для одной записи
-                    'ajaxUpdate'=>false, // отключаем ajax поведение
-                    'emptyText'=>'Нет перевозок',
-                    'template'=>'{sorter} {items} {pager}',
-                    'sorterHeader'=>'',
-                    'itemsTagName'=>'ul',
-                    'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'num_rates'=>'Кол-во ставок', 'num_users'=>'Кол-во фирм', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка', 'start_rate'=>'Начальная ставка'),
-                    'pager'=>array(
-                        'class'=>'LinkPager',
-                        'header'=>false,
-//                        'prevPageLabel'=>'<',
-//                        'nextPageLabel'=>'>',
-//                        'lastPageLabel'=>'В конец >>',
-//                        'firstPageLabel'=>'<< В начало',
-//                        'maxButtonCount' => '5'
+//                $this->widget('zii.widgets.CListView', array(
+//                    'dataProvider'=>$dataActive,
+//                    'itemView'=>'_item', // представление для одной записи
+//                    'ajaxUpdate'=>false, // отключаем ajax поведение
+//                    'emptyText'=>'Нет перевозок',
+//                    'template'=>'{sorter} {items} {pager}',
+//                    'sorterHeader'=>'',
+//                    'itemsTagName'=>'ul',
+//                    'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'num_rates'=>'Кол-во ставок', 'num_users'=>'Кол-во фирм', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка', 'start_rate'=>'Начальная ставка'),
+//                    'pager'=>array(
+//                        'class'=>'LinkPager',
+//                        'header'=>false,
+//                    ),
+//                ));
+                $this->widget('zii.widgets.grid.CGridView', array(
+                    'filter'=>$dataActive,
+                    'dataProvider'=>$dataActive->search(),
+                    'template'=>'{items}{pager}{summary}',
+                    'summaryText'=>'Элементы {start}—{end} из {count}.',
+                    'pager' => array(
+                        'class' => 'LinkPager',
+                        //'header' => false,
+                    ),
+                    'columns' => array(
+                        't_id',
+                        array(
+                            'name'=>'date_close',
+                            'value'=>'date("Y-m-d H:i", strtotime($data->date_close))',
+                        ),               
+                        array (
+                            'name'=>'location_from',
+                            'type'=>'raw',
+                            'value'=>'CHtml::link($data->location_from, array("edittransport","id"=>$data->id))',
+                        ),                  
+                        array (
+                            'name'=>'location_to',
+                            'type'=>'raw',
+                            'value'=>'CHtml::link($data->location_to, array("edittransport","id"=>$data->id))',
+                        ), 
+                        'start_rate'
                     ),
                 ));
             ?>
         </div>
         <div id="tabs-archive">
         <?php
-        $this->widget('zii.widgets.CListView', array(
-            'dataProvider'=>$dataArchive,
-            'itemView'=>'_item', // представление для одной записи
-            'ajaxUpdate'=>false, // отключаем ajax поведение
-            'emptyText'=>'Нет перевозок',
-            'template'=>'{sorter} {items} {pager}',
-            'sorterHeader'=>'',
-            'itemsTagName'=>'ul',
-            'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'num_rates'=>'Кол-во ставок', 'num_users'=>'Кол-во фирм', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка', 'start_rate'=>'Начальная ставка'),
-            'pager'=>array(
-                'class'=>'LinkPager',
-                'header'=>false,
-//                'prevPageLabel'=>'<',
-//                'nextPageLabel'=>'>',
-//                'lastPageLabel'=>'В конец >>',
-//                'firstPageLabel'=>'<< В начало',
-                //'maxButtonCount' => '5'
-            ),
-        ));
+//        $this->widget('zii.widgets.CListView', array(
+//            'dataProvider'=>$dataArchive,
+//            'itemView'=>'_item', // представление для одной записи
+//            'ajaxUpdate'=>false, // отключаем ajax поведение
+//            'emptyText'=>'Нет перевозок',
+//            'template'=>'{sorter} {items} {pager}',
+//            'sorterHeader'=>'',
+//            'itemsTagName'=>'ul',
+//            'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'num_rates'=>'Кол-во ставок', 'num_users'=>'Кол-во фирм', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка', 'start_rate'=>'Начальная ставка'),
+//            'pager'=>array(
+//                'class'=>'LinkPager',
+//                'header'=>false,
+//            ),
+//        ));
+            $this->widget('zii.widgets.grid.CGridView', array(
+                'filter'=>$dataArchive,
+                'dataProvider'=>$dataArchive->search(),
+                'template'=>'{items}{pager}{summary}',
+                'summaryText'=>'Элементы {start}—{end} из {count}.',
+                'pager' => array(
+                    'class' => 'LinkPager',
+                    //'header' => false,
+                ),
+                'columns' => array(
+                    't_id',
+                    array(
+                        'name'=>'date_close',
+                        'value'=>'date("Y-m-d H:i", strtotime($data->date_close))',
+                    ), 
+                    array (
+                        'name'=>'location_from',
+                        'type'=>'raw',
+                        'value'=>'CHtml::link($data->location_from, array("edittransport","id"=>$data->id))',
+                    ),                  
+                    array (
+                        'name'=>'location_to',
+                        'type'=>'raw',
+                        'value'=>'CHtml::link($data->location_to, array("edittransport","id"=>$data->id))',
+                    ), 
+                    'start_rate'
+                ),
+            ));
         ?>
         </div>
         <div id="tabs-draft">
         <?php
-        $this->widget('zii.widgets.CListView', array(
-            'dataProvider'=>$dataDraft,
-            'itemView'=>'_item', // представление для одной записи
-            'ajaxUpdate'=>false, // отключаем ajax поведение
-            'emptyText'=>'Нет перевозок',
-            'template'=>'{sorter} {items} {pager}',
-            'sorterHeader'=>'',
-            'itemsTagName'=>'ul',
-            'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'num_rates'=>'Кол-во ставок', 'num_users'=>'Кол-во фирм', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка', 'start_rate'=>'Начальная ставка'),
-            'pager'=>array(
-                'class'=>'LinkPager',
-                'header'=>false,
-//                'prevPageLabel'=>'<',
-//                'nextPageLabel'=>'>',
-//                'lastPageLabel'=>'В конец >>',
-//                'firstPageLabel'=>'<< В начало',
-//                'maxButtonCount' => '5'
-            ),
-        ));
+//        $this->widget('zii.widgets.CListView', array(
+//            'dataProvider'=>$dataDraft,
+//            'itemView'=>'_item', // представление для одной записи
+//            'ajaxUpdate'=>false, // отключаем ajax поведение
+//            'emptyText'=>'Нет перевозок',
+//            'template'=>'{sorter} {items} {pager}',
+//            'sorterHeader'=>'',
+//            'itemsTagName'=>'ul',
+//            'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'num_rates'=>'Кол-во ставок', 'num_users'=>'Кол-во фирм', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка', 'start_rate'=>'Начальная ставка'),
+//            'pager'=>array(
+//                'class'=>'LinkPager',
+//                'header'=>false,
+//            ),
+//        ));
+            $this->widget('zii.widgets.grid.CGridView', array(
+                'filter'=>$dataDraft,
+                'dataProvider'=>$dataDraft->search(),
+                'template'=>'{items}{pager}{summary}',
+                'summaryText'=>'Элементы {start}—{end} из {count}.',
+                'pager' => array(
+                    'class' => 'LinkPager',
+                    //'header' => false,
+                ),
+                'columns' => array(
+                    't_id',
+                    array(
+                        'name'=>'date_close',
+                        'value'=>'date("Y-m-d H:i", strtotime($data->date_close))',
+                    ),
+                    array (
+                        'name'=>'location_from',
+                        'type'=>'raw',
+                        'value'=>'CHtml::link($data->location_from, array("edittransport","id"=>$data->id))',
+                    ),                  
+                    array (
+                        'name'=>'location_to',
+                        'type'=>'raw',
+                        'value'=>'CHtml::link($data->location_to, array("edittransport","id"=>$data->id))',
+                    ), 
+                    'start_rate'
+                ),
+            ));
         ?>
         </div>
         <div id="tabs-del">
@@ -123,7 +192,6 @@
             ),
         ));*/
         $this->widget('zii.widgets.grid.CGridView', array(
-            'id'=>'productListGrid',
             'filter'=>$dataDel,
             'dataProvider'=>$dataDel->search(),
             'template'=>'{items}{pager}{summary}',
@@ -144,18 +212,15 @@
                     'type'=>'raw',
                     'value'=>'CHtml::link($data->location_to, array("edittransport","id"=>$data->id))',
                 ), 
-                'date_close',
-                'del_date',
+                array(
+                    'name'=>'date_close',
+                    'value'=>'date("Y-m-d H:i", strtotime($data->date_close))',
+                ),
+                array(
+                    'name'=>'del_date',
+                    'value'=>'date("Y-m-d H:i", strtotime($data->del_date))',
+                ),
                 'del_reason'
-                /*array(
-                    'class'=>'CButtonColumn',
-                    'template'=>'{update}', // '{update}{delete}',
-                    'buttons'=>array (
-                        'update' => array (
-                            'url'=>'Yii::app()->createUrl("admin/product/edit", array("id"=>$data->id))',
-                        ),
-                    ),
-                ),*/
             ),
         ));
         ?>

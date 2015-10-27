@@ -144,8 +144,7 @@ class Transport extends CActiveRecord
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
-
+		$criteria = new CDbCriteria;
 		$criteria->compare('id',$this->id);
 		$criteria->compare('t_id',$this->t_id,true);
 		$criteria->compare('new_transport',$this->new_transport);
@@ -164,16 +163,14 @@ class Transport extends CActiveRecord
 		$criteria->compare('pto',$this->pto,true);
 		$criteria->compare('close_reason',$this->pto,true);
                 
-                if (Yii::app()->search->prepareSqlite()) {
-                    $locationFrom = 'lower(location_from) like lower("%' . $this->location_from . '%")';
-                    $criteria->addCondition($locationFrom);
-                    $locationTo = 'lower(location_to) like lower("%' . $this->location_to . '%")';
-                    $criteria->addCondition($locationTo);
-                    $delReason = 'lower(del_reason) like lower("%' . $this->del_reason . '%")';
-                    $criteria->addCondition($delReason);
+                if(Yii::app()->search->prepareSqlite()) {
+                    if(!empty($this->location_from))$criteria->addCondition('lower(location_from) like lower("%' . $this->location_from . '%")');
+                    if(!empty($this->location_to)) $criteria->addCondition('lower(location_to) like lower("%' . $this->location_to . '%")');
+                    if(!empty($this->del_reason)) $criteria->addCondition('lower(del_reason) like lower("%' . $this->del_reason . '%")');
                 } else {
                     $criteria->compare('location_from',$this->location_from,true);
 		    $criteria->compare('location_to',$this->location_to,true);
+		    $criteria->compare('del_reason',$this->del_reason,true);
                 }
 
 		return new CActiveDataProvider($this, array(

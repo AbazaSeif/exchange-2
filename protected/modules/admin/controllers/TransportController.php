@@ -6,158 +6,42 @@ class TransportController extends Controller
     {
         $showAllTransports = 2;
         if(Yii::app()->user->checkAccess('readTransport'))
-        {
-            $criteriaActive = new CDbCriteria();            
-            if($transportType != $showAllTransports) {
-                $criteriaActive->condition = 't.status = :status and t.type = :type';
-                $criteriaActive->params = array(':status' => 1, ':type' => $transportType);
-            } else {
-                $criteriaActive->condition = 't.status = :status';
-                $criteriaActive->params = array(':status' => 1);
-            }
+        {            
+            // Active transport
+            $dataActive = new Transport;
+            $dataActive->unsetAttributes();
+            if (!empty($_GET['Transport']))
+                $dataActive->attributes = $_GET['Transport'];   
             
-            $criteriaArchive = new CDbCriteria();
-            if($transportType != $showAllTransports) {
-                $criteriaArchive->condition = 't.status = :status and t.type = :type';
-                $criteriaArchive->params = array(':status' => 0, ':type' => $transportType);
-            } else {
-                $criteriaArchive->condition = 't.status = :status';
-                $criteriaArchive->params = array(':status' => 0);
-            }
+            if($transportType != $showAllTransports) 
+                $dataActive->type = $transportType;
             
-            $criteriaDraft = new CDbCriteria();
-            if($transportType != $showAllTransports) {
-                $criteriaDraft->condition = 't.status = :status and t.type = :type';
-                $criteriaDraft->params = array(':status' => 2, ':type' => $transportType);
-            } else {
-                $criteriaDraft->condition = 't.status = :status';
-                $criteriaDraft->params = array(':status' => 2);
-            }
+            $dataActive->status = 1;
             
+            // Archive transport
             
+            $dataArchive = new Transport;
+            $dataArchive->unsetAttributes();
+            if (!empty($_GET['Transport']))
+                $dataArchive->attributes = $_GET['Transport'];   
             
-            $sort = new CSort();
-            $sort->sortVar = 'sort';
-            $sort->defaultOrder = 'date_close desc, t_id';
+            if($transportType != $showAllTransports) 
+                $dataArchive->type = $transportType;
             
-            $sort->attributes = array(
-                'location_from' => array(
-                    'location_from' => 'Место разгрузки',
-                    'asc' => 'location_from ASC',
-                    'desc' => 'location_from DESC',
-                    'default' => 'asc',
-                ),
-                'location_to' => array(
-                    'location_to' => 'Место загрузки',
-                    'asc' => 'location_to ASC',
-                    'desc' => 'location_to DESC',
-                    'default' => 'asc',
-                ),
-                't_id' => array(
-                    't_id' => 'Id перевозки',
-                    'asc' => 't_id ASC',
-                    'desc' => 't_id DESC',
-                    'default' => 'asc',
-                ),
-                'date_close' => array(
-                    'asc' => 'date_close ASC',
-                    'desc' => 'date_close DESC',
-                    'default' => 'asc',
-                ),
-                'start_rate' => array(
-                    'asc' => 'start_rate ASC',
-                    'desc' => 'start_rate DESC',
-                    'default' => 'asc',
-                ),
-            );
+            $dataArchive->status = 0;
             
-            $sortActive = new CSort();
-            $sortActive->sortVar = 'sort';
-            $sortActive->defaultOrder = 'date_close asc, t_id';
+            // Draft transport
+            $dataDraft = new Transport;
+            $dataDraft->unsetAttributes();
+            if (!empty($_GET['Transport']))
+                $dataDraft->attributes = $_GET['Transport'];   
             
-            $sortActive->attributes = array(
-                'location_from' => array(
-                    'location_from' => 'Место разгрузки',
-                    'asc' => 'location_from ASC',
-                    'desc' => 'location_from DESC',
-                    'default' => 'asc',
-                ),
-                'location_to' => array(
-                    'location_to' => 'Место загрузки',
-                    'asc' => 'location_to ASC',
-                    'desc' => 'location_to DESC',
-                    'default' => 'asc',
-                ),
-                't_id' => array(
-                    't_id' => 'Id перевозки',
-                    'asc' => 't_id ASC',
-                    'desc' => 't_id DESC',
-                    'default' => 'asc',
-                ),
-                'date_close' => array(
-                    'asc' => 'date_close ASC',
-                    'desc' => 'date_close DESC',
-                    'default' => 'asc',
-                ),
-                'start_rate' => array(
-                    'asc' => 'start_rate ASC',
-                    'desc' => 'start_rate DESC',
-                    'default' => 'asc',
-                ),
-            );
-
-            $dataActive = new CActiveDataProvider('Transport', 
-                array(
-                    'criteria' => $criteriaActive,
-                    'sort' => $sortActive,
-                    'pagination' => array(
-                        'pageSize' => '10'
-                    )
-                )
-            );
+            if($transportType != $showAllTransports) 
+                $dataDraft->type = $transportType;
             
-            $dataArchive = new CActiveDataProvider('Transport', 
-                array(
-                    'criteria' => $criteriaArchive,
-                    'sort' => $sort,
-                    'pagination' => array(
-                        'pageSize'=>'10'
-                    )
-                )
-            );
+            $dataDraft->status = 2;
             
-            $dataDraft = new CActiveDataProvider('Transport', 
-                array(
-                    'criteria' => $criteriaDraft,
-                    'sort' => $sort,
-                    'pagination' => array(
-                        'pageSize'=>'10'
-                    )
-                )
-            );
-            
-            //$sortDel = new CSort();
-            //$sortDel->sortVar = 'sort';
-            //$sortDel->defaultOrder = 'del_date desc, date_close';
-            
-//            $dataDel = new CActiveDataProvider('Transport', 
-//                array(
-//                    'criteria' => $criteriaDel,
-//                    //'sort' => $sortDel,
-//                    'pagination' => array(
-//                        'pageSize'=>'10'
-//                    )
-//                )
-//            );
-//            $criteriaDel = new CDbCriteria();
-//            if($transportType != $showAllTransports) {
-//                $criteriaDel->condition = 't.status = :status and t.type = :type';
-//                $criteriaDel->params = array(':status' => 3, ':type' => $transportType);
-//            } else {
-//                $criteriaDel->condition = 't.status = :status';
-//                $criteriaDel->params = array(':status' => 3);
-//            }
-            
+            // Deleted transport
             $dataDel = new Transport;
             $dataDel->unsetAttributes();
             if (!empty($_GET['Transport']))
@@ -167,7 +51,6 @@ class TransportController extends Controller
                 $dataDel->type = $transportType;
             
             $dataDel->status = 3;
-            //$dataDel = $model->search();
 
             if ($id = Yii::app()->user->getFlash('saved_id')) {
                 $model = Transport::model()->findByPk($id);
@@ -176,7 +59,14 @@ class TransportController extends Controller
                 $view = $this->renderPartial('edittransport', array('model'=>$model, 'rates'=>$rates, 'points'=>$points), true, true);
             }
             
-            $this->render('transport', array('dataActive'=>$dataActive, 'dataArchive'=>$dataArchive, 'dataDraft' =>$dataDraft, 'dataDel' =>$dataDel, 'view'=>$view, 'type' => $transportType));
+            $this->render('transport', array(
+                'dataActive'=>$dataActive, 
+                'dataArchive'=>$dataArchive, 
+                'dataDraft' =>$dataDraft, 
+                'dataDel' =>$dataDel, 
+                'view'=>$view, 
+                'type' => $transportType
+            ));
         } else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
         }
