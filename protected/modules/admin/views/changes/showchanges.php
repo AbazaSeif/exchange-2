@@ -1,47 +1,35 @@
-<?php
-    $close_text = 'Закрыть';
-    $user = Yii::app()->db_auth->createCommand()
-        ->from('user')
-        ->where('id = '.$id)
-        ->queryRow()
-    ;
-    $header_form = '"'.$user[surname].' '.$user[name].'"';
-?>
 <div class="total show-changes">
-    <h1>История редактирования пользователя <?php echo $header_form; ?></h1>
+    <h1>История редактирования пользователя <?php echo $user; ?></h1>
     <div class="buttons">
         <?php
-            echo CHtml::button($close_text,array('id'=>'close-changes', 'class'=>'btn-admin')); 
+            echo CHtml::button('Закрыть',array('id'=>'close-changes', 'class'=>'btn-admin')); 
         ?>
         <div style="clear:both"></div>
     </div>
+    <div class="grid-wrapper">
     <?php
         if(count($data->getData())){
             $this->widget('zii.widgets.grid.CGridView', array(
                 'dataProvider'=>$data,
-                'id' => 'grid-changes',
-                'summaryText'=>'Показано {start} — {end} из {count}',
+                //'id' => 'grid-changes',
+                'template'=>'{items}{pager}{summary}',
+                'summaryText'=>'Элементы {start}—{end} из {count}.',
                 'columns'=>array(
                     'date' => array(
                         'name' => 'date',
-                        'value' => 'date("d.m.Y H:i", strtotime($data->date))',
+                        'value' => 'date("Y-m-d H:i", strtotime($data->date))',
                     ),
                     'description',
                 ),
                 'pager'=>array(
                     'class'=>'LinkPager',
-                    'header'=>false,
-                    'prevPageLabel'=>'<',
-                    'nextPageLabel'=>'>', //'<img src="images/pagination/left.png">',
-                    'lastPageLabel'=>'В конец >>',
-                    'firstPageLabel'=>'<< В начало',
-                    'maxButtonCount' => '5'
-                ),
+                )
             )); 
         } else {
             echo '<div>Пусто</div>';
         }
     ?>
+    </div>
 </div>
 <script>
     $(document).ready(function(){ 

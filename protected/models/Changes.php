@@ -16,7 +16,8 @@ class Changes extends CActiveRecord
     {
        return array(
            array('date', 'safe'),
-           array('id, date, user_id', 'safe', 'on'=>'search'),
+           //array('id, date, user_id', 'safe', 'on'=>'search'),
+           array('id, date, description', 'safe', 'on'=>'search'),
        );
     }
 
@@ -113,6 +114,54 @@ class Changes extends CActiveRecord
             }
             Changes::saveChange($message);
             return;
+        }
+    }
+    
+    public function search()
+    {
+        // @todo Please modify the following code to remove attributes that should not be searched.
+
+        $criteria = new CDbCriteria;
+
+        //if(!empty($this->user_id)) {
+            /*$user = Yii::app()->db_auth->createCommand()
+                ->select('login')
+                ->from('user')
+                ->where('id = '.trim($this->user_id))
+                ->queryRow()
+            ;*/
+            //$criteria->compare('user', $this->userid);
+            //$criteria->addCondition('user like "'.$user['login'].'%"', 'OR');
+        //} else $criteria->compare('user_id', $this->user);
+
+        $criteria->compare('id',$this->id);
+        $criteria->compare('date',$this->date,true);
+        $criteria->compare('description',$this->description,true);
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+            'sort' => array(
+                'defaultOrder' => 'date DESC',
+            ),
+        ));
+    }
+    
+    public static function getAuthUser($id){
+        if (isset($id)) {
+
+            if(is_numeric($id)) {
+                $sql = "SELECT surname, name, secondname FROM user WHERE id=".$id.";";   
+            } else {
+                $sql = "SELECT surname, name, secondname FROM user WHERE login = '".trim($id)."';";
+            }
+
+            $result = Yii::app()->db_auth->createCommand($sql)->queryRow();
+            if(!$result) $userName = $id;
+            else $userName = $result['surname'].' '.$result['name'].' '.$result['secondname'];
+
+            return $userName;
+        } else {
+            return false;
         }
     }
 }

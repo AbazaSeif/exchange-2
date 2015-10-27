@@ -148,6 +148,9 @@ ul.yiiPager .first, ul.yiiPager .last {
 .pager{
      padding: 5px 5px 10px 0;
 }
+.grid-wrapper a{
+    color: #222222;
+}
 .summary {
     font-size: 11px;
     margin: 0 0 5px;
