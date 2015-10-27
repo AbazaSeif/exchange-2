@@ -173,15 +173,17 @@ class Transport extends CActiveRecord
 		    $criteria->compare('location_to',$this->location_to,true);
 		    $criteria->compare('del_reason',$this->del_reason,true);
                 }
-
-                $criteria->order = 'del_date DESC';
-                        
+     
 		return new CActiveDataProvider($this, array(
 	            'criteria'=>$criteria,
-                    'sort'=>array(
-                        'defaultOrder' => 't.del_date',
-                        'attributes'=>array('*')
-                    )
+                    'sort' => array(
+                        'defaultOrder' => 'date_close DESC',
+                        'multiSort' => true,
+                        'sortVar'  => 'sort',
+                        'attributes'=>array(
+                            '*'
+                        ),
+                    ),
 		));
 	}
 

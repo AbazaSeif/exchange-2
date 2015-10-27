@@ -17,6 +17,7 @@ class TransportController extends Controller
                 $dataActive->type = $transportType;
             
             $dataActive->status = 1;
+            $activeProvider = $dataActive->search();
             
             // Archive transport
             
@@ -29,6 +30,7 @@ class TransportController extends Controller
                 $dataArchive->type = $transportType;
             
             $dataArchive->status = 0;
+            $archiveProvider = $dataArchive->search();
             
             // Draft transport
             $dataDraft = new Transport;
@@ -51,8 +53,6 @@ class TransportController extends Controller
                 $dataDel->type = $transportType;
             
             $dataDel->status = 3;
-            $delProvider = $dataDel->search();
-            //$delProvider->sort->defaultOrder = 'del_date';
 
             if ($id = Yii::app()->user->getFlash('saved_id')) {
                 $model = Transport::model()->findByPk($id);
@@ -66,7 +66,6 @@ class TransportController extends Controller
                 'dataArchive'=>$dataArchive, 
                 'dataDraft' =>$dataDraft, 
                 'dataDel' =>$dataDel, 
-                'delProvider' => $delProvider,
                 'view'=>$view, 
                 'type' => $transportType
             ));

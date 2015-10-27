@@ -124,7 +124,6 @@
                                     }
                                 }
                                 
-                                
                                 return $label;
                             }
                         ), 
@@ -392,7 +391,7 @@
         <?php
         $this->widget('zii.widgets.grid.CGridView', array(
             'filter'=>$dataDel,
-            'dataProvider'=>$delProvider,
+            'dataProvider'=>$dataDel->search(),
             'template'=>'{items}{pager}{summary}',
             'summaryText'=>'Элементы {start}—{end} из {count}.',
             'pager' => array(
