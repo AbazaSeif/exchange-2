@@ -124,16 +124,7 @@ class Changes extends CActiveRecord
 
         $criteria = new CDbCriteria;
         $criteria->compare('id',$this->id);
-        if(!empty($this->user)) {
-            $user = Yii::app()->db_auth->createCommand()
-                ->select('login')
-                ->from('user')
-                ->where('id = '.trim($this->user))
-                ->queryRow()
-            ;
-            $criteria->compare('user', $this->user);
-            $criteria->addCondition('user like "'.$user['login'].'%"', 'OR');
-        } else $criteria->compare('user_id', $this->user);
+        $criteria->compare('user_id', $this->user);
         
         if(Yii::app()->search->prepareSqlite()) {
             if(!empty($this->description))$criteria->addCondition('lower(description) like lower("%' . $this->description . '%")');
