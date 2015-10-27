@@ -46,11 +46,11 @@
                     'pager'=>array(
                         'class'=>'LinkPager',
                         'header'=>false,
-                        'prevPageLabel'=>'<',
-                        'nextPageLabel'=>'>',
-                        'lastPageLabel'=>'В конец >>',
-                        'firstPageLabel'=>'<< В начало',
-                        'maxButtonCount' => '5'
+//                        'prevPageLabel'=>'<',
+//                        'nextPageLabel'=>'>',
+//                        'lastPageLabel'=>'В конец >>',
+//                        'firstPageLabel'=>'<< В начало',
+//                        'maxButtonCount' => '5'
                     ),
                 ));
             ?>
@@ -69,11 +69,11 @@
             'pager'=>array(
                 'class'=>'LinkPager',
                 'header'=>false,
-                'prevPageLabel'=>'<',
-                'nextPageLabel'=>'>',
-                'lastPageLabel'=>'В конец >>',
-                'firstPageLabel'=>'<< В начало',
-                'maxButtonCount' => '5'
+//                'prevPageLabel'=>'<',
+//                'nextPageLabel'=>'>',
+//                'lastPageLabel'=>'В конец >>',
+//                'firstPageLabel'=>'<< В начало',
+                //'maxButtonCount' => '5'
             ),
         ));
         ?>
@@ -92,11 +92,11 @@
             'pager'=>array(
                 'class'=>'LinkPager',
                 'header'=>false,
-                'prevPageLabel'=>'<',
-                'nextPageLabel'=>'>',
-                'lastPageLabel'=>'В конец >>',
-                'firstPageLabel'=>'<< В начало',
-                'maxButtonCount' => '5'
+//                'prevPageLabel'=>'<',
+//                'nextPageLabel'=>'>',
+//                'lastPageLabel'=>'В конец >>',
+//                'firstPageLabel'=>'<< В начало',
+//                'maxButtonCount' => '5'
             ),
         ));
         ?>
@@ -115,11 +115,11 @@
             'pager'=>array(
                 'class'=>'LinkPager',
                 'header'=>false,
-                'prevPageLabel'=>'<',
-                'nextPageLabel'=>'>',
-                'lastPageLabel'=>'В конец >>',
-                'firstPageLabel'=>'<< В начало',
-                'maxButtonCount' => '5'
+//                'prevPageLabel'=>'<',
+//                'nextPageLabel'=>'>',
+//                'lastPageLabel'=>'В конец >>',
+//                'firstPageLabel'=>'<< В начало',
+//                'maxButtonCount' => '5'
             ),
         ));
         ?>
