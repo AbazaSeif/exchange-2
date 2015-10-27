@@ -160,7 +160,7 @@
 }
 .mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
 .mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar{
-	background:rgba(10,133,115,0.9);
+	background:rgba(243, 147, 20, 0.9);
    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0a8573', endColorstr='#0a8573');
 }
 .mCSB_scrollTools .mCSB_buttonUp,

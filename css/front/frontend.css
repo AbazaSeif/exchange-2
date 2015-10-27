@@ -814,7 +814,7 @@ strong.regular{
 .transports .items
 {
     overflow: auto;
-    height: 390px;
+    height: 350px;
 }
 
 .mCSB_scrollTools .mCSB_buttonDown {
@@ -1531,7 +1531,7 @@ input.r-submit {
     margin: 0;
     padding: 0 10px;
     background: none;
-    color: rgb(0, 145, 124);
+    color: #969595;
     display: block;
     text-decoration: none;
 }
