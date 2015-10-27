@@ -155,8 +155,6 @@ class Transport extends CActiveRecord
 		$criteria->compare('type',$this->type);
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('currency',$this->currency);
-		$criteria->compare('location_from',$this->location_from,true);
-		$criteria->compare('location_to',$this->location_to,true);
 		$criteria->compare('auto_info',$this->auto_info,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('date_close',$this->date_close,true);
@@ -165,6 +163,18 @@ class Transport extends CActiveRecord
 		$criteria->compare('date_published',$this->date_published,true);
 		$criteria->compare('pto',$this->pto,true);
 		$criteria->compare('close_reason',$this->pto,true);
+                
+                if (Yii::app()->search->prepareSqlite()) {
+                    $locationFrom = 'lower(location_from) like lower("%' . $this->location_from . '%")';
+                    $criteria->addCondition($locationFrom);
+                    $locationTo = 'lower(location_to) like lower("%' . $this->location_to . '%")';
+                    $criteria->addCondition($locationTo);
+                    $delReason = 'lower(del_reason) like lower("%' . $this->del_reason . '%")';
+                    $criteria->addCondition($delReason);
+                } else {
+                    $criteria->compare('location_from',$this->location_from,true);
+		    $criteria->compare('location_to',$this->location_to,true);
+                }
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -104,6 +104,9 @@ return array(
             'class' => 'CDbAuthManager',
             'connectionID' => 'db_auth',
         ),
+        'search'=>array(
+            'class'=>'SearchComponent',
+        )
     ),
 
     // application-level parameters that can be accessed

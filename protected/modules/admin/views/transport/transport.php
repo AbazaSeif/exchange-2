@@ -124,8 +124,8 @@
         ));*/
         $this->widget('zii.widgets.grid.CGridView', array(
             'id'=>'productListGrid',
-            //'filter'=>$model,
-            'dataProvider'=>$dataDel,
+            'filter'=>$dataDel,
+            'dataProvider'=>$dataDel->search(),
             'template'=>'{items}{pager}{summary}',
             'summaryText'=>'Элементы {start}—{end} из {count}.',
             'pager' => array(

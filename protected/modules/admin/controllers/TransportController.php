@@ -34,14 +34,7 @@ class TransportController extends Controller
                 $criteriaDraft->params = array(':status' => 2);
             }
             
-            $criteriaDel = new CDbCriteria();
-            if($transportType != $showAllTransports) {
-                $criteriaDel->condition = 't.status = :status and t.type = :type';
-                $criteriaDel->params = array(':status' => 3, ':type' => $transportType);
-            } else {
-                $criteriaDel->condition = 't.status = :status';
-                $criteriaDel->params = array(':status' => 3);
-            }
+            
             
             $sort = new CSort();
             $sort->sortVar = 'sort';
@@ -143,19 +136,38 @@ class TransportController extends Controller
                 )
             );
             
-            $sortDel = new CSort();
-            $sortDel->sortVar = 'sort';
-            $sortDel->defaultOrder = 'del_date desc, date_close';
+            //$sortDel = new CSort();
+            //$sortDel->sortVar = 'sort';
+            //$sortDel->defaultOrder = 'del_date desc, date_close';
             
-            $dataDel = new CActiveDataProvider('Transport', 
-                array(
-                    'criteria' => $criteriaDel,
-                    'sort' => $sortDel,
-                    'pagination' => array(
-                        'pageSize'=>'10'
-                    )
-                )
-            );
+//            $dataDel = new CActiveDataProvider('Transport', 
+//                array(
+//                    'criteria' => $criteriaDel,
+//                    //'sort' => $sortDel,
+//                    'pagination' => array(
+//                        'pageSize'=>'10'
+//                    )
+//                )
+//            );
+//            $criteriaDel = new CDbCriteria();
+//            if($transportType != $showAllTransports) {
+//                $criteriaDel->condition = 't.status = :status and t.type = :type';
+//                $criteriaDel->params = array(':status' => 3, ':type' => $transportType);
+//            } else {
+//                $criteriaDel->condition = 't.status = :status';
+//                $criteriaDel->params = array(':status' => 3);
+//            }
+            
+            $dataDel = new Transport;
+            $dataDel->unsetAttributes();
+            if (!empty($_GET['Transport']))
+                $dataDel->attributes = $_GET['Transport'];   
+            
+            if($transportType != $showAllTransports) 
+                $dataDel->type = $transportType;
+            
+            $dataDel->status = 3;
+            //$dataDel = $model->search();
 
             if ($id = Yii::app()->user->getFlash('saved_id')) {
                 $model = Transport::model()->findByPk($id);
