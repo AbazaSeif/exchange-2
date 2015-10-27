@@ -125,6 +125,36 @@ input, textarea{
     float: left;
     width: 40%;
 }
+/*----- start Pagination --------------------*/
+ul.yiiPager .first, ul.yiiPager .last {
+    display: inline !important;
+}
+.grid-wrapper ul.yiiPager a:hover {
+    background: none repeat scroll 0 0 #d0d6da;
+}
+.grid-wrapper ul.yiiPager .selected a {
+    background: none repeat scroll 0 0 #d0d6da;
+    color: #444;
+    font-weight: bold;
+}
+.grid-wrapper ul.yiiPager a:link, .grid-wrapper ul.yiiPager a:visited {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: inherit;
+    font-weight: bold;
+    padding: 2px 8px;
+    text-decoration: none;
+}
+.pager{
+     padding: 5px 5px 10px 0;
+}
+.summary {
+    font-size: 11px;
+    margin: 0 0 5px;
+    padding: 2px;
+    text-align: right;
+}
+/*----- end Pagination ----------------------*/
 /*-- Start Quick form --*/
 .quick-result {
     background: none repeat scroll 0 0 #FFFFFF;
@@ -1725,11 +1755,10 @@ table.detail-view.imagesList th{
 .grid-wrapper .grid-view table.items th a:hover{
     color: #969595;
 }
-a:link, a:visited, a.light, a:hover, .user-order {
-    /*color: #f39314;*/
+/*a:link, a:visited, a.light, a:hover, .user-order {
     color: #cc790c;
     font-weight: bold;
-}
+}*/
 .grid-view .filters input, .grid-view .filters select {
     border: 1px solid #ccc;
     width: 100%;
