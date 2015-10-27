@@ -34,20 +34,6 @@
         </ul>
         <div id="tabs-active">
             <?php
-//                $this->widget('zii.widgets.CListView', array(
-//                    'dataProvider'=>$dataActive,
-//                    'itemView'=>'_item', // представление для одной записи
-//                    'ajaxUpdate'=>false, // отключаем ajax поведение
-//                    'emptyText'=>'Нет перевозок',
-//                    'template'=>'{sorter} {items} {pager}',
-//                    'sorterHeader'=>'',
-//                    'itemsTagName'=>'ul',
-//                    'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'num_rates'=>'Кол-во ставок', 'num_users'=>'Кол-во фирм', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка', 'start_rate'=>'Начальная ставка'),
-//                    'pager'=>array(
-//                        'class'=>'LinkPager',
-//                        'header'=>false,
-//                    ),
-//                ));
                 $this->widget('zii.widgets.grid.CGridView', array(
                     'filter'=>$dataActive,
                     'dataProvider'=>$dataActive->search(),
@@ -73,27 +59,95 @@
                             'type'=>'raw',
                             'value'=>'CHtml::link($data->location_to, array("edittransport","id"=>$data->id))',
                         ), 
-                        'start_rate'
-                    ),
+                        array (
+                            'header'=>'Кол-во ставок',
+                            'filter'=>false,
+                            'type'=>'raw',
+                            'value' => function($data){
+                                return Rate::model()->countByAttributes(array(
+                                    'transport_id'=> $data->id
+                                ));
+                            }
+                        ), 
+                        array (
+                            'header'=>'Кол-во фирм',
+                            'filter'=>false,
+                            'type'=>'raw',
+                            'value' => function($data){
+                                $users = Yii::app()->db->createCommand(array(
+                                    'select'   => 'user_id',
+                                    'distinct' => 'true',
+                                    'from'     => 'rate',
+                                    'where'    => 'transport_id = ' . $data->id,
+                                ))->queryAll();
+                                
+                                return count($users);
+                            }
+                        ), 
+                        array (
+                            'header'=>'Фирма-победитель',
+                            'filter'=>false,
+                            'type'=>'raw',
+                            'value' => function($data){
+                                $label = 'Нет ставок';
+                                if(!empty($data->rate_id)) {
+                                    $rate = Rate::model()->findByPk($data->rate_id);
+                                    $ferryman = User::model()->findByPk($rate->user_id);
+                                    if($ferryman) $label = $ferryman->company;
+                                }
+                                
+                                return $label;
+                            }
+                        ), 
+                        array (
+                            'header'=>'Лучшая ставка',
+                            'filter'=>false,
+                            'type'=>'raw',
+                            'value' => function($data) {
+                                $label = '';
+                                $rate = Rate::model()->findByPk($data->rate_id);
+                                if ($rate) {
+                                    $ferrymanField = UserField::model()->findByAttributes(array('user_id'=>$rate->user_id));
+                                    
+                                    $currency = ' €';
+                                    if (!$data->currency) {
+                                       $currency = ' руб.';
+                                    } else if($data->currency == 1) {
+                                       $currency = ' $';
+                                    }
+                                    
+                                    $label = floor($rate->price) . $currency;
+                                    if($ferrymanField->with_nds && $data->type == Transport::RUS_TRANSPORT) {
+                                        $price = ceil($rate->price + $rate->price * Yii::app()->params['nds']);
+                                        if($price%10 != 0) $price -= $price%10;
+                                        $label .= '<br> (c НДС: '. $price . ' '. $currency . ')';
+                                    }
+                                }
+                                
+                                
+                                return $label;
+                            }
+                        ), 
+                        array (
+                            'header'=>'Начальная ставка',
+                            'name'=>'start_rate',
+                            'type'=>'raw',
+                            'value' => function($data) {
+                                $currency = ' €';
+                                if (!$data->currency) {
+                                   $currency = ' руб.';
+                                } else if($data->currency == 1) {
+                                   $currency = ' $';
+                                }
+                                return $data->start_rate.$currency;
+                            }
+                        )
+                    )
                 ));
             ?>
         </div>
         <div id="tabs-archive">
         <?php
-//        $this->widget('zii.widgets.CListView', array(
-//            'dataProvider'=>$dataArchive,
-//            'itemView'=>'_item', // представление для одной записи
-//            'ajaxUpdate'=>false, // отключаем ajax поведение
-//            'emptyText'=>'Нет перевозок',
-//            'template'=>'{sorter} {items} {pager}',
-//            'sorterHeader'=>'',
-//            'itemsTagName'=>'ul',
-//            'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'num_rates'=>'Кол-во ставок', 'num_users'=>'Кол-во фирм', 'win' => 'Фирма-победитель', 'price'=>'Лучшая ставка', 'start_rate'=>'Начальная ставка'),
-//            'pager'=>array(
-//                'class'=>'LinkPager',
-//                'header'=>false,
-//            ),
-//        ));
             $this->widget('zii.widgets.grid.CGridView', array(
                 'filter'=>$dataArchive,
                 'dataProvider'=>$dataArchive->search(),
@@ -108,7 +162,7 @@
                     array(
                         'name'=>'date_close',
                         'value'=>'date("Y-m-d H:i", strtotime($data->date_close))',
-                    ), 
+                    ),               
                     array (
                         'name'=>'location_from',
                         'type'=>'raw',
@@ -119,8 +173,90 @@
                         'type'=>'raw',
                         'value'=>'CHtml::link($data->location_to, array("edittransport","id"=>$data->id))',
                     ), 
-                    'start_rate'
-                ),
+                    array (
+                        'header'=>'Кол-во ставок',
+                        'filter'=>false,
+                        'type'=>'raw',
+                        'value' => function($data){
+                            return Rate::model()->countByAttributes(array(
+                                'transport_id'=> $data->id
+                            ));
+                        }
+                    ), 
+                    array (
+                        'header'=>'Кол-во фирм',
+                        'filter'=>false,
+                        'type'=>'raw',
+                        'value' => function($data){
+                            $users = Yii::app()->db->createCommand(array(
+                                'select'   => 'user_id',
+                                'distinct' => 'true',
+                                'from'     => 'rate',
+                                'where'    => 'transport_id = ' . $data->id,
+                            ))->queryAll();
+
+                            return count($users);
+                        }
+                    ), 
+                    array (
+                        'header'=>'Фирма-победитель',
+                        'filter'=>false,
+                        'type'=>'raw',
+                        'value' => function($data){
+                            $label = 'Нет ставок';
+                            if(!empty($data->rate_id)) {
+                                $rate = Rate::model()->findByPk($data->rate_id);
+                                $ferryman = User::model()->findByPk($rate->user_id);
+                                if($ferryman) $label = $ferryman->company;
+                            }
+
+                            return $label;
+                        }
+                    ), 
+                    array (
+                        'header'=>'Лучшая ставка',
+                        'filter'=>false,
+                        'type'=>'raw',
+                        'value' => function($data) {
+                            $label = '';
+                            $rate = Rate::model()->findByPk($data->rate_id);
+                            if ($rate) {
+                                $ferrymanField = UserField::model()->findByAttributes(array('user_id'=>$rate->user_id));
+
+                                $currency = ' €';
+                                if (!$data->currency) {
+                                   $currency = ' руб.';
+                                } else if($data->currency == 1) {
+                                   $currency = ' $';
+                                }
+
+                                $label = floor($rate->price) . $currency;
+                                if($ferrymanField->with_nds && $data->type == Transport::RUS_TRANSPORT) {
+                                    $price = ceil($rate->price + $rate->price * Yii::app()->params['nds']);
+                                    if($price%10 != 0) $price -= $price%10;
+                                    $label .= '<br> (c НДС: '. $price . ' '. $currency . ')';
+                                }
+                            }
+
+
+                            return $label;
+                        }
+                    ), 
+                    array (
+                        'header'=>'Начальная ставка',
+                        'name'=>'start_rate',
+                        'type'=>'raw',
+                        'value' => function($data) {
+                            $currency = ' €';
+                            if (!$data->currency) {
+                               $currency = ' руб.';
+                            } else if($data->currency == 1) {
+                               $currency = ' $';
+                            }
+                            return $data->start_rate.$currency;
+                        }
+                    )
+                )
             ));
         ?>
         </div>
@@ -154,7 +290,7 @@
                     array(
                         'name'=>'date_close',
                         'value'=>'date("Y-m-d H:i", strtotime($data->date_close))',
-                    ),
+                    ),               
                     array (
                         'name'=>'location_from',
                         'type'=>'raw',
@@ -165,8 +301,90 @@
                         'type'=>'raw',
                         'value'=>'CHtml::link($data->location_to, array("edittransport","id"=>$data->id))',
                     ), 
-                    'start_rate'
-                ),
+                    array (
+                        'header'=>'Кол-во ставок',
+                        'filter'=>false,
+                        'type'=>'raw',
+                        'value' => function($data){
+                            return Rate::model()->countByAttributes(array(
+                                'transport_id'=> $data->id
+                            ));
+                        }
+                    ), 
+                    array (
+                        'header'=>'Кол-во фирм',
+                        'filter'=>false,
+                        'type'=>'raw',
+                        'value' => function($data){
+                            $users = Yii::app()->db->createCommand(array(
+                                'select'   => 'user_id',
+                                'distinct' => 'true',
+                                'from'     => 'rate',
+                                'where'    => 'transport_id = ' . $data->id,
+                            ))->queryAll();
+
+                            return count($users);
+                        }
+                    ), 
+                    array (
+                        'header'=>'Фирма-победитель',
+                        'filter'=>false,
+                        'type'=>'raw',
+                        'value' => function($data){
+                            $label = 'Нет ставок';
+                            if(!empty($data->rate_id)) {
+                                $rate = Rate::model()->findByPk($data->rate_id);
+                                $ferryman = User::model()->findByPk($rate->user_id);
+                                if($ferryman) $label = $ferryman->company;
+                            }
+
+                            return $label;
+                        }
+                    ), 
+                    array (
+                        'header'=>'Лучшая ставка',
+                        'filter'=>false,
+                        'type'=>'raw',
+                        'value' => function($data) {
+                            $label = '';
+                            $rate = Rate::model()->findByPk($data->rate_id);
+                            if ($rate) {
+                                $ferrymanField = UserField::model()->findByAttributes(array('user_id'=>$rate->user_id));
+
+                                $currency = ' €';
+                                if (!$data->currency) {
+                                   $currency = ' руб.';
+                                } else if($data->currency == 1) {
+                                   $currency = ' $';
+                                }
+
+                                $label = floor($rate->price) . $currency;
+                                if($ferrymanField->with_nds && $data->type == Transport::RUS_TRANSPORT) {
+                                    $price = ceil($rate->price + $rate->price * Yii::app()->params['nds']);
+                                    if($price%10 != 0) $price -= $price%10;
+                                    $label .= '<br> (c НДС: '. $price . ' '. $currency . ')';
+                                }
+                            }
+
+
+                            return $label;
+                        }
+                    ), 
+                    array (
+                        'header'=>'Начальная ставка',
+                        'name'=>'start_rate',
+                        'type'=>'raw',
+                        'value' => function($data) {
+                            $currency = ' €';
+                            if (!$data->currency) {
+                               $currency = ' руб.';
+                            } else if($data->currency == 1) {
+                               $currency = ' $';
+                            }
+                            return $data->start_rate.$currency;
+                        }
+                    )
+                )
             ));
         ?>
         </div>

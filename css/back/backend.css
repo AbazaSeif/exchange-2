@@ -1458,11 +1458,20 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
 .items tr td:first-child {
     width: 10%;
 }
-.items tr td:nth-child(4), .items tr td:nth-child(5) {
+.items tr td a{
+    text-decoration: underline;
+}
+.items tr td a:hover{
+    text-decoration: none;
+}
+.items tr td:nth-child(8) {
+    width: 15%;
+}
+#tabs-del .items tr td:nth-child(4), #tabs-del .items tr td:nth-child(5) {
     width: 15%;
 }
 
-.items tr td:last-child {
+#tabs-del .items tr td:last-child {
     width: 30%;
 }
 /*---- Конец Greed view ----*/
