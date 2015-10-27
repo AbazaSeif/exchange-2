@@ -451,11 +451,11 @@ div.ui-widget-header {
 .user-menu li a, .logout
 {
     display: block;
-    color: rgb(0, 145, 124);
+    color: #5f5e5e;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
     padding: 3px 0px 3px 7px;
-    border-top: 1px dashed rgb(0, 145, 124);
+    border-top: 1px dashed #555;
 }
 
 .logout{

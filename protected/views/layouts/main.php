@@ -14,8 +14,8 @@
         <link rel="stylesheet" type="text/css" href="/css/front/frontend.css?<?php echo time(); ?>" />
         <link rel="stylesheet" type="text/css" href="/css/front/jquery.mCustomScrollbar.css" />
         <link rel="shortcut icon" type="image/jpg" href="<?php echo Yii::app()->request->baseUrl.'/images/favicon.jpg';?>"/>
-        <script src="http://exchange.lbr.ru:3001/socket.io/socket.io.js"></script>
-        <!--script src="http://localhost:3000/socket.io/socket.io.js"></script-->
+        <!--script src="http://exchange.lbr.ru:3001/socket.io/socket.io.js"></script-->
+        <script src="http://localhost:3000/socket.io/socket.io.js"></script>
         <?php
             Yii::app()->clientScript->registerCoreScript('jquery');
             Yii::app()->clientScript->registerScriptFile('/js/easyTooltip.js');
