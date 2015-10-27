@@ -159,6 +159,7 @@ class Transport extends CActiveRecord
 		$criteria->compare('date_close',$this->date_close,true);
 		$criteria->compare('date_from',$this->date_from,true);
 		$criteria->compare('date_to',$this->date_to,true);
+		$criteria->compare('del_date',$this->del_date,true);
 		$criteria->compare('date_published',$this->date_published,true);
 		$criteria->compare('pto',$this->pto,true);
 		$criteria->compare('close_reason',$this->pto,true);
@@ -173,8 +174,14 @@ class Transport extends CActiveRecord
 		    $criteria->compare('del_reason',$this->del_reason,true);
                 }
 
+                $criteria->order = 'del_date DESC';
+                        
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+	            'criteria'=>$criteria,
+                    'sort'=>array(
+                        'defaultOrder' => 't.del_date',
+                        'attributes'=>array('*')
+                    )
 		));
 	}
 

@@ -1467,11 +1467,11 @@ header .menu:after, .right form .name:after, .right form .description:after,.rig
 .items tr td:nth-child(2), .items tr td:nth-child(8) {
     width: 15%;
 }
-#tabs-del .items tr td:nth-child(4), #tabs-del .items tr td:nth-child(5) {
+#tabs-del .items tr td:nth-child(1), #tabs-del .items tr td:last-child  {
     width: 15%;
 }
 
-#tabs-del .items tr td:last-child {
+#tabs-del .items tr td:nth-child(2) {
     width: 30%;
 }
 /*---- Конец Greed view ----*/

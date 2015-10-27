@@ -116,11 +116,11 @@
                                        $currency = ' $';
                                     }
                                     
-                                    $label = floor($rate->price) . $currency;
+                                    $label = number_format(floor($rate->price), 0, '.', ' ') . $currency;
                                     if($ferrymanField->with_nds && $data->type == Transport::RUS_TRANSPORT) {
                                         $price = ceil($rate->price + $rate->price * Yii::app()->params['nds']);
                                         if($price%10 != 0) $price -= $price%10;
-                                        $label .= '<br> (c НДС: '. $price . ' '. $currency . ')';
+                                        $label .= '<br> (c НДС: '. number_format($price, 0, '.', ' ') . ' '. $currency . ')';
                                     }
                                 }
                                 
@@ -139,7 +139,7 @@
                                 } else if($data->currency == 1) {
                                    $currency = ' $';
                                 }
-                                return $data->start_rate.$currency;
+                                return number_format($data->start_rate, 0, '.', ' ').$currency;
                             }
                         )
                     )
@@ -230,11 +230,11 @@
                                    $currency = ' $';
                                 }
 
-                                $label = floor($rate->price) . $currency;
+                                $label = number_format(floor($rate->price), 0, '.', ' ') . $currency;
                                 if($ferrymanField->with_nds && $data->type == Transport::RUS_TRANSPORT) {
                                     $price = ceil($rate->price + $rate->price * Yii::app()->params['nds']);
                                     if($price%10 != 0) $price -= $price%10;
-                                    $label .= '<br> (c НДС: '. $price . ' '. $currency . ')';
+                                    $label .= '<br> (c НДС: '. number_format($price, 0, '.', ' ') . ' '. $currency . ')';
                                 }
                             }
 
@@ -253,7 +253,7 @@
                             } else if($data->currency == 1) {
                                $currency = ' $';
                             }
-                            return $data->start_rate.$currency;
+                            return number_format($data->start_rate, 0, '.', ' ').$currency;
                         }
                     )
                 )
@@ -358,11 +358,11 @@
                                    $currency = ' $';
                                 }
 
-                                $label = floor($rate->price) . $currency;
+                                $label = number_format(floor($rate->price), 0, '.', ' ') . $currency;
                                 if($ferrymanField->with_nds && $data->type == Transport::RUS_TRANSPORT) {
                                     $price = ceil($rate->price + $rate->price * Yii::app()->params['nds']);
                                     if($price%10 != 0) $price -= $price%10;
-                                    $label .= '<br> (c НДС: '. $price . ' '. $currency . ')';
+                                    $label .= '<br> (c НДС: '. number_format($price, 0, '.', ' ') . ' '. $currency . ')';
                                 }
                             }
 
@@ -381,7 +381,7 @@
                             } else if($data->currency == 1) {
                                $currency = ' $';
                             }
-                            return $data->start_rate.$currency;
+                            return number_format($data->start_rate, 0, '.', ' ').$currency;
                         }
                     )
                 )
@@ -390,28 +390,9 @@
         </div>
         <div id="tabs-del">
         <?php
-        /*$this->widget('zii.widgets.CListView', array(
-            'dataProvider'=>$dataDel,
-            'itemView'=>'_itemdeleted', // представление для одной записи
-            'ajaxUpdate'=>false, // отключаем ajax поведение
-            'emptyText'=>'Нет перевозок',
-            'template'=>'{sorter} {items} {pager}',
-            'sorterHeader'=>'',
-            'itemsTagName'=>'ul',
-            'sortableAttributes'=>array('t_id', 'date_close', 'location_from', 'location_to', 'del_date'=>'Дата удаления', 'del_reason'=>'Причина удаления и автор'),
-            'pager'=>array(
-                'class'=>'LinkPager',
-                'header'=>false,
-//                'prevPageLabel'=>'<',
-//                'nextPageLabel'=>'>',
-//                'lastPageLabel'=>'В конец >>',
-//                'firstPageLabel'=>'<< В начало',
-//                'maxButtonCount' => '5'
-            ),
-        ));*/
         $this->widget('zii.widgets.grid.CGridView', array(
             'filter'=>$dataDel,
-            'dataProvider'=>$dataDel->search(),
+            'dataProvider'=>$delProvider,
             'template'=>'{items}{pager}{summary}',
             'summaryText'=>'Элементы {start}—{end} из {count}.',
             'pager' => array(
@@ -419,6 +400,11 @@
                 //'header' => false,
             ),
             'columns' => array(
+                array(
+                    'name'=>'del_date',
+                    'value'=>'date("Y-m-d H:i", strtotime($data->del_date))',
+                ),
+                'del_reason',
                 't_id',
                 array (
                     'name'=>'location_from',
@@ -432,13 +418,9 @@
                 ), 
                 array(
                     'name'=>'date_close',
+                    'header'=>'Плановое закрытие',
                     'value'=>'date("Y-m-d H:i", strtotime($data->date_close))',
-                ),
-                array(
-                    'name'=>'del_date',
-                    'value'=>'date("Y-m-d H:i", strtotime($data->del_date))',
-                ),
-                'del_reason'
+                )
             ),
         ));
         ?>
