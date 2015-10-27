@@ -1,6 +1,7 @@
 <?php
 class Changes extends CActiveRecord
 {
+    public $user;
     /**
     * @return string the associated database table name
     */
@@ -17,7 +18,7 @@ class Changes extends CActiveRecord
        return array(
            array('date', 'safe'),
            //array('id, date, user_id', 'safe', 'on'=>'search'),
-           array('id, date, description', 'safe', 'on'=>'search'),
+           array('id, date, description, user', 'safe', 'on'=>'search'),
        );
     }
 
@@ -123,7 +124,7 @@ class Changes extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        //if(!empty($this->user_id)) {
+        if(!empty($this->user_id)) {
             /*$user = Yii::app()->db_auth->createCommand()
                 ->select('login')
                 ->from('user')
@@ -132,14 +133,22 @@ class Changes extends CActiveRecord
             ;*/
             //$criteria->compare('user', $this->userid);
             //$criteria->addCondition('user like "'.$user['login'].'%"', 'OR');
-        //} else $criteria->compare('user_id', $this->user);
+        } else $criteria->compare('user_id', $this->user);
 
         $criteria->compare('id',$this->id);
         $criteria->compare('date',$this->date,true);
-        $criteria->compare('description',$this->description,true);
+        
+        if(Yii::app()->search->prepareSqlite()) {
+            if(!empty($this->description))$criteria->addCondition('lower(description) like lower("%' . $this->description . '%")');
+        } else {
+            $criteria->compare('description',$this->description,true);
+        }
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
+            'pagination'=>array(
+                'pageSize'=>12
+            ),
             'sort' => array(
                 'defaultOrder' => 'date DESC',
             ),

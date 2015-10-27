@@ -4,7 +4,7 @@
     $this->widget('zii.widgets.grid.CGridView', array(
         'id'=>'changesListGrid',
         'emptyText'=>'Нет информации',
-        //'filter'=>$model,
+        'filter'=>$model,
         'dataProvider'=>$data,
         'template'=>'{items}{pager}{summary}',
         'summaryText'=>'Элементы {start}—{end} из {count}.',
@@ -25,21 +25,20 @@
             ),
             array(
                 'name'=>'date',
-                //'type'=>'raw',
                 //'filter'=>false,
                 'value'=>'date("Y-m-d H:i", strtotime($data->date))',
             ),
             array(
                 'name'=>'user',
                 'header'=> 'Пользователь',
-                //'filter' => $filter,
+                'filter' => $filter,
                 'type'=>'raw',
                 'value'=>'Changes::getAuthUser($data->user_id)',
             ),
             array(
                 'name'=>'description',
                 'type'=>'raw',
-                'filter'=>false,
+                //'filter'=>false,
                 'value'=>function($data){
                     return '<div class="description">'.htmlspecialchars($data->description).'</div>';
                 },

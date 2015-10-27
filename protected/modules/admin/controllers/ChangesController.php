@@ -14,7 +14,6 @@ class ChangesController extends Controller
                 $model->attributes = $_GET['Changes'];
                     
             $dataProvider = $model->search();
-            $dataProvider->pagination->pageSize = 12;
             
             $users = Changes::model()->findAll(array(
                 'select'=>'user_id',
@@ -62,9 +61,9 @@ class ChangesController extends Controller
             asort($filter);
             
             $this->render('changes', array(
-                    'model'=>$model,
-                    'data'=>$dataProvider,
-                    'filter'=>$filter,
+                'model'=>$model,
+                'data'=>$dataProvider,
+                'filter'=>$filter,
             ));
         /*} else {
             throw new CHttpException(403,Yii::t('yii','У Вас недостаточно прав доступа.'));
