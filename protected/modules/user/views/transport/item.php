@@ -225,11 +225,6 @@ function getTime(){
 }
 
 $(document).ready(function(){
-    <?php //if($transportInfo['status'] && $now < $end): ?>
-    <?php if($transportInfo['status'] == Transport::ACTIVE_TRANSPORT): ?>
-    //var timer = new Timer();
-    //timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>, <?php echo $transportInfo['id'] ?>);
-    <?php endif; ?>
     rateList.data = {
         currency : ' <?php echo $currency ?>',
         priceStep : <?php echo $priceStep ?>,
@@ -247,9 +242,8 @@ $(document).ready(function(){
         //var socket = io.connect('http://exchange.lbr.ru:3001/');
         var socket = io.connect('http://localhost:3000/');
         
-        //if(<?php echo $transportInfo['status']; ?>) socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>, <?php echo ($transportInfo['status'] && ($now < $end || $showAdditionalTimer))? 0 : 1 ?>);
-        
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>, <?php echo 0 ?>);
+        <?php if($transportInfo['status'] == Transport::ACTIVE_TRANSPORT): ?>
         socket.on('timer', function(data) {
             var container = $('#t-container');
             if(data.transportId == <?php echo $transportInfo['id'] ?>) {
@@ -265,6 +259,7 @@ $(document).ready(function(){
                 }
             }
         });
+        <?php endif; ?>
         
         rateList.data.socket = socket;
         rateList.data.containerElements = '';
