@@ -256,14 +256,16 @@ $(document).ready(function(){
                 if(data.access) {
                    container.html(data.time);
                 } else {
+                   $(".ui-dialog-content").dialog( "close" );
                    $('.r-submit').addClass('disabled');
                    $('.rate-wrapper').slideUp("slow");
-                   
+                   container.removeClass('open');
                    container.html('<span class="t-closed"><img class="small-loading" src="/images/loading-small.gif"/>Обработка результатов</span>'); 
                    setInterval(function(){container.html('<span class="t-closed closed">Перевозка закрыта</span>');}, 180000);
                 }
             }
         });
+        
         rateList.data.socket = socket;
         rateList.data.containerElements = '';
         rateList.data.userId = '<?php echo $userInfo[id] ?>';

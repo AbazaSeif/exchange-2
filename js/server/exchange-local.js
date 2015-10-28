@@ -202,12 +202,15 @@ io.sockets.on('connection', function (socket) {
                         var dateCloseNew = ''; //checkForAdditionalTimer(data);
                         var time = getDateTime();
                         // check time
-                        if(new Date() >= new Date(row.date_close)){
+                        var now = new Date();
+                        var end = new Date(row.date_close);
+                        if(now >= end){
                             allow = false;
                             io.sockets.socket(socket.id).emit('closeRate', {
                                 response : 'Ставки больше не принимаются.'
-                            });
+                            }); 
                         }
+                        
                         //
                         if (allow) {
                             if(row.rate_id) { // not null		
