@@ -200,17 +200,15 @@ io.sockets.on('connection', function (socket) {
                 if(parseInt(row.status) == 1) {
                     if(parseInt(data.price) <= parseInt(row.start_rate)) {
                         var dateCloseNew = ''; //checkForAdditionalTimer(data);
-                        /*var time = data.timedate; //getDateTime();
-                        if(!time) {
-                            time = getDateTime();
-                            if(new Date(time) > new Date(row.date_close)){
-                                allow = false;
-                                io.sockets.socket(socket.id).emit('closeRate', {
-                                    response : 'Ставка имеет недопустимый параметр времени - нажмите сочетание клавиш Ctrl+F5 и сделайте ставку еще раз.',
-                                });
-                            }
-                        } */
                         var time = getDateTime();
+                        // check time
+                        if(new Date() >= new Date(row.date_close)){
+                            allow = false;
+                            io.sockets.socket(socket.id).emit('closeRate', {
+                                response : 'Ставки больше не принимаются.'
+                            });
+                        }
+                        //
                         if (allow) {
                             if(row.rate_id) { // not null		
                                 // check if it's min rate

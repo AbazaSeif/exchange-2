@@ -154,8 +154,8 @@ if (!Yii::app()->user->isGuest) {
                     <div id="t-container" class="width-40 <?php echo ($showAdditionalTimer)? 'add-t' : '' ?> <?php echo ($transportInfo['status'] && $now < $end)? 'open' : '' ?>">
                         <?php if(!$transportInfo['status']): ?>
                         <span class="t-closed closed">Перевозка закрыта</span>
-                        <?php elseif($now > $end): ?>
-                        <span class="t-closed closed">Обработка</span>
+                        <?php //elseif($now > $end): ?>
+                        <!--span class="t-closed closed">Обработка</span-->
                         <?php endif; ?>
                     </div>
                     <?php if($now < $end && $transportInfo['status']):?>
@@ -259,6 +259,7 @@ $(document).ready(function(){
                    container.html(data.time);
                 } else {
                    container.html('<span class="t-closed"><img class="small-loading" src="/images/loading-small.gif"/>Обработка результатов</span>'); 
+                   setInterval(function(){container.html('<span class="t-closed closed">Перевозка закрыта</span>');}, 180000);
                 }
             }
         });
