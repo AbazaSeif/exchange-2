@@ -1,6 +1,13 @@
 var io = require('socket.io').listen(3000);
 var allSockets = [];
 
+var timer = require('./timer.js');
+var Timer = timer();
+Timer.init('10/26/2015 11:14','10/28/2015 12:14');
+//console.log();
+
+setInterval(Timer.updateCounter, 1000);
+
 function deleteFromArray(element) {
     position = allSockets.indexOf(element);
     allSockets.splice(position, 1);
@@ -91,14 +98,14 @@ io.sockets.on('connection', function (socket) {
         return year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
     }
 	
-	function tick() {
+	/*function tick() {
 		var now = getDateTime();
 		
 		io.sockets.send(now);
 		console.log('================ ' + now);
 	}
 
-	setInterval(tick, 1000);
+	setInterval(tick, 1000);*/
 	
     function checkForAdditionalTimer(data) 
     {
