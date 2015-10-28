@@ -19,14 +19,23 @@ var Timer = timer();
 
 function tick() {
     db.each('SELECT id, date_close FROM transport WHERE status = 1', function(err, transport) {
-        //if(new Date() > new Date(transport.date_close)){
+        var end = new Date(transport.date_close);
+        end.setTime(end.getTime() - (1 * 1000));
+        
+        if(new Date() < end){
             var time = Timer.init(transport.date_close);
 
             io.sockets.emit('timer', {
+                access: 1,
                 time: time,
                 transportId: transport.id
             });
-        //}
+        } else {
+            io.sockets.emit('timer', {
+                access: 0,
+                transportId: transport.id
+            });
+        }
     });
 }
 setInterval(tick, 1000);

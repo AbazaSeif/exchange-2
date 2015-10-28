@@ -252,9 +252,14 @@ $(document).ready(function(){
         
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>, <?php echo 0 ?>);
         socket.on('timer', function(data) {
+            var container = $('#test');
+            //var container = $('#t-container');
             if(data.transportId == <?php echo $transportInfo['id'] ?>) {
-                $('#test').html(data.time);
-                //$('#t-container').html(data.time);
+                if(data.access) {
+                   container.html(data.time);
+                } else {
+                   container.html('<span class="t-closed"><img class="small-loading" src="/images/loading-small.gif"/>Обработка результатов</span>'); 
+                }
             }
         });
         rateList.data.socket = socket;
