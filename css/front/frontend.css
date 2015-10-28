@@ -1034,7 +1034,7 @@ strong.regular{
 .transport-one .t-o-info .r-header,
 .r-header
 {
-    color: #00917C;
+    color: #5f5e5e;
     font-size: 18px;
     margin: 1px 0 6px;
     padding-left: 20px;
@@ -1042,7 +1042,7 @@ strong.regular{
 .transport-one .route
 {
     position: relative;
-    border-bottom: 2px solid #00917C;
+    border-bottom: 2px solid #5f5e5e;
     padding: 5px 0;
     margin-left: 20px;
 }
@@ -1074,7 +1074,7 @@ strong.regular{
     width: 12px;
     height: 12px;
     border-radius: 6px;
-    background: #00917C
+    background: #ef801b;
 }
 .transport-one .route .start-point:after
 {
@@ -1108,7 +1108,7 @@ strong.regular{
     font-weight: bold;
 }
 .transport-one .note a.tr-a{
-    color: #00917c;
+    color: #5f5e5e;
     text-decoration: none;
     font-weight: bold;
 }
@@ -1315,14 +1315,14 @@ strong.regular{
     border-radius: 3px;
     border: 0;
     color: #FFF;
-    text-shadow: 0 1px 0 rgba(0,140,140,0.9);
-    background: #14AAAA;
-    background: -moz-linear-gradient(top,#14AAAA,#008C8C);
-    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#14AAAA),color-stop(100%,#008C8C));
-    background: -webkit-linear-gradient(top,#14AAAA,#008C8C);
-    background: -o-linear-gradient(top,#14AAAA,#008C8C);
-    background: -ms-linear-gradient(top,#14AAAA,#008C8C);
-    background: linear-gradient(top,#14AAAA,#008C8C);
+    font-weight: bold;
+    background: #969595;
+    background: -moz-linear-gradient(top,#969595,#969595);
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#969595),color-stop(100%,#969595));
+    background: -webkit-linear-gradient(top,#969595,#969595);
+    background: -o-linear-gradient(top,#969595,#969595);
+    background: -ms-linear-gradient(top,#969595,#969595);
+    background: linear-gradient(top,#969595,#969595);
     text-align: center;
     display:-moz-inline-box;
     display:inline-block;
