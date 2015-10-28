@@ -1,24 +1,38 @@
+// *** Database ***
+var sqlite3 = require("sqlite3").verbose();
+var file = "d:/server/domains/data/exchange.db"; 
+//var file = "/var/www/vhosts/lbr.ru/httpdocs/data/exchange.db";
+var db = new sqlite3.Database(file);
+
+// *** Socket ***
 var io = require('socket.io').listen(3000);
 var allSockets = [];
-
-var timer = require('./timer.js');
-var Timer = timer();
-Timer.init('10/26/2015 11:14','10/28/2015 12:14');
-//console.log();
-
-setInterval(Timer.updateCounter, 1000);
 
 function deleteFromArray(element) {
     position = allSockets.indexOf(element);
     allSockets.splice(position, 1);
 }
 
+// *** Timer for all transports ***
+var timer = require('./timer.js');
+var Timer = timer();
+
+function tick() {
+    db.each('SELECT id, date_close FROM transport WHERE status = 1', function(err, transport) {
+        //if(new Date() > new Date(transport.date_close)){
+            var time = Timer.init(transport.date_close);
+
+            io.sockets.emit('timer', {
+                time: time,
+                transportId: transport.id
+            });
+        //}
+    });
+}
+setInterval(tick, 1000);
+
+// *** User connection ***
 io.sockets.on('connection', function (socket) {
-    var fs = require("fs");
-    var file = "d:/server/domains/data/exchange.db"; 
-    //var file = "/var/www/vhosts/lbr.ru/httpdocs/data/exchange.db";
-    var sqlite3 = require("sqlite3").verbose();
-    var db = new sqlite3.Database(file);
     var arr = [];
     var name = [];
     var i = 0;
@@ -97,15 +111,6 @@ io.sockets.on('connection', function (socket) {
 		
         return year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
     }
-	
-	/*function tick() {
-		var now = getDateTime();
-		
-		io.sockets.send(now);
-		console.log('================ ' + now);
-	}
-
-	setInterval(tick, 1000);*/
 	
     function checkForAdditionalTimer(data) 
     {

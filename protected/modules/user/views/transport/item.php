@@ -251,8 +251,11 @@ $(document).ready(function(){
         //if(<?php echo $transportInfo['status']; ?>) socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>, <?php echo ($transportInfo['status'] && ($now < $end || $showAdditionalTimer))? 0 : 1 ?>);
         
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>, <?php echo 0 ?>);
-        socket.on('message', function(time){
-            $('#test').text(time);
+        socket.on('timer', function(data) {
+            if(data.transportId == <?php echo $transportInfo['id'] ?>) {
+                $('#test').html(data.time);
+                //$('#t-container').html(data.time);
+            }
         });
         rateList.data.socket = socket;
         rateList.data.containerElements = '';
