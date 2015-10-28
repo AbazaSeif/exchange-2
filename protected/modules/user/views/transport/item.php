@@ -147,7 +147,6 @@ if (!Yii::app()->user->isGuest) {
                 <?php if (!empty($transportInfo['auto_info'])):?><div class="r-params"><span>Транспорт: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
                 <?php if (!empty($transportInfo['pto'])):?><div class="r-params"><span>Экспорт ПТО: </span><strong><?php echo $transportInfo['pto'] ?></strong></div><?php endif; ?>
             </div>
-            <div id="test">555</div>
             <?php if (!Yii::app()->user->isGuest && $minRateValue > 0 && Yii::app()->user->isTransport): ?>
             <div class="width-50 timer-wrapper">
                 <div class="width-100">
@@ -228,8 +227,8 @@ function getTime(){
 $(document).ready(function(){
     <?php //if($transportInfo['status'] && $now < $end): ?>
     <?php if($transportInfo['status'] == Transport::ACTIVE_TRANSPORT): ?>
-    var timer = new Timer();
-    timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>, <?php echo $transportInfo['id'] ?>);
+    //var timer = new Timer();
+    //timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transportInfo['status'] ?>, <?php echo $transportInfo['id'] ?>);
     <?php endif; ?>
     rateList.data = {
         currency : ' <?php echo $currency ?>',
@@ -252,12 +251,14 @@ $(document).ready(function(){
         
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>, <?php echo 0 ?>);
         socket.on('timer', function(data) {
-            var container = $('#test');
-            //var container = $('#t-container');
+            var container = $('#t-container');
             if(data.transportId == <?php echo $transportInfo['id'] ?>) {
                 if(data.access) {
                    container.html(data.time);
                 } else {
+                   $('.r-submit').addClass('disabled');
+                   $('.rate-wrapper').slideUp("slow");
+                   
                    container.html('<span class="t-closed"><img class="small-loading" src="/images/loading-small.gif"/>Обработка результатов</span>'); 
                    setInterval(function(){container.html('<span class="t-closed closed">Перевозка закрыта</span>');}, 180000);
                 }

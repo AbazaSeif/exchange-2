@@ -179,16 +179,16 @@ io.sockets.on('connection', function (socket) {
 	            });
             } else {
                 db.each("SELECT rate.user_id, rate.price, rate.date, user.company as company FROM rate JOIN user WHERE user.id = rate.user_id and rate.transport_id = " + t_id + " order by date", function(err, row) {
-					var name = labelForHiddenCompanyNames;
-					if(row.user_id == id) name = row.company;
-					arr[i] = new Array (row.user_id, row.price, row.date, name);
-					i++;
-				}, function(err, rows) {
-					io.sockets.socket(socket.id).emit('loadRates', {
-					   arr  : arr,
-					   rows : arr.length,
-					});
-				});
+                        var name = labelForHiddenCompanyNames;
+                        if(row.user_id == id) name = row.company;
+                        arr[i] = new Array (row.user_id, row.price, row.date, name);
+                        i++;
+                }, function(err, rows) {
+                        io.sockets.socket(socket.id).emit('loadRates', {
+                           arr  : arr,
+                           rows : arr.length,
+                        });
+                });
             }
         });
     });
