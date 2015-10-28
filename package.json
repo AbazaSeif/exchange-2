@@ -1,0 +1,13 @@
+{
+  "name": "exchange.lbr.ru",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lbr",
+  "dependencies": {
+    "socket.io": "~0.9.16",
+    "sqlite3": "~2.2.0"
+  },
+  "devDependencies": {},
+}

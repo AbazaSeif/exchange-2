@@ -147,6 +147,7 @@ if (!Yii::app()->user->isGuest) {
                 <?php if (!empty($transportInfo['auto_info'])):?><div class="r-params"><span>Транспорт: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
                 <?php if (!empty($transportInfo['pto'])):?><div class="r-params"><span>Экспорт ПТО: </span><strong><?php echo $transportInfo['pto'] ?></strong></div><?php endif; ?>
             </div>
+            <div id="test">555</div>
             <?php if (!Yii::app()->user->isGuest && $minRateValue > 0 && Yii::app()->user->isTransport): ?>
             <div class="width-50 timer-wrapper">
                 <div class="width-100">
@@ -250,7 +251,9 @@ $(document).ready(function(){
         //if(<?php echo $transportInfo['status']; ?>) socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>, <?php echo ($transportInfo['status'] && ($now < $end || $showAdditionalTimer))? 0 : 1 ?>);
         
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>, <?php echo 0 ?>);
-        
+        socket.on('message', function(time){
+            $('#test').text(time);
+        });
         rateList.data.socket = socket;
         rateList.data.containerElements = '';
         rateList.data.userId = '<?php echo $userInfo[id] ?>';

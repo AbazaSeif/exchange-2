@@ -24,7 +24,7 @@ Timer.prototype = {
   updateNumOfDays: function() {
     var dateNow = this.dateNow;
     var currYear = dateNow.getFullYear();
-    if ( (currYear % 4 == 0 && currYear % 100 != 0 ) || currYear % 400 == 0 ) {
+    if ( (currYear % 4 == 0 && currYear % 100 != 0) || currYear % 400 == 0 ) {
         this.numOfDays[1] = 29; //кол-во дней в феврале высокосного года
     }
     var self = this;
