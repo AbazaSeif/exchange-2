@@ -48,6 +48,10 @@ class Transport extends CActiveRecord
         1=>'Региональная',
     );
     
+    CONST RUB = 0;
+    CONST USD = 1;
+    CONST EUR = 2;
+    
     public static $currencyGroup = array(
         0=>'Рубли (руб.)',
         1=>'Доллары ($)',

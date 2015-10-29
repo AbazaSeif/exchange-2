@@ -43,6 +43,18 @@ class TransportController extends Controller
                  throw new CHttpException(404,Yii::t('yii','Страница не найдена'));
             }
             
+            $currency = '€';
+            if($transport->currency == Transport::RUB){
+               $currency = 'руб.';
+            } else if($transport->currency == Transport::USD){
+               $currency = '$';
+            }
+            
+            $priceStep = Transport::INTER_PRICE_STEP;
+            if(!$transport->currency){
+                $priceStep = Transport::RUS_PRICE_STEP; 
+            }
+            
             $model = new Rate;
             $criteria = new CDbCriteria;
             $criteria->select = 'min(price) AS price, id, user_id';
@@ -66,28 +78,43 @@ class TransportController extends Controller
                     }
                 }
             }
-
+            
             $allPoints = TransportInterPoint::getPoints($id, $transport->location_to);
             
-            if(!Yii::app()->user->isTransport) { // admin
-                $allRates = Yii::app()->db->createCommand()
-                    ->select('r.date, r.price, u.name')
-                    ->from('rate r')
-                    ->join('user u', 'r.user_id=u.id')
-                    ->where('r.transport_id=:id', array(':id'=>$id))
-                    ->order('r.date desc')
-                    ->queryAll()
-                ;
+            if(!Yii::app()->user->isTransport) // admin   
+            {
+                $showWinner = '';
+                $minRateValue = $transport->start_rate;
+                if (!empty($transport->rate_id)) {
+                    $minRateValue = floor($this->getMinPrice($id));
+                    
+                    $winRate = Rate::model()->findByPk($transport->rate_id);                
+                    $winFerryman = User::model()->findByPk($winRate->user_id);
+                    $winFerrymanShowNds = UserField::model()->findByAttributes(array('user_id'=>$winRate->user_id));
+                    
+                    $showWinner = $winFerryman->company;
+                    if($winFerrymanShowNds->with_nds && $transport->type == Transport::RUS_TRANSPORT) {
+                        $price = ceil($winRate->price + $winRate->price * Yii::app()->params['nds']);
+                        if($price%10 != 0) $price -= $price%10;
+                        $showWinner = $showWinner . ' (с НДС: ' . $price . ' ' . $currency . ') ';    
+                    }
+                }
                 
                 $this->render('user.views.transport.itemForAdmin', array(
-                    'allRates' => $allRates,
+                    //'allRates' => $allRates,
                     'transport' => $transport,
-                    'allPoints' => $allPoints
+                    'allPoints' => $allPoints,
+                    'currency' => $currency,
+                    'priceStep' => $priceStep,
+                    'minRateValue'=>$minRateValue,
+                    'showWinner' => $showWinner
                 ));
             } else       
                 $this->render('user.views.transport.item', array(
                     'transport' => $transport,
-                    'allPoints' => $allPoints
+                    'allPoints' => $allPoints,
+                    'currency' => $currency,
+                    'priceStep' => $priceStep
                 ));
         } else {
             $this->redirect('/user/login/');

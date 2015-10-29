@@ -1,98 +1,7 @@
 <?php
-/*$showAdditionalTimer = false;
-$showDescription = false;
-if($transportInfo['status'] || !Yii::app()->user->isTransport) $showDescription = true;
-else {
-    $allUsers = array();
-    $participants = Yii::app()->db->createCommand()
-        ->selectDistinct('user_id')
-        ->from('rate')
-        ->where('transport_id = :id', array(':id' => $transportInfo['id']))
-        ->queryAll()
-    ;
-    foreach($participants as $user){
-        $allUsers[] = $user['user_id'];
-    }
-    if(in_array(Yii::app()->user->_id, $allUsers)) $showDescription = true;
-}
-
-if($showDescription):
-$maxRateValue = $transportInfo['start_rate'];
-$minRateValue = null;
-$currency = '€';
-$defaultRate = false;
-$priceStep = Transport::INTER_PRICE_STEP;
-$now = date('m/d/Y H:i:s');
-$end = date('m/d/Y H:i:s', strtotime($transportInfo['date_close']));
-
-if($end < $now && $transportInfo['status']) {
-    if(!empty($transportInfo['date_close_new'])) {
-        $end = date('m/d/Y H:i:s', strtotime($transportInfo['date_close_new']));
-        if($end > $now) $showAdditionalTimer = true;
-    }    
-}
-
-$winRate = Rate::model()->findByPk($transportInfo['rate_id']);                
-$winFerryman = User::model()->findByPk($winRate->user_id);
-$winFerrymanShowNds = UserField::model()->findByAttributes(array('user_id'=>$winRate->user_id));
-$showWithNds = '';
-
-$allPoints = TransportInterPoint::getPoints($transportInfo['id'], $transportInfo['location_to']);
-
-if(!$transportInfo['currency']){
-    $priceStep = Transport::RUS_PRICE_STEP; 
-}
-
-if(!$transportInfo['currency']){
-   $currency = 'руб.';
-} else if($transportInfo['currency'] == 1){
-   $currency = '$';
-}
-
-if (!empty($transportInfo['rate_id'])) {
-    $minRateValue = $this->getMinPrice($transportInfo['id']);
-} else {
-    $minRateValue = $transportInfo['start_rate'];
-    $defaultRate = true;
-}
-
-if($winFerrymanShowNds->with_nds && $transportInfo['type'] == Transport::RUS_TRANSPORT) {
-    $price = ceil($winRate->price + $winRate->price * Yii::app()->params['nds']);
-    if($price%10 != 0) $price -= $price%10;
-    $showWithNds = ' (с НДС: ' . $price . ' ' . $currency . ') ' . $winFerryman->company;    
-} else if(!$defaultRate) {
-    $showWithNds = $winFerryman->company;    
-}*/
 
 
-if (!Yii::app()->user->isGuest) {
-    /*$userId = Yii::app()->user->_id;
-    $model = UserField::model()->find('user_id = :id', array('id' => $userId));
-    
-    if((bool)$model->with_nds && Yii::app()->user->isTransport && $transportInfo['type'] == Transport::RUS_TRANSPORT) {
-        $minRateValue = floor($minRateValue + $minRateValue * Yii::app()->params['nds']);
-        $maxRateValue = floor($transportInfo['start_rate'] + $transportInfo['start_rate'] * Yii::app()->params['nds']);
-    } else $minRateValue = floor($minRateValue);
-    
-    $userInfo = User::model()->findByPk($userId);
-    if(Yii::app()->user->isTransport) {
-        $residue = $minRateValue % $priceStep;
-        if($residue != 0) {
-            if(($minRateValue - $residue) > 0){
-                $minRateValue = $minRateValue  - $residue;
-            } else $minRateValue = $priceStep;
-        }
-    }
-    
-    $minRate = (($minRateValue - $priceStep)<=0)? 1 : 0;
-    $inputSize = strlen((string)$minRateValue)-1;
-    if($inputSize < 5 ) $inputSize = 5;
-    
-    if($transportInfo['type'] == 0) {
-        $pointsCustom = TransportInterPoint::model()->findAll(array('order'=>'sort desc', 'condition'=>'t_id = ' . $transportInfo['id'], 'limit'=>1));
-        $date_to_customs_clearance_RF = date('d.m.Y H:i', strtotime($pointsCustom[0]['date']));
-    }*/
-}
+
 ?>
 
 <div class="transport-one">
@@ -150,18 +59,11 @@ if (!Yii::app()->user->isGuest) {
                 </div--> 
                 <div id="last-rate">
                      <span><?php echo $minRateValue . ' ' . $currency?></span>
-                     <?php if($showWithNds): ?>
-                         <div><?php echo $showWithNds ?></div> 
-                     <?php endif; ?>
+                     <div><?php echo $showWinner ?></div> 
                  </div>
                  <label class="r-header">Текущие ставки</label>
-                 <?php if($allRates): ?>
                  <div id="rates">
-                     <?php foreach($allRates as $rate): ?>
-                     
-                     <?php endforeach; ?>
                  </div>
-                 <?php endif; ?>
             </div>
             
         </div>
@@ -170,6 +72,17 @@ if (!Yii::app()->user->isGuest) {
 
 <script>
 $(document).ready(function() {
-   $('.point[title]').easyTooltip();
+    rateList.data = {
+        currency : ' <?php echo $currency ?>',
+        transportId : <?php echo $transport->id ?>,
+        status: <?php echo $transport->status ?>,
+        priceStep : <?php echo $priceStep ?>,
+        nds: 0,
+        ndsValue: <?php echo Yii::app()->params['nds'] ?>,
+        trType: <?php echo ($transport->type == Transport::RUS_TRANSPORT)? 1 : 0; ?>
+    };
+    rateList.init();
+    
+    $('.point[title]').easyTooltip();
 });
 </script>

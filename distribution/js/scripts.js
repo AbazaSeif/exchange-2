@@ -220,7 +220,7 @@ var rateList = {
         this.container = $("#rates");
         var element = $( "#rate-price" );
         //if(typeof(rateList.data.socket) !== 'undefined' && parseInt(rateList.data.status)) {
-        if(typeof(rateList.data.socket) !== 'undefined') { // load with ajax rates for admin and logist
+        if(typeof(rateList.data.socket) == 'undefined') { // load with ajax rates for admin and logist
             rateList.load(this.container);
         } else { //   if( && parseInt(rateList.data.userId)) {
             rateList.data.socket.on('setRate', function (data) {
@@ -410,7 +410,7 @@ var rateList = {
                 data:{
                     id: this.data.transportId,
                     newRate: price,
-                    step: this.data.step
+                    step: this.data.priceStep
                 },
                 success: function(rates) {
                     if(rates.all.length) {
@@ -433,7 +433,7 @@ var rateList = {
                 data: {
                     id: this.data.transportId,
                     newRate: '',
-                    step: this.data.step
+                    step: this.data.priceStep
                 },
                 success: function(rates) {
                     if(rates.all.length) {
@@ -461,7 +461,7 @@ var rateList = {
                             }
                             var step = rateList.data.priceStep + rateList.data.priceStep * rateList.data.nds;
                             
-                            var price = $("#rate-price");
+                            //var price = $("#rate-price");
                         }
                     } else {
                         rateList.container.after('<div id="no-rates">Нет предложений</div>');

@@ -23,9 +23,9 @@ if($showDescription):
 */
 $maxRateValue = $transportInfo['start_rate'];
 $minRateValue = null;
-$currency = '€';
+
 $defaultRate = false;
-$priceStep = Transport::INTER_PRICE_STEP;
+
 $now = date('m/d/Y H:i:s');
 $end = date('m/d/Y H:i:s', strtotime($transportInfo['date_close']));
 
@@ -43,10 +43,12 @@ $showWithNds = '';
 
 $allPoints = TransportInterPoint::getPoints($transportInfo['id'], $transportInfo['location_to']);
 
+$priceStep = Transport::INTER_PRICE_STEP;
 if(!$transportInfo['currency']){
     $priceStep = Transport::RUS_PRICE_STEP; 
 }
 
+$currency = '€';
 if(!$transportInfo['currency']){
    $currency = 'руб.';
 } else if($transportInfo['currency'] == 1){
