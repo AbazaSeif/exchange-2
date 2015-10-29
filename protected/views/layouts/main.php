@@ -105,7 +105,7 @@
             });
             
             socket.on('connect', function (data) {
-                $('[id^="counter-"]').text('Перевозка закрыта');
+                $('[id^="counter-"]').text('');
             });
             
             socket.on('onlineEvent', function (data) {
