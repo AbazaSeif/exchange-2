@@ -3,6 +3,7 @@ class CronCommand extends CConsoleCommand
 {
     public function run($args)
     {
+        Yii::log('test ---- ', 'info');
         $this->deadlineTransport();
         $this->checkTransportRates();
         $this->beforeDeadlineTransport();
