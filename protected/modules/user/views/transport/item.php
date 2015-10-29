@@ -234,27 +234,7 @@ $(document).ready(function(){
     
     <?php if (!Yii::app()->user->isGuest): ?>
         <?php if(Yii::app()->user->isTransport): ?>
-        //var socket = io.connect('http://exchange.lbr.ru:3001/');
-        //var socket = io.connect('http://localhost:3000/');
-        
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transport->id ?>, <?php echo 0 ?>);
-        <?php //if($transportInfo['status'] == Transport::ACTIVE_TRANSPORT): ?>
-//        socket.on('timer', function(data) {
-//            var container = $('#t-container');
-//            if(data.transportId == <?php echo $transportInfo['id'] ?>) {
-//                if(data.access) {
-//                   container.html(data.time);
-//                } else {
-//                   $(".ui-dialog-content").dialog( "close" );
-//                   $('.r-submit').addClass('disabled');
-//                   $('.rate-wrapper').slideUp("slow");
-//                   container.removeClass('open');
-//                   container.html('<span class="t-closed"><img class="small-loading" src="/images/loading-small.gif"/>Обработка результатов</span>'); 
-//                   setTimeout(function(){ container.html('<span class="t-closed closed">Перевозка закрыта</span>') }, 180000);
-//                }
-//            }
-//        });
-        <?php //endif; ?>
         
         rateList.data.socket = socket;
         rateList.data.containerElements = '';
@@ -376,7 +356,7 @@ $(document).ready(function(){
     <div class="row">
         <span>К сожалению, Вы не можете сделать ставку, т.к. <span id='curStatus'></span></span> 
     </div>
-    <?php echo CHtml::submitButton('ОК',array('class' => 'btn')); ?>
+    <?php echo CHtml::submitButton('Закрыть',array('class' => 'btn')); ?>
     <?php 
         $this->endWidget('zii.widgets.jui.CJuiDialog');
     ?>
@@ -395,7 +375,7 @@ $(document).ready(function(){
     <div class="row">
         <span>Ставка не может быть больше <span id="maxRateVal"></span><?php echo $currency ?></span> 
     </div>
-    <?php echo CHtml::submitButton('ОК',array('class' => 'btn')); ?>
+    <?php echo CHtml::submitButton('Закрыть',array('class' => 'btn')); ?>
     <?php 
         $this->endWidget('zii.widgets.jui.CJuiDialog');
     ?>
@@ -414,7 +394,7 @@ $(document).ready(function(){
     <div class="row">
         <span id="closeTr"></span>
     </div>
-    <?php echo CHtml::submitButton('ОК',array('class' => 'btn')); ?>
+    <?php echo CHtml::submitButton('Закрыть',array('class' => 'btn')); ?>
     <?php
         $this->endWidget('zii.widgets.jui.CJuiDialog');
     ?>

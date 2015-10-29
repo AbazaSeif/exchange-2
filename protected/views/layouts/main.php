@@ -83,7 +83,6 @@
         socket.on('timer', function(data) {
             var container = $('#counter-' + data.transportId);
             if(container.length) {
-            //if(data.transportId == <?php echo $transportInfo['id'] ?>) {
                 if(data.access) {
                    container.html(data.time);
                 } else {

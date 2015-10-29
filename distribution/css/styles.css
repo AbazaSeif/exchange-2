@@ -583,8 +583,9 @@ div.row{
 
 .btn{
     text-decoration: none;
-     background: -moz-linear-gradient(center top , #14AAAA, #008C8C) repeat scroll 0 0 rgba(0, 0, 0, 0);
+     background: -moz-linear-gradient(center top, #fbc173, #f39314) repeat scroll 0 0 rgba(0, 0, 0, 0);
      color: #fff;
+     font-weight: bold;
      cursor: pointer;
      border-radius: 3px;
      padding: 3px 10px;
