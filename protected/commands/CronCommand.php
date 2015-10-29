@@ -16,7 +16,7 @@ class CronCommand extends CConsoleCommand
     public function errorDate()
     {
         //$timeNow = date("Y-m-d H:i");
-        $timeNow = date("Y-m-d H:i", strtotime("-40 minutes"));
+        $timeNow = date("Y-m-d H:i", strtotime("-10 minutes"));
         $transports = Yii::app()->db->createCommand()
             ->select('id')
             ->from('transport')
