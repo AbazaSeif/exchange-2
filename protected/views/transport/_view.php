@@ -1,4 +1,6 @@
 <?php
+    // show For Guests and Admin
+
     $showAdditionalTimer = false;
     $status = $data->status;
     $lastRate = $this->getPrice($data->rate_id);
@@ -58,30 +60,6 @@
             <div class="t-points"><span><?php echo $data->location_from . $allPoints . '<img class="arrow" src="/images/arrow.png" />' . $data->location_to ?></span></div>
             <?php endif; ?>
         </div>
-        <!--div class="width-100">
-            <div class="width-49">
-                <?php //if(!Yii::app()->user->isGuest): ?>
-                <a class="t-header" href="<?php echo $action; ?>" >
-                    <?php //echo $data->location_from ?>
-                </a>
-                <?php //else: ?>
-                <div class="t-header">
-                <?php //echo $data->location_from ?>
-                </div>
-                <?php //endif; ?>
-            </div>
-            <div class="width-49">
-                <?php //if(!Yii::app()->user->isGuest): ?>
-                <a class="t-header" href="<?php //echo $action; ?>" >
-                    <?php //echo $data->location_to ?>
-                </a>
-                <?php //else: ?>
-                <div class="t-header">
-                <?php //echo $data->location_to ?>
-                </div>
-                <?php //endif; ?>
-            </div>
-        </div-->
         <div class="width-100">
             <div class="width-49">
                 <span class="t-d-form-to">Дата загрузки: <?php echo date('d.m.y', strtotime($data->date_from)) ?></span>
@@ -107,8 +85,19 @@
             </div>
         </div>
         <div class="width-30 v-center"> 
-            <!--div class="t-timer <?php echo ($showAdditionalTimer)? 'add-t' : '' ?>" id="counter-<?php echo $data->id; ?>" t-id="<?php echo $data->id; ?>" now="<?php echo $now ?>" end="<?php echo $end ?>" status="<?php echo $status ?>"></div-->
-            <div class="t-timer" id="counter-<?php echo $data->id; ?>"></div>
+            <div class="t-timer <?php echo ($showAdditionalTimer)? 'add-t' : '' ?>" id="counter-<?php echo $data->id; ?>" t-id="<?php echo $data->id; ?>" now="<?php echo $now ?>" end="<?php echo $end ?>" status="<?php echo $status ?>"></div>
         </div>
     </div>
 </div>
+<script>
+$(document).ready(function(){
+    $('.t-timer').each(function(){
+       if(parseInt($(this).attr('status'))){
+           var timer = new Timer();
+           timer.init($(this).attr('now'), $(this).attr('end'), $(this).attr('id'), $(this).attr('status'), $(this).attr('t-id'));
+       } else {
+           $('#' + $(this).attr('id')).html('<span class="t-closed">Перевозка закрыта</span>');
+       }
+    });
+});
+</script>

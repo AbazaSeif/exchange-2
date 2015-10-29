@@ -47,18 +47,6 @@
         <div class="width-100">
             <div class="t-points"><span><a href="<?php echo $action; ?>"><?php echo $data->location_from . $allPoints . '<img class="arrow" src="/images/arrow.png" />' . $data->location_to ?></a></span></div>
         </div>
-        <!--div class="width-100">
-            <div class="width-49">
-                <a class="t-header" href="<?php// echo $action; ?>" >
-                    <?php //echo $data->location_from ?>
-                </a>
-            </div>
-            <div class="width-49">
-                <a class="t-header" href="<?php //echo $action; ?>" >
-                    <?php //echo $data->location_to ?>
-                </a>
-            </div>
-        </div-->
         <div class="width-100">
             <div class="width-49">
                 <span class="t-d-form-to">Дата загрузки: <?php echo date('d.m.y', strtotime($data->date_from)) ?></span>

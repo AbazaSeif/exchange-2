@@ -33,7 +33,7 @@ if($data->pagination->pageCount!=0) {
     </style>
 <?php } ?>
 <script>
-$(document).ready(function(){
+//$(document).ready(function(){
 //    $('.t-timer').each(function(){
 //       if(parseInt($(this).attr('status'))){
 //           var timer = new Timer();
@@ -42,6 +42,6 @@ $(document).ready(function(){
 //           $('#' + $(this).attr('id')).html('<span class="t-closed">Перевозка закрыта</span>');
 //       }
 //    });
-});
+//});
 </script>
 
