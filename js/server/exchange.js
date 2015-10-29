@@ -5,7 +5,7 @@ var file = "/var/www/vhosts/lbr.ru/httpdocs/data/exchange.db";
 var db = new sqlite3.Database(file);
 
 // *** Socket ***
-var io = require('socket.io').listen(3000);
+var io = require('socket.io').listen(3001);
 var allSockets = [];
 
 function deleteFromArray(element) {
@@ -14,7 +14,7 @@ function deleteFromArray(element) {
 }
 
 // *** Timer for all transports ***
-var timer = require('./timer.js');
+var timer = require('/var/www/vhosts/lbr.ru/httpdocs/exchange/js/server/timer.js');
 var Timer = timer();
 
 function tick() {
