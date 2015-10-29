@@ -95,6 +95,11 @@
                 }
             }
         });
+        socket.on('error', function(data) {
+            //console.log('error');
+            
+            $('[id^="counter-"]').text('Разрыв связи с сервером');
+        });
         <?php endif; ?>
     </script>
 </html>

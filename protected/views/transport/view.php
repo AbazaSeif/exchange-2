@@ -33,15 +33,17 @@ if($data->pagination->pageCount!=0) {
     </style>
 <?php } ?>
 <script>
-//$(document).ready(function(){
-//    $('.t-timer').each(function(){
-//       if(parseInt($(this).attr('status'))){
-//           var timer = new Timer();
-//           timer.init($(this).attr('now'), $(this).attr('end'), $(this).attr('id'), $(this).attr('status'), $(this).attr('t-id'));
-//       } else {
-//           $('#' + $(this).attr('id')).html('<span class="t-closed">Перевозка закрыта</span>');
-//       }
-//    });
-//});
+$(document).ready(function(){
+    <?php if(Yii::app()->user->isGuest || (!Yii::app()->user->isGuest && !Yii::app()->user->isTransport)): ?>
+    $('.t-timer').each(function(){
+       if(parseInt($(this).attr('status'))){
+           var timer = new Timer();
+           timer.init($(this).attr('now'), $(this).attr('end'), $(this).attr('id'), $(this).attr('status'), $(this).attr('t-id'));
+       } else {
+           $('#' + $(this).attr('id')).html('<span class="t-closed">Перевозка закрыта</span>');
+       }
+    });
+    <?php endif; ?>
+});
 </script>
 
