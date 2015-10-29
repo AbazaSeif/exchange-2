@@ -1,6 +1,4 @@
 <?php
-    // show For Guests and Admin
-
     $showAdditionalTimer = false;
     $status = $data->status;
     $lastRate = $this->getPrice($data->rate_id);
@@ -91,6 +89,7 @@
 </div>
 <script>
 $(document).ready(function(){
+    <?php if(Yii::app()->user->isGuest || (!Yii::app()->user->isGuest && !Yii::app()->user->isTransport)): // admin or guest?>
     $('.t-timer').each(function(){
        if(parseInt($(this).attr('status'))){
            var timer = new Timer();
@@ -99,5 +98,6 @@ $(document).ready(function(){
            $('#' + $(this).attr('id')).html('<span class="t-closed">Перевозка закрыта</span>');
        }
     });
+    <?php endif; ?>
 });
 </script>
