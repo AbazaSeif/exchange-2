@@ -69,9 +69,11 @@ function seachNewEvents(id, minNotyfy)
 function updateEventsCount()
 {
     db.each("SELECT count(*) count, user_id FROM user_event WHERE status = 1 GROUP BY user_id", function(err, row) {
-        io.sockets.socket(allSockets[row.user_id]).emit('updateEvents', {
-            count : row.count
-        });
+        if( allSockets[row.user_id] !== 'undefined' ) {
+            io.sockets.socket(allSockets[row.user_id]).emit('updateEvents', {
+                count : row.count
+            });
+        }
     });
 }
 setInterval(updateEventsCount, 1000);

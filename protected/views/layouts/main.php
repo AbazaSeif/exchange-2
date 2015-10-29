@@ -104,6 +104,10 @@
                 $('[id^="counter-"]').text('Разрыв связи с сервером');
             });
             
+            socket.on('connect', function (data) {
+                $('[id^="counter-"]').text('');
+            });
+            
             socket.on('onlineEvent', function (data) {
                 $.onlineEvent({ msg : data.msg, className : 'classic', sticked:true, position:{right:0,bottom:0}, time:10000});
             });
