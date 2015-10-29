@@ -152,8 +152,6 @@ if (!Yii::app()->user->isGuest) {
                     <div id="counter-<?php echo $transport->id ?>" class="t-container width-40 <?php echo ($showAdditionalTimer)? 'add-t' : '' ?> <?php echo ($transport->status && $now < $end)? 'open' : '' ?>">
                         <?php if(!$transport->status): ?>
                         <span class="t-closed closed">Перевозка закрыта</span>
-                        <?php //elseif($now > $end): ?>
-                        <!--span class="t-closed closed">Обработка</span-->
                         <?php endif; ?>
                     </div>
                     <?php if($now < $end && $transport->status):?>
@@ -185,7 +183,6 @@ if (!Yii::app()->user->isGuest) {
                  </div>
             <?php elseif(!Yii::app()->user->isGuest && !Yii::app()->user->isTransport): ?>
                 <div class="width-50 timer-wrapper">
-                    <!--div id="t-container" class="<?php echo ($showAdditionalTimer)? 'add-t' : '' ?>"></div-->
                     <div id="t-container" class="t-container <?php echo ($showAdditionalTimer)? 'add-t' : '' ?>">
                         <?php if(!$transport->status): ?>
                         <span class="t-closed">Перевозка закрыта</span>
@@ -213,194 +210,219 @@ if (!Yii::app()->user->isGuest) {
         ?>
             </div>
 <?php endif; ?>
-
-<script>
-function getTime(){
-    return "<?php echo date("Y-m-d H:i:s") ?>";
-}
-
-$(document).ready(function(){
-    rateList.data = {
-        currency : ' <?php echo $currency ?>',
-        priceStep : <?php echo $priceStep ?>,
-        transportId : <?php echo $transport->id ?>,
-        status: <?php echo $transport->status ?>,
-        step: <?php echo $priceStep ?>,
-        nds: <?php echo ((bool)$model->with_nds && Yii::app()->user->isTransport && $transport->type == Transport::RUS_TRANSPORT) ? Yii::app()->params['nds'] : 0 ?>,
-        ndsValue: <?php echo Yii::app()->params['nds'] ?>,
-        defaultRate: <?php echo ($defaultRate)? 1 : 0 ?>,
-        trType: <?php echo ($transport->type == Transport::RUS_TRANSPORT)? 1 : 0; ?>
-    };
-    
-    <?php if (!Yii::app()->user->isGuest): ?>
-        <?php if(Yii::app()->user->isTransport): ?>
-        socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transport->id ?>, <?php echo 0 ?>);
-        
-        rateList.data.socket = socket;
-        rateList.data.containerElements = '';
-        rateList.data.userId = '<?php echo $userInfo['id'] ?>';
-        rateList.data.transportId = '<?php echo $transport->id ?>';
-        rateList.data.transportType = '<?php echo $transport->type ?>';
-        rateList.data.company = '<?php echo $userInfo['company'] ?>';
-        rateList.data.name = '<?php echo $userInfo['name'] ?>';
-        rateList.data.surname = '<?php echo $userInfo['surname'] ?>';
-        rateList.data.dateClose = '<?php echo $transport->date_close ?>';
-        rateList.data.dateCloseNew = '<?php echo $transport->date_close_new ?>';
-        
-        $('#dialog-connect').live('click', function() {
-            $("#modalDialog").dialog("open");
-        });
-
-        $('.ui-widget-overlay').live('click', function() {
-            $(".ui-dialog-content").dialog( "close" );
-        });
-
-        $( "#abordRateBtn" ).live('click', function() {
-            $(".ui-dialog-content").dialog( "close" );
-        });
-        
-        $( "#errorRate .btn" ).live('click', function() {
-            $(".ui-dialog-content").dialog( "close" );
-        });
-        
-        $( "#errorStatus .btn" ).live('click', function() {
-            $(".ui-dialog-content").dialog( "close" );
-        });
-        $( "#closeRate .btn" ).live('click', function() {
-            $(".ui-dialog-content").dialog( "close" );
-        });
-        <?php endif; ?> 
-            rateList.init();
-   <?php endif; ?>
-   $('.point[title]').easyTooltip();
-});
-
-</script>
 <!-- Dialog windows -->
-<?php if (!Yii::app()->user->isGuest && Yii::app()->user->isTransport):?>
-<div>
-    <?php
-    $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-        'id' => 'modalDialog',
-        'options' => array(
-            'title' => 'Отправить сообщение',
-            'autoOpen' => false,
-            'modal' => true,
-            'resizable'=> false,
-        ),
-    ));
-    $qForm = new QuickForm; 
-    $form = $this->beginWidget('CActiveForm', array(
-        'id' => 'quick-form',
-        'enableClientValidation' => true,
-        'clientOptions' => array(
-            'validateOnSubmit' => true,
-        ),
-        'htmlOptions'=>array(
-            'class'=>'form',
-        ),
-        'action' => array('site/quick'),
-    ));
-    ?>
-    <?php echo $form->errorSummary($qForm); ?>
-    <div class="row">
-    <?php echo $form->labelEx($qForm,'message'); ?>
-    <?php echo $form->textArea($qForm,'message',array('rows'=>6, 'cols'=>31)); ?>
-    <?php echo $form->error($qForm,'message'); ?>
+<?php if (!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
+    <div>
+        <?php
+        $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+            'id' => 'modalDialog',
+            'options' => array(
+                'title' => 'Отправить сообщение',
+                'autoOpen' => false,
+                'modal' => true,
+                'resizable'=> false,
+            ),
+        ));
+        $qForm = new QuickForm; 
+        $form = $this->beginWidget('CActiveForm', array(
+            'id' => 'quick-form',
+            'enableClientValidation' => true,
+            'clientOptions' => array(
+                'validateOnSubmit' => true,
+            ),
+            'htmlOptions'=>array(
+                'class'=>'form',
+            ),
+            'action' => array('site/quick'),
+        ));
+        ?>
+        <?php echo $form->errorSummary($qForm); ?>
+        <div class="row">
+        <?php echo $form->labelEx($qForm,'message'); ?>
+        <?php echo $form->textArea($qForm,'message',array('rows'=>6, 'cols'=>31)); ?>
+        <?php echo $form->error($qForm,'message'); ?>
+        </div>
+        <div class="row">
+        <?php echo $form->hiddenField($qForm, 'user', array('value'=>Yii::app()->user->_id));?>
+        <?php echo $form->hiddenField($qForm, 'transport', array('value'=>$transport->id));?>
+        </div>
+        <?php echo CHtml::submitButton('Отправить',array('class' => 'btn')); ?>
+        <?php 
+            $this->endWidget();
+            $this->endWidget('zii.widgets.jui.CJuiDialog');
+        ?>
     </div>
-    <div class="row">
-    <?php echo $form->hiddenField($qForm, 'user', array('value'=>Yii::app()->user->_id));?>
-    <?php echo $form->hiddenField($qForm, 'transport', array('value'=>$transport->id));?>
+
+    <div>
+        <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+            'id' => 'addRate',
+            'options' => array(
+                'title' => 'Подтверждение',
+                'autoOpen' => false,
+                'modal' => true,
+                'resizable'=> false,
+            ),
+        ));
+        ?>
+        <div class="row">
+            <span>Вы уверены что хотите сделать ставку в размере <span id='setPriceVal'></span><?php echo $currency ?> ?</span> 
+        </div>
+        <div class="rate-button">
+        <?php echo CHtml::button('Подтвердить',array('id' => 'setRateBtn','class' => 'btn')); ?>
+        </div>
+        <div class="rate-button">
+        <?php echo CHtml::button('Отказаться',array('id' => 'abordRateBtn','class' => 'btn')); ?>
+        </div>
+        <?php 
+            $this->endWidget('zii.widgets.jui.CJuiDialog');
+        ?>
     </div>
-    <?php echo CHtml::submitButton('Отправить',array('class' => 'btn')); ?>
-    <?php 
-        $this->endWidget();
-        $this->endWidget('zii.widgets.jui.CJuiDialog');
-    ?>
-</div>
-<div>
-    <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-        'id' => 'addRate',
-        'options' => array(
-            'title' => 'Подтверждение',
-            'autoOpen' => false,
-            'modal' => true,
-            'resizable'=> false,
-        ),
-    ));
-    ?>
-    <div class="row">
-        <span>Вы уверены что хотите сделать ставку в размере <span id='setPriceVal'></span><?php echo $currency ?> ?</span> 
+    <div>
+        <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+            'id' => 'errorStatus',
+            'options' => array(
+                'title' => 'Подтверждение',
+                'autoOpen' => false,
+                'modal' => true,
+                'resizable'=> false,
+            ),
+        ));
+        ?>
+        <div class="row">
+            <span>К сожалению, Вы не можете сделать ставку, т.к. <span id='curStatus'></span></span> 
+        </div>
+        <?php echo CHtml::submitButton('Закрыть',array('class' => 'btn')); ?>
+        <?php 
+            $this->endWidget('zii.widgets.jui.CJuiDialog');
+        ?>
     </div>
-    <div class="rate-button">
-    <?php echo CHtml::button('Подтвердить',array('id' => 'setRateBtn','class' => 'btn')); ?>
+    <div>
+        <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+            'id' => 'errorRate',
+            'options' => array(
+                'title' => 'Ошибка',
+                'autoOpen' => false,
+                'modal' => true,
+                'resizable'=> false,
+            ),
+        ));
+        ?>
+        <div class="row">
+            <span>Ставка не может быть больше <span id="maxRateVal"></span><?php echo $currency ?></span> 
+        </div>
+        <?php echo CHtml::submitButton('Закрыть',array('class' => 'btn')); ?>
+        <?php 
+            $this->endWidget('zii.widgets.jui.CJuiDialog');
+        ?>
     </div>
-    <div class="rate-button">
-    <?php echo CHtml::button('Отказаться',array('id' => 'abordRateBtn','class' => 'btn')); ?>
+    <div>
+        <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+            'id' => 'closeRate',
+            'options' => array(
+                'title' => 'Ошибка',
+                'autoOpen' => false,
+                'modal' => true,
+                'resizable'=> false,
+            ),
+        ));
+        ?>
+        <div class="row">
+            <span id="closeTr"></span>
+        </div>
+        <?php echo CHtml::submitButton('Закрыть',array('class' => 'btn')); ?>
+        <?php
+            $this->endWidget('zii.widgets.jui.CJuiDialog');
+        ?>
     </div>
-    <?php 
-        $this->endWidget('zii.widgets.jui.CJuiDialog');
-    ?>
-</div>
-<div>
-    <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-        'id' => 'errorStatus',
-        'options' => array(
-            'title' => 'Подтверждение',
-            'autoOpen' => false,
-            'modal' => true,
-            'resizable'=> false,
-        ),
-    ));
-    ?>
-    <div class="row">
-        <span>К сожалению, Вы не можете сделать ставку, т.к. <span id='curStatus'></span></span> 
+    <div>
+        <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+            'id' => 'errorSocket',
+            'options' => array(
+                'title' => 'Ошибка',
+                'autoOpen' => false,
+                'modal' => true,
+                'resizable'=> false,
+            ),
+        ));
+        ?>
+        <div class="row">
+            <span><span id="text">Разрыв соединения с сервером. Обратитесь за помощью к администратору.</span></span> 
+        </div>
+        <?php echo CHtml::submitButton('Закрыть',array('class' => 'btn')); ?>
+        <?php 
+            $this->endWidget('zii.widgets.jui.CJuiDialog');
+        ?>
     </div>
-    <?php echo CHtml::submitButton('Закрыть',array('class' => 'btn')); ?>
-    <?php 
-        $this->endWidget('zii.widgets.jui.CJuiDialog');
-    ?>
-</div>
-<div>
-    <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-        'id' => 'errorRate',
-        'options' => array(
-            'title' => 'Ошибка',
-            'autoOpen' => false,
-            'modal' => true,
-            'resizable'=> false,
-        ),
-    ));
-    ?>
-    <div class="row">
-        <span>Ставка не может быть больше <span id="maxRateVal"></span><?php echo $currency ?></span> 
-    </div>
-    <?php echo CHtml::submitButton('Закрыть',array('class' => 'btn')); ?>
-    <?php 
-        $this->endWidget('zii.widgets.jui.CJuiDialog');
-    ?>
-</div>
-<div>
-    <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-        'id' => 'closeRate',
-        'options' => array(
-            'title' => 'Ошибка',
-            'autoOpen' => false,
-            'modal' => true,
-            'resizable'=> false,
-        ),
-    ));
-    ?>
-    <div class="row">
-        <span id="closeTr"></span>
-    </div>
-    <?php echo CHtml::submitButton('Закрыть',array('class' => 'btn')); ?>
-    <?php
-        $this->endWidget('zii.widgets.jui.CJuiDialog');
-    ?>
-</div>
 <?php endif; ?>
 <?php else: $this->redirect('/'); ?>
 <?php endif; ?>
 </div>
+
+<script>
+function getTime() {
+    return "<?php echo date("Y-m-d H:i:s") ?>";
+}
+
+$(document).ready(function() {
+    $('.point[title]').easyTooltip();
+    
+    if(typeof(socket) !== 'undefined') { 
+        rateList.data = {
+            currency : ' <?php echo $currency ?>',
+            priceStep : <?php echo $priceStep ?>,
+            transportId : <?php echo $transport->id ?>,
+            status: <?php echo $transport->status ?>,
+            step: <?php echo $priceStep ?>,
+            nds: <?php echo ((bool)$model->with_nds && Yii::app()->user->isTransport && $transport->type == Transport::RUS_TRANSPORT) ? Yii::app()->params['nds'] : 0 ?>,
+            ndsValue: <?php echo Yii::app()->params['nds'] ?>,
+            defaultRate: <?php echo ($defaultRate)? 1 : 0 ?>,
+            trType: <?php echo ($transport->type == Transport::RUS_TRANSPORT)? 1 : 0; ?>
+        };
+
+        <?php if (!Yii::app()->user->isGuest): ?>
+            <?php if(Yii::app()->user->isTransport): ?>
+            socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transport->id ?>, <?php echo 0 ?>);
+
+            rateList.data.socket = socket;
+            rateList.data.containerElements = '';
+            rateList.data.userId = '<?php echo $userInfo['id'] ?>';
+            rateList.data.transportId = '<?php echo $transport->id ?>';
+            rateList.data.transportType = '<?php echo $transport->type ?>';
+            rateList.data.company = '<?php echo $userInfo['company'] ?>';
+            rateList.data.name = '<?php echo $userInfo['name'] ?>';
+            rateList.data.surname = '<?php echo $userInfo['surname'] ?>';
+            rateList.data.dateClose = '<?php echo $transport->date_close ?>';
+            rateList.data.dateCloseNew = '<?php echo $transport->date_close_new ?>';
+
+            $('#dialog-connect').live('click', function() {
+                $("#modalDialog").dialog("open");
+            });
+
+            $('.ui-widget-overlay').live('click', function() {
+                $(".ui-dialog-content").dialog( "close" );
+            });
+
+            $( "#abordRateBtn" ).live('click', function() {
+                $(".ui-dialog-content").dialog( "close" );
+            });
+
+            $( "#errorRate .btn" ).live('click', function() {
+                $(".ui-dialog-content").dialog( "close" );
+            });
+
+            $( "#errorStatus .btn" ).live('click', function() {
+                $(".ui-dialog-content").dialog( "close" );
+            });
+            $( "#closeRate .btn" ).live('click', function() {
+                $(".ui-dialog-content").dialog( "close" );
+            });
+            $( "#errorSocket .btn" ).live('click', function() {
+                $(".ui-dialog-content").dialog( "close" );
+            });
+            <?php endif; ?> 
+                rateList.init();
+       <?php endif; ?>
+   }
+});
+</script>
 

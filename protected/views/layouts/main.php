@@ -17,9 +17,9 @@
         <!--script src="http://exchange.lbr.ru:3001/socket.io/socket.io.js"></script-->
         <script src="http://localhost:3000/socket.io/socket.io.js"></script>
         <?php
-            Yii::app()->clientScript->registerCssFile('/distribution/css/styles.min.css?1');
+            Yii::app()->clientScript->registerCssFile('/distribution/css/styles.min.css?'.time());
             Yii::app()->clientScript->registerCoreScript('jquery');
-            Yii::app()->clientScript->registerScriptFile('/distribution/js/scripts.min.js?1');
+            Yii::app()->clientScript->registerScriptFile('/distribution/js/scripts.min.js?'.time());
             
             //Yii::app()->clientScript->registerScriptFile('/js/easyTooltip.js');
             //Yii::app()->clientScript->registerScriptFile('/js/jquery.mCustomScrollbar.concat.min.js');
@@ -79,27 +79,26 @@
         <?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
         //var socket = io.connect('http://exchange.lbr.ru:3001/');
         var socket = io.connect('http://localhost:3000/');
-        
-        socket.on('timer', function(data) {
-            var container = $('#counter-' + data.transportId);
-            if(container.length) {
-                if(data.access) {
-                   container.html(data.time);
-                } else {
-                   $(".ui-dialog-content").dialog( "close" );
-                   $('.r-submit').addClass('disabled');
-                   $('.rate-wrapper').slideUp("slow");
-                   container.removeClass('open');
-                   container.html('<span class="t-closed"><img class="small-loading" src="/images/loading-small.gif"/>Обработка результатов</span>'); 
-                   setTimeout(function(){ container.html('<span class="t-closed closed">Перевозка закрыта</span>') }, 180000);
+        if(typeof(socket) !== 'undefined') { 
+            socket.on('timer', function(data) {
+                var container = $('#counter-' + data.transportId);
+                if(container.length) {
+                    if(data.access) {
+                       container.html(data.time);
+                    } else {
+                       $(".ui-dialog-content").dialog( "close" );
+                       $('.r-submit').addClass('disabled');
+                       $('.rate-wrapper').slideUp("slow");
+                       container.removeClass('open');
+                       container.html('<span class="t-closed"><img class="small-loading" src="/images/loading-small.gif"/>Обработка результатов</span>'); 
+                       setTimeout(function(){ container.html('<span class="t-closed closed">Перевозка закрыта</span>') }, 180000);
+                    }
                 }
-            }
-        });
-        socket.on('error', function(data) {
-            //console.log('error');
-            
-            $('[id^="counter-"]').text('Разрыв связи с сервером');
-        });
+            });
+            socket.on('error', function(data) {
+                $('[id^="counter-"]').text('Разрыв связи с сервером');
+            });
+        }
         <?php endif; ?>
     </script>
 </html>

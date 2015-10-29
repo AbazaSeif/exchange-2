@@ -102,26 +102,28 @@ var rateList = {
             });
 
             $( ".r-submit" ).click(function() {
-                if(!$(this).hasClass('disabled')) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/user/transport/checkStatus',
-                        dataType: 'json',
-                        data:{
-                            id: rateList.data.transportId
-                        },
-                        success: function(response) {
-                            if(response.allow) { 
-                                $('#setPriceVal').text(parseInt($( "#rate-price" ).val()));
-                                $("#addRate").dialog("open");
-                                rateList.data.time = response.time;
-                            } else {
-                                $('#curStatus').text(response.status);
-                                $("#errorStatus").dialog("open");
-                            }
-                    }});
-                   // $('#setPriceVal').text(parseInt($( "#rate-price" ).val()));
-                   // $("#addRate").dialog("open");
+                if(socket.socket.connected) {
+                    if(!$(this).hasClass('disabled')) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/user/transport/checkStatus',
+                            dataType: 'json',
+                            data:{
+                                id: rateList.data.transportId
+                            },
+                            success: function(response) {
+                                if(response.allow) { 
+                                    $('#setPriceVal').text(parseInt($( "#rate-price" ).val()));
+                                    $("#addRate").dialog("open");
+                                    rateList.data.time = response.time;
+                                } else {
+                                    $('#curStatus').text(response.status);
+                                    $("#errorStatus").dialog("open");
+                                }
+                        }});
+                    }
+                } else {
+                    $("#errorSocket").dialog("open");
                 }
             });
 

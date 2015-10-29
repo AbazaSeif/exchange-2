@@ -72,86 +72,41 @@ if(!Yii::app()->user->isGuest) {
 <?php $this->endWidget();    
 }
 ?>
-<script>
-//var troubleWithSocket = false;
-//var socket = io.connect('http://exchange.lbr.ru:3000/');
-//var socket = io.connect('http://localhost:3000/');
-
-<?php //if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>    
-//    try {
-  //      var socket = io.connect('http://exchange.lbr.ru:3000/');
-        //var socket = io.connect('http://localhost:3000/');
-        
-        /*socket.on('error', function () {
-            $('#text').text('Произошла ошибка, требуется перезагрузка страницы');
-            $("#errorSocket").parent().removeClass('hide');
-            $("#errorSocket").dialog("open");
-        });
-        
-        $( "#errorSocket .btn" ).live('click', function() {
-            location.reload();
-        });*/
-    //} catch(err) {
-      //  troubleWithSocket = true;       
-    //}
-<?php //endif; ?>
-    
+<script>    
 $(document).ready(function(){
-    /*if(troubleWithSocket) {
-        var element = $( ".transport-one" );
-        element.wrapInner( "<div class='hide' />" );
-        element.append( '<div id="error">Обратитесь пожалуйста к администратору сайта - требуется перезагрузить сервер node.js<div/>' );
-    }*/
-    <?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
-    var userId = <?php echo $user->id ?>;
-    //var socket = io.connect('http://exchange.lbr.ru:3001/');
-    //var socket = io.connect('http://localhost:3000/');
-    
-    <?php if(Yii::app()->user->isContactUser): ?>
-        socket.emit('init', userId, <?php echo Yii::app()->params['minNotify'] ?>, 1);
-    <?php else: ?>
-        socket.emit('init', userId, <?php echo Yii::app()->params['minNotify'] ?>, 0);
-    <?php endif; ?>
-    
-    var countSubmenuElem = null;
-    if ($("#submenu")) {
-        countSubmenuElem = parseInt($('#submenu').children().length);
+    if(typeof(socket) !== 'undefined') {
+        <?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
+        var userId = <?php echo $user->id ?>;
+        //var socket = io.connect('http://exchange.lbr.ru:3001/');
+        //var socket = io.connect('http://localhost:3000/');
+
+        <?php if(Yii::app()->user->isContactUser): ?>
+            socket.emit('init', userId, <?php echo Yii::app()->params['minNotify'] ?>, 1);
+        <?php else: ?>
+            socket.emit('init', userId, <?php echo Yii::app()->params['minNotify'] ?>, 0);
+        <?php endif; ?>
+
+        var countSubmenuElem = null;
+        if ($("#submenu")) {
+            countSubmenuElem = parseInt($('#submenu').children().length);
+        }
+
+        menu.countSubmenuElem = countSubmenuElem;
+        menu.init();
+
+        socket.emit('events', userId); 
+        socket.on('updateEvents', function (data) {
+            if (parseInt(data.count) != 0) {
+                $('#event-counter').html(data.count);    
+            } else $('#event-counter').html('');
+        });
+
+        updateEventCount(userId);
+
+        socket.on('onlineEvent', function (data) {
+            $.onlineEvent({ msg : data.msg, className : 'classic', sticked:true, position:{right:0,bottom:0}, time:10000});
+        });
+        <?php endif;?>
     }
-    
-    menu.countSubmenuElem = countSubmenuElem;
-    menu.init();
-    
-    socket.emit('events', userId); 
-    socket.on('updateEvents', function (data) {
-        if (parseInt(data.count) != 0) {
-            $('#event-counter').html(data.count);    
-        } else $('#event-counter').html('');
-    });
-    
-    updateEventCount(userId);
-    
-    socket.on('onlineEvent', function (data) {
-        $.onlineEvent({ msg : data.msg, className : 'classic', sticked:true, position:{right:0,bottom:0}, time:10000});
-    });
-    <?php endif;?>
 });
 </script>
-<div class="hide">
-    <?php $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-        'id' => 'errorSocket',
-        'options' => array(
-            'title' => 'Ошибка',
-            'autoOpen' => false,
-            'modal' => true,
-            'resizable'=> false,
-        ),
-    ));
-    ?>
-    <div class="row">
-        <span><span id="text"></span></span> 
-    </div>
-    <?php echo CHtml::submitButton('ОК',array('class' => 'btn')); ?>
-    <?php 
-        $this->endWidget('zii.widgets.jui.CJuiDialog');
-    ?>
-</div>
