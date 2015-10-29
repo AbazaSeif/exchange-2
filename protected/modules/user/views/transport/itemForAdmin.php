@@ -52,11 +52,11 @@
             
             <!--  rates -->
             <div class="width-50 timer-wrapper">
-                <!--div id="t-container" class="t-container <?php echo ($showAdditionalTimer)? 'add-t' : '' ?>">
-                    <?php if(!$transportInfo['status']): ?>
+                <div id="t-container">
+                    <?php if(!$transport->status): ?>
                     <span class="t-closed">Перевозка закрыта</span>
                     <?php endif; ?>
-                </div--> 
+                </div> 
                 <div id="last-rate">
                      <span><?php echo $minRateValue . ' ' . $currency?></span>
                      <div><?php echo $showWinner ?></div> 
@@ -72,6 +72,9 @@
 
 <script>
 $(document).ready(function() {
+    var timer = new Timer();
+    timer.init($(this).attr('now'), <?php echo $transport->date_close?>, <?php echo $transport->id ?>, <?php echo $transport->status ?>, $(this).attr('t-id'));
+    
     rateList.data = {
         currency : ' <?php echo $currency ?>',
         transportId : <?php echo $transport->id ?>,
