@@ -25,6 +25,7 @@ class CronCommand extends CConsoleCommand
         ;
         
         foreach($transports as $transport){
+            Yii::log('error date ---- '.$transport['id'], 'info');
             Transport::model()->updateByPk($transport['id'], array('status' => 0));
         }
     }
