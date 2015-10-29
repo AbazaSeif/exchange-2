@@ -1,7 +1,6 @@
 <?php
-
-
-
+$now = date('m/d/Y H:i:s');
+$end = date('m/d/Y H:i:s', strtotime($transport->date_close));
 ?>
 
 <div class="transport-one">
@@ -52,7 +51,7 @@
             
             <!--  rates -->
             <div class="width-50 timer-wrapper">
-                <div id="t-container">
+                <div id="t-container" class="t-container">
                     <?php if(!$transport->status): ?>
                     <span class="t-closed">Перевозка закрыта</span>
                     <?php endif; ?>
@@ -73,7 +72,7 @@
 <script>
 $(document).ready(function() {
     var timer = new Timer();
-    timer.init($(this).attr('now'), <?php echo $transport->date_close?>, <?php echo $transport->id ?>, <?php echo $transport->status ?>, $(this).attr('t-id'));
+    timer.init('<?php echo $now ?>', '<?php echo $end ?>', 't-container', <?php echo $transport->status ?>, <?php echo $transport->id ?>);
     
     rateList.data = {
         currency : ' <?php echo $currency ?>',
