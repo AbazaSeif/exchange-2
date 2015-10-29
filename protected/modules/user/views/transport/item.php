@@ -394,31 +394,6 @@ $(document).ready(function() {
             rateList.data.dateClose = '<?php echo $transport->date_close ?>';
             rateList.data.dateCloseNew = '<?php echo $transport->date_close_new ?>';
 
-            $('#dialog-connect').live('click', function() {
-                $("#modalDialog").dialog("open");
-            });
-
-            $('.ui-widget-overlay').live('click', function() {
-                $(".ui-dialog-content").dialog( "close" );
-            });
-
-            $( "#abordRateBtn" ).live('click', function() {
-                $(".ui-dialog-content").dialog( "close" );
-            });
-
-            $( "#errorRate .btn" ).live('click', function() {
-                $(".ui-dialog-content").dialog( "close" );
-            });
-
-            $( "#errorStatus .btn" ).live('click', function() {
-                $(".ui-dialog-content").dialog( "close" );
-            });
-            $( "#closeRate .btn" ).live('click', function() {
-                $(".ui-dialog-content").dialog( "close" );
-            });
-            $( "#errorSocket .btn" ).live('click', function() {
-                $(".ui-dialog-content").dialog( "close" );
-            });
             <?php endif; ?> 
                 rateList.init();
        <?php endif; ?>

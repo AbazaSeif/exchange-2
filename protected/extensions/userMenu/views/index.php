@@ -76,36 +76,26 @@ if(!Yii::app()->user->isGuest) {
 $(document).ready(function(){
     if(typeof(socket) !== 'undefined') {
         <?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
-        var userId = <?php echo $user->id ?>;
-        //var socket = io.connect('http://exchange.lbr.ru:3001/');
-        //var socket = io.connect('http://localhost:3000/');
-
-        <?php if(Yii::app()->user->isContactUser): ?>
-            socket.emit('init', userId, <?php echo Yii::app()->params['minNotify'] ?>, 1);
-        <?php else: ?>
-            socket.emit('init', userId, <?php echo Yii::app()->params['minNotify'] ?>, 0);
-        <?php endif; ?>
-
         var countSubmenuElem = null;
         if ($("#submenu")) {
             countSubmenuElem = parseInt($('#submenu').children().length);
         }
-
         menu.countSubmenuElem = countSubmenuElem;
         menu.init();
-
-        socket.emit('events', userId); 
+        
+        var userId = <?php echo $user->id ?>;
+        
+        //socket.emit('events', userId);
+         
         socket.on('updateEvents', function (data) {
             if (parseInt(data.count) != 0) {
                 $('#event-counter').html(data.count);    
             } else $('#event-counter').html('');
         });
-
-        updateEventCount(userId);
-
-        socket.on('onlineEvent', function (data) {
-            $.onlineEvent({ msg : data.msg, className : 'classic', sticked:true, position:{right:0,bottom:0}, time:10000});
-        });
+//
+//        updateEventCount(userId);
+//
+        
         <?php endif;?>
     }
 });

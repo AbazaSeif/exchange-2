@@ -79,7 +79,8 @@
         <?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
         //var socket = io.connect('http://exchange.lbr.ru:3001/');
         var socket = io.connect('http://localhost:3000/');
-        if(typeof(socket) !== 'undefined') { 
+        if(typeof(socket) !== 'undefined') {
+            socket.emit('init', <?php echo Yii::app()->user->_id ?>);
             socket.on('timer', function(data) {
                 var container = $('#counter-' + data.transportId);
                 if(container.length) {
@@ -97,6 +98,10 @@
             });
             socket.on('error', function(data) {
                 $('[id^="counter-"]').text('Разрыв связи с сервером');
+            });
+            
+            socket.on('onlineEvent', function (data) {
+                $.onlineEvent({ msg : data.msg, className : 'classic', sticked:true, position:{right:0,bottom:0}, time:10000});
             });
         }
         <?php endif; ?>

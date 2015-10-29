@@ -152,7 +152,7 @@ var rateList = {
                         price : price,
                         type : rateList.data.transportType,
                         timedate : rateList.data.time,
-                        x: 675,
+                        x: 854
                     }); 
                 //}
             });
