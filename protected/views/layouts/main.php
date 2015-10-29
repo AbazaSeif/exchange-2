@@ -71,4 +71,8 @@
             <p><?php echo date("Y"); ?> &copy; ООО "ЛБР-АгроМаркет"</p>
         </div>
     </body>
+    <script>
+        //var socket = io.connect('http://exchange.lbr.ru:3001/');
+        var socket = io.connect('http://localhost:3000/');
+    </script>
 </html>

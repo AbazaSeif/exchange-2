@@ -240,7 +240,7 @@ $(document).ready(function(){
     <?php if (!Yii::app()->user->isGuest): ?>
         <?php if(Yii::app()->user->isTransport): ?>
         //var socket = io.connect('http://exchange.lbr.ru:3001/');
-        var socket = io.connect('http://localhost:3000/');
+        //var socket = io.connect('http://localhost:3000/');
         
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>, <?php echo 0 ?>);
         <?php if($transportInfo['status'] == Transport::ACTIVE_TRANSPORT): ?>
@@ -255,7 +255,7 @@ $(document).ready(function(){
                    $('.rate-wrapper').slideUp("slow");
                    container.removeClass('open');
                    container.html('<span class="t-closed"><img class="small-loading" src="/images/loading-small.gif"/>Обработка результатов</span>'); 
-                   setInterval(function(){container.html('<span class="t-closed closed">Перевозка закрыта</span>');}, 180000);
+                   setTimeout(function(){ container.html('<span class="t-closed closed">Перевозка закрыта</span>') }, 180000);
                 }
             }
         });
