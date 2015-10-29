@@ -103,6 +103,12 @@
             socket.on('onlineEvent', function (data) {
                 $.onlineEvent({ msg : data.msg, className : 'classic', sticked:true, position:{right:0,bottom:0}, time:10000});
             });
+            
+            socket.on('updateEvents', function (data) {
+                if (parseInt(data.count) != 0) {
+                    $('#event-counter').html(data.count);    
+                } else $('#event-counter').html('');
+            });
         }
         <?php endif; ?>
     </script>

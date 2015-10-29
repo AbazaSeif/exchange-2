@@ -66,17 +66,15 @@ function seachNewEvents(id, minNotyfy)
     }, 1000);
 }
 
-function updateEventsCount(id)
+function updateEventsCount()
 {
-    setInterval(function() {
-        db.each("SELECT * FROM user_event WHERE status = 1", function(err, row) {
-            console.log('===='+row.user_id);
-//            io.sockets.socket(socket.id).emit('updateEvents', {
-//                count : rows
-//            });
+    db.each("SELECT count(*) count, user_id FROM user_event WHERE status = 1 GROUP BY user_id", function(err, row) {
+        io.sockets.socket(allSockets[row.user_id]).emit('updateEvents', {
+            count : row.count
         });
-    }, 1000);
+    });
 }
+setInterval(updateEventsCount, 1000);
 
 function showOnlineMessages(data) 
 {
