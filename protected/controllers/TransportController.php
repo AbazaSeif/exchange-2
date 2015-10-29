@@ -30,7 +30,7 @@ class TransportController extends Controller
             )
         );
 
-        $this->render('view', array('data' => $dataProvider, 'title'=>'Все перевозки'));
+        $this->render('user.views.transport.view', array('data' => $dataProvider, 'title'=>'Все перевозки'));
     }
 
     // show one Transport
