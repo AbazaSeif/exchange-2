@@ -82,16 +82,6 @@ $(document).ready(function(){
         }
         menu.countSubmenuElem = countSubmenuElem;
         menu.init();
-        
-        var userId = <?php echo $user->id ?>;
-        
-        //socket.emit('events', userId);
-         
-       
-//
-//        updateEventCount(userId);
-//
-        
         <?php endif;?>
     }
 });

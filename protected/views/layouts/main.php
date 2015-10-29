@@ -87,15 +87,19 @@
                     if(data.access) {
                        container.html(data.time);
                     } else {
-                       $(".ui-dialog-content").dialog( "close" );
-                       $('.r-submit').addClass('disabled');
-                       $('.rate-wrapper').slideUp("slow");
+                       if($(".ui-dialog-content").length) $(".ui-dialog-content").dialog( "close" );
+                       if($(".r-submit").length) $('.r-submit').addClass('disabled');
+                       if($(".rate-wrapper").length) $('.rate-wrapper').slideUp("slow");
                        container.removeClass('open');
                        container.html('<span class="t-closed"><img class="small-loading" src="/images/loading-small.gif"/>Обработка результатов</span>'); 
-                       setTimeout(function(){ container.html('<span class="t-closed closed">Перевозка закрыта</span>') }, 180000);
+                       setTimeout(function(){ 
+                           container.html('<span class="t-closed closed">Перевозка закрыта</span>');
+                           if($('.items .transport').length) container.parents().eq(2).slideUp("slow");
+                       }, 180000);
                     }
                 }
             });
+            
             socket.on('error', function(data) {
                 $('[id^="counter-"]').text('Разрыв связи с сервером');
             });
