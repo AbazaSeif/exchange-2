@@ -147,10 +147,11 @@ if (!Yii::app()->user->isGuest) {
                 <?php if (!empty($transportInfo['auto_info'])):?><div class="r-params"><span>Транспорт: </span><strong><?php echo $transportInfo['auto_info'] ?></strong></div><?php endif; ?>
                 <?php if (!empty($transportInfo['pto'])):?><div class="r-params"><span>Экспорт ПТО: </span><strong><?php echo $transportInfo['pto'] ?></strong></div><?php endif; ?>
             </div>
-            <?php if (!Yii::app()->user->isGuest && $minRateValue > 0 && Yii::app()->user->isTransport): ?>
+            
+            <?php if (!Yii::app()->user->isGuest && Yii::app()->user->isTransport && $minRateValue > 0): ?>
             <div class="width-50 timer-wrapper">
                 <div class="width-100">
-                    <div id="t-container" class="width-40 <?php echo ($showAdditionalTimer)? 'add-t' : '' ?> <?php echo ($transportInfo['status'] && $now < $end)? 'open' : '' ?>">
+                    <div id="counter-<?php echo $transportInfo['id']?>" class="t-container width-40 <?php echo ($showAdditionalTimer)? 'add-t' : '' ?> <?php echo ($transportInfo['status'] && $now < $end)? 'open' : '' ?>">
                         <?php if(!$transportInfo['status']): ?>
                         <span class="t-closed closed">Перевозка закрыта</span>
                         <?php //elseif($now > $end): ?>
@@ -171,26 +172,23 @@ if (!Yii::app()->user->isGuest) {
                     </div>
                     <?php endif; ?>
                 </div>
-            
-            <?php if (!Yii::app()->user->isGuest): ?>
+                
                 <label class="r-header">Текущие ставки</label>
                 <div id="rates">
                     <div id="r-preloader">
                         <img src="/images/loading.gif"/>
                     </div>
                 </div>
-            <?php endif; ?>
             </div>
-            <?php endif; ?>
-            <?php if (Yii::app()->user->isGuest): ?>
+            <?php elseif (Yii::app()->user->isGuest): ?>
                  <div class="width-50 timer-wrapper">
                      <div id="t-container" class="<?php echo ($showAdditionalTimer)? 'add-t' : '' ?>"></div>
                      <div id="last-rate"><span><?php echo '**** ' . $currency?></span></div>
                  </div>
-            <?php elseif(!Yii::app()->user->isTransport): ?>
+            <?php elseif(!Yii::app()->user->isGuest && !Yii::app()->user->isTransport): ?>
                 <div class="width-50 timer-wrapper">
                     <!--div id="t-container" class="<?php echo ($showAdditionalTimer)? 'add-t' : '' ?>"></div-->
-                    <div id="t-container" class="<?php echo ($showAdditionalTimer)? 'add-t' : '' ?>">
+                    <div id="t-container" class="t-container <?php echo ($showAdditionalTimer)? 'add-t' : '' ?>">
                         <?php //if(!$transportInfo['status'] || $end < $now): ?>
                         <?php if(!$transportInfo['status']): ?>
                         <span class="t-closed">Перевозка закрыта</span>
@@ -243,23 +241,23 @@ $(document).ready(function(){
         //var socket = io.connect('http://localhost:3000/');
         
         socket.emit('loadRates', <?php echo $userId ?>, <?php echo $transportInfo['id'] ?>, <?php echo 0 ?>);
-        <?php if($transportInfo['status'] == Transport::ACTIVE_TRANSPORT): ?>
-        socket.on('timer', function(data) {
-            var container = $('#t-container');
-            if(data.transportId == <?php echo $transportInfo['id'] ?>) {
-                if(data.access) {
-                   container.html(data.time);
-                } else {
-                   $(".ui-dialog-content").dialog( "close" );
-                   $('.r-submit').addClass('disabled');
-                   $('.rate-wrapper').slideUp("slow");
-                   container.removeClass('open');
-                   container.html('<span class="t-closed"><img class="small-loading" src="/images/loading-small.gif"/>Обработка результатов</span>'); 
-                   setTimeout(function(){ container.html('<span class="t-closed closed">Перевозка закрыта</span>') }, 180000);
-                }
-            }
-        });
-        <?php endif; ?>
+        <?php //if($transportInfo['status'] == Transport::ACTIVE_TRANSPORT): ?>
+//        socket.on('timer', function(data) {
+//            var container = $('#t-container');
+//            if(data.transportId == <?php echo $transportInfo['id'] ?>) {
+//                if(data.access) {
+//                   container.html(data.time);
+//                } else {
+//                   $(".ui-dialog-content").dialog( "close" );
+//                   $('.r-submit').addClass('disabled');
+//                   $('.rate-wrapper').slideUp("slow");
+//                   container.removeClass('open');
+//                   container.html('<span class="t-closed"><img class="small-loading" src="/images/loading-small.gif"/>Обработка результатов</span>'); 
+//                   setTimeout(function(){ container.html('<span class="t-closed closed">Перевозка закрыта</span>') }, 180000);
+//                }
+//            }
+//        });
+        <?php //endif; ?>
         
         rateList.data.socket = socket;
         rateList.data.containerElements = '';
@@ -420,7 +418,7 @@ $(document).ready(function(){
         <span id="closeTr"></span>
     </div>
     <?php echo CHtml::submitButton('ОК',array('class' => 'btn')); ?>
-    <?php 
+    <?php
         $this->endWidget('zii.widgets.jui.CJuiDialog');
     ?>
 </div>

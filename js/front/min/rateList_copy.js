@@ -3,7 +3,9 @@ var rateList = {
         this.container = $("#rates");
         var element = $( "#rate-price" );
         //if(typeof(rateList.data.socket) !== 'undefined' && parseInt(rateList.data.status)) {
-        if(typeof(rateList.data.socket) !== 'undefined' && parseInt(rateList.data.userId)) {
+        if(typeof(rateList.data.socket) !== 'undefined') { // load with ajax rates for admin and logist
+            rateList.load(this.container);
+        } else { //   if( && parseInt(rateList.data.userId)) {
             rateList.data.socket.on('setRate', function (data) {
                 if(data.dateCloseNew)rateList.data.dateCloseNew = data.dateCloseNew;
                 
@@ -179,9 +181,7 @@ var rateList = {
                     $( "#rate-price" ).trigger('blur');
                 }
             });
-        } else { // load with ajax rates for admin and logist
-            rateList.load(this.container);
-        }        
+        }      
     },
     update : function(posts, price, userName) {
         if (this.container.length > 0) {

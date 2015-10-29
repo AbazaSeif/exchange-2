@@ -107,7 +107,8 @@
             </div>
         </div>
         <div class="width-30 v-center"> 
-            <div class="t-timer <?php echo ($showAdditionalTimer)? 'add-t' : '' ?>" id="counter-<?php echo $data->id; ?>" t-id="<?php echo $data->id; ?>" now="<?php echo $now ?>" end="<?php echo $end ?>" status="<?php echo $status ?>"></div>
+            <!--div class="t-timer <?php echo ($showAdditionalTimer)? 'add-t' : '' ?>" id="counter-<?php echo $data->id; ?>" t-id="<?php echo $data->id; ?>" now="<?php echo $now ?>" end="<?php echo $end ?>" status="<?php echo $status ?>"></div-->
+            <div class="t-timer" id="counter-<?php echo $data->id; ?>"></div>
         </div>
     </div>
 </div>

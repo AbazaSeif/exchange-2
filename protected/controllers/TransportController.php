@@ -1,8 +1,9 @@
 <?php
 class TransportController extends Controller
 {
+    // main Page
     public function actionI()
-    {//
+    {
         $lastRates = array();
         $criteria = new CDbCriteria();
         $criteria->compare('status', 1);
@@ -32,11 +33,13 @@ class TransportController extends Controller
         $this->render('user.views.transport.view', array('data' => $dataProvider, 'title'=>'Все перевозки'));
     }
 
+    // show one Transport
     public function actionDescription($id)
     {
-        if(!Yii::app()->user->isGuest) {
-            $id_exists = Transport::model()->exists('id = :id', array(":id"=>$id));
-            if (!$id_exists){
+        if(!Yii::app()->user->isGuest) 
+        {
+            $transport = Transport::model()->findByPk($id);
+            if (!$transport) {
                  throw new CHttpException(404,Yii::t('yii','Страница не найдена'));
             }
             
@@ -63,17 +66,29 @@ class TransportController extends Controller
                     }
                 }
             }
-        
-            $transportInfo=Yii::app()->db->createCommand("SELECT * from transport where id='".$id."'")->queryRow();
-            $allRatesForTransport = Yii::app()->db->createCommand()
-                ->select('r.date, r.price, u.name')
-                ->from('rate r')
-                ->join('user u', 'r.user_id=u.id')
-                ->where('r.transport_id=:id', array(':id'=>$id))
-                ->order('r.date desc')
-                ->queryAll()
-            ;
-            $this->render('user.views.transport.item', array('rateData' => $dataProvider, 'transportInfo' => $transportInfo));
+
+            $allPoints = TransportInterPoint::getPoints($id, $transport->location_to);
+            
+            if(!Yii::app()->user->isTransport) { // admin
+                $allRates = Yii::app()->db->createCommand()
+                    ->select('r.date, r.price, u.name')
+                    ->from('rate r')
+                    ->join('user u', 'r.user_id=u.id')
+                    ->where('r.transport_id=:id', array(':id'=>$id))
+                    ->order('r.date desc')
+                    ->queryAll()
+                ;
+                
+                $this->render('user.views.transport.itemForAdmin', array(
+                    'allRates' => $allRates,
+                    'transport' => $transport,
+                    'allPoints' => $allPoints
+                ));
+            } else       
+                $this->render('user.views.transport.item', array(
+                    'transport' => $transport,
+                    'allPoints' => $allPoints
+                ));
         } else {
             $this->redirect('/user/login/');
         }
