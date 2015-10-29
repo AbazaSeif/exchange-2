@@ -14,8 +14,8 @@
         <!--link rel="stylesheet" type="text/css" href="/css/front/frontend.css?<?php echo time(); ?>" /-->
         <!--link rel="stylesheet" type="text/css" href="/css/front/jquery.mCustomScrollbar.css" /-->
         <link rel="shortcut icon" type="image/jpg" href="<?php echo Yii::app()->request->baseUrl.'/images/favicon.jpg';?>"/>
-        <!--script src="http://exchange.lbr.ru:3001/socket.io/socket.io.js"></script-->
-        <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+        <script src="http://exchange.lbr.ru:3001/socket.io/socket.io.js"></script>
+        <!--script src="http://localhost:3000/socket.io/socket.io.js"></script-->
         <?php
             Yii::app()->clientScript->registerCssFile('/distribution/css/styles.min.css?'.time());
             Yii::app()->clientScript->registerCoreScript('jquery');
@@ -77,8 +77,8 @@
     </body>
     <script>
         <?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
-        //var socket = io.connect('http://exchange.lbr.ru:3001/');
-        var socket = io.connect('http://localhost:3000/');
+        var socket = io.connect('http://exchange.lbr.ru:3001/');
+        //var socket = io.connect('http://localhost:3000/');
         if(typeof(socket) !== 'undefined') {
             socket.emit('init', <?php echo Yii::app()->user->_id ?>);
             socket.on('timer', function(data) {
