@@ -25,7 +25,6 @@ class TEmail2{
                     <meta content="telephone=no" name="format-detection" />
                     <title>Новые заявки на перевозку</title>
                     <style type="text/css" media="screen">
-                          
                             body { cursor: default; padding:0 !important; margin:0 !important; display:block !important; background:#ededed; -webkit-text-size-adjust:none }
                             .footer a, .footer a:hover, .footer a:active { color: #ffffff; text-decoration: none; }
                             a, a:hover, a:active { color:#7b828b; text-decoration:underline }
@@ -39,9 +38,11 @@ class TEmail2{
                         <table width="624" border="0" cellspacing="0" cellpadding="0">
                             <!-- Top -->
                             <tr>
-                                <td class="top" style="color:#4a5461; font-family:Verdana; font-size:11px; line-height:15px; text-align:center">
-                                    <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="20" style="height:20px; float: left" alt="" />
-                                    <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="15" style="height:15px; float: left" alt="" />
+                                <td class="top" style="color:#4a5461; font-family:Verdana; font-size:11px; line-height:40px; text-align:center">
+                                    <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="40" style="height:20px; float: left" alt="" />
+                                </td>
+                                <td class="top" style="color:#4a5461; font-family:Verdana; font-size:11px; line-height:40px; text-align:center">
+                                    <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="40" style="height:20px; float: left" alt="" />
                                 </td>
                             </tr>
                             <!-- END Top -->
@@ -55,7 +56,7 @@ class TEmail2{
                                             <td bgcolor="#b1b1b1">
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                     <tr>
-                                                        <td style="padding-left: 20px; padding-top: 14px; padding-bottom: 14px;"><span style="font-family:Verdana; font-size:21px; font-weight: 700; text-align:left;"><a href="http://exchange.lbr.ru/" target="_blank" style="text-decoration: none; color: #ffffff !important;">Онлайн биржа перевозок</a></span></td>
+                                                        <td style="padding-left: 20px; padding-top: 14px; padding-bottom: 8px;"><span style="font-family:Verdana; font-size:21px; font-weight: 700; text-align:left;"><a href="http://exchange.lbr.ru/" target="_blank" style="text-decoration: none; color: #ffffff !important;">Онлайн биржа перевозок</a></span></td>
                                                     </tr>
                                                 </table>
                                             </td>
