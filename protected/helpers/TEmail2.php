@@ -39,7 +39,7 @@ class TEmail2{
                         <table width="624" border="0" cellspacing="0" cellpadding="0">
                             <!-- Top -->
                             <tr>
-                                <td class="top" style="color:#4a5461; font-family:Verdana; font-size:11px; line-height:15px; text-align:center">
+                                <td class="top" style="color:#b1b1b1; font-family:Verdana; font-size:11px; line-height:15px; text-align:center">
                                     <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="20" style="height:20px; float: left" alt="" />
                                     <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="15" style="height:15px; float: left" alt="" />
                                 </td>
@@ -57,17 +57,17 @@ class TEmail2{
                                     </table>
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left;" width="1" bgcolor="#dfdfdf"></td>
-                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left;" width="1" bgcolor="#c1c1c1"></td>
-                                            <td bgcolor="#00abab">
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left;" width="1" bgcolor="#b1b1b1"></td>
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left;" width="1" bgcolor="#b1b1b1"></td>
+                                            <td bgcolor="#b1b1b1">
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                     <tr>
                                                         <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; padding-left: 17px; padding-bottom: 10px"><img src="http://exchange.lbr.ru/images/mail/header_logo.jpg" style="border: 0; float: left" alt="" border="0" width="300" height="23" /></td>
                                                     </tr>
                                                 </table>
                                             </td>
-                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#c1c1c1"></td>
-                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#b1b1b1"></td>
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#b1b1b1"></td>
                                         </tr>
                                     </table>
                                 </td>
@@ -79,24 +79,24 @@ class TEmail2{
                                 <td>
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
                                             <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#b1b1b1"></td>
-                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#00abab"></td>
-                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#00abab"></td>
-                                            <td bgcolor="#00abab">
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#b1b1b1"></td>
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#b1b1b1"></td>
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#b1b1b1"></td>
+                                            <td bgcolor="#b1b1b1">
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                     <tr>
                                                         <td style="padding-left: 20px; padding-top: 14px; padding-bottom: 3px;"><span style="font-family:Verdana; font-size:11px; text-align:left;"><a href="http://exchange.lbr.ru/" target="_blank" style="text-decoration: none; color: #ffffff !important;">www.exchange.lbr.ru</a></span></td>
                                                     </tr>
                                                 </table>
                                             </td>
-                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#00abab"></td>
-                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#00abab"></td>
                                             <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#b1b1b1"></td>
-                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#dfdfdf"></td>
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#b1b1b1"></td>
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#b1b1b1"></td>
+                                            <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#b1b1b1"></td>
                                         </tr>
                                     </table>
-                                    <img src="http://exchange.lbr.ru/images/mail/footer_bottom.jpg" alt="" border="0" width="624" height="29" style="padding-top: 0; float: left" />
+                                    <!--img src="http://exchange.lbr.ru/images/mail/footer_bottom.jpg" alt="" border="0" width="624" height="29" style="padding-top: 0; float: left" /-->
                                 </td>
                             </tr>
                             <!-- END Footer -->
