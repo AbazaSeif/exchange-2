@@ -1,11 +1,11 @@
 // *** Database ***
 var sqlite3 = require("sqlite3").verbose();
-//var file = "d:/server/domains/data/exchange.db"; 
+//var file = "d:/server/domains/data/exchange.db";
 var file = "/var/www/vhosts/lbr.ru/httpdocs/data/exchange.db";
 var db = new sqlite3.Database(file);
 
 // *** Socket ***
-var io = require('socket.io').listen(3001);
+var io = require('socket.io').listen(3000);
 var allSockets = [];
 
 function deleteFromArray(element) {
@@ -14,6 +14,7 @@ function deleteFromArray(element) {
 }
 
 // *** Timer for all transports ***
+//var timer = require('./timer.js');
 var timer = require('/var/www/vhosts/lbr.ru/httpdocs/exchange/js/server/timer.js');
 var Timer = timer();
 
@@ -194,7 +195,7 @@ io.sockets.on('connection', function (socket) {
                 if(parseInt(row.status) == 1) {
                     if(parseInt(data.price) <= parseInt(row.start_rate)) {
                         var dateCloseNew = ''; //checkForAdditionalTimer(data);
-                        var time = getDateTime();
+                        
                         // check time
                         var now = new Date();
                         var end = new Date(row.date_close);
@@ -206,6 +207,7 @@ io.sockets.on('connection', function (socket) {
                         }
                         
                         if (allow) {
+                            var time = getDateTime(now);
                             if(row.rate_id) { // not first rate in transport	
                                 // check if it's min rate
                                 db.each("SELECT min(price) as price, user_id FROM rate WHERE transport_id = " + data.transportId + " group by transport_id order by date desc", function(err, min) {
