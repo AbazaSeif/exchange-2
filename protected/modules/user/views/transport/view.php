@@ -34,6 +34,7 @@ if($data->pagination->pageCount!=0) {
 <?php } ?>
 <script>
 $(document).ready(function(){
+    <?php if(Yii::app()->user->isGuest || (!Yii::app()->user->isGuest && !Yii::app()->user->isTransport)): ?>
     $('.t-timer').each(function(){
        if(parseInt($(this).attr('status'))){
            var timer = new Timer();
@@ -42,6 +43,7 @@ $(document).ready(function(){
            $('#' + $(this).attr('id')).html('<span class="t-closed">Перевозка закрыта</span>');
        }
     });
+    <?php endif; ?>
 });
 </script>
 

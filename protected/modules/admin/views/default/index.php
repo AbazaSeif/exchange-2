@@ -53,28 +53,22 @@ $user = AuthUser::model()->findByPk(Yii::app()->user->_id);
     </ul>
     <ul class="info-list">
         <li>
-            Перевозки
+            Перевозки (региональные / международные)
         </li>
         <li>
-            <span>Всего перевозок: <?php echo Transport::model()->count();?></span>
+            <span>Всего перевозок: <?php echo Transport::model()->count();?> (<?php echo Transport::model()->count('type=1').' / '.Transport::model()->count('type=0')?>)</span>
         </li>
         <li>
-            <span>Активных: <?php echo Transport::model()->count('status=1');?></span>
+            <span>Активных: <?php echo Transport::model()->count('status=1');?> (<?php echo Transport::model()->count('type=1 and status=1').' / '.Transport::model()->count('type=0 and status=1')?>)</span>
         </li>
         <li>
-            <span>Архивных: <?php echo Transport::model()->count('status=0');?></span>
+            <span>Архивных: <?php echo Transport::model()->count('status=0');?> (<?php echo Transport::model()->count('type=1 and status=0').' / '.Transport::model()->count('type=0 and status=0')?>)</span>
         </li>
         <li>
             <span>Черновиков: <?php echo Transport::model()->count('status=2');?></span>
         </li>
         <li>
-            <span>Удаленных: <?php echo Transport::model()->count('status=3');?></span>
-        </li>
-        <li>
-            <span>Всего международных: <?php echo Transport::model()->count('type = 0');?>, из них активных: <?php echo Transport::model()->count('type = 0 and status=1');?></span>
-        </li>
-        <li>
-            <span>Всего региональных: <?php echo Transport::model()->count('type = 1');?>, из них активных: <?php echo Transport::model()->count('type = 1 and status=1');?></span>
+            <span>Удаленных: <?php echo Transport::model()->count('status=3');?> (<?php echo Transport::model()->count('type=1 and status=3').' / '.Transport::model()->count('type=0 and status=3')?>)</span>
         </li>
     </ul>
 </div>

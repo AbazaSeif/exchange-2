@@ -104,6 +104,9 @@ return array(
             'class' => 'CDbAuthManager',
             'connectionID' => 'db_auth',
         ),
+        'search'=>array(
+            'class'=>'SearchComponent',
+        )
     ),
 
     // application-level parameters that can be accessed
@@ -123,7 +126,7 @@ return array(
             ),
             'Перевозки' => '/admin/transport/',
             'Статистика' => '/admin/statistics/',
-            'История редактирования' => '/admin/changes/',
+            'Журнал редактирования' => '/admin/changes/',
         ),
 
         'supportEmail' => 'support.ex@lbr.ru',

@@ -1,6 +1,7 @@
 <?php
 class Changes extends CActiveRecord
 {
+    public $user;
     /**
     * @return string the associated database table name
     */
@@ -15,8 +16,9 @@ class Changes extends CActiveRecord
     public function rules()
     {
        return array(
-           array('date', 'safe'),
-           array('id, date, user_id', 'safe', 'on'=>'search'),
+           array('id, date, description, user', 'safe'),
+           //array('id, date, user_id', 'safe', 'on'=>'search'),
+           array('id, date, description, user', 'safe', 'on'=>'search'),
        );
     }
 
@@ -113,6 +115,52 @@ class Changes extends CActiveRecord
             }
             Changes::saveChange($message);
             return;
+        }
+    }
+    
+    public function search()
+    {
+        // @todo Please modify the following code to remove attributes that should not be searched.
+
+        $criteria = new CDbCriteria;
+        $criteria->compare('id',$this->id);
+        $criteria->compare('user_id', $this->user);
+        
+        if(Yii::app()->search->prepareSqlite()) {
+            if(!empty($this->description))$criteria->addCondition('lower(description) like lower("%' . $this->description . '%")');
+            if(!empty($this->date))$criteria->addCondition('lower(date) like lower("%' . $this->date . '%")');
+        } else {
+            $criteria->compare('description',$this->description,true);
+            $criteria->compare('date',$this->date,true);
+        }
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+            'pagination'=>array(
+                'pageSize'=>12
+            ),
+            'sort' => array(
+                'defaultOrder' => 'date DESC',
+            ),
+        ));
+    }
+    
+    public static function getAuthUser($id){
+        if (isset($id)) {
+
+            if(is_numeric($id)) {
+                $sql = "SELECT surname, name, secondname FROM user WHERE id=".$id.";";   
+            } else {
+                $sql = "SELECT surname, name, secondname FROM user WHERE login = '".trim($id)."';";
+            }
+
+            $result = Yii::app()->db_auth->createCommand($sql)->queryRow();
+            if(!$result) $userName = $id;
+            else $userName = $result['surname'].' '.$result['name'].' '.$result['secondname'];
+
+            return $userName;
+        } else {
+            return false;
         }
     }
 }

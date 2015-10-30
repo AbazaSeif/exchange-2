@@ -58,30 +58,6 @@
             <div class="t-points"><span><?php echo $data->location_from . $allPoints . '<img class="arrow" src="/images/arrow.png" />' . $data->location_to ?></span></div>
             <?php endif; ?>
         </div>
-        <!--div class="width-100">
-            <div class="width-49">
-                <?php //if(!Yii::app()->user->isGuest): ?>
-                <a class="t-header" href="<?php echo $action; ?>" >
-                    <?php //echo $data->location_from ?>
-                </a>
-                <?php //else: ?>
-                <div class="t-header">
-                <?php //echo $data->location_from ?>
-                </div>
-                <?php //endif; ?>
-            </div>
-            <div class="width-49">
-                <?php //if(!Yii::app()->user->isGuest): ?>
-                <a class="t-header" href="<?php //echo $action; ?>" >
-                    <?php //echo $data->location_to ?>
-                </a>
-                <?php //else: ?>
-                <div class="t-header">
-                <?php //echo $data->location_to ?>
-                </div>
-                <?php //endif; ?>
-            </div>
-        </div-->
         <div class="width-100">
             <div class="width-49">
                 <span class="t-d-form-to">Дата загрузки: <?php echo date('d.m.y', strtotime($data->date_from)) ?></span>
@@ -111,3 +87,17 @@
         </div>
     </div>
 </div>
+<script>
+//$(document).ready(function(){
+//    <?php //if(Yii::app()->user->isGuest || (!Yii::app()->user->isGuest && !Yii::app()->user->isTransport)): ?>
+//    $('.t-timer').each(function(){
+//       if(parseInt($(this).attr('status'))){
+//           var timer = new Timer();
+//           timer.init($(this).attr('now'), $(this).attr('end'), $(this).attr('id'), $(this).attr('status'), $(this).attr('t-id'));
+//       } else {
+//           $('#' + $(this).attr('id')).html('<span class="t-closed">Перевозка закрыта</span>');
+//       }
+//    });
+//    <?php //endif; ?>
+//});
+</script>

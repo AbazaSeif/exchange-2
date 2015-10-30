@@ -2,7 +2,8 @@
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>Административная панель</title>
+        <link rel="shortcut icon" type="image/jpg" href="<?php echo Yii::app()->request->baseUrl.'/images/favicon.jpg';?>"/>
+        <title>Биржа перевозок - Административная панель </title>
     </head>
     <body>
         <header>

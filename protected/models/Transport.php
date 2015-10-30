@@ -48,6 +48,10 @@ class Transport extends CActiveRecord
         1=>'Региональная',
     );
     
+    CONST RUB = 0;
+    CONST USD = 1;
+    CONST EUR = 2;
+    
     public static $currencyGroup = array(
         0=>'Рубли (руб.)',
         1=>'Доллары ($)',
@@ -144,8 +148,7 @@ class Transport extends CActiveRecord
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
-
+		$criteria = new CDbCriteria;
 		$criteria->compare('id',$this->id);
 		$criteria->compare('t_id',$this->t_id,true);
 		$criteria->compare('new_transport',$this->new_transport);
@@ -155,19 +158,36 @@ class Transport extends CActiveRecord
 		$criteria->compare('type',$this->type);
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('currency',$this->currency);
-		$criteria->compare('location_from',$this->location_from,true);
-		$criteria->compare('location_to',$this->location_to,true);
 		$criteria->compare('auto_info',$this->auto_info,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('date_close',$this->date_close,true);
 		$criteria->compare('date_from',$this->date_from,true);
 		$criteria->compare('date_to',$this->date_to,true);
+		$criteria->compare('del_date',$this->del_date,true);
 		$criteria->compare('date_published',$this->date_published,true);
 		$criteria->compare('pto',$this->pto,true);
 		$criteria->compare('close_reason',$this->pto,true);
-
+                
+                if(Yii::app()->search->prepareSqlite()) {
+                    if(!empty($this->location_from))$criteria->addCondition('lower(location_from) like lower("%' . $this->location_from . '%")');
+                    if(!empty($this->location_to)) $criteria->addCondition('lower(location_to) like lower("%' . $this->location_to . '%")');
+                    if(!empty($this->del_reason)) $criteria->addCondition('lower(del_reason) like lower("%' . $this->del_reason . '%")');
+                } else {
+                    $criteria->compare('location_from',$this->location_from,true);
+		    $criteria->compare('location_to',$this->location_to,true);
+		    $criteria->compare('del_reason',$this->del_reason,true);
+                }
+     
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+	            'criteria'=>$criteria,
+                    'sort' => array(
+                        'defaultOrder' => 'date_close DESC',
+                        'multiSort' => true,
+                        'sortVar'  => 'sort',
+                        'attributes'=>array(
+                            '*'
+                        ),
+                    ),
 		));
 	}
 
