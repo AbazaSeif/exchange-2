@@ -1,12 +1,19 @@
-// *** Database ***
 var sqlite3 = require("sqlite3").verbose();
-var file = "d:/server/domains/data/exchange.db";
+// *** Server connect ***
+
 //var file = "/var/www/vhosts/lbr.ru/httpdocs/data/exchange.db";
+//var io = require('socket.io').listen(3001);
+
+// *** Local connect ****
+var file = "d:/server/domains/data/exchange.db";
+var io = require('socket.io').listen(3000);
+
+// ***********************************************
+
+// *** Database ***
 var db = new sqlite3.Database(file);
 
 // *** Socket ***
-var io = require('socket.io').listen(3000);
-//var io = require('socket.io').listen(3001);
 var allSockets = [];
 
 function deleteFromArray(element) {
