@@ -10,27 +10,14 @@
         <meta http-equiv="pragma" content="no-cache">
         <meta name="description" content="<?php echo Yii::app()->params['meta_description']; ?>">
         <title><?php echo Yii::app()->params['meta_title']; ?></title>
-        
-        <!--link rel="stylesheet" type="text/css" href="/css/front/frontend.css?<?php echo time(); ?>" /-->
-        <!--link rel="stylesheet" type="text/css" href="/css/front/jquery.mCustomScrollbar.css" /-->
         <link rel="shortcut icon" type="image/jpg" href="<?php echo Yii::app()->request->baseUrl.'/images/favicon.jpg';?>"/>
-        <script src="http://exchange.lbr.ru:3001/socket.io/socket.io.js"></script>
-        <!--script src="http://localhost:3000/socket.io/socket.io.js"></script-->
+        <!--script src="http://exchange.lbr.ru:3001/socket.io/socket.io.js"></script-->
+        <script src="http://localhost:3000/socket.io/socket.io.js"></script>
         <?php
             Yii::app()->clientScript->registerCssFile('/distribution/css/styles.min.css?'.time());
             Yii::app()->clientScript->registerCoreScript('jquery');
             Yii::app()->clientScript->registerScriptFile('/js/ui/jquery-ui-1.10.3.js');
             Yii::app()->clientScript->registerScriptFile('/distribution/js/scripts.min.js?'.time());
-            
-            //Yii::app()->clientScript->registerScriptFile('/js/easyTooltip.js');
-            //Yii::app()->clientScript->registerScriptFile('/js/jquery.mCustomScrollbar.concat.min.js');
-            //Yii::app()->clientScript->registerScriptFile('/js/front/Timer.min.js?'.time());
-            ////Yii::app()->clientScript->registerScriptFile('/js/front/min/Timer_copy.js?'.time());
-            //Yii::app()->clientScript->registerScriptFile('/js/front/rateList.min.js?'.time());
-            //Yii::app()->clientScript->registerScriptFile('/js/front/min/rateList_copy.js?'.time());
-            //Yii::app()->clientScript->registerScriptFile('/js/front/menu.js');
-            //Yii::app()->clientScript->registerScriptFile('/js/front/frontend.js');
-            //Yii::app()->clientScript->registerScriptFile('/js/front/OnlineEvent.js');
             
             //google analitics
             //Yii::app()->clientScript->registerScriptFile('/js/lbr.google.analytics.js');
@@ -51,10 +38,10 @@
                 <span>Онлайн биржа перевозок</span>
             </div>
             <noscript><div class="hide"></noscript>
-            <ul class="menu">
-                <li><a class="color" href="/feedback/" title="Обратная связь">Обратная связь</a></li>
-                <li><a class="color" href="/help/" title="Инструкции">Инструкции</a></li>
-            </ul>
+                <ul class="menu">
+                    <li><a class="color" href="/feedback/" title="Обратная связь">Обратная связь</a></li>
+                    <li><a class="color" href="/help/" title="Инструкции">Инструкции</a></li>
+                </ul>
             <noscript></div></noscript>
         </div>
         <div class="wrapper">
@@ -78,8 +65,9 @@
     </body>
     <script>
         <?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
-        var socket = io.connect('http://exchange.lbr.ru:3001/');
-        //var socket = io.connect('http://localhost:3000/');
+        //var socket = io.connect('http://exchange.lbr.ru:3001/');
+        var socket = io.connect('http://localhost:3000/');
+        
         if(typeof(socket) !== 'undefined') {
             socket.emit('init', <?php echo Yii::app()->user->_id ?>);
             socket.on('timer', function(data) {
