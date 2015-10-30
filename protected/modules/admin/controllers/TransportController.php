@@ -81,6 +81,7 @@ class TransportController extends Controller
             $form->date_from = date('d-m-Y', strtotime("+" . 3*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
             $form->date_to = date('d-m-Y', strtotime("+" . 4*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
             $form->date_to_customs_clearance_RF = date('d-m-Y', strtotime("+" . 4*Yii::app()->params['hoursBefore'] . " hours")) . ' 08:00';
+            $form->new_transport = 1;
             
             if(isset($_POST['TransportForm'])) {
                 $model = new Transport;
@@ -90,7 +91,7 @@ class TransportController extends Controller
                 $model->date_to = date('Y-m-d H:i:s', strtotime($model->date_to));
                 $model->date_close = date('Y-m-d H:i:s', strtotime($model->date_close));
                 $model->description = $this->formatDescription($model->description);      
-                $model->new_transport = 1;
+                $model->new_transport = $_POST['TransportForm']['new_transport'];
                 $model->user_id = Yii::app()->user->_id;
                 $model->date_published = date('Y-m-d H:i:s');
                 

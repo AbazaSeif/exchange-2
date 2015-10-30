@@ -129,6 +129,7 @@ class Transport extends CActiveRecord
                     'pto' => 'Экспорт ПТО',
                     'del_reason' => 'Причина удаления',
                     'del_date' => 'Дата удаления',
+                    'new_transport' => 'Рассылка писем'
                 );
 	}
 
