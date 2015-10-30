@@ -19,6 +19,7 @@
         <?php
             Yii::app()->clientScript->registerCssFile('/distribution/css/styles.min.css?'.time());
             Yii::app()->clientScript->registerCoreScript('jquery');
+            Yii::app()->clientScript->registerScriptFile('/js/ui/jquery-ui-1.10.3.js');
             Yii::app()->clientScript->registerScriptFile('/distribution/js/scripts.min.js?'.time());
             
             //Yii::app()->clientScript->registerScriptFile('/js/easyTooltip.js');

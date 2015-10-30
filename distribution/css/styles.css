@@ -666,9 +666,23 @@ strong.regular{
 }
 
 #help-form h3 {
-    padding-top: 2px;
-    padding-bottom: 2px;
+    /*padding-top: 2px;
+    padding-bottom: 2px;*/
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0;
+    margin-top: 1px;
+    
+    cursor: pointer;
 }
+
+#help-form .admin_additional_features_content{
+    cursor: default;
+    padding: 10px 20px;
+}
+
 #help-form span:not(.attention),  #help-form .title{
     color: #EF801B;
     font-size: 16px;
@@ -1159,14 +1173,14 @@ strong.regular{
 }
 
 .event-new{
-    background-color: #ECFEF0;
+    background-color: #969595;
 }
 
 .events .items .o-event .t-header, .o-event .t-header
 {
     display: block;
     font-size: 18px;
-    color: rgb(0, 145, 124);
+    color: #5f5e5e;
     text-decoration: none;
     margin: 1px 0 6px;
 }

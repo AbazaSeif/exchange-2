@@ -4,22 +4,22 @@ module.exports = function (grunt) {
         concat: {
             js: {
                 src: [
+                    'js/easyTooltip.js',
+                    'js/jquery.mCustomScrollbar.concat.min.js',
                     'js/front/min/Timer_copy.js',
                     'js/front/min/rateList_copy.js',
                     'js/front/menu.js',
                     'js/front/frontend.js',
-                    'js/front/OnlineEvent.js',
-                    'js/easyTooltip.js',
-                    'js/jquery.mCustomScrollbar.concat.min.js'
+                    'js/front/OnlineEvent.js'
                 ],
-                dest: 'distribution/js/scripts.js',
+                dest: 'distribution/js/scripts.js'
             },
             css: {
                 src: [
                     'css/front/frontend.css',
                     'css/front/jquery.mCustomScrollbar.css'
                 ],
-                dest: 'distribution/css/styles.css',
+                dest: 'distribution/css/styles.css'
             },
         },
         uglify: {
