@@ -1,11 +1,10 @@
-var sqlite3 = require("sqlite3").verbose();
-// *** Server connect ***
 
+// *** Server connection ***
 var file = "/var/www/vhosts/lbr.ru/httpdocs/data/exchange.db";
 var timer = require('/var/www/vhosts/lbr.ru/httpdocs/exchange/js/server/timer.js');
 var io = require('socket.io').listen(3001);
 
-// *** Local connect ****
+// *** Local connection ****
 //var file = "d:/server/domains/data/exchange.db";
 //var timer = require('./timer.js');
 //var io = require('socket.io').listen(3000);
@@ -13,6 +12,7 @@ var io = require('socket.io').listen(3001);
 // ***********************************************
 
 // *** Database ***
+var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database(file);
 
 // *** Socket ***
