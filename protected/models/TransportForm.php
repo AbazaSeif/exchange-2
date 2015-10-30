@@ -69,6 +69,7 @@ class TransportForm extends CFormModel
             'pto' => 'Экспорт ПТО',
             'del_reason' => 'Причина удаления',
             'del_date' => 'Дата удаления',
+            'new_transport' => 'Рассылка писем'
         );
     }
 }

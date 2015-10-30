@@ -108,6 +108,20 @@ $(function(){
     else echo $form->dropDownList($model, 'type', Transport::$group, array('disabled'=>true));
 ?>
 </div>
+<?php if (!$model->id):?>
+<div class="field">
+<?php echo $form->error($model, 'new_transport');
+    echo $form->labelEx($model, 'new_transport');
+    
+    $options = array(
+        0=>'Без рассылки',
+        1=>'С рассылкой'
+    );
+    
+    echo $form->dropDownList($model, 'new_transport', $options);
+?>
+</div>
+<?php endif; ?>
 <div class="field">
 <?php echo $form->error($model, 't_id'); 
     echo $form->labelEx($model, 't_id');
