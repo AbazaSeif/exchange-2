@@ -86,7 +86,7 @@ class TEmail2{
                                             <td bgcolor="#b1b1b1">
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                     <tr>
-                                                        <td style="padding-left: 20px; padding-top: 14px; padding-bottom: 3px;"><span style="font-family:Verdana; font-size:11px; text-align:left;"><a href="http://exchange.lbr.ru/" target="_blank" style="text-decoration: none; color: #ffffff !important;">www.exchange.lbr.ru</a></span></td>
+                                                        <td style="padding-left: 20px; padding-top: 14px; padding-bottom: 14px;"><span style="font-family:Verdana; font-size:11px; text-align:left;"><a href="http://exchange.lbr.ru/" target="_blank" style="text-decoration: none; color: #ffffff !important;">www.exchange.lbr.ru</a></span></td>
                                                     </tr>
                                                 </table>
                                             </td>
