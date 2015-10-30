@@ -26,7 +26,7 @@ class TEmail2{
                     <title>Новые заявки на перевозку</title>
                     <style type="text/css" media="screen">
                           
-                            body { padding:0 !important; margin:0 !important; display:block !important; background:#ededed; -webkit-text-size-adjust:none }
+                            body { cursor: default; padding:0 !important; margin:0 !important; display:block !important; background:#ededed; -webkit-text-size-adjust:none }
                             .footer a, .footer a:hover, .footer a:active { color: #ffffff; text-decoration: none; }
                             a, a:hover, a:active { color:#7b828b; text-decoration:underline }
                             p { padding:0 !important; margin:0 !important } 
@@ -39,22 +39,14 @@ class TEmail2{
                         <table width="624" border="0" cellspacing="0" cellpadding="0">
                             <!-- Top -->
                             <tr>
-                                <td class="top" style="color:#b1b1b1; font-family:Verdana; font-size:11px; line-height:15px; text-align:center">
-                                    <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="20" style="height:20px; float: left" alt="" />
-                                    <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="15" style="height:15px; float: left" alt="" />
+                                <td class="top" style="color:#b1b1b1; font-family:Verdana; font-size:11px; line-height:40px; text-align:center">
+                                    <img src="http://exchange.lbr.ru/images/mail/empty.gif" width="1" height="40" style="height:20px; float: left" alt="" />
                                 </td>
                             </tr>
                             <!-- END Top -->
                             <!-- Header -->
                             <tr>
                                 <td>
-                                    <table style="margin: 0; padding: 0" width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <img src="http://exchange.lbr.ru/images/mail/header_top.jpg" alt="" border="0" width="624" height="29" style="float: left"/>
-                                            </td>
-                                        </tr>
-                                    </table>
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td class="img" style="font-size:0pt; line-height:0pt; text-align:left;" width="1" bgcolor="#b1b1b1"></td>
@@ -62,7 +54,7 @@ class TEmail2{
                                             <td bgcolor="#b1b1b1">
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                     <tr>
-                                                        <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; padding-left: 17px; padding-bottom: 10px"><img src="http://exchange.lbr.ru/images/mail/header_logo.jpg" style="border: 0; float: left" alt="" border="0" width="300" height="23" /></td>
+                                                        <td class="img" style="font-size:0pt; line-height:0pt; text-align:left; padding-left: 17px; padding-top: 15px; padding-bottom: 10px"><img src="http://exchange.lbr.ru/images/mail/header_logo.jpg" style="border: 0; float: left" alt="" border="0" width="300" height="23" /></td>
                                                     </tr>
                                                 </table>
                                             </td>
@@ -96,7 +88,6 @@ class TEmail2{
                                             <td class="img" style="font-size:0pt; line-height:0pt; text-align:left" width="1" bgcolor="#b1b1b1"></td>
                                         </tr>
                                     </table>
-                                    <!--img src="http://exchange.lbr.ru/images/mail/footer_bottom.jpg" alt="" border="0" width="624" height="29" style="padding-top: 0; float: left" /-->
                                 </td>
                             </tr>
                             <!-- END Footer -->
