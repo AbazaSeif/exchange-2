@@ -6,6 +6,7 @@ var db = new sqlite3.Database(file);
 
 // *** Socket ***
 var io = require('socket.io').listen(3000);
+//var io = require('socket.io').listen(3001);
 var allSockets = [];
 
 function deleteFromArray(element) {
