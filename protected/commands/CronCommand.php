@@ -430,7 +430,7 @@ class CronCommand extends CConsoleCommand
                                                                                                     Ваша ставка была перебита:
                                                                                                     <br/><br/>
                                                                                                     <a href="http://exchange.lbr.ru/transport/description/id/29/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank">
-                                                                                                        <span class="link-u" style="color:#008672; font-weight: bold; text-decoration:underline">
+                                                                                                        <span class="link-u" style="color:#5f5e5e; font-weight: bold; text-decoration:underline">
                                                                                                         ' . $transportElement->location_from . ' - ' . $transportElement->location_to . '
                                                                                                         </span>
                                                                                                     </a>
@@ -541,7 +541,7 @@ class CronCommand extends CConsoleCommand
                                         </tr>
                                         <tr style="font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
                                             <td style="padding-top: 15px; padding-bottom: 10px">
-                                                <a href="http://exchange.lbr.ru/transport/description/id/'.$item['id'].'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank"><span class="link-u" style="color:#008672; text-decoration:underline">Посмотреть подробнее</span></a>
+                                                <a href="http://exchange.lbr.ru/transport/description/id/'.$item['id'].'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank"><span class="link-u" style="color:#5f5e5e; text-decoration:underline">Посмотреть подробнее</span></a>
                                             </td>
                                         </tr>
                                     </table>
@@ -584,7 +584,7 @@ class CronCommand extends CConsoleCommand
                                         </tr>
                                         <tr style="font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
                                             <td style="padding-top: 15px; padding-bottom: 10px">
-                                                <a href="http://exchange.lbr.ru/transport/description/id/'.$item['id'].'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank"><span class="link-u" style="color:#008672; text-decoration:underline">Посмотреть подробнее</span></a>
+                                                <a href="http://exchange.lbr.ru/transport/description/id/'.$item['id'].'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank"><span class="link-u" style="color:#5f5e5e; text-decoration:underline">Посмотреть подробнее</span></a>
                                             </td>
                                         </tr>
                                     </table>
@@ -742,7 +742,7 @@ class CronCommand extends CConsoleCommand
                                                                                 <td style="color:#666666; font-family:Verdana; font-size:12px; line-height:18px; text-align:left; font-weight:normal">
                                                                                     Спешим уведомить Вас о том, что на бирже появились новые заявки на перевозку.
                                                                                     <br /><br />
-                                                                                    <a href="http://exchange.lbr.ru/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank"><span class="link-u" style="color:#008672; text-decoration:underline">Перейти на биржу</span></a>
+                                                                                    <a href="http://exchange.lbr.ru/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank"><span class="link-u" style="color:#5f5e5e; text-decoration:underline">Перейти на биржу</span></a>
                                                                                 </td>
                                                                             </tr>
                                                                         </table>
@@ -807,7 +807,7 @@ class CronCommand extends CConsoleCommand
         if(empty($subject)) $subject = 'Закрыта заявка на перевозку';
         if(empty($message)) {
             $message = '<a href="http://exchange.lbr.ru/transport/description/id/'.$transportId.'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank">
-                <span class="link-u" style="color:#008672; font-weight: bold; text-decoration:underline">
+                <span class="link-u" style="color:#5f5e5e; font-weight: bold; text-decoration:underline">
                 ' . $transport->location_from . ' &mdash; ' . $transport->location_to . '
                 </span>
             </a>';
@@ -921,7 +921,7 @@ class CronCommand extends CConsoleCommand
         if($mailType == 'mail_deadline') {
             //$subject = 'Закрыта заявка на перевозку';
             $message .= '<a href="http://exchange.lbr.ru/transport/description/id/'.$transportId.'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank">
-                <span class="link-u" style="color:#008672; font-weight: bold; text-decoration:underline">
+                <span class="link-u" style="color:#5f5e5e; font-weight: bold; text-decoration:underline">
                 ' . $transport->location_from . ' &mdash; ' . $transport->location_to . '
                 </span>
             </a>';
@@ -930,7 +930,7 @@ class CronCommand extends CConsoleCommand
             $message .= 'Заявка на перевозку будет закрыта через 30 минут:
                       <br/><br/>' .
                     '<a href="http://exchange.lbr.ru/transport/description/id/'.$transportId.'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank">
-                <span class="link-u" style="color:#008672; font-weight: bold; text-decoration:underline">
+                <span class="link-u" style="color:#5f5e5e; font-weight: bold; text-decoration:underline">
                 ' . $transport->location_from . ' &mdash; ' . $transport->location_to . '
                 </span>
             </a>
@@ -940,7 +940,7 @@ class CronCommand extends CConsoleCommand
             $message .= 'Ваша ставка была перебита:' . 
                 '<br/><br/>' .
                 '<a href="http://exchange.lbr.ru/transport/description/id/'.$transportId.'/" class="link-u" style="color:#2b9208; text-decoration:underline" target="_blank">
-                <span class="link-u" style="color:#008672; font-weight: bold; text-decoration:underline">
+                <span class="link-u" style="color:#5f5e5e; font-weight: bold; text-decoration:underline">
                 ' . $transport->location_from . ' &mdash; ' . $transport->location_to . '
                 </span>
             </a>';

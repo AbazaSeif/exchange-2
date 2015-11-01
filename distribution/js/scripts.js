@@ -691,15 +691,15 @@ var menu = {
         });
     },
 };
-(function($){
-    $(window).load(function(){
-        $(".items").mCustomScrollbar({
-            scrollButtons:{
-                enable:true
-            }
-        });
+$(window).load(function(){
+    $(".items").mCustomScrollbar({
+        scrollButtons:{
+            enable:true
+        }
     });
+});
     
+(function($){
     $('#dialog-connect').live('click', function() {
         $("#modalDialog").dialog("open");
     });

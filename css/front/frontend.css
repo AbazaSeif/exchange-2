@@ -1173,8 +1173,9 @@ strong.regular{
     min-height: 45px;
 }
 
-.event-new{
-    background-color: #969595;
+.event-new
+{
+    background-color: rgba(243,147,20,.2);
 }
 
 .events .items .o-event .t-header, .o-event .t-header
