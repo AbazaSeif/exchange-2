@@ -80,12 +80,12 @@
                        if($(".r-submit").length) $('.r-submit').addClass('disabled');
                        if($(".rate-wrapper").length) $('.rate-wrapper').slideUp("slow");
                        container.removeClass('open');
-                       container.html('<span class="t-closed"><img class="small-loading" src="/images/loading-small.gif"/>Обработка результатов</span>'); 
+                       container.html('<span class="t-closed">Обработка результатов</span>'); 
                        
-//                       setTimeout(function(){ 
-//                           container.html('<span class="t-closed closed">Перевозка закрыта</span>');
-//                           if($('.items .transport').length) container.parents().eq(2).slideUp("slow");
-//                       }, 180000);
+                       setTimeout(function() { 
+                           container.html('<span class="t-closed closed"></span>');
+                           if($('.items .transport').length) container.parents().eq(2).slideUp("slow");
+                       }, 180000);
                     }
                 }
             });
