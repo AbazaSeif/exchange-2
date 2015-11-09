@@ -108,7 +108,7 @@ class TEmail2{
                                         </tr>
                                         <tr>
                                             <td style="text-align:center;">
-                                                <span style="color:#7b828b; font-family:Verdana; font-size:11px; line-height:20px; text-align:center">Copyright &copy; '.date("Y").' ООО "ЛБР-АгроМаркет"</span>
+                                                <span style="color:#7b828b; font-family:Verdana; font-size:11px; line-height:20px; text-align:center">Copyright © '.date("Y").' ООО "ЛБР-АгроМаркет"</span>
                                             </td>
                                         </tr>
                                         <tr>
