@@ -267,18 +267,8 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
     margin-top: 5px;
     color: #FF4040;
 }
-#login-form .row.error .errorMessage, #mail .row.error .errorMessage
+/*#login-form .row.error .errorMessage, #mail .row.error .errorMessage
 {
-    /*position: absolute;
-    width: 70%;
-    font-size: 11px;
-    background: #FF4040;
-    color: white;
-    border-radius: 3px;
-    top: 9px;
-    left: 105%;
-    padding: 2% 5%;
-    z-index: 10;*/
     background: none repeat scroll 0 0 #f2f3f7;
     border-radius: 3px;
     box-shadow: 0 0 4px 1px rgba(50, 50, 50, 0.5);
@@ -291,9 +281,9 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
     top: 9px;
     width: 70%;
     z-index: 10;
-}
+}*/
 
-#registration-form .row.error .errorMessage, #password .row.error .errorMessage, #mail .row.error .errorMessage, #o-edit-contact .errorMessage, #feedback-form .row.error .errorMessage
+/*#registration-form .row.error .errorMessage, #password .row.error .errorMessage, #mail .row.error .errorMessage, #o-edit-contact .errorMessage, #feedback-form .row.error .errorMessage
 {
     position: absolute;
     width: 70%;
@@ -305,14 +295,16 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
     left: 105%;
     padding: 1% 2%;
     z-index: 10;
-}
+}*/
+
 #mail .row.error .errorMessage
 {
     top: 5px;
 }
+/*
 #password .row.error .errorMessage, #mail .row.error .errorMessage {
     padding: 1% 2%;
-}
+}*/
 
 #registration-form .row.error .errorMessage {
     padding: 0.5% 0.5% 0.5% 1%;
@@ -345,10 +337,10 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
         width: 25% !important;
     }
 }
-#mail .row.error .errorMessage
+/*#mail .row.error .errorMessage
 {
     width: 30%;
-}
+}*/
 #o-edit-contact .errorMessage
 {
     left: 38%;
@@ -366,7 +358,7 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
     margin-bottom: 12px;
 }
 
-#login-form .row.error .errorMessage:after, #registration-form .row.error .errorMessage:after, #password .row.error .errorMessage:after, #mail .row.error .errorMessage:after, #o-edit-contact .errorMessage:after, #feedback-form .errorMessage:after
+/*#login-form .row.error .errorMessage:after, #registration-form .row.error .errorMessage:after, #password .row.error .errorMessage:after, #mail .row.error .errorMessage:after, #o-edit-contact .errorMessage:after, #feedback-form .errorMessage:after
 {
     content: '';
     display: block;
@@ -379,7 +371,7 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
     border-top: 7px solid transparent;
     border-right: 7px solid #FF4040;
     border-bottom: 7px solid transparent;
-}
+}*/
 
 #registration-form .row label{  
     display: block;
@@ -1347,12 +1339,12 @@ strong.regular{
     color: #FFF;
     font-weight: bold;
     background: #969595;
-    background: -moz-linear-gradient(top,#969595,#969595);
-    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#969595),color-stop(100%,#969595));
-    background: -webkit-linear-gradient(top,#969595,#969595);
-    background: -o-linear-gradient(top,#969595,#969595);
-    background: -ms-linear-gradient(top,#969595,#969595);
-    background: linear-gradient(top,#969595,#969595);
+    background: -moz-linear-gradient(top, #fbc173, #f39314);
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%, #fbc173),color-stop(100%, #f39314));
+    background: -webkit-linear-gradient(top, #fbc173, #f39314);
+    background: -o-linear-gradient(top, #fbc173, #f39314);
+    background: -ms-linear-gradient(top, #fbc173, #f39314);
+    background: linear-gradient(top, #fbc173, #f39314);
     text-align: center;
     display:-moz-inline-box;
     display:inline-block;
@@ -1786,8 +1778,8 @@ div.form .errorSummary {
     background: none repeat scroll 0 0 #fdd;
     border: 1px solid #fbb;
     font-size: 0.9em;
-    margin: 0 0 20px;
-    padding: 7px;/* 7px 12px;*/
+    margin: 0 20px 20px 20px;
+    padding: 7px;
     color: #595959;
     font: 11px Arial,Helvetica,sans-serif;
     line-height: 18px;
@@ -1798,7 +1790,7 @@ div.form .errorSummary p {
 }
 div.form .errorSummary ul {
     margin: 0;
-    padding: 0 0 0 10px;
+    padding: 0 0 0 20px;
 }
 div.form div.error input, div.form div.error textarea, div.form div.error select, div.form input.error, div.form textarea.error, div.form select.error {
     background: none repeat scroll 0 0 #fee;
@@ -1819,6 +1811,23 @@ div.form input[type="text"], div.form input[type="password"], div.form textarea,
     margin: 1px;
     padding: 4px;
     width: 290px;
+}
+
+.info {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    border-radius: 4px;
+    color: #468847;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 8px 35px 8px 14px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.info.error {
+    background-color: #fee;
+    color: black;
+    border-color: #c00;
 }
 
 /*----------*/

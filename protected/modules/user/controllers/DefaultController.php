@@ -68,17 +68,16 @@ class DefaultController extends Controller
             else if((int)$model->show_intl) $model->show = 'intl';
             else $model->show = 'regl';
         }
-        
+
         if(isset($_POST['PasswordForm'])) {
             $user = User::model()->findByPk($userId);
-            if ($user->password === crypt(trim($_POST['PasswordForm']['password']), $user->password)){
-                $user->password = crypt($_POST['PasswordForm']['new_password'], User::model()->blowfishSalt());
-                if($model->validate() && $user->save()){
-                    Dialog::message('flash-success', 'Внимание!', 'Ваш пароль изменен');
-                }
-            } else {
-                Dialog::message('flash-success', 'Внимание!', 'Вы ввели неверный пароль');
-            }
+            $pass->attributes = $_POST['PasswordForm'];
+            if ($pass->validate()) {
+                $user->password = crypt($pass->new_password, User::model()->blowfishSalt());
+                if($user->save()) {
+                    Yii::app()->user->setFlash('success', 'Ваш пароль изменен.');
+                } else Yii::app()->user->setFlash('error', 'Ошибка при сохранении.');
+            } else Yii::app()->user->setFlash('error', 'Вы ввели неверный пароль');
         }
         
         if(isset($_POST['MailForm'])) {
@@ -96,14 +95,17 @@ class DefaultController extends Controller
                     if($user->save() && $model->validate()) {
                         $curEmail = $user->email;
                         $mail->new_email = null;
-                        Dialog::message('flash-success', 'Внимание!', 'Ваш email изменен');
+                        Yii::app()->user->setFlash('success', 'Ваш email изменен');
+                        //Dialog::message('flash-success', 'Внимание!', 'Ваш email изменен');
                     }
                 } else {
                     $mail->new_email = null;
-                    Dialog::message('flash-success', 'Внимание!', 'Такой email уже используется');
+                    Yii::app()->user->setFlash('error', 'Такой email уже используется');
+                    //Dialog::message('flash-success', 'Внимание!', 'Такой email уже используется');
                 }
             } else {
-                Dialog::message('flash-success', 'Внимание!', 'Вы ввели неверный пароль');
+                Yii::app()->user->setFlash('error', 'Вы ввели неверный пароль');
+                //Dialog::message('flash-success', 'Внимание!', 'Вы ввели неверный пароль');
             }
         }
         

@@ -1,3 +1,14 @@
+<?php if(Yii::app()->user->hasFlash('success')):?>
+    <div class="info">
+        <?php echo Yii::app()->user->getFlash('success'); ?>
+    </div>
+<?php endif; ?>
+<?php if(Yii::app()->user->hasFlash('error')):?>
+    <div class="info error">
+        <?php echo Yii::app()->user->getFlash('error'); ?>
+    </div>
+<?php endif; ?>
+
 <div class="o-left settings">
     <!-- Настройки для оповещения по почте и Параметры отображения -->
     <div class="form">
@@ -85,31 +96,32 @@
             
             <div class="row password">
             <?php  
-                echo $form->error($pass, 'password'); 
                 echo $form->labelEx($pass, 'password');
                 echo $form->passwordField($pass, 'password', array(
-                    'value' => ' '
+                    'value' => ''
                 ));
+                echo $form->error($pass, 'password'); 
+                //echo CHtml::passwordField('PasswordForm[password]','');
             ?>
             </div>
             <div class="row password">
             <?php
-                echo $form->error($pass, 'new_password'); 
                 echo $form->labelEx($pass, 'new_password');
                 echo $form->passwordField($pass, 'new_password');
+                echo $form->error($pass, 'new_password'); 
             ?>    
             </div>                
             <div class="row password">
             <?php  
-                echo $form->error($pass, 'new_confirm'); 
                 echo $form->labelEx($pass, 'new_confirm');
                 echo $form->passwordField($pass, 'new_confirm');
+                echo $form->error($pass, 'new_confirm'); 
             ?>    
             </div>
         </div>
         <div class="row submit">
         <?php 
-            echo CHtml::submitButton('Подтвердить', array('class' => 'r-submit')); 
+            echo CHtml::submitButton('Сохранить', array('class' => 'r-submit')); 
         ?>
         </div>
         <?php $this->endWidget();?> 
@@ -137,26 +149,26 @@
             <?php echo $form->errorSummary($mail); ?>
             <div class="row">
                 <?php
-                    echo $form->error($mail, 'new_email'); 
                     echo $form->labelEx($mail, 'new_email');
                     echo $form->textField($mail, 'new_email', array(
                         //'value' => ' '
                     ));
+                    echo $form->error($mail, 'new_email'); 
                 ?>    
             </div>
             <div class="row password">
                 <?php
-                    echo $form->error($mail, 'password'); 
                     echo $form->labelEx($mail, 'password');
                     echo $form->passwordField($mail, 'password', array(
-                        'value' => ' '
+                        //'value' => ' '
                     ));
+                    echo $form->error($mail, 'password');
                 ?>
             </div>
         </div>
         <div class="row submit">
             <?php 
-                echo CHtml::submitButton('Подтвердить', array('class' => 'r-submit')); 
+                echo CHtml::submitButton('Сохранить', array('class' => 'r-submit')); 
             ?>
         </div>
         <?php $this->endWidget();?> 
