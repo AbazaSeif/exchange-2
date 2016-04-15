@@ -182,7 +182,7 @@
         ?>
         <div class="title"><img src="/images/contacts.jpg">
              <span>Контактные лица</span>
-             <span><?php echo CHtml::link('Создать', '/user/default/createcontact/', array('class' => 'btn')); ?></span>
+             <span><?php echo CHtml::link('Создать', '/user/default/createcontact/', array('class' => 'btn-create-subuser')); ?></span>
         </div>
         <div class="o-contacts">
             <?php

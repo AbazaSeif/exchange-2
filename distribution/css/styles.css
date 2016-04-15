@@ -110,7 +110,7 @@ nav, menu, p, section,
 .header .user-greeting span{
     /*color: #969595;
     font-family: bold;*/
-    color: #969595;
+    color: #ef801b;
     font-family: FuturisXC;
     font-size: 14px;
 }
@@ -493,6 +493,7 @@ div.ui-widget-header {
 {
     padding: 20px 35px 0px 0px;
     min-height: 470px;
+    cursor: default;
 }
 
 .row input[type='checkbox']{
@@ -1830,6 +1831,22 @@ div.form input[type="text"], div.form input[type="password"], div.form textarea,
     border-color: #c00;
 }
 
+.btn-create-subuser {
+    background: -moz-linear-gradient(top, #fbc173, #f39314);
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#fbc173),color-stop(100%,#f39314));
+    background: -webkit-linear-gradient(top,#fbc173,#f39314);
+    background: -o-linear-gradient(top,#fbc173,#f39314);
+    background: -ms-linear-gradient(top,#fbc173, #f39314);
+    background: linear-gradient(top,#fbc173, #f39314);
+    border: 0 none;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    padding: 3px 15px;
+    text-decoration: none;
+    font: 13px "Trebuchet MS";
+    font-weight: 700;
+}
 /*----------*/
 
 /* basic scrollbar styling */
