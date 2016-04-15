@@ -258,6 +258,7 @@ class User extends CActiveRecord
                         if(!empty($name)) $name .= ' ';
                         $name .= $model->secondname;
                     }
+                    
                     if(!empty($name))$name .= ',';
                     if($model->status != User::USER_NOT_CONFIRMED && $model->status != User::USER_ACTIVE){
                         $reason = 'Причина: '.$model->reason;

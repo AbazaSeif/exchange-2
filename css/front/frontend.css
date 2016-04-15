@@ -27,6 +27,7 @@ nav, menu, p, section,
 .header, .wrapper, footer
 {
     width: 100%;
+    min-width: 900px;
     margin: 0 auto;
 }
 .header
@@ -71,7 +72,7 @@ nav, menu, p, section,
 .header .logo
 {
     text-align: left;
-    margin: 0px 0px 0px 35px;
+    margin: 0px 50px 0px 35px;
     float: left;
 }
 .header .menu
@@ -79,7 +80,7 @@ nav, menu, p, section,
     list-style: none;
     float: right;
     margin-right: 35px;
-    padding: 50px 0 0 0;
+    /*padding: 50px 0 0 0;*/
 }
 .header .menu li
 {
@@ -92,8 +93,8 @@ nav, menu, p, section,
 }
 .header .center
 {
-    float: left;
-    padding: 45px 0 0 57px;
+    /*float: left;*/
+    padding: 25px 0 0 0;
 }
 .header .center span, .ui-dialog-title, div.form-label
 {
@@ -101,6 +102,17 @@ nav, menu, p, section,
     font-family: FuturisXC;
     font-weight: bold;
     font-size: 21px;
+}
+.header .user-greeting {
+    display: inline-block;
+    max-width: 60%;
+}
+.header .user-greeting span{
+    /*color: #969595;
+    font-family: bold;*/
+    color: #969595;
+    font-family: FuturisXC;
+    font-size: 14px;
 }
 div.form-label
 {
@@ -289,14 +301,14 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
     background: #FF4040;
     color: white;
     border-radius: 3px;
-    top: -8px;
+    top: 13px;
     left: 105%;
     padding: 1% 2%;
     z-index: 10;
 }
 #mail .row.error .errorMessage
 {
-    top: -15px;
+    top: 5px;
 }
 #password .row.error .errorMessage, #mail .row.error .errorMessage {
     padding: 1% 2%;
@@ -323,7 +335,7 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
 
 #password .row.error .errorMessage, #mail .row.error .errorMessage
 {
-    left: 70%;
+    left: 65%;
     width: 60%;
 }
 @media all and (-webkit-min-device-pixel-ratio:0) {
@@ -424,6 +436,7 @@ div.ui-widget-header {
 .user-info
 {
     margin: 20px 20px 10px;
+    text-align: center;
 }
 .user-info .user-name
 {
@@ -528,7 +541,7 @@ div.row{
 }
 
 #password .row.password label, #mail .row label{
-    min-width: 35%;
+    min-width: 40%;
     float:left;
     display: block;
 }
@@ -1767,3 +1780,45 @@ div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-draggable
     padding-right: 5px;
 }
 /*------- Pop-up window ------------------------------*/
+/*----------*/
+/*----- start Cart form errors ----------------------*/
+div.form .errorSummary {
+    background: none repeat scroll 0 0 #fdd;
+    border: 1px solid #fbb;
+    font-size: 0.9em;
+    margin: 0 0 20px;
+    padding: 7px;/* 7px 12px;*/
+    color: #595959;
+    font: 11px Arial,Helvetica,sans-serif;
+    line-height: 18px;
+}
+div.form .errorSummary p {
+    margin: 0;
+    padding: 5px;
+}
+div.form .errorSummary ul {
+    margin: 0;
+    padding: 0 0 0 10px;
+}
+div.form div.error input, div.form div.error textarea, div.form div.error select, div.form input.error, div.form textarea.error, div.form select.error {
+    background: none repeat scroll 0 0 #fee;
+    border-color: #c00;
+}
+div.form input[type="text"], div.form input[type="password"], div.form textarea, div.form select {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    /*border-color: #93b7cd #93b7cd #deebf2;*/
+    border-color: #ccc;
+    border-image: none;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 12px;
+    margin: 1px;
+    padding: 4px;
+    width: 290px;
+}
+
+/*----------*/

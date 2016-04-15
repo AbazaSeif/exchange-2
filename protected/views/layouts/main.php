@@ -1,3 +1,15 @@
+<?php
+
+$user = null;
+if(!Yii::app()->user->isGuest) {
+    if(Yii::app()->user->isTransport) {
+        $user = User::model()->findByPk(Yii::app()->user->_id);
+    } else {
+        $user = AuthUser::model()->findByPk(Yii::app()->user->_id);
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,8 +23,8 @@
         <meta name="description" content="<?php echo Yii::app()->params['meta_description']; ?>">
         <title><?php echo Yii::app()->params['meta_title']; ?></title>
         <link rel="shortcut icon" type="image/jpg" href="<?php echo Yii::app()->request->baseUrl.'/images/favicon.jpg';?>"/>
-        <script src="http://exchange.lbr.ru:3001/socket.io/socket.io.js"></script>
-        <!--script src="http://localhost:3000/socket.io/socket.io.js"></script-->
+        <!--script src="http://exchange.lbr.ru:3001/socket.io/socket.io.js"></script-->
+        <script src="http://localhost:3000/socket.io/socket.io.js"></script>
         <?php
             Yii::app()->clientScript->registerCssFile('/distribution/css/styles.min.css?'.time());
             Yii::app()->clientScript->registerCoreScript('jquery');
@@ -33,10 +45,14 @@
                     <img src="/images/logo.png" title="ЛБР-АгроМаркет" alt="Логотип ЛБР-АгроМаркет"/>
                 </a>
             </div>
+            
             <div class="center">
                 <noscript><p class="no-script">К сожалению Вы не сможете воспользоваться биржой, т.к. Ваш браузер не поддерживает JavaScript! </p></noscript> 
                 <span>Онлайн биржа перевозок</span>
             </div>
+            
+            <?php if(!empty($user)) echo '<div class="user-greeting">Вы зашли под учетной записью пользователя: <span>'.$user->company.'</span></div>' ?>
+            
             <noscript><div class="hide"></noscript>
                 <ul class="menu">
                     <li><a class="color" href="/feedback/" title="Обратная связь">Обратная связь</a></li>
@@ -65,8 +81,8 @@
     </body>
     <script>
         <?php if(!Yii::app()->user->isGuest && Yii::app()->user->isTransport): ?>
-        var socket = io.connect('http://exchange.lbr.ru:3001/');
-        //var socket = io.connect('http://localhost:3000/');
+        //var socket = io.connect('http://exchange.lbr.ru:3001/');
+        var socket = io.connect('http://localhost:3000/');
         
         if(typeof(socket) !== 'undefined') {
             socket.emit('init', <?php echo Yii::app()->user->_id ?>);

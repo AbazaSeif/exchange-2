@@ -7,11 +7,9 @@ if(!Yii::app()->user->isGuest) {
     }
 ?>
     <div class='user-info'>
-        <?php echo '<span class="user-name"> Добро пожаловать, '.$user->name.'!</span>'; ?>
+        <?php echo 'Добро пожаловать!' //echo '<span class="user-name"> Вы зашли по учетной записью '.$user->company.'</span>'; ?>
     </div>
-    <?php
-        if(Yii::app()->user->isTransport)
-            { ?>
+    <?php if(Yii::app()->user->isTransport) { ?>
             <ul class="user-menu">
                 <li><a href="/">Главная</a></li>
                 <li><a href="/user/event/" id="menu-events">События <span id="event-counter"></span></a></li>
