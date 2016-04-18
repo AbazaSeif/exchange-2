@@ -24,8 +24,10 @@ class PasswordForm extends CFormModel
     public function rules()
     {
         return array(
-            array('password, new_password, new_confirm', 'required'),
-            array('password','checkPass'),
+            array('new_password, new_confirm', 'required'),
+            //array('password, new_password, new_confirm', 'required', 'on' => 'create'),
+            array('password, new_password, new_confirm', 'safe'),  
+            array('password', 'checkPass'),
             array('new_confirm', 'compare', 'compareAttribute'=>'new_password', 'message'=>'Пароли должны совпадать'),
             array('new_password', 'length', 'min'=>6, 'allowEmpty'=>false),
             array('password, new_password', 'match', 'pattern'=>'/^([a-zA-Zа-яА-ЯёЁ\d]+)$/i', 'message'=>'Пароль должен содержать только следующие символы: 0-9 a-z A-Z а-я А-Я'),

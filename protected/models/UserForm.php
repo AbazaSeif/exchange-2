@@ -25,12 +25,13 @@ class UserForm extends CFormModel
     public $type;
     public $type_contact;
     public $created;
+    public $date_last_login;
 
     public function rules()
     {
         return array(
             array('inn, status, phone, phone2', 'numerical', 'integerOnly'=>true),
-            array('id, created, block_date, parent, type, type_contact, reason, company, inn, name, surname, secondname, password, status, country, region, city, district, phone, phone2, email', 'safe'),
+            array('id, created, block_date, parent, type, type_contact, reason, company, inn, name, surname, secondname, password, status, country, region, city, district, phone, phone2, email, date_last_login', 'safe'),
             //array('company, country, password, region, district, inn, name, surname, phone, email', 'required'),
             array('company, inn', 'required'),
             //array('password, name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),
@@ -66,6 +67,7 @@ class UserForm extends CFormModel
             'show'  => 'Показывать перевозки',
             'reason'  => 'Причина',
             'block_date'  => 'Блокировать до',
+            'date_last_login' => 'Дата последнего входа'
         );
     }
 }

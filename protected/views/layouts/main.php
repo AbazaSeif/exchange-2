@@ -51,7 +51,12 @@ if(!Yii::app()->user->isGuest) {
                 <span>Онлайн биржа перевозок</span>
             </div>
             
-            <?php if(!empty($user)) echo '<div class="user-greeting">Вы зашли под учетной записью пользователя: <span>'.$user->company.'</span></div>' ?>
+            <?php if(!empty($user)) {
+                if(!empty(Yii::app()->user->isTransport)) $name = $user->company;
+                else $name = $user->surname.' '.$user->name.' '.$user->secondname;
+                echo '<div class="user-greeting">Вы зашли под учетной записью пользователя: <span>'.$name.'</span></div>';
+            }
+            ?>
             
             <noscript><div class="hide"></noscript>
                 <ul class="menu">

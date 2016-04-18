@@ -43,7 +43,8 @@ class DefaultController extends Controller
         $userId = Yii::app()->user->_id;
         $user = User::model()->findByPk($userId);
         $curEmail = $user->email;
-        $pass = new PasswordForm();
+        $pass = new PasswordForm('create');
+        $pass->password = '5';
         $mail = new MailForm();
         
         $dataContacts = array();
@@ -74,7 +75,7 @@ class DefaultController extends Controller
             $pass->attributes = $_POST['PasswordForm'];
             if ($pass->validate()) {
                 $user->password = crypt($pass->new_password, User::model()->blowfishSalt());
-                if($user->save()) {
+                if($user->save(false)) {
                     Yii::app()->user->setFlash('success', 'Ваш пароль изменен.');
                 } else Yii::app()->user->setFlash('error', 'Ошибка при сохранении.');
             } else Yii::app()->user->setFlash('error', 'Вы ввели неверный пароль');

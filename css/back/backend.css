@@ -1791,4 +1791,7 @@ table.detail-view.imagesList th{
     background-repeat: no-repeat;
 }
 /*----- end Grid-view ----------------------------*/
+.light {
+    color: #AAAAAA;
+}
 

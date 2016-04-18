@@ -2,6 +2,8 @@
 if(!Yii::app()->user->isGuest) {
     if(Yii::app()->user->isTransport) {
         $user = User::model()->findByPk(Yii::app()->user->_id);
+        $user->date_last_login = date('Y-m-d H:i:s');
+        $user->save();
     } else {
         $user = AuthUser::model()->findByPk(Yii::app()->user->_id);
     }

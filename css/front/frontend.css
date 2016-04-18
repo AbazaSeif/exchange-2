@@ -1355,7 +1355,7 @@ strong.regular{
     margin-left: 5px;
     margin-top: 2px;
 }
-#rates, #addRate .row, .t-container, .transport-one:first-child {
+#rates, #addRate .row, .t-container, .transport-one:first-child, .header, .footer, .user-info {
     cursor: default;
 }
 

@@ -62,6 +62,9 @@ $(function(){
                 echo CHtml::submitButton($submit_text,array('id'=>'but_'.$name,'class'=>'btn-admin')); 
             ?>
             </div>
+            <div class="company field light">
+                <?php echo (!empty($model->date_last_login)) ? 'Дата последенего входа: '.date('d.m.Y H:i', strtotime($model->date_last_login)) : '';?>
+            </div>
             <div class="company field">
             <?php  echo $form->error($model, 'company'); 
                 echo $form->labelEx($model, 'company');

@@ -97,10 +97,9 @@
             <div class="row password">
             <?php  
                 echo $form->labelEx($pass, 'password');
-                echo $form->passwordField($pass, 'password', array(
-                    'value' => ''
-                ));
+                echo $form->passwordField($pass, 'password', array('value' => ''));
                 echo $form->error($pass, 'password'); 
+                
                 //echo CHtml::passwordField('PasswordForm[password]','');
             ?>
             </div>
