@@ -40,14 +40,15 @@ class DefaultController extends Controller
     /* User options and change password */
     public function actionOption()
     {
+        $dataContacts = array();
         $userId = Yii::app()->user->_id;
         $user = User::model()->findByPk($userId);
         $curEmail = $user->email;
-        $pass = new PasswordForm('create');
-        $pass->password = '5';
-        $mail = new MailForm();
+        $pass = new PasswordForm;
         
-        $dataContacts = array();
+        $mail = new MailForm;
+        //$mail->new_email = null;
+        
         $model = UserField::model()->find('user_id = :id', array('id' => $userId));
         
         if(isset($_POST['UserField'])) {
@@ -77,36 +78,25 @@ class DefaultController extends Controller
                 $user->password = crypt($pass->new_password, User::model()->blowfishSalt());
                 if($user->save(false)) {
                     Yii::app()->user->setFlash('success', 'Ваш пароль изменен.');
+                    
+                    $this->redirect('/user/default/option');
+                    Yii::app()->end();
                 } else Yii::app()->user->setFlash('error', 'Ошибка при сохранении.');
-            } else Yii::app()->user->setFlash('error', 'Вы ввели неверный пароль');
+            }
         }
         
-        if(isset($_POST['MailForm'])) {
-            $user = User::model()->findByPk($userId);
+        if(isset($_POST['MailForm'])) {            
             $mail->attributes = $_POST['MailForm'];
-            if ($user->password === crypt(trim($_POST['MailForm']['password']), $user->password)) {
-                $exists = User::model()->find(array(
-                    'select'=>'email',
-                    'condition'=>'email=:email',
-                    'params'=>array(':email'=>$_POST['MailForm']['new_email']))
-                );
-                
-                if(empty($exists)) { 
-                    $user->email = trim($_POST['MailForm']['new_email']);
-                    if($user->save() && $model->validate()) {
-                        $curEmail = $user->email;
-                        $mail->new_email = null;
-                        Yii::app()->user->setFlash('success', 'Ваш email изменен');
-                        //Dialog::message('flash-success', 'Внимание!', 'Ваш email изменен');
-                    }
-                } else {
+            if($mail->validate()) {
+                $user->email = trim($_POST['MailForm']['new_email']);
+                if($user->save()) {
                     $mail->new_email = null;
-                    Yii::app()->user->setFlash('error', 'Такой email уже используется');
-                    //Dialog::message('flash-success', 'Внимание!', 'Такой email уже используется');
-                }
-            } else {
-                Yii::app()->user->setFlash('error', 'Вы ввели неверный пароль');
-                //Dialog::message('flash-success', 'Внимание!', 'Вы ввели неверный пароль');
+                    $curEmail = $user->email;
+                    Yii::app()->user->setFlash('success', 'Ваш email изменен.');
+                    
+                    $this->redirect('/user/default/option');
+                    Yii::app()->end();
+                } else Yii::app()->user->setFlash('error', 'Ошибка при сохранении.');
             }
         }
         
@@ -136,8 +126,13 @@ class DefaultController extends Controller
             )
         );
         
-         
-        $this->render('option', array('model' => $model, 'pass' => $pass, 'curEmail' => $curEmail,'mail' => $mail, 'dataContacts' => $dataContacts), false, true);
+        $this->render('option', array(
+            'model' => $model, 
+            'pass' => $pass, 
+            'curEmail' => $curEmail, 
+            'mail' => $mail, 
+            'dataContacts' => $dataContacts
+        ), false, true);
     }
     
     /* Show all events */
@@ -194,7 +189,7 @@ class DefaultController extends Controller
                 Yii::log($user->getErrors(), 'error');
             }
         }
-        $this->render('editcontact', array('model'=>$model), false, true);
+        $this->render('editcontact', array('model'=>$model));
     }
     
     public function actionCreateContact()
@@ -202,21 +197,8 @@ class DefaultController extends Controller
         $model = new UserContactForm;
         $model->status = 1;
         if(isset($_POST['UserContactForm'])) {
-            $emailExists=User::model()->find(array(
-                'select'=>'email',
-                'condition'=>'email=:email',
-                'params'=>array(':email'=>$_POST['UserContactForm']['email']))
-            );
-
-            if(empty($emailExists)){
-                $emailExists=User::model()->find(array(
-                    'select'=>'email',
-                    'condition'=>'email=:email',
-                    'params'=>array(':email'=>$_POST['UserContactForm']['email']))
-                );
-            }
-
-            if(empty($emailExists)) {
+            $model->attributes = $_POST['UserContactForm'];
+            if($model->validate()) {
                 $password = User::randomPassword();
                 $curUser = User::model()->findByPk(Yii::app()->user->_id);
                 $user = new User;
@@ -229,7 +211,6 @@ class DefaultController extends Controller
                 if(!empty($user->surname)) $name .= ' '.$user->surname;
                 $user->company = 'Контактное лицо "' . $curUser->company . '" ('.$name.')';
                 
-                //if($model->validate() && $user->save()) {
                 if($user->save()) {
                     $newFerrymanFields = new UserField;
                     $newFerrymanFields->user_id = $user->id;
@@ -248,13 +229,14 @@ class DefaultController extends Controller
                 } else {
                     Yii::log($user->getErrors(), 'error');
                 }
-            } else {
-                $model->attributes = $_POST['UserContactForm'];
-                Yii::app()->user->setFlash('error', 'Указанный email уже используется. ');
-            }
+            } 
+//            else {
+//                $model->attributes = $_POST['UserContactForm'];
+//                Yii::app()->user->setFlash('error', 'Указанный email уже используется. ');
+//            }
         }
         
-        $this->render('editcontact', array('model'=>$model), false, true);
+        $this->render('editcontact', array('model'=>$model));
     }
     
     public function actionDeleteContact($id)

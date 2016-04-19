@@ -343,8 +343,9 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
 }*/
 #o-edit-contact .errorMessage
 {
-    left: 38%;
-    width: 50%;
+    /*left: 38%;
+    width: 50%;*/
+    margin-left: 15%;
 }
 
 #feedback-form .row.error .errorMessage
@@ -525,6 +526,13 @@ div.row{
     color: #666666 !important;
 }
 
+#o-edit-contact {
+    margin: 0 20px 20px;
+}
+#o-edit-contact .errorSummary{
+    margin: 0;
+    margin-bottom: 20px;
+}
 #o-edit-contact h2 {
     margin-bottom: 20px;
     width: 80%;
@@ -1785,6 +1793,7 @@ div.form .errorSummary {
     font: 11px Arial,Helvetica,sans-serif;
     line-height: 18px;
 }
+
 div.form .errorSummary p {
     margin: 0;
     padding: 5px;

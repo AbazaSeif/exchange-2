@@ -10,20 +10,19 @@
     $header_form = 'Редактирование контактного лица "' . $model->surname . ' ' . $model->name . '"';
     $action = '/user/default/editcontact/id/'.$model->id;
     if (!$model->id) {
-        $submit_text = 'Подтвердить';
+        $submit_text = 'Сохранить';
         $header_form = 'Создание контактного лица';
         unset($delete_button);
-        $action = '/user/default/createcontact/id/'.$model->id;
+        $action = '/user/default/createcontact/';
     }
 ?>
-<div id="o-edit-contact">
+<div id="o-edit-contact" class="form">
 <?php $form = $this->beginWidget('CActiveForm', array('id'=>'contactform',
     'action'=>$action,
     'enableClientValidation'=>true,
     'clientOptions'=>array(
         'validateOnSubmit'=>true,
-        'afterValidate'=>'js:function( form, data, hasError ) 
-            {     
+        'afterValidate'=>'js:function( form, data, hasError ) {     
                 if( hasError ){
                     return false;
                 }
@@ -33,6 +32,16 @@
             }'
     ),));
 ?>
+<?php if(Yii::app()->user->hasFlash('success')):?>
+    <div class="info">
+        <?php echo Yii::app()->user->getFlash('success'); ?>
+    </div>
+<?php endif; ?>
+<?php if(Yii::app()->user->hasFlash('error')):?>
+    <div class="info error">
+        <?php echo Yii::app()->user->getFlash('error'); ?>
+    </div>
+<?php endif; ?>
 <div class="buttons">
     
 <?php  
@@ -46,50 +55,59 @@
     <h2>
         <?php echo $header_form ?>
     </h2>
-    <?php 
-    if ($mess = Yii::app()->user->getFlash('error')){
-        echo '<div class="message success">'.$mess.'</div>';
-    }
-   ?>
+    
+    <?php echo $form->errorSummary($model); ?>
 </div>
 <div class="surname field">
-<?php  echo $form->error($model, 'surname'); 
+<?php
     echo $form->labelEx($model, 'surname');
-    echo $form->textField($model, 'surname', array('disabled' => ($model->id)?true:false)); ?>
+    echo $form->textField($model, 'surname', array('disabled' => ($model->id)?true:false)); 
+    echo $form->error($model, 'surname');
+?>
 </div>
 <div class="name field">
-<?php  echo $form->error($model, 'name'); 
+<?php  
     echo $form->labelEx($model, 'name');
-    echo $form->textField($model, 'name', array('disabled' => ($model->id)?true:false));?>
+    echo $form->textField($model, 'name', array('disabled' => ($model->id)?true:false));
+    echo $form->error($model, 'name'); 
+?>
 </div>
 <?php if(!$model->id): ?>
 <div class="secondname field">
-<?php  echo $form->error($model, 'secondname'); 
+<?php  
     echo $form->labelEx($model, 'secondname');
-    echo $form->textField($model, 'secondname'); ?>
+    echo $form->textField($model, 'secondname');
+    echo $form->error($model, 'secondname'); 
+?>
 </div>
 <?php endif ?>
 <div class="email field">
-<?php  echo $form->error($model, 'email');
+<?php  
     echo $form->labelEx($model, 'email');
-    echo $form->emailField($model, 'email', array('disabled' => ($model->id)?true:false)); ?>
+    echo $form->textField($model, 'email', array('disabled' => ($model->id)?true:false)); 
+    echo $form->error($model, 'email');
+?>
 </div>
 <div class="phone field">
-<?php  echo $form->error($model, 'phone');
+<?php  
     echo $form->labelEx($model, 'phone');
-    echo $form->textField($model, 'phone', array('disabled' => ($model->id)?true:false)); ?>
+    echo $form->textField($model, 'phone', array('disabled' => ($model->id)?true:false)); 
+    echo $form->error($model, 'phone');
+?>
 </div>
 <?php if(!$model->id): ?>
 <div class="phone2 field">
-<?php  echo $form->error($model, 'phone2');
+<?php  
     echo $form->labelEx($model, 'phone2');
-    echo $form->textField($model, 'phone2'); ?>
+    echo $form->textField($model, 'phone2');
+    echo $form->error($model, 'phone2');
+?>
 </div>
 <?php endif ?>
 <?php if ($model->id): ?>
-<div style="display:none;">
-<?php  echo $form->hiddenField($model, 'password'); ?>
-</div>
+    <div style="display:none;">
+    <?php  echo $form->hiddenField($model, 'password'); ?>
+    </div>
 <?php endif; ?>
 <?php
     $this->endWidget();

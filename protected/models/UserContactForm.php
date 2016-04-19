@@ -34,6 +34,7 @@ class UserContactForm extends CFormModel
             //array('id, company, created, block_date, reason, type, inn, name, surname, secondname, password, status, country, region, city, district, phone, phone2, type_contact, parent, email', 'safe'),
             array('status, phone, phone2', 'numerical', 'integerOnly'=>true),
             array('email', 'email', 'message'=>'Неправильный Email адрес'),
+            array('email', 'checkUniqueEmail'),
             array('name','match', 'pattern'=>'/^([\sa-zA-Zа-яА-ЯёЁ\d]+)$/i', 'message'=>'Поле "{attribute}" должно содержать только следующие символы: 0-9,a-z,A-Z,а-я,А-Я и пробел'),
             //array('name, secondname, surname', 'match', 'pattern'=>'/^[\S]*$/', 'message'=>'Поле "{attribute}" не должно содержать пробелы'),
             //array('parent', 'match', 'pattern'=>'/^[0]$/', 'message'=>'Выберите фирму'),
@@ -42,6 +43,15 @@ class UserContactForm extends CFormModel
             array('password, password_confirm', 'match', 'pattern'=>'/([a-zA-Zа-яА-Я]+)/', 'message'=>'Пароль должен содержать минимум одну букву'),
             array('password, password_confirm', 'match', 'pattern'=>'/([0-9]+)/', 'message'=>'Пароль должен содержать минимум одну цифру'),
         ); 
+    }
+    
+    public function checkUniqueEmail()
+    {
+       $user = User::model()->findByAttributes(array('email'=>$this->email));
+       $authUser = AuthUser::model()->findByAttributes(array('email'=>$this->email));
+       if(!empty($user) || !empty($authUser)){
+           $this->addError($this->email, 'Такой email уже зарегистрирован');
+       }
     }
     
     public function attributeLabels()

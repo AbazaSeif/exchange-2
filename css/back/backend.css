@@ -1786,11 +1786,14 @@ table.detail-view.imagesList th{
     font-size: 0.9em;
     padding: 0.3em;
 }
+
 .grid-wrapper .grid-view-loading {
     background-position: top right;
     background-repeat: no-repeat;
 }
+
 /*----- end Grid-view ----------------------------*/
+
 .light {
     color: #AAAAAA;
 }

@@ -24,7 +24,7 @@ class PasswordForm extends CFormModel
     public function rules()
     {
         return array(
-            array('new_password, new_confirm', 'required'),
+            array('password, new_password, new_confirm', 'required'),
             //array('password, new_password, new_confirm', 'required', 'on' => 'create'),
             array('password, new_password, new_confirm', 'safe'),  
             array('password', 'checkPass'),
