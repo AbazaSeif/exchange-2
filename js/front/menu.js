@@ -1,10 +1,5 @@
 var menu = {
-    init : function(){
-        //this.updateCounter();
-        //setInterval(function(){menu.updateCounter()}, 5000);
-        
-        //null - ���� �� ������� ����� ����
-		
+    init : function() {
         var activeElement = parseInt(sessionStorage.getItem('menu'));
         var activeSubElement = parseInt(sessionStorage.getItem('submenu'));
         
@@ -41,5 +36,5 @@ var menu = {
                 }
             }
         });
-    },
+    }
 };

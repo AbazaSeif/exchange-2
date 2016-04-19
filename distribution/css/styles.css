@@ -606,6 +606,11 @@ div.row{
      font-size: 14px;
      float: right;
      border: 0;
+     font-family: MS Shell Dlg;
+}
+
+a.btn{
+    line-height: 18px;
 }
 
 .w-right #content .o-right {
@@ -1851,9 +1856,9 @@ div.form input[type="text"], div.form input[type="password"], div.form textarea,
     border-radius: 3px;
     color: #fff;
     cursor: pointer;
-    padding: 3px 15px;
+    padding: 4px 15px;
     text-decoration: none;
-    font: 13px "Trebuchet MS";
+    font: 13px "MS Shell Dlg";
     font-weight: 700;
 }
 /*----------*/

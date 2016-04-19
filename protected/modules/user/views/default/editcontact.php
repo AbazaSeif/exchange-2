@@ -6,7 +6,7 @@
  */
     $submit_text = 'Сохранить';
     $name = $model->id;
-    $delete_button = CHtml::link('Удалить', '/user/default/deletecontact/id/'.$model->id, array('id'=>'del_'.$model->name,'class'=>'btn del', 'onclick'=>'return confirm("Внимание! Контактное лицо будет безвозвратно удалено. Продолжить?")'));
+    $delete_button = CHtml::link('Удалить', '/user/default/deletecontact/id/'.$model->id, array('class'=>'btn del', 'onclick'=>'return confirm("Внимание! Контактное лицо будет безвозвратно удалено. Продолжить?")'));
     $header_form = 'Редактирование контактного лица "' . $model->surname . ' ' . $model->name . '"';
     $action = '/user/default/editcontact/id/'.$model->id;
     if (!$model->id) {
