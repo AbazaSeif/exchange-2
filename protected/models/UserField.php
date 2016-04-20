@@ -67,7 +67,7 @@ class UserField extends CActiveRecord
 			'mail_transport_create_2' => 'При создании региональной заявки на перевозку',
 			'mail_kill_rate' => 'Если перебита ставка',
 			'mail_deadline' => 'При закрытии перевозки',
-			'mail_before_deadline' => 'Mail Before Deadline',
+			'mail_before_deadline' => 'За ' . Yii::app()->params['minNotify'] . ' минут до закрытия перевозки',
 			'with_nds' => 'Показывать цену с НДС (только для региональных перевозок)',
 			'show_regl' => 'Региональные перевозки',
 			'show_intl' => 'Международные перевозки',

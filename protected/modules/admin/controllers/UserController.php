@@ -130,6 +130,10 @@ class UserController extends Controller
     {
         $message = '';
         $model = User::model()->findByPk($id);
+        
+        if(!$model)
+            throw new CHttpException(404, 'Пользователь не найден');
+        
         $form = new UserForm;
         $form->attributes = $model->attributes;
         $form->id = $id;
@@ -253,7 +257,8 @@ class UserController extends Controller
                     $form->attributes = $_POST['UserForm'];
                 }
             } 
-            $this->render('user/edituser', array('model' => $form, 'contacts' => $contacts), false, true);
+            $userFields = UserField::model()->find('user_id = :id', array('id'=>$model->id));
+            $this->render('user/edituser', array('model' => $form, 'contacts' => $contacts, 'userFields'=>$userFields), false, true);
         } else {
             throw new CHttpException(403, Yii::t('yii', 'У Вас недостаточно прав доступа.'));
         }
@@ -370,5 +375,15 @@ class UserController extends Controller
             }
         }
         $this->renderPartial('application.modules.admin.views.default.quickAjaxResult', array('data' =>$result));
+    }
+    
+    public function showBoolLabel($param)
+    {
+        if(is_numeric($param)) {
+            if((bool)$param) return '<span style="font-weight: bold">Да</span>';
+            else return '<span style="font-weight: bold">Нет</span>';
+        }
+        
+        return '';
     }
 }

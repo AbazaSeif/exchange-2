@@ -537,7 +537,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
 .right .header-h4{
     font-size: 1.1em;
     font-weight: bold;
-    margin: 1em 0 0;
+    margin: 1em 0 10px;
 }
 .right form label{
     min-width: 20%;
@@ -1058,7 +1058,7 @@ header .menu > ul.nav > li.parent ul.nav li.item a{
     color:#666;
     font-size:12px;
     background:#eaebec;
-    margin-top:20px;
+    margin-top:10px;
     border:#ccc 1px solid;
     border-collapse:separate;
  
