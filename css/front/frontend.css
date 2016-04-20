@@ -379,6 +379,9 @@ button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only
     float: left;
     min-width: 18%;
 }
+#registration-form .errorMessage{
+    margin-left: 18%;
+}
 .row.capture
 {
     margin-left: 18%;
@@ -529,9 +532,12 @@ div.row{
 #o-edit-contact {
     margin: 0 20px 20px;
 }
-#o-edit-contact .errorSummary{
+#o-edit-contact .errorSummary, #registration-form .errorSummary{
     margin: 0;
     margin-bottom: 20px;
+}
+#registration-form div.form-label{
+    margin-bottom: 10px;
 }
 #o-edit-contact h2 {
     margin-bottom: 20px;
