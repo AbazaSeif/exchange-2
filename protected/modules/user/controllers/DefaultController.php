@@ -75,10 +75,11 @@ class DefaultController extends Controller
             $user = User::model()->findByPk($userId);
             $pass->attributes = $_POST['PasswordForm'];
             if ($pass->validate()) {
+                $this->sendMail($user->email, $pass->new_password);
                 $user->password = crypt($pass->new_password, User::model()->blowfishSalt());
-                if($user->save(false)) {
+                if($user->save()) {
                     Yii::app()->user->setFlash('success', 'Ваш пароль изменен.');
-                    $this->sendMail($user->email, $pass->new_password);
+                    
                     
                     $this->redirect('/user/default/option');
                     Yii::app()->end();
