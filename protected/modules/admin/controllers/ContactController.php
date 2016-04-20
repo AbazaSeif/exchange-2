@@ -113,6 +113,10 @@ class ContactController extends Controller
     public function actionEditContact($id)
     {
         $model = User::model()->findByPk($id);
+        
+        if(!$model)
+            throw new CHttpException(404, 'Пользователь не найден');
+        
         $message = '';
         $form = new UserContactForm;
         $form->attributes = $model->attributes;
@@ -214,7 +218,9 @@ class ContactController extends Controller
                     $form->attributes = $_POST['UserContactForm'];
                 }
             }
-            $this->render('editcontact', array('model' => $form), false, true);
+            
+            $userFields = UserField::model()->find('user_id = :id', array('id'=>$model->id));
+            $this->render('editcontact', array('model' => $form, 'userFields'=>$userFields), false, true);
         } else {
             throw new CHttpException(403, Yii::t('yii', 'У Вас недостаточно прав доступа.'));
         }
@@ -265,5 +271,15 @@ class ContactController extends Controller
             }
         }
         $this->renderPartial('application.modules.admin.views.default.quickAjaxResult', array('data' =>$result));
+    }
+    
+    public function showBoolLabel($param)
+    {
+        if(is_numeric($param)) {
+            if((bool)$param) return '<span style="font-weight: bold">Да</span>';
+            else return '<span style="font-weight: bold">Нет</span>';
+        }
+        
+        return '';
     }
 }

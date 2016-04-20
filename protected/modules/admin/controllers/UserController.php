@@ -257,6 +257,7 @@ class UserController extends Controller
                     $form->attributes = $_POST['UserForm'];
                 }
             } 
+            
             $userFields = UserField::model()->find('user_id = :id', array('id'=>$model->id));
             $this->render('user/edituser', array('model' => $form, 'contacts' => $contacts, 'userFields'=>$userFields), false, true);
         } else {

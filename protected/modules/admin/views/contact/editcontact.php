@@ -140,9 +140,20 @@ $(function(){
             ?>
             </div>
             <?php if($model->id):?>
-            <div style="display:none;">
-            <?php  echo $form->hiddenField($model, 'password'); ?>
-            </div>
+                <div style="display:none;">
+                    <?php  echo $form->hiddenField($model, 'password'); ?>
+                </div>
+                <div>
+                    <div class="header-h4">Параметры отображения</div>
+                    <div><?php echo UserField::model()->getAttributeLabel('with_nds').' - '.$this->showBoolLabel($userFields->with_nds); ?></div>
+                </div>
+                <div>
+                    <div class="header-h4">Настройки для оповещения по почте</div>
+                    <div><?php echo UserField::model()->getAttributeLabel('mail_transport_create_1').' - '.$this->showBoolLabel($userFields->mail_transport_create_1); ?></div>
+                    <div><?php echo UserField::model()->getAttributeLabel('mail_transport_create_2').' - '.$this->showBoolLabel($userFields->mail_transport_create_2); ?></div>
+                    <div><?php echo UserField::model()->getAttributeLabel('mail_deadline').' - '.$this->showBoolLabel($userFields->mail_deadline); ?></div>
+                    <div><?php echo UserField::model()->getAttributeLabel('mail_before_deadline').' - '.$this->showBoolLabel($userFields->mail_before_deadline); ?></div>
+                </div>
             <?php
                 endif;
                 $this->endWidget();
