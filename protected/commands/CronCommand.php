@@ -119,7 +119,8 @@ class CronCommand extends CConsoleCommand
         $transports = Yii::app()->db->createCommand()
             ->select('id')
             ->from('transport')
-            ->where('(date_close like :time and date_close_new IS NULL) or date_close_new like :time', array(':time' => $timeNow . '%'))
+            //->where('(date_close like :time and date_close_new IS NULL) or date_close_new like :time', array(':time' => $timeNow . '%'))
+            ->where('date_close like :time', array(':time' => $timeNow . '%'))
             ->queryAll()
         ;
 
