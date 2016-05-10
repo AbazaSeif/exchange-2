@@ -168,6 +168,7 @@ class TransportController extends Controller
     {
         if(Yii::app()->user->checkAccess('editTransport')) {
             $model = Transport::model()->findByPk($id);
+            $externalId = $model->t_id;
             $form = new TransportForm;
             $form->attributes = $model->attributes;
             $form->id = $model->id;
@@ -380,7 +381,19 @@ class TransportController extends Controller
 
                 $points = TransportInterPoint::model()->findAll(array('order'=>'sort', 'condition'=>'t_id = ' . $id));
             }
-            $this->render('edittransport', array('model'=>$form, 'rates'=>$rates, 'minRateId'=>$minRateId, 'points' => $points), false, true);
+            $history = array();
+            if(!empty($externalId)) {
+                $match = "Выгрузка из 1С перевозки $externalId";
+                $match = addcslashes($match, '%_');
+                $query = new CDbCriteria( array(
+                    'condition' => "description LIKE :match",
+                    'params'    => array(':match' => "%$match%"),
+                    'order'     => 'date desc'
+                ));
+
+                $history = Changes::model()->findAll($query);
+            }
+            $this->render('edittransport', array('model'=>$form, 'history'=>$history, 'rates'=>$rates, 'minRateId'=>$minRateId, 'points' => $points), false, true);
         } else {
             throw new CHttpException(403, Yii::t('yii','У Вас недостаточно прав доступа.'));
         }

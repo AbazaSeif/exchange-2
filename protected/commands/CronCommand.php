@@ -135,7 +135,7 @@ class CronCommand extends CConsoleCommand
                 ->where('mail_deadline = :type', array(':type' => true))
                 ->queryAll()
             ;
-            foreach($temp as $t){
+            foreach($temp as $t) {
                 $usersMail[] = $t['user_id'];
             }
 

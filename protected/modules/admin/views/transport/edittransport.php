@@ -55,8 +55,30 @@ $(function(){
         <div class="header-form">
             <?php echo $header_form; ?>
         </div>
-        <div>Для того, чтобы вернуться к списку перевозок нажмите кнопку "<?php echo $close_text?>"
-        </div>
+        <div>Для того, чтобы вернуться к списку перевозок нажмите кнопку "<?php echo $close_text?>"</div>
+        
+        <?php if(!empty($history)): ?>
+        <center><h1>История использования идентификатора перевозки</h1></center>
+        <table class="rates-all" cellspacing='0'>
+            <tr>
+                <th>Дата</th>
+                <th>Сотрудник</th>
+            </tr>
+            <?php foreach ($history as $element) {
+                $user = $user = Yii::app()->db_auth->createCommand()
+                    ->from('user')
+                    ->where('id = '.$element['user_id'])
+                    ->queryRow()
+                ;
+                $userName = $user['surname'].' '.$user['name'];
+                echo '<tr>';
+                echo '<td>'.date("d.m.Y H:i", strtotime($element['date'])).'</td>';
+                echo '<td>'.$userName.'</td>';
+                echo '</tr>';
+            }
+            ?>
+        </table>
+        <?php endif; ?>
     </div>
 <div class="right">
 <div class="form">
