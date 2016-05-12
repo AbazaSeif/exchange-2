@@ -893,6 +893,12 @@ strong.regular{
 {
     min-height: 25px;   
 }
+
+.transport-info {
+    margin-top: 5px;
+    color: #666;
+    font-weight: bold;
+}
 .transports .items .transport .t-date
 {
     

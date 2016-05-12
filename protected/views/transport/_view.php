@@ -72,10 +72,15 @@
             </div>
             <?php endif; ?>
         </div>
+        <?php if (!empty($data->auto_info)): ?>
+        <div class="width-100 transport-info">
+            Транспорт: <?php echo $data->auto_info ?>
+        </div>
+        <?php endif; ?>
     </div>
     <div class="width-50">
         <div class="width-40 t-description">
-            <span><?php echo (!empty($data->description))? $data->description : 'Описание отсутствует' ?></span>
+            <span><?php echo (!empty($data->description))? $data->description : '' ?></span>
         </div>
         <div class="width-30 v-center">
             <div class="t-rate">
