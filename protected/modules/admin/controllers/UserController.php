@@ -201,7 +201,7 @@ class UserController extends Controller
                     }
 
                     if (!empty($changes)) {
-                        $message = 'У пользователя '.$model->company.' (id='.$id.') были изменены слудующие поля: ';
+                        $message = 'У пользователя '.$model->company.' (id='.$id.') были изменены следующие поля: ';
                         $k = 0;
                         foreach ($changes as $key => $value) {
                             $k++;
