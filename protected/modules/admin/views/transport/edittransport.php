@@ -12,7 +12,7 @@
     $alertMsg = Yii::app()->user->getFlash('message');
     $errorMsg = Yii::app()->user->getFlash('error');
 
-    $duplicate_button = CHtml::link('Копировать', '/admin/transport/duplicatetransport/id/'.$model->id, array('id'=>'dup_'.$model->id,'class'=>'btn-admin'));
+    //$duplicate_button = CHtml::link('Копировать', '/admin/transport/duplicatetransport/id/'.$model->id, array('id'=>'dup_'.$model->id,'class'=>'btn-admin'));
     $action = '/admin/transport/edittransport/id/'.$model->id;
     $creator = '';
     $delTransport = (string)Transport::DEL_TRANSPORT;
@@ -25,7 +25,7 @@
         $header_form = '';
         $action = '/admin/transport/createtransport/';
         unset($delete_button);
-        unset($duplicate_button);
+        //unset($duplicate_button);
     } else if(!empty($model->user_id)) {
         if(is_numeric($model->user_id)){
             $userModel = AuthUser::model()->findByPk($model->user_id);
@@ -105,7 +105,7 @@ $(function(){
 <?php
     echo CHtml::button($close_text,array('id'=>'close-transport', 'class'=>'btn-admin'));
     if($model->status != $delTransport) echo $delete_button;
-    echo $duplicate_button;
+    //echo $duplicate_button;
     if($model->status != $delTransport) echo CHtml::submitButton($submit_text,array('id'=>'but_'.$model->id,'class'=>'btn-admin')); 
 ?>
 </div>

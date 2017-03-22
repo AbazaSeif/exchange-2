@@ -457,7 +457,7 @@ class TransportController extends Controller
         $this->redirect('/admin/transport/');
     }
     
-    public function actionDuplicateTransport($id)
+    /*public function actionDuplicateTransport($id)
     {
         $model = Transport::model()->findByPk($id);
         $newModel = new TransportForm;
@@ -487,7 +487,7 @@ class TransportController extends Controller
         }
         
         $this->render('edittransport', array('model'=>$newModel), false, true);
-    }
+    }*/
     
     public function formatDescription($value)
     {
