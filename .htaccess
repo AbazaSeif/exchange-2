@@ -3,7 +3,7 @@ Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
 Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
 
 AddType text/x-component .htc
-php_value magic_quotes_gpc off
+#php_value magic_quotes_gpc off
 AddCharset utf-8 *
 AddDefaultCharset UTF-8
 <IfModule mod_charset.c>
