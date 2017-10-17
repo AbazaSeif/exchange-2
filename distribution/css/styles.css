@@ -69,6 +69,16 @@ nav, menu, p, section,
     float: right;
     width: 80%;
 }
+.w-right #advert{
+    margin:0px 0px 20px 0px; 
+    text-align: center;
+}
+.w-right #advert>span{
+    color:red; 
+    font-family:'Trebuchet MS'; 
+    font-weight:bold;
+    font-size:26px;
+}
 .header .logo
 {
     text-align: left;
